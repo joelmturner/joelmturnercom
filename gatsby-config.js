@@ -3,7 +3,10 @@ module.exports = {
         title: 'Gatsby Default Starter',
     },
     plugins: [
-        'gatsby-plugin-react-helmet',
+        /*
+         * Gatsby's data processing layer begins with “source”
+         * plugins. Here the site sources its data from Wordpress.
+         */
         {
             resolve: "gatsby-source-wordpress",
             options: {
@@ -13,7 +16,7 @@ module.exports = {
                  */
                 baseUrl: "joelmturner.com",
                 // The protocol. This can be http or https.
-                protocol: "http",
+                protocol: "https",
                 // Indicates whether the site is hosted on wordpress.com.
                 // If false, then the assumption is made that the site is self hosted.
                 // If true, then the plugin will source its content on wordpress.com using the JSON REST API V2.
@@ -23,22 +26,6 @@ module.exports = {
                 // This feature is untested for sites hosted on Wordpress.com.
                 // Defaults to true.
                 useACF: true,
-                auth: {
-                    // If auth.user and auth.pass are filled, then the source plugin will be allowed
-                    // to access endpoints that are protected with .htaccess.
-                    htaccess_user: "joelmturner",
-                    htaccess_pass: "***REMOVED***",
-                    htaccess_sendImmediately: false,
-
-                    // If hostingWPCOM is true then you will need to communicate with wordpress.com API
-                    // in order to do that you need to create an app (of type Web) at https://developer.wordpress.com/apps/
-                    // then add your clientId, clientSecret, username, and password here
-                    wpcom_app_clientSecret:
-                        "***REMOVED***",
-                    wpcom_app_clientId: "54793",
-                    wpcom_user: "gatsbyjswpexample@gmail.com",
-                    wpcom_pass: "very-secured-password",
-                },
                 // Set verboseOutput to true to display a verbose output on `npm run develop` or `npm run build`
                 // It can help you debug specific API Endpoints problems.
                 verboseOutput: false,
@@ -62,5 +49,6 @@ module.exports = {
                 },
             },
         },
+        'gatsby-plugin-react-helmet',
     ],
 }
