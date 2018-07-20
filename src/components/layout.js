@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
-import { StaticQuery, graphql } from "gatsby"
-
-import Header from './header'
+import { StaticQuery, graphql, Link } from "gatsby"
+import Avatar from './Avatar/Avatar';
 import './layout.css'
 import {Box, Flex, Heading} from 'rebass';
 
@@ -31,7 +30,8 @@ const Layout = ({ children, data }) => (
             <Heading
                 is='h1'
                 fontSize={[ 4, 5, 6 ]}>
-                {data.site.siteMetadata.title}
+                <Link style={{color: 'white'}} to={'/'}>{data.site.siteMetadata.title}</Link>
+                <Avatar url='' size='m' />
             </Heading>
         </Box>
         <Flex

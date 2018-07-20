@@ -1,6 +1,6 @@
 module.exports = {
     siteMetadata: {
-        title: 'Gatsby Default Starter',
+        title: 'Joel M Turner',
     },
     plugins: [
         /*
