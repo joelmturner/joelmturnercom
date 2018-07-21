@@ -1,6 +1,26 @@
+// import { Twitter, Github, Instagram } from 'styled-icons/fa-brands/';
+
 module.exports = {
     siteMetadata: {
-        title: 'Joel M Turner',
+        title: 'Gatsby Default Starter',
+        about: {
+            name: 'Joel M. Turner',
+            title: 'Frontend Developer',
+            bio: "Not to be confused with Joel Turner, the rather talented, Australian beat-boxer. /n I spent many of my summers living on glaciers in Alaska.Living in a remote camp with a bunch of other interesting people was great.You never know where the conversations will go and what kind of friends you’ll make. /n I received my BA with a graphic design emphasis in December of 2005. Most of my free time in college was spent playing in the Symphony Orchestra and playing basketball. /n I was born in Laramie, Wyoming.I now live with my wife, Suzanne Turner and our two dogs in Portland, Oregon."
+        },
+        social: [
+            {
+                network: 'twitter',
+                link: 'https://twitter.com/joelmturner',
+                // component: Twitter,
+            },
+            {
+                network: 'instagram',
+                link: 'https://www.instagram.com/joelmturner/' },
+            {
+                network: 'github',
+                link: 'https://github.com/joelmturner' }
+        ]
     },
     plugins: [
         /*
