@@ -12,12 +12,10 @@ import { bodyWrapperStyles } from '../designSystem'
 import Section from './atoms/Section'
 import { Twitter, Github, Instagram } from 'styled-icons/fa-brands/'
 
-const LayoutWrap = styled.div`
+const LayoutWrap = styled.header`
   display: grid;
-  grid-template-rows: 3rem auto;
-
+  grid-template-rows: fit-content(10rem) auto;
   height: 100vh;
-  grid-template-rows: auto;
   padding-bottom: 2rem;
 `
 
