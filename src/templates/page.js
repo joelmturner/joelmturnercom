@@ -9,8 +9,7 @@ class PageTemplate extends Component {
         console.log(currentPage)
 
         return (
-            <Layout>
-                <h1 dangerouslySetInnerHTML={{__html: currentPage.title}}/>
+            <Layout title={currentPage.title} slug={currentPage.slug}>
                 <div dangerouslySetInnerHTML={{__html: currentPage.content}}/>
             </Layout>
         )
@@ -24,6 +23,7 @@ export const pageQuery = graphql`
     wordpressPage(id: { eq: $id }) {
       title
       content
+      slug
       date(formatString: "MMMM DD, YYYY")
     }
     site {
