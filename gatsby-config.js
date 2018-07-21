@@ -1,4 +1,4 @@
-import { Twitter, Github, Instagram } from 'styled-icons/fa-brands/';
+// import { Twitter, Github, Instagram } from 'styled-icons/fa-brands/';
 
 module.exports = {
     siteMetadata: {
@@ -12,7 +12,7 @@ module.exports = {
             {
                 network: 'twitter',
                 link: 'https://twitter.com/joelmturner',
-                component: Twitter,
+                // component: Twitter,
             },
             {
                 network: 'instagram',
