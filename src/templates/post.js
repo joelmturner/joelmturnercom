@@ -6,7 +6,8 @@ class PostTemplate extends Component {
         const post = this.props.data.wordpressPost
 
         return (
-            <Layout title={post.title} slug={post.slug}>
+            <Layout>
+                <h1 dangerouslySetInnerHTML={{ __html: post.title }} />
                 <div dangerouslySetInnerHTML={{ __html: post.content }} />
             </Layout>
         )
@@ -20,7 +21,6 @@ export const pageQuery = graphql`
         wordpressPost(id: { eq: $id }) {
             title
             content
-            slug
         }
         site {
             siteMetadata {

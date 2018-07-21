@@ -1,33 +1,36 @@
 import React, { Component } from 'react'
 import { Link, graphql, StaticQuery } from 'gatsby'
+
 import Layout from '../components/layout'
-import { ThemeProvider } from 'styled-components';
-import theme from '../theme/theme';
 
 class IndexPage extends Component {
-    render() {
-        const posts = this.props.data.allWordpressPost.edges
-        const pages = this.props.data.allWordpressPage.edges
+  render() {
+    const posts = this.props.data.allWordpressPost.edges
+    const pages = this.props.data.allWordpressPage.edges
 
-        return (
-            <ThemeProvider theme={theme}>
-                <Layout title='Joel M Turner' >
-                    <h2>Pages</h2>
-                    {pages && pages.map(page => (
-                        <li key={page.node.id}>
-                            <Link to={`/${page.node.slug}`}>{page.node.title}</Link>
-                        </li>
-                    ))}
-                    <h2>Posts</h2>
-                    {posts && posts.map(post => (
-                        <li key={post.node.id}>
-                            <Link to={`/${post.node.slug}`}>{post.node.title}</Link>
-                        </li>
-                    ))}
-                </Layout>
-            </ThemeProvider>
-        )
-    }
+    console.log('posts', posts)
+    console.log('pages', pages)
+    return (
+      <Layout>
+        <h1>Hi people</h1>
+        <p>Welcome to your new Gatsby site.</p>
+        <p>Now go build something great.</p>
+
+        <h2>Pages</h2>
+        {pages && pages.map(page => (
+            <li key={page.node.id}>
+              <Link to={`/${page.node.slug}`}>{page.node.title}</Link>
+            </li>
+          ))}
+        <h2>Posts</h2>
+        {posts && posts.map(post => (
+            <li key={post.node.id}>
+              <Link to={`/${post.node.slug}`}>{post.node.title}</Link>
+            </li>
+          ))}
+      </Layout>
+    )
+  }
 }
 
 export default IndexPage

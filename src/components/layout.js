@@ -1,31 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
-import { StaticQuery, graphql, Link } from 'gatsby'
-import { Box, Flex, Heading } from 'rebass'
-import Header from './Header'
-import styled from 'styled-components'
+import { StaticQuery, graphql, Link } from "gatsby"
+import Avatar from './Avatar/Avatar';
+import './layout.css'
+import {Box, Flex, Heading} from 'rebass';
 
-const LayoutWrap = styled.div`
-  display: grid;
-  grid-template-rows: 3rem auto;
-
-  height: 100vh;
-  grid-template-rows: auto;
-  padding-bottom: 2rem;
-`;
-
-const ContentWrap = styled.div`
-    padding: 0 1rem;
-    overflow-y: auto;
-
-    p {
-        line-height: 1.8;
-        font-size: 1.25rem;
-    }
-`;
-
-const Layout = ({ children, data, title, slug }) => (
+const Layout = ({ children, data }) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
@@ -37,12 +18,29 @@ const Layout = ({ children, data, title, slug }) => (
       }
     `}
     render={data => (
-      <LayoutWrap>
-        <Header title={title || ''} slug={slug || ''} />
-        <ContentWrap>
-          <>{children}</>
-        </ContentWrap>
-      </LayoutWrap>
+      <>
+        <Helmet
+          title={data.site.siteMetadata.title}
+          meta={[
+            { name: 'description', content: 'Sample' },
+            { name: 'keywords', content: 'sample, something' },
+          ]}
+        />
+        <Box px={4} py={5} color='white' bg='blue'>
+            <Heading
+                is='h1'
+                fontSize={[ 4, 5, 6 ]}>
+                <Link style={{color: 'white'}} to={'/'}>{data.site.siteMetadata.title}</Link>
+                <Avatar url='' size='m' />
+            </Heading>
+        </Box>
+        <Flex
+            px={4}
+            py={5}
+            flexDirection='column' >
+                {children}
+        </Flex>
+      </>
     )}
   />
 )
