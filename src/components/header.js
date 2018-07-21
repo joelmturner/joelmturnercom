@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import styled, {css} from 'styled-components'
-import Avatar from './Avatar/Avatar'
+import Avatar from './atoms/Avatar'
 import Helmet from 'react-helmet'
 import { Textfit } from 'react-textfit'
 import SocialLink, { SocialLinkWrap } from './molecules/SocialLink'
