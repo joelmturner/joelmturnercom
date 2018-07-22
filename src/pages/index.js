@@ -17,8 +17,13 @@ class IndexPage extends Component {
             ))} 
             <h2>Posts</h2> 
             {posts && posts.map(post => ( 
-                <li key={post.node.id}> 
+                <li key={post.node.id} style={{display: 'flex', flexDirection: 'column', marginBottom: '2rem'}}> 
                     <Link to={`/${post.node.slug}`}>{post.node.title}</Link> 
+                    { console.log('post.node', post.node) }
+                    {post.node.featured_media && 
+                        <img src={`${post.node.featured_media.source_url}`} />
+                    }
+
                 </li> 
             ))} 
         </Layout> 
@@ -39,6 +44,10 @@ export const pageQuery = graphql`
           template
           format
           title
+          featured_media {
+              id
+              source_url
+          }
         }
       }
     }
