@@ -30,7 +30,7 @@ class IndexPage extends Component {
 
               <Section title="Posts">
                 <h2>Posts</h2> 
-                {posts && posts.map(post => {
+                {posts && posts.slice(0,3).map(post => {
                   const {id, title, slug} = post.node;
                   return (
                     <PostEntryContainer key={id}>
@@ -46,12 +46,18 @@ class IndexPage extends Component {
                       </BlogContentWrap>
                     </PostEntryContainer>
                 )})}
+                {/* 
+                Show More
+                // rest of the posts
+                posts.slice(3)
+                 */}
+
               </Section>
                 
-                {/* Joel, i'm leaving this here so you know where they went. Feel free to delete it */}
-                <hr />
-                <h2>Pages</h2>
-                <Link to="/page-2">The wp pages index has moved</Link>
+              {/* Joel, i'm leaving this here so you know where they went. Feel free to delete it */}
+              <hr />
+              <h2>Pages</h2>
+              <Link to="/page-2">The wp pages index has moved</Link>
                 
             </Layout> 
         </ThemeProvider> 
