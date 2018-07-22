@@ -1,11 +1,6 @@
 import React, { Component } from 'react'
-import { Link, graphql, StaticQuery } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 import Layout from '../components/layout'
-import { Divide } from '../../node_modules/styled-icons/fa-solid';
-
-// New stuff
-import styled, {css} from 'styled-components';
-import { sharedFontStyles } from '../designSystem';
 import { PostEntryContainer, ImageSpacer, Image, BlogTitle, BlogBlurb, BlogContentWrap, TextLink, getNewImage } from '../components/molecules/BlogItem';
 import { ThemeProvider } from 'styled-components';
 import theme from '../theme/theme'; 
@@ -25,18 +20,20 @@ class IndexPage extends Component {
     
     return ( 
         <ThemeProvider theme={theme}> 
-            <Layout title='Joel M Turner'> 
+            <Layout title='Joel M Turner' name="layout"> 
+            
               <Section title="About">
                 <Text1>{name}</Text1>
                 <Text2>{title}</Text2>
                 <BodyText>{bio}</BodyText>
               </Section>
+
+              <Section title="Posts">
                 <h2>Posts</h2> 
-                
                 {posts && posts.map(post => {
                   const {id, title, slug} = post.node;
                   return (
-                    <PostEntryContainer key={post.node.id}>
+                    <PostEntryContainer key={id}>
                       <ImageSpacer>
                         <Image src={getNewImage()} />
                         <BlogTitle>{title}</BlogTitle>
@@ -49,6 +46,7 @@ class IndexPage extends Component {
                       </BlogContentWrap>
                     </PostEntryContainer>
                 )})}
+              </Section>
                 
                 {/* Joel, i'm leaving this here so you know where they went. Feel free to delete it */}
                 <hr />
