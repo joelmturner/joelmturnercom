@@ -25,7 +25,7 @@ const HeaderWrap = styled.div`
   }
 `
 
-const Header = ({ title, slug, social }) => (
+const Header = ({ title, slug, social, mini }) => (
   <HeaderWrap home={slug}>
     <Helmet
       title={title}
@@ -48,7 +48,7 @@ const Header = ({ title, slug, social }) => (
     {!slug && (
       <>
         <Avatar
-          size="l"
+          size={mini ? 's' : "l"}
           url="https://res.cloudinary.com/joelmturner/image/upload/v1532201643/joel-turner-headshot-web_xyix1w.jpg"
         />
         <SocialIcons>

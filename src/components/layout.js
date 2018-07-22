@@ -54,6 +54,7 @@ const Layout = ({ children, data, title, slug }) => (
           title={title || ''}
           slug={slug || ''}
           social={data.site.siteMetadata.social}
+          mini
         />
         <ContentWrap>
           <>{children}</>
