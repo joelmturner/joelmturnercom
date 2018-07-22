@@ -9,9 +9,13 @@ import { sharedFontStyles } from '../designSystem';
 import { PostEntryContainer, ImageSpacer, Image, BlogTitle, BlogBlurb, BlogContentWrap, TextLink, getNewImage } from '../components/molecules/BlogItem';
 import { ThemeProvider } from 'styled-components';
 import theme from '../theme/theme'; 
+import Section from '../components/atoms/Section';
+import {Text1, Text2, BodyText} from '../components/atoms/Text.js';
 
 class IndexPage extends Component {
   render() {
+    const data = this.props.data;
+    const { name, title, bio } = data.site.siteMetadata.about;
     const posts = this.props.data.allWordpressPost.edges
     const pages = this.props.data.allWordpressPage.edges
 
@@ -23,6 +27,11 @@ class IndexPage extends Component {
     return ( 
         <ThemeProvider theme={theme}> 
             <Layout title='Joel M Turner'> 
+              <Section title="About">
+                <Text1>{name}</Text1>
+                <Text2>{title}</Text2>
+                <BodyText>{bio}</BodyText>
+              </Section>
                 <h2>Posts</h2> 
                 
                 {posts && posts.map(post => {
@@ -76,7 +85,13 @@ export const pageQuery = graphql`
           slug
           status
           template
+    site {
+      siteMetadata {
+        title
+        about {
+          name
           title
+          bio
         }
       }
     }
