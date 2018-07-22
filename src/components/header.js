@@ -17,8 +17,11 @@ const HeaderWrap = styled.header`
   h1,
   h1 a {
     font-size: 2rem;
-    color: ${({theme}) => theme.colors.navy};
+    color: ${({ theme }) => theme.colors.navy};
     font-family: 'Source Sans Pro', sans-serif;
+    & > a {
+        margin-right: .5rem;
+    }
   }
 `
 
@@ -35,9 +38,12 @@ const Header = ({ title, slug, social }) => (
       <>
         <Row>
           <Column span={11}>
-            <h1 style={{ margin: 0 }}>
+            <h1 style={{ margin: 0, display: 'flex' }}>
+              <Link to={`/`}>{`<`}</Link>
               <Link to={`/${slug}`}>
-                <Textfit mode="single" forceSingleModeWidth={false}>{title}</Textfit>
+                <Textfit mode="single" forceSingleModeWidth={false}>
+                  {title}
+                </Textfit>
               </Link>
             </h1>
           </Column>
