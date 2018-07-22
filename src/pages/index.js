@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, graphql, StaticQuery } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 import Layout from '../components/layout'
 
 class IndexPage extends Component {

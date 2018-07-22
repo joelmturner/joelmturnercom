@@ -31,11 +31,15 @@ export const pageStyles = () => css`
 
     a {
       color: ${({ theme }) => theme.colors.sandstone};
+      transition: color 300ms;
+      &:hover {
+        color: ${({ theme }) => theme.colors.sandstone2};
+        transition: color 300ms;
+      }
     }
   }
 
-  p img,
-  article img {
+  & img {
     max-width: 100%;
     height: auto;
   }
@@ -90,6 +94,42 @@ export const pageStyles = () => css`
     display: block;
     margin: 0.25rem auto;
     text-align: center;
+  }
+
+  .cols-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gap {
+    grid-gap: 1rem;
+  }
+
+  .gallery-columns-5 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 1rem;
+  }
+
+  figure.gallery-item {
+    margin: 0;
+    padding: 0;
+
+    img,
+    .gallery-icon {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  pre {
+    background: ${({ theme }) => theme.colors.offWhite};
+    line-height: 1.6;
+    margin-bottom: 1.6em;
+    max-width: 100%;
+    overflow: auto;
+    padding: 1.6em;
   }
 `
 
