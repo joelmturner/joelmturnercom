@@ -36,10 +36,6 @@ const Layout = ({ children, data, title, slug }) => (
         site {
           siteMetadata {
             title
-            about {
-              name
-              bio
-            }
             social {
               network
               link

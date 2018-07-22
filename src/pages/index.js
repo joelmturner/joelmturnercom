@@ -17,11 +17,10 @@ class IndexPage extends Component {
     const data = this.props.data;
     const { name, title, bio } = data.site.siteMetadata.about;
     const posts = this.props.data.allWordpressPost.edges
-    const pages = this.props.data.allWordpressPage.edges
 
     console.group('indexPage');
-    console.log('posts', posts)
-    console.log('pages', pages)
+    console.log('data', data);
+    console.log('posts', posts);
     console.groupEnd();
     
     return ( 
@@ -78,13 +77,6 @@ export const pageQuery = graphql`
         }
       }
     }
-    allWordpressPage {
-      edges {
-        node {
-          id
-          slug
-          status
-          template
     site {
       siteMetadata {
         title
@@ -96,4 +88,5 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
+
