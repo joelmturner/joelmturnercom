@@ -8,25 +8,26 @@ import styled from 'styled-components'
 import Avatar from './atoms/Avatar'
 import SocialLink, { SocialLinkWrap } from './molecules/SocialLink'
 import { Text1, Text2, BodyText } from './atoms/Text.js'
-import { bodyWrapperStyles } from '../designSystem'
+import theme, { bodyWrapperStyles, pageStyles } from '../designSystem'
 import Section from './atoms/Section'
 import { Twitter, Github, Instagram } from 'styled-icons/fa-brands/'
+import { ThemeProvider } from 'styled-components'
 
-const LayoutWrap = styled.header`
+const LayoutWrap = styled.div`
   display: grid;
   grid-template-rows: fit-content(10rem) auto;
   height: 100vh;
   padding-bottom: 2rem;
+  max-width: 60rem;
+  justify-content: center;
+  margin: 0 auto;
 `
 
 const ContentWrap = styled.div`
   padding: 0 1rem;
   overflow-y: auto;
 
-  p {
-    line-height: 1.8;
-    font-size: 1.25rem;
-  }
+  ${pageStyles()};
 `
 
 const Layout = ({ children, data, title, slug }) => (
@@ -49,16 +50,18 @@ const Layout = ({ children, data, title, slug }) => (
       }
     `}
     render={data => (
-      <LayoutWrap>
-        <Header
-          title={title || ''}
-          slug={slug || ''}
-          social={data.site.siteMetadata.social}
-        />
-        <ContentWrap>
-          <>{children}</>
-        </ContentWrap>
-      </LayoutWrap>
+      <ThemeProvider theme={theme}>
+        <LayoutWrap>
+          <Header
+            title={title || ''}
+            slug={slug || ''}
+            social={data.site.siteMetadata.social}
+          />
+          <ContentWrap>
+            <>{children}</>
+          </ContentWrap>
+        </LayoutWrap>
+      </ThemeProvider>
     )}
   />
 )

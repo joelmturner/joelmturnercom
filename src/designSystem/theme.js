@@ -1,6 +1,6 @@
 // @flow
-import colors from "./colors";
-import { injectGlobal } from "styled-components";
+import colors from './colors'
+import { injectGlobal } from 'styled-components'
 
 injectGlobal`
     @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600');
@@ -29,10 +29,10 @@ injectGlobal`
         text-decoration: none;
     }
 
-`;
+`
 
 const theme = {
-    colors
-};
+    colors,
+}
 
-export default theme;
+export default theme
