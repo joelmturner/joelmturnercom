@@ -1,16 +1,16 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import styled, {css} from 'styled-components'
-import Avatar from './Avatar/Avatar'
+import styled, { css } from 'styled-components'
+import Avatar from './atoms/Avatar'
 import Helmet from 'react-helmet'
 import { Textfit } from 'react-textfit'
 import SocialLink, { SocialLinkWrap } from './molecules/SocialLink'
-import {SocialIcons} from './molecules/Header'
+import { SocialIcons } from './molecules/Header'
 import { Twitter, Github, Instagram } from 'styled-icons/fa-brands/'
 
-const HeaderWrap = styled.header`
+const HeaderWrap = styled.div`
   display: grid;
-  grid-template-columns: 11fr 1fr;
+  grid-template-columns: ${({ slug }) => (slug ? '11fr 1fr' : '1fr 11fr')};
   align-items: center;
   justify-items: right;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.21);
@@ -23,14 +23,6 @@ const HeaderWrap = styled.header`
     justify-self: left;
     font-family: 'Source Sans Pro', sans-serif;
   }
-
-  /* Home page */
-  ${({slug}) => !slug && css`
-    grid-template-columns: 1fr 11fr;
-    ${Avatar} {
-        justify-self: left;
-    }
-  `}
 `
 
 const Header = ({ title, slug, social }) => (
@@ -42,6 +34,7 @@ const Header = ({ title, slug, social }) => (
         { name: 'keywords', content: 'sample, something' },
       ]}
     />
+    {console.log('slug', slug)}
     {slug && (
       <>
         <h1 style={{ margin: 0 }}>
@@ -49,12 +42,15 @@ const Header = ({ title, slug, social }) => (
             <Textfit mode="single">{title}</Textfit>
           </Link>
         </h1>
-        <Avatar url="https://pbs.twimg.com/profile_images/884893177995513856/cpkVG9oK_bigger.jpg" />
+        <Avatar url="https://res.cloudinary.com/joelmturner/image/upload/v1532201643/joel-turner-headshot-web_xyix1w.jpg" />
       </>
     )}
     {!slug && (
       <>
-        <Avatar size="l" url="https://pbs.twimg.com/profile_images/884893177995513856/cpkVG9oK_bigger.jpg" />
+        <Avatar
+          size="l"
+          url="https://res.cloudinary.com/joelmturner/image/upload/v1532201643/joel-turner-headshot-web_xyix1w.jpg"
+        />
         <SocialIcons>
           {social.map(x => (
             <SocialLink
