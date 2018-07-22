@@ -34,6 +34,12 @@ export const pageStyles = () => css`
     }
   }
 
+  p img,
+  article img {
+    max-width: 100%;
+    height: auto;
+  }
+
   /* page/post styles */
   blockquote {
     font-size: 1.4em;
