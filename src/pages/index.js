@@ -22,21 +22,9 @@ class IndexPage extends Component {
     
     return ( 
         <ThemeProvider theme={theme}> 
-            <Layout title='Joel M Turner' > 
-                <h2>Pages</h2> 
-                {pages && pages.map(page => ( 
-                    <li key={page.node.id}> 
-                        <Link to={`/${page.node.slug}`}>{page.node.title}</Link> 
-                    </li> 
-                ))} 
+            <Layout title='Joel M Turner'> 
                 <h2>Posts</h2> 
-                {posts && posts.map(post => ( 
-                    <li key={post.node.id}> 
-                        <Link to={`/${post.node.slug}`}>{post.node.title}</Link> 
-                    </li> 
-                ))}
-                <hr/>
-
+                
                 {posts && posts.map(post => {
                   const {id, title, slug} = post.node;
                   return (
@@ -53,6 +41,12 @@ class IndexPage extends Component {
                       </BlogContentWrap>
                     </PostEntryContainer>
                 )})}
+                
+                {/* Joel, i'm leaving this here so you know where they went. Feel free to delete it */}
+                <hr />
+                <h2>Pages</h2>
+                <Link to="/page-2">The wp pages index has moved</Link>
+                
             </Layout> 
         </ThemeProvider> 
     )
