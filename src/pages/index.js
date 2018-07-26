@@ -3,7 +3,7 @@ import { Link, graphql } from 'gatsby'
 import Layout from '../components/layout'
 import { PostEntryContainer, ImageSpacer, Image, BlogTitle, BlogBlurb, BlogContentWrap, TextLink, getNewImage } from '../components/molecules/BlogItem';
 import Section from '../components/atoms/Section';
-import {Text1, Text2, BodyText} from '../components/atoms/Text.js';
+import {H1, H4, Body} from '../components/atoms/Text.js';
 
 class IndexPage extends Component {
   render() {
@@ -21,13 +21,13 @@ class IndexPage extends Component {
       <Layout title='Joel M Turner' name="layout"> 
       
         <Section title="About">
-          <Text1>{name}</Text1>
-          <Text2>{title}</Text2>
-          <BodyText>{bio}</BodyText>
+          <H1>{name}</H1>
+          <H4>{title}</H4>
         </Section>
 
         <Section title="Posts">
-          <h2>Posts</h2> 
+          <H1>Writing</H1>
+          <H4>Some Tagline Here</H4>
           {posts && posts.slice(0,3).map(post => {
             const {id, title, slug} = post.node;
             return (
