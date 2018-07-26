@@ -1,5 +1,4 @@
-// import styled, { css } from 'styled-components'
-import { css } from 'styled-components'
+import styled, { css } from 'styled-components'
 import theme from './theme'
 
 const { navy, sandstone } = theme.colors
@@ -19,7 +18,20 @@ export const themeHover = () => css`
 
 export const sharedFontStyles = () => css`
   font-family: 'Source Sans Pro', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+  color: inherit;
+`;
+
+export const resetType = () => css`
+  padding: 0;
+  margin: 0;
 `
+
+
+
 
 export const bodyWrapperStyles = () => css`
   padding: 0 1rem;
@@ -28,8 +40,10 @@ export const bodyWrapperStyles = () => css`
 
 export const pageStyles = () => css`
   p {
+    /* why? 
     line-height: 1.8;
     font-size: 1.25rem;
+    */
 
     a {
       color: ${({ theme }) => theme.colors.sandstone};
