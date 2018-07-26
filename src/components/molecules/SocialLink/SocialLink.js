@@ -1,7 +1,7 @@
 import React from 'react'
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 import Icon from '../../atoms/Icon/Icon';
-import {colors, themeHover} from '../../../designSystem';
+import {themeHover} from '../../../designSystem';
 
 export const SocialLinkWrap = styled.a`
   /* why?! */

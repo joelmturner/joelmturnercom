@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { Link, graphql } from 'gatsby'
 import Layout from '../components/layout'
 import { PostEntryContainer, ImageSpacer, Image, BlogTitle, BlogBlurb, BlogContentWrap, TextLink, getNewImage } from '../components/molecules/BlogItem';
-import { ThemeProvider } from 'styled-components';
-
 import Section from '../components/atoms/Section';
 import {Text1, Text2, BodyText} from '../components/atoms/Text.js';
 
