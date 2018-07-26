@@ -23,6 +23,10 @@ class IndexPage extends Component {
         <Section title="About">
           <H1>{name}</H1>
           <H4>{title}</H4>
+          <Body>Not to be confused with Joel Turner, the rather talented, Australian beat-boxer.</Body>
+          <Body>I spent many of my summers living on glaciers in Alaska.Living in a remote camp with a bunch of other interesting people was great.You never know where the conversations will go and what kind of friends you’ll make.</Body>
+          <Body>I received my BA with a graphic design emphasis in December of 2005. Most of my free time in college was spent playing in the Symphony Orchestra and playing basketball.</Body>
+          <Body>I was born in Laramie, Wyoming.I now live with my wife, Suzanne Turner and our two dogs in Portland, Oregon.</Body>
         </Section>
 
         <Section title="Posts">
