@@ -6,6 +6,16 @@ import Section from '../components/atoms/Section';
 import {H1, H4, Body} from '../components/atoms/Text.js';
 
 class IndexPage extends Component {
+  
+  state = {
+    allPosts: false,
+    showAllPosts: () => {
+      this.setState({
+        allPosts: true
+      })
+    }
+  }
+
   render() {
     const data = this.props.data;
     const { name, title, bio } = data.site.siteMetadata.about;
@@ -48,11 +58,20 @@ class IndexPage extends Component {
                 </BlogContentWrap>
               </PostEntryContainer>
           )})}
+
+          { !this.state.allPosts
+            ? <H1 onClick={this.state.showAllPosts}>Show All Posts</H1>
+            : <H1 onClick={this.state.showAllPosts}>Hide All Posts</H1>
+          }
+
           {/* 
           Show More
           // rest of the posts
           posts.slice(3)
-            */}
+            */
+            this.state.allPosts && <h2>SHOW ALL THE POSTS</h2>
+          }
+          
 
         </Section>
           
