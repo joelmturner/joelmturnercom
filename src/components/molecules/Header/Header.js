@@ -21,23 +21,4 @@ export const SocialIcons = styled.div`
   }
 `;
 
-// const Header = ({ social }) => (
-//     <HeaderWrap>
-//         <Avatar />
-//         <SocialIcons>
-//             {social.map(x => (
-//                 <SocialLink
-//                     key={x.network}
-//                     href={x.link}
-//                     // icon={x.network} 
-//                     >
-//                     {x.network === 'instagram' && <Instagram size={24} />}
-//                     {x.network === 'twitter' && <Twitter size={24} />}
-//                     {x.network === 'github' && <Github size={24} />}
-//                 </SocialLink>
-//             ))}
-//         </SocialIcons>
-//     </HeaderWrap>
-// );
-
 export default Header;

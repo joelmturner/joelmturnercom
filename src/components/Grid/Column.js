@@ -16,6 +16,9 @@ export const StyledColumn = styled.div`
     grid-column: ${ ({span}: ColumnProps) => span && `span ${span}` };
     justify-content: center;
     ${ ({style}: ColumnProps) => style && css`${style}` };
+    ${({right}) => right && css`justify-self: flex-end`};
+    ${({left}) => left && css`justify-self: flex-start`};
+    ${({middle}) => middle && css`align-self: center`};
 `
 
 StyledColumn.defaultProps = {
