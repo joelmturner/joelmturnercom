@@ -37,10 +37,6 @@ const Layout = ({ children, data, title, slug }) => (
         site {
           siteMetadata {
             title
-            about {
-              name
-              bio
-            }
             social {
               network
               link
@@ -56,6 +52,7 @@ const Layout = ({ children, data, title, slug }) => (
             title={title || ''}
             slug={slug || ''}
             social={data.site.siteMetadata.social}
+            mini
           />
           <ContentWrap>
             <>{children}</>

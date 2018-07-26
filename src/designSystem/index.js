@@ -21,7 +21,8 @@ export const sharedFontStyles = () => css`
 `
 
 export const bodyWrapperStyles = () => css`
-  padding: 0 2rem;
+  padding: 0 1rem;
+  /* padding: 0 2rem; */
 `
 
 export const pageStyles = () => css`
