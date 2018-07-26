@@ -1,3 +1,3 @@
-import {Text1, Text2, BodyText} from './Text';
+import {H1, H2, H3, H4, Body} from './Text';
 
-export {Text1, Text2, BodyText};
+export {H1, H2, H3, H4, Body};
