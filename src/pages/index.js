@@ -3,7 +3,7 @@ import { Link, graphql } from 'gatsby'
 import Layout from '../components/layout'
 import Post from '../components/molecules/Post';
 import Section from '../components/atoms/Section';
-import {H1, H4, Body} from '../components/atoms/Text.js';
+import { H1, H4, BodyText, LinkText} from '../components/atoms/Text';
 
 class IndexPage extends Component {
   
