@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, graphql } from 'gatsby'
 import Layout from '../components/layout'
-import BlogItem, { TextLink } from '../components/molecules/BlogItem';
+import Post from '../components/molecules/Post';
 import Section from '../components/atoms/Section';
 import {H1, H4, Body} from '../components/atoms/Text.js';
 
