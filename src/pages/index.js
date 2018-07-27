@@ -8,23 +8,30 @@ import {H1, H4, Body} from '../components/atoms/Text.js';
 class IndexPage extends Component {
   
   state = {
-    allPosts: false,
-    showAllPosts: () => {
+    showAllPosts: false,
+    togglePosts: () => {
+      console.log('toggle posts');
       this.setState({
-        allPosts: true
-      })
+        showAllPosts: !this.state.showAllPosts
+      });
     }
   }
 
   render() {
     const data = this.props.data;
     const { name, title, bio } = data.site.siteMetadata.about;
-    const posts = this.props.data.allWordpressPost.edges
+    const posts = this.props.data.allWordpressPost.edges;
+    
+    const fakeBlurb = "Listicle aesthetic mixtape umami kombucha schlitz farm-to-table, street art organic crucifix truffaut chambray deep v fam pork belly. Four loko chillwave hexagon organic, narwhal single-origin coffee everyday carry disrupt vaporware humblebrag. Tofu cred venmo, health goth live-edge cronut air plant tumblr locavore meggings quinoa edison bulb kinfolk kale chips single-origin coffee. Keffiyeh gentrify authentic, franzen blog letterpress 8-bit tilde. Kale chips kogi cardigan DIY, man braid swag actually tbh palo santo portland chia.";
 
     console.group('indexPage');
     console.log('data', data);
     console.log('posts', posts);
+    console.log('sliced posts', posts.slice(3));
     console.groupEnd();
+
+    const { showAllPosts, togglePosts } = this.state;
+
     
     return ( 
 
@@ -37,6 +44,7 @@ class IndexPage extends Component {
           <Body>I spent many of my summers living on glaciers in Alaska.Living in a remote camp with a bunch of other interesting people was great.You never know where the conversations will go and what kind of friends you’ll make.</Body>
           <Body>I received my BA with a graphic design emphasis in December of 2005. Most of my free time in college was spent playing in the Symphony Orchestra and playing basketball.</Body>
           <Body>I was born in Laramie, Wyoming.I now live with my wife, Suzanne Turner and our two dogs in Portland, Oregon.</Body>
+          <TextLink to="#">get in touch</TextLink>
         </Section>
 
         <Section title="Posts">
@@ -48,20 +56,18 @@ class IndexPage extends Component {
             return <BlogItem key={id} title={title} slug={slug} blurb={fakeBlurb} imageSrc={imageUrl} />
           })}
 
-          { !this.state.allPosts
-            ? <H1 onClick={this.state.showAllPosts}>Show All Posts</H1>
-            : <H1 onClick={this.state.showAllPosts}>Hide All Posts</H1>
-          }
+          { this.state.showAllPosts && posts.slice(3).map(post => {
+            const { id, title, slug } = post.node;
+            const imageUrl = post.node.featured_media.source_url;
+            return <BlogItem key={id} title={title} slug={slug} blurb={fakeBlurb} imageSrc={imageUrl} />
+          })}
 
-          {/* 
-          Show More
-          // rest of the posts
-          posts.slice(3)
-            */
-            this.state.allPosts && <h2>SHOW ALL THE POSTS</h2>
-          }
+          <H1 onClick={this.state.togglePosts} gold link>
+            {this.state.showAllPosts ? 'Hide' : 'Show'} All Posts
+          </H1>
           
-
+          {/* debug */}
+          <H4>this.state.showAllPosts: {`${this.state.showAllPosts}`}</H4>
         </Section>
           
         {/* Joel, i'm leaving this here so you know where they went. Feel free to delete it */}
