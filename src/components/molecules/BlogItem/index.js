@@ -82,4 +82,26 @@ const getNewImage = () => {
     return `https://picsum.photos/${d + r}/?random`
 }
 
-export { PostEntryContainer, ImageSpacer, Image, BlogTitle, BlogBlurb, BlogContentWrap, TextLink, getNewImage };
+// type BlogItem = {
+//   imageSrc?: string;
+//   title: string;
+//   slug: string;
+// }
+
+const BlogItem = ({imageSrc, title, slug, blurb}) => (
+  <PostWrap>
+    <ImageSpacer>
+      <Image src={imageSrc ? imageSrc : getNewImage()} />
+      <BlogTitle>{title}</BlogTitle>
+    </ImageSpacer>
+    <BlogContentWrap>
+      <BlogBlurb>
+        Listicle aesthetic mixtape umami kombucha schlitz farm-to-table, street art organic crucifix truffaut chambray deep v fam pork belly. Four loko chillwave hexagon organic, narwhal single-origin coffee everyday carry disrupt vaporware humblebrag. Tofu cred venmo, health goth live-edge cronut air plant tumblr locavore meggings quinoa edison bulb kinfolk kale chips single-origin coffee. Keffiyeh gentrify authentic, franzen blog letterpress 8-bit tilde. Kale chips kogi cardigan DIY, man braid swag actually tbh palo santo portland chia.
+      </BlogBlurb>
+      <TextLink to={`/${slug}`}>Read More</TextLink>
+    </BlogContentWrap>
+  </PostWrap>
+);
+
+export default BlogItem;
+export {PostWrap, ImageSpacer, Image, BlogTitle, BlogBlurb, BlogContentWrap, TextLink, getNewImage };
