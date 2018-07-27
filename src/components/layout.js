@@ -2,26 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
 import Header from './Header'
-import styled from 'styled-components'
-import theme, { pageStyles } from '../designSystem'
+import theme from '../designSystem'
 import { ThemeProvider } from 'styled-components'
-
-const LayoutWrap = styled.div`
-  display: grid;
-  grid-template-rows: fit-content(10rem) auto;
-  height: 100vh;
-  padding-bottom: 2rem;
-  max-width: 60rem;
-  justify-content: center;
-  margin: 0 auto;
-`
-
-const ContentWrap = styled.div`
-  padding: 0 1rem;
-  overflow-y: auto;
-
-  ${pageStyles()};
-`
+import LayoutWrap from './atoms/LayoutWrap';
+import ContentWrap from './atoms/ContentWrap/ContentWrap';
 
 const Layout = ({ children, data, title, slug }) => (
   <StaticQuery
