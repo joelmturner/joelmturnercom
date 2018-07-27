@@ -1,5 +1,6 @@
 // from https://gist.github.com/nealfennimore/87cdca892bd874a422a2e5eb391d8376
-import React, {Component, PropTypes} from 'react';
+import {Component} from 'react';
+// import React, {Component, PropTypes} from 'react';
 
 const isBrowser = typeof window === 'object';
 

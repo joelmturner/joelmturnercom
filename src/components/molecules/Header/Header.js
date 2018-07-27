@@ -1,8 +1,5 @@
-import React from 'react'
-import styled, { css } from 'styled-components';
-import SocialLink, { SocialLinkWrap } from '../SocialLink';
-import {Avatar} from '../../layout';
-import { Twitter, Github, Instagram } from 'styled-icons/fa-brands/';
+import styled from 'styled-components';
+import { SocialLinkWrap } from '../SocialLink';
 
 const Header = styled.header`
   padding: 2.5rem 2rem 0;

@@ -5,6 +5,7 @@ const colors = {
     offWhite: '#f5f5f5',
     greyishBrown: '#505050',
     navy: '#1D3654',
+    black: '#242424',
 };
 
 export default colors;
