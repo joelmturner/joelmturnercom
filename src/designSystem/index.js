@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 import theme from './theme'
-
+import {bundleStyles} from './typography';
 const { navy, sandstone } = theme.colors
 
 // Reusable Style Functions
@@ -14,21 +14,8 @@ export const themeHover = () => css`
     color: ${sandstone};
     transition: fill, color 300ms;
   }
-`
-
-export const sharedFontStyles = () => css`
-  font-family: 'Source Sans Pro', sans-serif;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: normal;
-  color: inherit;
 `;
 
-export const resetType = () => css`
-  padding: 0;
-  margin: 0;
-`
 
 
 
@@ -146,6 +133,11 @@ export const pageStyles = () => css`
     max-width: 100%;
     overflow: auto;
     padding: 1.6em;
+  }
+
+  /* typography */
+  h2 {
+    ${bundleStyles('h3')}
   }
 `
 
