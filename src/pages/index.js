@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, graphql } from 'gatsby'
 import Layout from '../components/layout'
-import { PostEntryContainer, ImageSpacer, Image, BlogTitle, BlogBlurb, BlogContentWrap, TextLink, getNewImage } from '../components/molecules/BlogItem';
+import BlogItem, { TextLink } from '../components/molecules/BlogItem';
 import Section from '../components/atoms/Section';
 import {H1, H4, Body} from '../components/atoms/Text.js';
 
@@ -44,20 +44,9 @@ class IndexPage extends Component {
           <H4>Some Tagline Here</H4>
           {posts && posts.slice(0,3).map(post => {
             const {id, title, slug} = post.node;
-            return (
-              <PostEntryContainer key={id}>
-                <ImageSpacer>
-                  <Image src={getNewImage()} />
-                  <BlogTitle>{title}</BlogTitle>
-                </ImageSpacer>
-                <BlogContentWrap>
-                  <BlogBlurb>
-                    Listicle aesthetic mixtape umami kombucha schlitz farm-to-table, street art organic crucifix truffaut chambray deep v fam pork belly. Four loko chillwave hexagon organic, narwhal single-origin coffee everyday carry disrupt vaporware humblebrag. Tofu cred venmo, health goth live-edge cronut air plant tumblr locavore meggings quinoa edison bulb kinfolk kale chips single-origin coffee. Keffiyeh gentrify authentic, franzen blog letterpress 8-bit tilde. Kale chips kogi cardigan DIY, man braid swag actually tbh palo santo portland chia.
-                  </BlogBlurb>
-                  <TextLink to={`/${slug}`}>Read More</TextLink>
-                </BlogContentWrap>
-              </PostEntryContainer>
-          )})}
+            const imageUrl = post.node.featured_media.source_url;
+            return <BlogItem key={id} title={title} slug={slug} blurb={fakeBlurb} imageSrc={imageUrl} />
+          })}
 
           { !this.state.allPosts
             ? <H1 onClick={this.state.showAllPosts}>Show All Posts</H1>
