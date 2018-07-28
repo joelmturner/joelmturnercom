@@ -1,4 +1,4 @@
-import Header, {SocialIcons} from './Header';
+import Header, { SocialIcons } from './Header'
 
-export {SocialIcons};
-export default Header;
+export { SocialIcons }
+export default Header

@@ -1,3 +1,3 @@
-import ContentWrap from './ContentWrap';
+import ContentWrap from './ContentWrap'
 
-export default ContentWrap;
+export default ContentWrap

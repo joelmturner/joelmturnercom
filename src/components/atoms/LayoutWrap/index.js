@@ -1,3 +1,3 @@
-import LayoutWrap from './LayoutWrap';
+import LayoutWrap from './LayoutWrap'
 
-export default LayoutWrap;
+export default LayoutWrap

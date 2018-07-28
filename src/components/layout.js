@@ -4,8 +4,8 @@ import { StaticQuery, graphql } from 'gatsby'
 import Header from './Header'
 import theme from '../designSystem'
 import { ThemeProvider } from 'styled-components'
-import LayoutWrap from './atoms/LayoutWrap';
-import ContentWrap from './atoms/ContentWrap/ContentWrap';
+import LayoutWrap from './atoms/LayoutWrap'
+import ContentWrap from './atoms/ContentWrap/ContentWrap'
 
 const Layout = ({ children, data, title, slug }) => (
   <StaticQuery

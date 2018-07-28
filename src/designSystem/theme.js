@@ -32,7 +32,7 @@ injectGlobal`
 `
 
 const theme = {
-    colors,
+  colors,
 }
 
 export default theme

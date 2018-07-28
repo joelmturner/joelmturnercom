@@ -1,5 +1,6 @@
-import styled from 'styled-components';
-import {H2, BodyText} from '../../atoms/Text';
+import styled from 'styled-components'
+import { H2, BodyText } from '../../atoms/Text'
+import { bundleStyles } from '../../../designSystem/typography'
 
 export const BlogTitle = styled(H2)`
   /* pageStyles hack */
@@ -14,7 +15,11 @@ export const BlogTitle = styled(H2)`
   padding: 0.25rem 1rem 0.25rem 1rem;
   margin: 0;
   max-width: 75%;
-`;
+`
+
+export const BlogExerpt = styled.div`
+  ${bundleStyles('body')};
+`
 
 export const BlogBlurb = styled(BodyText)`
   /* TODO: clip after 3 lines */

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { SocialLinkWrap } from '../SocialLink';
+import styled from 'styled-components'
+import { SocialLinkWrap } from '../SocialLink'
 
 const Header = styled.header`
   padding: 2.5rem 2rem 0;
@@ -8,14 +8,16 @@ const Header = styled.header`
   justify-content: space-between;
   /* debug */
   background-color: #efefef;
-`;
+`
 
 export const SocialIcons = styled.div`
   display: flex;
   > ${SocialLinkWrap} {
     margin-right: 1rem;
-    &:last-child { margin-right: 0; }
+    &:last-child {
+      margin-right: 0;
+    }
   }
-`;
+`
 
-export default Header;
+export default Header

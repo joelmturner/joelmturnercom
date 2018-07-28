@@ -1,22 +1,22 @@
-import React, {Component} from "react"
-import Layout from "../components/layout";
-import { graphql } from "gatsby";
+import React, { Component } from 'react'
+import Layout from '../components/layout'
+import { graphql } from 'gatsby'
 
 class PageTemplate extends Component {
-    render() {
-        const currentPage = this.props.data.wordpressPage
+  render() {
+    const currentPage = this.props.data.wordpressPage
 
-        console.log(currentPage)
+    console.log(currentPage)
 
-        return (
-            <Layout title={currentPage.title} slug={currentPage.slug}> 
-                <div dangerouslySetInnerHTML={{__html: currentPage.content}}/>
-            </Layout>
-        )
-    }
+    return (
+      <Layout title={currentPage.title} slug={currentPage.slug}>
+        <div dangerouslySetInnerHTML={{ __html: currentPage.content }} />
+      </Layout>
+    )
+  }
 }
 
-export default PageTemplate;
+export default PageTemplate
 
 export const pageQuery = graphql`
   query currentPageQuery($id: String!) {

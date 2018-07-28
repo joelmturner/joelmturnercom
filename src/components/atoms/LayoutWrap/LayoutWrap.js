@@ -8,6 +8,6 @@ const LayoutWrap = styled.div`
   max-width: 60rem;
   justify-content: center;
   margin: 0 auto;
-`;
+`
 
-export default LayoutWrap;
+export default LayoutWrap

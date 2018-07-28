@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { fullBleed, size } from '../../../designSystem';
+import styled from 'styled-components'
+import { fullBleed, size } from '../../../designSystem'
 
 export const ImageSpacer = styled.div`
   background: red;
@@ -7,14 +7,13 @@ export const ImageSpacer = styled.div`
   width: 100%;
   padding-bottom: 56.25%;
   overflow: hidden;
-`;
+`
 
 export const Image = styled.img`
   ${fullBleed()};
-  ${size()}
-  object-fit: cover;
+  ${size()} object-fit: cover;
   object-position: center center;
   max-width: 100%;
   /* override */
   height: 100% !important;
-`;
+`

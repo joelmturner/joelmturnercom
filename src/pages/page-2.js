@@ -1,17 +1,16 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import { H1, H2, H3, H4, BodyText, LinkText } from '../components/atoms/Text';
+import { H1, H2, H3, H4, BodyText, LinkText } from '../components/atoms/Text'
 import Layout from '../components/layout'
 
 const SecondPage = props => {
-  
   const pages = props.data.allWordpressPage.edges
-  
+
   return (
     <Layout>
       <h1>Hi from the second page</h1>
       <p>Welcome to page 2, where we list all the OTHER pages</p>
-      
+
       <h2>Type Styles</h2>
       <H1>Header 1</H1>
       <H1 gold>Header 1</H1>
@@ -25,14 +24,15 @@ const SecondPage = props => {
       <LinkText jumbo>Link Text Jumbo</LinkText>
 
       <h2>Pages</h2>
-      {pages && pages.map(page => (
-        <li key={page.node.id}>
-          <Link to={`/${page.node.slug}`}>{page.node.title}</Link>
-        </li>
-      ))} 
-      
-      <hr/>
-      
+      {pages &&
+        pages.map(page => (
+          <li key={page.node.id}>
+            <Link to={`/${page.node.slug}`}>{page.node.title}</Link>
+          </li>
+        ))}
+
+      <hr />
+
       <Link to="/">Go back to the homepage</Link>
     </Layout>
   )
@@ -41,7 +41,7 @@ const SecondPage = props => {
 export default SecondPage
 
 export const pageQuery = graphql`
-  {
+  query Page2Query {
     allWordpressPage {
       edges {
         node {

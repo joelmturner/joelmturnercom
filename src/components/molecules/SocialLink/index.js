@@ -1,4 +1,4 @@
-import SocialLink, { SocialLinkWrap } from "./SocialLink";
+import SocialLink, { SocialLinkWrap } from './SocialLink'
 
-export {SocialLinkWrap};
-export default SocialLink;
+export { SocialLinkWrap }
+export default SocialLink

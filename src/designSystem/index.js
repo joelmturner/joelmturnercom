@@ -14,16 +14,16 @@ export const themeHover = () => css`
     color: ${sandstone};
     transition: fill, color 300ms;
   }
-`;
+`
 
 export const bodyWrapperStyles = () => css`
   padding: 0 1rem;
   /* padding: 0 2rem; */
-`;
+`
 
 export const undoBodyWrap = () => css`
   margin: 0 -1rem;
-`;
+`
 
 export const fullBleed = () => css`
   position: absolute;
@@ -31,16 +31,16 @@ export const fullBleed = () => css`
   right: 0;
   bottom: 0;
   left: 0;
-`;
+`
 
-export const size = (width = "100%", height = width) => css`
+export const size = (width = '100%', height = width) => css`
   width: ${width};
   height: ${height};
-`;
+`
 
 export const getNewImage = () => {
-  const d = 500;
-  const r = Math.round(Math.random() * 100);
+  const d = 500
+  const r = Math.round(Math.random() * 100)
   return `https://picsum.photos/${d + r}/?random`
 }
 

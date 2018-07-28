@@ -1,5 +1,5 @@
 import { css } from 'styled-components'
-import {bundleStyles} from './typography';
+import { bundleStyles } from './typography'
 
 const pageStyles = () => css`
   p {
@@ -111,10 +111,10 @@ const pageStyles = () => css`
     padding: 1.6em;
   }
 
-    /* typography */
-    h2 { 
-        ${bundleStyles('h3')} 
-    }
-`;
+  /* typography */
+  h2 {
+    ${bundleStyles('h3')};
+  }
+`
 
-export default pageStyles;
+export default pageStyles
