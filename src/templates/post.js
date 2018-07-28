@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
 import Layout from '../components/layout'
 import CodePen from '../helpers/CodePen'
+import Prism from 'prismjs'
+import '../helpers/prism.css'
 
 class PostTemplate extends Component {
+  componentDidMount() {
+    Prism.highlightAll()
+  }
   render() {
     const post = this.props.data.wordpressPost
+    console.log('Prism', Prism)
 
     return (
       <Layout title={post.title} slug={post.slug}>
