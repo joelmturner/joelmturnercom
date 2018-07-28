@@ -26,7 +26,6 @@ module.exports = {
     ],
   },
   plugins: [
-    '@raygesualdo/gatsby-plugin-babel-styled-components',
     /*
          * Gatsby's data processing layer begins with “source”
          * plugins. Here the site sources its data from Wordpress.
