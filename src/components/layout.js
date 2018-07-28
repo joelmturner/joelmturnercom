@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
-import Header from './Header'
+import Header from './header'
 import theme from '../designSystem'
 import { ThemeProvider } from 'styled-components'
 import LayoutWrap from './atoms/LayoutWrap'
