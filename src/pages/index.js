@@ -28,7 +28,7 @@ type Edge = {
 type IndexProps = {
   data: {
     allWordpressPost: {
-      edges: Edge,
+      edges: Edge[],
     },
     site: {
       siteMetadata: {
@@ -70,7 +70,7 @@ class IndexPage extends Component<IndexProps, IndexState> {
 
     return (
       <Layout title="Joel M Turner" name="layout">
-        <ContactForm />
+        {/* <ContactForm /> */}
         <Section title="About">
           <H1>{name}</H1>
           <H4>{title}</H4>
@@ -99,7 +99,7 @@ class IndexPage extends Component<IndexProps, IndexState> {
         <Section title="Posts">
           <H1>Writing</H1>
           <H4>Some Tagline Here</H4>
-          {posts &&
+          {!!posts &&
             posts.slice(0, 3).map((post: Edge) => {
               const { id, title, slug, excerpt } = post.node
               const imageUrl = post.node.featured_media.source_url
