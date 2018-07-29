@@ -2,10 +2,24 @@ import React from 'react'
 
 const ContactForm = () => {
   return (
-    <form name="contact" method="POST" netlify>
+    <form name="contact" method="POST" action="/" netlify>
       <p>
         <label>
-          Email: <input type="text" name="name" />
+          Your Name: <input type="text" name="name" />
+        </label>
+      </p>
+      <p>
+        <label>
+          Your Email: <input type="email" name="email" />
+        </label>
+      </p>
+      <p>
+        <label>
+          Your Role:{' '}
+          <select name="role[]" multiple>
+            <option value="leader">Leader</option>
+            <option value="follower">Follower</option>
+          </select>
         </label>
       </p>
       <p>
