@@ -1,5 +1,5 @@
 // @flow
-import colors from './colors'
+import colors, { type Colors } from './colors'
 import { injectGlobal } from 'styled-components'
 
 injectGlobal`
@@ -31,7 +31,11 @@ injectGlobal`
 
 `
 
-const theme = {
+export type Theme = {
+  colors: Colors,
+}
+
+const theme: Theme = {
   colors,
 }
 

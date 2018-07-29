@@ -1,10 +1,10 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
-import { sharedFontStyles, undoBodyWrap, getNewImage } from '../../../designSystem'
+import styled from 'styled-components'
+import { undoBodyWrap, getNewImage } from '../../../designSystem'
 import { Link } from 'gatsby'
 import { Image, ImageSpacer } from './Image'
 import { LinkText } from '../../atoms/Text'
-import { BlogTitle, BlogBlurb, BlogContentWrap, BlogExerpt } from './Content'
+import { BlogTitle, BlogContentWrap, BlogExerpt } from './Content'
 
 const PostWrap = styled.li`
   ${undoBodyWrap()};

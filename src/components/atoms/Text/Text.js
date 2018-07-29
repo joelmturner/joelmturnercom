@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components'
-import { sharedFontStyles, bundleStyles } from '../../../designSystem/typography'
+import styled from 'styled-components'
+import { bundleStyles } from '../../../designSystem/typography'
 import { Link } from 'gatsby'
 
 export const H1 = styled.h1`

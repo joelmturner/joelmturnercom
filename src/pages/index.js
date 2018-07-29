@@ -1,11 +1,11 @@
 //@flow
 import React, { Component } from 'react'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import Post from '../components/molecules/Post'
 import Section from '../components/atoms/Section'
 import { H1, H4, BodyText, LinkText } from '../components/atoms/Text'
-import ContactForm from '../components/organisms/contact'
+// import ContactForm from '../components/organisms/contact'
 import type { GraphQLSchema } from 'graphql'
 
 type Edge = {
@@ -61,11 +61,7 @@ class IndexPage extends Component<IndexProps, IndexState> {
   render() {
     const data = this.props.data
     const { name, title } = data.site.siteMetadata.about
-    const posts = this.props.data.allWordpressPost.edges
-
-    const fakeBlurb =
-      'Listicle aesthetic mixtape umami kombucha schlitz farm-to-table, street art organic crucifix truffaut chambray deep v fam pork belly. Four loko chillwave hexagon organic, narwhal single-origin coffee everyday carry disrupt vaporware humblebrag. Tofu cred venmo, health goth live-edge cronut air plant tumblr locavore meggings quinoa edison bulb kinfolk kale chips single-origin coffee. Keffiyeh gentrify authentic, franzen blog letterpress 8-bit tilde. Kale chips kogi cardigan DIY, man braid swag actually tbh palo santo portland chia.'
-
+    const posts = data.allWordpressPost.edges
     const { showAllPosts, togglePosts } = this.state
 
     return (
