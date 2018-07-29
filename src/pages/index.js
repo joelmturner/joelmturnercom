@@ -1,3 +1,4 @@
+//@flow
 import React, { Component } from 'react'
 import { Link, graphql } from 'gatsby'
 import Layout from '../components/layout'
@@ -5,12 +6,52 @@ import Post from '../components/molecules/Post'
 import Section from '../components/atoms/Section'
 import { H1, H4, BodyText, LinkText } from '../components/atoms/Text'
 import ContactForm from '../components/organisms/contact'
+import type { GraphQLSchema } from 'graphql'
 
-class IndexPage extends Component {
+type Edge = {
+  node: {
+    id: string,
+    slug: string,
+    status: string,
+    template: string,
+    format: string,
+    title: string,
+    content: string,
+    excerpt: string,
+    featured_media: {
+      id: string,
+      source_url: string,
+    },
+  },
+}
+
+type IndexProps = {
+  data: {
+    allWordpressPost: {
+      edges: Edge,
+    },
+    site: {
+      siteMetadata: {
+        title: string,
+        about: {
+          name: string,
+          title: string,
+          bio: string,
+        },
+      },
+    },
+  },
+}
+
+type IndexState = {
+  showAllPosts: boolean,
+  togglePosts: () => void,
+}
+
+class IndexPage extends Component<IndexProps, IndexState> {
   state = {
     showAllPosts: false,
     togglePosts: () => {
-      console.log('toggle posts')
       this.setState({
         showAllPosts: !this.state.showAllPosts,
       })
@@ -24,12 +65,6 @@ class IndexPage extends Component {
 
     const fakeBlurb =
       'Listicle aesthetic mixtape umami kombucha schlitz farm-to-table, street art organic crucifix truffaut chambray deep v fam pork belly. Four loko chillwave hexagon organic, narwhal single-origin coffee everyday carry disrupt vaporware humblebrag. Tofu cred venmo, health goth live-edge cronut air plant tumblr locavore meggings quinoa edison bulb kinfolk kale chips single-origin coffee. Keffiyeh gentrify authentic, franzen blog letterpress 8-bit tilde. Kale chips kogi cardigan DIY, man braid swag actually tbh palo santo portland chia.'
-
-    console.group('indexPage')
-    console.log('data', data)
-    console.log('posts', posts)
-    console.log('sliced posts', posts.slice(3))
-    console.groupEnd()
 
     const { showAllPosts, togglePosts } = this.state
 
@@ -65,14 +100,14 @@ class IndexPage extends Component {
           <H1>Writing</H1>
           <H4>Some Tagline Here</H4>
           {posts &&
-            posts.slice(0, 3).map(post => {
+            posts.slice(0, 3).map((post: Edge) => {
               const { id, title, slug, excerpt } = post.node
               const imageUrl = post.node.featured_media.source_url
               return <Post key={id} title={title} slug={slug} blurb={excerpt} imageSrc={imageUrl} />
             })}
 
           {showAllPosts &&
-            posts.slice(3).map(post => {
+            posts.slice(3).map((post: Edge) => {
               const { id, title, slug, excerpt } = post.node
               const imageUrl = post.node.featured_media.source_url
               return <Post key={id} title={title} slug={slug} blurb={excerpt} imageSrc={imageUrl} />
@@ -82,14 +117,6 @@ class IndexPage extends Component {
             {showAllPosts ? 'Hide' : 'Show'} All Posts
           </LinkText>
         </Section>
-
-        {/* Joel, i'm leaving this here so you know where they went. Feel free to delete it */}
-        <hr />
-        <H1>DEBUG</H1>
-        <H4>this.state.showAllPosts: {`${showAllPosts}`}</H4>
-        <hr />
-        <BodyText>The wp pages index has moved</BodyText>
-        <LinkText to="/page-2">go there</LinkText>
       </Layout>
     )
   }
@@ -97,8 +124,8 @@ class IndexPage extends Component {
 
 export default IndexPage
 
-export const pageQuery = graphql`
-  {
+export const pageQuery: GraphQLSchema = graphql`
+  query PageQuery {
     allWordpressPost {
       edges {
         node {
