@@ -41,7 +41,7 @@ const SecondPage = props => {
 export default SecondPage
 
 export const pageQuery = graphql`
-  query Page2Query {
+  {
     allWordpressPage {
       edges {
         node {

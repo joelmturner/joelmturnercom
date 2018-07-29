@@ -77,6 +77,13 @@ exports.createPages = ({ graphql, actions }) => {
                     status
                     template
                     format
+                    title
+                    content
+                    excerpt
+                    featured_media {
+                      id
+                      source_url
+                    }
                   }
                 }
               }

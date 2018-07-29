@@ -98,7 +98,7 @@ class IndexPage extends Component {
 export default IndexPage
 
 export const pageQuery = graphql`
-  query PageQuery {
+  {
     allWordpressPost {
       edges {
         node {
