@@ -1,6 +1,8 @@
 // @flow
 import React, { type Node, Fragment } from 'react'
 import { StaticQuery, graphql } from 'gatsby'
+import { ThemeProvider } from 'styled-components'
+import theme from '../designSystem'
 import Header from './header'
 import LayoutWrap from './atoms/LayoutWrap'
 import ContentWrap from './atoms/ContentWrap/ContentWrap'
@@ -26,29 +28,36 @@ type LayoutProps = {
 }
 
 const Layout = ({ children, title, slug }: LayoutProps) => (
-  <StaticQuery
-    query={graphql`
-      query SiteTitleQuery {
-        site {
-          siteMetadata {
-            title
-            social {
-              network
-              link
+  <ThemeProvider theme={theme}>
+    <StaticQuery
+      query={graphql`
+        query SiteTitleQuery {
+          site {
+            siteMetadata {
+              title
+              social {
+                network
+                link
+              }
             }
           }
         }
-      }
-    `}
-    render={(data: Data) => (
-      <LayoutWrap>
-        <Header title={title || ''} slug={slug || ''} social={data.site.siteMetadata.social} mini />
-        <ContentWrap>
-          <Fragment>{children}</Fragment>
-        </ContentWrap>
-      </LayoutWrap>
-    )}
-  />
+      `}
+      render={(data: Data) => (
+        <LayoutWrap>
+          <Header
+            title={title || ''}
+            slug={slug || ''}
+            social={data.site.siteMetadata.social}
+            mini
+          />
+          <ContentWrap>
+            <Fragment>{children}</Fragment>
+          </ContentWrap>
+        </LayoutWrap>
+      )}
+    />
+  </ThemeProvider>
 )
 
 export default Layout
