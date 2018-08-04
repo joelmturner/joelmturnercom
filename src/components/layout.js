@@ -2,8 +2,6 @@
 import React, { type Node, Fragment } from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import Header from './header'
-import theme from '../designSystem'
-import { ThemeProvider } from 'styled-components'
 import LayoutWrap from './atoms/LayoutWrap'
 import ContentWrap from './atoms/ContentWrap/ContentWrap'
 
@@ -43,19 +41,12 @@ const Layout = ({ children, title, slug }: LayoutProps) => (
       }
     `}
     render={(data: Data) => (
-      <ThemeProvider theme={theme}>
-        <LayoutWrap>
-          <Header
-            title={title || ''}
-            slug={slug || ''}
-            social={data.site.siteMetadata.social}
-            mini
-          />
-          <ContentWrap>
-            <Fragment>{children}</Fragment>
-          </ContentWrap>
-        </LayoutWrap>
-      </ThemeProvider>
+      <LayoutWrap>
+        <Header title={title || ''} slug={slug || ''} social={data.site.siteMetadata.social} mini />
+        <ContentWrap>
+          <Fragment>{children}</Fragment>
+        </ContentWrap>
+      </LayoutWrap>
     )}
   />
 )

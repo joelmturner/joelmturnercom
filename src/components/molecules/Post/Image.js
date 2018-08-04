@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { fullBleed, size } from '../../../designSystem'
 
 export const ImageSpacer = styled.div`
-  background: red;
   position: relative;
   width: 100%;
   padding-bottom: 56.25%;

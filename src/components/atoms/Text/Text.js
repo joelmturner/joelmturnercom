@@ -1,6 +1,11 @@
+// @flow
 import styled from 'styled-components'
 import { bundleStyles } from '../../../designSystem/typography'
 import { Link } from 'gatsby'
+
+type LinkTextProps = {
+  jumbo: boolean,
+}
 
 export const H1 = styled.h1`
   ${bundleStyles('h1')};
@@ -23,30 +28,6 @@ export const BodyText = styled.p`
 `
 
 export const LinkText = styled(Link)`
-  ${props => !props.jumbo && bundleStyles('link')};
-  ${props => props.jumbo && bundleStyles('jumboLink')};
+  ${({ jumbo }: LinkTextProps) => !jumbo && bundleStyles('link')};
+  ${({ jumbo }: LinkTextProps) => jumbo && bundleStyles('jumboLink')};
 `
-
-/*
- *
- * DELETE THESE
- * 
- */
-
-// export const Text2 = styled.h4`
-//   ${sharedFontStyles()}
-//   font-size: 0.75rem;
-//   line-height: 1.125rem;
-//   margin: 0;
-// `
-
-// export const BodyText = styled.p`
-//   ${sharedFontStyles()};
-//   font-size: 1rem;
-//   line-height: 1.5rem;
-//   color: ${({ theme }) => theme.colors.black};
-//   /* when is this true? */
-//   ${ props => props.grey && css`
-//     color: ${props.theme.colors.greyishBrown};
-//   `}
-// `;
