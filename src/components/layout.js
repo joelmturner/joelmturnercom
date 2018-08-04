@@ -28,22 +28,22 @@ type LayoutProps = {
 }
 
 const Layout = ({ children, title, slug }: LayoutProps) => (
-  <ThemeProvider theme={theme}>
-    <StaticQuery
-      query={graphql`
-        query SiteTitleQuery {
-          site {
-            siteMetadata {
-              title
-              social {
-                network
-                link
-              }
+  <StaticQuery
+    query={graphql`
+      query SiteTitleQuery {
+        site {
+          siteMetadata {
+            title
+            social {
+              network
+              link
             }
           }
         }
-      `}
-      render={(data: Data) => (
+      }
+    `}
+    render={(data: Data) => (
+      <ThemeProvider theme={theme}>
         <LayoutWrap>
           <Header
             title={title || ''}
@@ -55,9 +55,9 @@ const Layout = ({ children, title, slug }: LayoutProps) => (
             <Fragment>{children}</Fragment>
           </ContentWrap>
         </LayoutWrap>
-      )}
-    />
-  </ThemeProvider>
+      </ThemeProvider>
+    )}
+  />
 )
 
 export default Layout
