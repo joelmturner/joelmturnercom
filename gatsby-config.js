@@ -56,8 +56,8 @@ module.exports = {
         perPage: 100,
         // Search and Replace Urls across WordPress content.
         searchAndReplaceContentUrls: {
-          sourceUrl: 'https://source-url.com',
-          replacementUrl: 'https://replacement-url.com',
+          sourceUrl: 'https://mtgraph.net/joelmturner/wp-content/uploads',
+          replacementUrl: 'https://res.cloudinary.com/joelmturner/blog',
         },
         // Set how many simultaneous requests are sent at once.
         concurrentRequests: 10,
@@ -70,6 +70,12 @@ module.exports = {
         normalizer: function({ entities }) {
           return entities
         },
+      },
+    },
+    {
+      resolve: `gatsby-plugin-styled-components`,
+      options: {
+        // Add any options here
       },
     },
     'gatsby-plugin-react-helmet',

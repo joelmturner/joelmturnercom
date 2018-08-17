@@ -1,11 +1,12 @@
 // @flow
-import React, { type Node, Fragment } from 'react'
+import React, { Component, type Node, Fragment } from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import { ThemeProvider } from 'styled-components'
 import theme from '../designSystem'
 import Header from './header'
 import LayoutWrap from './atoms/LayoutWrap'
 import ContentWrap from './atoms/ContentWrap/ContentWrap'
+import type { GraphQLSchema } from 'graphql'
 
 export type Social = {
   network: string,
@@ -27,28 +28,16 @@ type LayoutProps = {
   slug?: string,
 }
 
-const Layout = ({ children, title, slug }: LayoutProps) => (
-  <StaticQuery
-    query={graphql`
-      query SiteTitleQuery {
-        site {
-          siteMetadata {
-            title
-            social {
-              network
-              link
-            }
-          }
-        }
-      }
-    `}
-    render={(data: Data) => (
+class Layout extends Component<LayoutProps, any> {
+  render() {
+    const { title, slug, data, children } = this.props
+    return (
       <ThemeProvider theme={theme}>
         <LayoutWrap>
           <Header
             title={title || ''}
             slug={slug || ''}
-            social={data.site.siteMetadata.social}
+            social={(data && data.site.siteMetadata.social) || []}
             mini
           />
           <ContentWrap>
@@ -56,8 +45,22 @@ const Layout = ({ children, title, slug }: LayoutProps) => (
           </ContentWrap>
         </LayoutWrap>
       </ThemeProvider>
-    )}
-  />
-)
+    )
+  }
+}
 
 export default Layout
+
+export const LayoutQuery: GraphQLSchema = graphql`
+  query SiteTitleQuery {
+    site {
+      siteMetadata {
+        title
+        social {
+          network
+          link
+        }
+      }
+    }
+  }
+`
