@@ -7,6 +7,7 @@ type RowProps = {
   forceFullPage?: boolean,
   /** max number of columns; no more than 12 */
   maxColumns?: number,
+  overflow?: boolean,
   /** additional styles */
   style?: Object,
 }
@@ -15,7 +16,11 @@ export const StyledRow = styled.div`
   display: grid;
   grid-template-columns: ${({ maxColumns = 12 }: RowProps) => `repeat(${maxColumns}, 1fr)`};
   justify-content: center;
-  overflow-y: auto;
+  ${({ overflow }: RowProps) =>
+    overflow &&
+    css`
+      overflow-y: auto;
+    `};
   ${({ style }: RowProps) =>
     style &&
     css`
@@ -25,6 +30,7 @@ export const StyledRow = styled.div`
 
 StyledRow.defaultProps = {
   maxColumns: 12,
+  overflow: false,
 }
 
 /**

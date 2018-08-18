@@ -1,6 +1,6 @@
 // @flow
 import React, { Component, type Node, Fragment } from 'react'
-import { /* StaticQuery,  */ graphql } from 'gatsby'
+import { StaticQuery, graphql } from 'gatsby'
 import { ThemeProvider } from 'styled-components'
 import theme from '../designSystem'
 import Header from './header'
@@ -33,44 +33,48 @@ type LayoutProps = {
 class Layout extends Component<LayoutProps, any> {
   render() {
     const { title, slug, data, children } = this.props
+
     return (
-      <ThemeProvider theme={theme}>
-        <LayoutWrap>
-          <Row>
-            <Column span={12} responsive>
-              <Header
-                title={title || ''}
-                slug={slug || ''}
-                social={(data && data.site.siteMetadata.social) || []}
-                mini
-              />
-            </Column>
-          </Row>
-          <Row>
-            <Column span={12} responsive>
-              <ContentWrap>
-                <Fragment>{children}</Fragment>
-              </ContentWrap>
-            </Column>
-          </Row>
-        </LayoutWrap>
-      </ThemeProvider>
+      <StaticQuery
+        query={graphql`
+            query SiteTitleQuery {
+                site {
+                siteMetadata {
+                    title
+                    social {
+                    network
+                    link
+                    }
+                }
+                }
+            }
+            `}
+        render={(data: Data) => (
+          <ThemeProvider theme={theme}>
+            <LayoutWrap>
+              <Row>
+                <Column span={12} responsive>
+                  <Header
+                    title={title || ''}
+                    slug={slug || ''}
+                    social={(data && data.site.siteMetadata.social) || []}
+                    mini
+                  />
+                </Column>
+              </Row>
+              <Row overflow>
+                <Column span={12} responsive>
+                  <ContentWrap>
+                    <Fragment>{children}</Fragment>
+                  </ContentWrap>
+                </Column>
+              </Row>
+            </LayoutWrap>
+          </ThemeProvider>
+        )}
+      />
     )
   }
 }
 
 export default Layout
-
-export const LayoutQuery: GraphQLSchema = graphql`
-  query SiteTitleQuery {
-    site {
-      siteMetadata {
-        title
-        social {
-          network
-          link
-        }
-      }
-    }
-  }
-`
