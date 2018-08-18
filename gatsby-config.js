@@ -26,7 +26,6 @@ module.exports = {
     ],
   },
   plugins: [
-    `@raygesualdo/gatsby-plugin-babel-styled-components`,
     `gatsby-plugin-styled-components`,
     /*
          * Gatsby's data processing layer begins with “source”

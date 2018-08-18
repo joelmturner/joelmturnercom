@@ -1,6 +1,6 @@
 // @flow
 import React, { Component, type Node, Fragment } from 'react'
-import { StaticQuery, graphql } from 'gatsby'
+import { /* StaticQuery,  */ graphql } from 'gatsby'
 import { ThemeProvider } from 'styled-components'
 import theme from '../designSystem'
 import Header from './header'
