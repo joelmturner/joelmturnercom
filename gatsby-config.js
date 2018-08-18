@@ -26,6 +26,8 @@ module.exports = {
     ],
   },
   plugins: [
+    `@raygesualdo/gatsby-plugin-babel-styled-components`,
+    `gatsby-plugin-styled-components`,
     /*
          * Gatsby's data processing layer begins with “source”
          * plugins. Here the site sources its data from Wordpress.
@@ -72,12 +74,7 @@ module.exports = {
         },
       },
     },
-    {
-      resolve: `gatsby-plugin-styled-components`,
-      options: {
-        // Add any options here
-      },
-    },
-    'gatsby-plugin-react-helmet',
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-netlify`,
   ],
 }
