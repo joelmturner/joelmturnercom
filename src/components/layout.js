@@ -7,6 +7,8 @@ import Header from './header'
 import LayoutWrap from './atoms/LayoutWrap'
 import ContentWrap from './atoms/ContentWrap/ContentWrap'
 import type { GraphQLSchema } from 'graphql'
+import Row from './Grid/Row'
+import Column from './Grid/Column'
 
 export type Social = {
   network: string,
@@ -34,15 +36,23 @@ class Layout extends Component<LayoutProps, any> {
     return (
       <ThemeProvider theme={theme}>
         <LayoutWrap>
-          <Header
-            title={title || ''}
-            slug={slug || ''}
-            social={(data && data.site.siteMetadata.social) || []}
-            mini
-          />
-          <ContentWrap>
-            <Fragment>{children}</Fragment>
-          </ContentWrap>
+          <Row>
+            <Column span={12} responsive>
+              <Header
+                title={title || ''}
+                slug={slug || ''}
+                social={(data && data.site.siteMetadata.social) || []}
+                mini
+              />
+            </Column>
+          </Row>
+          <Row>
+            <Column span={12} responsive>
+              <ContentWrap>
+                <Fragment>{children}</Fragment>
+              </ContentWrap>
+            </Column>
+          </Row>
         </LayoutWrap>
       </ThemeProvider>
     )

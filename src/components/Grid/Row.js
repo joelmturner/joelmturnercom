@@ -15,6 +15,7 @@ export const StyledRow = styled.div`
   display: grid;
   grid-template-columns: ${({ maxColumns = 12 }: RowProps) => `repeat(${maxColumns}, 1fr)`};
   justify-content: center;
+  overflow-y: auto;
   ${({ style }: RowProps) =>
     style &&
     css`

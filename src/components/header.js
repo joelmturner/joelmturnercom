@@ -24,8 +24,8 @@ type HeaderProps = {
 const HeaderWrap = styled.header`
   box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.21);
   padding: 1rem;
-  margin-bottom: 1.5rem;
-
+  margin-bottom: 0.5rem;
+  grid-area: header;
   h1,
   h1 a {
     font-size: 2rem;
