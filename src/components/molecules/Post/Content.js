@@ -15,6 +15,10 @@ export const BlogTitle = styled(H2)`
   padding: 0.25rem 1rem 0.25rem 1rem;
   margin: 0;
   max-width: 75%;
+  a,
+  a:visited {
+    color: #ca9874;
+  }
 `
 
 export const BlogExerpt = styled.div`

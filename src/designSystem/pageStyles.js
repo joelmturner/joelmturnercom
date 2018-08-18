@@ -111,6 +111,11 @@ const pageStyles = () => css`
     padding: 1.6em;
   }
 
+  /* TODO: JT figure out how to remove this from wp theme */
+  .link-more {
+    display: none;
+  }
+
   /* typography */
   h2 {
     ${bundleStyles('h3')};
