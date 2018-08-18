@@ -7,7 +7,7 @@ const LayoutWrap = styled.div`
   grid-template-areas:
     'header'
     'content';
-  grid-template-rows: fit-content(10rem) auto;
+  grid-template-rows: fit-content(10rem) auto fit-content(3rem);
   height: 100vh;
 `
 

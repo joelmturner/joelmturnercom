@@ -6,9 +6,9 @@ import theme from '../designSystem'
 import Header from './header'
 import LayoutWrap from './atoms/LayoutWrap'
 import ContentWrap from './atoms/ContentWrap/ContentWrap'
-import type { GraphQLSchema } from 'graphql'
 import Row from './Grid/Row'
 import Column from './Grid/Column'
+import { BodyText } from './atoms/Text/Text'
 
 export type Social = {
   network: string,
@@ -32,7 +32,7 @@ type LayoutProps = {
 
 class Layout extends Component<LayoutProps, any> {
   render() {
-    const { title, slug, data, children } = this.props
+    const { title, slug, children } = this.props
 
     return (
       <StaticQuery
@@ -67,6 +67,11 @@ class Layout extends Component<LayoutProps, any> {
                   <ContentWrap>
                     <Fragment>{children}</Fragment>
                   </ContentWrap>
+                </Column>
+              </Row>
+              <Row>
+                <Column span={12} responsive>
+                  <BodyText>© Copyright 2018 Joel M Turner</BodyText>
                 </Column>
               </Row>
             </LayoutWrap>
