@@ -73,6 +73,13 @@ module.exports = {
         },
       },
     },
+    {
+      resolve: `gatsby-mdx`,
+      options: {
+        extensions: ['.mdx', '.md'],
+      },
+    },
+    'gatsby-plugin-mdx',
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-netlify`,
   ],

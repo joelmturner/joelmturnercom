@@ -85,19 +85,11 @@ class IndexPage extends Component<IndexProps, IndexState> {
               </a>.
             </BodyText>
             <BodyText>
-              I spent many of my summers living on glaciers in Alaska.Living in a remote camp with a
-              bunch of other interesting people was great.You never know where the conversations
-              will go and what kind of friends you’ll make.
+              My background is in graphic design and web development. I'm currently working as a
+              Front-End Developer at Sprinklr. I spend some of my free time exploring hand lettering
+              and sketching as well as hiking in the Portland area with my wife and son.
             </BodyText>
-            <BodyText>
-              I received my BA with a graphic design emphasis in December of 2005. Most of my free
-              time in college was spent playing in the Symphony Orchestra and playing basketball.
-            </BodyText>
-            <BodyText>
-              I was born in Laramie, Wyoming.I now live with my wife, Suzanne Turner and our two
-              dogs in Portland, Oregon.
-            </BodyText>
-            <LinkText to="#">get in touch</LinkText>
+            {/* <LinkText to="#">get in touch</LinkText> */}
           </Section>
 
           <Section title="Posts">

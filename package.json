@@ -4,9 +4,12 @@
   "version": "1.0.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@mdx-js/tag": "^0.15.0",
     "babel-plugin-prismjs": "^1.0.2",
     "babel-plugin-styled-components": "^1.5.1",
     "gatsby": "next",
+    "gatsby-mdx": "^0.0.11",
+    "gatsby-plugin-mdx": "^1.0.1",
     "gatsby-plugin-netlify": "next",
     "gatsby-plugin-react-helmet": "next",
     "gatsby-plugin-styled-components": "next",
@@ -31,9 +34,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "@mdx-js/loader": "^0.15.0",
+    "@mdx-js/mdx": "^0.15.0",
     "babel-cli": "^6.26.0",
     "babel-preset-flow": "^6.23.0",
     "flow-bin": "^0.77.0",
+    "loader-utils": "^1.1.0",
     "prettier": "^1.12.0"
   },
   "repository": {
