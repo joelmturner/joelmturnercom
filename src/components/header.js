@@ -49,7 +49,7 @@ const Header = ({ title, slug, social, mini }: HeaderProps) => (
     {slug && (
       <Fragment>
         <Row>
-          <Column span={11}>
+          <Column span={9}>
             <h1 style={{ margin: 0, display: 'flex' }}>
               <Link to={`/`}>{`<`}</Link>
               <Link to={`/${slug}`}>
@@ -59,8 +59,16 @@ const Header = ({ title, slug, social, mini }: HeaderProps) => (
               </Link>
             </h1>
           </Column>
-          <Column span={1} right>
-            <Avatar url="https://res.cloudinary.com/joelmturner/image/upload/v1532201643/joel-turner-headshot-web_xyix1w.jpg" />
+          <Column span={3} right>
+            <SocialIcons>
+              {social.map((x: Social) => (
+                <SocialLink key={x.network} href={x.link}>
+                  {x.network === 'instagram' && <Instagram size={24} />}
+                  {x.network === 'twitter' && <Twitter size={24} />}
+                  {x.network === 'github' && <Github size={24} />}
+                </SocialLink>
+              ))}
+            </SocialIcons>
           </Column>
         </Row>
       </Fragment>
