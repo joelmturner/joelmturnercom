@@ -79,12 +79,6 @@ class IndexPage extends Component<IndexProps, IndexState> {
             <H1>{name}</H1>
             <H4>{title}</H4>
             <BodyText>
-              Not to be confused with{' '}
-              <a href="http://www.youtube.com/watch?v=hCCc8zWqvYA">
-                Joel Turner, the rather talented, Australian beat-boxer
-              </a>.
-            </BodyText>
-            <BodyText>
               My background is in graphic design and web development. I'm currently working as a
               Front-End Developer at Sprinklr. I spend some of my free time exploring hand lettering
               and sketching as well as hiking in the Portland area with my wife and son.
@@ -94,7 +88,7 @@ class IndexPage extends Component<IndexProps, IndexState> {
 
           <Section title="Posts">
             <H1>Writing</H1>
-            <H4>Some Tagline Here</H4>
+            <H4>Some of My Thoughts and Explorations</H4>
 
             {this.posts &&
               this.posts.map(

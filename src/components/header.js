@@ -12,6 +12,7 @@ import Column from './Grid/Column'
 import Row from './Grid/Row'
 import { type Social } from './layout'
 import { type Theme } from '../designSystem/theme'
+import Flexbox from '../components/Flexbox'
 
 type HeaderProps = {
   title: string,
@@ -28,12 +29,12 @@ const HeaderWrap = styled.header`
   grid-area: header;
   h1,
   h1 a {
-    font-size: 2rem;
+    /* font-size: 2rem; */
     color: ${({ theme }: HeaderProps) => theme && theme.colors.navy};
     font-family: 'Source Sans Pro', sans-serif;
-    & > a {
+    /* & > a {
       margin-right: 0.5rem;
-    }
+    } */
   }
 `
 
@@ -48,29 +49,29 @@ const Header = ({ title, slug, social, mini }: HeaderProps) => (
     />
     {slug && (
       <Fragment>
-        <Row>
-          <Column span={9}>
-            <h1 style={{ margin: 0, display: 'flex' }}>
+        <Flexbox>
+          <Flexbox middle>
+            <h1 style={{ margin: 0 }}>
               <Link to={`/`}>{`<`}</Link>
+            </h1>
+            <h1 style={{ margin: '0 .5rem', maxWidth: 'calc(100% - 108px)' }}>
               <Link to={`/${slug}`}>
-                <Textfit mode="single" forceSingleModeWidth={false}>
+                <Textfit min={20} max={32} mode="single">
                   {title}
                 </Textfit>
               </Link>
             </h1>
-          </Column>
-          <Column span={3} right>
-            <SocialIcons>
-              {social.map((x: Social) => (
-                <SocialLink key={x.network} href={x.link}>
-                  {x.network === 'instagram' && <Instagram size={24} />}
-                  {x.network === 'twitter' && <Twitter size={24} />}
-                  {x.network === 'github' && <Github size={24} />}
-                </SocialLink>
-              ))}
-            </SocialIcons>
-          </Column>
-        </Row>
+          </Flexbox>
+          <SocialIcons middle right noGrow>
+            {social.map((x: Social) => (
+              <SocialLink key={x.network} href={x.link}>
+                {x.network === 'instagram' && <Instagram size={24} />}
+                {x.network === 'twitter' && <Twitter size={24} />}
+                {x.network === 'github' && <Github size={24} />}
+              </SocialLink>
+            ))}
+          </SocialIcons>
+        </Flexbox>
       </Fragment>
     )}
     {!slug && (

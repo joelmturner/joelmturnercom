@@ -1,6 +1,7 @@
 // import styled, { css } from 'styled-components'
 import { css } from 'styled-components'
 import theme from './theme'
+import GlobalStyle from './GlobalStyle'
 const { navy, sandstone } = theme.colors
 
 // Reusable Style Functions
@@ -45,3 +46,4 @@ export const getNewImage = () => {
 }
 
 export default theme
+export { GlobalStyle }
