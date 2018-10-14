@@ -79,7 +79,6 @@ module.exports = {
         extensions: ['.mdx', '.md'],
       },
     },
-    // 'gatsby-plugin-mdx',
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-netlify`,
   ],
