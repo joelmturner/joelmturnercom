@@ -81,5 +81,25 @@ module.exports = {
     },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-netlify`,
+    {
+        resolve: `gatsby-plugin-google-analytics`,
+        options: {
+          trackingId: "***REMOVED***",
+          // Puts tracking script in the head instead of the body
+          head: false,
+          // Setting this parameter is optional
+          anonymize: true,
+          // Setting this parameter is also optional
+          respectDNT: true,
+          // Avoids sending pageview hits from custom paths
+          exclude: ["/preview/**", "/do-not-track/me/too/"],
+          // Enables Google Optimize using your container Id
+          optimizeId: "***REMOVED***",
+          // Any additional create only fields (optional)
+          sampleRate: 5,
+          siteSpeedSampleRate: 10,
+          cookieDomain: "joelmturner.com",
+        },
+      },
   ],
 }
