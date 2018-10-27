@@ -4,7 +4,7 @@ import { bundleStyles } from '../../../designSystem/typography'
 import { Link } from 'gatsby'
 
 type LinkTextProps = {
-  jumbo: boolean,
+  isjumbo: boolean,
 }
 
 export const H1 = styled.h1`
@@ -28,6 +28,6 @@ export const BodyText = styled.p`
 `
 
 export const LinkText = styled(Link)`
-  ${({ jumbo }: LinkTextProps) => !jumbo && bundleStyles('link')};
-  ${({ jumbo }: LinkTextProps) => jumbo && bundleStyles('jumboLink')};
+  ${({ isjumbo }: LinkTextProps) => !isjumbo && bundleStyles('link')};
+  ${({ isjumbo }: LinkTextProps) => isjumbo && bundleStyles('jumboLink')};
 `

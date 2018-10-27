@@ -1,4 +1,4 @@
-//@flow
+// @flow
 import React, { Component, type Node } from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
@@ -7,6 +7,7 @@ import Section from '../components/atoms/Section'
 import { H1, H4, BodyText, LinkText } from '../components/atoms/Text'
 import theme from '../designSystem'
 import { ThemeProvider } from 'styled-components'
+import Row from '../components/Grid/Row'
 import type { GraphQLSchema } from 'graphql'
 // import ContactForm from '../components/organisms/contact'
 
@@ -62,7 +63,7 @@ class IndexPage extends Component<IndexProps, IndexState> {
 
   get posts(): Edge[] {
     const posts = this.props.data && this.props.data.allWordpressPost.edges
-    return this.state.showAllPosts ? posts : posts.slice(0, 3)
+    return this.state.showAllPosts ? posts : posts.slice(0, 4)
   }
 
   render() {
@@ -90,18 +91,28 @@ class IndexPage extends Component<IndexProps, IndexState> {
             <H1>Writing</H1>
             <H4>Some of My Thoughts and Explorations</H4>
 
-            {this.posts &&
-              this.posts.map(
-                (post: Edge): Node => {
-                  const { id, title, slug, excerpt } = post.node
-                  const imageUrl = post.node.featured_media.source_url
-                  return (
-                    <Post key={id} title={title} slug={slug} blurb={excerpt} imageSrc={imageUrl} />
-                  )
-                }
-              )}
+            <Row
+              gap="2rem 4rem"
+              style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(448px, 1fr))' }}>
+              {this.posts &&
+                this.posts.map(
+                  (post: Edge): Node => {
+                    const { id, title, slug, excerpt } = post.node
+                    const imageUrl = post.node.featured_media.source_url
+                    return (
+                      <Post
+                        key={id}
+                        title={title}
+                        slug={slug}
+                        blurb={excerpt}
+                        imageSrc={imageUrl}
+                      />
+                    )
+                  }
+                )}
+            </Row>
 
-            <LinkText to="#" jumbo onClick={togglePosts}>
+            <LinkText to="#" isjumbo onClick={togglePosts}>
               {showAllPosts ? 'Hide' : 'Show'} All Posts
             </LinkText>
           </Section>

@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, type ReactComponentStyled } from 'styled-components'
 
 export type FlexboxProps = {
   inline?: boolean,
@@ -107,33 +107,12 @@ export const getFlexProperties = (props: FlexboxProps) => {
   `
 }
 
-/*
-// if top and !vertical
-align-items: start;
-
-// if top and vertical
-justify-content: start;
-
-// if middle and !vertical 
-
-*/
-
-const Flexbox: React.ComponentType<FlexboxProps> = styled.div`
-    display: ${({ inline }: FlexboxProps) => (inline ? 'inline-flex' : 'flex')};
-    flex-direction: ${({ vertical }: FlexboxProps) => (vertical ? 'column' : 'row')};   
-    flex-wrap: ${({ wrap }: FlexboxProps) => (wrap ? 'wrap' : 'no-wrap')};
-    ${
-      ''
-      /**
-       * Set Flex Values:
-       * Supports grow && shrink && basis
-       * noGrow supercedes any individual values
-       * Default values match original `.flex` utility // flex: 1 1 auto;
-       * no default values :( => : `${props.grow} ${props.shrink} ${props.basis}`
-       */
-    }  
-    flex: ${({ noGrow }: FlexboxProps) => (noGrow ? `0 0 auto` : `1 1 auto`)};  
-    ${getFlexProperties};
+const Flexbox: ReactComponentStyled<FlexboxProps> = styled.div`
+  display: ${({ inline }: FlexboxProps) => (inline ? 'inline-flex' : 'flex')};
+  flex-direction: ${({ vertical }: FlexboxProps) => (vertical ? 'column' : 'row')};
+  flex-wrap: ${({ wrap }: FlexboxProps) => (wrap ? 'wrap' : 'no-wrap')};
+  flex: ${({ noGrow }: FlexboxProps) => (noGrow ? `0 0 auto` : `1 1 auto`)};
+  ${getFlexProperties};
 `
 
 Flexbox.defaultProps = {

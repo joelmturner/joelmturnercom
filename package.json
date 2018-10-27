@@ -21,7 +21,6 @@
     "react-dom": "^16.5.2",
     "react-helmet": "^5.2.0",
     "react-textfit": "^1.1.0",
-    "rebass": "^2.3.4",
     "styled-components": "^4.0.0-beta.11.3",
     "styled-icons": "^2.4.0"
   },

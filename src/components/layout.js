@@ -65,7 +65,7 @@ class Layout extends Component<LayoutProps, any> {
                     />
                   </Column>
                 </Row>
-                <Row overflow>
+                <Row hasOverflow>
                   <Column span={12} responsive>
                     <ContentWrap>
                       <Fragment>{children}</Fragment>
