@@ -115,10 +115,86 @@ const Flexbox: ReactComponentStyled<FlexboxProps> = styled.div`
   ${getFlexProperties};
 `
 
-Flexbox.defaultProps = {
+// Reusable configs
+const FlexRowWrap: ReactComponentStyled<FlexboxProps> = ({
+  inline,
+  vertical,
+  wrap,
+  noGrow,
+  grow,
+  shrink,
+  basis,
+  children,
+  top,
+  middle,
+  bottom,
+  left,
+  center,
+  right,
+  between,
+  around,
+}: FlexboxProps) => (
+  <Flexbox
+    inline={inline}
+    vertical={vertical}
+    wrap={true}
+    noGrow={noGrow}
+    grow={grow}
+    shrink={shrink}
+    basis={basis}
+    children={children}
+    top={top}
+    middle={middle}
+    bottom={bottom}
+    left={left}
+    center={center}
+    right={right}
+    between={between}
+    around={around}
+  />
+)
+
+const InlineFlexLockup: ReactComponentStyled<FlexboxProps> = ({
+  inline,
+  vertical,
+  wrap,
+  noGrow,
+  grow,
+  shrink,
+  basis,
+  children,
+  top,
+  middle,
+  bottom,
+  left,
+  center,
+  right,
+  between,
+  around,
+}: FlexboxProps) => (
+  <Flexbox
+    inline={true}
+    vertical={vertical}
+    wrap={wrap}
+    noGrow={true}
+    grow={grow}
+    shrink={shrink}
+    basis={basis}
+    children={children}
+    top={top}
+    middle={true}
+    bottom={bottom}
+    left={left}
+    center={center}
+    right={right}
+    between={between}
+    around={around}
+  />
+)
+
+const defaultProps = {
   inline: false,
   vertical: false,
-  wrap: false,
   noGrow: false,
   grow: 1,
   shrink: 1,
@@ -126,13 +202,9 @@ Flexbox.defaultProps = {
   children: null,
 }
 
-// Reusable configs
-const FlexRowWrap = (props: FlexboxProps) => <Flexbox wrap={props.wrap}>{props.children}</Flexbox>
-const InlineFlexLockup = (props: { children: any }) => (
-  <Flexbox inline noGrow middle>
-    {props.children}
-  </Flexbox>
-)
+Flexbox.defaultProps = defaultProps
+FlexRowWrap.defaultProps = defaultProps
+InlineFlexLockup.defaultProps = defaultProps
 
 /** @component */
 export default Flexbox

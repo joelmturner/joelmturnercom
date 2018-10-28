@@ -1,4 +1,5 @@
 // @flow
+import React from 'react'
 import styled from 'styled-components'
 import { bundleStyles } from '../../../designSystem/typography'
 import { Link } from 'gatsby'
@@ -27,7 +28,13 @@ export const BodyText = styled.p`
   ${bundleStyles('body')};
 `
 
-export const LinkText = styled(Link)`
+export const StyledLinkText = styled(Link)`
   ${({ isjumbo }: LinkTextProps) => !isjumbo && bundleStyles('link')};
   ${({ isjumbo }: LinkTextProps) => isjumbo && bundleStyles('jumboLink')};
 `
+
+export const LinkText = (props: any) => (
+  <Link to={props.to} className={props.className}>
+    {props.children}
+  </Link>
+)
