@@ -29,12 +29,8 @@ const HeaderWrap = styled.header`
   grid-area: header;
   h1,
   h1 a {
-    /* font-size: 2rem; */
     color: ${({ theme }: HeaderProps) => theme && theme.colors.navy};
     font-family: 'Source Sans Pro', sans-serif;
-    /* & > a {
-      margin-right: 0.5rem;
-    } */
   }
 `
 
