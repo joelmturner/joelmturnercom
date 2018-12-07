@@ -1,18 +1,16 @@
+// @flow
 import { css } from 'styled-components'
 import { bundleStyles } from './typography'
+import type { PropType } from './theme'
 
 const pageStyles = () => css`
   p {
-    /* why? 
-    line-height: 1.8;
-    font-size: 1.25rem;
-    */
-
+    color: ${({ theme }: PropType) => theme.copy.p};
     a {
-      color: ${({ theme }) => theme.colors.sandstone};
+      color: ${({ theme }: PropType) => theme.copy.p};
       transition: color 300ms;
       &:hover {
-        color: ${({ theme }) => theme.colors.sandstone2};
+        color: ${({ theme }: PropType) => theme.copy.p};
         transition: color 300ms;
       }
     }
@@ -30,17 +28,17 @@ const pageStyles = () => css`
     margin: 2rem auto;
     font-family: Open Sans;
     font-style: italic;
-    color: ${({ theme }) => theme.colors.navy};
+    color: ${({ theme }: PropType) => theme.blockquote.default.color};
+    background: ${({ theme }: PropType) => theme.blockquote.default.background};
     padding: 1.2rem 2rem 1.2rem 5rem;
-    border-left: 0.25rem solid ${({ theme }) => theme.colors.sandstone};
+    border-left: 0.25rem solid ${({ theme }: PropType) => theme.blockquote.default.border};
     line-height: 1.6;
     position: relative;
-    background: #f9f9f9;
   }
 
   blockquote::before {
     content: '"';
-    color: ${({ theme }) => theme.colors.sandstone};
+    color: ${({ theme }: PropType) => theme.blockquote.default.color};
     font-size: 4em;
     position: absolute;
     left: 0.5rem;
@@ -53,7 +51,7 @@ const pageStyles = () => css`
 
   blockquote span {
     display: block;
-    color: ${({ theme }) => theme.colors.navy};
+    color: ${({ theme }: PropType) => theme.blockquote.default.color};
     font-style: normal;
     font-weight: bold;
     margin-top: 1eem;
@@ -103,7 +101,7 @@ const pageStyles = () => css`
   }
 
   pre {
-    background: ${({ theme }) => theme.colors.offWhite};
+    background: ${({ theme }: PropType) => theme.code.default.background};
     line-height: 1.6;
     margin-bottom: 1.6em;
     max-width: 100%;
@@ -118,7 +116,13 @@ const pageStyles = () => css`
 
   /* typography */
   h2 {
+    ${bundleStyles('h2')};
+  }
+  h3 {
     ${bundleStyles('h3')};
+  }
+  h4 {
+    ${bundleStyles('h4')};
   }
 `
 

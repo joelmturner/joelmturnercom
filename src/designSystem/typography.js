@@ -1,5 +1,6 @@
-// import styled, { css } from 'styled-components'
+// @flow
 import { css } from 'styled-components'
+import type { PropType } from './theme'
 
 export const sharedFontStyles = () => css`
   font-family: 'Source Sans Pro', sans-serif;
@@ -17,37 +18,31 @@ export const reset = () => css`
 
 // Bundle Font styles for blog markup
 const getH1Styles = () => css`
-  ${reset()} font-size: 1.5rem;
+  ${reset()};
+  font-size: 1.5rem;
   font-weight: bold;
   line-height: 2rem;
-  color: ${({ theme }) => theme.colors.navy};
-
-  /* make this conditional */
-  ${props =>
-    props.gold &&
-    css`
-      color: ${props.theme.colors.sandstone};
-    `};
+  color: ${({ theme }: PropType) => theme.copy.h1};
 `
 
 const getH2Styles = () => css`
   font-size: 1.25rem;
   font-weight: bold;
   line-height: 1.5rem;
-  color: ${({ theme }) => theme.colors.sandstone};
+  color: ${({ theme }: PropType) => theme.copy.h2};
 `
 
 const getH3Styles = () => css`
   font-size: 1.25rem;
   line-height: 2rem;
-  color: ${({ theme }) => theme.colors.navy};
+  color: ${({ theme }: PropType) => theme.copy.h3};
 `
 
 const getH4Styles = () => css`
   ${reset()} margin-bottom: 1rem;
   font-size: 0.75rem;
   line-height: 1.125rem;
-  color: ${({ theme }) => theme.colors.sandstone};
+  color: ${({ theme }: PropType) => theme.copy.h4};
 `
 
 const getBodyStyles = () => css`
@@ -55,14 +50,7 @@ const getBodyStyles = () => css`
   margin-bottom: 0.5rem;
   font-size: 1rem;
   line-height: 1.5rem;
-  color: ${({ theme }) => theme.colors.black};
-
-  /* when is this true? */
-  ${props =>
-    props.grey &&
-    css`
-      color: ${props.theme.colors.greyishBrown};
-    `};
+  color: ${({ theme }: PropType) => theme.copy.p};
 `
 
 const getLinkStyles = () => css`
@@ -78,11 +66,11 @@ const getJumboLinkStyles = () => css`
   ${getH1Styles()} margin-top: 1.5rem;
   text-transform: uppercase;
   display: inline-block;
-  color: ${props => props.theme.colors.sandstone};
-  border-bottom: 2px solid ${props => props.theme.colors.sandstone};
+  color: ${({ theme }: PropType) => theme.copy.link.default.color};
+  border-bottom: 2px solid ${({ theme }: PropType) => theme.copy.link.default.color};
 `
 
-export const bundleStyles = style => css`
+export const bundleStyles = (style: string) => css`
   ${sharedFontStyles()};
   ${style === 'h1' && getH1Styles()};
   ${style === 'h2' && getH2Styles()};

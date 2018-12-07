@@ -1,14 +1,13 @@
+// @flow
 import styled from 'styled-components'
 import { H2, BodyText } from '../../atoms/Text'
 import { bundleStyles } from '../../../designSystem/typography'
+import type { PropType } from '../../../designSystem/theme'
 
 export const BlogTitle = styled(H2)`
-  /* pageStyles hack */
-  color: #ca9874 !important;
   line-height: 1.5rem !important;
   font-weight: bold !important;
-  /* end pageStyles hack */
-  background: white;
+  background: ${({ theme }: PropType) => theme.background};
   position: absolute;
   bottom: 1rem;
   left: 0;
@@ -17,7 +16,7 @@ export const BlogTitle = styled(H2)`
   max-width: 75%;
   a,
   a:visited {
-    color: #ca9874;
+    color: ${({ theme }: PropType) => theme.copy.h2};
   }
 `
 
@@ -26,10 +25,8 @@ export const BlogExerpt = styled.div`
 `
 
 export const BlogBlurb = styled(BodyText)`
-  /* TODO: clip after 3 lines */
   text-overflow: ellipsis;
   overflow: hidden;
-  /* white-space: nowrap; */
   height: 4.5rem;
 `
 

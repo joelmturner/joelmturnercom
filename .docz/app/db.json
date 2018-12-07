@@ -1,0 +1,62 @@
+{
+  "config": {
+    "title": "My Cool Project",
+    "description": "This is my awesome documentation",
+    "themeConfig": {
+      "colors": {
+        "primary": "tomato"
+      }
+    },
+    "menu": [],
+    "ordering": "descending",
+    "version": "1.0.0",
+    "repository": "https://github.com/gatsbyjs/gatsby-starter-default",
+    "native": false
+  },
+  "entries": {
+    "src/Docs/Article.mdx": {
+      "name": "Post",
+      "id": "77d00884420cdd2140ec2d56a873b674",
+      "filepath": "src/Docs/Article.mdx",
+      "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/Docs/Article.mdx",
+      "slug": "src-docs-article",
+      "route": "/src-docs-article",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "post",
+          "value": "Post"
+        }
+      ]
+    },
+    "src/Docs/Header.mdx": {
+      "name": "Header",
+      "id": "e9548e96642f2b3fbe65dcff33e7ed41",
+      "filepath": "src/Docs/Header.mdx",
+      "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/Docs/Header.mdx",
+      "slug": "src-docs-header",
+      "route": "/src-docs-header",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "header",
+          "value": "Header"
+        },
+        {
+          "depth": 2,
+          "slug": "properties",
+          "value": "Properties"
+        },
+        {
+          "depth": 2,
+          "slug": "basic-usage",
+          "value": "Basic Usage"
+        }
+      ]
+    }
+  }
+}

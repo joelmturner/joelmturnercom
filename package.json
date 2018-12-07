@@ -32,7 +32,9 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write 'src/**/*.js'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build"
   },
   "devDependencies": {
     "@babel/preset-flow": "^7.0.0",
@@ -40,6 +42,7 @@
     "@mdx-js/mdx": "^0.15.5",
     "babel-cli": "^6.26.0",
     "babel-preset-flow": "^6.23.0",
+    "docz": "^0.12.5",
     "flow-bin": "^0.77.0",
     "loader-utils": "^1.1.0",
     "prettier": "^1.14.3"
