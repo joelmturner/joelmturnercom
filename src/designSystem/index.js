@@ -1,25 +1,23 @@
-// import styled, { css } from 'styled-components'
+// @flow
 import { css } from 'styled-components'
 import theme from './theme'
 import GlobalStyle from './GlobalStyle'
-const { navy, sandstone } = theme.colors
 
 // Reusable Style Functions
 export const themeHover = () => css`
-  fill: ${navy};
-  color: ${navy};
+  fill: ${({ theme }) => theme.copy.default.fill};
+  color: ${({ theme }) => theme.copy.default.color};
   transition: fill, color 300ms;
 
   &:hover {
-    fill: ${sandstone};
-    color: ${sandstone};
+    fill: ${({ theme }) => theme.copy.hover.fill};
+    color: ${({ theme }) => theme.copy.hover.color};
     transition: fill, color 300ms;
   }
 `
 
 export const bodyWrapperStyles = () => css`
   padding: 0 1rem;
-  /* padding: 0 2rem; */
 `
 
 export const undoBodyWrap = () => css`
@@ -34,7 +32,7 @@ export const fullBleed = () => css`
   left: 0;
 `
 
-export const size = (width = '100%', height = width) => css`
+export const size = (width: string = '100%', height: string = width) => css`
   width: ${width};
   height: ${height};
 `

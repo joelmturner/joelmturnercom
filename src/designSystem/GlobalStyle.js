@@ -1,5 +1,6 @@
 // @flow
 import { createGlobalStyle } from 'styled-components'
+import type { PropType } from './theme'
 
 const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600');
@@ -8,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         font-family: 'Source Sans Pro', sans-serif;
+        background: ${({ theme }: PropType) => theme.background};
     }
 
     /* prevent bounce on scroll */

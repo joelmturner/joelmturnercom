@@ -1,8 +1,8 @@
 // @flow
 import React, { Component, type Node, Fragment } from 'react'
 import { StaticQuery, graphql } from 'gatsby'
-import { ThemeProvider } from 'styled-components'
-import theme from '../designSystem'
+import { ThemeProvider, createGlobalStyle } from 'styled-components'
+import themes from '../designSystem'
 import GlobalStyle from '../designSystem/GlobalStyle'
 import Header from './header'
 import LayoutWrap from './atoms/LayoutWrap'
@@ -33,8 +33,21 @@ type LayoutProps = {
 }
 
 class Layout extends Component<LayoutProps, any> {
+  state = {
+    activeTheme: 'light',
+  }
+  componentDidMount() {
+    if (!localStorage.getItem('activeTheme')) {
+      localStorage.setItem('activeTheme', 'light')
+    }
+    this.setState({
+      activeTheme: localStorage.getItem('activeTheme') || 'light',
+    })
+  }
+
   render() {
     const { title, slug, children } = this.props
+    const { activeTheme } = this.state
 
     return (
       <StaticQuery
@@ -52,7 +65,7 @@ class Layout extends Component<LayoutProps, any> {
           }
         `}
         render={(data: Data) => (
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={themes[activeTheme]}>
             <Fragment>
               <LayoutWrap>
                 <Row>
@@ -62,6 +75,7 @@ class Layout extends Component<LayoutProps, any> {
                       slug={slug || ''}
                       social={(data && data.site.siteMetadata.social) || []}
                       mini
+                      onToggleTheme={this.onToggleTheme}
                     />
                   </Column>
                 </Row>
@@ -84,6 +98,13 @@ class Layout extends Component<LayoutProps, any> {
         )}
       />
     )
+  }
+
+  onToggleTheme = () => {
+    localStorage.setItem('activeTheme', this.state.activeTheme === 'light' ? 'dark' : 'light')
+    this.setState({
+      activeTheme: this.state.activeTheme === 'light' ? 'dark' : 'light',
+    })
   }
 }
 

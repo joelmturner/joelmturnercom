@@ -5,7 +5,7 @@ import Layout from '../components/layout'
 import Post from '../components/molecules/Post'
 import Section from '../components/atoms/Section'
 import { H1, H4, BodyText, LinkText } from '../components/atoms/Text'
-import theme from '../designSystem'
+import themes from '../designSystem'
 import { ThemeProvider } from 'styled-components'
 import Row from '../components/Grid/Row'
 import type { GraphQLSchema } from 'graphql'
@@ -73,7 +73,7 @@ class IndexPage extends Component<IndexProps, IndexState> {
     const { showAllPosts, togglePosts } = this.state
 
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={themes.dark}>
         <Layout title="Joel M Turner" name="layout">
           {/* <ContactForm /> */}
           <Section title="About">
