@@ -23,7 +23,7 @@ const pageStyles = () => css`
 
   /* page/post styles */
   blockquote {
-    font-size: 1.4em;
+    font-size: 1.3em;
     width: 80%;
     margin: 2rem auto;
     font-family: Open Sans;
@@ -115,6 +115,9 @@ const pageStyles = () => css`
   }
 
   /* typography */
+  h1 {
+    ${bundleStyles('h1')};
+  }
   h2 {
     ${bundleStyles('h2')};
   }

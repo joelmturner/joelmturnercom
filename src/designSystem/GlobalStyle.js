@@ -10,6 +10,8 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         font-family: 'Source Sans Pro', sans-serif;
         background: ${({ theme }: PropType) => theme.background};
+        font-size: 1.3rem;
+        line-height: 1.7rem;
     }
 
     /* prevent bounce on scroll */

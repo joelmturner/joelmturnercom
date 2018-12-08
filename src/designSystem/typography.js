@@ -19,45 +19,45 @@ export const reset = () => css`
 // Bundle Font styles for blog markup
 const getH1Styles = () => css`
   ${reset()};
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: bold;
-  line-height: 2rem;
+  line-height: 2.25rem;
   color: ${({ theme }: PropType) => theme.copy.h1};
 `
 
 const getH2Styles = () => css`
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  line-height: 1.5rem;
+  line-height: 2rem;
   color: ${({ theme }: PropType) => theme.copy.h2};
 `
 
 const getH3Styles = () => css`
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   line-height: 2rem;
   color: ${({ theme }: PropType) => theme.copy.h3};
 `
 
 const getH4Styles = () => css`
   ${reset()} margin-bottom: 1rem;
-  font-size: 0.75rem;
-  line-height: 1.125rem;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
   color: ${({ theme }: PropType) => theme.copy.h4};
 `
 
 const getBodyStyles = () => css`
   margin-top: 1rem;
   margin-bottom: 0.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 1.3rem;
+  line-height: 1.7rem;
   color: ${({ theme }: PropType) => theme.copy.p};
 `
 
 const getLinkStyles = () => css`
   font-weight: bold;
   text-transform: uppercase;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: 1.3rem;
+  line-height: 1.7rem;
   display: inline-block;
   border-bottom: 1px solid;
 `
