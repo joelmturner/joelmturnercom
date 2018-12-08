@@ -45,6 +45,11 @@ const StyledSvg = styled.svg`
   height: 24px;
   margin-right: 1em;
   cursor: pointer;
+  &:hover {
+    path {
+      fill: ${({ theme }: HeaderWrapProps) => theme.copy.hover.fill};
+    }
+  }
   path {
     fill: ${({ theme }: HeaderWrapProps) => theme.copy.default.fill};
   }
