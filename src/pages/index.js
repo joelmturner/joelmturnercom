@@ -69,9 +69,11 @@ class IndexPage extends Component<IndexProps, IndexState> {
 
     const storage = localStorage.getItem('showAllPosts')
     const showAllPosts: boolean = storage === 'true' ? true : false
-    this.setState({
-      showAllPosts,
-    })
+    if (this.state.showAllPosts !== showAllPosts) {
+      this.setState({
+        showAllPosts,
+      })
+    }
   }
 
   get posts(): Edge[] {

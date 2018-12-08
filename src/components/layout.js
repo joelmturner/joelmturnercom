@@ -48,9 +48,11 @@ class Layout extends Component<LayoutProps, LayoutState> {
     }
     const activeTheme: ActiveTheme =
       localStorage.getItem('activeTheme') === 'dark' ? 'dark' : 'light'
-    this.setState({
-      activeTheme,
-    })
+    if (this.state.activeTheme !== activeTheme) {
+      this.setState({
+        activeTheme,
+      })
+    }
   }
 
   render() {
