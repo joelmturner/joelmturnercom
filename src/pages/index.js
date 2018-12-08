@@ -93,7 +93,7 @@ class IndexPage extends Component<IndexProps, IndexState> {
 
             <Row
               gap="2rem 4rem"
-              style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(448px, 1fr))' }}>
+              style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))' }}>
               {this.posts &&
                 this.posts.map(
                   (post: Edge): Node => {

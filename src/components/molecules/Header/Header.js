@@ -12,7 +12,8 @@ const Header = styled.header`
 `
 
 export const SocialIcons = styled(Flexbox)`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   > ${SocialLinkWrap} {
     margin-right: 1rem;
     &:last-child {
