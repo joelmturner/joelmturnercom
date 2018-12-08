@@ -55,21 +55,33 @@ class IndexPage extends Component<IndexProps, IndexState> {
   state = {
     showAllPosts: false,
     togglePosts: () => {
+      localStorage.setItem('showAllPosts', JSON.stringify(!this.state.showAllPosts))
       this.setState({
         showAllPosts: !this.state.showAllPosts,
       })
     },
   }
 
+  componentDidMount() {
+    if (!localStorage.getItem('showAllPosts')) {
+      localStorage.setItem('showAllPosts', 'false')
+    }
+
+    const storage = localStorage.getItem('showAllPosts')
+    const showAllPosts: boolean = storage === 'true' ? true : false
+    this.setState({
+      showAllPosts,
+    })
+  }
+
   get posts(): Edge[] {
     const posts = this.props.data && this.props.data.allWordpressPost.edges
-    return this.state.showAllPosts ? posts : posts.slice(0, 4)
+    return this.state.showAllPosts ? posts : posts.slice(0, 6)
   }
 
   render() {
     const data = this.props.data
     const { name, title } = data.site.siteMetadata.about
-    // const posts = data.allWordpressPost.edges
     const { showAllPosts, togglePosts } = this.state
 
     return (
@@ -126,10 +138,11 @@ export default IndexPage
 
 export const pageQuery: GraphQLSchema = graphql`
   query PageQuery {
-    allWordpressPost {
+    allWordpressPost(limit: 1000, sort: { order: DESC, fields: date }) {
       edges {
         node {
           id
+          date
           slug
           status
           template
