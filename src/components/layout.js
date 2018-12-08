@@ -25,6 +25,12 @@ type Data = {
   },
 }
 
+type ActiveTheme = 'light' | 'dark'
+
+type LayoutState = {
+  activeTheme: ActiveTheme,
+}
+
 type LayoutProps = {
   children: Node,
   data?: Data,
@@ -32,7 +38,7 @@ type LayoutProps = {
   slug?: string,
 }
 
-class Layout extends Component<LayoutProps, any> {
+class Layout extends Component<LayoutProps, LayoutState> {
   state = {
     activeTheme: 'light',
   }
@@ -40,8 +46,10 @@ class Layout extends Component<LayoutProps, any> {
     if (!localStorage.getItem('activeTheme')) {
       localStorage.setItem('activeTheme', 'light')
     }
+    const activeTheme: ActiveTheme =
+      localStorage.getItem('activeTheme') === 'dark' ? 'dark' : 'light'
     this.setState({
-      activeTheme: localStorage.getItem('activeTheme') || 'light',
+      activeTheme,
     })
   }
 
