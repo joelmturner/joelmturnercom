@@ -1,3 +1,4 @@
+// @flow
 // import { Twitter, Github, Instagram } from 'styled-icons/fa-brands/';
 
 module.exports = {
@@ -81,8 +82,6 @@ module.exports = {
         extensions: ['.mdx', '.md'],
       },
     },
-    `gatsby-plugin-feed`,
-    `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-netlify`,
     {
@@ -105,5 +104,66 @@ module.exports = {
         cookieDomain: 'joelmturner.com',
       },
     },
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query: `
+        {
+          site {
+            siteMetadata {
+              title
+              description
+              siteUrl
+              site_url: siteUrl
+            }
+          }
+        }
+      `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allWordpressPost } }) => {
+              return allWordpressPost.edges.map(edge => {
+                return Object.assign({}, edge.node.frontmatter, {
+                  description: edge.node.excerpt,
+                  date: edge.node.frontmatter.date,
+                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                  custom_elements: [{ 'content:encoded': edge.node.html }],
+                })
+              })
+            },
+            query: `
+                    {
+                    allWordpressPost(
+                        limit: 1000,
+                        sort: { order: DESC, fields: date }
+                      ) {
+                        edges {
+                            node {
+                              id
+                              date
+                              slug
+                              status
+                              template
+                              format
+                              title
+                              content
+                              excerpt
+                              featured_media {
+                                id
+                                source_url
+                              }
+                            }
+                        }
+                      }
+                    }
+                  `,
+            output: '/rss.xml',
+            title: 'Joel M Turner Feed',
+          },
+        ],
+      },
+    },
+    `gatsby-plugin-offline`,
   ],
 }

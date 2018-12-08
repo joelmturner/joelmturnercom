@@ -73,6 +73,7 @@ exports.createPages = ({ graphql, actions }) => {
                 edges {
                   node {
                     id
+                    date
                     slug
                     status
                     template
