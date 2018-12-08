@@ -4,7 +4,7 @@ module.exports = {
   siteMetadata: {
     title: 'Gatsby Default Starter',
     description: 'Dev, Design, and Kombucha',
-    siteUrl: 'https://joelmturner.com'
+    siteUrl: 'https://joelmturner.com',
     about: {
       name: 'Joel M. Turner',
       title: 'Frontend Developer',
