@@ -1,7 +1,7 @@
 row example:
 
 ```jsx
-const Grid = require('./Grid').default;
+const Grid = require('./designSystem').default;
 const Row = require('./Row').default;
 const Column = require('./Column').default;
 rowStyles = { marginBottom: '20px' };

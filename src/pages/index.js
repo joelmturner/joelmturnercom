@@ -2,12 +2,11 @@
 import React, { Component, type Node } from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
-import Post from '../components/molecules/Post'
-import Section from '../components/atoms/Section'
-import { H1, H4, BodyText, LinkText } from '../components/atoms/Text'
+import Post from '../components/Post'
+import { H1, H4, BodyText, LinkText } from '../components/Text'
 import themes from '../designSystem'
-import { ThemeProvider } from 'styled-components'
-import Row from '../components/Grid/Row'
+import styled, { ThemeProvider } from 'styled-components'
+import Row from '../designSystem/Row'
 import type { GraphQLSchema } from 'graphql'
 // import ContactForm from '../components/organisms/contact'
 
@@ -50,6 +49,10 @@ type IndexState = {
   showAllPosts: boolean,
   togglePosts: () => void,
 }
+
+const Section = styled.div`
+  margin-bottom: 2.5rem;
+`
 
 class IndexPage extends Component<IndexProps, IndexState> {
   state = {

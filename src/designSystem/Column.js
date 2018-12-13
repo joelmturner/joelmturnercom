@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react'
 import styled, { css } from 'styled-components'
-import { media } from '../../designSystem/styled-utils'
+import { media } from './styled-utils'
 
 // TODO: set up breakpoints for this one
 type ColumnProps = {

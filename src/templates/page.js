@@ -1,8 +1,9 @@
+// @flow
 import React, { Component } from 'react'
 import Layout from '../components/layout'
 import { graphql } from 'gatsby'
 
-class PageTemplate extends Component {
+class PageTemplate extends Component<any> {
   render() {
     const currentPage = this.props.data.wordpressPage
 

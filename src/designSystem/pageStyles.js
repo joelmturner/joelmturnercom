@@ -4,17 +4,19 @@ import { bundleStyles } from './typography'
 import type { PropType } from './theme'
 
 const pageStyles = () => css`
+    color: ${({ theme }: PropType) => theme.copy.p};
   p {
     color: ${({ theme }: PropType) => theme.copy.p};
-    a {
-      color: ${({ theme }: PropType) => theme.copy.p};
+  }
+
+  a {
+      color: ${({ theme }: PropType) => theme.copy.link.default.color};
       transition: color 300ms;
       &:hover {
-        color: ${({ theme }: PropType) => theme.copy.p};
+        color: ${({ theme }: PropType) => theme.copy.link.hover.color};
         transition: color 300ms;
       }
     }
-  }
 
   & img {
     max-width: 100%;

@@ -2,6 +2,9 @@
 import { css } from 'styled-components'
 import theme from './theme'
 import GlobalStyle from './GlobalStyle'
+import Row from './Row'
+import Column from './Column'
+import Flexbox, { FlexRowWrap, InlineFlexLockup } from '../designSystem/Flexbox'
 
 // Reusable Style Functions
 export const themeHover = () => css`
@@ -44,4 +47,4 @@ export const getNewImage = () => {
 }
 
 export default theme
-export { GlobalStyle }
+export { GlobalStyle, Flexbox, FlexRowWrap, InlineFlexLockup, Row, Column }

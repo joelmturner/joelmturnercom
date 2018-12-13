@@ -1,8 +1,5 @@
 // @flow
-import colors, { type Colors } from './colors'
-export type PropType = {
-  theme: Theme,
-}
+import colors from './colors'
 
 export type Theme = {
   background: string,
@@ -60,6 +57,10 @@ export type Theme = {
       border: string,
     },
   },
+}
+
+export type PropType = {
+  theme: Theme,
 }
 
 export type Themes = {
@@ -152,10 +153,10 @@ export const themes: Themes = {
       p: colors.ash,
       link: {
         default: {
-          color: colors.sandstone,
+            color: colors.orange,
         },
         hover: {
-          color: colors.sandstone,
+            color: colors.sandstone,
         },
       },
     },

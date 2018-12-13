@@ -1,16 +1,15 @@
 // @flow
 import React, { Component, type Node, Fragment } from 'react'
 import { StaticQuery, graphql } from 'gatsby'
-import { ThemeProvider, createGlobalStyle } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import themes from '../designSystem'
 import GlobalStyle from '../designSystem/GlobalStyle'
-import Header from './header'
-import LayoutWrap from './atoms/LayoutWrap'
-import ContentWrap from './atoms/ContentWrap/ContentWrap'
-import Row from './Grid/Row'
-import Column from './Grid/Column'
-import { BodyText } from './atoms/Text/Text'
-import Flexbox from '../components/Flexbox'
+import Row from '../designSystem/Row'
+import Header from './Header'
+import Column from '../designSystem/Column'
+import { BodyText } from './Text'
+import Flexbox from '../designSystem'
+import pageStyles from '../designSystem/pageStyles';
 
 export type Social = {
   network: string,
@@ -37,6 +36,22 @@ type LayoutProps = {
   title: string,
   slug?: string,
 }
+
+const LayoutWrap = styled.div`
+  display: grid;
+  grid-gap: 1em;
+  grid-template-areas:
+    'header'
+    'content';
+  grid-template-rows: fit-content(10rem) auto fit-content(3rem);
+  height: 100vh;
+`
+
+const ContentWrap = styled.div`
+  padding: 0 1rem;
+  grid-area: content;
+  ${pageStyles()};
+`
 
 class Layout extends Component<LayoutProps, LayoutState> {
   state = {

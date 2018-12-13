@@ -1,9 +1,9 @@
 // @flow
 import React from 'react'
 import styled from 'styled-components'
-import { bundleStyles } from '../../../designSystem/typography'
+import { bundleStyles } from '../../designSystem/typography'
 import { Link } from 'gatsby'
-import type { PropType } from '../../../designSystem/theme'
+import type { PropType } from '../../designSystem/theme'
 
 type LinkTextProps = {
   isjumbo: boolean,

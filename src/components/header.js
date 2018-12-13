@@ -1,18 +1,16 @@
 // @flow
-import React, { Fragment, type ComponentType } from 'react'
+import React, { Fragment } from 'react'
 import { Link } from 'gatsby'
 import styled, { type ReactComponentStyled } from 'styled-components'
-import Avatar from './atoms/Avatar'
 import Helmet from 'react-helmet'
 import { Textfit } from 'react-textfit'
-import SocialLink from './molecules/SocialLink'
-import { SocialIcons } from './molecules/Header'
+import SocialLink, { SocialLinkWrap } from './SocialLink'
 import { Twitter, Github, Instagram } from 'styled-icons/fa-brands/'
-import Column from './Grid/Column'
-import Row from './Grid/Row'
+import Column from '../designSystem/Column'
+import Row from '../designSystem/Row'
 import { type Social } from './layout'
-import type { Theme, PropType } from '../designSystem/theme'
-import Flexbox from '../components/Flexbox'
+import type { Theme } from '../designSystem/theme'
+import Flexbox from '../designSystem'
 
 type HeaderProps = {
   title: string,
@@ -27,6 +25,17 @@ type HeaderWrapProps = {
   theme: Theme,
   home: string,
 }
+
+const SocialIcons = styled(Flexbox)`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  > ${SocialLinkWrap} {
+    margin-right: 1rem;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+`
 
 const HeaderWrap: ReactComponentStyled<HeaderWrapProps> = styled.header`
   background: ${({ theme }: HeaderWrapProps) => theme.header.default.background};
@@ -54,6 +63,28 @@ const StyledSvg = styled.svg`
     fill: ${({ theme }: HeaderWrapProps) => theme.copy.default.fill};
   }
 `
+
+const sizer = size => {
+    let sized
+    switch (size) {
+      default:
+      case 's':
+        sized = '2rem'
+        break
+      case 'l':
+        sized = '8rem'
+        break
+    }
+    return sized
+  }
+  
+  const Avatar = styled.div`
+      background-image: url('${({ url }) => url}');
+      background-size: cover;
+      border-radius: 50%;
+      width: ${({ size }) => sizer(size)};
+      height: ${({ size }) => sizer(size)};
+  `
 
 const ThemeToggle = ({ onClick }) => (
   <StyledSvg

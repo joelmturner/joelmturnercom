@@ -3,11 +3,11 @@ Column example:
 ```jsx
 const styles = {background: '#97d8ba', padding: '1em'};
 const renderDivs = require('./../Utils.story.js').renderDivs;
-const Grid = require('./Grid').default;
+const Grid = require('./designSystem').default;
 const Row = require('./Row').default;
 const Column = require('./Column').default;
 
-<Grid>
+<div>
     <Row maxColumns={6} style={{gridGap: '.25em', marginBottom: '1em'}}>
         <Column span={1} style={styles}>1</Column>
         <Column span={1} style={styles}>2</Column>
@@ -36,5 +36,5 @@ const Column = require('./Column').default;
     <Row maxColumns={6} style={{gridGap: '.25em', marginBottom: '1em'}}>
         <Column span={6} style={styles}>1</Column>
     </Row>
-</Grid>
+</div>
 ```

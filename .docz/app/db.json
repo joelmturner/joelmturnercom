@@ -2,16 +2,17 @@
   "config": {
     "title": "My Cool Project",
     "description": "This is my awesome documentation",
+    "menu": [],
+    "ordering": "descending",
+    "version": "2.0.0",
+    "repository": "https://github.com/gatsbyjs/gatsby-starter-default",
+    "native": false,
+    "codeSandbox": true,
     "themeConfig": {
       "colors": {
         "primary": "tomato"
       }
-    },
-    "menu": [],
-    "ordering": "descending",
-    "version": "1.0.0",
-    "repository": "https://github.com/gatsbyjs/gatsby-starter-default",
-    "native": false
+    }
   },
   "entries": {
     "src/Docs/Article.mdx": {

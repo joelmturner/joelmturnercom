@@ -1,12 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
-import Icon from '../../atoms/Icon/Icon'
-import { themeHover } from '../../../designSystem'
+import { themeHover } from '../designSystem'
 
 export const SocialLinkWrap = styled.a`
   /* why?! */
   line-height: 0;
   ${themeHover()};
+`
+
+const Icon = styled.div`
+  width: 2rem;
+  height: 2rem;
+  border-radius: 5px;
+  border: 1px solid green;
 `
 
 const SocialLink = ({ href, icon, children }) => (

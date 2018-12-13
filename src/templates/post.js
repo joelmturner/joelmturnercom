@@ -1,10 +1,11 @@
+// @flow
 import React, { Component } from 'react'
 import Layout from '../components/layout'
 import CodePen from '../helpers/CodePen'
 import Prism from 'prismjs'
 import '../helpers/prism.css'
 
-class PostTemplate extends Component {
+class PostTemplate extends Component<any> {
   componentDidMount() {
     Prism.highlightAll()
   }

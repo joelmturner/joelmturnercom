@@ -1,5 +1,6 @@
+// @flow
 import styled from 'styled-components'
-import { fullBleed, size } from '../../../designSystem'
+import { fullBleed, size } from '../../designSystem'
 
 export const ImageSpacer = styled.div`
   position: relative;
