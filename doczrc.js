@@ -1,6 +1,6 @@
 export default {
-  title: 'My Cool Project',
-  description: 'This is my awesome documentation',
+  title: 'Joel Mturner',
+  description: 'Docz for Docs',
   themeConfig: {
     colors: {
       primary: 'tomato',
