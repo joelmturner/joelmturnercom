@@ -36,7 +36,6 @@ const SocialIcons = styled(Flexbox)`
 `
 
 const HeaderWrap: ReactComponentStyled<HeaderWrapProps> = styled.header`
-  /* background: ${({ theme }: HeaderWrapProps) => theme.header.default.background}; */
   box-shadow: 0 5px 5px -5px ${({ theme }: HeaderWrapProps) => theme.header.default.boxShadow};
   padding: 1rem;
   margin-bottom: 0.5rem;
