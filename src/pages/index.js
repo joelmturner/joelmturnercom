@@ -1,13 +1,12 @@
 // @flow
 import React, { Component, type Node } from 'react'
+import styled, { ThemeProvider } from 'styled-components'
+import type { GraphQLSchema } from 'graphql'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import Post from '../components/Post'
 import { H1, H4, BodyText, LinkText } from '../components/Text'
-import themes from '../designSystem'
-import styled, { ThemeProvider } from 'styled-components'
-import Row from '../designSystem/Row'
-import type { GraphQLSchema } from 'graphql'
+import {themes, Row} from '../designSystem'
 // import ContactForm from '../components/organisms/contact'
 
 type Edge = {

@@ -6,11 +6,9 @@ import Helmet from 'react-helmet'
 import { Textfit } from 'react-textfit'
 import SocialLink, { SocialLinkWrap } from './SocialLink'
 import { Twitter, Github, Instagram } from 'styled-icons/fa-brands/'
-import Column from '../designSystem/Column'
-import Row from '../designSystem/Row'
+import {Column, Row, Flexbox} from '../designSystem'
 import { type Social } from './layout'
 import type { Theme } from '../designSystem/theme'
-import Flexbox from '../designSystem'
 
 type HeaderProps = {
   title: string,
@@ -38,8 +36,8 @@ const SocialIcons = styled(Flexbox)`
 `
 
 const HeaderWrap: ReactComponentStyled<HeaderWrapProps> = styled.header`
-  background: ${({ theme }: HeaderWrapProps) => theme.header.default.background};
-  box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.21);
+  /* background: ${({ theme }: HeaderWrapProps) => theme.header.default.background}; */
+  box-shadow: 0 5px 5px -5px ${({ theme }: HeaderWrapProps) => theme.header.default.boxShadow};
   padding: 1rem;
   margin-bottom: 0.5rem;
   grid-area: header;

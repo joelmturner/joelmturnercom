@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Layout from '../components/layout'
 import CodePen from '../helpers/CodePen'
 import Prism from 'prismjs'
+import { graphql } from 'gatsby'
 import '../helpers/prism.css'
 
 class PostTemplate extends Component<any> {

@@ -6,6 +6,7 @@ export type Theme = {
   header: {
     default: {
       background: string,
+      boxShadow: string;
       color: string,
     },
     hover: {
@@ -74,6 +75,7 @@ export const themes: Themes = {
     header: {
       default: {
         background: colors.white,
+        boxShadow: 'rgba(0, 0, 0, 0.21)',
         color: colors.navy,
       },
       hover: {
@@ -131,6 +133,7 @@ export const themes: Themes = {
     header: {
       default: {
         background: colors.black,
+        boxShadow: 'rgba(255, 255, 255, 0.21)',
         color: colors.navy,
       },
       hover: {

@@ -9,6 +9,7 @@
     "babel-plugin-prismjs": "^1.0.2",
     "babel-plugin-styled-components": "^1.9.2",
     "gatsby": "^2.0.64",
+    "gatsby-cli": "^2.4.6",
     "gatsby-mdx": "^0.2.0",
     "gatsby-plugin-feed": "^2.0.11",
     "gatsby-plugin-google-analytics": "^2.0.8",

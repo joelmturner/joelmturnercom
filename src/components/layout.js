@@ -2,14 +2,9 @@
 import React, { Component, type Node, Fragment } from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import styled, { ThemeProvider } from 'styled-components'
-import themes from '../designSystem'
-import GlobalStyle from '../designSystem/GlobalStyle'
-import Row from '../designSystem/Row'
+import {themes, GlobalStyle, Row, Column, Flexbox, pageStyles} from '../designSystem'
 import Header from './Header'
-import Column from '../designSystem/Column'
 import { BodyText } from './Text'
-import Flexbox from '../designSystem'
-import pageStyles from '../designSystem/pageStyles';
 
 export type Social = {
   network: string,

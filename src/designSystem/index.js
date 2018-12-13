@@ -1,9 +1,10 @@
 // @flow
 import { css } from 'styled-components'
-import theme from './theme'
+import theme, {themes} from './theme'
 import GlobalStyle from './GlobalStyle'
 import Row from './Row'
 import Column from './Column'
+import pageStyles from './pageStyles'
 import Flexbox, { FlexRowWrap, InlineFlexLockup } from '../designSystem/Flexbox'
 
 // Reusable Style Functions
@@ -47,4 +48,4 @@ export const getNewImage = () => {
 }
 
 export default theme
-export { GlobalStyle, Flexbox, FlexRowWrap, InlineFlexLockup, Row, Column }
+export { themes, GlobalStyle, Flexbox, FlexRowWrap, InlineFlexLockup, Row, Column, pageStyles }
