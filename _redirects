@@ -1,2 +1,3 @@
 # Redirect default Netlify subdomain to primary domain
 https://joelmturner.netlify.com/* https://joelmturner.com/:splat 301!
+/:year/:month/:date/:slug /:slug 301
