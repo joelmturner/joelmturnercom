@@ -1,0 +1,5 @@
+/:year/:month/:date/:slug /blog/:slug 301
+/2013/02/10/awesome-firefly-portrait-art blog/awesome-firefly-portrait-art 301
+/2017/01/16/best-hand-lettering-sketches-2016 blog/best-hand-lettering-sketches-2016 301
+/2011/10/14/reboot-your-life-part-2-mentality blog/reboot-your-life-part-2-mentality 301
+/:year/* /blog/:splat 301
