@@ -25,16 +25,16 @@ const PostWrap = styled.li`
 const Post = ({ imageSrc, title, slug, blurb }: PostProps) => (
   <PostWrap>
     <ImageSpacer>
-      <Link to={`/${slug}`}>
+      <Link to={`/blog/${slug}`}>
         <Image src={imageSrc} />
       </Link>
       <BlogTitle>
-        <Link to={`/${slug}`}>{title}</Link>
+        <Link to={`/blog//${slug}`}>{title}</Link>
       </BlogTitle>
     </ImageSpacer>
     <BlogContentWrap>
       <BlogExerpt dangerouslySetInnerHTML={{ __html: blurb }} />
-      <LinkText to={`/${slug}`}>Read More</LinkText>
+      <LinkText to={`/blog//${slug}`}>Read More</LinkText>
     </BlogContentWrap>
   </PostWrap>
 )
