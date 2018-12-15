@@ -26,7 +26,7 @@ type LayoutState = {
 }
 
 type LayoutProps = {
-  children: Node,
+  children: React.Node,
   data?: Data,
   title: string,
   slug?: string,

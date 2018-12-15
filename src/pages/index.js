@@ -59,6 +59,7 @@ const Avatar = styled.div`
       border-radius: 50%;
       width: 4rem;
       height: 4rem;
+      margin-right: 1rem;
   `
 
 class IndexPage extends React.Component<IndexProps, IndexState> {
@@ -99,13 +100,9 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
     return (
       <ThemeProvider theme={themes.dark}>
         <Layout title="Joel M Turner" name="layout">
-          {/* <ContactForm /> */}
           <Section title="About">
             <Flexbox>
-              <Avatar
-                size="l"
-                url="https://res.cloudinary.com/joelmturner/image/upload/v1532201643/joel-turner-headshot-web_xyix1w.jpg"
-              />
+              <Avatar url="https://res.cloudinary.com/joelmturner/image/upload/v1532201643/joel-turner-headshot-web_xyix1w.jpg" />
               <div>
                 <H1>{name}</H1>
                 <H4>{title}</H4>
