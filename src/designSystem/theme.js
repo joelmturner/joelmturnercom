@@ -6,7 +6,7 @@ export type Theme = {
   header: {
     default: {
       background: string,
-      boxShadow: string;
+      boxShadow: string,
       color: string,
     },
     hover: {
@@ -156,10 +156,10 @@ export const themes: Themes = {
       p: colors.ash,
       link: {
         default: {
-            color: colors.orange,
+          color: colors.orange,
         },
         hover: {
-            color: colors.sandstone,
+          color: colors.sandstone,
         },
       },
     },

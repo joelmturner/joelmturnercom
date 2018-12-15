@@ -1,6 +1,3 @@
-// @flow
-// import { Twitter, Github, Instagram } from 'styled-icons/fa-brands/';
-
 module.exports = {
   siteMetadata: {
     title: 'Joel M Turner',
