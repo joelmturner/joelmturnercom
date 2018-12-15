@@ -5,6 +5,7 @@ import CodePen from '../helpers/CodePen'
 import Prism from 'prismjs'
 import { graphql } from 'gatsby'
 import '../helpers/prism.css'
+import { H1 } from '../components/Text'
 
 class PostTemplate extends Component<any> {
   componentDidMount() {
@@ -16,6 +17,7 @@ class PostTemplate extends Component<any> {
     return (
       <Layout title={post.title} slug={post.slug}>
         <CodePen />
+        <H1>{post.title}</H1>
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
       </Layout>
     )

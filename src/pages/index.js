@@ -6,7 +6,7 @@ import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import Post from '../components/Post'
 import { H1, H4, BodyText, LinkText } from '../components/Text'
-import {themes, Row} from '../designSystem'
+import { themes, Row, Flexbox } from '../designSystem'
 // import ContactForm from '../components/organisms/contact'
 
 type Edge = {
@@ -53,6 +53,14 @@ const Section = styled.div`
   margin-bottom: 2.5rem;
 `
 
+const Avatar = styled.div`
+      background-image: url('${({ url }) => url}');
+      background-size: cover;
+      border-radius: 50%;
+      width: 4rem;
+      height: 4rem;
+  `
+
 class IndexPage extends Component<IndexProps, IndexState> {
   state = {
     showAllPosts: false,
@@ -93,8 +101,16 @@ class IndexPage extends Component<IndexProps, IndexState> {
         <Layout title="Joel M Turner" name="layout">
           {/* <ContactForm /> */}
           <Section title="About">
-            <H1>{name}</H1>
-            <H4>{title}</H4>
+            <Flexbox>
+              <Avatar
+                size="l"
+                url="https://res.cloudinary.com/joelmturner/image/upload/v1532201643/joel-turner-headshot-web_xyix1w.jpg"
+              />
+              <div>
+                <H1>{name}</H1>
+                <H4>{title}</H4>
+              </div>
+            </Flexbox>
             <BodyText>
               My background is in graphic design and web development. I'm currently working as a
               Front-End Developer at Sprinklr. I spend some of my free time exploring hand lettering
@@ -109,7 +125,7 @@ class IndexPage extends Component<IndexProps, IndexState> {
 
             <Row
               gap="2rem 4rem"
-              style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))' }}>
+              style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))' }}>
               {this.posts &&
                 this.posts.map(
                   (post: Edge): Node => {

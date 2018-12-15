@@ -1,7 +1,7 @@
 // @flow
 import styled from 'styled-components'
 import { H2, BodyText } from '../Text'
-import { bundleStyles } from '../../designSystem/typography'
+import { getBodyStyles } from '../../designSystem/typography'
 import type { PropType } from '../../designSystem/theme'
 
 export const BlogTitle = styled(H2)`
@@ -21,7 +21,7 @@ export const BlogTitle = styled(H2)`
 `
 
 export const BlogExerpt = styled.div`
-  ${bundleStyles('body')};
+  ${getBodyStyles};
 `
 
 export const BlogBlurb = styled(BodyText)`

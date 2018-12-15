@@ -1,22 +1,22 @@
 // @flow
 import { css } from 'styled-components'
-import { bundleStyles } from './typography'
+import { getH1Styles, getH2Styles, getH3Styles, getH4Styles } from './typography'
 import type { PropType } from './theme'
 
 const pageStyles = () => css`
-    color: ${({ theme }: PropType) => theme.copy.p};
+  color: ${({ theme }: PropType) => theme.copy.p};
   p {
     color: ${({ theme }: PropType) => theme.copy.p};
   }
 
   a {
-      color: ${({ theme }: PropType) => theme.copy.link.default.color};
+    color: ${({ theme }: PropType) => theme.copy.link.default.color};
+    transition: color 300ms;
+    &:hover {
+      color: ${({ theme }: PropType) => theme.copy.link.hover.color};
       transition: color 300ms;
-      &:hover {
-        color: ${({ theme }: PropType) => theme.copy.link.hover.color};
-        transition: color 300ms;
-      }
     }
+  }
 
   & img {
     max-width: 100%;
@@ -118,16 +118,16 @@ const pageStyles = () => css`
 
   /* typography */
   h1 {
-    ${bundleStyles('h1')};
+    ${getH1Styles};
   }
   h2 {
-    ${bundleStyles('h2')};
+    ${getH2Styles};
   }
   h3 {
-    ${bundleStyles('h3')};
+    ${getH3Styles};
   }
   h4 {
-    ${bundleStyles('h4')};
+    ${getH4Styles};
   }
 `
 

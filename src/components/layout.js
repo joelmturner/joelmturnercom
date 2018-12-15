@@ -2,7 +2,7 @@
 import React, { Component, type Node, Fragment } from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import styled, { ThemeProvider } from 'styled-components'
-import {themes, GlobalStyle, Row, Column, Flexbox, pageStyles} from '../designSystem'
+import { themes, GlobalStyle, Row, Column, Flexbox, pageStyles } from '../designSystem'
 import Header from './Header'
 import { BodyText } from './Text'
 
@@ -34,11 +34,11 @@ type LayoutProps = {
 
 const LayoutWrap = styled.div`
   display: grid;
-  grid-gap: 1em;
+  grid-gap: 0.25em;
   grid-template-areas:
     'header'
     'content';
-  grid-template-rows: fit-content(10rem) auto fit-content(3rem);
+  grid-template-rows: fit-content(10rem) auto minmax(1rem, 3rem);
   height: 100vh;
 `
 
@@ -106,11 +106,9 @@ class Layout extends Component<LayoutProps, LayoutState> {
                     </ContentWrap>
                   </Column>
                 </Row>
-                <Row maxColumns={1}>
-                  <Flexbox center>
-                    <BodyText>© Copyright 2018 Joel M Turner</BodyText>
-                  </Flexbox>
-                </Row>
+                <Flexbox center middle>
+                  <BodyText>© Copyright 2018 Joel M Turner</BodyText>
+                </Flexbox>
               </LayoutWrap>
               <GlobalStyle />
             </Fragment>

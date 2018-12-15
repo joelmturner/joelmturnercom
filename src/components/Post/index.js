@@ -8,14 +8,21 @@ import { LinkText } from '../Text'
 import { BlogTitle, BlogContentWrap, BlogExerpt } from './Content'
 
 const PostWrap = styled.li`
-  ${undoBodyWrap()};
+  ${undoBodyWrap};
   margin-top: 1rem;
   margin-bottom: 1rem;
   position: relative;
   list-style: none;
 `
 
-const Post = ({ imageSrc, title, slug, blurb }) => (
+const Post = ({
+  imageSrc,
+  title,
+  slug,
+  blurb,
+}: {
+  [key: 'imageSrc' | 'title' | 'slug' | 'blurb']: string,
+}) => (
   <PostWrap>
     <ImageSpacer>
       <Link to={`/${slug}`}>

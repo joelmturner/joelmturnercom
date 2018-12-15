@@ -2,10 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { themeHover } from '../designSystem'
 
-export const SocialLinkWrap = styled.a`
-  /* why?! */
+const SocialLinkWrap = styled.a`
   line-height: 0;
-  ${themeHover()};
+  ${themeHover};
 `
 
 const Icon = styled.div`

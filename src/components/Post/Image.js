@@ -10,7 +10,7 @@ export const ImageSpacer = styled.div`
 `
 
 export const Image = styled.img`
-  ${fullBleed()};
+  ${fullBleed};
   ${size()} object-fit: cover;
   object-position: center center;
   max-width: 100%;

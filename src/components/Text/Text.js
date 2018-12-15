@@ -1,7 +1,15 @@
 // @flow
 import React from 'react'
 import styled from 'styled-components'
-import { bundleStyles } from '../../designSystem/typography'
+import {
+  getH1Styles,
+  getH2Styles,
+  getH3Styles,
+  getH4Styles,
+  getBodyStyles,
+  getLinkStyles,
+  getJumboLinkStyles,
+} from '../../designSystem/typography'
 import { Link } from 'gatsby'
 import type { PropType } from '../../designSystem/theme'
 
@@ -10,28 +18,28 @@ type LinkTextProps = {
 }
 
 export const H1 = styled.h1`
-  ${bundleStyles('h1')};
+  ${getH1Styles};
 `
 
 export const H2 = styled.h2`
-  ${bundleStyles('h2')};
+  ${getH2Styles};
 `
 
 export const H3 = styled.h3`
-  ${bundleStyles('h3')};
+  ${getH3Styles};
 `
 
 export const H4 = styled.h4`
-  ${bundleStyles('h4')};
+  ${getH4Styles};
 `
 
 export const BodyText = styled.p`
-  ${bundleStyles('body')};
+  ${getBodyStyles};
 `
 
 export const StyledLinkText = styled(Link)`
-  ${({ isjumbo }: LinkTextProps) => !isjumbo && bundleStyles('link')};
-  ${({ isjumbo }: LinkTextProps) => isjumbo && bundleStyles('jumboLink')};
+  ${({ isjumbo }: LinkTextProps) => !isjumbo && getLinkStyles};
+  ${({ isjumbo }: LinkTextProps) => isjumbo && getJumboLinkStyles};
 `
 
 const StyledLink = styled(Link)`
