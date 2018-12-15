@@ -12,6 +12,7 @@ type RowProps = {
   /** additional styles */
   style?: Object,
   children?: React.Node,
+  className?: any,
 }
 
 export const StyledRow: ReactComponentStyled<RowProps> = styled.div`
@@ -39,18 +40,24 @@ StyledRow.defaultProps = {
   maxColumns: 12,
 }
 
-/**
- * Creates a row with a default of 12 columns. Use [Column](/#column) inside. Rows can be used inside a [Grid](/#grid) or on their own.
- */
-const Row = ({ forceFullPage, maxColumns, hasOverflow, gap, style, children }: RowProps) => (
+const Row = ({
+  forceFullPage,
+  maxColumns,
+  hasOverflow,
+  gap,
+  style,
+  children,
+  className,
+}: RowProps) => (
   <StyledRow
+    className={className}
     forceFullPage={forceFullPage}
     maxColumns={maxColumns}
     hasOverflow={hasOverflow}
     gap={gap}
-    style={style}
-    children={children}
-  />
+    style={style}>
+    {children}
+  </StyledRow>
 )
 
 /** @component */

@@ -7,6 +7,13 @@ import { Image, ImageSpacer } from './Image'
 import { LinkText } from '../Text'
 import { BlogTitle, BlogContentWrap, BlogExerpt } from './Content'
 
+type PostProps = {
+  imageSrc?: string,
+  title?: string,
+  slug: string,
+  blurb?: string,
+}
+
 const PostWrap = styled.li`
   ${undoBodyWrap};
   margin-top: 1rem;
@@ -15,14 +22,7 @@ const PostWrap = styled.li`
   list-style: none;
 `
 
-const Post = ({
-  imageSrc,
-  title,
-  slug,
-  blurb,
-}: {
-  [key: 'imageSrc' | 'title' | 'slug' | 'blurb']: string,
-}) => (
+const Post = ({ imageSrc, title, slug, blurb }: PostProps) => (
   <PostWrap>
     <ImageSpacer>
       <Link to={`/${slug}`}>

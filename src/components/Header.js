@@ -40,7 +40,7 @@ const HeaderWrap: ReactComponentStyled<HeaderWrapProps> = styled.header`
   }
 `
 const StyledSvg = styled.svg`
-  width: 24px;
+  width: 27px;
   height: 24px;
   cursor: pointer;
   &:hover {

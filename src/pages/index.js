@@ -6,7 +6,7 @@ import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import Post from '../components/Post'
 import { H1, H4, BodyText, LinkText } from '../components/Text'
-import { themes, Row, Flexbox } from '../designSystem'
+import { Row, Flexbox } from '../designSystem'
 // import ContactForm from '../components/organisms/contact'
 
 type Edge = {
@@ -108,9 +108,9 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
             </div>
           </Flexbox>
           <BodyText>
-            My background is in graphic design and web development. I'm currently working as a
-            Front-End Developer at Sprinklr. I spend some of my free time exploring hand lettering
-            and sketching as well as hiking in the Portland area with my wife and son.
+            {
+              "My background is in graphic design and web development. I'm currently working as a Front-End Developer at Sprinklr. I spend some of my free time exploring hand lettering and sketching as well as hiking in the Portland area with my wife and son."
+            }
           </BodyText>
           {/* <LinkText to="#">get in touch</LinkText> */}
         </Section>

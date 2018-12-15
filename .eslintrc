@@ -1,4 +1,13 @@
 {
-  "extends": ["plugin:flowtype/recommended"],
-  "plugins": ["flowtype"]
+  "extends": ["plugin:flowtype/recommended", "eslint:recommended", "plugin:react/recommended"],
+  "plugins": ["flowtype"],
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  }
 }
