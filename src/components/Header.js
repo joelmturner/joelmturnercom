@@ -14,7 +14,6 @@ type HeaderProps = {
   title: string,
   slug: string,
   social: Social[],
-  mini: boolean,
   onToggleTheme: () => void,
   theme?: Theme,
 }
@@ -53,13 +52,17 @@ const StyledSvg = styled.svg`
   }
 `
 
-const Header = ({ title, slug, social, mini, onToggleTheme }: HeaderProps) => (
+const Header = ({ title, slug, social, onToggleTheme }: HeaderProps) => (
   <HeaderWrap>
     <Helmet
       title={title}
       meta={[
         { name: 'description', content: 'Sample' },
         { name: 'keywords', content: 'sample, something' },
+        {
+          name: 'google-site-verification',
+          content: 'xDIWeoSnDYkLawGGNOSQCzU5-38M7mwXUV-UbgW6ktc',
+        },
       ]}
     />
     <Flexbox>
