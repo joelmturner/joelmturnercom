@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 import type { GraphQLSchema } from 'graphql'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
@@ -98,55 +98,47 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
     const { showAllPosts, togglePosts } = this.state
 
     return (
-      <ThemeProvider theme={themes.dark}>
-        <Layout title="Joel M Turner" name="layout">
-          <Section title="About">
-            <Flexbox>
-              <Avatar url="https://res.cloudinary.com/joelmturner/image/upload/v1532201643/joel-turner-headshot-web_xyix1w.jpg" />
-              <div>
-                <H1>{name}</H1>
-                <H4>{title}</H4>
-              </div>
-            </Flexbox>
-            <BodyText>
-              My background is in graphic design and web development. I'm currently working as a
-              Front-End Developer at Sprinklr. I spend some of my free time exploring hand lettering
-              and sketching as well as hiking in the Portland area with my wife and son.
-            </BodyText>
-            {/* <LinkText to="#">get in touch</LinkText> */}
-          </Section>
+      <Layout title="Joel M Turner" name="layout">
+        <Section title="About">
+          <Flexbox>
+            <Avatar url="https://res.cloudinary.com/joelmturner/image/upload/v1532201643/joel-turner-headshot-web_xyix1w.jpg" />
+            <div>
+              <H1>{name}</H1>
+              <H4>{title}</H4>
+            </div>
+          </Flexbox>
+          <BodyText>
+            My background is in graphic design and web development. I'm currently working as a
+            Front-End Developer at Sprinklr. I spend some of my free time exploring hand lettering
+            and sketching as well as hiking in the Portland area with my wife and son.
+          </BodyText>
+          {/* <LinkText to="#">get in touch</LinkText> */}
+        </Section>
 
-          <Section title="Posts">
-            <H1>Writing</H1>
-            <H4>Some of My Thoughts and Explorations</H4>
+        <Section title="Posts">
+          <H1>Writing</H1>
+          <H4>Some of My Thoughts and Explorations</H4>
 
-            <Row
-              gap="2rem 4rem"
-              style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))' }}>
-              {this.posts &&
-                this.posts.map(
-                  (post: Edge): React.Node => {
-                    const { id, title, slug, excerpt } = post.node
-                    const imageUrl = post.node.featured_media.source_url
-                    return (
-                      <Post
-                        key={id}
-                        title={title}
-                        slug={slug}
-                        blurb={excerpt}
-                        imageSrc={imageUrl}
-                      />
-                    )
-                  }
-                )}
-            </Row>
+          <Row
+            gap="2rem 4rem"
+            style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))' }}>
+            {this.posts &&
+              this.posts.map(
+                (post: Edge): React.Node => {
+                  const { id, title, slug, excerpt } = post.node
+                  const imageUrl = post.node.featured_media.source_url
+                  return (
+                    <Post key={id} title={title} slug={slug} blurb={excerpt} imageSrc={imageUrl} />
+                  )
+                }
+              )}
+          </Row>
 
-            <LinkText to="#" isjumbo onClick={togglePosts}>
-              {showAllPosts ? 'Hide' : 'Show'} All Posts
-            </LinkText>
-          </Section>
-        </Layout>
-      </ThemeProvider>
+          <LinkText to="#" isjumbo onClick={togglePosts}>
+            {showAllPosts ? 'Hide' : 'Show'} All Posts
+          </LinkText>
+        </Section>
+      </Layout>
     )
   }
 }
