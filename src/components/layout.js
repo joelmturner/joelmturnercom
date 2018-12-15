@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, type Node, Fragment } from 'react'
+import * as React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import styled, { ThemeProvider } from 'styled-components'
 import { themes, GlobalStyle, Row, Column, Flexbox, pageStyles } from '../designSystem'
@@ -48,7 +48,7 @@ const ContentWrap = styled.div`
   ${pageStyles()};
 `
 
-class Layout extends Component<LayoutProps, LayoutState> {
+class Layout extends React.Component<LayoutProps, LayoutState> {
   state = {
     activeTheme: 'light',
   }
@@ -86,7 +86,7 @@ class Layout extends Component<LayoutProps, LayoutState> {
         `}
         render={(data: Data) => (
           <ThemeProvider theme={themes[activeTheme]}>
-            <Fragment>
+            <>
               <LayoutWrap>
                 <Row>
                   <Column span={12} responsive>
@@ -102,7 +102,7 @@ class Layout extends Component<LayoutProps, LayoutState> {
                 <Row hasOverflow>
                   <Column span={12} responsive>
                     <ContentWrap>
-                      <Fragment>{children}</Fragment>
+                      <>{children}</>
                     </ContentWrap>
                   </Column>
                 </Row>
@@ -111,7 +111,7 @@ class Layout extends Component<LayoutProps, LayoutState> {
                 </Flexbox>
               </LayoutWrap>
               <GlobalStyle />
-            </Fragment>
+            </>
           </ThemeProvider>
         )}
       />

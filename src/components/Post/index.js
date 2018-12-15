@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import styled from 'styled-components'
-import { undoBodyWrap, getNewImage } from '../../designSystem'
+import { undoBodyWrap } from '../../designSystem'
 import { Link } from 'gatsby'
 import { Image, ImageSpacer } from './Image'
 import { LinkText } from '../Text'
@@ -26,7 +26,7 @@ const Post = ({
   <PostWrap>
     <ImageSpacer>
       <Link to={`/${slug}`}>
-        <Image src={imageSrc ? imageSrc : getNewImage()} />
+        <Image src={imageSrc} />
       </Link>
       <BlogTitle>
         <Link to={`/${slug}`}>{title}</Link>

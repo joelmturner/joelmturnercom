@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, type Node } from 'react'
+import * as React from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import type { GraphQLSchema } from 'graphql'
 import { graphql } from 'gatsby'
@@ -61,7 +61,7 @@ const Avatar = styled.div`
       height: 4rem;
   `
 
-class IndexPage extends Component<IndexProps, IndexState> {
+class IndexPage extends React.Component<IndexProps, IndexState> {
   state = {
     showAllPosts: false,
     togglePosts: () => {
@@ -128,7 +128,7 @@ class IndexPage extends Component<IndexProps, IndexState> {
               style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))' }}>
               {this.posts &&
                 this.posts.map(
-                  (post: Edge): Node => {
+                  (post: Edge): React.Node => {
                     const { id, title, slug, excerpt } = post.node
                     const imageUrl = post.node.featured_media.source_url
                     return (

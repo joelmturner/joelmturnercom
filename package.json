@@ -43,7 +43,11 @@
     "@mdx-js/loader": "^0.16.6",
     "@mdx-js/mdx": "^0.16.6",
     "babel-cli": "^6.26.0",
+    "babel-eslint": "^10.0.1",
     "docz": "^0.12.15",
+    "eslint": "^5.10.0",
+    "eslint-plugin-flowtype": "^3.2.0",
+    "eslint-plugin-react": "^7.11.1",
     "flow-bin": "^0.87.0",
     "loader-utils": "^1.1.0",
     "prettier": "^1.15.3"

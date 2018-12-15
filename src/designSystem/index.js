@@ -37,11 +37,5 @@ export const size = (width: string = '100%', height: string = width) => css`
   height: ${height};
 `
 
-export const getNewImage = () => {
-  const d = 500
-  const r = Math.round(Math.random() * 100)
-  return `https://picsum.photos/${d + r}/?random`
-}
-
 export default theme
 export { themes, GlobalStyle, Flexbox, FlexRowWrap, InlineFlexLockup, Row, Column, pageStyles }
