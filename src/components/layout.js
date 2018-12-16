@@ -19,7 +19,7 @@ type Data = {
   },
 }
 
-type ActiveTheme = 'light' | 'dark'
+type ActiveTheme = 'light' | 'dark' | null
 
 type LayoutState = {
   activeTheme: ActiveTheme,
@@ -50,7 +50,7 @@ const ContentWrap = styled.div`
 
 class Layout extends React.Component<LayoutProps, LayoutState> {
   state = {
-    activeTheme: 'light',
+    activeTheme: null,
   }
   componentDidMount() {
     if (!localStorage.getItem('activeTheme')) {
@@ -69,6 +69,10 @@ class Layout extends React.Component<LayoutProps, LayoutState> {
     const { title, slug, children } = this.props
     const { activeTheme } = this.state
 
+    if (!activeTheme) {
+      return <div />
+    }
+
     return (
       <StaticQuery
         query={graphql`
@@ -86,32 +90,30 @@ class Layout extends React.Component<LayoutProps, LayoutState> {
         `}
         render={(data: Data) => (
           <ThemeProvider theme={themes[activeTheme]}>
-            <>
-              <LayoutWrap>
-                <Row>
-                  <Column span={12} responsive>
-                    <Header
-                      title={title || ''}
-                      slug={slug || ''}
-                      social={(data && data.site.siteMetadata.social) || []}
-                      mini
-                      onToggleTheme={this.onToggleTheme}
-                    />
-                  </Column>
-                </Row>
-                <Row hasOverflow>
-                  <Column span={12} responsive>
-                    <ContentWrap>
-                      <>{children}</>
-                    </ContentWrap>
-                  </Column>
-                </Row>
-                <Flexbox center middle>
-                  <BodyText>© Copyright 2018 Joel M Turner</BodyText>
-                </Flexbox>
-              </LayoutWrap>
+            <LayoutWrap>
+              <Row>
+                <Column span={12} responsive>
+                  <Header
+                    title={title || ''}
+                    slug={slug || ''}
+                    social={(data && data.site.siteMetadata.social) || []}
+                    mini
+                    onToggleTheme={this.onToggleTheme}
+                  />
+                </Column>
+              </Row>
+              <Row hasOverflow>
+                <Column span={12} responsive>
+                  <ContentWrap>
+                    <>{children}</>
+                  </ContentWrap>
+                </Column>
+              </Row>
+              <Flexbox center middle>
+                <BodyText>© Copyright 2018 Joel M Turner</BodyText>
+              </Flexbox>
               <GlobalStyle />
-            </>
+            </LayoutWrap>
           </ThemeProvider>
         )}
       />
