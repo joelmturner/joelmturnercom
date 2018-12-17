@@ -272,7 +272,7 @@ export const pageQuery: GraphQLSchema = graphql`
           id
           localImage {
             childImageSharp {
-              fluid(maxWidth: 1248) {
+              fluid(maxWidth: 1248, maxHeight: 1248) {
                 ...GatsbyImageSharpFluid_withWebp
               }
             }

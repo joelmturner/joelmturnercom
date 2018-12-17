@@ -4,7 +4,7 @@ import type { GraphQLSchema } from 'graphql'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import { Section } from '../designSystem'
-import { H1, H4 } from '../components/Text'
+import { H1, H4, BodyText } from '../components/Text'
 import Tabs from '../components/Tabs/Tabs'
 import { TabContent } from '../components/Tabs/Tab'
 
@@ -24,7 +24,25 @@ class Illustration extends React.Component<IllustrationProps> {
             <TabContent data={data.inktober2017.edges} label="Inktober 2017" />
             <TabContent data={data.inktober2018.edges} label="Inktober 2018" />
             <TabContent data={data.letterClash.edges} label="Letter Clash">
-              Letter Clash is Awesome
+              <BodyText>
+                {'Letter Clash was a collaboration between '}
+                <a
+                  href="https://www.instagram.com/rttnbrgr/"
+                  rel="noopener noreferrer"
+                  target="_blank">
+                  @rttnbrgr
+                </a>
+                {
+                  ' and myself. Each week we would pick a topic/prompt and create a lettering piece. Checkout '
+                }
+                <a
+                  href="https://www.instagram.com/explore/tags/letterclash/"
+                  rel="noopener noreferrer"
+                  target="_blank">
+                  @letterclash
+                </a>
+                {' on Instagram.'}
+              </BodyText>
             </TabContent>
             <TabContent data={data.joelmturner_abcs2017.edges} label="Handlettered ABCs 2017" />
           </Tabs>
@@ -46,7 +64,7 @@ export const IllustrationPageQuery: GraphQLSchema = graphql`
           id
           localImage {
             childImageSharp {
-              fluid(maxWidth: 1248) {
+              fluid(maxWidth: 1248, maxHeight: 1248) {
                 ...GatsbyImageSharpFluid
               }
             }
@@ -70,7 +88,7 @@ export const IllustrationPageQuery: GraphQLSchema = graphql`
           id
           localImage {
             childImageSharp {
-              fluid(maxWidth: 1248) {
+              fluid(maxWidth: 1248, maxHeight: 1248) {
                 ...GatsbyImageSharpFluid
               }
             }
@@ -94,7 +112,7 @@ export const IllustrationPageQuery: GraphQLSchema = graphql`
           id
           localImage {
             childImageSharp {
-              fluid(maxWidth: 1248) {
+              fluid(maxWidth: 1248, maxHeight: 1248) {
                 ...GatsbyImageSharpFluid
               }
             }
@@ -118,7 +136,7 @@ export const IllustrationPageQuery: GraphQLSchema = graphql`
           id
           localImage {
             childImageSharp {
-              fluid(maxWidth: 1248) {
+              fluid(maxWidth: 1248, maxHeight: 1248) {
                 ...GatsbyImageSharpFluid
               }
             }

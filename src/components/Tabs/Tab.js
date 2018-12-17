@@ -51,35 +51,44 @@ const Tab = ({ onClick, activeTab, label, className }: TabProps) => {
   )
 }
 
-const getColsBySize = size => {
-  switch (size) {
-    case 's':
-      return 8
-    case 'm':
-      return 4
-    case 'l':
-      return 1
-  }
-}
-
-const TabContent = ({
-  data,
-  children,
-  size = 'm',
-  style,
-}: {
+type TabContentProps = {
   data: any,
   children?: React.Node,
   size?: 's' | 'm' | 'l',
   style?: any,
-}) =>
+}
+
+const StyledTabContent = styled(Row)`
+  ${({ size }) => {
+    switch (size) {
+      case 's':
+        return css`
+          grid-gap: 0.25rem;
+          grid-template-columns: repeat(auto-fill, minmax(142px, 1fr));
+        `
+      default:
+      case 'm':
+        return css`
+          grid-gap: 0.5rem;
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        `
+      case 'l':
+        return css`
+          grid-gap: 1rem;
+          grid-template-columns: 1fr;
+        `
+    }
+  }}
+`
+
+const TabContent = ({ data, children, size = 'm', style }: TabContentProps) =>
   data && (
     <>
       {children}
-      <Row maxColumns={getColsBySize(size)} gap="1rem" style={style}>
+      <StyledTabContent size={size} style={style}>
         {data.map(edge =>
           edge.node.localImage ? (
-            <Img key={edge.node.id} fluid={edge.node.localImage.childImageSharp.fluid} />
+            <Img key={edge.node.id} fadeIn fluid={edge.node.localImage.childImageSharp.fluid} />
           ) : (
             edge.node.images && (
               <img
@@ -91,7 +100,7 @@ const TabContent = ({
             )
           )
         )}
-      </Row>
+      </StyledTabContent>
     </>
   )
 
