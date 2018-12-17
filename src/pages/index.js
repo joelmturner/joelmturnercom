@@ -1,13 +1,17 @@
 // @flow
 import * as React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import type { GraphQLSchema } from 'graphql'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import Post from '../components/Post'
 import { H1, H4, BodyText, LinkText } from '../components/Text'
-import { Row, Flexbox } from '../designSystem'
+import { Row, Flexbox, Section } from '../designSystem'
+import { TabContent } from '../components/Tabs/Tab'
 // import ContactForm from '../components/organisms/contact'
+import { GridAlt } from 'styled-icons/boxicons-solid/GridAlt'
+import { Grid } from 'styled-icons/boxicons-regular/Grid'
+import { Square } from 'styled-icons/fa-solid/Square'
 
 type Edge = {
   node: {
@@ -26,10 +30,22 @@ type Edge = {
   },
 }
 
+type InstaEdge = {
+  node: {
+    id: string,
+    localImage: {
+      childImageSharp: Object,
+    },
+  },
+}
+
 type IndexProps = {
   data: {
     allWordpressPost: {
       edges: Edge[],
+    },
+    allInstagramContent: {
+      edges: InstaEdge[],
     },
     site: {
       siteMetadata: {
@@ -47,11 +63,10 @@ type IndexProps = {
 type IndexState = {
   showAllPosts: boolean,
   togglePosts: () => void,
+  sketchSize: 's' | 'm' | 'l',
+  showAllSketches: boolean,
+  toggleSketches: () => void,
 }
-
-const Section = styled.div`
-  margin-bottom: 2.5rem;
-`
 
 const Avatar = styled.div`
       background-image: url('${({ url }) => url}');
@@ -61,6 +76,22 @@ const Avatar = styled.div`
       height: 4rem;
       margin-right: 1rem;
   `
+const styledIconShared = css`
+  margin-left: 0.25em;
+  fill: ${({ active }) => (active ? '#fff' : '#333')};
+  color: ${({ active }) => (active ? '#fff' : '#333')};
+  cursor: ${({ active }) => (active ? 'auto' : 'pointer')};
+  transition: fill 300ms;
+`
+const StyledIconGrid = styled(Grid)`
+  ${styledIconShared}
+`
+const StyledIconGridAlt = styled(GridAlt)`
+  ${styledIconShared}
+`
+const StyledIconSquare = styled(Square)`
+  ${styledIconShared}
+`
 
 class IndexPage extends React.Component<IndexProps, IndexState> {
   state = {
@@ -71,6 +102,13 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
         showAllPosts: !this.state.showAllPosts,
       })
     },
+    sketchSize: 's',
+    showAllSketches: false,
+    toggleSketches: () => {
+      this.setState({
+        showAllSketches: !this.state.showAllSketches,
+      })
+    },
   }
 
   componentDidMount() {
@@ -78,8 +116,8 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
       localStorage.setItem('showAllPosts', 'false')
     }
 
-    const storage = localStorage.getItem('showAllPosts')
-    const showAllPosts: boolean = storage === 'true' ? true : false
+    const postStorage = localStorage.getItem('showAllPosts')
+    const showAllPosts: boolean = postStorage === 'true' ? true : false
     if (this.state.showAllPosts !== showAllPosts) {
       this.setState({
         showAllPosts,
@@ -92,15 +130,20 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
     return this.state.showAllPosts ? posts : posts.slice(0, 6)
   }
 
+  get sketches(): InstaEdge[] {
+    const sketches = this.props.data && this.props.data.allInstagramContent.edges
+    return this.state.showAllSketches ? sketches : sketches.slice(0, 8)
+  }
+
   render() {
     const data = this.props.data
     const { name, title } = data.site.siteMetadata.about
-    const { showAllPosts, togglePosts } = this.state
+    const { showAllPosts, togglePosts, toggleSketches, sketchSize, showAllSketches } = this.state
 
     return (
-      <Layout title="Joel M Turner" name="layout">
+      <Layout title="Howdy!">
         <Section title="About">
-          <Flexbox>
+          <Flexbox style={{ marginTop: '1rem' }}>
             <Avatar url="https://res.cloudinary.com/joelmturner/image/upload/v1532201643/joel-turner-headshot-web_xyix1w.jpg" />
             <div>
               <H1>{name}</H1>
@@ -115,12 +158,58 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
           {/* <LinkText to="#">get in touch</LinkText> */}
         </Section>
 
-        <Section title="Posts">
-          <H1>Writing</H1>
-          <H4>Some of My Thoughts and Explorations</H4>
+        <Section title="Sketching">
+          <Flexbox between bottom>
+            <div>
+              <H1>Sketching</H1>
+              <H4>My Favorites Explorations</H4>
+            </div>
+            <Flexbox vertical noGrow>
+              <Flexbox right>
+                <StyledIconGrid
+                  active={sketchSize === 's'}
+                  onClick={() => this.setState({ sketchSize: 's' })}
+                  size={24}
+                />
+                <StyledIconGridAlt
+                  active={sketchSize === 'm'}
+                  onClick={() => this.setState({ sketchSize: 'm' })}
+                  size={24}
+                />
+                <StyledIconSquare
+                  active={sketchSize === 'l'}
+                  onClick={() => this.setState({ sketchSize: 'l' })}
+                  size={24}
+                />
+              </Flexbox>
+              <LinkText to="#" onClick={toggleSketches}>
+                {!showAllSketches ? 'All' : 'Fewer'} Favorites
+              </LinkText>
+            </Flexbox>
+          </Flexbox>
+          <TabContent
+            data={this.sketches}
+            label="Boop"
+            size={sketchSize}
+            style={{ marginBottom: '.5em' }}
+          />
+          <Flexbox right>
+            <LinkText to="/illustration">See more sketches</LinkText>
+          </Flexbox>
+        </Section>
 
+        <Section title="Posts">
+          <Flexbox vertical>
+            <H1>Writing</H1>
+            <Flexbox between middle>
+              <H4>Some of My Thoughts and Explorations</H4>
+              <LinkText to="#" onClick={togglePosts}>
+                {showAllPosts ? 'Show Fewer' : 'Show All'} Posts
+              </LinkText>
+            </Flexbox>
+          </Flexbox>
           <Row
-            gap="2rem 4rem"
+            gap="1rem 4rem"
             style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))' }}>
             {this.posts &&
               this.posts.map(
@@ -133,10 +222,6 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
                 }
               )}
           </Row>
-
-          <LinkText to="#" isjumbo onClick={togglePosts}>
-            {showAllPosts ? 'Hide' : 'Show'} All Posts
-          </LinkText>
         </Section>
       </Layout>
     )
@@ -147,7 +232,7 @@ export default IndexPage
 
 export const pageQuery: GraphQLSchema = graphql`
   query PageQuery {
-    allWordpressPost(limit: 1000, sort: { order: DESC, fields: date }) {
+    allWordpressPost(sort: { order: DESC, fields: date }) {
       edges {
         node {
           id
@@ -173,6 +258,30 @@ export const pageQuery: GraphQLSchema = graphql`
           name
           title
           bio
+        }
+      }
+    }
+    allInstagramContent(
+      filter: { tags: { eq: "joelmturner_featured" } }
+      sort: { fields: created_time, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          localImage {
+            childImageSharp {
+              fluid(maxWidth: 1248) {
+                ...GatsbyImageSharpFluid_withWebp
+              }
+            }
+          }
+          images {
+            standard_resolution {
+              width
+              height
+              url
+            }
+          }
         }
       }
     }

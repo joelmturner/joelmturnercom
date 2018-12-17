@@ -1,8 +1,11 @@
 // @flow
-import { css } from 'styled-components'
+import styled, { css } from 'styled-components'
 import { getH1Styles, getH2Styles, getH3Styles, getH4Styles } from './typography'
 import type { PropType } from './theme'
 
+export const Section = styled.div`
+  margin-bottom: 2.5rem;
+`
 const pageStyles = () => css`
   color: ${({ theme }: PropType) => theme.copy.p};
   p {

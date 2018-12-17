@@ -38,8 +38,7 @@ export const BodyText = styled.p`
 `
 
 export const StyledLinkText = styled(Link)`
-  ${({ isjumbo }: LinkTextProps) => !isjumbo && getLinkStyles};
-  ${({ isjumbo }: LinkTextProps) => isjumbo && getJumboLinkStyles};
+  ${({ isjumbo }: LinkTextProps) => (!isjumbo ? getLinkStyles : getJumboLinkStyles)};
 `
 
 const StyledLink = styled(Link)`
@@ -47,7 +46,7 @@ const StyledLink = styled(Link)`
 `
 
 export const LinkText = (props: any) => (
-  <StyledLink to={props.to} className={props.className} onClick={props.onClick}>
+  <StyledLinkText to={props.to} className={props.className} onClick={props.onClick}>
     {props.children}
-  </StyledLink>
+  </StyledLinkText>
 )

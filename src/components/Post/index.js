@@ -16,7 +16,6 @@ type PostProps = {
 
 const PostWrap = styled.li`
   ${undoBodyWrap};
-  margin-top: 1rem;
   margin-bottom: 1rem;
   position: relative;
   list-style: none;

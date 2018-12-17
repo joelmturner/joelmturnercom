@@ -4,7 +4,7 @@ import theme, { themes } from './theme'
 import GlobalStyle from './GlobalStyle'
 import Row from './Row'
 import Column from './Column'
-import pageStyles from './pageStyles'
+import pageStyles, { Section } from './pageStyles'
 import Flexbox, { FlexRowWrap, InlineFlexLockup } from '../designSystem/Flexbox'
 
 // Reusable Style Functions
@@ -38,4 +38,14 @@ export const size = (width: string = '100%', height: string = width) => css`
 `
 
 export default theme
-export { themes, GlobalStyle, Flexbox, FlexRowWrap, InlineFlexLockup, Row, Column, pageStyles }
+export {
+  themes,
+  GlobalStyle,
+  Flexbox,
+  FlexRowWrap,
+  InlineFlexLockup,
+  Row,
+  Column,
+  pageStyles,
+  Section,
+}

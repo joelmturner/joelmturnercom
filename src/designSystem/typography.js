@@ -59,17 +59,17 @@ export const getBodyStyles = css`
 
 export const getLinkStyles = css`
   ${sharedFontStyles};
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 1.3rem;
-  line-height: 1.7rem;
+  font-weight: normal;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
   display: inline-block;
-  border-bottom: 1px solid;
 `
 
 export const getJumboLinkStyles = css`
   ${sharedFontStyles};
-  ${getH1Styles} margin-top: 1.5rem;
+  ${getH1Styles};
+  margin-top: 1.5rem;
   text-transform: uppercase;
   display: inline-block;
   color: ${({ theme }: PropType) => theme.copy.link.default.color};
