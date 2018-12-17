@@ -58,6 +58,23 @@ export type Theme = {
       border: string,
     },
   },
+  Tabs: {
+    default: {
+      border: string,
+    },
+  },
+  Tab: {
+    default: {
+      color: string,
+      border: string,
+      background: string,
+    },
+    active: {
+      color: string,
+      border: string,
+      background: string,
+    },
+  },
 }
 
 export type PropType = {
@@ -127,6 +144,23 @@ export const themes: Themes = {
         border: colors.sandstone,
       },
     },
+    Tabs: {
+      default: {
+        border: colors.grey,
+      },
+    },
+    Tab: {
+      default: {
+        color: colors.ash,
+        border: 'transparent',
+        background: 'transparent',
+      },
+      active: {
+        color: colors.black,
+        border: colors.grey,
+        background: colors.grey,
+      },
+    },
   },
   dark: {
     background: colors.shadow,
@@ -183,6 +217,23 @@ export const themes: Themes = {
         background: colors.charcoal,
         color: colors.sandstone,
         border: colors.sandstone,
+      },
+    },
+    Tabs: {
+      default: {
+        border: colors.shade,
+      },
+    },
+    Tab: {
+      default: {
+        color: colors.ash,
+        border: 'transparent',
+        background: 'transparent',
+      },
+      active: {
+        color: colors.offWhite,
+        border: colors.shade,
+        background: colors.shade,
       },
     },
   },
