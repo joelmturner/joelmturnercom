@@ -75,6 +75,14 @@ export type Theme = {
       background: string,
     },
   },
+  SizeIcons: {
+    default: {
+      color: string,
+    },
+    active: {
+      color: string,
+    },
+  },
 }
 
 export type PropType = {
@@ -156,9 +164,17 @@ export const themes: Themes = {
         background: 'transparent',
       },
       active: {
-        color: colors.black,
-        border: colors.grey,
-        background: colors.grey,
+        color: colors.orange,
+        border: colors.offWhite,
+        background: colors.offWhite,
+      },
+    },
+    SizeIcons: {
+      default: {
+        color: colors.grey,
+      },
+      active: {
+        color: colors.shade,
       },
     },
   },
@@ -231,9 +247,17 @@ export const themes: Themes = {
         background: 'transparent',
       },
       active: {
-        color: colors.offWhite,
-        border: colors.shade,
-        background: colors.shade,
+        color: colors.orange,
+        border: colors.charcoal,
+        background: colors.charcoal,
+      },
+    },
+    SizeIcons: {
+      default: {
+        color: colors.shade,
+      },
+      active: {
+        color: colors.grey,
       },
     },
   },

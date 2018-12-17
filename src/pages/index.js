@@ -78,8 +78,10 @@ const Avatar = styled.div`
   `
 const styledIconShared = css`
   margin-left: 0.25em;
-  fill: ${({ active }) => (active ? '#fff' : '#333')};
-  color: ${({ active }) => (active ? '#fff' : '#333')};
+  fill: ${({ active, theme }) =>
+    active ? theme.SizeIcons.active.color : theme.SizeIcons.default.color};
+  color: ${({ active, theme }) =>
+    active ? theme.SizeIcons.active.color : theme.SizeIcons.default.color};
   cursor: ${({ active }) => (active ? 'auto' : 'pointer')};
   transition: fill 300ms;
 `
