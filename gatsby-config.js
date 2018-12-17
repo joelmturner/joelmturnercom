@@ -1,3 +1,5 @@
+const path = require(`path`)
+
 module.exports = {
   siteMetadata: {
     title: 'Joel M Turner',
@@ -28,16 +30,16 @@ module.exports = {
   plugins: [
     `gatsby-plugin-styled-components`,
     /*
-         * Gatsby's data processing layer begins with “source”
-         * plugins. Here the site sources its data from Wordpress.
-         */
+     * Gatsby's data processing layer begins with “source”
+     * plugins. Here the site sources its data from Wordpress.
+     */
     {
       resolve: 'gatsby-source-wordpress',
       options: {
         /*
-                 * The base URL of the Wordpress site without the trailingslash and the protocol. This is required.
-                 * Example : 'gatsbyjsexamplewordpress.wordpress.com' or 'www.example-site.com'
-                 */
+         * The base URL of the Wordpress site without the trailingslash and the protocol. This is required.
+         * Example : 'gatsbyjsexamplewordpress.wordpress.com' or 'www.example-site.com'
+         */
         baseUrl: 'mtgraph.net/joelmturner',
         // The protocol. This can be http or https.
         protocol: 'https',
@@ -86,7 +88,7 @@ module.exports = {
       options: {
         trackingId: '***REMOVED***',
         // Puts tracking script in the head instead of the body
-        head: false,
+        head: true,
         // Setting this parameter is optional
         anonymize: true,
         // Setting this parameter is also optional
@@ -131,7 +133,6 @@ module.exports = {
             query: `
                     {
                     allWordpressPost(
-                        limit: 1000,
                         sort: { order: DESC, fields: date }
                       ) {
                         edges {
@@ -160,6 +161,21 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: `gatsby-source-instagram-all`,
+      options: {
+        access_token: '***REMOVED***',
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: path.join(__dirname, `src`, `images`),
+      },
+    },
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
     // `gatsby-plugin-offline`,
   ],
 }
