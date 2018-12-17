@@ -55,7 +55,7 @@ const StyledSvg = styled.svg`
 const Header = ({ title, slug, social, onToggleTheme }: HeaderProps) => (
   <HeaderWrap>
     <Helmet
-      title={title}
+      title={`${title} | Joel M Turner`}
       meta={[
         { name: 'description', content: 'Sample' },
         { name: 'keywords', content: 'sample, something' },
