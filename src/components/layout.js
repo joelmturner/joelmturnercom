@@ -38,8 +38,8 @@ const LayoutWrap = styled.div`
   grid-template-areas:
     'header'
     'content';
-  grid-template-rows: fit-content(10rem) auto minmax(1rem, 3rem);
-  height: 100vh;
+  grid-template-rows: minmax(3rem, 5rem) 1fr minmax(1rem, 3rem);
+  max-height: 100vh;
 `
 
 const ContentWrap = styled.div`
