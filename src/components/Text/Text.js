@@ -11,7 +11,6 @@ import {
   getJumboLinkStyles,
 } from '../../designSystem/typography'
 import { Link } from 'gatsby'
-import type { PropType } from '../../designSystem/theme'
 
 type LinkTextProps = {
   isjumbo: boolean,
@@ -39,10 +38,6 @@ export const BodyText = styled.p`
 
 export const StyledLinkText = styled(Link)`
   ${({ isjumbo }: LinkTextProps) => (!isjumbo ? getLinkStyles : getJumboLinkStyles)};
-`
-
-const StyledLink = styled(Link)`
-  color: ${({ theme }: PropType) => theme.copy.h2};
 `
 
 export const LinkText = (props: any) => (

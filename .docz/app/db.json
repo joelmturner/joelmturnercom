@@ -1,7 +1,7 @@
 {
   "config": {
-    "title": "My Cool Project",
-    "description": "This is my awesome documentation",
+    "title": "Joel Mturner",
+    "description": "Docz for Docs",
     "menu": [],
     "ordering": "descending",
     "version": "2.0.0",
@@ -16,7 +16,7 @@
   },
   "entries": {
     "src/Docs/Article.mdx": {
-      "name": "Post",
+      "name": "Post Excerpt",
       "id": "77d00884420cdd2140ec2d56a873b674",
       "filepath": "src/Docs/Article.mdx",
       "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/Docs/Article.mdx",
@@ -27,8 +27,18 @@
       "headings": [
         {
           "depth": 1,
-          "slug": "post",
-          "value": "Post"
+          "slug": "post-excerpt",
+          "value": "Post Excerpt"
+        },
+        {
+          "depth": 2,
+          "slug": "post-image",
+          "value": "Post Image"
+        },
+        {
+          "depth": 2,
+          "slug": "post-title",
+          "value": "Post Title"
         }
       ]
     },
