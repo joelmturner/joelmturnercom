@@ -12,6 +12,8 @@ import { TabContent } from '../components/Tabs/Tab'
 import { GridAlt } from 'styled-icons/boxicons-solid/GridAlt'
 import { Grid } from 'styled-icons/boxicons-regular/Grid'
 import { Square } from 'styled-icons/fa-solid/Square'
+import Img from 'gatsby-image'
+import Dialog from '../components/Dialog'
 
 type Edge = {
   node: {
@@ -111,6 +113,8 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
         showAllSketches: !this.state.showAllSketches,
       })
     },
+    showLightbox: false,
+    selectedImage: null,
   }
 
   componentDidMount() {
@@ -140,7 +144,15 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
   render() {
     const data = this.props.data
     const { name, title } = data.site.siteMetadata.about
-    const { showAllPosts, togglePosts, toggleSketches, sketchSize, showAllSketches } = this.state
+    const {
+      showAllPosts,
+      togglePosts,
+      toggleSketches,
+      sketchSize,
+      showAllSketches,
+      showLightbox,
+      selectedImage,
+    } = this.state
 
     return (
       <Layout title="Howdy!">
@@ -188,6 +200,7 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
             data={this.sketches}
             label="Boop"
             size={sketchSize}
+            onImageClick={image => this.setState({ showLightbox: true, selectedImage: image })}
             style={{ marginBottom: '.5em' }}
           />
           <LinkText to="#" onClick={toggleSketches}>
@@ -218,6 +231,11 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
             {showAllPosts ? 'Show Fewer' : 'Load More'} Posts
           </LinkText>
         </Section>
+        {showLightbox && (
+          <Dialog onClose={() => this.setState({ showLightbox: false })} maxWidth="700px">
+            {selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
+          </Dialog>
+        )}
       </Layout>
     )
   }

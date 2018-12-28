@@ -5,6 +5,7 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "@mdx-js/tag": "^0.16.6",
+    "@reach/dialog": "^0.1.2",
     "@types/styled-components": "^4.1.4",
     "babel-plugin-prismjs": "^1.0.2",
     "babel-plugin-styled-components": "^1.10.0",

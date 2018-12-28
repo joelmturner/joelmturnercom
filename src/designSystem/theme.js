@@ -83,6 +83,11 @@ export type Theme = {
       color: string,
     },
   },
+  Dialog: {
+    default: {
+      background: string,
+    },
+  },
 }
 
 export type PropType = {
@@ -177,6 +182,11 @@ export const themes: Themes = {
         color: colors.shade,
       },
     },
+    Dialog: {
+      default: {
+        background: colors.grey,
+      },
+    },
   },
   dark: {
     background: colors.shadow,
@@ -258,6 +268,11 @@ export const themes: Themes = {
       },
       active: {
         color: colors.grey,
+      },
+    },
+    Dialog: {
+      default: {
+        background: colors.charcoal,
       },
     },
   },

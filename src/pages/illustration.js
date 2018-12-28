@@ -7,22 +7,40 @@ import { Section } from '../designSystem'
 import { H1, H4, BodyText } from '../components/Text'
 import Tabs from '../components/Tabs/Tabs'
 import { TabContent } from '../components/Tabs/Tab'
+import Dialog from '../components/Dialog'
+import Img from 'gatsby-image'
 
 type IllustrationProps = {
   data: any,
 }
 class Illustration extends React.Component<IllustrationProps> {
+  state = {
+    showLightbox: false,
+    selectedImage: null,
+  }
   render() {
     const { data } = this.props
+    const { selectedImage, showLightbox } = this.state
     return (
       <Layout title="Illustration" slug="illustration">
         <Section title="Sketching">
           <H1>Sketching</H1>
           <H4>Handlettering and Illustration</H4>
           <Tabs>
-            <TabContent data={data.inktober2017.edges} label="Inktober 2017" />
-            <TabContent data={data.inktober2018.edges} label="Inktober 2018" />
-            <TabContent data={data.letterClash.edges} label="Letter Clash">
+            <TabContent
+              data={data.inktober2017.edges}
+              label="Inktober 2017"
+              onImageClick={image => this.setState({ showLightbox: true, selectedImage: image })}
+            />
+            <TabContent
+              data={data.inktober2018.edges}
+              label="Inktober 2018"
+              onImageClick={image => this.setState({ showLightbox: true, selectedImage: image })}
+            />
+            <TabContent
+              data={data.letterClash.edges}
+              label="Letter Clash"
+              onImageClick={image => this.setState({ showLightbox: true, selectedImage: image })}>
               <BodyText>
                 {'Letter Clash was a collaboration between '}
                 <a
@@ -43,9 +61,18 @@ class Illustration extends React.Component<IllustrationProps> {
                 {' on Instagram.'}
               </BodyText>
             </TabContent>
-            <TabContent data={data.joelmturner_abcs2017.edges} label="Handlettered ABCs 2017" />
+            <TabContent
+              data={data.joelmturner_abcs2017.edges}
+              label="Handlettered ABCs 2017"
+              onImageClick={image => this.setState({ showLightbox: true, selectedImage: image })}
+            />
           </Tabs>
         </Section>
+        {showLightbox && (
+          <Dialog onClose={() => this.setState({ showLightbox: false })} maxWidth="700px">
+            {selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
+          </Dialog>
+        )}
       </Layout>
     )
   }

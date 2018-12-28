@@ -2,7 +2,7 @@
 import * as React from 'react'
 import styled, { css } from 'styled-components'
 import Img from 'gatsby-image'
-import { Row } from '../../designSystem'
+import { Row, media } from '../../designSystem'
 import { BodyText } from '../Text'
 import type { Theme } from '../../designSystem/theme'
 
@@ -65,41 +65,62 @@ const StyledTabContent = styled(Row)`
         return css`
           grid-gap: 0.25rem;
           grid-template-columns: repeat(auto-fill, minmax(142px, 1fr));
+          ${media.phone`
+            grid-template-columns: repeat(3, 1fr);
+          `}
         `
       default:
       case 'm':
         return css`
           grid-gap: 0.5rem;
           grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          ${media.phone`
+            grid-template-columns: repeat(2, 1fr);
+          `}
         `
       case 'l':
         return css`
           grid-gap: 1rem;
           grid-template-columns: 1fr;
+          ${media.phone`
+            grid-gap: .5rem;
+          `}
         `
     }
   }}
 `
 
-const TabContent = ({ data, children, size = 'm', style }: TabContentProps) =>
+const PreviewButton = styled.button`
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+`
+
+const TabContent = ({ data, children, size = 'm', style, onImageClick }: TabContentProps) =>
   data && (
     <>
       {children}
       <StyledTabContent size={size} style={style}>
-        {data.map(edge =>
-          edge.node.localImage ? (
-            <Img key={edge.node.id} fadeIn fluid={edge.node.localImage.childImageSharp.fluid} />
-          ) : (
-            edge.node.images && (
-              <img
-                key={edge.node.id}
-                src={edge.node.images.standard_resolution.url}
-                width={edge.node.images.standard_resolution.width}
-                height={edge.node.images.standard_resolution.height}
-              />
-            )
-          )
-        )}
+        {data.map(edge => (
+          <PreviewButton
+            key={edge.node.id}
+            type="button"
+            onClick={onImageClick ? () => onImageClick(edge) : undefined}>
+            {edge.node.localImage ? (
+              <Img key={edge.node.id} fadeIn fluid={edge.node.localImage.childImageSharp.fluid} />
+            ) : (
+              edge.node.images && (
+                <img
+                  key={edge.node.id}
+                  src={edge.node.images.standard_resolution.url}
+                  width={edge.node.images.standard_resolution.width}
+                  height={edge.node.images.standard_resolution.height}
+                />
+              )
+            )}
+          </PreviewButton>
+        ))}
       </StyledTabContent>
     </>
   )
