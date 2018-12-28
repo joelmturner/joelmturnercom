@@ -161,32 +161,27 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
         </Section>
 
         <Section title="Sketching">
-          <Flexbox between bottom>
+          <Flexbox between middle>
             <div>
               <H1>Sketching</H1>
               <H4>My Favorites Explorations</H4>
             </div>
-            <Flexbox vertical noGrow>
-              <Flexbox right>
-                <StyledIconGrid
-                  active={sketchSize === 's'}
-                  onClick={() => this.setState({ sketchSize: 's' })}
-                  size={24}
-                />
-                <StyledIconGridAlt
-                  active={sketchSize === 'm'}
-                  onClick={() => this.setState({ sketchSize: 'm' })}
-                  size={24}
-                />
-                <StyledIconSquare
-                  active={sketchSize === 'l'}
-                  onClick={() => this.setState({ sketchSize: 'l' })}
-                  size={24}
-                />
-              </Flexbox>
-              <LinkText to="#" onClick={toggleSketches}>
-                {!showAllSketches ? 'All' : 'Fewer'} Favorites
-              </LinkText>
+            <Flexbox right>
+              <StyledIconGrid
+                active={sketchSize === 's'}
+                onClick={() => this.setState({ sketchSize: 's' })}
+                size={24}
+              />
+              <StyledIconGridAlt
+                active={sketchSize === 'm'}
+                onClick={() => this.setState({ sketchSize: 'm' })}
+                size={24}
+              />
+              <StyledIconSquare
+                active={sketchSize === 'l'}
+                onClick={() => this.setState({ sketchSize: 'l' })}
+                size={24}
+              />
             </Flexbox>
           </Flexbox>
           <TabContent
@@ -195,20 +190,15 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
             size={sketchSize}
             style={{ marginBottom: '.5em' }}
           />
-          <Flexbox right>
-            <LinkText to="/illustration">See more sketches</LinkText>
-          </Flexbox>
+          <LinkText to="#" onClick={toggleSketches}>
+            {!showAllSketches ? 'Load More' : 'Show Fewer'} Favorites
+          </LinkText>
         </Section>
 
         <Section title="Posts">
           <Flexbox vertical>
             <H1>Writing</H1>
-            <Flexbox between middle>
-              <H4>Some of My Thoughts and Explorations</H4>
-              <LinkText to="#" onClick={togglePosts}>
-                {showAllPosts ? 'Show Fewer' : 'Show All'} Posts
-              </LinkText>
-            </Flexbox>
+            <H4>Some of My Thoughts and Explorations</H4>
           </Flexbox>
           <Row
             gap="1rem 4rem"
@@ -224,6 +214,9 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
                 }
               )}
           </Row>
+          <LinkText to="#" onClick={togglePosts}>
+            {showAllPosts ? 'Show Fewer' : 'Load More'} Posts
+          </LinkText>
         </Section>
       </Layout>
     )
