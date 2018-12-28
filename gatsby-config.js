@@ -82,7 +82,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-netlify`,
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
@@ -177,5 +176,6 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     // `gatsby-plugin-offline`,
+    `gatsby-plugin-netlify`, // must be last in array
   ],
 }
