@@ -7,8 +7,6 @@ class PageTemplate extends Component<any> {
   render() {
     const currentPage = this.props.data.wordpressPage
 
-    console.log(currentPage)
-
     return (
       <Layout title={currentPage.title} slug={currentPage.slug}>
         <div dangerouslySetInnerHTML={{ __html: currentPage.content }} />

@@ -40,12 +40,6 @@ export const getFlexProperties = (props: FlexboxProps) => {
         primaryBools = [left, center, right, between, around];
         secondaryBools= [top, middle, bottom];
     };
-
-    // check for duplicate booleans
-    // console.log('getFlexProperties');
-    // console.log('props', props);
-    // console.log('primaryBools', primaryBools);
-    // console.log('secondary', secondaryBools);
     */
 
   // does primary axix have a value?

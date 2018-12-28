@@ -14,7 +14,6 @@ type IllustrationProps = {
 class Illustration extends React.Component<IllustrationProps> {
   render() {
     const { data } = this.props
-    console.log('data', data)
     return (
       <Layout title="Illustration" slug="illustration">
         <Section title="Sketching">
