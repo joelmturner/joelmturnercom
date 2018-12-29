@@ -32,6 +32,16 @@ const GlobalStyle = createGlobalStyle`
         text-decoration: none;
     }
 
+    [data-reach-dialog-overlay][data-reach-dialog-overlay] {
+        background: ${({ theme }: { theme: Theme }) => theme && theme.Dialog.default.background};
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow: auto;
+    }
+
 `
 
 export default GlobalStyle

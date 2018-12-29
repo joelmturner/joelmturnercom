@@ -176,7 +176,7 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
           <Flexbox between middle>
             <div>
               <H1>Sketching</H1>
-              <H4>My Favorites Explorations</H4>
+              <H4>My Favorite Explorations</H4>
             </div>
             <Flexbox right>
               <StyledIconGrid

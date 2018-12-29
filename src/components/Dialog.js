@@ -19,8 +19,9 @@ const StyledDialog = styled(ReachDialog)`
     width: '75vh';
     max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : '60vw')};
     margin: 10vh auto;
-    background: ${({ theme }: Theme) => theme && theme.Dialog.default.background};
-    padding: 1rem;
+    background: transparent;
+    padding: 0;
+    position: relative;
   }
 `
 
@@ -34,6 +35,9 @@ const CloseButton = styled.button`
   font-size: 1.3rem;
   color: ${({ theme }: Theme) => theme && theme.copy.p};
   cursor: pointer;
+  position: absolute;
+  right: -1.3rem;
+  top: -1.5rem;
 `
 
 // export default class Dialog extends React.Component<DialogProps> {
@@ -80,12 +84,8 @@ const CloseButton = styled.button`
 
 const Dialog = ({ className, children, onClose, maxWidth }: DialogProps) => (
   <StyledDialog className={className} maxWidth={maxWidth}>
-    <Flexbox vertical>
-      <Flexbox right>
-        <CloseButton onClick={onClose}>X</CloseButton>
-      </Flexbox>
-      {children}
-    </Flexbox>
+    <CloseButton onClick={onClose}>X</CloseButton>
+    {children}
   </StyledDialog>
 )
 

@@ -184,7 +184,7 @@ export const themes: Themes = {
     },
     Dialog: {
       default: {
-        background: colors.grey,
+        background: 'rgba(255, 255, 255, .9)',
       },
     },
   },
@@ -272,7 +272,7 @@ export const themes: Themes = {
     },
     Dialog: {
       default: {
-        background: colors.charcoal,
+        background: 'rgba(0, 0, 0, .9)',
       },
     },
   },
