@@ -3,7 +3,6 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { Dialog as ReachDialog } from '@reach/dialog'
 import type { Theme } from '../designSystem/theme'
-import { Flexbox } from '../designSystem'
 import '@reach/dialog/styles.css'
 
 type DialogProps = {

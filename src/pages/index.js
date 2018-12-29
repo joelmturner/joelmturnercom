@@ -118,6 +118,7 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
   }
 
   componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyCodes, false)
     if (!localStorage.getItem('showAllPosts')) {
       localStorage.setItem('showAllPosts', 'false')
     }
@@ -129,6 +130,10 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
         showAllPosts,
       })
     }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyCodes, false)
   }
 
   get posts(): Edge[] {
@@ -238,6 +243,17 @@ class IndexPage extends React.Component<IndexProps, IndexState> {
         )}
       </Layout>
     )
+  }
+
+  handleKeyCodes = (e: KeyboardEvent) => {
+    if (this.state.showLightbox) {
+      switch (e.key) {
+        case 'Escape':
+          this.setState({ showLightbox: false, selectedImage: null })
+          break
+        default:
+      }
+    }
   }
 }
 
