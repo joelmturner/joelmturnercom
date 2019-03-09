@@ -1,55 +1,36 @@
 // @flow
-import * as React from 'react'
-import styled from 'styled-components'
+import React, { useState, Fragment, type Node } from 'react'
+import styled, { type ReactComponentStyled } from 'styled-components'
 import type { Theme } from '../../designSystem/theme'
 import Tab from './Tab'
 
 type TabsProps = {
-  children: any[],
-  theme?: Theme,
+ children: any[],
+ theme?: Theme,
 }
 
-const TabList = styled.ol`
-  border-bottom: 1px solid ${({ theme }: TabsProps) => theme && theme.Tabs.default.border};
-  padding-left: 0;
+const TabList: ReactComponentStyled<TabsProps> = styled.ol`
+ border-bottom: 1px solid ${({ theme }) => theme && theme.Tabs.default.border};
+ padding-left: 0;
 `
 
-class Tabs extends React.Component<TabsProps, any> {
-  constructor(props: TabsProps) {
-    super(props)
-
-    this.state = {
-      activeTab: this.props.children[0].props.label,
-    }
-  }
-
-  onClickTabItem = (tab: string) => {
-    this.setState({ activeTab: tab })
-  }
-
-  render() {
-    const {
-      onClickTabItem,
-      props: { children },
-      state: { activeTab },
-    } = this
-
-    return (
-      <>
-        <TabList>
-          {children.map(child => (
-            <Tab
-              activeTab={activeTab}
-              key={child.props.label}
-              label={child.props.label}
-              onClick={onClickTabItem}
-            />
-          ))}
-        </TabList>
-        <div>{children.map(child => (child.props.label === activeTab ? child : undefined))}</div>
-      </>
-    )
-  }
+function Tabs({ children }: TabsProps): Node {
+ const [activeTab, setActiveTab] = useState(children[0].props.label)
+ return (
+  <Fragment>
+   <TabList>
+    {children.map(child => (
+     <Tab
+      activeTab={activeTab}
+      key={child.props.label}
+      label={child.props.label}
+      onClick={tab => setActiveTab(tab)}
+     />
+    ))}
+   </TabList>
+   <div>{children.map(child => (child.props.label === activeTab ? child : undefined))}</div>
+  </Fragment>
+ )
 }
 
 export default Tabs
