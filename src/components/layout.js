@@ -27,6 +27,7 @@ type LayoutProps = {
  data?: Data,
  title: string,
  slug?: string,
+ className?: string,
 }
 
 const LayoutWrap = styled.div`
@@ -45,7 +46,7 @@ const ContentWrap = styled.div`
  ${pageStyles()};
 `
 
-function Layout({ title, slug, children }: LayoutProps): React.Node {
+function Layout({ title, slug, children, className }: LayoutProps): React.Node {
  const [activeTheme, setActiveTheme] = useLocalStorage('activeTheme', 'light')
  console.log('themes[activeTheme]', themes[activeTheme])
 
@@ -66,7 +67,7 @@ function Layout({ title, slug, children }: LayoutProps): React.Node {
    `}
    render={(data: Data) => (
     <ThemeProvider theme={themes[activeTheme]}>
-     <LayoutWrap>
+     <LayoutWrap className={className}>
       <Row>
        <Column span={12} responsive>
         <Header

@@ -44,6 +44,7 @@ type InstaEdge = {
 }
 
 type IndexProps = {
+ className?: string,
  data: {
   allWordpressPost: {
    edges: Edge[],
@@ -62,14 +63,6 @@ type IndexProps = {
    },
   },
  },
-}
-
-type IndexState = {
- showAllPosts: boolean,
- togglePosts: () => void,
- sketchSize: 's' | 'm' | 'l',
- showAllSketches: boolean,
- toggleSketches: () => void,
 }
 
 const Avatar = styled.div`
@@ -99,7 +92,9 @@ const StyledIconSquare = styled(Square)`
  ${styledIconShared}
 `
 
-function IndexPage({ data: { allWordpressPost, allInstagramContent, site } }: IndexProps) {
+function IndexPage({
+ data: { allWordpressPost, allInstagramContent, site, className },
+}: IndexProps) {
  const [lightbox, setLightbox] = useLightbox()
  const [showAllPosts, setShowAllPosts] = useLocalStorage('showAllPosts', false)
  const [showAllSketches, setShowAllSketches] = useLocalStorage('showAllSketches', false)
@@ -113,7 +108,7 @@ function IndexPage({ data: { allWordpressPost, allInstagramContent, site } }: In
  const sketches = showAllSketches ? allSketches : allSketches.slice(0, 8)
 
  return (
-  <Layout title="Howdy!">
+  <Layout title="Howdy!" className={className}>
    <Section title="About">
     <Flexbox style={{ marginTop: '1rem' }}>
      <Avatar url="https://res.cloudinary.com/joelmturner/image/upload/v1532201643/joel-turner-headshot-web_xyix1w.jpg" />
