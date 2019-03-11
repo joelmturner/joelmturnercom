@@ -47,24 +47,25 @@ const ContentWrap = styled.div`
 
 function Layout({ title, slug, children }: LayoutProps): React.Node {
  const [activeTheme, setActiveTheme] = useLocalStorage('activeTheme', 'light')
+ console.log('themes[activeTheme]', themes[activeTheme])
 
  return (
-  <ThemeProvider theme={themes[activeTheme]}>
-   <StaticQuery
-    query={graphql`
-     query SiteTitleQuery {
-      site {
-       siteMetadata {
-        title
-        social {
-         network
-         link
-        }
+  <StaticQuery
+   query={graphql`
+    query SiteTitleQuery {
+     site {
+      siteMetadata {
+       title
+       social {
+        network
+        link
        }
       }
      }
-    `}
-    render={(data: Data) => (
+    }
+   `}
+   render={(data: Data) => (
+    <ThemeProvider theme={themes[activeTheme]}>
      <LayoutWrap>
       <Row>
        <Column span={12} responsive>
@@ -89,9 +90,9 @@ function Layout({ title, slug, children }: LayoutProps): React.Node {
       </Flexbox>
       <GlobalStyle />
      </LayoutWrap>
-    )}
-   />
-  </ThemeProvider>
+    </ThemeProvider>
+   )}
+  />
  )
 }
 
