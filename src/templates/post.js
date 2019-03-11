@@ -1,24 +1,28 @@
 // @flow
 import React, { useEffect } from 'react'
+import styled from 'styled-components'
 import Layout from '../components/layout'
-import CodePen from '../helpers/CodePen'
 import Prism from 'prismjs'
 import { graphql } from 'gatsby'
 import { H1 } from '../components/Text'
-import '../helpers/prism.css'
+import { useScript } from '../hooks'
+import PrismStyles from '../designSystem/prismStyles'
+
+const StyledPost = styled.div`
+ ${PrismStyles};
+`
 
 function PostTemplate({ data }) {
  useEffect(() => {
   Prism.highlightAll()
  }, [])
-
+ const [loaded, error] = useScript('//production-assets.codepen.io/assets/embed/ei.js')
  const post = data.wordpressPost
 
  return (
   <Layout title={post.title} slug={post.slug}>
-   <CodePen />
    <H1>{post.title}</H1>
-   <div dangerouslySetInnerHTML={{ __html: post.content }} />
+   <StyledPost dangerouslySetInnerHTML={{ __html: post.content }} />
   </Layout>
  )
 }
