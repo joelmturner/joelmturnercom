@@ -22,10 +22,6 @@ type Data = {
 
 type ActiveTheme = 'light' | 'dark' | null
 
-type LayoutState = {
- activeTheme: ActiveTheme,
-}
-
 type LayoutProps = {
  children: React.Node,
  data?: Data,

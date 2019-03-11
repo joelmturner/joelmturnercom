@@ -56,6 +56,7 @@ type TabContentProps = {
  children?: React.Node,
  size?: 's' | 'm' | 'l',
  style?: any,
+ onImageClick?: (edge: any) => void,
 }
 
 const StyledTabContent = styled(Row)`

@@ -101,8 +101,8 @@ const StyledIconSquare = styled(Square)`
 
 function IndexPage({ data: { allWordpressPost, allInstagramContent, site } }: IndexProps) {
  const [lightbox, setLightbox] = useLightbox()
- const [showAllPosts, setShowAllPosts] = useLocalStorage('showAllPosts', 'false')
- const [showAllSketches, setShowAllSketches] = useLocalStorage('showAllSketches', 'false')
+ const [showAllPosts, setShowAllPosts] = useLocalStorage('showAllPosts', false)
+ const [showAllSketches, setShowAllSketches] = useLocalStorage('showAllSketches', false)
  const [sketchSize, setSketchSize] = useState('s')
  const { name, title } = site.siteMetadata.about
 
