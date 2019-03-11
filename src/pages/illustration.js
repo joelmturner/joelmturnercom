@@ -1,5 +1,5 @@
 // @flow
-import React, { type Node, useState } from 'react'
+import React, { type Node, useState, useRef } from 'react'
 import type { GraphQLSchema } from 'graphql'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
@@ -9,19 +9,17 @@ import Tabs from '../components/Tabs/Tabs'
 import { TabContent } from '../components/Tabs/Tab'
 import Dialog from '../components/Dialog'
 import Img from 'gatsby-image'
+import { useLightbox, useOnClickOutside } from '../hooks'
 
 type IllustrationProps = {
  data: any,
 }
 
 function Illustration({ data }: IllustrationProps): Node {
- const [showLightbox, setShowLightbox] = useState(false)
- const [selectedImage, setSelectedImage] = useState(false)
+ const [lightbox, setLightbox] = useLightbox()
+ const ref = useRef()
 
- const openLightbox = image => {
-  setShowLightbox(true)
-  setSelectedImage(image)
- }
+ useOnClickOutside(ref, () => setLightbox(null))
 
  return (
   <Layout title="Illustration" slug="illustration">
@@ -29,9 +27,9 @@ function Illustration({ data }: IllustrationProps): Node {
     <H1>Sketching</H1>
     <H4>Handlettering and Illustration</H4>
     <Tabs>
-     <TabContent data={data.inktober2017.edges} label="Inktober 2017" onImageClick={openLightbox} />
-     <TabContent data={data.inktober2018.edges} label="Inktober 2018" onImageClick={openLightbox} />
-     <TabContent data={data.letterClash.edges} label="Letter Clash" onImageClick={openLightbox}>
+     <TabContent data={data.inktober2017.edges} label="Inktober 2017" onImageClick={setLightbox} />
+     <TabContent data={data.inktober2018.edges} label="Inktober 2018" onImageClick={setLightbox} />
+     <TabContent data={data.letterClash.edges} label="Letter Clash" onImageClick={setLightbox}>
       <BodyText>
        {'Letter Clash was a collaboration between '}
        <a href="https://www.instagram.com/rttnbrgr/" rel="noopener noreferrer" target="_blank">
@@ -52,13 +50,15 @@ function Illustration({ data }: IllustrationProps): Node {
      <TabContent
       data={data.joelmturner_abcs2017.edges}
       label="Handlettered ABCs 2017"
-      onImageClick={openLightbox}
+      onImageClick={setLightbox}
      />
     </Tabs>
    </Section>
-   {showLightbox && (
-    <Dialog onClose={() => setShowLightbox(false)} maxWidth="700px">
-     {selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
+   {lightbox.showLightbox && (
+    <Dialog onClose={() => setLightbox(null)} maxWidth="700px">
+     {lightbox.selectedImage && (
+      <Img fluid={lightbox.selectedImage.node.localImage.childImageSharp.fluid} />
+     )}
     </Dialog>
    )}
   </Layout>
