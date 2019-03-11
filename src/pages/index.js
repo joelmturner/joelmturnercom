@@ -5,7 +5,7 @@ import type { GraphQLSchema } from 'graphql'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import Post from '../components/Post'
-import { H1, H4, BodyText, LinkText } from '../components/Text'
+import { H1, H4, BodyText, ActionText } from '../components/Text'
 import { Row, Flexbox, Section } from '../designSystem'
 import { TabContent } from '../components/Tabs/Tab'
 // import ContactForm from '../components/organisms/contact'
@@ -15,6 +15,7 @@ import { Square } from 'styled-icons/fa-solid/Square'
 import Img from 'gatsby-image'
 import Dialog from '../components/Dialog'
 import { useLocalStorage, useLightbox } from '../hooks'
+import { LinkText } from '../components/Text/Text'
 
 type Edge = {
  node: {
@@ -126,7 +127,6 @@ function IndexPage({ data: { allWordpressPost, allInstagramContent, site } }: In
       "My background is in graphic design and web development. I'm currently working as a Front-End Developer at Sprinklr. I spend some of my free time exploring hand lettering and sketching as well as hiking in the Portland area with my wife and son."
      }
     </BodyText>
-    {/* <LinkText to="#">get in touch</LinkText> */}
    </Section>
 
    <Section title="Sketching">
@@ -148,9 +148,9 @@ function IndexPage({ data: { allWordpressPost, allInstagramContent, site } }: In
      onImageClick={setLightbox}
      style={{ marginBottom: '.5em' }}
     />
-    <LinkText to="#" onClick={() => setShowAllSketches(!showAllSketches)}>
+    <ActionText onClick={() => setShowAllSketches(!showAllSketches)}>
      {!showAllSketches ? 'Load More' : 'Show Fewer'} Favorites
-    </LinkText>
+    </ActionText>
    </Section>
 
    <Section title="Posts">
@@ -168,9 +168,9 @@ function IndexPage({ data: { allWordpressPost, allInstagramContent, site } }: In
        }
       )}
     </Row>
-    <LinkText to="#" onClick={() => setShowAllPosts(!showAllPosts)}>
+    <ActionText onClick={() => setShowAllPosts(!showAllPosts)}>
      {showAllPosts ? 'Show Fewer' : 'Load More'} Posts
-    </LinkText>
+    </ActionText>
    </Section>
    {lightbox.showLightbox && (
     <Dialog onClose={() => setLightbox(null)} maxWidth="700px">
