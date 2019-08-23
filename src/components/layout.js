@@ -1,11 +1,12 @@
 // @flow
 import * as React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
-import styled, { ThemeProvider, ReactComponentStyled } from 'styled-components'
+import styled, { ReactComponentStyled } from 'styled-components'
 import { themes, GlobalStyle, Row, Column, Flexbox, pageStyles } from '../designSystem'
 import Header from './Header'
 import { BodyText } from './Text'
 import { useLocalStorage } from '../hooks'
+import { AppContext } from '../../gatsby-browser'
 
 export type Social = {
  network: string,
@@ -47,8 +48,7 @@ const ContentWrap = styled.div`
 `
 
 function Layout({ title, slug, children, className }: LayoutProps): React.Node {
- const [activeTheme, setActiveTheme] = useLocalStorage('activeTheme', 'light')
- console.log('themes[activeTheme]', themes[activeTheme])
+ const [activeTheme, setActiveTheme] = React.useContext(AppContext)
 
  return (
   <StaticQuery
@@ -66,32 +66,30 @@ function Layout({ title, slug, children, className }: LayoutProps): React.Node {
     }
    `}
    render={(data: Data) => (
-    <ThemeProvider theme={themes[activeTheme]}>
-     <LayoutWrap className={className}>
-      <Row>
-       <Column span={12} responsive>
-        <Header
-         title={title || ''}
-         slug={slug || ''}
-         social={(data && data.site.siteMetadata.social) || []}
-         mini
-         onToggleTheme={() => setActiveTheme(activeTheme === 'dark' ? 'light' : 'dark')}
-        />
-       </Column>
-      </Row>
-      <Row hasOverflow>
-       <Column span={12} responsive>
-        <ContentWrap>
-         <>{children}</>
-        </ContentWrap>
-       </Column>
-      </Row>
-      <Flexbox center middle>
-       <BodyText>© Copyright 2018 Joel M Turner</BodyText>
-      </Flexbox>
-      <GlobalStyle />
-     </LayoutWrap>
-    </ThemeProvider>
+    <LayoutWrap className={className}>
+     <Row>
+      <Column span={12} responsive>
+       <Header
+        title={title || ''}
+        slug={slug || ''}
+        social={(data && data.site.siteMetadata.social) || []}
+        mini
+        onToggleTheme={() => setActiveTheme(activeTheme === 'dark' ? 'light' : 'dark')}
+       />
+      </Column>
+     </Row>
+     <Row hasOverflow>
+      <Column span={12} responsive>
+       <ContentWrap>
+        <>{children}</>
+       </ContentWrap>
+      </Column>
+     </Row>
+     <Flexbox center middle>
+      <BodyText>© Copyright 2018 Joel M Turner</BodyText>
+     </Flexbox>
+     <GlobalStyle />
+    </LayoutWrap>
    )}
   />
  )
