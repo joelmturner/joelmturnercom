@@ -3,6 +3,7 @@ import React from 'react'
 import { ThemeProvider } from 'styled-components'
 import { themes } from '../../designSystem'
 import { useLocalStorage } from '../../hooks'
+import GlobalStyle from '../../designSystem/GlobalStyle'
 
 /**
  * Implement Gatsby's Browser APIs in this file.
@@ -16,6 +17,7 @@ const ContextProvider = ({ children }) => {
  return (
   <AppContext.Provider value={[activeTheme, setActiveTheme]}>
    <ThemeProvider theme={themes[activeTheme]}>{children}</ThemeProvider>
+   <GlobalStyle theme={themes[activeTheme]} />
   </AppContext.Provider>
  )
 }

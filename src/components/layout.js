@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
-import { GlobalStyle, Row, Column, Flexbox, pageStyles } from '../designSystem'
+import { Row, Column, Flexbox, pageStyles } from '../designSystem'
 import Header from './Header'
 import { BodyText } from './Text'
 import { AppContext } from './Context/AppContext'
@@ -85,7 +85,6 @@ function Layout({ title, slug, children, className }: LayoutProps): React.Node {
      <Flexbox center middle>
       <BodyText>© Copyright 2018 Joel M Turner</BodyText>
      </Flexbox>
-     <GlobalStyle />
     </LayoutWrap>
    )}
   />
