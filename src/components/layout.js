@@ -1,12 +1,11 @@
 // @flow
 import * as React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
-import styled, { ReactComponentStyled } from 'styled-components'
-import { themes, GlobalStyle, Row, Column, Flexbox, pageStyles } from '../designSystem'
+import styled from 'styled-components'
+import { GlobalStyle, Row, Column, Flexbox, pageStyles } from '../designSystem'
 import Header from './Header'
 import { BodyText } from './Text'
-import { useLocalStorage } from '../hooks'
-import { AppContext } from '../../gatsby-browser'
+import { AppContext } from './Context/AppContext'
 
 export type Social = {
  network: string,
@@ -20,8 +19,6 @@ type Data = {
   },
  },
 }
-
-type ActiveTheme = 'light' | 'dark' | null
 
 type LayoutProps = {
  children: React.Node,
