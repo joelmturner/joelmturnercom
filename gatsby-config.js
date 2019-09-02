@@ -1,161 +1,125 @@
-const path = require(`path`)
-
 module.exports = {
   siteMetadata: {
-    title: 'Joel M Turner',
-    description: 'Dev, Design, and Kombucha',
-    siteUrl: 'https://joelmturner.com',
-    about: {
-      name: 'Joel M. Turner',
-      title: 'Frontend Developer',
-      bio:
-        'Not to be confused with Joel Turner, the rather talented, Australian beat-boxer. /n I spent many of my summers living on glaciers in Alaska.Living in a remote camp with a bunch of other interesting people was great.You never know where the conversations will go and what kind of friends you’ll make. /n I received my BA with a graphic design emphasis in December of 2005. Most of my free time in college was spent playing in the Symphony Orchestra and playing basketball. /n I was born in Laramie, Wyoming.I now live with my wife, Suzanne Turner and our two dogs in Portland, Oregon.',
-    },
-    social: [
-      {
-        network: 'twitter',
-        link: 'https://twitter.com/joelmturner',
-        // component: Twitter,
-      },
-      {
-        network: 'instagram',
-        link: 'https://www.instagram.com/joelmturner/',
-      },
-      {
-        network: 'github',
-        link: 'https://github.com/joelmturner',
-      },
-    ],
+    title: `Joel M. Turner`,
+    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    author: `@joelmturner`,
+    siteUrl: "https://joelmturner.com",
   },
   plugins: [
-    `gatsby-plugin-styled-components`,
-    /*
-     * Gatsby's data processing layer begins with “source”
-     * plugins. Here the site sources its data from Wordpress.
-     */
-    {
-      resolve: 'gatsby-source-wordpress',
-      options: {
-        /*
-         * The base URL of the Wordpress site without the trailingslash and the protocol. This is required.
-         * Example : 'gatsbyjsexamplewordpress.wordpress.com' or 'www.example-site.com'
-         */
-        baseUrl: 'mtgraph.net/joelmturner',
-        // The protocol. This can be http or https.
-        protocol: 'https',
-        // Indicates whether the site is hosted on wordpress.com.
-        // If false, then the assumption is made that the site is self hosted.
-        // If true, then the plugin will source its content on wordpress.com using the JSON REST API V2.
-        // If your site is hosted on wordpress.org, then set this to false.
-        hostingWPCOM: false,
-        // If useACF is true, then the source plugin will try to import the Wordpress ACF Plugin contents.
-        // This feature is untested for sites hosted on Wordpress.com.
-        // Defaults to true.
-        useACF: true,
-        // Set verboseOutput to true to display a verbose output on `npm run develop` or `npm run build`
-        // It can help you debug specific API Endpoints problems.
-        verboseOutput: false,
-        // Set how many pages are retrieved per API request.
-        perPage: 100,
-        // Search and Replace Urls across WordPress content.
-        searchAndReplaceContentUrls: {
-          sourceUrl: 'https://mtgraph.net/joelmturner/wp-content/uploads',
-          replacementUrl: 'https://res.cloudinary.com/joelmturner/blog',
-        },
-        // Set how many simultaneous requests are sent at once.
-        concurrentRequests: 10,
-        // Exclude specific routes using glob parameters
-        // See: https://github.com/isaacs/minimatch
-        // Example:  `["/*/*/comments", "/yoast/**"]` will exclude routes ending in `comments` and
-        // all routes that begin with `yoast` from fetch.
-        excludedRoutes: ['/*/*/comments', '/yoast/**'],
-        // use a custom normalizer which is applied after the built-in ones.
-        normalizer: function({ entities }) {
-          return entities
-        },
-      },
-    },
-    {
-      resolve: `gatsby-mdx`,
-      options: {
-        extensions: ['.mdx', '.md'],
-      },
-    },
     `gatsby-plugin-react-helmet`,
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: `gatsby-source-filesystem`,
       options: {
-        trackingId: '***REMOVED***',
-        // Puts tracking script in the head instead of the body
-        head: true,
-        // Setting this parameter is optional
-        anonymize: true,
-        // Setting this parameter is also optional
-        respectDNT: true,
-        // Avoids sending pageview hits from custom paths
-        exclude: ['/preview/**', '/do-not-track/me/too/'],
-        // Enables Google Optimize using your container Id
-        optimizeId: '***REMOVED***',
-        // Any additional create only fields (optional)
-        sampleRate: 5,
-        siteSpeedSampleRate: 10,
-        cookieDomain: 'joelmturner.com',
+        name: `images`,
+        path: `${__dirname}/src/images`,
       },
     },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `gatsby-starter-default`,
+        short_name: `starter`,
+        start_url: `/`,
+        background_color: `#663399`,
+        theme_color: `#663399`,
+        display: `minimal-ui`,
+        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+      },
+    },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        gatsbyRemarkPlugins: [
+          {
+            resolve: "@weknow/gatsby-remark-codepen",
+            options: {
+              theme: "dark",
+              height: 400,
+            },
+          },
+        ],
+      },
+    },
+    {
+      resolve: "gatsby-transformer-remark",
+      options: {
+        plugins: [
+          {
+            resolve: "@weknow/gatsby-remark-codepen",
+            options: {
+              theme: "dark",
+              height: 400,
+            },
+          },
+        ],
+      },
+    },
+    `gatsby-plugin-catch-links`,
+    "gatsby-plugin-theme-ui",
+    {
+      resolve: "gatsby-theme-ui-blog",
+      options: {
+        basePath: "/blog/",
+      },
+    },
+    `gatsby-plugin-typescript`,
     {
       resolve: `gatsby-plugin-feed`,
       options: {
         query: `
-        {
-          site {
-            siteMetadata {
-              title
-              description
-              siteUrl
-              site_url: siteUrl
+            {
+              site {
+                siteMetadata {
+                  title
+                  description
+                  siteUrl
+                }
+              }
             }
-          }
-        }
-      `,
+          `,
         feeds: [
           {
-            serialize: ({ query: { site, allWordpressPost } }) => {
-              return allWordpressPost.edges.map(edge => {
-                return Object.assign({}, edge.node, {
+            serialize: ({ query: { site, allMarkdownRemark } }) => {
+              return allMdx.edges.map(edge => {
+                return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
-                  date: edge.node.date,
-                  url: `${site.siteMetadata.siteUrl}/blog/${edge.node.slug}`,
-                  guid: `${site.siteMetadata.siteUrl}/blog/${edge.node.slug}`,
+                  date: edge.node.frontmatter.date,
+                  url:
+                    site.siteMetadata.siteUrl + edge.node.childMdxBlogPost.slug,
+                  guid:
+                    site.siteMetadata.siteUrl + edge.node.childMdxBlogPost.slug,
+                  custom_elements: [{ "content:encoded": edge.node.html }],
                 })
               })
             },
             query: `
-                    {
-                    allWordpressPost(
-                        sort: { order: DESC, fields: date }
-                      ) {
+                {
+                    allMdx(sort: {fields: [frontmatter___date, frontmatter___title], order: DESC}) {
                         edges {
-                            node {
-                              id
-                              date
-                              slug
-                              status
-                              template
-                              format
+                          node {
+                            excerpt
+                            html
+                            frontmatter {
                               title
-                              content
-                              excerpt
-                              featured_media {
-                                id
-                                source_url
-                              }
+                              date
                             }
+                            childMdxBlogPost {
+                              slug
+                            }
+                          }
                         }
                       }
-                    }
-                  `,
-            output: '/rss.xml',
-            title: 'Joel M Turner Feed',
+                }
+              `,
+            output: "/rss.xml",
+            title: "joelmturner.com RSS feed",
+            // optional configuration to insert feed reference in pages:
+            // if `string` is used, it will be used to create RegExp and then test if pathname of
+            // current page satisfied this regular expression;
+            // if not provided or `undefined`, all pages will have feed reference inserted
+            match: "^/blog/",
           },
         ],
       },
@@ -163,19 +127,11 @@ module.exports = {
     {
       resolve: `gatsby-source-instagram-all`,
       options: {
-        access_token: '***REMOVED***',
+        access_token: "***REMOVED***",
       },
     },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: path.join(__dirname, `src`, `images`),
-      },
-    },
-    `gatsby-plugin-sharp`,
-    `gatsby-transformer-sharp`,
+    // this (optional) plugin enables Progressive Web App + Offline functionality
+    // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
-    `gatsby-plugin-netlify`, // must be last in array
   ],
 }
