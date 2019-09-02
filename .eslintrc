@@ -1,22 +1,26 @@
 {
- "extends": ["plugin:flowtype/recommended", "eslint:recommended", "plugin:react/recommended"],
- "plugins": ["flowtype"],
- "settings": {
-  "flowtype": {
-   "onlyFilesWithFlowAnnotation": true
-  }
- },
- "env": {
-  "browser": true,
-  "node": true
- },
- "rules": {
-  "react/jsx-filename-extension": [
-   1,
-   {
-    "extensions": [".js", ".jsx"]
-   }
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "eslint:recommended",
+    "plugin:react/recommended"
   ],
-  "react/display-name": false
- }
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx", ".tsx"]
+      }
+    ],
+    "react/display-name": false,
+    "react/prop-types": false,
+    "@typescript-eslint/explicit-function-return-type": false,
+    "no-useless-constructor": "off",
+    "@typescript-eslint/no-useless-constructor": "error"
+  },
+  "plugins": ["@typescript-eslint"],
+  "parser": "@typescript-eslint/parser"
 }

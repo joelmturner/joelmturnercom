@@ -1,0 +1,126 @@
+---
+title: "Getting Sassy With Sass: Nesting"
+date: 2014-10-03
+draft: false
+cover: "./images/cover.jpg"
+---
+
+As I'm learning to use Sass I decided to jot down some of the basics for reference. Most of this is coming from [Hampton Catlin](http://www.hamptoncatlin.com/)'s [Sass Basics](http://teamtreehouse.com/library/sass-basics) course on [Treehouse](http://referrals.trhou.se/joelmturner) (referral).
+
+## Nesting Selectors
+
+The selectors can be nested for ease of writing and reading. This can help organize code in a way that like selectors are together. It also keeps us from having to repeat strings of selectors. A quick example would be:
+
+### Sass:
+
+```scss
+.selector1 {
+  .selector2 {
+    color: red;
+  }
+}
+```
+
+### CSS Output:
+
+```css
+.selector1 .selector2 {
+  color: red;
+}
+```
+
+You can even go deeper if you would like. Let's take a look at 4 levels deep (the suggested maximum depth for Sass).
+
+### Sass:
+
+```scss
+.selector1 {
+  .selector2 {
+    color: red;
+    .box {
+      background: blue;
+      h1 {
+        color: green;
+      }
+    }
+  }
+}
+```
+
+### CSS Output:
+
+```css
+.selector1 .selector2 {
+  color: red;
+}
+.selector1 .selector2 .box {
+  background: blue;
+}
+.selector1 .selector2 .box h1 {
+  color: green;
+}
+```
+
+## Using the & Symbol
+
+There is a helper character that makes referencing parent selectors much easier. This character is the **ampersand (&)** symbol.
+
+### Sass:
+
+```scss
+.blog {
+  > h1 {
+    color: red;
+    border: 1px solid red;
+  }
+  .entry {
+    h1 {
+      font-size: 20px;
+      color: blue;
+    }
+    p {
+      font-size: 12px;
+      margin: 20px;
+      html.csscolumns & {
+        column-count: 2;
+        column-gap: 10px;
+        margin: 10px;
+      }
+    }
+    a {
+      color: red;
+      &:hover {
+        color: blue;
+      }
+    }
+  }
+}
+```
+
+### CSS Output:
+
+```css
+.blog > h1 {
+  color: red;
+  border: 1px solid red;
+}
+.blog .entry h1 {
+  font-size: 20px;
+  color: blue;
+}
+.blog .entry p {
+  font-size: 12px;
+  margin: 20px;
+}
+html.csscolumns .blog .entry p {
+  column-count: 2;
+  column-gap: 10px;
+  margin: 10px;
+}
+.blog .entry a {
+  color: red;
+}
+.blog .entry a:hover {
+  color: blue;
+}
+```
