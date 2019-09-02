@@ -33,9 +33,6 @@ const tabDefaults = {
   px: 2,
   py: 1,
   cursor: "pointer",
-  "& + div": {
-    ml: 2,
-  },
 }
 
 export default {
@@ -58,6 +55,7 @@ export default {
     primaryHighlight: "#ffc689",
     gray: "#777",
     accent: "#cf50dc",
+    overlay: "rgba(255,255,255,0.8)",
     modes: {
       dark: {
         text: "#f2f2f2",
@@ -70,6 +68,7 @@ export default {
         primaryHighlight: "#ff9900",
         gray: "#aaa",
         accent: "#7bb4d0",
+        overlay: "rgba(0,0,0,0.8)",
       },
     },
   },
@@ -137,8 +136,8 @@ export default {
     },
     post: {
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fill, 464px)",
-      gridGap: "2rem",
+      gridTemplateColumns: ["1fr", "repeat(auto-fill, 464px)"],
+      gridGap: ["1rem", "2rem"],
     },
   },
   postCard: {
@@ -185,11 +184,14 @@ export default {
   },
   dialog: {
     overlay: {
+      bg: "overlay",
+    },
+    content: {
       margin: "10vh auto",
       background: "transparent",
       padding: 0,
       position: "relative",
-      width: "75vh",
+      width: ["85vw", "75vh"],
       ":hover [data-reach-dialog-nav]": {
         opacity: 1,
       },

@@ -95,7 +95,19 @@ export default ({ data }: IllustrationProps): React.ReactElement => {
       <Flexbox between middle>
         <Flexbox vertical>
           <Styled.h2>Illustrations</Styled.h2>
-          <Flexbox sx={{ mt: 2, mb: 4 }}>
+          <Flexbox
+            left
+            sx={{
+              mt: 2,
+              mb: 4,
+              flexDirection: ["column", "row"],
+              " & > * + *": {
+                mt: [2, 0],
+                ml: [0, 2],
+                alignSelf: ["flex-start", "center"],
+              },
+            }}
+          >
             <Tab
               title="All"
               setFilter={setFilter}

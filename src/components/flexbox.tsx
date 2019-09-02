@@ -124,8 +124,9 @@ const Flexbox: React.FC<FlexboxProps> = props => {
         flexDirection: props.vertical ? "column" : "row",
         flexWrap: props.wrap ? "wrap" : "no-wrap",
         flex: props.noGrow ? `0 0 auto` : `1 1 auto`,
-        " & > * + *": {
-          marginLeft: props.gap ? "2rem" : "inherit",
+        "& > * + *": {
+          marginLeft: props.gap && !props.vertical ? "2rem" : "0",
+          marginTop: props.gap && props.vertical ? "2rem" : "0",
         },
         ...getFlexProperties(props),
       }}

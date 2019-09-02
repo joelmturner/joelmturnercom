@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
     >
       <div
         sx={{
-          padding: 4,
+          padding: [3, 4],
           margin: `0 auto`,
           maxWidth: 960,
         }}
