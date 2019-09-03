@@ -15,18 +15,18 @@ import Gallery, { GallerySizes } from "../components/gallery"
 type IllustrationProps = {
   data: {
     inktober2017: {
-      edges: InstaNode[]
-    }
+      edges: InstaNode[];
+    };
     inktober2018: {
-      edges: InstaNode[]
-    }
+      edges: InstaNode[];
+    };
     letterClash: {
-      edges: InstaNode[]
-    }
+      edges: InstaNode[];
+    };
     joelmturner_abcs2017: {
-      edges: InstaNode[]
-    }
-  }
+      edges: InstaNode[];
+    };
+  };
 }
 
 type InstaCollections =
@@ -37,10 +37,10 @@ type InstaCollections =
   | null
 
 type TabProps = {
-  filter: InstaCollections
-  setFilter: (edge: any) => void
-  collectionName: InstaCollections
-  title: string
+  filter: InstaCollections;
+  setFilter: (edge: any) => void;
+  collectionName: InstaCollections;
+  title: string;
 }
 
 function Tab({ filter, setFilter, collectionName = null, title }: TabProps) {
@@ -60,7 +60,7 @@ function Tab({ filter, setFilter, collectionName = null, title }: TabProps) {
 
 export default ({ data }: IllustrationProps): React.ReactElement => {
   const [sketchSize, setSketchSize] = React.useState<GallerySizes>("m")
-  const [filter, setFilter] = React.useState<InstaCollections>(null)
+  const [filter, setFilter] = React.useState<InstaCollections>("inktober2017")
   const { inktober2017: { edges: ink2017Edges = [] } = {} } = data
   const { inktober2018: { edges: ink2018Edges = [] } = {} } = data
   const { letterClash: { edges: letterClashEdges = [] } = {} } = data
@@ -108,12 +108,6 @@ export default ({ data }: IllustrationProps): React.ReactElement => {
               },
             }}
           >
-            <Tab
-              title="All"
-              setFilter={setFilter}
-              collectionName={null}
-              filter={filter}
-            />
             <Tab
               title="Inktober 2017"
               setFilter={setFilter}

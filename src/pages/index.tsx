@@ -23,46 +23,46 @@ import Gallery, { GallerySizes } from "../components/gallery"
 
 export type InstaNode = {
   node: {
-    id: string
+    id: string;
     localImage: {
       childImageSharp: {
-        fluid: FluidObject
-      }
-    }
+        fluid: FluidObject;
+      };
+    };
     images: {
       standard_resolution: {
-        width: number
-        height: number
-        url: string
-      }
-    }
-  }
+        width: number;
+        height: number;
+        url: string;
+      };
+    };
+  };
 }
 type MDXNode = {
   node: {
-    excerpt: string
+    excerpt: string;
     frontmatter: {
-      title: string
+      title: string;
       cover: {
         childImageSharp: {
-          fluid: FluidObject
-        }
-      }
-    }
+          fluid: FluidObject;
+        };
+      };
+    };
     childMdxBlogPost: {
-      slug: string
-    }
-  }
+      slug: string;
+    };
+  };
 }
 type IndexPageProps = {
   data: {
     allInstagramContent: {
-      edges: InstaNode[]
-    }
+      edges: InstaNode[];
+    };
     allMdx: {
-      edges: MDXNode[]
-    }
-  }
+      edges: MDXNode[];
+    };
+  };
 }
 
 const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
@@ -183,15 +183,6 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
           ))}
       </div>
 
-      <Styled.p>
-        <Link sx={{ variant: "link" }} to="/blog">
-          See blog
-        </Link>
-        {"  "}
-        <Link sx={{ variant: "link" }} to="/illustration">
-          See illustrations
-        </Link>
-      </Styled.p>
       {showLightbox && (
         <Dialog
           onClose={() => setLightbox(null)}
