@@ -21,9 +21,9 @@ const Dialog = ({ className, children, onClose, maxWidth, onPrev, onNext }: Dial
     onSwipedRight: () => onNext && onNext(),
     ...{
       delta: 10,
-      preventDefaultTouchmoveEvent: false,
+      preventDefaultTouchmoveEvent: true,
       trackTouch: true,
-      trackMouse: false,
+      trackMouse: true,
       rotationAngle: 0,
     },
   })
