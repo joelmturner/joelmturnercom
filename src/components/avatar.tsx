@@ -6,9 +6,7 @@ import BackgroundImage from "gatsby-background-image"
 export default props => {
   const data = useStaticQuery(graphql`
     query {
-      placeholderImage: file(
-        relativePath: { eq: "joel-turner-headshot-web.jpg" }
-      ) {
+      placeholderImage: file(relativePath: { eq: "joel-turner-headshot-web.jpg" }) {
         childImageSharp {
           fluid(maxWidth: 300) {
             ...GatsbyImageSharpFluid_withWebp

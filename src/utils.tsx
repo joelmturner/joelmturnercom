@@ -1,8 +1,4 @@
-export const getImageStep = (
-  index: number,
-  arr: any[],
-  direction: "prev" | "next"
-) => {
+export const getImageStep = (index: number, arr: any[], direction: "prev" | "next") => {
   if (index === -1) {
     return null
   }

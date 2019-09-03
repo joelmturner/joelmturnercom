@@ -1,24 +1,17 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 import React from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { FluidObject } from "gatsby-image"
 import Avatar from "../components/avatar"
 import Flexbox from "../components/flexbox"
-import css from "@styled-system/css"
 import PostCard from "../components/postCard"
 import { useOnClickOutside, useLightboxNav } from "../hooks"
 import Dialog from "../components/dialog"
 import Img from "gatsby-image"
-import {
-  FaTh,
-  FaThLarge,
-  FaSquare,
-  FaCaretDown,
-  FaCaretUp,
-} from "react-icons/fa"
+import { FaTh, FaThLarge, FaSquare, FaCaretDown, FaCaretUp } from "react-icons/fa"
 import Gallery, { GallerySizes } from "../components/gallery"
 
 export type InstaNode = {
@@ -69,8 +62,8 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
   const [showInsta, setShowInsta] = React.useState(false)
   const [showPosts, setShowPosts] = React.useState(false)
   const [sketchSize, setSketchSize] = React.useState<GallerySizes>("s")
+
   const ref = React.useRef()
-  useOnClickOutside(ref, () => setLightbox(null))
   const { allInstagramContent: { edges: instaEdges = [] } = {} } = data
   const { allMdx: { edges: mdxEdges = [] } = {} } = data
   let insta: InstaNode[] = []
@@ -82,9 +75,8 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
     posts = showPosts ? mdxEdges : mdxEdges.slice(0, 2)
   }
 
-  const { showLightbox, setLightbox, selectedImage, setDir } = useLightboxNav(
-    insta
-  )
+  const { showLightbox, setLightbox, selectedImage, setDir } = useLightboxNav(insta)
+  useOnClickOutside(ref, () => setLightbox(null))
 
   return (
     <Layout title="Howdy!">
@@ -175,10 +167,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
               key={edge.node.frontmatter.title}
               slug={`${edge.node.childMdxBlogPost.slug}`}
               title={edge.node.frontmatter.title}
-              image={
-                edge.node.frontmatter.cover &&
-                edge.node.frontmatter.cover.childImageSharp.fluid
-              }
+              image={edge.node.frontmatter.cover && edge.node.frontmatter.cover.childImageSharp.fluid}
             />
           ))}
       </div>
@@ -190,9 +179,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
           onPrev={() => setDir("prev")}
           onNext={() => setDir("next")}
         >
-          {selectedImage && (
-            <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />
-          )}
+          {selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
         </Dialog>
       )}
     </Layout>
@@ -204,10 +191,7 @@ export default IndexPage
 export const pageQuery = graphql`
   query PageQuery {
     ...PostsEdges
-    allInstagramContent(
-      filter: { tags: { eq: "joelmturner_featured" } }
-      sort: { fields: created_time, order: ASC }
-    ) {
+    allInstagramContent(filter: { tags: { eq: "joelmturner_featured" } }, sort: { fields: created_time, order: ASC }) {
       edges {
         ...InstaNodes
       }

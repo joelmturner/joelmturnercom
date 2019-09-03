@@ -115,18 +115,12 @@ export default {
     image: {
       s: {
         display: "grid",
-        gridTemplateColumns: [
-          "repeat(3, 1fr)",
-          "repeat(auto-fill, minmax(142px, 1fr))",
-        ],
+        gridTemplateColumns: ["repeat(3, 1fr)", "repeat(auto-fill, minmax(142px, 1fr))"],
         gridGap: "0.25rem",
       },
       m: {
         display: "grid",
-        gridTemplateColumns: [
-          "repeat(2, 1fr)",
-          "repeat(auto-fill, minmax(300px, 1fr))",
-        ],
+        gridTemplateColumns: ["repeat(2, 1fr)", "repeat(auto-fill, minmax(300px, 1fr))"],
         gridGap: "0.5rem",
       },
       l: {
@@ -308,8 +302,7 @@ export default {
         transform: "translate3d(0,0,0)",
         border: theme => `2px solid ${theme.colors.muted}`,
         borderRadius: "20px",
-        transition:
-          "background 0.3s ease-in, border 0.3s ease-in 0s, transform 0.3s ease-in",
+        transition: "background 0.3s ease-in, border 0.3s ease-in 0s, transform 0.3s ease-in",
       },
     },
     icon: {

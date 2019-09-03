@@ -42,9 +42,7 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
           )}
           <ThemeSwitch
             checked={colorMode === "light"}
-            onClick={() =>
-              setColorMode(colorMode === "light" ? "dark" : "light")
-            }
+            onClick={() => setColorMode(colorMode === "light" ? "dark" : "light")}
           />
         </Flexbox>
       </div>

@@ -22,10 +22,7 @@ export default (props): ReactElement => {
               key={edge.node.frontmatter.title}
               slug={`${edge.node.childMdxBlogPost.slug}`}
               title={edge.node.frontmatter.title}
-              image={
-                edge.node.frontmatter.cover &&
-                edge.node.frontmatter.cover.childImageSharp.fluid
-              }
+              image={edge.node.frontmatter.cover && edge.node.frontmatter.cover.childImageSharp.fluid}
             />
           ))}
       </div>
@@ -35,9 +32,7 @@ export default (props): ReactElement => {
 
 export const postsFragment = graphql`
   fragment PostsEdges on Query {
-    allMdx(
-      sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }
-    ) {
+    allMdx(sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }) {
       edges {
         node {
           frontmatter {

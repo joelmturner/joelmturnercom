@@ -28,18 +28,7 @@ export type FlexboxProps = {
 
 export const getFlexProperties = (props: FlexboxProps) => {
   // check all booleans and return appropriate css
-  const {
-    top,
-    middle,
-    bottom,
-    left,
-    center,
-    right,
-    between,
-    around,
-    vertical,
-    gap,
-  } = props
+  const { top, middle, bottom, left, center, right, between, around, vertical, gap } = props
 
   let primaryAxis = "initial"
   let secondaryAxis = "initial"

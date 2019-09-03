@@ -8,31 +8,24 @@ export type GalleryImage = {
   node: {
     localImage: {
       childImageSharp: {
-        fluid: FluidObject
-      }
-    }
-    id: string
-  }
+        fluid: FluidObject;
+      };
+    };
+    id: string;
+  };
 }
 type GalleryProps = {
-  imageEdges: GalleryImage[]
-  setLightbox: (edge: any) => void
-  size: GallerySizes
-  className?: string
+  imageEdges: GalleryImage[];
+  setLightbox: (edge: any) => void;
+  size: GallerySizes;
+  className?: string;
 }
 export default ({ imageEdges, setLightbox, size, className }: GalleryProps) => {
   return (
-    <div
-      sx={{ variant: `collection.image.${size}`, mb: 4 }}
-      className={className}
-    >
+    <div sx={{ variant: `collection.image.${size}`, mb: 4 }} className={className}>
       {imageEdges.length > 0 &&
         imageEdges.map(edge => (
-          <div
-            style={{ cursor: "pointer" }}
-            key={edge.node.id}
-            onClick={() => setLightbox(edge)}
-          >
+          <div style={{ cursor: "pointer" }} key={edge.node.id} onClick={() => setLightbox(edge)}>
             <Img fadeIn fluid={edge.node.localImage.childImageSharp.fluid} />
           </div>
         ))}

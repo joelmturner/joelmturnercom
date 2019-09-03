@@ -3,14 +3,11 @@ import { getImageStep } from "../utils"
 import { GalleryImage } from "../components/gallery"
 
 type Lightbox = {
-  showLightbox: boolean
-  selectedImage: any
+  showLightbox: boolean;
+  selectedImage: any;
 }
 
-export function useLightbox(): [
-  Lightbox,
-  (image: GalleryImage | null) => void
-] {
+export function useLightbox(): [Lightbox, (image: GalleryImage | null) => void] {
   const [showLightbox, setShowLightbox] = useState(false)
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
 
@@ -49,8 +46,7 @@ export function useLocalStorage(key: string, initialValue: any) {
   const setValue = (value: string | ((val: string) => string)) => {
     try {
       // Allow value to be a function so we have same API as useState
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value
+      const valueToStore = value instanceof Function ? value(storedValue) : value
       // Save state
       setStoredValue(valueToStore)
       // Save to local storage

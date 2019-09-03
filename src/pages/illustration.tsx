@@ -29,12 +29,7 @@ type IllustrationProps = {
   };
 }
 
-type InstaCollections =
-  | "inktober2017"
-  | "inktober2018"
-  | "letterClash"
-  | "joelmturner_abcs2017"
-  | null
+type InstaCollections = "inktober2017" | "inktober2018" | "letterClash" | "joelmturner_abcs2017" | null
 
 type TabProps = {
   filter: InstaCollections;
@@ -49,10 +44,7 @@ function Tab({ filter, setFilter, collectionName = null, title }: TabProps) {
     state = "active"
   }
   return (
-    <div
-      sx={{ variant: `filter.tab.${state}` }}
-      onClick={() => setFilter(collectionName)}
-    >
+    <div sx={{ variant: `filter.tab.${state}` }} onClick={() => setFilter(collectionName)}>
       {title}
     </div>
   )
@@ -76,18 +68,11 @@ export default ({ data }: IllustrationProps): React.ReactElement => {
       case "joelmturner_abcs2017":
         return jmt2017Edges
       default:
-        return [
-          ...ink2017Edges,
-          ...ink2018Edges,
-          ...letterClashEdges,
-          ...jmt2017Edges,
-        ]
+        return [...ink2017Edges, ...ink2018Edges, ...letterClashEdges, ...jmt2017Edges]
     }
   }
 
-  const { showLightbox, setLightbox, selectedImage, setDir } = useLightboxNav(
-    filteredEdges()
-  )
+  const { showLightbox, setLightbox, selectedImage, setDir } = useLightboxNav(filteredEdges())
 
   return (
     <Layout>
@@ -108,24 +93,9 @@ export default ({ data }: IllustrationProps): React.ReactElement => {
               },
             }}
           >
-            <Tab
-              title="Inktober 2017"
-              setFilter={setFilter}
-              collectionName="inktober2017"
-              filter={filter}
-            />
-            <Tab
-              title="Inktober 2018"
-              setFilter={setFilter}
-              collectionName="inktober2018"
-              filter={filter}
-            />
-            <Tab
-              title="#LetterClash"
-              setFilter={setFilter}
-              collectionName="letterClash"
-              filter={filter}
-            />
+            <Tab title="Inktober 2017" setFilter={setFilter} collectionName="inktober2017" filter={filter} />
+            <Tab title="Inktober 2018" setFilter={setFilter} collectionName="inktober2018" filter={filter} />
+            <Tab title="#LetterClash" setFilter={setFilter} collectionName="letterClash" filter={filter} />
             <Tab
               title="#HandletteredABCs 2017"
               setFilter={setFilter}
@@ -152,11 +122,7 @@ export default ({ data }: IllustrationProps): React.ReactElement => {
           />
         </Flexbox>
       </Flexbox>
-      <Gallery
-        size={sketchSize}
-        imageEdges={filteredEdges()}
-        setLightbox={setLightbox}
-      />
+      <Gallery size={sketchSize} imageEdges={filteredEdges()} setLightbox={setLightbox} />
 
       {showLightbox && (
         <Dialog
@@ -165,9 +131,7 @@ export default ({ data }: IllustrationProps): React.ReactElement => {
           onPrev={() => setDir("prev")}
           onNext={() => setDir("next")}
         >
-          {selectedImage && (
-            <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />
-          )}
+          {selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
         </Dialog>
       )}
     </Layout>

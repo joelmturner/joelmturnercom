@@ -2,31 +2,23 @@
 import { jsx, Styled } from "theme-ui"
 import * as React from "react"
 import { DialogOverlay, DialogContent } from "@reach/dialog"
-import "@reach/dialog/styles.css"
-import css from "@styled-system/css"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
-import { useSwipeable, Swipeable } from "react-swipeable"
+import { useSwipeable } from "react-swipeable"
+import "@reach/dialog/styles.css"
 
 type DialogProps = {
-  className?: any
-  children: any
-  maxWidth?: string
-  onClose: () => void
-  onPrev?: () => void
-  onNext?: () => void
+  className?: any;
+  children: any;
+  maxWidth?: string;
+  onClose: () => void;
+  onPrev?: () => void;
+  onNext?: () => void;
 }
 
-const Dialog = ({
-  className,
-  children,
-  onClose,
-  maxWidth,
-  onPrev,
-  onNext,
-}: DialogProps) => {
+const Dialog = ({ className, children, onClose, maxWidth, onPrev, onNext }: DialogProps) => {
   const handlers = useSwipeable({
-    onSwipedLeft: eventData => onPrev && onPrev(),
-    onSwipedRight: eventData => onNext && onNext(),
+    onSwipedLeft: () => onPrev && onPrev(),
+    onSwipedRight: () => onNext && onNext(),
     ...{
       delta: 10,
       preventDefaultTouchmoveEvent: false,
@@ -36,13 +28,7 @@ const Dialog = ({
     },
   })
   return (
-    <DialogOverlay
-      sx={{ variant: "dialog.overlay" }}
-      isOpen
-      onDismiss={onClose}
-      className={className}
-      {...handlers}
-    >
+    <DialogOverlay sx={{ variant: "dialog.overlay" }} isOpen onDismiss={onClose} className={className} {...handlers}>
       <DialogContent
         sx={{
           variant: "dialog.content",
