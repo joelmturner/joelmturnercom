@@ -4,26 +4,26 @@ import * as React from "react"
 import css from "@styled-system/css"
 
 export type FlexboxProps = {
-  className?: string
-  inline?: boolean
-  vertical?: boolean
-  wrap?: boolean
-  noGrow?: boolean
-  grow?: number
-  shrink?: number
-  basis?: number | "auto"
-  children?: React.ReactNode
+  className?: string;
+  inline?: boolean;
+  vertical?: boolean;
+  wrap?: boolean;
+  noGrow?: boolean;
+  grow?: number;
+  shrink?: number;
+  basis?: number | "auto";
+  children?: React.ReactNode;
   //
-  top?: boolean
-  middle?: boolean
-  bottom?: boolean
-  left?: boolean
-  center?: boolean
-  right?: boolean
-  between?: boolean
-  around?: boolean
+  top?: boolean;
+  middle?: boolean;
+  bottom?: boolean;
+  left?: boolean;
+  center?: boolean;
+  right?: boolean;
+  between?: boolean;
+  around?: boolean;
 
-  gap?: boolean
+  gap?: boolean;
 }
 
 export const getFlexProperties = (props: FlexboxProps) => {
@@ -125,8 +125,8 @@ const Flexbox: React.FC<FlexboxProps> = props => {
         flexWrap: props.wrap ? "wrap" : "no-wrap",
         flex: props.noGrow ? `0 0 auto` : `1 1 auto`,
         "& > * + *": {
-          marginLeft: props.gap && !props.vertical ? "2rem" : "0",
-          marginTop: props.gap && props.vertical ? "2rem" : "0",
+          marginLeft: props.gap && !props.vertical && "2rem",
+          marginTop: props.gap && props.vertical && "2rem",
         },
         ...getFlexProperties(props),
       }}

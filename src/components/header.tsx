@@ -6,10 +6,11 @@ import Flexbox from "./flexbox"
 import ThemeSwitch from "./themeSwitch"
 
 type HeaderProps = {
-  siteTitle: string
+  siteTitle: string;
 }
 const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
   const [colorMode, setColorMode] = useColorMode()
+  const [showNav, setShowNav] = React.useState<boolean>(true)
   return (
     <header
       sx={{
@@ -29,6 +30,16 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
               {siteTitle}
             </Link>
           </Styled.h1>
+          {showNav && (
+            <Flexbox right middle sx={{ variant: "nav.wrapper" }}>
+              <h3 sx={{ variant: "nav.link" }}>
+                <Link to="/illustration">Illustration</Link>
+              </h3>
+              <h3 sx={{ variant: "nav.link" }}>
+                <Link to="/blog">Blog</Link>
+              </h3>
+            </Flexbox>
+          )}
           <ThemeSwitch
             checked={colorMode === "light"}
             onClick={() =>

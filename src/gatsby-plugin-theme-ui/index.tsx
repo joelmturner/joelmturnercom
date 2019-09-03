@@ -18,7 +18,8 @@ const switchIcon = {
   top: "50%",
   position: "absolute",
   transition: "transform 0.3s ease-in",
-  fontSize: 2,
+  alignItems: "center",
+  display: "flex",
   svg: {
     fill: "textMuted",
     cursor: "pointer",
@@ -182,6 +183,27 @@ export default {
       color: "primaryHighlight",
     },
   },
+  nav: {
+    wrapper: {
+      padding: [1, 2],
+      margin: `0 auto`,
+      maxWidth: 960,
+    },
+    link: {
+      mr: [2, 3],
+      my: 0,
+      fontFamily: "heading",
+      fontSize: 2,
+      letterSpacing: 2,
+      a: {
+        textDecoration: "none",
+        color: "textMuted",
+      },
+      "a:hover": {
+        color: "primaryHighlight",
+      },
+    },
+  },
   dialog: {
     overlay: {
       bg: "overlay",
@@ -238,7 +260,6 @@ export default {
       position: "relative",
       width: "55px",
       userSelect: "none",
-      minHeight: "30px",
     },
     switch: {
       display: "none",
