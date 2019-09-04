@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Joel M. Turner`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    description: `I'm a kombucha lovin' Front-End Dev at Sprinklr. Love lettering, love design, love development, love Portland.`,
     author: `@joelmturner`,
     siteUrl: "https://joelmturner.com",
   },
@@ -19,41 +19,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Joel M. Turner`,
+        short_name: `Joel M. Turner`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#121212`,
+        theme_color: `#ffc689`,
         display: `minimal-ui`,
         icon: `src/images/joel-turner-icon.png`, // This path is relative to the root of the site.
-      },
-    },
-    {
-      resolve: `gatsby-plugin-mdx`,
-      options: {
-        gatsbyRemarkPlugins: [
-          {
-            resolve: "@weknow/gatsby-remark-codepen",
-            options: {
-              theme: "dark",
-              height: 400,
-            },
-          },
-        ],
-      },
-    },
-    {
-      resolve: "gatsby-transformer-remark",
-      options: {
-        plugins: [
-          {
-            resolve: "@weknow/gatsby-remark-codepen",
-            options: {
-              theme: "dark",
-              height: 400,
-            },
-          },
-        ],
       },
     },
     `gatsby-plugin-catch-links`,
