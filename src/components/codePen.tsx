@@ -2,7 +2,11 @@
 import { jsx } from "theme-ui"
 import Iframe from "react-iframe"
 
-function Codepen({ title, id }) {
+type CodepenProps = {
+  title: string;
+  id: string;
+}
+function Codepen({ title, id }: CodepenProps) {
   return (
     <Iframe
       height="320"

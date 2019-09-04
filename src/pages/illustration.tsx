@@ -44,7 +44,7 @@ export type InstaCollections =
 
 type TabProps = {
   filter: InstaCollections;
-  setFilter: (edge: any) => void;
+  setFilter: (collection: InstaCollections) => void;
   collectionName: InstaCollections;
   title: string;
 }
