@@ -173,12 +173,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
       </div>
 
       {showLightbox && (
-        <Dialog
-          onClose={() => setLightbox(null)}
-          maxWidth="700px"
-          onPrev={() => setDir("prev")}
-          onNext={() => setDir("next")}
-        >
+        <Dialog onClose={() => setLightbox(null)} onPrev={() => setDir("prev")} onNext={() => setDir("next")}>
           {selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
         </Dialog>
       )}

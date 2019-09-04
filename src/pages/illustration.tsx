@@ -140,12 +140,7 @@ export default ({ data }: IllustrationProps): React.ReactElement => {
       <Gallery size={sketchSize} imageEdges={filteredEdges()} setLightbox={setLightbox} />
 
       {showLightbox && (
-        <Dialog
-          onClose={() => setLightbox(null)}
-          maxWidth="700px"
-          onPrev={() => setDir("prev")}
-          onNext={() => setDir("next")}
-        >
+        <Dialog onClose={() => setLightbox(null)} onPrev={() => setDir("prev")} onNext={() => setDir("next")}>
           {selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
         </Dialog>
       )}

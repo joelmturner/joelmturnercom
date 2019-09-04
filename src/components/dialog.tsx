@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui"
-import * as React from "react"
+import { jsx } from "theme-ui"
 import { DialogOverlay, DialogContent } from "@reach/dialog"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import { useSwipeable } from "react-swipeable"
@@ -9,13 +8,12 @@ import "@reach/dialog/styles.css"
 type DialogProps = {
   className?: any;
   children: any;
-  maxWidth?: string;
   onClose: () => void;
   onPrev?: () => void;
   onNext?: () => void;
 }
 
-const Dialog = ({ className, children, onClose, maxWidth, onPrev, onNext }: DialogProps) => {
+const Dialog = ({ className, children, onClose, onPrev, onNext }: DialogProps) => {
   const handlers = useSwipeable({
     onSwipedLeft: () => onPrev && onPrev(),
     onSwipedRight: () => onNext && onNext(),
@@ -32,14 +30,13 @@ const Dialog = ({ className, children, onClose, maxWidth, onPrev, onNext }: Dial
       <DialogContent
         sx={{
           variant: "dialog.content",
-          maxWidth: maxWidth ? maxWidth : "60vw",
           "[data-reach-dialog-overlay]": {
             background: "black",
             backgroundColor: "black",
           },
         }}
       >
-        <span>{children}</span>
+        <div>{children}</div>
         <button
           sx={{
             bg: "muted",
