@@ -222,7 +222,7 @@ export default {
       top: "50%",
       width: "initial",
       margin: 0,
-      maxWidth: "960px",
+      maxWidth: ["85vw", "960px"],
       transform: "translate3d(-50%, -50%, 0)",
       ":hover [data-reach-dialog-nav]": {
         opacity: 1,
