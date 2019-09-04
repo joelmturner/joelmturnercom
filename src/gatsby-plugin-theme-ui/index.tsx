@@ -92,6 +92,16 @@ export default {
       ...base.styles.p,
       fontSize: 3,
     },
+    li: {
+      ...base.styles.li,
+      fontSize: 3,
+    },
+    img: {
+      ...base.styles.img,
+      textAlign: "center",
+      justifyContent: "center",
+      justifySelf: "center",
+    },
     a: {
       ...base.styles.a,
       transition: "color 300ms ease-in",

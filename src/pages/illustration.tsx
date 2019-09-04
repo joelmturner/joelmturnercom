@@ -14,6 +14,9 @@ import Gallery, { GallerySizes } from "../components/gallery"
 
 type IllustrationProps = {
   data: {
+    featuredInsta: {
+      edges: InstaNode[];
+    };
     inktober2017: {
       edges: InstaNode[];
     };
@@ -29,7 +32,15 @@ type IllustrationProps = {
   };
 }
 
-type InstaCollections = "inktober2017" | "inktober2018" | "letterClash" | "joelmturner_abcs2017" | null
+export type InstaCollections =
+  | "featuredInsta"
+  | "inktober2017"
+  | "inktober2018"
+  | "letterClash"
+  | "joelmturner_abcs2017"
+  | "recentInsta"
+  | "insta2016"
+  | null
 
 type TabProps = {
   filter: InstaCollections;
@@ -52,13 +63,16 @@ function Tab({ filter, setFilter, collectionName = null, title }: TabProps) {
 
 export default ({ data }: IllustrationProps): React.ReactElement => {
   const [sketchSize, setSketchSize] = React.useState<GallerySizes>("m")
-  const [filter, setFilter] = React.useState<InstaCollections>("inktober2017")
+  const [filter, setFilter] = React.useState<InstaCollections>("featuredInsta")
+  const { featuredInsta: { edges: featuredEdges = [] } = {} } = data
   const { inktober2017: { edges: ink2017Edges = [] } = {} } = data
   const { inktober2018: { edges: ink2018Edges = [] } = {} } = data
   const { letterClash: { edges: letterClashEdges = [] } = {} } = data
   const { joelmturner_abcs2017: { edges: jmt2017Edges = [] } = {} } = data
   const filteredEdges = () => {
     switch (filter) {
+      case "featuredInsta":
+        return featuredEdges
       case "inktober2017":
         return ink2017Edges
       case "inktober2018":
@@ -68,7 +82,7 @@ export default ({ data }: IllustrationProps): React.ReactElement => {
       case "joelmturner_abcs2017":
         return jmt2017Edges
       default:
-        return [...ink2017Edges, ...ink2018Edges, ...letterClashEdges, ...jmt2017Edges]
+        return [...featuredEdges, ...ink2017Edges, ...ink2018Edges, ...letterClashEdges, ...jmt2017Edges]
     }
   }
 
@@ -93,6 +107,7 @@ export default ({ data }: IllustrationProps): React.ReactElement => {
               },
             }}
           >
+            <Tab title="Featured" setFilter={setFilter} collectionName="featuredInsta" filter={filter} />
             <Tab title="Inktober 2017" setFilter={setFilter} collectionName="inktober2017" filter={filter} />
             <Tab title="Inktober 2018" setFilter={setFilter} collectionName="inktober2018" filter={filter} />
             <Tab title="#LetterClash" setFilter={setFilter} collectionName="letterClash" filter={filter} />
@@ -158,10 +173,7 @@ export const query = graphql`
       }
     }
   }
-`
-
-export const IllustrationPageQuery = graphql`
-  query IllustrationPageQuery {
+  fragment inktober2017 on Query {
     inktober2017: allInstagramContent(
       filter: { tags: { glob: "ink*2017" } }
       sort: { fields: created_time, order: ASC }
@@ -170,6 +182,8 @@ export const IllustrationPageQuery = graphql`
         ...InstaNodes
       }
     }
+  }
+  fragment inktober2018 on Query {
     inktober2018: allInstagramContent(
       filter: { tags: { glob: "ink*2018" } }
       sort: { fields: created_time, order: ASC }
@@ -178,6 +192,8 @@ export const IllustrationPageQuery = graphql`
         ...InstaNodes
       }
     }
+  }
+  fragment letterClash on Query {
     letterClash: allInstagramContent(
       filter: { tags: { eq: "letterclash" } }
       sort: { fields: created_time, order: ASC }
@@ -186,6 +202,8 @@ export const IllustrationPageQuery = graphql`
         ...InstaNodes
       }
     }
+  }
+  fragment joelmturner_abcs2017 on Query {
     joelmturner_abcs2017: allInstagramContent(
       filter: { tags: { glob: "j*2017" } }
       sort: { fields: created_time, order: ASC }
@@ -194,5 +212,42 @@ export const IllustrationPageQuery = graphql`
         ...InstaNodes
       }
     }
+  }
+  fragment featuredInsta on Query {
+    featuredInsta: allInstagramContent(
+      filter: { tags: { eq: "joelmturner_featured" } }
+      sort: { fields: created_time, order: ASC }
+    ) {
+      edges {
+        ...InstaNodes
+      }
+    }
+  }
+  fragment insta2016 on Query {
+    insta2016: allInstagramContent(
+      sort: { fields: created_time, order: DESC }
+      filter: { created_time: { regex: "/(145|146|147|148)[0-9]+/g" }, tags: { glob: "handletteredabcs_2016" } }
+    ) {
+      edges {
+        ...InstaNodes
+      }
+    }
+  }
+  fragment recentInsta on Query {
+    recentInsta: allInstagramContent(sort: { fields: created_time, order: DESC }, limit: 18) {
+      edges {
+        ...InstaNodes
+      }
+    }
+  }
+`
+
+export const IllustrationPageQuery = graphql`
+  query IllustrationPageQuery {
+    ...featuredInsta
+    ...inktober2017
+    ...inktober2018
+    ...letterClash
+    ...joelmturner_abcs2017
   }
 `
