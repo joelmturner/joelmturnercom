@@ -211,7 +211,7 @@ export const query = graphql`
   fragment featuredInsta on Query {
     featuredInsta: allInstagramContent(
       filter: { tags: { eq: "joelmturner_featured" } }
-      sort: { fields: created_time, order: ASC }
+      sort: { fields: likes___count, order: DESC }
     ) {
       edges {
         ...InstaNodes

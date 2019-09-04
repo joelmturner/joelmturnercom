@@ -49,7 +49,7 @@ type MDXNode = {
 }
 type IndexPageProps = {
   data: {
-    allInstagramContent: {
+    featuredInsta: {
       edges: InstaNode[];
     };
     allMdx: {
@@ -64,7 +64,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
   const [sketchSize, setSketchSize] = React.useState<GallerySizes>("s")
 
   const ref = React.useRef()
-  const { allInstagramContent: { edges: instaEdges = [] } = {} } = data
+  const { featuredInsta: { edges: instaEdges = [] } = {} } = data
   const { allMdx: { edges: mdxEdges = [] } = {} } = data
   let insta: InstaNode[] = []
   if (instaEdges.length > 0) {
@@ -186,10 +186,6 @@ export default IndexPage
 export const pageQuery = graphql`
   query PageQuery {
     ...PostsEdges
-    allInstagramContent(filter: { tags: { eq: "joelmturner_featured" } }, sort: { fields: created_time, order: ASC }) {
-      edges {
-        ...InstaNodes
-      }
-    }
+    ...featuredInsta
   }
 `
