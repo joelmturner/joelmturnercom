@@ -4,13 +4,15 @@ import * as React from "react"
 import { Link } from "gatsby"
 import Flexbox from "./flexbox"
 import ThemeSwitch from "./themeSwitch"
+import MainNav from "./mainNav"
 
 type HeaderProps = {
   siteTitle: string;
 }
+
 const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
   const [colorMode, setColorMode] = useColorMode()
-  const [showNav, setShowNav] = React.useState<boolean>(true)
+
   return (
     <header
       sx={{
@@ -30,16 +32,9 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
               {siteTitle}
             </Link>
           </Styled.h1>
-          {showNav && (
-            <Flexbox right middle sx={{ variant: "nav.wrapper" }}>
-              <h3 sx={{ variant: "nav.link" }}>
-                <Link to="/illustration">Illustration</Link>
-              </h3>
-              <h3 sx={{ variant: "nav.link" }}>
-                <Link to="/blog">Blog</Link>
-              </h3>
-            </Flexbox>
-          )}
+
+          <MainNav />
+
           <ThemeSwitch
             checked={colorMode === "light"}
             onClick={() => setColorMode(colorMode === "light" ? "dark" : "light")}

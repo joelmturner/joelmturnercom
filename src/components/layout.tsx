@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
+import { Fragment, ReactElement } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Header from "./header"
-import { Fragment, ReactElement } from "react"
 
 export default ({ children, title = "" }): ReactElement => {
   const data = useStaticQuery(graphql`
