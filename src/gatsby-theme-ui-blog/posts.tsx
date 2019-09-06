@@ -19,7 +19,7 @@ export default (props): ReactElement => {
         {mdxEdges &&
           mdxEdges.map(edge => (
             <PostCard
-              key={edge.node.frontmatter.title}
+              key={`${edge.node.childMdxBlogPost.slug}`}
               slug={`${edge.node.childMdxBlogPost.slug}`}
               title={edge.node.frontmatter.title}
               image={edge.node.frontmatter.cover && edge.node.frontmatter.cover.childImageSharp.fluid}

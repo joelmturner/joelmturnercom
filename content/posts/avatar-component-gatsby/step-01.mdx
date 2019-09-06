@@ -1,0 +1,63 @@
+---
+title: Create an Avatar Component in Gatsby with TypeScript
+date: 2019-09-06
+draft: false
+cover: "./gatsby-avatar-step01.png"
+---
+import Avatar from './components/avatar01';
+import Flexbox from '../../../src/components/flexbox';
+
+In this series we're going to take a look at creating a simple avatar component that is typed with TypeScript and has some special goodies in Gatsby land.
+
+We'll build the simple react component in part 1, then in part 2 we'll start hooking up Gatsby Image for some performance wins. We'll then add some typings in part 3 to make sure it's easy to consume by other components. Usually I just write TypeScript from the start but I want to show each piece in case others aren't familiar with TypeScript yet. 
+
+Let's start by identifying what our needs are for our avatar component. 
+
+- Should show an image
+- Should be round
+- Should accept an image url
+- Should display an image based on name (for small sets)
+
+Cool, now we can start building our avatar. Start with an img element using a placeholder image as src. Add a little bit of styling to make it round and give it a size. 
+
+```jsx
+function Avatar(props){
+
+    const {url, altText, title} = props;
+
+    const styles = {
+        width: '3rem',
+        height: '3rem',
+        borderRadius: '50%'
+    }
+
+    return (
+        <img
+            style={styles}
+            src={url}
+            alt={altText}
+            title={title} />
+    );
+}
+
+export default Avatar;
+```
+
+Then we can pass it the image url and alt text. We can see that the component is working in its basic implementation now.
+
+<div style={{display: 'grid', gridTemplateColumns: '3rem 3fr', gridGap: '1rem'}}>
+<Flexbox middle>
+    <Avatar /> 
+</Flexbox>
+
+```jsx
+<Avatar
+    url="https://res.cloudinary.com/joelmturner/monster-01.png"
+    alText='monster portrait'
+    title='Monster P. Whittington' />
+```
+</div>
+
+Looks good. We've met our first three criteria for this component. in step 2 we'll make it more powerful with Gatsby Image. 
+
+
