@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { FluidObject } from "gatsby-image"
@@ -49,33 +49,28 @@ type MDXNode = {
 }
 type IndexPageProps = {
   data: {
-    featuredInsta: {
+    featuredInstaRecent: {
       edges: InstaNode[];
     };
-    allMdx: {
+    recentBlogPosts: {
       edges: MDXNode[];
     };
   };
 }
 
 const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
-  const [showInsta, setShowInsta] = React.useState(false)
   const [showPosts, setShowPosts] = React.useState(false)
   const [sketchSize, setSketchSize] = React.useState<GallerySizes>("s")
 
   const ref = React.useRef()
-  const { featuredInsta: { edges: instaEdges = [] } = {} } = data
-  const { allMdx: { edges: mdxEdges = [] } = {} } = data
-  let insta: InstaNode[] = []
-  if (instaEdges.length > 0) {
-    insta = showInsta ? instaEdges : instaEdges.slice(0, 6)
-  }
+  const { featuredInstaRecent: { edges: instaEdges = [] } = {} } = data
+  const { recentBlogPosts: { edges: mdxEdges = [] } = {} } = data
   let posts: MDXNode[] = []
   if (mdxEdges.length > 0) {
     posts = showPosts ? mdxEdges : mdxEdges.slice(0, 2)
   }
 
-  const { showLightbox, setLightbox, selectedImage, setDir } = useLightboxNav(insta)
+  const { showLightbox, setLightbox, selectedImage, setDir } = useLightboxNav(instaEdges)
   useOnClickOutside(ref, () => setLightbox(null))
 
   return (
@@ -100,10 +95,10 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
         }
       </Styled.p>
 
-      <Flexbox between middle>
+      <Flexbox between bottom>
         <Flexbox vertical>
-          <Styled.h2>Sketching</Styled.h2>
-          <Styled.h3>My Favorite Explorations</Styled.h3>
+          <Styled.h2 sx={{ mb: 1 }}>Sketching</Styled.h2>
+          <Styled.h3 sx={{ mb: 1 }}>My Favorite Explorations</Styled.h3>
         </Flexbox>
         <Flexbox right>
           <FaTh
@@ -121,43 +116,18 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
             onClick={() => setSketchSize("l")}
             size={24}
           />
-          {showInsta ? (
-            <FaCaretUp
-              sx={{ variant: sketchSize === "l" ? "icon.active" : "icon" }}
-              onClick={() => setShowInsta(!showInsta)}
-              size={24}
-            />
-          ) : (
-            <FaCaretDown
-              sx={{ variant: sketchSize === "l" ? "icon.active" : "icon" }}
-              onClick={() => setShowInsta(!showInsta)}
-              size={24}
-            />
-          )}
         </Flexbox>
       </Flexbox>
 
-      <Gallery size={sketchSize} imageEdges={insta} setLightbox={setLightbox} />
+      <Gallery size={sketchSize} imageEdges={instaEdges} setLightbox={setLightbox} sx={{ mt: 2 }} />
+      <Styled.h5 sx={{ mx: 0, marginTop: "1", textAlign: "right" }}>
+        <Link to="/illustration">See more</Link>
+      </Styled.h5>
 
       <Flexbox between middle>
         <Flexbox vertical>
-          <Styled.h2>Writing</Styled.h2>
+          <Styled.h2 style={{ margin: 0 }}>Writing</Styled.h2>
           <Styled.h3>Some of My Thoughts and Explorations</Styled.h3>
-        </Flexbox>
-        <Flexbox right>
-          {showPosts ? (
-            <FaCaretUp
-              sx={{ variant: sketchSize === "l" ? "icon.active" : "icon" }}
-              onClick={() => setShowPosts(!showPosts)}
-              size={24}
-            />
-          ) : (
-            <FaCaretDown
-              sx={{ variant: sketchSize === "l" ? "icon.active" : "icon" }}
-              onClick={() => setShowPosts(!showPosts)}
-              size={24}
-            />
-          )}
         </Flexbox>
       </Flexbox>
       <div sx={{ variant: "collection.post" }}>
@@ -185,7 +155,7 @@ export default IndexPage
 
 export const pageQuery = graphql`
   query PageQuery {
-    ...PostsEdges
-    ...featuredInsta
+    ...recentBlogPosts
+    ...featuredInstaRecent
   }
 `

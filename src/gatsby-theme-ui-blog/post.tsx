@@ -1,27 +1,11 @@
 /** @jsx jsx */
-import { jsx, Styled, Main } from "theme-ui"
+import { jsx, Styled } from "theme-ui"
 import Layout from "../components/layout"
+import { ReactElement } from "react"
 
-export default (props): JSX.Element => (
+export default ({ title, children }: { title: string; children: ReactElement[] }): JSX.Element => (
   <Layout>
-    <Main>
-      <div
-        sx={{
-          maxWidth: "container",
-          mx: "auto",
-        }}
-      >
-        <Styled.h1>{props.title}</Styled.h1>
-        <Styled.p
-          sx={{
-            fontSize: [0, 0],
-            fontWeight: "bold",
-          }}
-        >
-          {props.date}
-        </Styled.p>
-        {props.children}
-      </div>
-    </Main>
+    <Styled.h1>{title}</Styled.h1>
+    {children}
   </Layout>
 )

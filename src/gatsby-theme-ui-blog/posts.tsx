@@ -1,23 +1,24 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui"
+import { jsx } from "theme-ui"
 import Layout from "../components/layout"
 import { ReactElement } from "react"
 import PostCard from "../components/postCard"
 import { graphql, useStaticQuery } from "gatsby"
 
-export default (props): ReactElement => {
+export default (): ReactElement => {
   const data = useStaticQuery(graphql`
     query {
-      ...PostsEdges
+      ...allBlogPosts
+      ...recentBlogPosts
     }
   `)
 
-  const { allMdx: { edges: mdxEdges = [] } = {} } = data
+  const { allBlogPosts: { edges = [] } = {} } = data
   return (
     <Layout>
       <div sx={{ variant: "collection.post" }}>
-        {mdxEdges &&
-          mdxEdges.map(edge => (
+        {edges &&
+          edges.map(edge => (
             <PostCard
               key={`${edge.node.childMdxBlogPost.slug}`}
               slug={`${edge.node.childMdxBlogPost.slug}`}
@@ -29,28 +30,3 @@ export default (props): ReactElement => {
     </Layout>
   )
 }
-
-export const postsFragment = graphql`
-  fragment PostsEdges on Query {
-    allMdx(sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }) {
-      edges {
-        node {
-          frontmatter {
-            title
-            cover {
-              childImageSharp {
-                fluid(maxWidth: 472, maxHeight: 300) {
-                  ...GatsbyImageSharpFluid_withWebp
-                }
-              }
-            }
-          }
-          childMdxBlogPost {
-            excerpt(pruneLength: 150)
-            slug
-          }
-        }
-      }
-    }
-  }
-`

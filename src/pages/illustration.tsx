@@ -91,14 +91,13 @@ export default ({ data }: IllustrationProps): React.ReactElement => {
   return (
     <Layout>
       <SEO title="Illustration" />
-      <Flexbox between middle>
-        <Flexbox vertical>
-          <Styled.h2>Illustrations</Styled.h2>
+      <Flexbox vertical>
+        <Styled.h2>Illustrations</Styled.h2>
+        <Flexbox between middle>
           <Flexbox
             left
+            middle
             sx={{
-              mt: 2,
-              mb: 4,
               flexDirection: ["column", "row"],
               " & > * + *": {
                 mt: [2, 0],
@@ -118,26 +117,26 @@ export default ({ data }: IllustrationProps): React.ReactElement => {
               filter={filter}
             />
           </Flexbox>
-        </Flexbox>
-        <Flexbox right>
-          <FaTh
-            sx={{ variant: sketchSize === "s" ? "icon.active" : "icon" }}
-            onClick={() => setSketchSize("s")}
-            size={24}
-          />
-          <FaThLarge
-            sx={{ variant: sketchSize === "m" ? "icon.active" : "icon" }}
-            onClick={() => setSketchSize("m")}
-            size={24}
-          />
-          <FaSquare
-            sx={{ variant: sketchSize === "l" ? "icon.active" : "icon" }}
-            onClick={() => setSketchSize("l")}
-            size={24}
-          />
+          <Flexbox right>
+            <FaTh
+              sx={{ variant: sketchSize === "s" ? "icon.active" : "icon" }}
+              onClick={() => setSketchSize("s")}
+              size={24}
+            />
+            <FaThLarge
+              sx={{ variant: sketchSize === "m" ? "icon.active" : "icon" }}
+              onClick={() => setSketchSize("m")}
+              size={24}
+            />
+            <FaSquare
+              sx={{ variant: sketchSize === "l" ? "icon.active" : "icon" }}
+              onClick={() => setSketchSize("l")}
+              size={24}
+            />
+          </Flexbox>
         </Flexbox>
       </Flexbox>
-      <Gallery size={sketchSize} imageEdges={filteredEdges()} setLightbox={setLightbox} />
+      <Gallery size={sketchSize} imageEdges={filteredEdges()} setLightbox={setLightbox} sx={{ my: 3 }} />
 
       {showLightbox && (
         <Dialog onClose={() => setLightbox(null)} onPrev={() => setDir("prev")} onNext={() => setDir("next")}>

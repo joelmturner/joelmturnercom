@@ -22,7 +22,7 @@ type GalleryProps = {
 }
 export default ({ imageEdges, setLightbox, size, className }: GalleryProps) => {
   return (
-    <div sx={{ variant: `collection.image.${size}`, mb: 4 }} className={className}>
+    <div sx={{ variant: `collection.image.${size}` }} className={className}>
       {imageEdges.length > 0 &&
         imageEdges.map(edge => (
           <div style={{ cursor: "pointer" }} key={edge.node.id} onClick={() => setLightbox(edge)}>

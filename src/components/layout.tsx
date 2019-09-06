@@ -18,15 +18,15 @@ export default ({ children, title = "" }): ReactElement => {
   return (
     <Styled.root>
       <Header siteTitle={title ? title : data.site.siteMetadata.title} />
-      <div sx={{ variant: "content.wrapper" }}>
-        <main>{children}</main>
-        <footer sx={{ mt: 3, borderTop: "1px solid", borderColor: "muted", py: 4 }}>
+      <main sx={{ variant: "content.wrapper" }}>{children}</main>
+      <footer sx={{ mt: 2 }}>
+        <div sx={{ variant: "content.wrapper", borderTop: "1px solid", borderColor: "muted", py: 3 }}>
           © 2012-{new Date().getFullYear()}, Proudly built with
           {` `}
           <Styled.a href="https://www.gatsbyjs.org">Gatsby</Styled.a> and{" "}
           <Styled.a href="https://theme-ui.com">Theme UI</Styled.a>
-        </footer>
-      </div>
+        </div>
+      </footer>
     </Styled.root>
   )
 }

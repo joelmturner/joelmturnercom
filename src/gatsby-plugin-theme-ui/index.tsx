@@ -33,8 +33,8 @@ const switchIcon = {
 }
 
 const tabDefaults = {
-  fontSize: 3,
-  fontFamily: "heading",
+  fontSize: 2,
+  fontFamily: "body",
   color: "textMuted",
   bg: "backgroundSubtle",
   px: 2,
@@ -98,6 +98,13 @@ export default {
       color: "primary",
       margin: "0 0 1em 0",
     },
+    h5: {
+      ...baseMerged.styles.h5,
+      color: "primary",
+      a: {
+        color: "primary",
+      },
+    },
     p: {
       ...baseMerged.styles.p,
       fontSize: 3,
@@ -123,8 +130,10 @@ export default {
       },
     },
     pre: {
+      ...baseMerged.styles.pre,
       ...prism,
-      p: 3,
+      p: [2, 3],
+      overflow: "auto",
       bg: "backgroundSubtle",
     },
     hr: {},
@@ -367,7 +376,7 @@ export default {
     wrapper: {
       py: 2,
       px: 1,
-      margin: `0 auto`,
+      mx: `auto`,
       maxWidth: 960,
     },
   },

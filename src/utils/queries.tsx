@@ -70,6 +70,17 @@ export const query = graphql`
       }
     }
   }
+  fragment featuredInstaRecent on Query {
+    featuredInstaRecent: allInstagramContent(
+      filter: { tags: { eq: "joelmturner_featured" } }
+      sort: { fields: likes___count, order: DESC }
+      limit: 6
+    ) {
+      edges {
+        ...InstaNodes
+      }
+    }
+  }
   fragment insta2016 on Query {
     insta2016: allInstagramContent(
       sort: { fields: created_time, order: DESC }
@@ -84,6 +95,50 @@ export const query = graphql`
     recentInsta: allInstagramContent(sort: { fields: created_time, order: DESC }, limit: 18) {
       edges {
         ...InstaNodes
+      }
+    }
+  }
+  fragment allBlogPosts on Query {
+    allBlogPosts: allMdx(sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }) {
+      edges {
+        node {
+          frontmatter {
+            title
+            cover {
+              childImageSharp {
+                fluid(maxWidth: 472, maxHeight: 300) {
+                  ...GatsbyImageSharpFluid_withWebp
+                }
+              }
+            }
+          }
+          childMdxBlogPost {
+            excerpt(pruneLength: 150)
+            slug
+          }
+        }
+      }
+    }
+  }
+  fragment recentBlogPosts on Query {
+    recentBlogPosts: allMdx(limit: 3, sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }) {
+      edges {
+        node {
+          frontmatter {
+            title
+            cover {
+              childImageSharp {
+                fluid(maxWidth: 472, maxHeight: 300) {
+                  ...GatsbyImageSharpFluid_withWebp
+                }
+              }
+            }
+          }
+          childMdxBlogPost {
+            excerpt(pruneLength: 150)
+            slug
+          }
+        }
       }
     }
   }
