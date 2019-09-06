@@ -1,5 +1,9 @@
 import base from "gatsby-theme-ui-blog/src/gatsby-plugin-theme-ui"
 import prism from "@theme-ui/prism/presets/theme-ui"
+import merge from "lodash.merge"
+import typography from "./typography"
+
+const baseMerged = merge(base, typography)
 
 const iconStyles = {
   ml: 2,
@@ -20,6 +24,8 @@ const switchIcon = {
   transition: "transform 0.3s ease-in",
   alignItems: "center",
   display: "flex",
+  width: "13px",
+  height: "13px",
   svg: {
     fill: "textMuted",
     cursor: "pointer",
@@ -39,13 +45,13 @@ const tabDefaults = {
 export default {
   initialColorMode: "light",
   useCustomProperties: true,
-  ...base,
+  ...baseMerged,
   fonts: {
-    ...base.fonts,
+    ...baseMerged.fonts,
     heading: "Roboto, sans-serif",
   },
   colors: {
-    ...base.colors,
+    ...baseMerged.colors,
     text: "#575757",
     textMuted: "#777",
     background: "#ffffff",
@@ -74,44 +80,45 @@ export default {
     },
   },
   styles: {
-    ...base.styles,
+    ...baseMerged.styles,
+    lineHeights: {
+      ...baseMerged.styles.lineHeights,
+      body: 1.7,
+    },
     h1: {
-      ...base.styles.h2,
+      ...baseMerged.styles.h1,
       margin: "0",
     },
     h2: {
-      ...base.styles.h2,
+      ...baseMerged.styles.h2,
       margin: "0",
     },
     h3: {
-      ...base.styles.h3,
+      ...baseMerged.styles.h3,
       color: "primary",
       margin: "0 0 1em 0",
     },
     p: {
-      ...base.styles.p,
+      ...baseMerged.styles.p,
       fontSize: 3,
     },
     li: {
-      ...base.styles.li,
+      ...baseMerged.styles.li,
       fontSize: 3,
     },
     img: {
-      ...base.styles.img,
-      textAlign: "center",
-      justifyContent: "center",
-      justifySelf: "center",
+      ...baseMerged.styles.img,
     },
     a: {
-      ...base.styles.a,
+      ...baseMerged.styles.a,
       transition: "color 300ms ease-in",
       ":hover": {
         color: "primaryHighlight",
       },
     },
     root: {
-      ...base.styles.root,
-      "*": {
+      ...baseMerged.styles.root,
+      "& *": {
         boxSizing: "border-box",
       },
     },
@@ -120,6 +127,7 @@ export default {
       p: 3,
       bg: "backgroundSubtle",
     },
+    hr: {},
   },
   collection: {
     image: {
@@ -147,11 +155,9 @@ export default {
   },
   postCard: {
     title: {
-      color: "text",
       bg: "muted",
       px: 3,
       py: 2,
-      textDecoration: "none",
       "a &": {
         color: "text",
         textDecoration: "none",
@@ -307,17 +313,14 @@ export default {
       },
       ":checked + div:before": {
         borderColor: "muted",
-        transform: "translate3d(33px,0,0)",
+        transform: "translate3d(33px,-50%,0)",
       },
       ":checked svg": {
         display: "block",
-        width: "20px",
-        height: "20px",
-        transform: "translate3d(5px,-50%,0)",
+        transform: "translate3d(3px,-50%,0)",
         top: "50%",
         position: "absolute",
         transition: "transform 0.3s ease-in",
-        fontSize: 2,
         fill: "primary",
         color: "primary",
       },
@@ -341,9 +344,9 @@ export default {
         margin: "0px",
         background: "#FFFFFF",
         position: "absolute",
-        top: 0,
+        top: "50%",
         bottom: 0,
-        transform: "translate3d(0,0,0)",
+        transform: "translate3d(-5px,-50%,0)",
         border: theme => `2px solid ${theme.colors.muted}`,
         borderRadius: "20px",
         transition: "background 0.3s ease-in, border 0.3s ease-in 0s, transform 0.3s ease-in",
@@ -358,6 +361,14 @@ export default {
         ...switchIcon,
         transform: "translate3d(30px, -50%, 0)",
       },
+    },
+  },
+  content: {
+    wrapper: {
+      py: 2,
+      px: 1,
+      margin: `0 auto`,
+      maxWidth: 960,
     },
   },
 }

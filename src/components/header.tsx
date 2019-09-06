@@ -16,18 +16,16 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
   return (
     <header
       sx={{
-        mb: "3",
+        mb: 2,
       }}
     >
-      <div
-        sx={{
-          padding: [3, 4],
-          margin: `0 auto`,
-          maxWidth: 960,
-        }}
-      >
+      <div sx={{ variant: "content.wrapper" }}>
         <Flexbox between middle>
-          <Styled.h1>
+          <Styled.h1
+            sx={{
+              mb: 0,
+            }}
+          >
             <Link to="/" sx={{ color: "text", textDecoration: "none" }}>
               {siteTitle}
             </Link>

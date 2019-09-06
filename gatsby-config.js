@@ -23,8 +23,8 @@ module.exports = {
         short_name: `Joel M. Turner`,
         start_url: `/`,
         background_color: `#121212`,
-        theme_color: `#ffc689`,
-        display: `minimal-ui`,
+        theme_color: `#121212`,
+        display: `standalone`,
         icon: `src/images/joel-turner-icon.png`, // This path is relative to the root of the site.
       },
     },
