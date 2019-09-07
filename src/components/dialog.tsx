@@ -15,8 +15,8 @@ type DialogProps = {
 
 const Dialog = ({ className, children, onClose, onPrev, onNext }: DialogProps) => {
   const handlers = useSwipeable({
-    onSwipedLeft: () => onPrev && onPrev(),
-    onSwipedRight: () => onNext && onNext(),
+    onSwipedRight: () => onPrev && onPrev(),
+    onSwipedLeft: () => onNext && onNext(),
     ...{
       delta: 10,
       preventDefaultTouchmoveEvent: true,
