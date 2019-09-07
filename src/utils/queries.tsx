@@ -114,48 +114,34 @@ export const query = graphql`
       }
     }
   }
-  fragment allBlogPosts on Query {
-    allBlogPosts: allMdx(sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }) {
-      edges {
-        node {
-          frontmatter {
-            title
-            cover {
-              childImageSharp {
-                fluid(maxWidth: 731, maxHeight: 464) {
-                  ...GatsbyImageSharpFluid_withWebp
-                }
+  fragment PostCard on MdxConnection {
+    edges {
+      node {
+        frontmatter {
+          title
+          cover {
+            childImageSharp {
+              fluid(maxWidth: 731, maxHeight: 464) {
+                ...GatsbyImageSharpFluid_withWebp
               }
             }
           }
-          childMdxBlogPost {
-            excerpt(pruneLength: 150)
-            slug
-          }
+        }
+        childMdxBlogPost {
+          excerpt(pruneLength: 150)
+          slug
         }
       }
     }
   }
+  fragment allBlogPosts on Query {
+    allBlogPosts: allMdx(sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }) {
+      ...PostCard
+    }
+  }
   fragment recentBlogPosts on Query {
     recentBlogPosts: allMdx(limit: 3, sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }) {
-      edges {
-        node {
-          frontmatter {
-            title
-            cover {
-              childImageSharp {
-                fluid(maxWidth: 731, maxHeight: 464) {
-                  ...GatsbyImageSharpFluid_withWebp
-                }
-              }
-            }
-          }
-          childMdxBlogPost {
-            excerpt(pruneLength: 150)
-            slug
-          }
-        }
-      }
+      ...PostCard
     }
   }
 `
