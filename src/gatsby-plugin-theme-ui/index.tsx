@@ -186,10 +186,10 @@ export default {
         textDecoration: "none",
       },
     },
-    background: {
+    img: {
       display: "flex",
-      alignItems: "flex-end",
-      minHeight: "300px",
+      alignItems: "center",
+      height: "auto",
     },
   },
   buttons: {

@@ -122,7 +122,7 @@ export const query = graphql`
             title
             cover {
               childImageSharp {
-                fluid(maxWidth: 472, maxHeight: 300) {
+                fluid(maxWidth: 731, maxHeight: 464) {
                   ...GatsbyImageSharpFluid_withWebp
                 }
               }
@@ -144,7 +144,7 @@ export const query = graphql`
             title
             cover {
               childImageSharp {
-                fluid(maxWidth: 472, maxHeight: 300) {
+                fluid(maxWidth: 731, maxHeight: 464) {
                   ...GatsbyImageSharpFluid_withWebp
                 }
               }

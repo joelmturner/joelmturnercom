@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import { FluidObject } from "gatsby-image"
-import BackgroundImage from "gatsby-background-image"
+import Img, { FluidObject } from "gatsby-image"
 import { Link } from "gatsby"
 
 type PostCardProps = {
@@ -14,7 +13,7 @@ type PostCardProps = {
 export default ({ title, slug, image, className }: PostCardProps): JSX.Element => {
   return (
     <Link sx={{ variant: "link", textDecoration: "none" }} to={`${slug}`} key={title} className={className}>
-      <BackgroundImage Tag="div" fluid={image} sx={{ variant: "postCard.background" }} />
+      <Img fluid={image} sx={{ variant: "postCard.img" }} />
       <Styled.h2 sx={{ variant: "postCard.title" }} key={title}>
         {title}
       </Styled.h2>
