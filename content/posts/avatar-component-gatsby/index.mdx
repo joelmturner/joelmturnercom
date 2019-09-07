@@ -4,12 +4,16 @@ date: 2019-09-06
 draft: false
 cover: "./gatsby-avatar-step01.png"
 ---
-import Avatar from './components/avatar01';
+import Avatar from './components';
 import Flexbox from '../../../src/components/flexbox';
 
 In this series we're going to take a look at creating a simple avatar component that is typed with TypeScript and has some special goodies in Gatsby land.
 
-We'll build the simple react component in part 1, then in part 2 we'll start hooking up Gatsby Image for some performance wins. We'll then add some typings in part 3 to make sure it's easy to consume by other components. Usually I just write TypeScript from the start but I want to show each piece in case others aren't familiar with TypeScript yet. 
+Part 1: We'll build the simple react component<br />
+[Part 2: We'll start hooking up Gatsby image](/blog/avatar-component-gatsby/step-02/ "Part 2")<br />
+Part 3: We'll type it with TypeScript
+
+> I usually write TypeScript from the start but I wanted to show each piece individually in case others aren't familiar with TypeScript yet. 
 
 Let's start by identifying what our needs are for our avatar component. 
 
@@ -26,8 +30,8 @@ function Avatar(props){
     const {url, altText, title} = props;
 
     const styles = {
-        width: '3rem',
-        height: '3rem',
+        width: '75px',
+        height: '75px',
         borderRadius: '50%'
     }
 
@@ -45,7 +49,7 @@ export default Avatar;
 
 Then we can pass it the image url and alt text. We can see that the component is working in its basic implementation now.
 
-<div style={{display: 'grid', gridTemplateColumns: '3rem 3fr', gridGap: '1rem'}}>
+<div style={{display: 'grid', gridTemplateColumns: '75px 3fr', gridGap: '1rem'}}>
 <Flexbox middle>
     <Avatar /> 
 </Flexbox>
@@ -53,11 +57,11 @@ Then we can pass it the image url and alt text. We can see that the component is
 ```jsx
 <Avatar
     url="https://res.cloudinary.com/joelmturner/monster-01.png"
-    alText='monster portrait'
+    alText='Monster P. Whittington portrait'
     title='Monster P. Whittington' />
 ```
 </div>
 
-Looks good. We've met our first three criteria for this component. in step 2 we'll make it more powerful with Gatsby Image. 
+Looks good. We've met our first three criteria for this component. In step 2 we'll make it more powerful with Gatsby Image. 
 
 

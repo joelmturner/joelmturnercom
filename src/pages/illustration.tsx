@@ -64,11 +64,13 @@ function Tab({ filter, setFilter, collectionName = null, title }: TabProps) {
 export default ({ data }: IllustrationProps): React.ReactElement => {
   const [sketchSize, setSketchSize] = React.useState<GallerySizes>("m")
   const [filter, setFilter] = React.useState<InstaCollections>("featuredInsta")
-  const { featuredInsta: { edges: featuredEdges = [] } = {} } = data
-  const { inktober2017: { edges: ink2017Edges = [] } = {} } = data
-  const { inktober2018: { edges: ink2018Edges = [] } = {} } = data
-  const { letterClash: { edges: letterClashEdges = [] } = {} } = data
-  const { joelmturner_abcs2017: { edges: jmt2017Edges = [] } = {} } = data
+  const {
+    featuredInsta: { edges: featuredEdges = [] } = {},
+    inktober2017: { edges: ink2017Edges = [] } = {},
+    inktober2018: { edges: ink2018Edges = [] } = {},
+    letterClash: { edges: letterClashEdges = [] } = {},
+    joelmturner_abcs2017: { edges: jmt2017Edges = [] } = {},
+  } = data
   const filteredEdges = () => {
     switch (filter) {
       case "featuredInsta":

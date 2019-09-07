@@ -4,7 +4,7 @@ import merge from "lodash.merge"
 import typography from "./typography"
 
 const baseMerged = merge(base, typography)
-
+console.log("baseMerged", baseMerged)
 const iconStyles = {
   ml: 2,
   fill: "text",
@@ -129,12 +129,27 @@ export default {
         boxSizing: "border-box",
       },
     },
+    blockquote: {
+      ...baseMerged.styles.blockquote,
+      borderLeft: "2px solid",
+      borderColor: "accent",
+      paddingLeft: 2,
+    },
     pre: {
       ...baseMerged.styles.pre,
       ...prism,
-      p: [2, 3],
+      p: [1, 2],
       overflow: "auto",
       bg: "backgroundSubtle",
+    },
+    inlineCode: {
+      ...baseMerged.styles.code,
+      bg: "muted",
+      color: "secondary",
+      px: 1,
+      py: "2px",
+      fontSize: 1,
+      borderRadius: "3px",
     },
     hr: {},
   },

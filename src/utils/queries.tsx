@@ -1,6 +1,22 @@
 import { graphql } from "gatsby"
 
 export const query = graphql`
+  fragment monsters on Query {
+    monster1: file(relativePath: { eq: "monster-01-headshot.png" }) {
+      childImageSharp {
+        fixed(width: 75) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    monster2: file(relativePath: { eq: "monster-02-headshot.png" }) {
+      childImageSharp {
+        fixed(width: 75) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+  }
   fragment InstaNodes on InstagramContentEdge {
     node {
       id
