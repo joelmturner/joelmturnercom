@@ -5,14 +5,22 @@ import { ReactElement, Fragment } from "react"
 import Flexbox from "../components/flexbox"
 import { Link } from "gatsby"
 
-export default ({
-  title,
-  children,
-  data: { previous = null, next = null } = {},
-}: {
+type PostProps = {
   title: string;
   children: ReactElement[];
-}): JSX.Element => (
+  data: {
+    previous?: {
+      slug: string;
+      title: string;
+    };
+    next?: {
+      slug: string;
+      title: string;
+    };
+  };
+}
+
+export default ({ title, children, data: { previous, next } = {} }: PostProps): JSX.Element => (
   <Layout>
     <Styled.h1>{title}</Styled.h1>
     {children}
