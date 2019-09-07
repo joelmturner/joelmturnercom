@@ -179,8 +179,7 @@ export default {
   },
   postCard: {
     title: {
-      bg: "muted",
-      px: 3,
+      px: 1,
       py: 2,
       "a &": {
         color: "text",
