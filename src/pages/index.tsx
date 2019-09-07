@@ -80,13 +80,15 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
       <div
         sx={{
           display: "grid",
-          gridTemplateColumns: `5rem 1fr`,
+          gridTemplateColumns: `75px 1fr`,
+          gridGap: 2,
+          mb: 3,
         }}
       >
         <Avatar />
-        <Flexbox vertical>
-          <Styled.h1 style={{ margin: 0 }}>Joel M. Turner</Styled.h1>
-          <Styled.h3>Frontend Developer</Styled.h3>
+        <Flexbox vertical center>
+          <Styled.h1 sx={{ mb: 1 }}>Joel M. Turner</Styled.h1>
+          <Styled.h3 sx={{ m: 0 }}>Frontend Developer</Styled.h3>
         </Flexbox>
       </div>
       <Styled.p>
