@@ -100,35 +100,21 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
           <Styled.h2 sx={{ mb: 1 }}>Sketching</Styled.h2>
           <Styled.h3 sx={{ mb: 1 }}>My Favorite Explorations</Styled.h3>
         </Flexbox>
-        <Flexbox right>
-          <FaTh
-            sx={{ variant: sketchSize === "s" ? "icon.active" : "icon" }}
-            onClick={() => setSketchSize("s")}
-            size={24}
-          />
-          <FaThLarge
-            sx={{ variant: sketchSize === "m" ? "icon.active" : "icon" }}
-            onClick={() => setSketchSize("m")}
-            size={24}
-          />
-          <FaSquare
-            sx={{ variant: sketchSize === "l" ? "icon.active" : "icon" }}
-            onClick={() => setSketchSize("l")}
-            size={24}
-          />
-        </Flexbox>
+        <Styled.h5 sx={{ mx: 0, my: 0, textAlign: "right" }}>
+          <Link to="/illustration">See more illustrations</Link>
+        </Styled.h5>
       </Flexbox>
 
-      <Gallery size={sketchSize} imageEdges={instaEdges} setLightbox={setLightbox} sx={{ mt: 2 }} />
-      <Styled.h5 sx={{ mx: 0, marginTop: "1", textAlign: "right" }}>
-        <Link to="/illustration">See more</Link>
-      </Styled.h5>
+      <Gallery size={sketchSize} imageEdges={instaEdges} setLightbox={setLightbox} sx={{ mt: 2, mb: 4 }} />
 
       <Flexbox between middle>
         <Flexbox vertical>
           <Styled.h2 style={{ margin: 0 }}>Writing</Styled.h2>
           <Styled.h3>Some of My Thoughts and Explorations</Styled.h3>
         </Flexbox>
+        <Styled.h5 sx={{ mx: 0, my: 0, textAlign: "right" }}>
+          <Link to="/blog">See all articles</Link>
+        </Styled.h5>
       </Flexbox>
       <div sx={{ variant: "collection.post" }}>
         {posts.length > 0 &&
