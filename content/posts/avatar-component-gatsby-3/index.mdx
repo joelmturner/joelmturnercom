@@ -1,0 +1,134 @@
+---
+title: "Create an Avatar Component in Gatsby with TypeScript: Adding Types"
+date: 2019-09-08
+draft: false
+cover: "./gatsby-avatar-03.png"
+---
+
+This is part 3 of the *Create an Avatar Component in Gatsby with TypeScript* series.
+
+[Part 1: We built the simple react component](/blog/avatar-component-gatsby "Part 1")<br />
+[Part 2: We hooked it up Gatsby image](/blog/avatar-component-gatsby-2 "Part 2")<br />
+Part 3: We'll type it with TypeScript
+
+We left off with our avatar component working using Gatsby Image and still able to receive an image url. Now, let's look at what it would take to type this component. I like to use `type` instead of `interface` for the props. You can read more about [the difference between type and interface](https://medium.com/@martin_hotell/interface-vs-type-alias-in-typescript-2-7-2a8f1777af4c) if you'd like.
+
+The props type will look something like this:
+
+```typescript
+{...}
+type AvatarProps = {
+  url?: string;
+  altText?: string;
+  title?: string;
+  user?: "monster1" | "monster2";
+}
+
+function Avatar(props: AvatarProps) {
+{...}
+```
+The cool part here is that the `user` prop can be typed to match the graphql alias names. This helps anyone consuming this component know the values they can pass.
+
+Let's take a look at typing our data variable. We know the shape of what we expect because of our graphql. We just need to provide the correct typing at the childImageSharp level. Luckily Gatsby Image has a type of `FixedObject` that can help us out here. We pass the type to the static query hook like `useStaticQuery<Data>(graphql` to signify that we expect the return to be `Data`.
+
+```typescript
+{...}
+import Img, { FixedObject } from "gatsby-image"
+{...}
+
+type Data = {
+  monster1: {
+    childImageSharp: {
+      fixed: FixedObject;
+    };
+  };
+  monster2: {
+    childImageSharp: {
+      fixed: FixedObject;
+    };
+  };
+}
+
+function Avatar(props: AvatarProps) {
+  const data = useStaticQuery<Data>(graphql`
+{...}
+```
+
+Let's refactor the redundancy in the `Data` type. 
+
+```typescript
+type ChildImage = {
+  childImageSharp: {
+    fixed: FixedObject;
+  };
+}
+
+type Data = {
+  monster1: ChildImage;
+  monster2: ChildImage;
+}
+```
+
+Cool, now we should have something like this:
+
+```typescript
+import React from "react"
+import { useStaticQuery, graphql } from "gatsby"
+import Img, { FixedObject } from "gatsby-image"
+
+type AvatarProps = {
+  url?: string;
+  altText?: string;
+  title?: string;
+  user?: "monster1" | "monster2";
+}
+
+type ChildImage = {
+  childImageSharp: {
+    fixed: FixedObject;
+  };
+}
+
+type Data = {
+  monster1: ChildImage;
+  monster2: ChildImage;
+}
+
+function Avatar(props: AvatarProps) {
+  const data = useStaticQuery<Data>(graphql`
+    query {
+      monster1: file(relativePath: { eq: "monster-01-headshot.png" }) {
+        childImageSharp {
+          fixed(width: 75, height: 75) {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+      monster2: file(relativePath: { eq: "monster-02-headshot.png" }) {
+        childImageSharp {
+          fixed(width: 75, height: 75) {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+    }
+  `)
+
+  const { url, altText, title, user } = props
+  const styles = {
+    width: "75px",
+    height: "75px",
+    borderRadius: "50%",
+  }
+
+  if (url) {
+    return <img style={styles} src={url} alt={altText} title={title} />
+  }
+
+  return <Img style={styles} fixed={user && data[user].childImageSharp.fixed} alt={altText} title={title} />
+}
+
+export default Avatar
+```
+
+Thanks for following along! 
