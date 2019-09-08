@@ -30,7 +30,7 @@ export default ({ title, children, slug, excerpt, data: { previous, next } = {} 
   const siteBaseUrl = "https://joelmturner.com"
   const twitterMessage = `${title} ${siteBaseUrl}${slug} via @joelmturner`
   return (
-    <Layout>
+    <Layout sx={{ variant: "post" }}>
       <SEO title={title} description={excerpt} />
       <Styled.h1>{title}</Styled.h1>
       {children}

@@ -40,7 +40,7 @@ function SEO({ description, lang, meta = [], title, image }: SEOProps) {
 
   const metaDescription = description || site.siteMetadata.description
 
-  const imageMeta = image ? image : `${site.siteUrl}/joel-m-turner.jpg`
+  const imageMeta = image ? image : `https://res.cloudinary.com/joelmturner/joel-turner.jpg`
 
   return (
     <Helmet

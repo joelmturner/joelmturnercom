@@ -7,9 +7,10 @@ import Header from "./header"
 type LayoutProps = {
   children: ReactNode | ReactNode[];
   title?: string;
+  className?: string;
 }
 
-export default ({ children, title = "" }: LayoutProps): JSX.Element => {
+export default ({ children, title = "", className }: LayoutProps): JSX.Element => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -21,7 +22,7 @@ export default ({ children, title = "" }: LayoutProps): JSX.Element => {
   `)
 
   return (
-    <Styled.root>
+    <Styled.root className={className}>
       <Header siteTitle={title ? title : data.site.siteMetadata.title} />
       <main sx={{ variant: "content.wrapper" }}>{children}</main>
       <footer sx={{ mt: 2 }}>
