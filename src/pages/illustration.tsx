@@ -138,7 +138,7 @@ export default ({ data }: IllustrationProps): React.ReactElement => {
 
       {showLightbox && (
         <Dialog onClose={() => setLightbox(null)} onPrev={() => setDir("prev")} onNext={() => setDir("next")}>
-          {selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
+          {!!selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
         </Dialog>
       )}
     </Layout>

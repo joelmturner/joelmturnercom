@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 import { Layout, Flexbox } from "../components"
-import { ReactElement, Fragment } from "react"
+import { Fragment, ReactNode } from "react"
 import { Link } from "gatsby"
 
 type PostProps = {
   title: string;
-  children: ReactElement[];
+  children: ReactNode | ReactNode[];
   data: {
     previous?: {
       slug: string;

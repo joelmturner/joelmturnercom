@@ -3,9 +3,34 @@ import { jsx } from "theme-ui"
 import { ReactElement } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import { Layout, PostCard } from "../components"
+import { FluidObject } from "gatsby-image"
+
+type Posts = {
+  edges: Array<{
+    node: {
+      frontmatter: {
+        title: string;
+        cover: {
+          childImageSharp: {
+            fluid: FluidObject;
+          };
+        };
+      };
+      childMdxBlogPost: {
+        excerpt: string;
+        slug: string;
+      };
+    };
+  }>;
+}
+
+type Data = {
+  allBlogPosts: Posts;
+  recentBlogPosts: Posts;
+}
 
 export default (): ReactElement => {
-  const data = useStaticQuery(graphql`
+  const data = useStaticQuery<Data>(graphql`
     query {
       ...allBlogPosts
       ...recentBlogPosts

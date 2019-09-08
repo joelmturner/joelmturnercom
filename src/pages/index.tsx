@@ -2,7 +2,7 @@
 import { jsx, Styled } from "theme-ui"
 import React from "react"
 import { graphql, Link } from "gatsby"
-import { Layout, SEO, Avatar, Flexbox, PostCard, Dialog, Gallery } from "../components"
+import { Layout, SEO, Avatar, Flexbox, PostCard, Dialog, Gallery, Grid } from "../components"
 import { FluidObject } from "gatsby-image"
 import { useOnClickOutside, useLightboxNav } from "../hooks"
 import Img from "gatsby-image"
@@ -63,20 +63,13 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
     <Layout title="Howdy!">
       <SEO title="Home" />
 
-      <div
-        sx={{
-          display: "grid",
-          gridTemplateColumns: `75px 1fr`,
-          gridGap: 2,
-          mb: 3,
-        }}
-      >
+      <Grid gap={2} columns="75px 1fr" sx={{ mb: 3 }}>
         <Avatar />
         <Flexbox vertical left middle>
           <Styled.h1 sx={{ mb: 1 }}>Joel M. Turner</Styled.h1>
           <Styled.h3 sx={{ m: 0 }}>Frontend Developer</Styled.h3>
         </Flexbox>
-      </div>
+      </Grid>
 
       <Intro />
 
@@ -92,16 +85,17 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
 
       <Gallery size={"s"} imageEdges={insta} setLightbox={setLightbox} sx={{ mt: 2, mb: 4 }} />
 
-      <Flexbox between middle>
+      <Flexbox between bottom>
         <Flexbox vertical>
-          <Styled.h2 style={{ margin: 0 }}>Writing</Styled.h2>
-          <Styled.h3>Some of My Thoughts and Explorations</Styled.h3>
+          <Styled.h2 sx={{ mb: 1 }}>Writing</Styled.h2>
+          <Styled.h3 sx={{ mb: 1 }}>Learning Through Writing</Styled.h3>
         </Flexbox>
         <Styled.h5 sx={{ mx: 0, my: 0, textAlign: "right" }}>
           <Link to="/blog">See all articles</Link>
         </Styled.h5>
       </Flexbox>
-      <div sx={{ variant: "collection.post" }}>
+
+      <div sx={{ variant: "collection.post", mt: 2 }}>
         {posts.length > 0 &&
           posts.map(edge => (
             <PostCard
@@ -115,7 +109,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
 
       {showLightbox && (
         <Dialog onClose={() => setLightbox(null)} onPrev={() => setDir("prev")} onNext={() => setDir("next")}>
-          {selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
+          {!!selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
         </Dialog>
       )}
     </Layout>

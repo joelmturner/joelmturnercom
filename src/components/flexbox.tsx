@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import * as React from "react"
-import css from "@styled-system/css"
 
 export type FlexboxProps = {
   className?: string;
@@ -23,7 +22,7 @@ export type FlexboxProps = {
   between?: boolean;
   around?: boolean;
 
-  gap?: boolean;
+  gap?: boolean | number;
 }
 
 export const getFlexProperties = (props: FlexboxProps) => {
@@ -32,21 +31,9 @@ export const getFlexProperties = (props: FlexboxProps) => {
 
   let primaryAxis = "initial"
   let secondaryAxis = "initial"
+  let gridGap: string | number = "none"
 
-  /** Check For conflicting booleans   
-    let primaryBools;
-    let secondaryBools;
-
-    if (vertical) {
-        primaryBools = [top, middle, bottom, between, around];
-        secondaryBools = [left, center, right];
-    } else {
-        primaryBools = [left, center, right, between, around];
-        secondaryBools= [top, middle, bottom];
-    };
-    */
-
-  // does primary axix have a value?
+  // does primary axis have a value?
   if (left || center || right || between || around) {
     // set value
     if (left) {
@@ -99,9 +86,22 @@ export const getFlexProperties = (props: FlexboxProps) => {
       }
     }
   }
+
+  if (gap) {
+    if (gap == true) {
+      gridGap = 2
+    } else {
+      gridGap = gap
+    }
+  }
+
   return {
     justifyContent: primaryAxis,
     alignItems: secondaryAxis,
+    "& > * + *": {
+      marginLeft: props.gap && !props.vertical && gridGap,
+      marginTop: props.gap && props.vertical && gridGap,
+    } as any,
   }
 }
 
@@ -113,10 +113,6 @@ const Flexbox: React.FC<FlexboxProps> = props => {
         flexDirection: props.vertical ? "column" : "row",
         flexWrap: props.wrap ? "wrap" : "no-wrap",
         flex: props.noGrow ? `0 0 auto` : `1 1 auto`,
-        "& > * + *": {
-          marginLeft: props.gap && !props.vertical && "2rem",
-          marginTop: props.gap && props.vertical && "2rem",
-        },
         ...getFlexProperties(props),
       }}
       className={props.className}

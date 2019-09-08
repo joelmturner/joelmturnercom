@@ -1,9 +1,5 @@
 {
-  "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
+  "extends": ["plugin:@typescript-eslint/recommended", "eslint:recommended", "plugin:react/recommended"],
   "env": {
     "browser": true,
     "node": true
@@ -19,7 +15,9 @@
     "react/prop-types": false,
     "@typescript-eslint/explicit-function-return-type": 0,
     "no-useless-constructor": "off",
-    "@typescript-eslint/no-useless-constructor": "error"
+    "@typescript-eslint/no-useless-constructor": "error",
+    "@typescript-eslint/no-explicit-any": 0,
+    "no-console": 0
   },
   "plugins": ["@typescript-eslint"],
   "parser": "@typescript-eslint/parser"

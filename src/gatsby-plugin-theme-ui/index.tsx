@@ -2,9 +2,9 @@ import base from "gatsby-theme-ui-blog/src/gatsby-plugin-theme-ui"
 import prism from "@theme-ui/prism/presets/theme-ui"
 import merge from "lodash.merge"
 import typography from "./typography"
+import { Theme } from "theme-ui"
 
 const baseMerged = merge(base, typography)
-console.log("baseMerged", baseMerged)
 const iconStyles = {
   ml: 2,
   fill: "text",
@@ -195,7 +195,7 @@ export default {
   buttons: {
     primary: {
       bg: "primary",
-      boxShadow: theme => `2px 2px 2px ${theme.colors.primary}`,
+      boxShadow: (theme: Theme) => theme && theme.colors && `2px 2px 2px ${theme.colors.primary}`,
       px: 3,
       py: 2,
       color: "muted",
@@ -203,7 +203,7 @@ export default {
       cursor: "pointer",
       fontFamily: "monospace",
       fontSize: 1,
-      border: theme => `1px solid ${theme.colors.primaryHighlt}`,
+      border: (theme: Theme) => theme && theme.colors && `1px solid ${theme.colors.primaryHighlight}`,
       ":hover": {
         bg: "primaryMuted",
       },
@@ -355,7 +355,7 @@ export default {
       height: "20px",
       padding: "0",
       lineHeight: "20px",
-      border: theme => `2px solid ${theme.colors.muted}`,
+      border: (theme: Theme) => theme && theme.colors && `2px solid ${theme.colors.muted}`,
       borderRadius: "20px",
       bg: "muted",
       transition: "background 0.3s ease-in, border 0.3s ease-in",
@@ -370,7 +370,7 @@ export default {
         top: "50%",
         bottom: 0,
         transform: "translate3d(-5px,-50%,0)",
-        border: theme => `2px solid ${theme.colors.muted}`,
+        border: (theme: Theme) => theme && theme.colors && `2px solid ${theme.colors.muted}`,
         borderRadius: "20px",
         transition: "background 0.3s ease-in, border 0.3s ease-in 0s, transform 0.3s ease-in",
       },

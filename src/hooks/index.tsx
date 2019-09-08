@@ -11,7 +11,7 @@ export function useLightbox(): [Lightbox, (image: GalleryImage | null) => void] 
   const [showLightbox, setShowLightbox] = useState(false)
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
 
-  const setLightbox = (image: GalleryImage) => {
+  const setLightbox = (image: GalleryImage | null): void => {
     if (image === null) {
       setShowLightbox(false)
       return
@@ -81,19 +81,19 @@ export function useOnClickOutside(ref: any, handler: (e: any) => void) {
   }, [ref, handler]) // ... passing it into this hook. // ... but to optimize you can wrap handler in useCallback before ... // ... callback/cleanup to run every render. It's not a big deal ... // ... function on every render that will cause this effect ... // It's worth noting that because passed in handler is a new ... // Add ref and handler to effect dependencies
 }
 
-export function useKeyPress(targetKey) {
+export function useKeyPress(targetKey: string) {
   // State for keeping track of whether key is pressed
   const [keyPressed, setKeyPressed] = useState(false)
 
   // If pressed key is our target key then set to true
-  function downHandler({ key }) {
+  function downHandler({ key }: KeyboardEvent) {
     if (key === targetKey) {
       setKeyPressed(true)
     }
   }
 
   // If released key is our target key then set to false
-  const upHandler = ({ key }) => {
+  const upHandler = ({ key }: KeyboardEvent) => {
     if (key === targetKey) {
       setKeyPressed(false)
     }
@@ -145,8 +145,8 @@ export function useLightboxNav(list: any[]) {
   return { showLightbox, setLightbox, selectedImage, setDir }
 }
 
-let cachedScripts = []
-export function useScript(src) {
+let cachedScripts: string[] = []
+export function useScript(src: string) {
   // Keeping track of script loaded and error state
   const [state, setState] = useState({
     loaded: false,
@@ -201,7 +201,7 @@ export function useScript(src) {
         script.removeEventListener("load", onScriptLoad)
         script.removeEventListener("error", onScriptError)
 
-        // not ideal, CodePen needs to run evertime the page loads
+        // not ideal, CodePen needs to run every time the page loads
         const index = cachedScripts.indexOf(src)
         if (index >= 0) cachedScripts.splice(index, 1)
         script.remove()

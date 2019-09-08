@@ -1,10 +1,15 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import { ReactElement } from "react"
+import { ReactNode } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Header from "./header"
 
-export default ({ children, title = "" }): ReactElement => {
+type LayoutProps = {
+  children: ReactNode | ReactNode[];
+  title?: string;
+}
+
+export default ({ children, title = "" }: LayoutProps): JSX.Element => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {

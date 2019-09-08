@@ -201,7 +201,8 @@ function Avatar(props) {
 That way we can pass `monster1` or `monster2` in our `user` prop to have it render that monster.
 
 
-<div style={{display: 'grid', gridTemplateColumns: '75px 3fr', gridGap: '1rem', alignItems: 'center'}}>
+
+<Grid columns='75px 3fr' rows='1fr 1fr' gap={2} sx={{alignItems: 'center', mb: 3}}>
 
 <AvatarPart2 user={'monster1'} />
 
@@ -212,11 +213,6 @@ That way we can pass `monster1` or `monster2` in our `user` prop to have it rend
     user='monster1' />
 ```
 
-</div>
-
-
-<div style={{display: 'grid', gridTemplateColumns: '75px 3fr', gridGap: '1rem', alignItems: 'center'}}>
-
 <AvatarPart2 user={'monster2'} />
 
 ```jsx
@@ -226,6 +222,7 @@ That way we can pass `monster1` or `monster2` in our `user` prop to have it rend
     user='monster2' />
 ```
 
-</div>
+</Grid>
+
 
 Nice, now we can type it so it's easier to know what name can be used and to see if our structure is correct if we ever need to edit it.

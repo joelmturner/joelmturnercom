@@ -14,9 +14,9 @@ type SEOProps = {
   description?: string;
   lang?: string;
   meta?: Array<{
-    name?: string;
-    content?: string;
-    property?: string;
+    name: string;
+    content: string;
+    property: string;
   }>;
   title?: string;
 }
@@ -78,7 +78,7 @@ function SEO({ description, lang, meta = [], title }: SEOProps) {
           name: `twitter:description`,
           content: metaDescription,
         },
-      ].concat(meta)}
+      ].concat(meta as any)}
     />
   )
 }

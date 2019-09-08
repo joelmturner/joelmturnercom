@@ -140,7 +140,7 @@ export const query = graphql`
     }
   }
   fragment recentBlogPosts on Query {
-    recentBlogPosts: allMdx(limit: 3, sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }) {
+    recentBlogPosts: allMdx(limit: 2, sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }) {
       ...PostCard
     }
   }
