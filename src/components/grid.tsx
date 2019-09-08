@@ -5,8 +5,8 @@ import { ReactElement } from "react"
 type GridProps = {
   children: ReactElement | ReactElement[];
   gap?: string | number;
-  columns?: string;
-  rows?: string;
+  columns?: string | string[];
+  rows?: string | string[];
   className?: string;
 }
 export default ({ children, gap = 0, columns = "none", rows = "none", className }: GridProps) => {

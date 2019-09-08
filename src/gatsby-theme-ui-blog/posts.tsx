@@ -2,7 +2,7 @@
 import { jsx } from "theme-ui"
 import { ReactElement } from "react"
 import { graphql, useStaticQuery } from "gatsby"
-import { Layout, PostCard } from "../components"
+import { Layout, PostCard, SEO } from "../components"
 import { FluidObject } from "gatsby-image"
 
 type Posts = {
@@ -40,6 +40,7 @@ export default (): ReactElement => {
   const { allBlogPosts: { edges = [] } = {} } = data
   return (
     <Layout>
+      <SEO title="Blog" description="A journey through Gatsby, React, TypeScript, and illustration" />
       <div sx={{ variant: "collection.post" }}>
         {edges &&
           edges.map(edge => (

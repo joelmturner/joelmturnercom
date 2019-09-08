@@ -105,6 +105,10 @@ export default {
         color: "primary",
       },
     },
+    h6: {
+      ...baseMerged.styles.h6,
+      mb: 1,
+    },
     p: {
       ...baseMerged.styles.p,
       fontSize: 3,
