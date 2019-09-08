@@ -1,13 +1,12 @@
 import React from "react"
-import Highlight, { defaultProps, Language } from "prism-react-renderer"
-import themeDark from "prism-react-renderer/themes/duotoneDark"
-import themeLight from "prism-react-renderer/themes/duotoneLight"
+import Highlight, { defaultProps, Language, PrismTheme } from "prism-react-renderer"
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live"
 import { Styled, useColorMode } from "theme-ui"
+import themeMod from "../utils/themeMod"
 
 const Code = ({ codeString, language, ...props }: { codeString: string; language: Language }) => {
-  const [colorMode] = useColorMode()
-  const theme = colorMode === "dark" ? themeDark : themeLight
+  const [colorMode] = useColorMode<"light" | "dark">()
+  const theme: PrismTheme = themeMod(colorMode)
   if ((props as any)["react-live"]) {
     return (
       <LiveProvider code={codeString} noInline={true} theme={theme}>
