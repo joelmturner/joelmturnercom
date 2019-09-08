@@ -2,7 +2,7 @@ import React from "react"
 import Prism from "@theme-ui/prism"
 import { preToCodeBlock } from "mdx-utils"
 import { Grid, Flexbox } from "../components"
-import Code from "../components/Code"
+import Code from "../components/code"
 
 const components = {
   pre: preProps => {
