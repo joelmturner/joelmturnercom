@@ -5,8 +5,8 @@ const newTheme = (colorMode: "light" | "dark"): PrismTheme => {
   const colors = colorMode === "dark" ? theme.colors.modes[colorMode] : theme.colors
   return {
     plain: {
-      backgroundColor: colors.backgroundSubtle,
-      color: colors.accent,
+      backgroundColor: `var(--theme-ui-colors-primary, ${colors.backgroundSubtle})`,
+      color: `var(--theme-ui-colors-accent, ${colors.accent})`,
     },
     styles: [
       {
@@ -26,13 +26,13 @@ const newTheme = (colorMode: "light" | "dark"): PrismTheme => {
           "variable",
         ],
         style: {
-          color: colors.primary,
+          color: `var(--theme-ui-colors-primary, ${colors.primary})`,
         },
       },
       {
         types: ["comment", "prolog", "doctype", "cdata", "punctuation", "operator"],
         style: {
-          color: colors.gray,
+          color: `var(--theme-ui-colors-gray, ${colors.gray})`,
         },
       },
       {
@@ -44,25 +44,25 @@ const newTheme = (colorMode: "light" | "dark"): PrismTheme => {
       {
         types: ["tag", "number"],
         style: {
-          color: colors.primary,
+          color: `var(--theme-ui-colors-primary, ${colors.primary})`,
         },
       },
       {
         types: ["property", "function", "template-string", "string"],
         style: {
-          color: colors.secondary,
+          color: `var(--theme-ui-colors-secondary, ${colors.secondary})`,
         },
       },
       {
         types: ["tag-id", "selector", "atrule-id"],
         style: {
-          color: colors.secondary,
+          color: `var(--theme-ui-colors-secondary, ${colors.secondary})`,
         },
       },
       {
         types: ["attr-name"],
         style: {
-          color: colors.secondary,
+          color: `var(--theme-ui-colors-secondary, ${colors.secondary})`,
         },
       },
       {
@@ -92,7 +92,7 @@ const newTheme = (colorMode: "light" | "dark"): PrismTheme => {
       {
         types: ["important"],
         style: {
-          color: colors.secondary,
+          color: `var(--theme-ui-colors-secondary, ${colors.secondary})`,
         },
       },
     ],
