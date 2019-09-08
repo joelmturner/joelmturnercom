@@ -3,14 +3,10 @@ import * as React from "react"
 import { jsx, Styled } from "theme-ui"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import { Layout, SEO, Dialog, Flexbox, Gallery, GallerySizes } from "../components"
 import { useLightboxNav } from "../hooks"
-import Dialog from "../components/dialog"
-import { InstaNode } from "."
-import Flexbox from "../components/flexbox"
 import { FaTh, FaThLarge, FaSquare } from "react-icons/fa"
-import Gallery, { GallerySizes } from "../components/gallery"
+import { InstaNode } from "."
 
 type IllustrationProps = {
   data: {
@@ -142,7 +138,7 @@ export default ({ data }: IllustrationProps): React.ReactElement => {
 
       {showLightbox && (
         <Dialog onClose={() => setLightbox(null)} onPrev={() => setDir("prev")} onNext={() => setDir("next")}>
-          {selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
+          {!!selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
         </Dialog>
       )}
     </Layout>

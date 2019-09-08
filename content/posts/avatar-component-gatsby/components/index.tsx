@@ -1,6 +1,6 @@
 import React from "react"
 
-function Avatar(props) {
+function Avatar() {
   const styles = {
     width: "75px",
     height: "75px",

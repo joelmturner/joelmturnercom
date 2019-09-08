@@ -1,12 +1,36 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import Layout from "../components/layout"
 import { ReactElement } from "react"
-import PostCard from "../components/postCard"
 import { graphql, useStaticQuery } from "gatsby"
+import { Layout, PostCard, SEO } from "../components"
+import { FluidObject } from "gatsby-image"
+
+type Posts = {
+  edges: Array<{
+    node: {
+      frontmatter: {
+        title: string;
+        cover: {
+          childImageSharp: {
+            fluid: FluidObject;
+          };
+        };
+      };
+      childMdxBlogPost: {
+        excerpt: string;
+        slug: string;
+      };
+    };
+  }>;
+}
+
+type Data = {
+  allBlogPosts: Posts;
+  recentBlogPosts: Posts;
+}
 
 export default (): ReactElement => {
-  const data = useStaticQuery(graphql`
+  const data = useStaticQuery<Data>(graphql`
     query {
       ...allBlogPosts
       ...recentBlogPosts
@@ -16,6 +40,7 @@ export default (): ReactElement => {
   const { allBlogPosts: { edges = [] } = {} } = data
   return (
     <Layout>
+      <SEO title="Blog" description="A journey through Gatsby, React, TypeScript, and illustration" />
       <div sx={{ variant: "collection.post" }}>
         {edges &&
           edges.map(edge => (

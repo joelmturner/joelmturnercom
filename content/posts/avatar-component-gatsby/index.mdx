@@ -5,7 +5,6 @@ draft: false
 cover: "./gatsby-avatar-01.png"
 ---
 import Avatar from './components';
-import Flexbox from '../../../src/components/flexbox';
 
 In this series we're going to take a look at creating a simple avatar component that is typed with TypeScript and has some special goodies in Gatsby land.
 
@@ -49,7 +48,8 @@ export default Avatar;
 
 Then we can pass it the image url and alt text. We can see that the component is working in its basic implementation now.
 
-<div style={{display: 'grid', gridTemplateColumns: '75px 3fr', gridGap: '1rem'}}>
+
+<Grid columns='75px 3fr' gap={2} sx={{ mb: 3 }}>
 <Flexbox middle>
     <Avatar /> 
 </Flexbox>
@@ -60,7 +60,7 @@ Then we can pass it the image url and alt text. We can see that the component is
     alText='Monster P. Whittington portrait'
     title='Monster P. Whittington' />
 ```
-</div>
+</Grid>
 
 Looks good. We've met our first three criteria for this component. In step 2 we'll make it more powerful with Gatsby Image. 
 

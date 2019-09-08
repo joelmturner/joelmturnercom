@@ -2,9 +2,9 @@ import base from "gatsby-theme-ui-blog/src/gatsby-plugin-theme-ui"
 import prism from "@theme-ui/prism/presets/theme-ui"
 import merge from "lodash.merge"
 import typography from "./typography"
+import { Theme } from "theme-ui"
 
 const baseMerged = merge(base, typography)
-console.log("baseMerged", baseMerged)
 const iconStyles = {
   ml: 2,
   fill: "text",
@@ -58,7 +58,7 @@ export default {
     backgroundSubtle: "#f9f9f9",
     muted: "#eaeaea",
     primary: "#ff9e74",
-    secondary: "#009de8",
+    secondary: "#728fcb",
     primaryHighlight: "#ffc689",
     gray: "#777",
     accent: "#cf50dc",
@@ -70,9 +70,9 @@ export default {
         background: "#121212",
         backgroundSubtle: "#212121",
         muted: "#313131",
-        primary: "#ffc689",
-        secondary: "#ef8ef9",
-        primaryHighlight: "#ff9900",
+        primary: "#fc9",
+        secondary: "#9a86fd",
+        primaryHighlight: "#f9da9c",
         gray: "#aaa",
         accent: "#7bb4d0",
         overlay: "rgba(0,0,0,0.8)",
@@ -104,6 +104,10 @@ export default {
       a: {
         color: "primary",
       },
+    },
+    h6: {
+      ...baseMerged.styles.h6,
+      mb: 1,
     },
     p: {
       ...baseMerged.styles.p,
@@ -140,7 +144,7 @@ export default {
       ...prism,
       p: [1, 2],
       overflow: "auto",
-      bg: "backgroundSubtle",
+      bg: "muted",
     },
     inlineCode: {
       ...baseMerged.styles.code,
@@ -195,7 +199,7 @@ export default {
   buttons: {
     primary: {
       bg: "primary",
-      boxShadow: theme => `2px 2px 2px ${theme.colors.primary}`,
+      boxShadow: (theme: Theme) => theme && theme.colors && `2px 2px 2px ${theme.colors.primary}`,
       px: 3,
       py: 2,
       color: "muted",
@@ -203,7 +207,7 @@ export default {
       cursor: "pointer",
       fontFamily: "monospace",
       fontSize: 1,
-      border: theme => `1px solid ${theme.colors.primaryHighlt}`,
+      border: (theme: Theme) => theme && theme.colors && `1px solid ${theme.colors.primaryHighlight}`,
       ":hover": {
         bg: "primaryMuted",
       },
@@ -355,7 +359,7 @@ export default {
       height: "20px",
       padding: "0",
       lineHeight: "20px",
-      border: theme => `2px solid ${theme.colors.muted}`,
+      border: (theme: Theme) => theme && theme.colors && `2px solid ${theme.colors.muted}`,
       borderRadius: "20px",
       bg: "muted",
       transition: "background 0.3s ease-in, border 0.3s ease-in",
@@ -370,7 +374,7 @@ export default {
         top: "50%",
         bottom: 0,
         transform: "translate3d(-5px,-50%,0)",
-        border: theme => `2px solid ${theme.colors.muted}`,
+        border: (theme: Theme) => theme && theme.colors && `2px solid ${theme.colors.muted}`,
         borderRadius: "20px",
         transition: "background 0.3s ease-in, border 0.3s ease-in 0s, transform 0.3s ease-in",
       },
@@ -392,6 +396,48 @@ export default {
       px: 1,
       mx: `auto`,
       maxWidth: 960,
+    },
+  },
+  post: {
+    ".gatsby-highlight": {
+      position: "relative",
+      webkitOverflowScrolling: "touch",
+    },
+    '.gatsby-highlight pre[class*="language-"]': {
+      webkitOverflowScrolling: "touch",
+    },
+    '.gatsby-highlight pre[class*="language-"]::before': {
+      background: "black",
+      borderRadius: "0 0 0.25rem 0.25rem",
+      color: "white",
+      fontSize: "12px",
+      letterSpacing: "0.025rem",
+      padding: "0.1rem 0.5rem",
+      position: "absolute",
+      right: "1rem",
+      textAlign: "right",
+      textTransform: "uppercase",
+      top: 0,
+    },
+    '.gatsby-highlight pre[class~="language-js"]::before': {
+      content: '"js"',
+      bg: "primaryHighlight",
+      color: "background",
+    },
+    '.gatsby-highlight pre[class~="language-jsx"]::before': {
+      content: '"jsx"',
+      bg: "primary",
+      color: "muted",
+    },
+    '.gatsby-highlight pre[class~="language-bash"]::before': {
+      content: '"bash"',
+      bg: "accent",
+      color: "muted",
+    },
+    '.gatsby-highlight pre[class~="language-typescript"]::before': {
+      content: '"typescript"',
+      bg: "secondary",
+      color: "muted",
     },
   },
 }

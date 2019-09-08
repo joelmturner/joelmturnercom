@@ -3,7 +3,12 @@ import { jsx } from "theme-ui"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
 
-export default props => {
+type AvatarProps = {
+  user?: "monster1" | "monster2";
+  className?: string;
+}
+
+export default ({ user, className }: AvatarProps) => {
   const data = useStaticQuery(graphql`
     query {
       ...monsters
@@ -17,12 +22,12 @@ export default props => {
     }
   `)
 
-  const image = data && data[props.user || "joel"] && data[props.user || "joel"].childImageSharp.fixed
+  const image = data && data[user || "joel"] && data[user || "joel"].childImageSharp.fixed
 
   return (
     <Img
       Tag="div"
-      className={props.className}
+      className={className}
       fixed={image}
       style={{
         width: "75px",

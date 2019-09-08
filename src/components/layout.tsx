@@ -1,10 +1,16 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import { ReactElement } from "react"
+import { ReactNode } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Header from "./header"
 
-export default ({ children, title = "" }): ReactElement => {
+type LayoutProps = {
+  children: ReactNode | ReactNode[];
+  title?: string;
+  className?: string;
+}
+
+export default ({ children, title = "", className }: LayoutProps): JSX.Element => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -16,7 +22,7 @@ export default ({ children, title = "" }): ReactElement => {
   `)
 
   return (
-    <Styled.root>
+    <Styled.root className={className}>
       <Header siteTitle={title ? title : data.site.siteMetadata.title} />
       <main sx={{ variant: "content.wrapper" }}>{children}</main>
       <footer sx={{ mt: 2 }}>

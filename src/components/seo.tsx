@@ -10,7 +10,19 @@ import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-function SEO({ description, lang, meta, title }) {
+type SEOProps = {
+  description?: string;
+  lang?: string;
+  meta?: Array<{
+    name: string;
+    content: string;
+    property: string;
+  }>;
+  title?: string;
+  image?: string; // full path to image
+}
+
+function SEO({ description, lang, meta = [], title, image }: SEOProps) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -19,6 +31,7 @@ function SEO({ description, lang, meta, title }) {
             title
             description
             author
+            siteUrl
           }
         }
       }
@@ -26,6 +39,8 @@ function SEO({ description, lang, meta, title }) {
   )
 
   const metaDescription = description || site.siteMetadata.description
+
+  const imageMeta = image ? image : `https://res.cloudinary.com/joelmturner/joel-turner.jpg`
 
   return (
     <Helmet
@@ -40,6 +55,10 @@ function SEO({ description, lang, meta, title }) {
           content: metaDescription,
         },
         {
+          name: `image`,
+          content: imageMeta,
+        },
+        {
           property: `og:title`,
           content: title,
         },
@@ -50,6 +69,10 @@ function SEO({ description, lang, meta, title }) {
         {
           property: `og:type`,
           content: `website`,
+        },
+        {
+          property: `og:image`,
+          content: imageMeta,
         },
         {
           name: `twitter:card`,
@@ -67,7 +90,11 @@ function SEO({ description, lang, meta, title }) {
           name: `twitter:description`,
           content: metaDescription,
         },
-      ].concat(meta)}
+        {
+          name: `twitter:image`,
+          content: imageMeta,
+        },
+      ].concat(meta as any)}
     />
   )
 }
