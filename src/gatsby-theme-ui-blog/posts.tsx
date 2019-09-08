@@ -1,9 +1,8 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import Layout from "../components/layout"
 import { ReactElement } from "react"
-import PostCard from "../components/postCard"
 import { graphql, useStaticQuery } from "gatsby"
+import { Layout, PostCard } from "../components"
 
 export default (): ReactElement => {
   const data = useStaticQuery(graphql`

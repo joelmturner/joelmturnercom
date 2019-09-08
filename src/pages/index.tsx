@@ -2,17 +2,11 @@
 import { jsx, Styled } from "theme-ui"
 import React from "react"
 import { graphql, Link } from "gatsby"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import { Layout, SEO, Avatar, Flexbox, PostCard, Dialog, Gallery } from "../components"
 import { FluidObject } from "gatsby-image"
-import Avatar from "../components/avatar"
-import Flexbox from "../components/flexbox"
-import PostCard from "../components/postCard"
 import { useOnClickOutside, useLightboxNav } from "../hooks"
-import Dialog from "../components/dialog"
 import Img from "gatsby-image"
-import { FaTh, FaThLarge, FaSquare, FaCaretDown, FaCaretUp } from "react-icons/fa"
-import Gallery, { GallerySizes } from "../components/gallery"
+import Intro from "../utils/content-snippets/intro.md"
 
 export type InstaNode = {
   node: {
@@ -78,16 +72,13 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
         }}
       >
         <Avatar />
-        <Flexbox vertical center>
+        <Flexbox vertical left middle>
           <Styled.h1 sx={{ mb: 1 }}>Joel M. Turner</Styled.h1>
           <Styled.h3 sx={{ m: 0 }}>Frontend Developer</Styled.h3>
         </Flexbox>
       </div>
-      <Styled.p>
-        {
-          "My background is in graphic design and web development. I'm currently working as a Front-End Developer at Sprinklr. I spend some of my free time exploring hand lettering and sketching as well as hiking in the Portland area with my wife and son."
-        }
-      </Styled.p>
+
+      <Intro />
 
       <Flexbox between bottom>
         <Flexbox vertical>

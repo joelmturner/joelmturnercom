@@ -1,6 +1,5 @@
-import * as React from "react"
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui"
+import { jsx } from "theme-ui"
 import Img, { FluidObject } from "gatsby-image"
 
 export type GallerySizes = "s" | "m" | "l"

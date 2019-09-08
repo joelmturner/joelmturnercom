@@ -1,8 +1,7 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import Layout from "../components/layout"
+import { Layout, Flexbox } from "../components"
 import { ReactElement, Fragment } from "react"
-import Flexbox from "../components/flexbox"
 import { Link } from "gatsby"
 
 type PostProps = {
