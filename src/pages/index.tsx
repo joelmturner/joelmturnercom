@@ -59,18 +59,10 @@ type IndexPageProps = {
 }
 
 const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
-  const [showPosts, setShowPosts] = React.useState(false)
-  const [sketchSize, setSketchSize] = React.useState<GallerySizes>("s")
-
   const ref = React.useRef()
-  const { featuredInstaRecent: { edges: instaEdges = [] } = {} } = data
-  const { recentBlogPosts: { edges: mdxEdges = [] } = {} } = data
-  let posts: MDXNode[] = []
-  if (mdxEdges.length > 0) {
-    posts = showPosts ? mdxEdges : mdxEdges.slice(0, 2)
-  }
+  const { featuredInstaRecent: { edges: insta = [] } = {}, recentBlogPosts: { edges: posts = [] } = {} } = data
 
-  const { showLightbox, setLightbox, selectedImage, setDir } = useLightboxNav(instaEdges)
+  const { showLightbox, setLightbox, selectedImage, setDir } = useLightboxNav(insta)
   useOnClickOutside(ref, () => setLightbox(null))
 
   return (
@@ -107,7 +99,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
         </Styled.h5>
       </Flexbox>
 
-      <Gallery size={sketchSize} imageEdges={instaEdges} setLightbox={setLightbox} sx={{ mt: 2, mb: 4 }} />
+      <Gallery size={"s"} imageEdges={insta} setLightbox={setLightbox} sx={{ mt: 2, mb: 4 }} />
 
       <Flexbox between middle>
         <Flexbox vertical>

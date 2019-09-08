@@ -22,7 +22,7 @@ Run `yarn clean` to clear the Gatsby cache
 
 ## Deployment
 
-Deployments happen automatically anytime a commit makes it to master.
+Netlify is watching `master` for commits. As soon as a commit comes in Netlify tries to build the new version.
 
 ## Blog Post
 
@@ -38,3 +38,11 @@ cover: string # image url
 ```
 
 Once the post is ready for publishing start a Merge Request to master from the post branch. This way the post can be merged through any GitLab tool.
+
+## Pages
+
+To add a new page you can create a `.tsx` or `.mdx` in `./src/pages`. These will be automatically added a pages with the slug being the name of the page.
+
+## GraphQL Queries
+
+The queries are added as fragments in `./src/utils/queries.tsx` and can be used in any of the page queries.
