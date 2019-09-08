@@ -19,9 +19,10 @@ type SEOProps = {
     property: string;
   }>;
   title?: string;
+  image?: string; // full path to image
 }
 
-function SEO({ description, lang, meta = [], title }: SEOProps) {
+function SEO({ description, lang, meta = [], title, image }: SEOProps) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -30,6 +31,7 @@ function SEO({ description, lang, meta = [], title }: SEOProps) {
             title
             description
             author
+            siteUrl
           }
         }
       }
@@ -37,6 +39,8 @@ function SEO({ description, lang, meta = [], title }: SEOProps) {
   )
 
   const metaDescription = description || site.siteMetadata.description
+
+  const imageMeta = image ? image : `${site.siteUrl}/joel-m-turner.jpg`
 
   return (
     <Helmet
@@ -51,6 +55,10 @@ function SEO({ description, lang, meta = [], title }: SEOProps) {
           content: metaDescription,
         },
         {
+          name: `image`,
+          content: imageMeta,
+        },
+        {
           property: `og:title`,
           content: title,
         },
@@ -61,6 +69,10 @@ function SEO({ description, lang, meta = [], title }: SEOProps) {
         {
           property: `og:type`,
           content: `website`,
+        },
+        {
+          property: `og:image`,
+          content: imageMeta,
         },
         {
           name: `twitter:card`,
@@ -77,6 +89,10 @@ function SEO({ description, lang, meta = [], title }: SEOProps) {
         {
           name: `twitter:description`,
           content: metaDescription,
+        },
+        {
+          name: `twitter:image`,
+          content: imageMeta,
         },
       ].concat(meta as any)}
     />
