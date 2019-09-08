@@ -7,7 +7,7 @@ import { Link } from "gatsby"
 type PostProps = {
   title: string;
   children: ReactNode | ReactNode[];
-  uri: string;
+  slug: string;
   excerpt: string;
   data: {
     previous?: {
@@ -21,9 +21,9 @@ type PostProps = {
   };
 }
 
-export default ({ title, children, uri, excerpt, data: { previous, next } = {}, ...rest }: PostProps): JSX.Element => {
+export default ({ title, children, slug, excerpt, data: { previous, next } = {} }: PostProps): JSX.Element => {
   const siteBaseUrl = "https://joelmturner.com"
-  const twitterMessage = `${title} ${siteBaseUrl}${uri} via @joelmturner`
+  const twitterMessage = `${title} ${siteBaseUrl}${slug} via @joelmturner`
   return (
     <Layout>
       <SEO title={title} description={excerpt} />
@@ -53,7 +53,7 @@ export default ({ title, children, uri, excerpt, data: { previous, next } = {}, 
           <Styled.a
             target="_blank"
             rel="noopener noreferrer"
-            href={`https://mobile.twitter.com/search?q=${encodeURI("https://joelmturer" + uri)}`}
+            href={`https://mobile.twitter.com/search?q=${encodeURI(siteBaseUrl + slug)}`}
           >
             Twitter
           </Styled.a>
@@ -64,6 +64,7 @@ export default ({ title, children, uri, excerpt, data: { previous, next } = {}, 
             Share Article on{" "}
             <Styled.a
               className="twitter-share-button"
+              target="_blank"
               href={`https://twitter.com/intent/tweet?text=${encodeURI(twitterMessage)}`}
             >
               Twitter
