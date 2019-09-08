@@ -3,6 +3,7 @@ import { jsx, Styled } from "theme-ui"
 import { Layout, Flexbox, Grid, SEO } from "../components"
 import { Fragment, ReactNode } from "react"
 import { Link } from "gatsby"
+import { useScript } from "../hooks"
 
 type PostProps = {
   title: string;
@@ -22,6 +23,10 @@ type PostProps = {
 }
 
 export default ({ title, children, slug, excerpt, data: { previous, next } = {} }: PostProps): JSX.Element => {
+  const [loaded, error] = useScript("//platform.twitter.com/widgets.js")
+  if (error) {
+    console.error(error)
+  }
   const siteBaseUrl = "https://joelmturner.com"
   const twitterMessage = `${title} ${siteBaseUrl}${slug} via @joelmturner`
   return (
@@ -60,16 +65,18 @@ export default ({ title, children, slug, excerpt, data: { previous, next } = {} 
         </Styled.h6>
 
         <Flexbox right>
-          <Styled.h6>
-            Share Article on{" "}
-            <Styled.a
-              className="twitter-share-button"
-              target="_blank"
-              href={`https://twitter.com/intent/tweet?text=${encodeURI(twitterMessage)}`}
-            >
-              Twitter
-            </Styled.a>
-          </Styled.h6>
+          {loaded && (
+            <Styled.h6>
+              Share Article on{" "}
+              <Styled.a
+                className="twitter-share-button"
+                target="_blank"
+                href={`https://twitter.com/intent/tweet?text=${encodeURI(twitterMessage)}`}
+              >
+                Twitter
+              </Styled.a>
+            </Styled.h6>
+          )}
         </Flexbox>
       </Flexbox>
     </Layout>
