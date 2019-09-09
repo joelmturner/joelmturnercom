@@ -135,12 +135,19 @@ export const query = graphql`
     }
   }
   fragment allBlogPosts on Query {
-    allBlogPosts: allMdx(sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }) {
+    allBlogPosts: allMdx(
+      sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }
+      filter: { frontmatter: { draft: { eq: false } } }
+    ) {
       ...PostCard
     }
   }
   fragment recentBlogPosts on Query {
-    recentBlogPosts: allMdx(limit: 2, sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }) {
+    recentBlogPosts: allMdx(
+      limit: 2
+      sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }
+      filter: { frontmatter: { draft: { eq: false } } }
+    ) {
       ...PostCard
     }
   }

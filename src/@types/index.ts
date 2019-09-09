@@ -31,3 +31,25 @@ declare module "*.md" {
   let Md: (props: any) => JSX.Element
   export default Md
 }
+
+interface PageInput {
+  path: string;
+  component: string;
+  layout?: string;
+  context?: any;
+}
+
+interface BoundActionCreators {
+  createPage: (page: PageInput) => void;
+  deletePage: (page: PageInput) => void;
+  createRedirect: (opts: {
+    fromPath: string;
+    isPermanent?: boolean;
+    redirectInBrowser?: boolean;
+    toPath: string;
+  }) => void;
+}
+
+export type GatsbyCreatePages = (fns: { graphql: any; boundActionCreators: BoundActionCreators }) => void
+
+export type GatsbyCreateSchemaCustomization = (actions: any, schema: any) => void

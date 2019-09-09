@@ -29,14 +29,14 @@ type Data = {
   recentBlogPosts: Posts;
 }
 
-export default (): ReactElement => {
+export default (props: any): ReactElement => {
   const data = useStaticQuery<Data>(graphql`
     query {
       ...allBlogPosts
       ...recentBlogPosts
     }
   `)
-
+  console.log("props", props)
   const { allBlogPosts: { edges = [] } = {} } = data
   return (
     <Layout>
