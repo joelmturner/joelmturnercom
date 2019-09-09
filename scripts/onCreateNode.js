@@ -1,11 +1,8 @@
-import { CreateNodeArgs } from "gatsby"
-
-export default ({ node, actions, getNode, createNodeId }: CreateNodeArgs) => {
+exports.onCreateNode = ({ node }) => {
   if (node.internal.type !== `Mdx`) {
     return
   }
 
-  const { createNodeField } = actions
   console.log("node", node)
 
   // createNodeField({

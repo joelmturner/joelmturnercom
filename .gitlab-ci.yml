@@ -10,7 +10,6 @@ cache:
 pages:
   script:
     - yarn install
-    - yarn type
     - ./node_modules/.bin/gatsby build --prefix-paths
   artifacts:
     paths:
