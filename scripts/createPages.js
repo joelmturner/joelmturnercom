@@ -1,12 +1,11 @@
-import { CreatePagesArgs } from "gatsby"
-
 const path = require("path")
+
 // Implement the Gatsby API “createPages”. This is called once the
 // data layer is bootstrapped to let plugins create pages from data.
-export default async ({ graphql, actions, reporter }: CreatePagesArgs) => {
+exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
   // Query for markdown nodes to use in creating pages.
-  const result: any = await graphql(
+  const result = await graphql(
     `
       {
         allMdx(filter: { frontmatter: { category: { ne: null } } }) {
@@ -28,7 +27,7 @@ export default async ({ graphql, actions, reporter }: CreatePagesArgs) => {
   }
   // Create pages for each markdown file.
   const blogPostsTemplate = path.resolve(`src/gatsby-theme-ui-blog/posts.tsx`)
-  result.data.allMdx.edges.forEach(({ node }: any) => {
+  result.data.allMdx.edges.forEach(({ node }) => {
     console.log("node", node)
     const category = node.frontmatter.category
     const path = `/blog/category/${category}`
