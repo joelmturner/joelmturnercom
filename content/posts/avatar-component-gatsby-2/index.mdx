@@ -92,7 +92,7 @@ import Img from "gatsby-image"
 function Avatar(props) {
   const data = useStaticQuery(graphql`
     query {
-      file(relativePath: { eq: "monster-01-headshot.png" }) {
+      placeholderImage: file(relativePath: { eq: "monster-01-headshot.png" }) {
         childImageSharp {
           fixed(width: 75, height: 75) {
             ...GatsbyImageSharpFixed
@@ -131,7 +131,7 @@ import Img from "gatsby-image"
 function Avatar(props) {
   const data = useStaticQuery(graphql`
     query {
-      file(relativePath: { eq: "monster-01-headshot.png" }) {
+      placeholderImage: file(relativePath: { eq: "monster-01-headshot.png" }) {
         childImageSharp {
           fixed(width: 75, height: 75) {
             ...GatsbyImageSharpFixed
@@ -161,7 +161,7 @@ function Avatar(props) {
   return (
     <Img
       style={styles}
-      fixed={data.file.childImageSharp.fixed}
+      fixed={data.placeholderImage.childImageSharp.fixed}
       alt={altText}
       title={title} />
   )
