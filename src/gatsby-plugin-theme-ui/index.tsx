@@ -63,6 +63,7 @@ export default {
     gray: "#777",
     accent: "#728fcb",
     overlay: "rgba(255,255,255,0.8)",
+    highlightLine: "rgba(114, 143, 203, 0.15)",
     modes: {
       dark: {
         text: "#f2f2f2",
@@ -76,6 +77,7 @@ export default {
         gray: "#aaa",
         accent: "#5cc6fa",
         overlay: "rgba(0,0,0,0.8)",
+        highlightLine: "rgba(92, 198, 250, 0.2)",
       },
     },
   },
@@ -143,8 +145,10 @@ export default {
       ...baseMerged.styles.pre,
       ...prism,
       p: [1, 2],
-      overflow: "auto",
       bg: "muted",
+      float: "left",
+      minWidth: "100%",
+      overflow: "initial",
     },
     inlineCode: {
       ...baseMerged.styles.code,
@@ -438,6 +442,11 @@ export default {
       content: '"typescript"',
       bg: "secondary",
       color: "muted",
+    },
+    '.gatsby-highlight pre[class~="language-graphql"]::before': {
+      content: '"graphql"',
+      bg: "gray",
+      color: "background",
     },
   },
 }
