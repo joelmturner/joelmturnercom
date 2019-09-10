@@ -24,9 +24,10 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
           <Styled.h1
             sx={{
               mb: 0,
+              fontSize: 3,
             }}
           >
-            <Link to="/" sx={{ color: "text", textDecoration: "none" }}>
+            <Link to="/" sx={{ color: "textMuted", textDecoration: "none" }}>
               {siteTitle}
             </Link>
           </Styled.h1>

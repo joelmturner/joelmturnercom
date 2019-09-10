@@ -64,10 +64,10 @@ export default ({ title, children, slug, excerpt, data: { previous, next } = {} 
           </Styled.a>
         </Styled.h6>
 
-        <Flexbox right>
+        <Flexbox right gap middle>
           {loaded && (
-            <Styled.h6>
-              Share Article on{" "}
+            <Fragment>
+              <Styled.h6 sx={{ mb: 0, color: "gray" }}>Share Article: </Styled.h6>
               <Styled.a
                 className="twitter-share-button"
                 target="_blank"
@@ -75,7 +75,7 @@ export default ({ title, children, slug, excerpt, data: { previous, next } = {} 
               >
                 Twitter
               </Styled.a>
-            </Styled.h6>
+            </Fragment>
           )}
         </Flexbox>
       </Flexbox>
