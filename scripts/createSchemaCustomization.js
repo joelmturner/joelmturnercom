@@ -4,8 +4,12 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   console.log("schema", schema)
 
   createTypes(`
+    type MdxBlogPost implements BlogPost @dontinfer {
+      frontmatter: MdxFrontmatter
+    }
     type MdxFrontmatter {
       category: String
+      ogImage: String
     }
   `)
 
@@ -18,8 +22,18 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     name: "category",
     extend: () => ({
       resolve(source, args, context, info) {
-        console.log("source", source)
-        console.log("info", info)
+        // console.log("source", source)
+        // console.log("info", info)
+        return String(source[info.fieldName])
+      },
+    }),
+  })
+  createFieldExtension({
+    name: "ogImage",
+    extend: () => ({
+      resolve(source, args, context, info) {
+        // console.log("source", source)
+        // console.log("info", info)
         return String(source[info.fieldName])
       },
     }),

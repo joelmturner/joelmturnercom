@@ -28,17 +28,17 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   // Create pages for each markdown file.
   const blogPostsTemplate = path.resolve(`src/gatsby-theme-ui-blog/posts.tsx`)
   result.data.allMdx.edges.forEach(({ node }) => {
-    console.log("node", node)
+    // console.log("node", node)
     const category = node.frontmatter.category
-    const path = `/blog/category/${category}`
+    const newPath = `/blog/category/${category}`
     createPage({
-      path,
+      path: newPath,
       component: blogPostsTemplate,
       // In your blog post template's graphql query, you can use path
       // as a GraphQL variable to query for data from the markdown file.
       context: {
         isArchive: true,
-        path,
+        newPath,
       },
     })
   })
