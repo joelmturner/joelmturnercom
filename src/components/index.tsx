@@ -1,5 +1,5 @@
 import Avatar from "./avatar"
-import Codepen from "./codePen"
+import Embed from "./embed"
 import Dialog from "./dialog"
 import Flexbox from "./flexbox"
 import Gallery, { GalleryImage, GallerySizes } from "./gallery"
@@ -14,7 +14,7 @@ import ThemeSwitch from "./themeSwitch"
 
 export {
   Avatar,
-  Codepen,
+  Embed,
   Dialog,
   Flexbox,
   Gallery,

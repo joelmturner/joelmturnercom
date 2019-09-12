@@ -3,6 +3,7 @@ import Prism from "@theme-ui/prism"
 import { preToCodeBlock } from "mdx-utils"
 import { Grid, Flexbox } from "../components"
 import Code from "../components/code"
+import Embed from "../components/embed"
 
 const components = {
   pre: preProps => {
@@ -22,4 +23,5 @@ export default {
   code: Prism,
   Grid,
   Flexbox,
+  Embed,
 }
