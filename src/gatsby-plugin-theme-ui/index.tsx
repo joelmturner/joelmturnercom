@@ -118,6 +118,15 @@ export default {
     li: {
       ...baseMerged.styles.li,
       fontSize: 3,
+      "&.task-list-item": {
+        listStyle: "none",
+        display: "flex",
+        alignItems: "center",
+        input: {
+          fontSize: 3,
+          mr: 2,
+        },
+      },
     },
     img: {
       ...baseMerged.styles.img,
@@ -447,6 +456,11 @@ export default {
       content: '"graphql"',
       bg: "gray",
       color: "background",
+    },
+    '.gatsby-highlight pre[class~="language-css"]::before': {
+      content: '"css"',
+      bg: "accent",
+      color: "muted",
     },
   },
 }
