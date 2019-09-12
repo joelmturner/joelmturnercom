@@ -22,7 +22,7 @@ function Embed({ title, id, height = 320, source }: EmbedProps) {
       allowFullScreen={true}
       frameBorder={0}
       allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
-      sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+      sandbox={"allow-modals allow-forms allow-popups allow-scripts allow-same-origin" as any}
       loading="lazy"
     />
   )
