@@ -28,7 +28,6 @@ export default ({ title, children, slug, excerpt, data: { previous, next } = {} 
     console.error(error)
   }
   const siteBaseUrl = "https://joelmturner.com"
-  const twitterMessage = `${title} ${siteBaseUrl}${slug} via @joelmturner`
   return (
     <Layout sx={{ variant: "post" }}>
       <SEO title={title} description={excerpt} />
