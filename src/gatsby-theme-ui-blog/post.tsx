@@ -68,13 +68,7 @@ export default ({ title, children, slug, excerpt, data: { previous, next } = {} 
           {loaded && (
             <Fragment>
               <Styled.h6 sx={{ mb: 0, color: "gray" }}>Share Article: </Styled.h6>
-              <Styled.a
-                className="twitter-share-button"
-                target="_blank"
-                href={`https://twitter.com/intent/tweet?text=${encodeURI(twitterMessage)}`}
-              >
-                Twitter
-              </Styled.a>
+              <Styled.a className="twitter-share-button">Tweet</Styled.a>
             </Fragment>
           )}
         </Flexbox>
