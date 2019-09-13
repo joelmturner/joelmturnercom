@@ -33,7 +33,7 @@ export default ({ title, children, slug, excerpt, data: { previous, next } = {} 
       <SEO title={title} description={excerpt} />
       <Styled.h1>{title}</Styled.h1>
       {children}
-      <Grid columns="1fr 1fr" gap="2">
+      <Grid columns="1fr 1fr" gap={2}>
         <Fragment>
           {previous && (
             <Flexbox left>
