@@ -1,0 +1,91 @@
+---
+title: My Favorite Layout Components in React
+date: 2019-09-12
+draft: false
+cover: "./layout-components.png"
+slug: react-layout-components
+category: dev
+tags:
+  - React
+  - CSS
+  - layout
+---
+
+There are a few components that I use almost every day in development. They are used for layouts and are made from flexbox and css grid. On this site I pass both of these down with the MdxProvider so all my pages and posts have access to them easily.
+
+## Flexbox
+
+This one is by far my favorite. 90% of the time it works perfectly with the props given. It can easily be extended through styled components, emotion's `css` prop, or Theme UI's `sx` prop for those few cases where I need something extra.
+
+This is definitely an opinionated way to build a Flexbox component. The idea is to have booleans for certain aspects of the spec to help speed up composition.
+
+Here's a list of the current props for it:
+
+```typescript
+type FlexboxProps = {
+  className?: string;
+  children?: React.ReactNode;
+
+  inline?: boolean;
+  vertical?: boolean; // column
+  wrap?: boolean;
+  noGrow?: boolean; // acts as no-grow and no-shrink
+  grow?: number;
+  shrink?: number;
+  basis?: number | "auto";
+
+  top?: boolean;
+  middle?: boolean;
+  bottom?: boolean;
+  left?: boolean;
+  center?: boolean;
+  right?: boolean;
+  between?: boolean;
+  around?: boolean;
+  gap?: boolean | number; // add margin between children similar to grid-gap on grid
+}
+```
+Here is some example usage. See the [CodeSandbox](#example) down below for more. 
+
+```jsx
+<Flexbox vertical gap={3}>
+  <Flexbox noGrow>
+    <h1>A Title for You</h1>
+  </Flexbox>
+  <Flexbox bottom>
+    <p>This is some copy to show how the box will fill the whole area but the text will be aligned bottom.</p>
+  </Flexbox>
+</Flexbox>
+```
+
+## Grid
+
+Grid is another one of my favorites and it's also very opinionated to suit my needs. The idea is to use CSS grid to create layouts. Depending on the project it can align with a design grid.
+
+This can be paired with Flexbox for some powerful layouts. Add the `sx` prop from Theme UI for some wonderful [breakpoint awesomeness](https://theme-ui.com/theme-spec#breakpoints).
+
+Let's take a look at the props.
+
+```typescript
+type GridProps = {
+  className?: string;
+  children: React.ReactNode;
+  gap?: string | number;        // grid-gap
+  columns?: string | string[];  // grid-template-columns
+  rows?: string | string[];     // grid-template-rows
+}
+```
+Here's an example of using it. See more examples in the [CodeSandbox](#example).
+
+```jsx
+<Grid columns="1fr 1fr" gap="2">
+  <img src="myImage.png" />
+  <img src='catsSinging.png' />
+</Grid>
+```
+
+## <a name="example"></a>Examples
+
+<Embed id='react-layout-components-flexbox-grid-d9e1u' source='codeSandbox' title='React Layout Components Flexbox & Grid' height={600} />
+
+I had used a column component that accepted different span amounts but I ended up not using it as much. I tend to add `span` to the children through the `sx` prop or extending with styled components.
