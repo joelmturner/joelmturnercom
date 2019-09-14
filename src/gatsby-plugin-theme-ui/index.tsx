@@ -63,7 +63,7 @@ export default {
     gray: "#777",
     accent: "#728fcb",
     overlay: "rgba(255,255,255,0.8)",
-    highlightLine: "rgba(114, 143, 203, 0.15)",
+    highlightLine: "rgba(114, 143, 203, 0.075)",
     modes: {
       dark: {
         text: "#f2f2f2",
@@ -77,7 +77,7 @@ export default {
         gray: "#aaa",
         accent: "#5cc6fa",
         overlay: "rgba(0,0,0,0.8)",
-        highlightLine: "rgba(92, 198, 250, 0.2)",
+        highlightLine: "rgba(92, 198, 250, 0.075)",
       },
     },
   },
