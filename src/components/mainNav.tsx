@@ -16,10 +16,32 @@ const MainNav = () => {
         }}
       >
         <h3 sx={{ variant: "nav.link" }}>
-          <Link to="/illustration">Illustration</Link>
+          <Link
+            to="/illustration"
+            activeClassName="active"
+            partiallyActive={true}
+            sx={{
+              "&.active": {
+                color: "text",
+              },
+            }}
+          >
+            Illustration
+          </Link>
         </h3>
         <h3 sx={{ variant: "nav.link" }}>
-          <Link to="/blog">Blog</Link>
+          <Link
+            to="/blog"
+            activeClassName="active"
+            partiallyActive={true}
+            sx={{
+              "&.active": {
+                color: "text",
+              },
+            }}
+          >
+            Blog
+          </Link>
         </h3>
       </Flexbox>
       <button sx={{ variant: "nav.button" }} onClick={() => setShowNav(!showNav)}>

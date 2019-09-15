@@ -14,11 +14,7 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
   const [colorMode, setColorMode] = useColorMode()
 
   return (
-    <header
-      sx={{
-        mb: 2,
-      }}
-    >
+    <header sx={{ mb: 2 }}>
       <div sx={{ variant: "content.wrapper" }}>
         <Flexbox between middle>
           <Styled.h1

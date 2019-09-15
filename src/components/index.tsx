@@ -11,6 +11,8 @@ import PostCard from "./postCard"
 import PostGallery from "./PostGallery"
 import SEO from "./seo"
 import ThemeSwitch from "./themeSwitch"
+import Series from "./series"
+import Dropdown from "./dropdown"
 
 export {
   Avatar,
@@ -28,4 +30,6 @@ export {
   PostGallery,
   SEO,
   ThemeSwitch,
+  Series,
+  Dropdown,
 }
