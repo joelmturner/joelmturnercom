@@ -7,7 +7,7 @@ import { Layout, SEO, Dialog, Flexbox, Gallery, GallerySizes } from "../componen
 import { useLightboxNav } from "../hooks"
 import { FaTh, FaThLarge, FaSquare } from "react-icons/fa"
 import { InstaNode } from "."
-import Dropdown from "../components/dropdown"
+import { Dropdown } from "../components"
 
 type IllustrationProps = {
   data: {
@@ -97,7 +97,7 @@ export default ({ data }: IllustrationProps): React.ReactElement => {
     <Layout>
       <SEO title="Illustration" />
       <Flexbox vertical>
-        <Styled.h2>Illustrations</Styled.h2>
+        <Styled.h2>Explorations of Handlettering and Illustration</Styled.h2>
         <Flexbox between middle>
           <Dropdown
             options={galleryOptions}
