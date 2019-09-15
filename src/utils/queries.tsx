@@ -126,6 +126,8 @@ export const query = graphql`
               }
             }
           }
+          category
+          tags
         }
         childMdxBlogPost {
           excerpt(pruneLength: 150)
