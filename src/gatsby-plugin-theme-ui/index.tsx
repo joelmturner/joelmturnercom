@@ -135,7 +135,7 @@ export default {
       ...baseMerged.styles.a,
       transition: "color 300ms ease-in",
       ":hover": {
-        color: "primaryHighlight",
+        color: "accent",
       },
     },
     root: {
@@ -149,6 +149,7 @@ export default {
       borderLeft: "2px solid",
       borderColor: "accent",
       paddingLeft: 2,
+      mt: 3,
     },
     pre: {
       ...prism,
@@ -229,7 +230,7 @@ export default {
     color: "primary",
     transition: "color 300ms ease-in",
     ":hover": {
-      color: "primaryHighlight",
+      color: "accent",
     },
   },
   nav: {
@@ -276,13 +277,14 @@ export default {
         color: "textMuted",
       },
       "a:hover": {
-        color: "primaryHighlight",
+        color: "accent",
       },
     },
   },
   dialog: {
     overlay: {
       bg: "overlay",
+      zIndex: 100,
     },
     content: {
       //   margin: "10vh auto",
@@ -429,7 +431,7 @@ export default {
       right: "1rem",
       textAlign: "right",
       textTransform: "uppercase",
-      top: 0,
+      top: "1rem",
     },
     '.gatsby-highlight pre[class~="language-js"]::before': {
       content: '"js"',
@@ -460,6 +462,21 @@ export default {
       content: '"css"',
       bg: "accent",
       color: "muted",
+    },
+    link: {
+      ...baseMerged.styles.a,
+      fontSize: 3,
+      transition: "color 200ms",
+      ":hover": {
+        color: "accent",
+      },
+      "&.active": {
+        textDecoration: "none",
+        color: "textMuted",
+        ":hover": {
+          color: "textMuted",
+        },
+      },
     },
   },
 }
