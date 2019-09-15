@@ -1,15 +1,18 @@
 ---
-title: "Create an Avatar Component in Gatsby with TypeScript: Adding Types"
+title: "Create an Avatar Component in Gatsby with TypeScript Part 3: Adding Types"
 date: 2019-09-08
 draft: false
 cover: "./gatsby-avatar-03.png"
+slug: avatar-component-gatsby-3
+category: dev
+tags: 
+  - React
+  - Gatsby
+  - TypeScript
 ---
+import {SeriesBlock} from './components';
 
-This is part 3 of the *Create an Avatar Component in Gatsby with TypeScript* series.
-
-[Part 1: We built the simple react component](/blog/avatar-component-gatsby "Part 1")<br />
-[Part 2: We hooked it up Gatsby image](/blog/avatar-component-gatsby-2 "Part 2")<br />
-Part 3: We'll type it with TypeScript
+<SeriesBlock />
 
 We left off with our avatar component working using Gatsby Image and still able to receive an image url. Now, let's look at what it would take to type this component. I like to use `type` instead of `interface` for the props. You can read more about [the difference between type and interface](https://medium.com/@martin_hotell/interface-vs-type-alias-in-typescript-2-7-2a8f1777af4c) if you'd like.
 

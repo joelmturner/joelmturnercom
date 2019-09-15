@@ -1,18 +1,20 @@
 ---
-title: 'Create an Avatar Component in Gatsby with TypeScript: Gatsby Image'
+title: 'Create an Avatar Component in Gatsby with TypeScript Part 2: Gatsby Image'
 date: 2019-09-07
 draft: false
 cover: "./gatsby-avatar-02.png"
+slug: avatar-component-gatsby-2
+category: dev
+tags: 
+  - React
+  - Gatsby
 ---
+import {SeriesBlock} from './components';
 import AvatarPart2 from '../../../src/components/avatar.tsx';
 
-In [part 1](/blog/avatar-component-gatsby "Part 1") we put together a simple avatar component that can receive an image url and render it out as a round image.
+<SeriesBlock />
 
-This is part 2 of the *Create an Avatar Component in Gatsby with TypeScript* series.
-
-[Part 1: We built the simple react component](/blog/avatar-component-gatsby "Part 1")<br />
-Part 2: We'll start hooking up Gatsby image<br />
-[Part 3: We'll type it with TypeScript](/blog/avatar-component-gatsby-3 "Part 3")
+In <Link to='/blog/avatar-component-gatsby-1'>Part 1</Link> we put together a simple avatar component that can receive an image url and render it out as a round image.
 
 To get the full benefit of Gatsby Image we need to make sure our image is pulled into our graphql. We'll need to install a couple of plugins to help us here. [`gatsby-image`](https://www.gatsbyjs.org/packages/gatsby-image), [`gatsby-transformer-sharp`](https://www.gatsbyjs.org/packages/gatsby-transformer-sharp), [`gatsby-plugin-sharp`](https://www.gatsbyjs.org/packages/gatsby-plugin-sharp) will be needed.
 
