@@ -21,7 +21,7 @@ export default (props: { user: string; className?: string }) => {
         width: "75px",
         height: "75px",
         borderRadius: "50%",
-        bg: "muted",
+        bg: "gray",
       }}
     />
   )

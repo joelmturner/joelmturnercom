@@ -476,6 +476,10 @@ export default {
         ":hover": {
           color: "textMuted",
         },
+        ":after": {
+          content: '"<--"',
+          ml: 2,
+        },
       },
     },
   },
