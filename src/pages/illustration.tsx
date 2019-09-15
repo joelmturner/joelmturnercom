@@ -7,6 +7,7 @@ import { Layout, SEO, Dialog, Flexbox, Gallery, GallerySizes } from "../componen
 import { useLightboxNav } from "../hooks"
 import { FaTh, FaThLarge, FaSquare } from "react-icons/fa"
 import { InstaNode } from "."
+import Dropdown from "../components/dropdown"
 
 type IllustrationProps = {
   data: {
@@ -85,18 +86,31 @@ export default ({ data }: IllustrationProps): React.ReactElement => {
   }
 
   const { showLightbox, setLightbox, selectedImage, setDir } = useLightboxNav(filteredEdges())
-
+  const galleryOptions = [
+    { value: "featuredInsta", label: "Featured" },
+    { value: "inktober2017", label: "Inktober 2017" },
+    { value: "inktober2018", label: "Inktober 2018" },
+    { value: "letterClash", label: "LetterClash" },
+    { value: "joelmturner_abcs2017", label: "#HandletteredABCs 2017" },
+  ]
   return (
     <Layout>
       <SEO title="Illustration" />
       <Flexbox vertical>
         <Styled.h2>Illustrations</Styled.h2>
         <Flexbox between middle>
+          <Dropdown
+            options={galleryOptions}
+            selected={galleryOptions.find(opt => opt.value === filter)}
+            onChange={selected => setFilter(selected.value)}
+            sx={{ display: ["block", "block", "block", "none"] }}
+          />
           <Flexbox
             left
             middle
             sx={{
               flexDirection: ["column", "row"],
+              display: ["none", "none", "none", "flex"],
               " & > * + *": {
                 mt: [2, 0],
                 ml: [0, 2],
