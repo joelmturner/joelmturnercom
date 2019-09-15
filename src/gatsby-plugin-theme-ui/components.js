@@ -1,9 +1,13 @@
+/** @jsx jsx */
+import { jsx } from "theme-ui"
+// eslint-disable-next-line no-unused-vars
 import React from "react"
 import Prism from "@theme-ui/prism"
 import { preToCodeBlock } from "mdx-utils"
-import { Grid, Flexbox } from "../components"
+import { Grid, Flexbox, Series } from "../components"
 import Code from "../components/code"
 import Embed from "../components/embed"
+import Link from "gatsby-link"
 
 const components = {
   pre: preProps => {
@@ -24,4 +28,6 @@ export default {
   Grid,
   Flexbox,
   Embed,
+  Link: props => <Link {...props} sx={{ variant: "post.link" }} activeClassName="active" partiallyActive={true} />,
+  Series,
 }
