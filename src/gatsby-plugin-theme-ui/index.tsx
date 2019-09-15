@@ -151,7 +151,6 @@ export default {
       paddingLeft: 2,
     },
     pre: {
-      ...baseMerged.styles.pre,
       ...prism,
       p: [1, 2],
       bg: "muted",
