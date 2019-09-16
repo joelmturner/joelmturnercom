@@ -6,8 +6,8 @@
     "author": "Kyle Mathews <mathews.kyle@gmail.com>",
     "dependencies": {
         "@emotion/core": "^10.0.16",
-        "@mdx-js/mdx": "^1.4.0",
-        "@mdx-js/react": "^1.4.0",
+        "@mdx-js/mdx": "^1.4.5",
+        "@mdx-js/react": "^1.4.5",
         "@reach/dialog": "^0.2.9",
         "@theme-ui/prism": "^0.2.29",
         "@theme-ui/typography": "^0.2.40",
@@ -43,7 +43,7 @@
         "gatsby-remark-prismjs": "^3.3.11",
         "gatsby-source-filesystem": "^2.1.11",
         "gatsby-source-instagram-all": "^2.0.5",
-        "gatsby-theme-ui-blog": "^0.2.38",
+        "gatsby-theme-ui-blog": "^0.2.42",
         "gatsby-transformer-remark": "^2.6.19",
         "gatsby-transformer-sharp": "^2.2.7",
         "lodash": "^4.17.15",
@@ -60,12 +60,12 @@
         "react-live": "^2.2.0",
         "react-select": "^3.0.4",
         "react-swipeable": "^5.4.0",
-        "theme-ui": "^0.2.38",
+        "theme-ui": "^0.2.42",
         "typescript": "^3.6.2",
         "typography-theme-noriega": "^0.16.19"
     },
     "devDependencies": {
-        "@mdx-js/loader": "^1.4.0",
+        "@mdx-js/loader": "^1.4.5",
         "loader-utils": "^1.2.3",
         "prettier": "^1.18.2",
         "prettier-eslint-cli": "^5.0.0"
