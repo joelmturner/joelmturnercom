@@ -29,14 +29,12 @@ export default ({ user, className }: AvatarProps) => {
       Tag="div"
       className={className}
       fixed={image}
-      style={{
-        width: "75px",
-        height: "75px",
-        margin: 0,
-        borderRadius: "50%",
-      }}
       sx={{
         bg: "text",
+        width: "75px",
+        height: "75px",
+        m: 0,
+        borderRadius: "50%",
       }}
     />
   )
