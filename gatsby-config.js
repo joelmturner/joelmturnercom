@@ -4,16 +4,15 @@ module.exports = {
     description: `I'm a kombucha lovin' Front-End Dev at Sprinklr. Love lettering, love design, love development, love Portland.`,
     author: `@joelmturner`,
     siteUrl: "https://joelmturner.com",
-    social: {
-      twitter: "joelmturner",
-      instagram: "joelmturner",
-    },
-    socialLinks: {
-      twitter: "https://twitter.com/joelmturner",
-      instagram: "https://www.instagram.com/joelmturner",
-    },
+    social: [
+      { name: "Twitter", url: "https://twitter.com/joelmturner" },
+      { name: "Instagram", url: "https://www.instagram.com/joelmturner" },
+      { name: "GitHub", url: "https://github.com/joelmturner" },
+    ],
     keywords: [
       "react",
+      "reactjs",
+      "javascript",
       "typescript",
       "developer",
       "css",
@@ -22,6 +21,7 @@ module.exports = {
       "handlettering",
       "portland",
       "gatsby",
+      "gatsbyjs",
     ],
   },
   plugins: [
