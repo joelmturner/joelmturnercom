@@ -1,14 +1,7 @@
-/**
- * SEO component that queries for data with
- *  Gatsby's useStaticQuery React hook
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import React from "react"
-import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
+import { Schema } from "."
 
 type SEOProps = {
   description?: string;
@@ -20,9 +13,21 @@ type SEOProps = {
   }>;
   title?: string;
   image?: string; // full path to image
+  isBlogPost?: boolean;
+  datePublished?: string;
+  dateModified?: string;
 }
 
-function SEO({ description, lang, meta = [], title, image }: SEOProps) {
+function SEO({
+  description,
+  lang,
+  meta = [],
+  title = "",
+  image,
+  isBlogPost = false,
+  datePublished,
+  dateModified,
+}: SEOProps) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -32,6 +37,7 @@ function SEO({ description, lang, meta = [], title, image }: SEOProps) {
             description
             author
             siteUrl
+            keywords
           }
         }
       }
@@ -40,76 +46,85 @@ function SEO({ description, lang, meta = [], title, image }: SEOProps) {
 
   const metaDescription = description || site.siteMetadata.description
 
-  const imageMeta = image ? image : `https://res.cloudinary.com/joelmturner/joel-turner.jpg`
+  const metaImage = image ? image : `https://res.cloudinary.com/joelmturner/joel-turner.jpg`
 
   return (
-    <Helmet
-      htmlAttributes={{
-        lang,
-      }}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
-      meta={[
-        {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          name: `image`,
-          content: imageMeta,
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          property: `og:image`,
-          content: imageMeta,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: site.siteMetadata.author,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-        {
-          name: `twitter:image`,
-          content: imageMeta,
-        },
-      ].concat(meta as any)}
-    />
+    <>
+      <Helmet
+        htmlAttributes={{
+          lang,
+        }}
+        title={title}
+        titleTemplate={`%s | ${site.siteMetadata.title}`}
+        meta={[
+          {
+            name: `description`,
+            content: metaDescription,
+          },
+          {
+            name: `image`,
+            content: metaImage,
+          },
+          {
+            property: `og:title`,
+            content: title,
+          },
+          {
+            property: `og:description`,
+            content: metaDescription,
+          },
+          {
+            property: `og:type`,
+            content: isBlogPost ? `article` : `website`,
+          },
+          {
+            property: `og:image`,
+            content: metaImage,
+          },
+          {
+            property: "og:image:alt",
+            content: `joel m turner portrait`,
+          },
+          {
+            name: `twitter:card`,
+            content: `summary`,
+          },
+          {
+            name: `twitter:creator`,
+            content: site.siteMetadata.author,
+          },
+          {
+            name: `twitter:title`,
+            content: title,
+          },
+          {
+            name: `twitter:description`,
+            content: metaDescription,
+          },
+          {
+            name: `twitter:image`,
+            content: metaImage,
+          },
+          {
+            property: "twitter:image:alt",
+            content: `joel m turner portrait`,
+          },
+        ].concat(meta as any)}
+      />
+      <Schema
+        isBlogPost={isBlogPost}
+        url={site.siteMetadata.url}
+        title={title}
+        image={metaImage}
+        description={metaDescription}
+        datePublished={datePublished || ""}
+        dateModified={dateModified || ""}
+        canonicalUrl={site.siteMetadata.url}
+        author={site.siteMetadata.author}
+        defaultTitle={title}
+      />
+    </>
   )
-}
-
-SEO.defaultProps = {
-  lang: `en`,
-  meta: [],
-  description: ``,
-}
-
-SEO.propTypes = {
-  description: PropTypes.string,
-  lang: PropTypes.string,
-  meta: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string.isRequired,
 }
 
 export default SEO

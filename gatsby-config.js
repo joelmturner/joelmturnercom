@@ -4,6 +4,25 @@ module.exports = {
     description: `I'm a kombucha lovin' Front-End Dev at Sprinklr. Love lettering, love design, love development, love Portland.`,
     author: `@joelmturner`,
     siteUrl: "https://joelmturner.com",
+    social: {
+      twitter: "joelmturner",
+      instagram: "joelmturner",
+    },
+    socialLinks: {
+      twitter: "https://twitter.com/joelmturner",
+      instagram: "https://www.instagram.com/joelmturner",
+    },
+    keywords: [
+      "react",
+      "typescript",
+      "developer",
+      "css",
+      "illustration",
+      "sketch",
+      "handlettering",
+      "portland",
+      "gatsby",
+    ],
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -98,6 +117,18 @@ module.exports = {
       resolve: `gatsby-source-instagram-all`,
       options: {
         access_token: "***REMOVED***",
+      },
+    },
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        exclude: [`/category`, `/tags`],
+      },
+    },
+    {
+      resolve: "gatsby-plugin-robots-txt",
+      options: {
+        policy: [{ userAgent: "*", allow: "/" }],
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

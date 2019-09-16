@@ -13,6 +13,7 @@ import SEO from "./seo"
 import ThemeSwitch from "./themeSwitch"
 import Series from "./series"
 import Dropdown from "./dropdown"
+import Schema from "./schema"
 
 export {
   Avatar,
@@ -32,4 +33,5 @@ export {
   ThemeSwitch,
   Series,
   Dropdown,
+  Schema,
 }
