@@ -13,6 +13,7 @@ type SEOProps = {
   }>;
   title?: string;
   image?: string; // full path to image
+  keywords?: string[];
   isBlogPost?: boolean;
   datePublished?: string;
   dateModified?: string;
@@ -27,6 +28,7 @@ function SEO({
   isBlogPost = false,
   datePublished,
   dateModified,
+  keywords,
 }: SEOProps) {
   const { site } = useStaticQuery(
     graphql`
@@ -46,7 +48,8 @@ function SEO({
 
   const metaDescription = description || site.siteMetadata.description
 
-  const metaImage = image ? image : `https://res.cloudinary.com/joelmturner/joel-turner.jpg`
+  const metaImage = image ? site.siteMetadata.siteUrl + image : `https://res.cloudinary.com/joelmturner/joel-turner.jpg`
+  const metaKeywords = keywords ? keywords : site.siteMetadata.keywords
 
   return (
     <>
@@ -60,6 +63,10 @@ function SEO({
           {
             name: `description`,
             content: metaDescription,
+          },
+          {
+            name: `keywords`,
+            content: metaKeywords.join(", "),
           },
           {
             name: `image`,
@@ -83,7 +90,7 @@ function SEO({
           },
           {
             property: "og:image:alt",
-            content: `joel m turner portrait`,
+            content: image ? title : `joel m turner portrait`,
           },
           {
             name: `twitter:card`,
@@ -107,7 +114,7 @@ function SEO({
           },
           {
             property: "twitter:image:alt",
-            content: `joel m turner portrait`,
+            content: image ? title : `joel m turner portrait`,
           },
         ].concat(meta as any)}
       />
