@@ -196,6 +196,8 @@ export default {
   },
   postCard: {
     title: {
+      mb: 0,
+      mt: 1,
       px: 1,
       py: 2,
       "a &": {
@@ -207,6 +209,10 @@ export default {
       display: "flex",
       alignItems: "center",
       height: "auto",
+    },
+    excerpt: {
+      px: 1,
+      py: 1,
     },
   },
   buttons: {

@@ -89,6 +89,7 @@ export default (): ReactElement => {
             slug={`${edge.node.childMdxBlogPost.slug}`}
             title={edge.node.frontmatter.title}
             image={edge.node.frontmatter.cover && edge.node.frontmatter.cover.childImageSharp.fluid}
+            excerpt={edge.node.childMdxBlogPost.excerpt}
           />
         ))}
       </div>

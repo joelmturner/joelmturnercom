@@ -8,15 +8,17 @@ type PostCardProps = {
   title: string;
   image: FluidObject;
   className?: string;
+  excerpt?: string;
 }
 
-export default ({ title, slug, image, className }: PostCardProps): JSX.Element => {
+export default ({ title, slug, image, className, excerpt }: PostCardProps): JSX.Element => {
   return (
     <Link sx={{ variant: "link", textDecoration: "none" }} to={`${slug}`} key={title} className={className}>
       <Img fluid={image} sx={{ variant: "postCard.img" }} />
       <Styled.h2 sx={{ variant: "postCard.title" }} key={title}>
         {title}
       </Styled.h2>
+      <Styled.p sx={{ variant: "postCard.excerpt" }}>{excerpt}</Styled.p>
     </Link>
   )
 }
