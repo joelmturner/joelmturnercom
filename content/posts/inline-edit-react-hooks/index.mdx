@@ -1,0 +1,104 @@
+---
+title: My Best Hand Lettering and Sketches of 2016
+date: 2019-09-16
+draft: false
+cover: "./inline-edit.png"
+category: dev
+tags: ["React", "React hooks"]
+---
+
+A nice feature in many apps is to edit a title or other text inline without leaving the context that we're in. 
+
+Here's what we'll be building.
+
+Insert gif or video <—
+
+The requirements for this component are:
+
+- [ ]  Must show text when in rest
+- [ ]  Click on text to edit the text
+- [ ]  Click check mark to save
+- [ ]  Click outside to save
+- [ ]  Enter key to save
+- [ ]  Esc key to exit without saving
+- [ ]  Click x to exit without saving
+
+Cool let's start by creating the resting state. We're going to do some basic styling with CSS to help us.
+
+    import React from "react";
+    
+    function InlineEdit(props) {
+      return (
+        <span className="inline-text_copy--rest">
+          {props.text}
+          <input className="inline-text_input--rest" />
+        </span>
+    }
+    
+    export default InlineEdit;
+
+- [x]  Must show text when in rest
+
+This sets is us up with a simple text component that displays our text. 
+
+Now the trickery begins!
+
+    function InlineEdit(props) {
+      return (
+        <span className="inline-text_copy--rest">
+          {props.text}
+          <input className="inline-text_input--rest" />
+        </span>
+    }
+
+We want to click on the rest text and have the input show up with the cursor in the input.  Let's create some state to track whether we're at rest or active.
+
+    import React, {useState} from "react";
+    {...}
+    const [isInputActive, setIsInputActive] = useState(false);
+
+Cool, now we have some state to help us display/hide our text and input. We also need some state to track what is being typed in our input. Let's add another `useState` to hold that text.
+
+    const [inputValue, setInputValue] = useState("");
+
+Let's hook this state up to our elements.
+
+    function InlineEdit(props) {
+      const [isInputActive, setIsInputActive] = useState(false);
+      const [inputValue, setInputValue] = useState("");
+      
+      return (
+        <span className="inline-text">
+          <span className={`inline-text_copy--${isInputActive ? "active" : "rest"}`}>
+            {props.text}
+          </span>
+          <input value={inputValue} onChange={(e) => setInputVslue(e.target.value)} className={`inline-text_input--${!isInputActive ? "active" : "rest"}`} />
+        </span>
+    }
+
+- [x]  Click on text to edit the text
+
+Alright, now we need to set up the saving and escaping the text. We can do this with a `useEffect` and `useKeypress` hook that watch for a key click and take an action.
+
+    function InlineEdit(props) {
+      const [isInputActive, setIsInputActive] = useState(false);
+      const [inputValue, setInputValue] = useState(props.value);
+      const enter = useKeypress('Return');
+    	const esc = useKeypress('Escape');
+      useEffect(() => {
+    		if (isInputActive) {
+    			if (enter) {
+    				props.onSetText(inputValue)
+    			}
+    			if (esc) {
+    				setIsInputActive(false)
+    				setInputValue(props.value)
+    			}
+    		}
+    		
+      }, [enter, esc])
+      
+      return ({...}
+
+- [x]  Enter key to save
+- [x]  Esc key to exit without saving
