@@ -31,3 +31,8 @@ declare module "*.md" {
   let Md: (props: any) => JSX.Element
   export default Md
 }
+
+declare module "gatsby-plugin-mdx" {
+  const MDXRenderer: any
+  export { MDXRenderer }
+}
