@@ -15,9 +15,9 @@ type PostNavProps = {
 type PostProps = {
   title: string;
   children: ReactNode | ReactNode[];
-  slug: string;
   excerpt: string;
   frontmatter: {
+    slug?: string;
     cover?: {
       publicURL: string;
     };
@@ -29,10 +29,9 @@ type PostProps = {
 }
 
 export default ({
-  frontmatter: { cover } = {},
+  frontmatter: { cover, slug } = {},
   title,
   children,
-  slug,
   excerpt,
   data: { previous, next } = {},
 }: PostProps): JSX.Element => {
@@ -76,7 +75,7 @@ export default ({
           <Styled.a
             target="_blank"
             rel="noopener noreferrer"
-            href={`https://mobile.twitter.com/search?q=${encodeURI(siteBaseUrl + slug)}`}
+            href={`https://mobile.twitter.com/search?q=${encodeURI(siteBaseUrl + "/blog/" + slug)}`}
           >
             Twitter
           </Styled.a>
