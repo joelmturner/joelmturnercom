@@ -5,24 +5,37 @@ import { Fragment, ReactNode } from "react"
 import { Link } from "gatsby"
 import { useScript } from "../hooks"
 
+type PostNavProps = {
+  frontmatter: {
+    slug: string;
+    title: string;
+  };
+}
+
 type PostProps = {
   title: string;
   children: ReactNode | ReactNode[];
   slug: string;
   excerpt: string;
+  frontmatter: {
+    cover?: {
+      publicURL: string;
+    };
+  };
   data: {
-    previous?: {
-      slug: string;
-      title: string;
-    };
-    next?: {
-      slug: string;
-      title: string;
-    };
+    previous?: PostNavProps;
+    next?: PostNavProps;
   };
 }
 
-export default ({ title, children, slug, excerpt, data: { previous, next } = {} }: PostProps): JSX.Element => {
+export default ({
+  frontmatter: { cover } = {},
+  title,
+  children,
+  slug,
+  excerpt,
+  data: { previous, next } = {},
+}: PostProps): JSX.Element => {
   const [loaded, error] = useScript("//platform.twitter.com/widgets.js")
   if (error) {
     console.error(error)
@@ -30,22 +43,28 @@ export default ({ title, children, slug, excerpt, data: { previous, next } = {} 
   const siteBaseUrl = "https://joelmturner.com"
   return (
     <Layout sx={{ variant: "post" }}>
-      <SEO title={title} description={excerpt} />
+      <SEO title={title} description={excerpt} image={cover && cover.publicURL} />
       <Styled.h1>{title}</Styled.h1>
       {children}
-      <Grid columns="1fr 1fr" gap={2}>
+      <Grid columns="1fr 1fr" gap={2} sx={{ mt: 4, borderTop: "1px solid", borderColor: "muted", py: 3 }}>
         <Fragment>
           {previous && (
             <Flexbox left>
               <Styled.p>
-                <Link sx={{ variant: "link" }} to={previous.slug}>{`<-- ${previous.title}`}</Link>
+                <Link
+                  sx={{ variant: "link" }}
+                  to={`/blog/${previous.frontmatter.slug}`}
+                >{`<-- ${previous.frontmatter.title}`}</Link>
               </Styled.p>
             </Flexbox>
           )}
           {next && (
             <Flexbox right>
               <Styled.p>
-                <Link sx={{ variant: "link" }} to={next.slug}>{`${next.title} -->`}</Link>
+                <Link
+                  sx={{ variant: "link" }}
+                  to={`/blog/${next.frontmatter.slug}`}
+                >{`${next.frontmatter.title} -->`}</Link>
               </Styled.p>
             </Flexbox>
           )}
