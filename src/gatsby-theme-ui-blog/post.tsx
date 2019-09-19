@@ -13,10 +13,10 @@ type PostNavProps = {
 }
 
 type PostProps = {
-  title: string;
   children: ReactNode | ReactNode[];
   excerpt: string;
   frontmatter: {
+    title?: string;
     slug?: string;
     cover?: {
       publicURL: string;
@@ -29,8 +29,7 @@ type PostProps = {
 }
 
 export default ({
-  frontmatter: { cover, slug } = {},
-  title,
+  frontmatter: { cover, slug, title } = {},
   children,
   excerpt,
   data: { previous, next } = {},
