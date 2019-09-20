@@ -1,0 +1,265 @@
+---
+title: Bar Chart in React with @VX
+slug: data-vis-react-bar-chart-vx
+cover: "./data-vis-bar-chart.png"
+draft: false
+date: 2019-09-17
+category: Dev
+tags: [Data vis, React, Typescript]
+---
+
+Data visualization is steadily becoming more valuable to companies as they try to understand all the data they have coming in. There are a lot of different solutions for data visualization in javaScript, [d3](https://d3js.org/) being one of the most popular.
+
+When working in React it can frustrating to handle d3 since they tend to compete for the DOM. There is a solution that we've been using for a little while at Sprinklr to help with this.
+
+That solution is the library [@vx](https://vx-demo.now.sh/). It's a set of base components in React that wrap d3, made to build a charting library from. There are some great helpers rolled up in the components that make working with `svg`'s much better. It hasn't been released as stable quite yet but it works for our purposes.
+
+Today we're going to focus on building a bar chart component. Here are the requirements for this component.
+
+- [ ] Can take an array of single dimension data
+- [ ] Render each item on a shared scale
+- [ ] Should have a x and y axis
+
+## Packages
+
+Let's start by getting the packages we need from @vx. Well need shapes, scale, axis, gradient (easy background color), and some mock data to get started.
+
+```bash
+  yarn add @vx/shapes @vx/group @vx/scale @vx/axis @vx/gradient
+```
+
+Or
+```bash
+  npm install @vx/shapes @vx/group @vx/scale @vx/axis @vx/gradient --save
+```
+
+## Data
+
+Now that we have our packages we can start stubbing out our data. We're going to use some mock data to get started so feel free to create your own or use this data set.
+
+```js
+const defaultData1 = [
+  {
+    label: "Happy",
+    value: 4000
+  },
+  {
+    label: "Sad",
+    value: 2000
+  },
+  {
+    label: "Angry",
+    value: 3000
+  },
+  {
+    label: "Joyful",
+    value: 4500
+  },
+  {
+    label: "Anxious",
+    value: 7000
+  }
+];
+```
+Now that we have the shape of our data we can add some helper functions that will access those items. This will help us add the labels across the x axis and the values along the y axis. We'll see how these come into play a little later.
+
+```js
+// accessors return the label and value of that data item
+const x = d => d.label;
+const y = d => d.value;
+```
+
+## Scales
+
+We can now define the max height and max width that we would like our chart to be. Our component will take height and width as props and then we can add a little padding. This will help us as we define our scales for this chart.
+
+```js
+// bounds
+const xMax = width - 80;
+const yMax = height - 80;
+```
+
+The scales are where the magic really happen. It took me a while to understand what the `domain` and `range` in d3 were all about. The general rule of thumb based on my understanding is that `domain` is the lowest and highest data points. The `range` is the pixel range we would like to plot these data points on.
+
+In our scales below we can see that `range` (`rangeRound`) is from `0` to `xMax` which is the height bound of our chart. @vx gives us a helper, `rangeRound`, that prettyifies the numbers.
+
+The `domain` is an array of all data points which resolves to lowest (2000) and highest (7000) of the data set.
+
+The padding is another helper from @vx that adds banding or space between and the width of the bars for us.
+
+```js
+// scales
+const xScale = scaleBand({
+  rangeRound: [0, xMax],
+  domain: data.map(x),
+  padding: 0.4
+});
+
+const yScale = scaleLinear({
+  rangeRound: [0, yMax],
+  domain: [Math.max(...data.map(y)), 0]
+});
+```
+
+## Bar Chart
+Cool, let's build the component! We'll start by setting up the `svg` and `Group` to hold our chart. The `Group` helps us place the axes and the bars.
+
+```jsx
+import React from "react";
+import { Group } from "@vx/group";
+import { LinearGradient } from "@vx/gradient";
+import { scaleBand, scaleLinear } from "@vx/scale";
+import { AxisLeft, AxisBottom } from "@vx/axis";
+  
+// accessors return the label and value of that data item
+const x = d => d.label;
+const y = d => d.value;
+
+function BarChart({data, width, height}) {
+
+// bounds
+const xMax = width - 80;
+const yMax = height - 80;
+
+// scales
+const xScale = scaleBand({
+  rangeRound: [0, xMax],
+  domain: data.map(x),
+  padding: 0.4
+});
+
+const yScale = scaleLinear({
+  rangeRound: [0, yMax],
+  domain: [Math.max(...data.map(y)), 0]
+});
+
+return (
+  <svg width={width} height={height}>
+    <Group top={25} left={55}>
+    </Group>
+  </svg>
+)}
+
+export default BarChart;
+```
+- [x] Can take an array of single dimension data
+
+Looks good. The first thing we'll add is the y axis. To do this we use `LeftAxis` from @vx. We need to pass it our yScale and we'll give it a few other props for styling. The prop `left` pushes the axis over enough to show the `label` and the `numTicks` limits the number of values shown on the y axis.
+
+Then we'll add the `AxisBottom` that has similar props to to `AxisLeft`. It should look like this:
+
+```jsx {2-3}
+<Group top={25} left={55}>
+  <AxisLeft left={10} scale={yScale} numTicks={4} label="Times Expressed" />
+  <AxisBottom scale={xScale} label="Emotion" labelOffset={15} top={yMax} />
+</Group>
+```
+- [x] Should have a x and y axis
+
+Now we can loop over the data and return the bar. The width, height, and x are all using the scale to determine where they would be plotted in the graph. 
+
+```jsx
+{data.map((d, i) => {
+  const label = x(d);
+  const barWidth = xScale.bandwidth();
+  const barHeight = yMax - yScale(y(d));
+  const barX = xScale(label);
+  const barY = yMax - barHeight;
+
+  return (
+    <Bar
+      key={`bar-${label}`}
+      x={barX}
+      y={barY}
+      width={barWidth}
+      height={barHeight}
+    />
+  );
+})}
+```
+- [x] Render each item on a shared scale
+
+## Finish
+
+Nice! It should be good to go. We're going to add in the `LinearGradient` for a background color as well. Here it is all together:
+
+```jsx
+import React from "react";
+import { Group } from "@vx/group";
+import { LinearGradient } from "@vx/gradient";
+import { scaleBand, scaleLinear } from "@vx/scale";
+import { AxisLeft, AxisBottom } from "@vx/axis";
+  
+// accessors return the label and value of that data item
+const x = d => d.label;
+const y = d => d.value;
+
+function BarChart({data, width, height}) {
+
+// bounds
+const xMax = width - 80;
+const yMax = height - 80;
+
+// scales
+const xScale = scaleBand({
+  rangeRound: [0, xMax],
+  domain: data.map(x),
+  padding: 0.4
+});
+
+const yScale = scaleLinear({
+  rangeRound: [0, yMax],
+  domain: [Math.max(...data.map(y)), 0]
+});
+
+return (
+  <svg width={width} height={height}>
+    <LinearGradient
+      from={`#e9e9e9`}
+      to={`#fff`}
+      id={`gradientFill`}
+    />
+    <rect
+      width={width}
+      height={height}
+      fill={`url(#gradientFill)`}
+      rx={5}
+    />
+    <Group top={25} left={55}>
+      <AxisLeft left={10} scale={yScale} numTicks={4} label="Times" />
+      {data.map((d, i) => {
+        const label = x(d);
+        const barWidth = xScale.bandwidth();
+        const barHeight = yMax - yScale(y(d));
+        const barX = xScale(label);
+        const barY = yMax - barHeight;
+
+        return (
+          <Bar
+            key={`bar-${label}`}
+            x={barX}
+            y={barY}
+            width={barWidth}
+            height={barHeight}
+          />
+        );
+      })}
+      <AxisBottom scale={xScale} label="Emotion" labelOffset={15} top={yMax} />
+    </Group>
+  </svg>
+)}
+
+export default BarChart;
+```
+## Bonus
+Add a little smoothness to your bars with a css transition like: 
+
+```css
+.vx-bar {
+  transition: height 150ms, y 150ms;
+}
+```
+This way, when the data changes it will move to the next height smoothly. You can see that in action below.
+
+<Embed source='codeSandbox' id='react-bar-chart-with-vx-yi48e' title="React Bar Chart with @vx" height="600" />
+

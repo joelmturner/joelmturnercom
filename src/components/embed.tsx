@@ -15,7 +15,7 @@ function Embed({ title, id, height = 320, source }: EmbedProps) {
       : `//codesandbox.io/embed/${id}?autoresize=1&fontsize=14&hidenavigation=1&view=preview`
   return (
     <Iframe
-      sx={{ width: "100%", height, mb: 4, mt: 1, border: 0, borderRadius: "4px", overflow: "hidden" }}
+      sx={{ width: "100%", height: `${height}px`, mb: 4, mt: 1, border: 0, borderRadius: "4px", overflow: "hidden" }}
       scrolling="no"
       title={title}
       url={url}

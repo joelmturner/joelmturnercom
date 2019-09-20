@@ -158,6 +158,7 @@ export default {
       float: "left",
       minWidth: "100%",
       overflow: "initial",
+      mb: 3,
     },
     inlineCode: {
       ...baseMerged.styles.code,
