@@ -1,0 +1,16 @@
+# Debugging MobX
+
+## React
+
+### trace()
+`trace()` helps show what it was that made MobX update. this is helpful for tracking down unexpected renders or infinite loops.
+
+```jsx
+import {trace} from 'mobx-react'
+
+{...}
+render() {
+  trace();
+  return ();
+}
+```

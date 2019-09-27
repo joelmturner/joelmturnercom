@@ -43,6 +43,20 @@ const MainNav = () => {
             Blog
           </Link>
         </h3>
+        <h3 sx={{ variant: "nav.link" }}>
+          <Link
+            to="/notes"
+            activeClassName="active"
+            partiallyActive={true}
+            sx={{
+              "&.active": {
+                color: "text",
+              },
+            }}
+          >
+            Notes
+          </Link>
+        </h3>
       </Flexbox>
       <button sx={{ variant: "nav.button" }} onClick={() => setShowNav(!showNav)}>
         <div
