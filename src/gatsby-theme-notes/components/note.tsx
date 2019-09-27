@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
+import { jsx, Styled } from "theme-ui"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import components from "../../gatsby-plugin-theme-ui/components"
 import Layout from "./layout"
@@ -13,23 +13,29 @@ const WikiPage = ({
       siteMetadata: { title },
     },
   },
+  path,
+  pageContext: {
+    parent: { name },
+  },
   ...props
 }: any) => {
-  const path = props.pageContext.parent.relativePath.match(/^.*\//gm)[0].replace("/", "")
+  const route = path.substring(path.lastIndexOf("/notes/") + 7, path.lastIndexOf("/"))
   return (
     <Layout {...props} title={title}>
-      <Flexbox noGrow gap={1} sx={{ mb: 3 }}>
+      <Flexbox noGrow gap={1} sx={{ mb: 3 }} middle>
         <Link sx={{ variant: "link", textDecoration: "none", fontWeight: 700 }} to={`/`}>
-          {`~`}
+          ~
         </Link>
         /
         <Link sx={{ variant: "link", textDecoration: "none", fontWeight: 700 }} to={`/notes`}>
-          {`notes`}
+          notes
         </Link>
         /
-        <Link sx={{ variant: "link", textDecoration: "none", fontWeight: 700 }} to={`/notes/${path}`}>
-          {`${path}`}
+        <Link sx={{ variant: "link", textDecoration: "none", fontWeight: 700 }} to={`/notes/${route}`}>
+          {route}
         </Link>
+        {"/"}
+        <Styled.h4 sx={{ mb: 0, ml: 2 }}>{name}</Styled.h4>
       </Flexbox>
       <MDXRenderer components={components}>{body}</MDXRenderer>
     </Layout>
