@@ -72,8 +72,8 @@ module.exports = {
           `,
         feeds: [
           {
-            serialize: ({ query: { site, allMdx } }) => {
-              return allMdx.edges.map(edge => {
+            serialize: ({ query: { site, allBlogPost } }) => {
+              return allBlogPost.edges.map(edge => {
                 return Object.assign({}, edge.node, {
                   description: edge.node.excerpt,
                   date: edge.node.date,
