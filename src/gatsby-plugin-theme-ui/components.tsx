@@ -21,6 +21,25 @@ const components = {
   wrapper: ({ children }: { children: any }) => <Fragment>{children}</Fragment>,
 }
 
+function Image({ src, width, ...props }: { src: string; width: string | "s" | "m" | "l" }) {
+  let w
+  switch (width) {
+    case "s":
+      w = "30%"
+      break
+    case "m":
+      w = "65%"
+      break
+    case "l":
+      w = "100%"
+      break
+    default:
+      w = width
+      break
+  }
+  return <img sx={{ width: w }} src={src} {...props} />
+}
+
 export default {
   ...components,
   code: Prism,
@@ -31,4 +50,5 @@ export default {
     <Link {...props} sx={{ variant: "post.link" }} activeClassName="active" partiallyActive={true} />
   ),
   Series,
+  Image,
 }

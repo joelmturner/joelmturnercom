@@ -74,32 +74,28 @@ module.exports = {
           {
             serialize: ({ query: { site, allMdx } }) => {
               return allMdx.edges.map(edge => {
-                return Object.assign({}, edge.node.frontmatter, {
+                return Object.assign({}, edge.node, {
                   description: edge.node.excerpt,
-                  date: edge.node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + edge.node.childMdxBlogPost.slug,
-                  guid: site.siteMetadata.siteUrl + edge.node.childMdxBlogPost.slug,
-                  custom_elements: [{ "content:encoded": edge.node.html }],
+                  date: edge.node.date,
+                  url: site.siteMetadata.siteUrl + edge.node.slug,
+                  guid: site.siteMetadata.siteUrl + edge.node.slug,
+                  custom_elements: [{ "content:encoded": edge.node.body }],
                 })
               })
             },
             query: `
                 {
-                    allMdx(sort: {fields: [frontmatter___date, frontmatter___title], order: DESC}) {
-                        edges {
-                          node {
-                            excerpt
-                            html
-                            frontmatter {
-                              title
-                              date
-                            }
-                            childMdxBlogPost {
-                              slug
-                            }
-                          }
-                        }
+                  allBlogPost(sort: {fields: [title, date], order: DESC}) {
+                    edges {
+                      node {
+                        title
+                        slug
+                        excerpt
+                        body
+                        date
                       }
+                    }
+                  }
                 }
               `,
             output: "/rss.xml",
