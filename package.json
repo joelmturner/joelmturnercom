@@ -26,6 +26,7 @@
         "@typescript-eslint/eslint-plugin": "^2.0.0",
         "@typescript-eslint/parser": "^2.0.0",
         "@weknow/gatsby-remark-codepen": "^0.1.0",
+        "emotion-theming": "^10.0.19",
         "gatsby": "^2.13.73",
         "gatsby-background-image": "^0.8.6",
         "gatsby-image": "^2.2.10",
@@ -43,6 +44,7 @@
         "gatsby-remark-prismjs": "^3.3.11",
         "gatsby-source-filesystem": "^2.1.11",
         "gatsby-source-instagram-all": "^2.0.5",
+        "gatsby-theme-notes": "^1.0.3",
         "gatsby-theme-ui-blog": "^0.2.42",
         "gatsby-transformer-remark": "^2.6.19",
         "gatsby-transformer-sharp": "^2.2.7",
@@ -60,6 +62,7 @@
         "react-live": "^2.2.0",
         "react-select": "^3.0.4",
         "react-swipeable": "^5.4.0",
+        "resize-observer-polyfill": "^1.5.1",
         "theme-ui": "^0.2.42",
         "typescript": "^3.6.2",
         "typography-theme-noriega": "^0.16.19"
