@@ -143,6 +143,10 @@ export default {
       "& *": {
         boxSizing: "border-box",
       },
+      "main > div > a": {
+        marginRight: "1rem",
+        textDecoration: "none",
+      },
     },
     blockquote: {
       ...baseMerged.styles.blockquote,

@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-// eslint-disable-next-line no-unused-vars
-import React from "react"
+import React, { Fragment } from "react"
 import Prism from "@theme-ui/prism"
 import { preToCodeBlock } from "mdx-utils"
 import { Grid, Flexbox, Series } from "../components"
@@ -10,7 +9,7 @@ import Embed from "../components/embed"
 import Link from "gatsby-link"
 
 const components = {
-  pre: preProps => {
+  pre: (preProps: any) => {
     const props = preToCodeBlock(preProps)
     // if there's a codeString and some props, we passed the test
     if (props) {
@@ -19,7 +18,7 @@ const components = {
     // it's possible to have a pre without a code in it
     return <pre {...preProps} />
   },
-  wrapper: ({ children }) => <>{children}</>,
+  wrapper: ({ children }: { children: any }) => <Fragment>{children}</Fragment>,
 }
 
 export default {
@@ -28,6 +27,8 @@ export default {
   Grid,
   Flexbox,
   Embed,
-  Link: props => <Link {...props} sx={{ variant: "post.link" }} activeClassName="active" partiallyActive={true} />,
+  Link: (props: any) => (
+    <Link {...props} sx={{ variant: "post.link" }} activeClassName="active" partiallyActive={true} />
+  ),
   Series,
 }
