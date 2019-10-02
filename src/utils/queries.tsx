@@ -56,6 +56,16 @@ export const query = graphql`
       }
     }
   }
+  fragment inktober2019 on Query {
+    inktober2019: allInstagramContent(
+      filter: { tags: { glob: "ink*2019" } }
+      sort: { fields: created_time, order: ASC }
+    ) {
+      edges {
+        ...InstaNodes
+      }
+    }
+  }
   fragment letterClash on Query {
     letterClash: allInstagramContent(
       filter: { tags: { eq: "letterclash" } }
