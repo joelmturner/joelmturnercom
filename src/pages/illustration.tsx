@@ -8,7 +8,7 @@ import { useLightboxNav } from "../hooks"
 import { FaTh, FaThLarge, FaSquare } from "react-icons/fa"
 import { InstaNode } from "."
 import { Dropdown } from "../components"
-import { Location, RouteComponentProps } from "@reach/router"
+import { RouteComponentProps } from "@reach/router"
 
 type IllustrationProps = {
   location: RouteComponentProps["location"];
@@ -47,7 +47,8 @@ export type InstaCollections =
 
 export default ({ data, location }: IllustrationProps): React.ReactElement => {
   const [sketchSize, setSketchSize] = React.useState<GallerySizes>("m")
-  const hash: InstaCollections = location ? (location.hash.replace("#", "") as InstaCollections) : "featuredInsta"
+  const hash: InstaCollections =
+    location && location.hash ? (location.hash.replace("#", "") as InstaCollections) : "featuredInsta"
   const [filter, setFilter] = React.useState<InstaCollections>(hash)
   const {
     featuredInsta: { edges: featuredEdges = [] } = {},
