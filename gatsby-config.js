@@ -72,28 +72,36 @@ module.exports = {
           `,
         feeds: [
           {
-            serialize: ({ query: { site, allBlogPost } }) => {
-              return allBlogPost.edges.map(edge => {
-                return Object.assign({}, edge.node, {
-                  description: edge.node.excerpt,
-                  date: edge.node.date,
-                  url: site.siteMetadata.siteUrl + edge.node.slug,
-                  guid: site.siteMetadata.siteUrl + edge.node.slug,
-                  custom_elements: [{ "content:encoded": edge.node.body }],
+            serialize: ({ query: { site, allMdx } }) => {
+              return allMdx.nodes.map(node => {
+                return Object.assign({}, node, {
+                  title: node.frontmatter.title,
+                  description: node.excerpt,
+                  date: node.frontmatter.date,
+                  url: site.siteMetadata.siteUrl + `/blog/${node.frontmatter.slug}`,
+                  guid: site.siteMetadata.siteUrl + `/blog/${node.frontmatter.slug}`,
+                  image: site.siteMetadata.siteUrl + node.frontmatter.cover.publicURL,
+                  category: [node.frontmatter.category],
+                  custom_elements: [{ "content:encoded": node.html }],
                 })
               })
             },
             query: `
                 {
-                  allBlogPost(sort: {fields: [title, date], order: DESC}) {
-                    edges {
-                      node {
-                        title
+                  allMdx(sort: {fields: frontmatter___date, order: DESC}, filter: {fileAbsolutePath: {glob: "**/posts/**"}}) {
+                    nodes {
+                      id
+                      frontmatter {
                         slug
-                        excerpt
-                        body
+                        title
+                        category
+                        cover {
+                          publicURL
+                        }
                         date
                       }
+                      html
+                      excerpt
                     }
                   }
                 }
