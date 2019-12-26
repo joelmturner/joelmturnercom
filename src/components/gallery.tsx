@@ -2,8 +2,8 @@
 import { jsx } from "theme-ui"
 import Img, { FluidObject } from "gatsby-image"
 
-type GallerySizes = "s" | "m" | "l"
-type GalleryImage = {
+export type GallerySizes = "s" | "m" | "l"
+export type GalleryImage = {
   node: {
     localImage: {
       childImageSharp: {
@@ -34,4 +34,4 @@ function Gallery({ imageEdges, setLightbox, size, className }: GalleryProps) {
   )
 }
 
-export { Gallery as default, GallerySizes, GalleryImage }
+export default Gallery

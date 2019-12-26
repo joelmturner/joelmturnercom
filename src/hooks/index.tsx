@@ -145,7 +145,7 @@ export function useLightboxNav(list: any[]) {
   return { showLightbox, setLightbox, selectedImage, setDir }
 }
 
-let cachedScripts: string[] = []
+const cachedScripts: string[] = []
 export function useScript(src: string) {
   // Keeping track of script loaded and error state
   const [state, setState] = useState({
@@ -165,7 +165,7 @@ export function useScript(src: string) {
       cachedScripts.push(src)
 
       // Create script
-      let script = document.createElement("script")
+      const script = document.createElement("script")
       script.type = "text/javascript"
       script.async = true
       script.src = src

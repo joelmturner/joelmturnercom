@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import React, { Fragment } from "react"
+import { Fragment } from "react"
 import Prism from "@theme-ui/prism"
 import { preToCodeBlock } from "mdx-utils"
 import { Grid, Flexbox, Series } from "../components"

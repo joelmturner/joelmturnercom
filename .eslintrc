@@ -11,8 +11,8 @@
         "extensions": [".js", ".jsx", ".tsx"]
       }
     ],
-    "react/display-name": false,
-    "react/prop-types": false,
+    "react/display-name": "off",
+    "react/prop-types": "off",
     "@typescript-eslint/explicit-function-return-type": 0,
     "no-useless-constructor": "off",
     "@typescript-eslint/no-useless-constructor": "error",
@@ -20,6 +20,11 @@
     "no-console": 0,
     "@typescript-eslint/no-var-requires": 0
   },
-  "plugins": ["@typescript-eslint"],
+  "settings": {
+    "react": {
+      "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
+    }
+  },
+  "plugins": ["@typescript-eslint", "prettier"],
   "parser": "@typescript-eslint/parser"
 }
