@@ -3,6 +3,7 @@ import { jsx, Styled } from "theme-ui"
 import { ReactNode } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { IoLogoInstagram, IoLogoGithub, IoLogoTwitter } from "react-icons/io"
+import { FaDev } from "react-icons/fa"
 import Header from "./header"
 import { Flexbox } from "."
 
@@ -45,6 +46,9 @@ export default ({ children, title = "", className }: LayoutProps): JSX.Element =
             </Styled.a>
             <Styled.a href="https://github.com/joelmturner" target="_blank" title="github">
               <IoLogoGithub />
+            </Styled.a>
+            <Styled.a href="https://dev.to/joelmturner" target="_blank" title="joelmturner's DEV Profile">
+              <FaDev />
             </Styled.a>
           </Flexbox>
         </Flexbox>
