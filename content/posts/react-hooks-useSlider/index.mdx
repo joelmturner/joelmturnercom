@@ -53,8 +53,6 @@ function useInterval(callback, delay) {
 
 Setting an interval can be problematic in JavaScript, mostly because of cleanup (or lack of). With `useEffect` we get a nice cleanup with the return function, `return () => clearInterval(id);`. 
 
-And with TypeScript.
-
 ## useSlider
 
 Now that we have that set up we can leverage it to help us with timing. 
