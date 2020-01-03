@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { getImageStep } from "../utils/utils"
-import { GalleryImage } from "../components"
+import { GalleryImage } from "../components/gallery"
+
 
 type Lightbox = {
   showLightbox: boolean;

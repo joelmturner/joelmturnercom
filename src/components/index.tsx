@@ -2,7 +2,7 @@ import Avatar from "./avatar"
 import Embed from "./embed"
 import Dialog from "./dialog"
 import Flexbox from "./flexbox"
-import Gallery, { GalleryImage, GallerySizes } from "./gallery"
+import Gallery from "./gallery"
 import Grid from "./grid"
 import Header from "./header"
 import Layout from "./layout"
@@ -21,8 +21,6 @@ export {
   Dialog,
   Flexbox,
   Gallery,
-  GalleryImage,
-  GallerySizes,
   Grid,
   Header,
   Layout,
