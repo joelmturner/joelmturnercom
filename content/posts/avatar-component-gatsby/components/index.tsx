@@ -11,7 +11,7 @@ function Avatar() {
   return (
     <img
       style={styles}
-      src="https://res.cloudinary.com/joelmturner/b_rgb:e7e5e5/monster-01.png"
+      src="https://res.cloudinary.com/joelmturner/b_rgb:e7e5e5,q_auto/monster-01.png"
       alt="Monster P. Whittington portrait"
       title="Monster P. Whittington"
     />
