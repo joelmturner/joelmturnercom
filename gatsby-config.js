@@ -126,7 +126,32 @@ module.exports = {
     {
       resolve: `gatsby-plugin-sitemap`,
       options: {
-        exclude: [`/category`, `/tags`],
+        exclude: [`/category/*`, `/tag/*`, `/blog`],
+        query: `
+        {
+          site {
+            siteMetadata {
+              siteUrl
+            }
+          }
+
+          allMdx(sort: {fields: frontmatter___date, order: DESC}, filter: {fileAbsolutePath: {glob: "**/posts/**"}}) {
+            nodes {
+              id
+              frontmatter {
+                slug
+              }
+            }
+          }
+      }`,
+      serialize: ({ site, allMdx }) =>
+      allMdx.nodes.map(node => {
+          return {
+            url: site.siteMetadata.siteUrl + `/blog/${node.frontmatter.slug}`,
+            changefreq: `daily`,
+            priority: 0.7,
+          }
+        })
       },
     },
     {
