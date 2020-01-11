@@ -21,7 +21,7 @@ const components = {
   wrapper: ({ children }: { children: any }) => <Fragment>{children}</Fragment>,
 }
 
-function Image({ src, width, ...props }: { src: string; width: string | "s" | "m" | "l" }) {
+function Image({ src, width, alt, ...props }: { src: string; alt: string; width: string | "s" | "m" | "l" }) {
   let w
   switch (width) {
     case "s":
@@ -37,7 +37,7 @@ function Image({ src, width, ...props }: { src: string; width: string | "s" | "m
       w = width
       break
   }
-  return <img sx={{ width: w }} src={src} {...props} />
+  return <img sx={{ width: w }} src={src} {...props} alt={alt} />
 }
 
 export default {

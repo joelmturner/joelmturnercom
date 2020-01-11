@@ -3,12 +3,14 @@ import * as React from "react"
 import { jsx, Styled } from "theme-ui"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
-import { Layout, SEO, Dialog, Flexbox, Gallery, GallerySizes } from "../components"
+import { Layout, SEO, Dialog, Flexbox, Gallery } from "../components"
 import { useLightboxNav } from "../hooks"
 import { FaTh, FaThLarge, FaSquare } from "react-icons/fa"
 import { InstaNode } from "."
 import { Dropdown } from "../components"
 import { RouteComponentProps } from "@reach/router"
+import { GallerySizes } from "../components/gallery"
+import { buildHandleEnterKeyPress } from '../utils/a11y';
 
 type IllustrationProps = {
   location: RouteComponentProps["location"];
@@ -110,16 +112,28 @@ export default ({ data, location }: IllustrationProps): React.ReactElement => {
               sx={{ variant: sketchSize === "s" ? "icon.active" : "icon" }}
               onClick={() => setSketchSize("s")}
               size={24}
+              role='switch'
+              aria-checked={sketchSize === "s"}
+              tabIndex={0}
+              onKeyPress={buildHandleEnterKeyPress(() => setSketchSize("s"))}
             />
             <FaThLarge
               sx={{ variant: sketchSize === "m" ? "icon.active" : "icon" }}
               onClick={() => setSketchSize("m")}
               size={24}
+              role='switch'
+              aria-checked={sketchSize === "m"}
+              tabIndex={0}
+              onKeyPress={buildHandleEnterKeyPress(() => setSketchSize("m"))}
             />
             <FaSquare
               sx={{ variant: sketchSize === "l" ? "icon.active" : "icon" }}
               onClick={() => setSketchSize("l")}
               size={24}
+              role='switch'
+              aria-checked={sketchSize === "l"}
+              tabIndex={0}
+              onKeyPress={buildHandleEnterKeyPress(() => setSketchSize("l"))}
             />
           </Flexbox>
         </Flexbox>
@@ -127,7 +141,7 @@ export default ({ data, location }: IllustrationProps): React.ReactElement => {
       <Gallery size={sketchSize} imageEdges={filteredEdges()} setLightbox={setLightbox} sx={{ my: 3 }} />
 
       {showLightbox && (
-        <Dialog onClose={() => setLightbox(null)} onPrev={() => setDir("prev")} onNext={() => setDir("next")}>
+        <Dialog onClose={() => setLightbox(null)} onPrev={() => setDir("prev")} onNext={() => setDir("next")} aria-label="Gallery of my sketches on Instagram">
           {!!selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
         </Dialog>
       )}

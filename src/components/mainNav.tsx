@@ -14,6 +14,7 @@ const MainNav = () => {
         sx={{
           variant: `nav.wrapper${showNav ? "Active" : ""}`,
         }}
+        role="navigation"
       >
         <h3 sx={{ variant: "nav.link" }}>
           <Link

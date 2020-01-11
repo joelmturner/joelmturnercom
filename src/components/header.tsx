@@ -12,9 +12,23 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
   const [colorMode, setColorMode] = useColorMode()
+  const [isSkipFocused, setIsSkipFocused] = React.useState<boolean>(false)
 
   return (
-    <header sx={{ mb: 2 }}>
+    <header sx={{ mb: 2, position: "relative" }}>
+      <a
+        href="#mainContent"
+        tabIndex={0}
+        sx={{
+          position: "absolute",
+          top: isSkipFocused ? "0%" : "-500%",
+          color: 'primary'
+        }}
+        onFocus={() => setIsSkipFocused(true)}
+        onBlur={() => setIsSkipFocused(false)}
+      >
+        Skip to main content
+      </a>
       <div sx={{ variant: "content.wrapper" }}>
         <Flexbox between middle>
           <Styled.h1
@@ -23,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
               fontSize: 3,
             }}
           >
-            <Link to="/" sx={{ color: "textMuted", textDecoration: "none" }}>
+            <Link to="/" tabIndex={0} sx={{ color: "textMuted", textDecoration: "none" }}>
               {siteTitle}
             </Link>
           </Styled.h1>

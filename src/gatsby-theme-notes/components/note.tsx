@@ -22,7 +22,7 @@ const WikiPage = ({
   const route = path.substring(path.lastIndexOf("/notes/") + 7, path.lastIndexOf("/"))
   return (
     <Layout {...props} title={title}>
-      <Flexbox noGrow gap={1} sx={{ mb: 3 }} middle>
+      <Flexbox noGrow gap={1} sx={{ mb: 3 }} middle role='navigation'>
         <Link sx={{ variant: "link", textDecoration: "none", fontWeight: 700 }} to={`/`}>
           ~
         </Link>

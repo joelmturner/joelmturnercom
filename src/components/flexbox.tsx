@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import * as React from "react"
+import { CSSProperties } from "react"
 
-export type FlexboxProps = {
+export type FlexboxProps = React.HTMLAttributes<HTMLDivElement> & {
   className?: string;
   inline?: boolean;
   vertical?: boolean;
@@ -25,10 +25,19 @@ export type FlexboxProps = {
   gap?: boolean | number;
 }
 
-export const getFlexProperties = (props: FlexboxProps) => {
+export const getFlexProperties = ({
+  top,
+  middle,
+  bottom,
+  left,
+  center,
+  right,
+  between,
+  around,
+  vertical,
+  gap,
+}: FlexboxProps): CSSProperties => {
   // check all booleans and return appropriate css
-  const { top, middle, bottom, left, center, right, between, around, vertical, gap } = props
-
   let primaryAxis = "initial"
   let secondaryAxis = "initial"
   let gridGap: string | number = "none"
@@ -98,26 +107,59 @@ export const getFlexProperties = (props: FlexboxProps) => {
   return {
     justifyContent: primaryAxis,
     alignItems: secondaryAxis,
-    "& > * + *": {
-      marginLeft: props.gap && !props.vertical && gridGap,
-      marginTop: props.gap && props.vertical && gridGap,
-    } as any,
+    marginLeft: gap && !vertical ? gridGap : 'initial',
+    marginTop: gap && vertical ? gridGap : 'initial',
   }
 }
 
-const Flexbox: React.FC<FlexboxProps> = props => {
+const Flexbox: React.FC<FlexboxProps> = ({
+  top,
+  middle,
+  bottom,
+  left,
+  center,
+  right,
+  between,
+  around,
+  vertical,
+  gap,
+  inline,
+  className,
+  wrap,
+  noGrow,
+  children,
+  ...rest
+}) => {
+  const { justifyContent, alignItems, marginLeft, marginTop } = getFlexProperties({
+    top,
+    middle,
+    bottom,
+    left,
+    center,
+    right,
+    between,
+    around,
+    vertical,
+    gap,
+  })
   return (
     <div
       sx={{
-        display: props.inline ? "inline-flex" : "flex",
-        flexDirection: props.vertical ? "column" : "row",
-        flexWrap: props.wrap ? "wrap" : "no-wrap",
-        flex: props.noGrow ? `0 0 auto` : `1 1 auto`,
-        ...getFlexProperties(props),
+        display: (inline ? "inline-flex" : "flex") as CSSProperties,
+        flexDirection: (vertical ? "column" : "row") as CSSProperties,
+        flexWrap: (wrap ? "wrap" : "no-wrap") as CSSProperties,
+        flex: noGrow ? `0 0 auto` : `1 1 auto`,
+        justifyContent,
+        alignItems,
+        "& > * + *": {
+          marginLeft,
+          marginTop,
+        },
       }}
-      className={props.className}
+      className={className}
+      {...rest}
     >
-      {props.children}
+      {children}
     </div>
   )
 }
