@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { getImageStep } from "../utils/utils"
 import { GalleryImage } from "../components/gallery"
+import { InstaNode } from "../pages"
 
 
 type Lightbox = {
@@ -119,7 +120,7 @@ export function useLightboxNav(list: any[]) {
   const rightArrow = useKeyPress("ArrowRight")
   const leftArrow = useKeyPress("ArrowLeft")
   const ref = useRef()
-  const selectedImage = lightbox && lightbox.selectedImage
+  const selectedImage: InstaNode = lightbox && lightbox.selectedImage
   const selectedIndex = list.indexOf(selectedImage)
   const nextImage = getImageStep(selectedIndex, list, "next")
   const prevImage = getImageStep(selectedIndex, list, "prev")

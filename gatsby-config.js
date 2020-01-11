@@ -123,37 +123,41 @@ module.exports = {
         access_token: "***REMOVED***",
       },
     },
-    {
-      resolve: `gatsby-plugin-sitemap`,
-      options: {
-        exclude: [`/category/*`, `/tag/*`, `/blog`],
-        query: `
-        {
-          site {
-            siteMetadata {
-              siteUrl
-            }
-          }
+    // TODO JT try to figure this one out
+    // getting the error Cannot read property 'edges' of undefined
+    // {
+    //   resolve: `gatsby-plugin-sitemap`,
+    //   options: {
+    //     exclude: [`/category/*`, `/tag/*`, `/blog`],
+    //     query: `
+    //     {
+    //       site {
+    //         siteMetadata {
+    //           siteUrl
+    //         }
+    //       }
 
-          allMdx(sort: {fields: frontmatter___date, order: DESC}, filter: {fileAbsolutePath: {glob: "**/posts/**"}}) {
-            nodes {
-              id
-              frontmatter {
-                slug
-              }
-            }
-          }
-      }`,
-      serialize: ({ site, allMdx }) =>
-      allMdx.nodes.map(node => {
-          return {
-            url: site.siteMetadata.siteUrl + `/blog/${node.frontmatter.slug}`,
-            changefreq: `daily`,
-            priority: 0.7,
-          }
-        })
-      },
-    },
+    //       allMdx(sort: {fields: frontmatter___date, order: DESC}, filter: {fileAbsolutePath: {glob: "**/posts/**"}}) {
+    //           edges {
+    //               node {
+    //                 id
+    //                 frontmatter {
+    //                   slug
+    //                 }
+    //               }
+    //           }
+    //       }
+    //   }`,
+    //     serialize: ({ site, allMdx }) =>
+    //       allMdx.edges.map(edge => {
+    //         return {
+    //           url: site.siteMetadata.siteUrl + `/blog/${edge.node.frontmatter.slug}`,
+    //           changefreq: `daily`,
+    //           priority: 0.7,
+    //         }
+    //       }),
+    //   },
+    // },
     {
       resolve: "gatsby-plugin-robots-txt",
       options: {
