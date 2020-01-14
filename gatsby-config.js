@@ -48,14 +48,53 @@ module.exports = {
       },
     },
     `gatsby-plugin-catch-links`,
-    "gatsby-plugin-theme-ui",
+    `gatsby-plugin-theme-ui`,
     {
-      resolve: "gatsby-theme-ui-blog",
+      resolve: `gatsby-theme-ui-blog`,
       options: {
-        basePath: "/blog/",
+        basePath: `/blog/`,
       },
     },
     `gatsby-plugin-typescript`,
+    // TODO JT try to figure this one out
+    // getting the error Cannot read property 'edges' of undefined
+    // {
+    //   resolve: `gatsby-plugin-sitemap`,
+    //   options: {
+    //     exclude: [`/category/*`, `/tag/*`],
+    //     query: `
+    //       {
+    //           site {
+    //             siteMetadata {
+    //               siteUrl
+    //             }
+    //           }
+    //           allMdx(
+    //             sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }
+    //             filter: { frontmatter: { draft: { eq: false } } }
+    //           ) {
+    //             edges {
+    //               node {
+    //                 id
+    //                 frontmatter {
+    //                     slug
+    //                 }
+    //               }
+    //             }
+    //           }
+    //         }`,
+    //     serialize: ({ site, allMdx }) => {
+    //       console.log("allMdx", allMdx)
+    //       return allMdx.edges.map(edge => {
+    //         return {
+    //           url: site.siteMetadata.siteUrl + `/blog/${edge.node.frontmatter.slug}`,
+    //           changefreq: `daily`,
+    //           priority: 0.7,
+    //         }
+    //       })
+    //     },
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-feed`,
       options: {
@@ -123,41 +162,6 @@ module.exports = {
         access_token: "***REMOVED***",
       },
     },
-    // TODO JT try to figure this one out
-    // getting the error Cannot read property 'edges' of undefined
-    // {
-    //   resolve: `gatsby-plugin-sitemap`,
-    //   options: {
-    //     exclude: [`/category/*`, `/tag/*`, `/blog`],
-    //     query: `
-    //     {
-    //       site {
-    //         siteMetadata {
-    //           siteUrl
-    //         }
-    //       }
-
-    //       allMdx(sort: {fields: frontmatter___date, order: DESC}, filter: {fileAbsolutePath: {glob: "**/posts/**"}}) {
-    //           edges {
-    //               node {
-    //                 id
-    //                 frontmatter {
-    //                   slug
-    //                 }
-    //               }
-    //           }
-    //       }
-    //   }`,
-    //     serialize: ({ site, allMdx }) =>
-    //       allMdx.edges.map(edge => {
-    //         return {
-    //           url: site.siteMetadata.siteUrl + `/blog/${edge.node.frontmatter.slug}`,
-    //           changefreq: `daily`,
-    //           priority: 0.7,
-    //         }
-    //       }),
-    //   },
-    // },
     {
       resolve: "gatsby-plugin-robots-txt",
       options: {
