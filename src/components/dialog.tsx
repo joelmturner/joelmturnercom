@@ -4,7 +4,7 @@ import { DialogOverlay, DialogContent } from "@reach/dialog"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import { useSwipeable } from "react-swipeable"
 import "@reach/dialog/styles.css"
-import { buildHandleEnterKeyPress } from "../utils/a11y"
+import { handleEnterKeyPress } from "../utils/a11y"
 import { useState } from "react"
 
 type DialogProps = {
@@ -72,7 +72,7 @@ const Dialog = ({ className, children, onClose, onPrev, onNext }: DialogProps) =
             data-reach-dialog-nav="next"
             role="button"
             tabIndex={0}
-            onKeyPress={buildHandleEnterKeyPress(onNext)}
+            onKeyPress={handleEnterKeyPress(onNext)}
             onFocus={() => setIsNavFocused(true)}
             onBlur={() => setIsNavFocused(false)}
           />
@@ -88,7 +88,7 @@ const Dialog = ({ className, children, onClose, onPrev, onNext }: DialogProps) =
             data-reach-dialog-nav="prev"
             role="button"
             tabIndex={0}
-            onKeyPress={buildHandleEnterKeyPress(onPrev)}
+            onKeyPress={handleEnterKeyPress(onPrev)}
             onFocus={() => setIsNavFocused(true)}
             onBlur={() => setIsNavFocused(false)}
           />

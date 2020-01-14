@@ -10,7 +10,7 @@ import { InstaNode } from "."
 import { Dropdown } from "../components"
 import { RouteComponentProps } from "@reach/router"
 import { GallerySizes } from "../components/gallery"
-import { buildHandleEnterKeyPress } from '../utils/a11y';
+import { handleEnterKeyPress } from '../utils/a11y';
 
 type IllustrationProps = {
   location: RouteComponentProps["location"];
@@ -115,7 +115,7 @@ export default ({ data, location }: IllustrationProps): React.ReactElement => {
               role='switch'
               aria-checked={sketchSize === "s"}
               tabIndex={0}
-              onKeyPress={buildHandleEnterKeyPress(() => setSketchSize("s"))}
+              onKeyPress={handleEnterKeyPress(() => setSketchSize("s"))}
             />
             <FaThLarge
               sx={{ variant: sketchSize === "m" ? "icon.active" : "icon" }}
@@ -124,7 +124,7 @@ export default ({ data, location }: IllustrationProps): React.ReactElement => {
               role='switch'
               aria-checked={sketchSize === "m"}
               tabIndex={0}
-              onKeyPress={buildHandleEnterKeyPress(() => setSketchSize("m"))}
+              onKeyPress={handleEnterKeyPress(() => setSketchSize("m"))}
             />
             <FaSquare
               sx={{ variant: sketchSize === "l" ? "icon.active" : "icon" }}
@@ -133,7 +133,7 @@ export default ({ data, location }: IllustrationProps): React.ReactElement => {
               role='switch'
               aria-checked={sketchSize === "l"}
               tabIndex={0}
-              onKeyPress={buildHandleEnterKeyPress(() => setSketchSize("l"))}
+              onKeyPress={handleEnterKeyPress(() => setSketchSize("l"))}
             />
           </Flexbox>
         </Flexbox>

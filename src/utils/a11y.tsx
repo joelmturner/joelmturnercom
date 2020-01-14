@@ -1,7 +1,10 @@
-type HandleKeyPress = (onClick: () => void) => ({ key }: React.KeyboardEvent<HTMLElement | SVGElement>) => void;
+type HandleKeyPress = (
+  onClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>
+) => React.KeyboardEventHandler<HTMLElement | SVGElement>
 
-export const buildHandleEnterKeyPress: HandleKeyPress = (onClick: () => void) => ({ key }) => {
-  if (key === "Enter") {
-    onClick()
+// attach to a onKeyPress to handle Enter keyboard clicks in the same way as onClicks
+export const handleEnterKeyPress: HandleKeyPress = onClick => event => {
+  if (event.key === "Enter") {
+    onClick(event)
   }
 }
