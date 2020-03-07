@@ -59,13 +59,15 @@
     "jsx-a11y/role-supports-aria-props": "warn",
     "jsx-a11y/scope": "warn",
     "jsx-a11y/tabindex-no-positive": "warn",
-    "mdx/no-unused-expressions": "off"
+    "mdx/no-unused-expressions": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   },
   "settings": {
     "react": {
       "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
     }
   },
-  "plugins": ["@typescript-eslint", "prettier", "jsx-a11y"],
+  "plugins": ["@typescript-eslint", "prettier", "jsx-a11y", "react-hooks"],
   "parser": "@typescript-eslint/parser"
 }
