@@ -36,3 +36,4 @@ declare module "gatsby-plugin-mdx" {
   const MDXRenderer: any
   export { MDXRenderer }
 }
+

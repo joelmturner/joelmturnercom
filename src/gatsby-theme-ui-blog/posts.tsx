@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import { ReactElement, useState } from "react"
+import { ReactElement, useState, useCallback } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import { Layout, PostCard, SEO, Flexbox } from "../components"
 import { FluidObject } from "gatsby-image"
@@ -40,6 +40,18 @@ export default (): ReactElement => {
       ...recentBlogPosts
     }
   `)
+  const handleSearch = useCallback(
+    function(event) {
+      setSearch(event.target.value)
+    },
+    [setSearch]
+  )
+  const emptySearch = useCallback(
+    function() {
+      setSearch("")
+    },
+    [setSearch]
+  )
 
   const { allBlogPosts: { edges = [] } = {} } = data
 
@@ -54,7 +66,7 @@ export default (): ReactElement => {
       <SEO title="Blog" description="A journey through Gatsby, React, TypeScript, and illustration" />
       <Flexbox right gap={2} middle sx={{ mb: 3 }}>
         <input
-          onChange={e => setSearch(e.target.value)}
+          onChange={handleSearch}
           placeholder="Search..."
           value={search}
           sx={{
@@ -68,7 +80,7 @@ export default (): ReactElement => {
           }}
         />
         <Styled.p
-          onClick={() => setSearch("")}
+          onClick={emptySearch}
           sx={{
             m: 0,
             ml: "-1rem",

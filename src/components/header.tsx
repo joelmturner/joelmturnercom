@@ -13,6 +13,15 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
   const [colorMode, setColorMode] = useColorMode()
   const [isSkipFocused, setIsSkipFocused] = React.useState<boolean>(false)
+  const setFocused = React.useCallback(function() {
+    setIsSkipFocused(true)
+  }, [])
+  const unsetFocused = React.useCallback(function() {
+    setIsSkipFocused(false)
+  }, [])
+  const setColor = React.useCallback(function() {
+    setColorMode(colorMode === "light" ? "dark" : "light");
+  }, [setColorMode, colorMode])
 
   return (
     <header sx={{ mb: 2, position: "relative" }}>
@@ -24,8 +33,8 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
           top: isSkipFocused ? "0%" : "-500%",
           color: 'primary'
         }}
-        onFocus={() => setIsSkipFocused(true)}
-        onBlur={() => setIsSkipFocused(false)}
+        onFocus={setFocused}
+        onBlur={unsetFocused}
       >
         Skip to main content
       </a>
@@ -46,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
 
           <ThemeSwitch
             checked={colorMode === "light"}
-            onClick={() => setColorMode(colorMode === "light" ? "dark" : "light")}
+            onClick={setColor}
           />
         </Flexbox>
       </div>

@@ -6,6 +6,7 @@ import { IoLogoInstagram, IoLogoGithub, IoLogoTwitter } from "react-icons/io"
 import { FaDev } from "react-icons/fa"
 import Header from "./header"
 import { Flexbox } from "."
+import Global from './global'
 
 type LayoutProps = {
   children: ReactNode | ReactNode[];
@@ -26,6 +27,7 @@ export default ({ children, title = "", className }: LayoutProps): JSX.Element =
 
   return (
     <Styled.root className={className}>
+        <Global />
       <Header siteTitle={title ? title : data.site.siteMetadata.title} />
       <main id="mainContent" sx={{ variant: "content.wrapper" }}>{children}</main>
       <footer sx={{ mt: 2 }}>

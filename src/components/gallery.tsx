@@ -2,6 +2,7 @@
 import { jsx } from "theme-ui"
 import Img, { FluidObject } from "gatsby-image"
 import { useKeyPress } from "../hooks"
+import { useCallback } from "react"
 
 export type GallerySizes = "s" | "m" | "l"
 export type GalleryImage = {
@@ -23,28 +24,42 @@ type GalleryProps = {
 }
 
 function Gallery({ imageEdges, setLightbox, size, className }: GalleryProps) {
-  const enter = useKeyPress("Enter");
-  const spacebar = useKeyPress("Spacebar");
-  function handleKeyPress(edge: GalleryImage) {
-    if (enter || spacebar) {
+  const enter = useKeyPress("Enter")
+  const spacebar = useKeyPress("Spacebar")
+  const handleKeyPress = useCallback(
+    function(edge) {
+      if (enter || spacebar) {
+        setLightbox(edge)
+      }
+    },
+    [setLightbox, enter, spacebar]
+  )
+
+  const handleClick = useCallback(
+    function(edge) {
       setLightbox(edge)
-    }
-  }
+    },
+    [setLightbox]
+  )
+
   return (
     <div sx={{ variant: `collection.image.${size}` }} className={className}>
       {imageEdges.length > 0 &&
-        imageEdges.map((edge) => (
-          <div
-            role="button"
-            tabIndex={0}
-            style={{ cursor: "pointer" }}
-            key={edge.node.id}
-            onKeyPress={() => handleKeyPress(edge)}
-            onClick={() => setLightbox(edge)}
-          >
-            <Img fadeIn fluid={edge.node.localImage.childImageSharp.fluid} />
-          </div>
-        ))}
+        imageEdges.map(edge => {
+          const fluid = edge?.node?.localImage?.childImageSharp.fluid ?? null
+          return (
+            <div
+              role="button"
+              tabIndex={0}
+              style={{ cursor: "pointer" }}
+              key={edge.node.id}
+              onKeyPress={() => handleKeyPress(edge)}
+              onClick={() => handleClick(edge)}
+            >
+              {fluid && <Img fadeIn fluid={edge.node.localImage.childImageSharp.fluid} />}
+            </div>
+          )
+        })}
     </div>
   )
 }

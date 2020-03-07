@@ -5,7 +5,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import { useSwipeable } from "react-swipeable"
 import "@reach/dialog/styles.css"
 import { handleEnterKeyPress } from "../utils/a11y"
-import { useState } from "react"
+import { useState, useCallback } from "react"
 
 type DialogProps = {
   className?: any;
@@ -17,9 +17,27 @@ type DialogProps = {
 
 const Dialog = ({ className, children, onClose, onPrev, onNext }: DialogProps) => {
   const [isNavFocused, setIsNavFocused] = useState<boolean>(false)
+  const onSwipedRight = useCallback(function() {
+      if (onPrev) {
+          onPrev();
+      }
+  }, [onPrev])
+  const onSwipedLeft = useCallback(function() {
+      if (onNext) {
+          onNext();
+      }
+  }, [onNext])
+
+  const setNavFocus = useCallback(function() {
+      setIsNavFocused(true);
+  }, [])
+  const unsetNavFocus = useCallback(function() {
+      setIsNavFocused(false);
+  }, [])
+
   const handlers = useSwipeable({
-    onSwipedRight: () => onPrev && onPrev(),
-    onSwipedLeft: () => onNext && onNext(),
+    onSwipedRight,
+    onSwipedLeft,
     ...{
       delta: 10,
       preventDefaultTouchmoveEvent: true,
@@ -73,8 +91,8 @@ const Dialog = ({ className, children, onClose, onPrev, onNext }: DialogProps) =
             role="button"
             tabIndex={0}
             onKeyPress={handleEnterKeyPress(onNext)}
-            onFocus={() => setIsNavFocused(true)}
-            onBlur={() => setIsNavFocused(false)}
+            onFocus={setNavFocus}
+            onBlur={unsetNavFocus}
           />
         )}
         {onPrev && (
@@ -89,8 +107,8 @@ const Dialog = ({ className, children, onClose, onPrev, onNext }: DialogProps) =
             role="button"
             tabIndex={0}
             onKeyPress={handleEnterKeyPress(onPrev)}
-            onFocus={() => setIsNavFocused(true)}
-            onBlur={() => setIsNavFocused(false)}
+            onFocus={setNavFocus}
+            onBlur={unsetNavFocus}
           />
         )}
       </DialogContent>

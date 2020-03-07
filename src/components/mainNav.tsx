@@ -2,10 +2,13 @@
 import { jsx } from "theme-ui"
 import Flexbox from "./flexbox"
 import { Link } from "gatsby"
-import { useState, Fragment } from "react"
+import { useState, Fragment, useCallback } from "react"
 
 const MainNav = () => {
   const [showNav, setShowNav] = useState<boolean>(false)
+  const toggleNav = useCallback(function() {
+    setShowNav(!showNav);
+  }, [setShowNav, showNav])
   return (
     <Fragment>
       <Flexbox
@@ -59,7 +62,7 @@ const MainNav = () => {
           </Link>
         </h3>
       </Flexbox>
-      <button sx={{ variant: "nav.button" }} onClick={() => setShowNav(!showNav)}>
+      <button sx={{ variant: "nav.button" }} onClick={toggleNav}>
         <div
           sx={{
             width: "24px",

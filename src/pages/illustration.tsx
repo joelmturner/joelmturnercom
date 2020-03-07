@@ -61,7 +61,7 @@ export default ({ data, location }: IllustrationProps): React.ReactElement => {
     joelmturner_abcs2017: { edges: jmt2017Edges = [] } = {},
   } = data
 
-  const filteredEdges = () => {
+  const filteredEdges = React.useCallback(function() {
     switch (filter) {
       case "featuredInsta":
         return featuredEdges
@@ -85,7 +85,7 @@ export default ({ data, location }: IllustrationProps): React.ReactElement => {
           ...jmt2017Edges,
         ]
     }
-  }
+  }, [filter, featuredEdges, ink2017Edges, ink2018Edges, ink2019Edges, letterClashEdges, jmt2017Edges])
 
   const { showLightbox, setLightbox, selectedImage, setDir } = useLightboxNav(filteredEdges())
   const galleryOptions = [
@@ -96,6 +96,17 @@ export default ({ data, location }: IllustrationProps): React.ReactElement => {
     { value: "letterClash", label: "LetterClash" },
     { value: "joelmturner_abcs2017", label: "#HandletteredABCs 2017" },
   ]
+
+  const handleClose = React.useCallback(function() {
+      setLightbox(null);
+  }, [setLightbox])
+  const handlePrev = React.useCallback(function() {
+    setDir("prev");
+  }, [setDir])
+  const handleNext = React.useCallback(function() {
+    setDir("next");
+  }, [setDir])
+
   return (
     <Layout>
       <SEO title="Illustration" />
@@ -141,8 +152,8 @@ export default ({ data, location }: IllustrationProps): React.ReactElement => {
       <Gallery size={sketchSize} imageEdges={filteredEdges()} setLightbox={setLightbox} sx={{ my: 3 }} />
 
       {showLightbox && (
-        <Dialog onClose={() => setLightbox(null)} onPrev={() => setDir("prev")} onNext={() => setDir("next")} aria-label="Gallery of my sketches on Instagram">
-          {!!selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
+        <Dialog onClose={handleClose} onPrev={handlePrev} onNext={handleNext} aria-label="Gallery of my sketches on Instagram">
+          {!!selectedImage && <Img fluid={selectedImage.node?.localImage?.childImageSharp.fluid} />}
         </Dialog>
       )}
     </Layout>

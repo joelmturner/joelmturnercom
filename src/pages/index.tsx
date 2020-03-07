@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import React from "react"
+import React, { useCallback } from "react"
 import { graphql, Link } from "gatsby"
 import { Layout, SEO, Avatar, Flexbox, PostCard, Dialog, Gallery, Grid } from "../components"
 import { FluidObject } from "gatsby-image"
@@ -57,6 +57,25 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
   const { featuredInstaRecent: { edges: insta = [] } = {}, recentBlogPosts: { edges: posts = [] } = {} } = data
 
   const { showLightbox, setLightbox, selectedImage, setDir } = useLightboxNav(insta)
+
+  const onClose = useCallback(
+    function() {
+      setLightbox(null)
+    },
+    [setLightbox]
+  )
+  const onPrev = useCallback(
+    function() {
+      setDir("prev")
+    },
+    [setDir]
+  )
+  const onNext = useCallback(
+    function() {
+      setDir("next")
+    },
+    [setDir]
+  )
   useOnClickOutside(ref, () => setLightbox(null))
 
   return (
@@ -108,7 +127,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
       </div>
 
       {showLightbox && (
-        <Dialog onClose={() => setLightbox(null)} onPrev={() => setDir("prev")} onNext={() => setDir("next")}>
+        <Dialog onClose={onClose} onPrev={onPrev} onNext={onNext}>
           {!!selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
         </Dialog>
       )}
