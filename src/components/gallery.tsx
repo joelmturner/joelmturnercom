@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
-import Img, { FluidObject } from "gatsby-image"
+import { FluidObject } from "gatsby-image"
 import { useKeyPress } from "../hooks"
 import { useCallback } from "react"
+import loadable from '@loadable/component';
+const Img = loadable(() => import('gatsby-image'));
 
 export type GallerySizes = "s" | "m" | "l"
 export type GalleryImage = {

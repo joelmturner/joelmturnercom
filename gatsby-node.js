@@ -5,7 +5,7 @@ const path = require(`path`)
 // Implement the Gatsby API “createPages”. This is called once the
 // data layer is bootstrapped to let plugins create pages from data.
 exports.createPages = async ({ graphql, actions, reporter }) => {
-  const { createPage, deletePage } = actions
+  const { createPage } = actions
   // Query for markdown nodes to use in creating pages.
   const result = await graphql(
     `
@@ -102,4 +102,11 @@ exports.onCreatePage = ({ page, actions }) => {
     deletePage(oldPage)
     createPage(page)
   }
+}
+
+const LoadablePlugin = require('@loadable/webpack-plugin')
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    plugins: [new LoadablePlugin()]
+  })
 }

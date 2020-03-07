@@ -2,9 +2,11 @@
 import { jsx, Styled } from "theme-ui"
 import { ReactElement, useState, useCallback } from "react"
 import { graphql, useStaticQuery } from "gatsby"
-import { Layout, PostCard, SEO, Flexbox } from "../components"
+import { Layout, SEO, Flexbox } from "../components"
 import { FluidObject } from "gatsby-image"
 import matchSorter from "match-sorter"
+import loadable from '@loadable/component';
+const PostCard = loadable(() => import('../components/postCard'));
 
 type Posts = {
   edges: Array<{
@@ -96,13 +98,14 @@ export default (): ReactElement => {
       </Flexbox>
       <div sx={{ variant: "collection.post" }}>
         {posts.map(edge => (
-          <PostCard
-            key={`${edge.node.childMdxBlogPost.slug}`}
-            slug={`${edge.node.childMdxBlogPost.slug}`}
-            title={edge.node.frontmatter.title}
-            image={edge.node.frontmatter.cover && edge.node.frontmatter.cover.childImageSharp.fluid}
-            excerpt={edge.node.childMdxBlogPost.excerpt}
-          />
+                <PostCard
+                  key={`${edge.node.childMdxBlogPost.slug}`}
+                  slug={`${edge.node.childMdxBlogPost.slug}`}
+                  title={edge.node.frontmatter.title}
+                  image={edge.node.frontmatter.cover && edge.node.frontmatter.cover.childImageSharp.fluid}
+                  excerpt={edge.node.childMdxBlogPost.excerpt}
+                />
+
         ))}
       </div>
     </Layout>

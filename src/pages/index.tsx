@@ -2,11 +2,13 @@
 import { jsx, Styled } from "theme-ui"
 import React, { useCallback } from "react"
 import { graphql, Link } from "gatsby"
-import { Layout, SEO, Avatar, Flexbox, PostCard, Dialog, Gallery, Grid } from "../components"
+import { Layout, SEO, Avatar, Flexbox, Dialog, Gallery, Grid } from "../components"
 import { FluidObject } from "gatsby-image"
 import { useOnClickOutside, useLightboxNav } from "../hooks"
-import Img from "gatsby-image"
 import Intro from "../utils/content-snippets/intro.md"
+import loadable from '@loadable/component';
+const PostCard = loadable(() => import('../components/postCard'));
+const Img = loadable(() => import('gatsby-image'));
 
 export type InstaNode = {
   node: {
@@ -117,12 +119,12 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
       <div sx={{ variant: "collection.post", mt: 2 }}>
         {posts.length > 0 &&
           posts.map(edge => (
-            <PostCard
-              key={edge.node.frontmatter.title}
-              slug={`${edge.node.childMdxBlogPost.slug}`}
-              title={edge.node.frontmatter.title}
-              image={edge.node.frontmatter.cover && edge.node.frontmatter.cover.childImageSharp.fluid}
-            />
+                <PostCard
+                key={edge.node.frontmatter.title}
+                slug={`${edge.node.childMdxBlogPost.slug}`}
+                title={edge.node.frontmatter.title}
+                image={edge.node.frontmatter.cover && edge.node.frontmatter.cover.childImageSharp.fluid}
+                />
           ))}
       </div>
 
