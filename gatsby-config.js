@@ -62,30 +62,31 @@ module.exports = {
     //   resolve: `gatsby-plugin-sitemap`,
     //   options: {
     //     exclude: [`/category/*`, `/tag/*`],
+    //     output: "/sitemap.xml",
     //     query: `
-    //       {
-    //           site {
-    //             siteMetadata {
-    //               siteUrl
-    //             }
+    //     {
+    //         site {
+    //           siteMetadata {
+    //             siteUrl
     //           }
-    //           allMdx(
-    //             sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }
-    //             filter: { frontmatter: { draft: { eq: false } } }
-    //           ) {
+    //         }
+    //         allMdx(sort: {fields: [frontmatter___date, frontmatter___title], order: DESC}, filter: {frontmatter: {draft: {eq: false}}}) {
     //             edges {
-    //               node {
-    //                 id
-    //                 frontmatter {
+    //                 node {
+    //                   id
+    //                   frontmatter {
     //                     slug
+    //                   }
     //                 }
-    //               }
     //             }
-    //           }
-    //         }`,
+    //         }
+    //       }`,
+    //     resolveSiteUrl: ({ site, allMdx }) => {
+    //       // Alternatively, you may also pass in an environment variable (or any location) at the beginning of your `gatsby-config.js`.
+    //       return site.siteMetadata.siteUrl
+    //     },
     //     serialize: ({ site, allMdx }) => {
-    //       console.log("allMdx", allMdx)
-    //       return allMdx.edges.map(edge => {
+    //       return allMdx.edges.map((edge) => {
     //         return {
     //           url: site.siteMetadata.siteUrl + `/blog/${edge.node.frontmatter.slug}`,
     //           changefreq: `daily`,
@@ -112,7 +113,7 @@ module.exports = {
         feeds: [
           {
             serialize: ({ query: { site, allMdx } }) => {
-              return allMdx.nodes.map(node => {
+              return allMdx.nodes.map((node) => {
                 return Object.assign({}, node, {
                   title: node.frontmatter.title,
                   description: node.excerpt,
