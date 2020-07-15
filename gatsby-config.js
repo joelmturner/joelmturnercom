@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
   siteMetadata: {
     title: `Joel M. Turner`,
@@ -158,11 +160,16 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-source-instagram-all`,
-      options: {
-        access_token: "***REMOVED***",
+        resolve: `gatsby-source-instagram`,
+        options: {
+          username: '31980847',
+          access_token: process.env.INSTAGRAM_ACCESS_TOKEN,
+          instagram_id: process.env.INSTAGRAM_INSTAGRAM_ID,
+          paginate: 1000,
+          maxPosts: 10000,
+          hashtags: true
+        },
       },
-    },
     {
       resolve: "gatsby-plugin-robots-txt",
       options: {
@@ -181,7 +188,7 @@ module.exports = {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         // The property ID; the tracking code won't be generated without it
-        trackingId: "***REMOVED***",
+        trackingId: process.env.GA_TRACKING_ID,
         // Defines where to place the tracking script - `true` in the head and `false` in the body
         head: false,
         // Setting this parameter is optional

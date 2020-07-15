@@ -16,22 +16,22 @@ type IllustrationProps = {
   location: RouteComponentProps["location"];
   data: {
     featuredInsta: {
-      edges: InstaNode[];
+      nodes: InstaNode[];
     };
     inktober2017: {
-      edges: InstaNode[];
+      nodes: InstaNode[];
     };
     inktober2018: {
-      edges: InstaNode[];
+      nodes: InstaNode[];
     };
     inktober2019: {
-      edges: InstaNode[];
+      nodes: InstaNode[];
     };
     letterClash: {
-      edges: InstaNode[];
+      nodes: InstaNode[];
     };
     joelmturner_abcs2017: {
-      edges: InstaNode[];
+      nodes: InstaNode[];
     };
   };
 }
@@ -53,12 +53,12 @@ export default ({ data, location }: IllustrationProps): React.ReactElement => {
     location && location.hash ? (location.hash.replace("#", "") as InstaCollections) : "featuredInsta"
   const [filter, setFilter] = React.useState<InstaCollections>(hash)
   const {
-    featuredInsta: { edges: featuredEdges = [] } = {},
-    inktober2017: { edges: ink2017Edges = [] } = {},
-    inktober2018: { edges: ink2018Edges = [] } = {},
-    inktober2019: { edges: ink2019Edges = [] } = {},
-    letterClash: { edges: letterClashEdges = [] } = {},
-    joelmturner_abcs2017: { edges: jmt2017Edges = [] } = {},
+    featuredInsta: { nodes: featuredEdges = [] } = {},
+    inktober2017: { nodes: ink2017Edges = [] } = {},
+    inktober2018: { nodes: ink2018Edges = [] } = {},
+    inktober2019: { nodes: ink2019Edges = [] } = {},
+    letterClash: { nodes: letterClashEdges = [] } = {},
+    joelmturner_abcs2017: { nodes: jmt2017Edges = [] } = {},
   } = data
 
   const filteredEdges = React.useCallback(function() {
@@ -107,6 +107,9 @@ export default ({ data, location }: IllustrationProps): React.ReactElement => {
     setDir("next");
   }, [setDir])
 
+
+  console.log('filteredEdges()', filteredEdges())
+
   return (
     <Layout>
       <SEO title="Illustration" />
@@ -153,7 +156,7 @@ export default ({ data, location }: IllustrationProps): React.ReactElement => {
 
       {showLightbox && (
         <Dialog onClose={handleClose} onPrev={handlePrev} onNext={handleNext} aria-label="Gallery of my sketches on Instagram">
-          {!!selectedImage && <Img fluid={selectedImage.node?.localImage?.childImageSharp.fluid} />}
+          {!!selectedImage && <Img fluid={selectedImage?.localFile?.childImageSharp.fluid} />}
         </Dialog>
       )}
     </Layout>

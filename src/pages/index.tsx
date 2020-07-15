@@ -11,20 +11,11 @@ const PostCard = loadable(() => import('../components/postCard'));
 const Img = loadable(() => import('gatsby-image'));
 
 export type InstaNode = {
-  node: {
     id: string;
-    localImage: {
-      childImageSharp: {
+    localFile: {
+        childImageSharp: {
         fluid: FluidObject;
       };
-    };
-    images: {
-      standard_resolution: {
-        width: number;
-        height: number;
-        url: string;
-      };
-    };
   };
 }
 type MDXNode = {
@@ -46,7 +37,7 @@ type MDXNode = {
 type IndexPageProps = {
   data: {
     featuredInstaRecent: {
-      edges: InstaNode[];
+      nodes: InstaNode[];
     };
     recentBlogPosts: {
       edges: MDXNode[];
@@ -56,7 +47,7 @@ type IndexPageProps = {
 
 const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
   const ref = React.useRef()
-  const { featuredInstaRecent: { edges: insta = [] } = {}, recentBlogPosts: { edges: posts = [] } = {} } = data
+  const { featuredInstaRecent: { nodes: insta = [] } = {}, recentBlogPosts: { edges: posts = [] } = {} } = data
 
   const { showLightbox, setLightbox, selectedImage, setDir } = useLightboxNav(insta)
 

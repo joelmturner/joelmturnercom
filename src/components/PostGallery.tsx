@@ -20,8 +20,8 @@ export default ({ collection }: { collection: InstaCollections }) => {
       ...recentInsta
     }
   `)
-  const { [`${collection}`]: { edges = [] } = {} } = data
-  const { showLightbox, setLightbox, selectedImage, setDir } = useLightboxNav(edges)
+  const { [`${collection}`]: { nodes = [] } = {} } = data
+  const { showLightbox, setLightbox, selectedImage, setDir } = useLightboxNav(nodes)
   const onClose = useCallback(function() {
     setLightbox(null)
   }, [setLightbox])
@@ -34,10 +34,10 @@ export default ({ collection }: { collection: InstaCollections }) => {
 
   return (
     <div sx={{ mt: 2 }}>
-      <Gallery imageEdges={edges} setLightbox={setLightbox} size={"m"} />
+      <Gallery imageEdges={nodes} setLightbox={setLightbox} size={"m"} />
       {showLightbox && (
         <Dialog onClose={onClose} onPrev={onPrev} onNext={onNext}>
-          {selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
+          {selectedImage && <Img fluid={selectedImage.localFile.childImageSharp.fluid} />}
         </Dialog>
       )}
     </div>

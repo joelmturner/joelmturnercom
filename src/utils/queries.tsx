@@ -17,109 +17,93 @@ export const query = graphql`
       }
     }
   }
-  fragment InstaNodes on InstagramContentEdge {
-    node {
+  fragment InstaNodes on InstaNode {
       id
-      localImage {
+      localFile {
         childImageSharp {
           fluid(maxWidth: 1248, maxHeight: 1248) {
             ...GatsbyImageSharpFluid
           }
         }
       }
-      images {
-        standard_resolution {
-          width
-          height
-          url
-        }
-      }
-    }
   }
   fragment inktober2017 on Query {
-    inktober2017: allInstagramContent(
-      filter: { tags: { glob: "ink*2017" } }
-      sort: { fields: created_time, order: ASC }
+    inktober2017: allInstaNode(
+      filter: { hashtags: {glob: "#ink*2017"} }
+      sort: { fields: timestamp, order: ASC }
     ) {
-      edges {
+      nodes {
         ...InstaNodes
       }
     }
   }
   fragment inktober2018 on Query {
-    inktober2018: allInstagramContent(
-      filter: { tags: { glob: "ink*2018" } }
-      sort: { fields: created_time, order: ASC }
+    inktober2018: allInstaNode(
+      filter: { hashtags: {glob: "#ink*2018"} }
+      sort: { fields: timestamp, order: ASC }
     ) {
-      edges {
+      nodes {
         ...InstaNodes
       }
     }
   }
   fragment inktober2019 on Query {
-    inktober2019: allInstagramContent(
-      filter: { tags: { glob: "ink*2019" } }
-      sort: { fields: created_time, order: ASC }
+    inktober2019: allInstaNode(
+      filter: { hashtags: {glob: "#ink*2019"} }
+      sort: { fields: timestamp, order: ASC }
     ) {
-      edges {
+      nodes {
         ...InstaNodes
       }
     }
   }
   fragment letterClash on Query {
-    letterClash: allInstagramContent(
-      filter: { tags: { eq: "letterclash" } }
-      sort: { fields: created_time, order: ASC }
+    letterClash: allInstaNode(
+      filter: { hashtags: { eq: "#letterclash" } }
+      sort: { fields: timestamp, order: ASC }
     ) {
-      edges {
+        nodes {
         ...InstaNodes
       }
     }
   }
   fragment joelmturner_abcs2017 on Query {
-    joelmturner_abcs2017: allInstagramContent(
-      filter: { tags: { glob: "j*2017" } }
-      sort: { fields: created_time, order: ASC }
+    joelmturner_abcs2017: allInstaNode(
+      filter: { hashtags: {glob: "#j*2017"} }
+      sort: { fields: timestamp, order: ASC }
     ) {
-      edges {
+      nodes {
         ...InstaNodes
       }
     }
   }
   fragment featuredInsta on Query {
-    featuredInsta: allInstagramContent(
-      filter: { tags: { eq: "joelmturner_featured" } }
-      sort: { fields: likes___count, order: DESC }
-    ) {
-      edges {
-        ...InstaNodes
-      }
+    featuredInsta: allInstaNode(filter: {hashtags: {eq: "#joelmturner_featured"}}, sort: {fields: likes, order: DESC}) {
+        nodes {
+            ...InstaNodes
+            }
     }
   }
   fragment featuredInstaRecent on Query {
-    featuredInstaRecent: allInstagramContent(
-      filter: { tags: { eq: "joelmturner_featured" } }
-      sort: { fields: likes___count, order: DESC }
-      limit: 6
-    ) {
-      edges {
-        ...InstaNodes
-      }
+    featuredInstaRecent: allInstaNode(filter: {hashtags: {eq: "#joelmturner_featured"}}, sort: {fields: likes, order: DESC}, limit: 6) {
+        nodes {
+            ...InstaNodes
+            }
     }
   }
   fragment insta2016 on Query {
-    insta2016: allInstagramContent(
-      sort: { fields: created_time, order: DESC }
-      filter: { created_time: { regex: "/(145|146|147|148)[0-9]+/g" }, tags: { glob: "handletteredabcs_2016" } }
+    insta2016: allInstaNode(
+      filter: { hashtags: { eq: "#handletteredabcs_2016" } }
+      sort: { fields: timestamp, order: DESC }
     ) {
-      edges {
+      nodes {
         ...InstaNodes
       }
     }
   }
   fragment recentInsta on Query {
-    recentInsta: allInstagramContent(sort: { fields: created_time, order: DESC }, limit: 18) {
-      edges {
+    recentInsta: allInstaNode(sort: { fields: timestamp, order: DESC }, limit: 18) {
+      nodes {
         ...InstaNodes
       }
     }

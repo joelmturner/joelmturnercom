@@ -8,14 +8,12 @@ const Img = loadable(() => import('gatsby-image'));
 
 export type GallerySizes = "s" | "m" | "l"
 export type GalleryImage = {
-  node: {
-    localImage: {
+    localFile: {
       childImageSharp: {
         fluid: FluidObject;
       };
     };
     id: string;
-  };
 }
 
 type GalleryProps = {
@@ -47,18 +45,18 @@ function Gallery({ imageEdges, setLightbox, size, className }: GalleryProps) {
   return (
     <div sx={{ variant: `collection.image.${size}` }} className={className}>
       {imageEdges.length > 0 &&
-        imageEdges.map(edge => {
-          const fluid = edge?.node?.localImage?.childImageSharp.fluid ?? null
+        imageEdges.map(node => {
+          const fluid = node?.localFile?.childImageSharp.fluid ?? null
           return (
             <div
               role="button"
               tabIndex={0}
               style={{ cursor: "pointer" }}
-              key={edge.node.id}
-              onKeyPress={() => handleKeyPress(edge)}
-              onClick={() => handleClick(edge)}
+              key={node.id}
+              onKeyPress={() => handleKeyPress(node)}
+              onClick={() => handleClick(node)}
             >
-              {fluid && <Img fadeIn fluid={edge.node.localImage.childImageSharp.fluid} />}
+              {fluid && <Img fadeIn fluid={node.localFile.childImageSharp.fluid} />}
             </div>
           )
         })}
