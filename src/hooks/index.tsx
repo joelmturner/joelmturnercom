@@ -3,7 +3,6 @@ import { getImageStep } from "../utils/utils"
 import { GalleryImage } from "../components/gallery"
 import { InstaNode } from "../pages"
 
-
 type Lightbox = {
   showLightbox: boolean;
   selectedImage: any;
@@ -212,3 +211,5 @@ export function useScript(src: string) {
 
   return [state.loaded, state.error]
 }
+
+export {default as useKeypress} from './useKeypress';

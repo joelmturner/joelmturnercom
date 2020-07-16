@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import { Layout, SEO, Flexbox } from "../components"
 import { FluidObject } from "gatsby-image"
 import matchSorter from "match-sorter"
-import loadable from '@loadable/component';
-const PostCard = loadable(() => import('../components/postCard'));
+import loadable from "@loadable/component"
+import { useKeyPress } from "../hooks"
+const PostCard = loadable(() => import("../components/postCard"))
 
 type Posts = {
   edges: Array<{
@@ -34,10 +35,11 @@ type Data = {
   recentBlogPosts: Posts;
 }
 
-type PostsProps = {};
+type PostsProps = {}
 
 const Posts: React.FC<PostsProps> = () => {
   const [search, setSearch] = useState<string>("")
+  const esc = useKeyPress('Escape');
   const data = useStaticQuery<Data>(graphql`
     query {
       ...allBlogPosts
@@ -45,17 +47,23 @@ const Posts: React.FC<PostsProps> = () => {
     }
   `)
   const handleSearch = useCallback(
-    function(event) {
+    function (event) {
       setSearch(event.target.value)
     },
     [setSearch]
   )
   const emptySearch = useCallback(
-    function() {
+    function () {
       setSearch("")
     },
     [setSearch]
   )
+
+  useEffect(() => {
+      if (esc) {
+          emptySearch();
+      }
+  }, [emptySearch, esc])
 
   const { allBlogPosts: { edges = [] } = {} } = data
 
@@ -99,15 +107,14 @@ const Posts: React.FC<PostsProps> = () => {
         </Styled.p>
       </Flexbox>
       <div sx={{ variant: "collection.post" }}>
-        {posts.map(edge => (
-                <PostCard
-                  key={`${edge.node.childMdxBlogPost.slug}`}
-                  slug={`${edge.node.childMdxBlogPost.slug}`}
-                  title={edge.node.frontmatter.title}
-                  image={edge.node.frontmatter.cover && edge.node.frontmatter.cover.childImageSharp.fluid}
-                  excerpt={edge.node.childMdxBlogPost.excerpt}
-                />
-
+        {posts.map((edge) => (
+          <PostCard
+            key={`${edge.node.childMdxBlogPost.slug}`}
+            slug={`${edge.node.childMdxBlogPost.slug}`}
+            title={edge.node.frontmatter.title}
+            image={edge.node.frontmatter.cover && edge.node.frontmatter.cover.childImageSharp.fluid}
+            excerpt={edge.node.childMdxBlogPost.excerpt}
+          />
         ))}
       </div>
     </Layout>
