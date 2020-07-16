@@ -8,7 +8,9 @@ import Img from "gatsby-image"
 import { InstaCollections } from "../pages/illustration"
 import { useCallback } from "react"
 
-export default ({ collection }: { collection: InstaCollections }) => {
+type PostGalleryProps = { collection: InstaCollections };
+
+const PostGallery: React.FC<PostGalleryProps> = ({ collection }) => {
   const data = useStaticQuery(graphql`
     query {
       ...featuredInsta
@@ -43,3 +45,5 @@ export default ({ collection }: { collection: InstaCollections }) => {
     </div>
   )
 }
+
+export default PostGallery;

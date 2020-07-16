@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import { ReactElement, useState, useCallback } from "react"
+import { useState, useCallback } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import { Layout, SEO, Flexbox } from "../components"
 import { FluidObject } from "gatsby-image"
@@ -34,7 +34,9 @@ type Data = {
   recentBlogPosts: Posts;
 }
 
-export default (): ReactElement => {
+type PostsProps = {};
+
+const Posts: React.FC<PostsProps> = () => {
   const [search, setSearch] = useState<string>("")
   const data = useStaticQuery<Data>(graphql`
     query {
@@ -111,3 +113,5 @@ export default (): ReactElement => {
     </Layout>
   )
 }
+
+export default Posts

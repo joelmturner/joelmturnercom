@@ -8,7 +8,7 @@ type SeriesProps = {
   title: string;
 }
 
-export default ({ links, title, ...props }: SeriesProps) => (
+const Series: React.FC<SeriesProps> = ({ links, title, ...props }) => (
   <Flexbox {...props} vertical sx={{ p: 2, my: 3, border: "1px solid", borderColor: "muted", borderRadius: ".25rem" }}>
     <Styled.p sx={{ mb: 2, fontSize: 2, color: "textMuted" }}>
       This post is part of the <strong>{title}</strong> series
@@ -26,3 +26,5 @@ export default ({ links, title, ...props }: SeriesProps) => (
     ))}
   </Flexbox>
 )
+
+export default Series;

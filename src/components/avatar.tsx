@@ -8,7 +8,7 @@ type AvatarProps = {
   className?: string;
 }
 
-export default ({ user, className }: AvatarProps) => {
+const Avatar: React.FC<AvatarProps> = ({ user, className }) => {
   const data = useStaticQuery(graphql`
     query {
       ...monsters
@@ -39,3 +39,5 @@ export default ({ user, className }: AvatarProps) => {
     />
   )
 }
+
+export default Avatar;

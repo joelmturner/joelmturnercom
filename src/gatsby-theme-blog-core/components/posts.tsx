@@ -1,7 +1,7 @@
 import { jsx } from "theme-ui"
 import Posts from "../../gatsby-theme-ui-blog/posts"
 
-export default (props: any) => {
+const PostsRenderer: React.FC<any> = (props) => {
   const posts = props.data.allBlogPost.edges.map((e: any) => e.node)
 
   return jsx(Posts, {
@@ -9,3 +9,5 @@ export default (props: any) => {
     posts,
   })
 }
+
+export default PostsRenderer;

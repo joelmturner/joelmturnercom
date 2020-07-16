@@ -47,7 +47,7 @@ export type InstaCollections =
   | "insta2016"
   | null
 
-export default ({ data, location }: IllustrationProps): React.ReactElement => {
+  const Illustration: React.FC<IllustrationProps> = ({ data, location }) => {
   const [sketchSize, setSketchSize] = React.useState<GallerySizes>("m")
   const hash: InstaCollections =
     location && location.hash ? (location.hash.replace("#", "") as InstaCollections) : "featuredInsta"
@@ -106,9 +106,6 @@ export default ({ data, location }: IllustrationProps): React.ReactElement => {
   const handleNext = React.useCallback(function() {
     setDir("next");
   }, [setDir])
-
-
-  console.log('filteredEdges()', filteredEdges())
 
   return (
     <Layout>
@@ -173,3 +170,5 @@ export const IllustrationPageQuery = graphql`
     ...joelmturner_abcs2017
   }
 `
+
+export default Illustration;

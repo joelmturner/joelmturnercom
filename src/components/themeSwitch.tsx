@@ -9,7 +9,7 @@ type ThemeSwitchProps = {
   onClick(): void;
 }
 
-export default ({ checked, onClick }: ThemeSwitchProps) => {
+const ThemeSwitch: React.FC<ThemeSwitchProps> = ({ checked, onClick }) => {
     const handleOnClick = useCallback(function() {
         if (onClick) {
             onClick()
@@ -27,3 +27,5 @@ export default ({ checked, onClick }: ThemeSwitchProps) => {
     <span sx={{ variant: `themeSwitch.icon.${checked ? "light" : "dark"}` }}>{checked ? <FaSun /> : <FaMoon />}</span>
   </div>
 )}
+
+export default ThemeSwitch;

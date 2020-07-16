@@ -28,7 +28,7 @@ function customTheme(selectTheme: Theme, theme: any): Theme {
   }
 }
 
-export default ({ selected, options, onChange, className }: DropDownProps) => {
+const DropDown: React.FC<DropDownProps> = ({ selected, options, onChange, className }) => {
   const themeUI = useThemeUI()
   return (
     <Select
@@ -44,3 +44,5 @@ export default ({ selected, options, onChange, className }: DropDownProps) => {
     />
   )
 }
+
+export default DropDown;

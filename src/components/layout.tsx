@@ -14,7 +14,7 @@ type LayoutProps = {
   className?: string;
 }
 
-export default ({ children, title = "", className }: LayoutProps): JSX.Element => {
+const Layout: React.FC<LayoutProps> = ({ children, title = "", className }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -58,3 +58,5 @@ export default ({ children, title = "", className }: LayoutProps): JSX.Element =
     </Styled.root>
   )
 }
+
+export default Layout;

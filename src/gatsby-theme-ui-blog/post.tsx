@@ -3,7 +3,6 @@ import { jsx, Styled } from "theme-ui"
 import { Layout, Flexbox, Grid, SEO } from "../components"
 import { Fragment, ReactNode } from "react"
 import { Link } from "gatsby"
-import { useScript } from "../hooks"
 
 type PostNavProps = {
   frontmatter: {
@@ -28,16 +27,12 @@ type PostProps = {
   };
 }
 
-export default ({
+const Post: React.FC<PostProps> = ({
   frontmatter: { cover, slug, title } = {},
   children,
   excerpt,
   data: { previous, next } = {},
-}: PostProps): JSX.Element => {
-  const [loaded, error] = useScript("//platform.twitter.com/widgets.js")
-  if (error) {
-    console.error(error)
-  }
+}) => {
   const siteBaseUrl = "https://joelmturner.com"
   return (
     <Layout sx={{ variant: "post" }}>
@@ -69,7 +64,7 @@ export default ({
         </Fragment>
       </Grid>
       <Flexbox vertical gap right>
-        <Styled.h6>
+        <Styled.h6 sx={{color: 'gray'}}>
           Discuss this article on{" "}
           <Styled.a
             target="_blank"
@@ -80,15 +75,9 @@ export default ({
           </Styled.a>
         </Styled.h6>
 
-        <Flexbox right gap middle>
-          {loaded && (
-            <Fragment>
-              <Styled.h6 sx={{ mb: 0, color: "gray" }}>Share Article: </Styled.h6>
-              <Styled.a className="twitter-share-button">Tweet</Styled.a>
-            </Fragment>
-          )}
-        </Flexbox>
       </Flexbox>
     </Layout>
   )
 }
+
+export default Post;

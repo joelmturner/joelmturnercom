@@ -11,7 +11,7 @@ type PostCardProps = {
   excerpt?: string;
 }
 
-export default ({ title, slug, image, className, excerpt }: PostCardProps): JSX.Element => {
+const PostCard: React.FC<PostCardProps> = ({ title, slug, image, className, excerpt }) => {
   return (
     <Link sx={{ variant: "link", textDecoration: "none" }} to={`${slug}`} key={title} className={className}>
       <Img fluid={image} sx={{ variant: "postCard.img" }} width={441} height={280} />
@@ -22,3 +22,5 @@ export default ({ title, slug, image, className, excerpt }: PostCardProps): JSX.
     </Link>
   )
 }
+
+export default PostCard;

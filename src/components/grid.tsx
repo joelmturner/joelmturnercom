@@ -9,7 +9,8 @@ type GridProps = {
   rows?: string | string[];
   className?: string;
 }
-export default ({ children, gap = 0, columns = "none", rows = "none", className }: GridProps) => {
+
+const Grid: React.FC<GridProps> = ({ children, gap = 0, columns = "none", rows = "none", className }) => {
   return (
     <div
       className={className}
@@ -27,3 +28,5 @@ export default ({ children, gap = 0, columns = "none", rows = "none", className 
     </div>
   )
 }
+
+export default Grid;

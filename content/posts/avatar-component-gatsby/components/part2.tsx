@@ -3,7 +3,9 @@ import { jsx } from "theme-ui"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
 
-export default (props: { user: string; className?: string }) => {
+type Part2Props = { user: string; className?: string };
+
+const Part2: React.FC<Part2Props> = (props) => {
   const data = useStaticQuery(graphql`
     query {
       ...monsters
@@ -26,3 +28,5 @@ export default (props: { user: string; className?: string }) => {
     />
   )
 }
+
+export default Part2;
