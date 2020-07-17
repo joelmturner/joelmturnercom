@@ -8,23 +8,24 @@ category: dev
 tags: ["React", "React hooks"]
 ---
 
-A nice feature in many apps is to edit a title or other text inline without leaving the context that we're in. 
+A nice feature in many apps is to edit a title or other text inline without leaving the context that we're in.
 
 Here's what we'll be building.
 
-<Embed type='codesandbox' id='inline-text-edit-react-hooks-6ql5m' title='Inline Text Edit with React Hooks' />
+<Embed type="codesandbox" id="inline-text-edit-react-hooks-6ql5m" title="Inline Text Edit with React Hooks" />
 
 Let's take a look at the requirements for this component.
 
-- [ ]  Must show text when in rest
-- [ ]  Click on text to edit the text
-- [ ]  Enter key to save
-- [ ]  Esc key to exit without saving
-- [ ]  Click outside to save
+- [ ] Must show text when in rest
+- [ ] Click on text to edit the text
+- [ ] Enter key to save
+- [ ] Esc key to exit without saving
+- [ ] Click outside to save
 
 Cool let's start by creating the resting state. We're going to do some basic styling with CSS to help us.
+
 ```jsx
-import React from "react";
+import React from "react"
 
 function InlineEdit(props) {
   return (
@@ -35,7 +36,7 @@ function InlineEdit(props) {
   )
 }
 
-export default InlineEdit;
+export default InlineEdit
 ```
 
 ```css
@@ -66,10 +67,11 @@ export default InlineEdit;
 }
 ```
 
-- [x]  Must show text when in rest
+- [x] Must show text when in rest
 
 This sets is us up with a simple text component that displays our text. Now the trickery begins!
 We want to click on the text and have the input show up. Let's create some state to track whether we're at rest or active.
+
 ```jsx
 import React, {useState} from "react";
 {...}
@@ -77,33 +79,35 @@ const [isInputActive, setIsInputActive] = useState(false);
 ```
 
 Cool, now we have some state to help us display/hide our text and input. We also need some state to track what is being typed in our input. Let's add another `useState` to hold that text.
+
 ```jsx
-const [inputValue, setInputValue] = useState("");
+const [inputValue, setInputValue] = useState("")
 ```
 
 Let's hook this state up to our elements.
+
 ```jsx
 function InlineEdit(props) {
-  const [isInputActive, setIsInputActive] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  
+  const [isInputActive, setIsInputActive] = useState(false)
+  const [inputValue, setInputValue] = useState("")
+
   return (
     <span className="inline-text">
-      <span className={`inline-text_copy inline-text_copy--${!isInputActive ? "active" : "rest"}`}>
-        {props.text}
-      </span>
+      <span className={`inline-text_copy inline-text_copy--${!isInputActive ? "active" : "rest"}`}>{props.text}</span>
       <input
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        className={`inline-text_input inline-text_input--${isInputActive ? "active" : "rest"}`} />
+        className={`inline-text_input inline-text_input--${isInputActive ? "active" : "rest"}`}
+      />
     </span>
   )
 }
 ```
 
-- [x]  Click on text to edit the text
+- [x] Click on text to edit the text
 
-Alright, now we need to set up the saving and escaping of the text. We can do this with a `useEffect` and [`useKeypress` hook](https://usehooks.com/useKeyPress/) that watch for a key click and take an action.
+Alright, now we need to set up the saving and escaping of the text. We can do this with a `useEffect` and [`useKeypress` hook](https://usehooks.com/useKeypress/) that watch for a key click and take an action.
+
 ```jsx {5-6,8-21}
 function InlineEdit(props) {
   const [isInputActive, setIsInputActive] = useState(false);
@@ -127,14 +131,15 @@ function InlineEdit(props) {
     }
   }, [enter, esc]); // watch the Enter and Escape key presses
 
-  
+
   return ({...}
 ```
 
-- [x]  Enter key to save
-- [x]  Esc key to exit without saving
+- [x] Enter key to save
+- [x] Esc key to exit without saving
 
 Next we'll add a `useRef` on the wrapping span to help us tell if a click happened outside of the component. We're going to use the [`useOnClickOutside` hook](https://usehooks.com/useOnClickOutside/) from [useHooks.com](https://usehooks.com/).
+
 ```jsx {6,13-19}
 function InlineEdit(props) {
   const [isInputActive, setIsInputActive] = useState(false);
@@ -175,12 +180,14 @@ function InlineEdit(props) {
     <span className="inline-text" ref={wrapperRef}>
       {...}
 ```
-- [x]  Click outside to save
+
+- [x] Click outside to save
 
 We can help the user by focusing the input when they click on the text. To do this we can add a `useRef` on the input and a `useEffect` that watches to see if the input is active.
+
 ```jsx
   const inputRef = useRef(null);
-  
+
   // focus the cursor in the input field on edit start
   useEffect(() => {
     if (isInputActive) {
@@ -198,60 +205,59 @@ We can help the user by focusing the input when they click on the text. To do th
 ```
 
 That was a lot of little parts. Let's put it together to see what we have.
+
 ```jsx
-import React, { useState, useEffect, useRef } from "react";
-import useKeypress from "../hooks/useKeypress";
-import useOnClickOutside from "../hooks/useOnClickOutside";
+import React, { useState, useEffect, useRef } from "react"
+import useKeypress from "../hooks/useKeypress"
+import useOnClickOutside from "../hooks/useOnClickOutside"
 
 function InlineEdit(props) {
-  const [isInputActive, setIsInputActive] = useState(false);
-  const [inputValue, setInputValue] = useState(props.text);
+  const [isInputActive, setIsInputActive] = useState(false)
+  const [inputValue, setInputValue] = useState(props.text)
 
-  const wrapperRef = useRef(null);
-  const textRef = useRef(null);
-  const inputRef = useRef(null);
+  const wrapperRef = useRef(null)
+  const textRef = useRef(null)
+  const inputRef = useRef(null)
 
-  const enter = useKeypress("Enter");
-  const esc = useKeypress("Escape");
+  const enter = useKeypress("Enter")
+  const esc = useKeypress("Escape")
 
   // check to see if the user clicked outside of this component
   useOnClickOutside(wrapperRef, () => {
     if (isInputActive) {
-      props.onSetText(inputValue);
-      setIsInputActive(false);
+      props.onSetText(inputValue)
+      setIsInputActive(false)
     }
-  });
+  })
 
   // focus the cursor in the input field on edit start
   useEffect(() => {
     if (isInputActive) {
-      inputRef.current.focus();
+      inputRef.current.focus()
     }
-  }, [isInputActive]);
+  }, [isInputActive])
 
   useEffect(() => {
     if (isInputActive) {
       // if Enter is pressed, save the text and case the editor
       if (enter) {
-        props.onSetText(inputValue);
-        setIsInputActive(false);
+        props.onSetText(inputValue)
+        setIsInputActive(false)
       }
       // if Escape is pressed, revert the text and close the editor
       if (esc) {
-        setInputValue(props.text);
-        setIsInputActive(false);
+        setInputValue(props.text)
+        setIsInputActive(false)
       }
     }
-  }, [enter, esc]); // watch the Enter and Escape key presses
+  }, [enter, esc]) // watch the Enter and Escape key presses
 
   return (
     <span className="inline-text" ref={wrapperRef}>
       <span
         ref={textRef}
         onClick={() => setIsInputActive(true)}
-        className={`inline-text_copy inline-text_copy--${
-          !isInputActive ? "active" : "hidden"
-        }`}
+        className={`inline-text_copy inline-text_copy--${!isInputActive ? "active" : "hidden"}`}
       >
         {props.text}
       </span>
@@ -261,19 +267,18 @@ function InlineEdit(props) {
         // it's not quite right but gets it close
         style={{ width: Math.ceil(inputValue.length * 0.9) + "ex" }}
         value={inputValue}
-        onChange={e => {
-          setInputValue(e.target.value);
+        onChange={(e) => {
+          setInputValue(e.target.value)
         }}
-        className={`inline-text_input inline-text_input--${
-          isInputActive ? "active" : "hidden"
-        }`}
+        className={`inline-text_input inline-text_input--${isInputActive ? "active" : "hidden"}`}
       />
     </span>
-  );
+  )
 }
 
-export default InlineEdit;
+export default InlineEdit
 ```
+
 It's worth noting that input text may need to be sanitized before being saved. I've had good luck with [DOMPurify](https://github.com/cure53/DOMPurify).
 
 That's it! Go forth and edit!

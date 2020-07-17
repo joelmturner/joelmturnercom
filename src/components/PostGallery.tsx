@@ -1,14 +1,12 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import Gallery from "./gallery"
-import { useLightboxNav } from "../hooks"
 import { graphql, useStaticQuery } from "gatsby"
 import Dialog from "./dialog"
-import Img from "gatsby-image"
 import { InstaCollections } from "../pages/illustration"
-import { useCallback } from "react"
+import { useCallback, useState } from "react"
 
-type PostGalleryProps = { collection: InstaCollections };
+type PostGalleryProps = { collection: InstaCollections }
 
 const PostGallery: React.FC<PostGalleryProps> = ({ collection }) => {
   const data = useStaticQuery(graphql`
@@ -22,28 +20,28 @@ const PostGallery: React.FC<PostGalleryProps> = ({ collection }) => {
       ...recentInsta
     }
   `)
+  const [offset, setOffset] = useState(-1)
+  const onClose = useCallback(
+    function () {
+      setOffset(-1)
+    },
+    [setOffset]
+  )
+
   const { [`${collection}`]: { nodes = [] } = {} } = data
-  const { showLightbox, setLightbox, selectedImage, setDir } = useLightboxNav(nodes)
-  const onClose = useCallback(function() {
-    setLightbox(null)
-  }, [setLightbox])
-  const onPrev = useCallback(function() {
-      setDir('prev')
-  }, [setDir])
-  const onNext = useCallback(function() {
-      setDir('next')
-  }, [setDir])
+  const handleSetOffset = useCallback(
+    (edge) => {
+      setOffset(nodes.indexOf(edge))
+    },
+    [setOffset, nodes]
+  )
 
   return (
     <div sx={{ mt: 2 }}>
-      <Gallery imageEdges={nodes} setLightbox={setLightbox} size={"m"} />
-      {showLightbox && (
-        <Dialog onClose={onClose} onPrev={onPrev} onNext={onNext}>
-          {selectedImage && <Img fluid={selectedImage.localFile.childImageSharp.fluid} />}
-        </Dialog>
-      )}
+      <Gallery imageEdges={nodes} setLightbox={handleSetOffset} size={"m"} />
+      {offset > -1 && <Dialog imageEdges={nodes} offset={offset} onClose={onClose} />}
     </div>
   )
 }
 
-export default PostGallery;
+export default PostGallery

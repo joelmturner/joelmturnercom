@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui"
 import { FluidObject } from "gatsby-image"
-import { useKeyPress } from "../hooks"
+import { useKeypress } from "../hooks"
 import { useCallback } from "react"
 import loadable from '@loadable/component';
 const Img = loadable(() => import('gatsby-image'));
@@ -24,8 +24,8 @@ type GalleryProps = {
 }
 
 function Gallery({ imageEdges, setLightbox, size, className }: GalleryProps) {
-  const enter = useKeyPress("Enter")
-  const spacebar = useKeyPress("Spacebar")
+  const enter = useKeypress("Enter")
+  const spacebar = useKeypress("Spacebar")
   const handleKeyPress = useCallback(
     function(edge) {
       if (enter || spacebar) {

@@ -19,6 +19,7 @@
     "emotion-theming": "^10.0.19",
     "eslint": "^7.1.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "framer-motion": "^2.0.1",
     "gatsby": "^2.19.32",
     "gatsby-background-image": "^1.1.1",
     "gatsby-image": "^2.2.43",

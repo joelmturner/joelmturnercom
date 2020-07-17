@@ -305,9 +305,11 @@ export default {
       //   width: ["85vw", "75vh"],
       left: "50%",
       top: "50%",
-      width: "initial",
+      width: "100%",
+      height: '100%',
       margin: 0,
       maxWidth: ["85vw", "960px"],
+      maxHeight: ["85vw", "960px"],
       transform: "translate3d(-50%, -50%, 0)",
       ":hover [data-reach-dialog-nav]": {
         opacity: 1,

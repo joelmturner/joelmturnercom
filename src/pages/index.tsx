@@ -1,14 +1,12 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import React, { useCallback } from "react"
+import React, { useCallback, useState } from "react"
 import { graphql, Link } from "gatsby"
 import { Layout, SEO, Avatar, Flexbox, Dialog, Gallery, Grid } from "../components"
 import { FluidObject } from "gatsby-image"
-import { useOnClickOutside, useLightboxNav } from "../hooks"
 import Intro from "../utils/content-snippets/intro.md"
 import loadable from '@loadable/component';
 const PostCard = loadable(() => import('../components/postCard'));
-const Img = loadable(() => import('gatsby-image'));
 
 export type InstaNode = {
     id: string;
@@ -46,30 +44,19 @@ type IndexPageProps = {
 }
 
 const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
-  const ref = React.useRef()
+  const [offset, setOffset] = useState(-1)
   const { featuredInstaRecent: { nodes: insta = [] } = {}, recentBlogPosts: { edges: posts = [] } = {} } = data
-
-  const { showLightbox, setLightbox, selectedImage, setDir } = useLightboxNav(insta)
 
   const onClose = useCallback(
     function() {
-      setLightbox(null)
+        setOffset(-1)
     },
-    [setLightbox]
+    [setOffset]
   )
-  const onPrev = useCallback(
-    function() {
-      setDir("prev")
-    },
-    [setDir]
-  )
-  const onNext = useCallback(
-    function() {
-      setDir("next")
-    },
-    [setDir]
-  )
-  useOnClickOutside(ref, () => setLightbox(null))
+
+  const handleSetOffset = useCallback((edge) => {
+    setOffset(insta.indexOf(edge));
+  }, [setOffset, insta])
 
   return (
     <Layout title="Howdy!">
@@ -95,7 +82,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
         </Styled.h5>
       </Flexbox>
 
-      <Gallery size={"s"} imageEdges={insta} setLightbox={setLightbox} sx={{ mt: 2, mb: 4 }} />
+      <Gallery size={"s"} imageEdges={insta} setLightbox={handleSetOffset} sx={{ mt: 2, mb: 4 }} />
 
       <Flexbox between bottom>
         <Flexbox vertical>
@@ -119,10 +106,8 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
           ))}
       </div>
 
-      {showLightbox && (
-        <Dialog onClose={onClose} onPrev={onPrev} onNext={onNext}>
-          {!!selectedImage && <Img fluid={selectedImage.node.localImage.childImageSharp.fluid} />}
-        </Dialog>
+      {offset > -1 && (
+        <Dialog imageEdges={insta} offset={offset} onClose={onClose}  />
       )}
     </Layout>
   )

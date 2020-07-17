@@ -6,7 +6,7 @@ import { Layout, SEO, Flexbox } from "../components"
 import { FluidObject } from "gatsby-image"
 import matchSorter from "match-sorter"
 import loadable from "@loadable/component"
-import { useKeyPress } from "../hooks"
+import { useKeypress } from "../hooks"
 const PostCard = loadable(() => import("../components/postCard"))
 
 type Posts = {
@@ -39,7 +39,7 @@ type PostsProps = {}
 
 const Posts: React.FC<PostsProps> = () => {
   const [search, setSearch] = useState<string>("")
-  const esc = useKeyPress('Escape');
+  const esc = useKeypress('Escape');
   const data = useStaticQuery<Data>(graphql`
     query {
       ...allBlogPosts

@@ -1,16 +1,15 @@
-import * as React from "react"
+
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 import { graphql } from "gatsby"
-import Img from "gatsby-image"
 import { Layout, SEO, Dialog, Flexbox, Gallery } from "../components"
-import { useLightboxNav } from "../hooks"
 import { FaTh, FaThLarge, FaSquare } from "react-icons/fa"
 import { InstaNode } from "."
 import { Dropdown } from "../components"
 import { RouteComponentProps } from "@reach/router"
 import { GallerySizes } from "../components/gallery"
 import { handleEnterKeyPress } from '../utils/a11y';
+import { useCallback, useState } from "react"
 
 type IllustrationProps = {
   location: RouteComponentProps["location"];
@@ -48,10 +47,11 @@ export type InstaCollections =
   | null
 
   const Illustration: React.FC<IllustrationProps> = ({ data, location }) => {
-  const [sketchSize, setSketchSize] = React.useState<GallerySizes>("m")
+  const [sketchSize, setSketchSize] = useState<GallerySizes>("m")
+  const [offset, setOffset] = useState(-1);
   const hash: InstaCollections =
     location && location.hash ? (location.hash.replace("#", "") as InstaCollections) : "featuredInsta"
-  const [filter, setFilter] = React.useState<InstaCollections>(hash)
+  const [filter, setFilter] = useState<InstaCollections>(hash)
   const {
     featuredInsta: { nodes: featuredEdges = [] } = {},
     inktober2017: { nodes: ink2017Edges = [] } = {},
@@ -61,7 +61,7 @@ export type InstaCollections =
     joelmturner_abcs2017: { nodes: jmt2017Edges = [] } = {},
   } = data
 
-  const filteredEdges = React.useCallback(function() {
+  const filteredEdges = useCallback(function() {
     switch (filter) {
       case "featuredInsta":
         return featuredEdges
@@ -87,7 +87,10 @@ export type InstaCollections =
     }
   }, [filter, featuredEdges, ink2017Edges, ink2018Edges, ink2019Edges, letterClashEdges, jmt2017Edges])
 
-  const { showLightbox, setLightbox, selectedImage, setDir } = useLightboxNav(filteredEdges())
+  const handleSetOffset = useCallback((edge) => {
+    setOffset(filteredEdges().indexOf(edge));
+  }, [setOffset, filteredEdges])
+
   const galleryOptions = [
     { value: "featuredInsta", label: "Featured" },
     { value: "inktober2017", label: "Inktober 2017" },
@@ -97,15 +100,9 @@ export type InstaCollections =
     { value: "joelmturner_abcs2017", label: "#HandletteredABCs 2017" },
   ]
 
-  const handleClose = React.useCallback(function() {
-      setLightbox(null);
-  }, [setLightbox])
-  const handlePrev = React.useCallback(function() {
-    setDir("prev");
-  }, [setDir])
-  const handleNext = React.useCallback(function() {
-    setDir("next");
-  }, [setDir])
+  const handleClose = useCallback(() => {
+      setOffset(-1);
+  }, [setOffset])
 
   return (
     <Layout>
@@ -149,13 +146,13 @@ export type InstaCollections =
           </Flexbox>
         </Flexbox>
       </Flexbox>
-      <Gallery size={sketchSize} imageEdges={filteredEdges()} setLightbox={setLightbox} sx={{ my: 3 }} />
+      <Gallery size={sketchSize} imageEdges={filteredEdges()} setLightbox={handleSetOffset} sx={{ my: 3 }} />
 
-      {showLightbox && (
-        <Dialog onClose={handleClose} onPrev={handlePrev} onNext={handleNext} aria-label="Gallery of my sketches on Instagram">
-          {!!selectedImage && <Img fluid={selectedImage?.localFile?.childImageSharp.fluid} />}
-        </Dialog>
-      )}
+      {/* {showLightbox && ( */}
+      {offset > -1 &&
+        <Dialog imageEdges={filteredEdges()} offset={offset} onClose={handleClose} aria-label="Gallery of my sketches on Instagram" />
+      }
+      {/* )} */}
     </Layout>
   )
 }
