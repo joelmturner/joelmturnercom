@@ -74,8 +74,8 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
 
       <Flexbox between bottom>
         <Flexbox vertical>
-          <Styled.h2 sx={{ mb: 1 }}>Sketching</Styled.h2>
-          <Styled.h3 sx={{ mb: 0 }}>My Favorite Explorations</Styled.h3>
+          <Styled.h2 sx={{ mb: 1, mt: 2 }}>Sketching</Styled.h2>
+          <Styled.h3 sx={{ mb: 0, mt: 1 }}>My Favorite Explorations</Styled.h3>
         </Flexbox>
         <Styled.h5 sx={{ mx: 0, my: 0, textAlign: "right" }}>
           <Link to="/illustration">See more illustrations</Link>
@@ -86,8 +86,8 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
 
       <Flexbox between bottom>
         <Flexbox vertical>
-          <Styled.h2 sx={{ mb: 1 }}>Writing</Styled.h2>
-          <Styled.h3 sx={{ mb: 0 }}>Learning Through Writing</Styled.h3>
+          <Styled.h2 sx={{ mb: 1, mt: 0 }}>Writing</Styled.h2>
+          <Styled.h3 sx={{ mb: 0, mt: 1 }}>Learning Through Writing</Styled.h3>
         </Flexbox>
         <Styled.h5 sx={{ mx: 0, my: 0, textAlign: "right" }}>
           <Link to="/blog">See all articles</Link>

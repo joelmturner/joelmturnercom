@@ -5,6 +5,7 @@ import typography from "./typography"
 import { Theme } from "theme-ui"
 
 const baseMerged = merge(base, typography)
+console.log('baseMerged', baseMerged)
 const iconStyles = {
   ml: 2,
   fill: "text",
@@ -93,12 +94,16 @@ export default {
     },
     h2: {
       ...baseMerged.styles.h2,
-      margin: "0",
+    //   margin: "0",
+    mt: 3,
+    mb: 2
     },
     h3: {
       ...baseMerged.styles.h3,
       color: "primary",
-      margin: "0 0 1em 0",
+      mt: 3,
+      mb: 2
+    //   margin: "0 0 1em 0",
     },
     h5: {
       ...baseMerged.styles.h5,
@@ -114,6 +119,7 @@ export default {
     p: {
       ...baseMerged.styles.p,
       fontSize: 3,
+      mb: 2,
     },
     li: {
       ...baseMerged.styles.li,
