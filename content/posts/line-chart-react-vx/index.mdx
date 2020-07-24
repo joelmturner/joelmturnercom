@@ -1,0 +1,356 @@
+---
+title: Create a Single Line Chart in React with @vx
+slug: create-a-single-line-chart-in-react-with-@vx
+cover: "./line-chart-react-vx.png"
+date: 2020-07-23
+draft: false
+tags: [React, "@vx", TypeScript, Data vis]
+category: dev
+---
+
+We’ve built a [bar chart](blog/data-vis-react-bar-chart-vx/) in react using the data vis library [@vx](https://github.com/hshoff/vx). The next chart that we can build to help tell our data’s story is a line chart. Line charts are great for showing trends over time and that’s what we’ll build today.
+
+## What We're Building TL;DR
+
+<Embed source="codeSandbox" id="single-line-chart-with-vx-322xd" title="Single Line Chart With @vx" height="600" />
+
+## Requirements
+
+- [ ] Display time along the x axis
+- [ ] Display metrics along the y axis
+- [ ] Show each data point on line
+
+## Packages
+
+Let's start by getting the packages we need from @vx. Well need shapes, scale, axis, gradient (easy background color), and some mock data to get started.
+
+```bash
+  yarn add @vx/shapes @vx/group @vx/scale @vx/axis @vx/curve @vx/gradient @vx/text
+```
+
+Or
+
+```bash
+  npm install @vx/shapes @vx/group @vx/scale @vx/axis @vx/curve @vx/gradient @vx/text --save
+```
+
+## Data
+
+Now that we have our packages we can start stubbing out our data. We're going to use some mock data to get started so feel free to create your own or use this data set.
+
+```js
+const defaultData1 = [
+  {
+    miles: 5.6,
+    date: 1595228400000,
+  },
+  {
+    miles: 3.2,
+    date: 1595314800000,
+  },
+  {
+    miles: 7.9,
+    date: 1595401200000,
+  },
+  {
+    miles: 4.1,
+    date: 1595487600000,
+  },
+  {
+    miles: 9.3,
+    date: 1595574000000,
+  },
+]
+```
+
+Now that we have the shape of our data we can add some helper functions that will access those items. This will help us add the date across the x axis and the miles along the y axis. We'll see how these come into play a little later.
+
+```js
+// accessors return the miles and date of that data item
+const x = (d) => d.miles
+const y = (d) => d.date
+```
+
+## Scales
+
+We can now define the max height and max width that we would like our chart to be. Our component will take height and width as props and then we can add a little padding. This will help us as we define our scales for this chart.
+
+```js
+// bounds
+const xMax = width - 120
+const yMax = height - 80
+```
+
+The scales are where the magic really happen. It all comes down to `domain` and `range`. The general rule of thumb based on my understanding is that `domain` is the lowest and highest data points. The `range` is the pixel range we would like to plot these data points on.
+
+In our scales below we can see that `range` (`rangeRound`) is from `0` to `xMax` which is the height bound of our chart. @vx gives us a helper, `rangeRound`, that prettifies the numbers.
+
+The `domain` is an array of all data points which resolves to lowest (4.1) and highest (9.3) of the data set.
+
+```js
+const xScale = scaleTime({
+  rangeRound: [0, xMax],
+  domain: [Math.min(...data.map(x)), Math.max(...data.map(x))],
+})
+
+const yScale = scaleLinear({
+  rangeRound: [0, yMax],
+  domain: [Math.max(...data.map(y)), 0],
+})
+```
+
+## Building our Line Chart
+
+Now we can start building the component. Let's start by setting up the `svg` that will hold our line and axes.
+
+```jsx
+import React from "react"
+import { Group } from "@vx/group"
+import { scaleTime, scaleLinear } from "@vx/scale"
+
+// dimensions
+const height = 500
+const width = 800
+
+// accessors
+const x = (d) => new Date(d.date).valueOf()
+const y = (d) => d.miles
+
+const LineChart = ({ data = [] }) => {
+  // bounds
+  const xMax = width - 120
+  const yMax = height - 80
+
+  const xScale = scaleTime({
+    rangeRound: [0, xMax],
+    domain: [Math.min(...data.map(x)), Math.max(...data.map(x))],
+  })
+
+  const yScale = scaleLinear({
+    rangeRound: [0, yMax],
+    domain: [Math.max(...data.map(y)), 0],
+  })
+
+  return (
+    <svg width={width} height={height}>
+      <Group top={25} left={65}></Group>
+    </svg>
+  )
+}
+
+export default LineChart
+```
+
+Looks good. The first thing we'll add is the y axis. To do this we use [`AxisLeft`](https://vx-demo.now.sh/docs/axis#AxisLeft) from @vx. We need to pass it our yScale and we'll give it a few other props for styling. The `numTicks` limits the number of values shown on the y axis and `label` is what will display along the axis.
+
+Then we'll add the [`AxisBottom`](https://vx-demo.now.sh/docs/axis#AxisBottom) that has similar props to to `AxisLeft`. The `top` is where it should start vertically from the top, which is the chart height in this case. The `labelOffset` prop dictates how much space is in between the ticks and the axis label. It should look like this:
+
+```jsx {4,9-10}
+import React from "react"
+import { Group } from "@vx/group"
+import { scaleTime, scaleLinear } from "@vx/scale"
+import { AxisLeft, AxisBottom } from "@vx/axis"
+
+...
+
+<Group top={25} left={65}>
+  <AxisLeft scale={yScale} numTicks={4} label="Miles" />
+  <AxisBottom scale={xScale} label="Day" labelOffset={15} numTicks={5} top={yMax} />
+</Group>
+```
+
+- [x] Display time along the x axis
+- [x] Display metrics along the y axis
+
+Now we can add the line to the chart using `LinePath` from `@vx/shapes` and we'll pass it `curveLinear` from `@vx/curve` to dictate its shape.
+
+```jsx {5-6,13-20}
+import React from "react"
+import { Group } from "@vx/group"
+import { scaleTime, scaleLinear } from "@vx/scale"
+import { AxisLeft, AxisBottom } from "@vx/axis"
+import { LinePath } from "@vx/shape"
+import { curveLinear } from "@vx/curve"
+
+...
+
+<Group top={25} left={65}>
+  <AxisLeft scale={yScale} numTicks={4} label="Miles" />
+  <AxisBottom scale={xScale} label="Day" labelOffset={15} numTicks={5} top={yMax} />
+  <LinePath
+    data={data}
+    curve={curveLinear}
+    x={(d) => xScale(x(d))}
+    y={(d) => yScale(y(d))}
+    stroke="#222222"
+    strokeWidth={1.5}
+  />
+</Group>
+```
+
+It's looking like a nice, one-line chart now. We might want to add some dots to represent the data points. To do that we'll map over the data items and use the `circle` element positioned using each item's points.
+
+```jsx {4-14}
+<Group top={25} left={65}>
+  <AxisLeft scale={yScale} numTicks={4} label="Miles" />
+  <AxisBottom scale={xScale} label="Day" labelOffset={15} numTicks={5} top={yMax} />
+  {data.map((point, pointIndex) => (
+    <circle
+      key={pointIndex}
+      r={5}
+      cx={xScale(x(point))}
+      cy={yScale(y(point))}
+      stroke="#222222"
+      fill="#222222"
+      fillOpacity={0.5}
+    />
+  ))}
+  <LinePath
+    data={data}
+    curve={curveLinear}
+    x={(d) => xScale(x(d))}
+    y={(d) => yScale(y(d))}
+    stroke="#222222"
+    strokeWidth={1.5}
+  />
+</Group>
+```
+
+- [x] Show each data point on line
+
+Awesome, we fulfilled all of our requirements for this one-line chart. Here is all the code together.
+
+```jsx
+import React from "react"
+import { Group } from "@vx/group"
+import { scaleTime, scaleLinear } from "@vx/scale"
+import { AxisLeft, AxisBottom } from "@vx/axis"
+import { LinePath } from "@vx/shape"
+import { curveLinear } from "@vx/curve"
+
+// dimensions
+const height = 500
+const width = 800
+
+// accessors
+const x = (d) => new Date(d.date).valueOf()
+const y = (d) => d.miles
+
+const LineChart = ({ data = [] }) => {
+  // bounds
+  const xMax = width - 120
+  const yMax = height - 80
+
+  const xScale = scaleTime({
+    rangeRound: [0, xMax],
+    domain: [Math.min(...data.map(x)), Math.max(...data.map(x))],
+  })
+
+  const yScale = scaleLinear({
+    rangeRound: [0, yMax],
+    domain: [Math.max(...data.map(y)), 0],
+  })
+
+  return (
+    <svg width={width} height={height}>
+      <Group top={25} left={65}>
+        <AxisLeft scale={yScale} numTicks={4} label="Miles" />
+        <AxisBottom scale={xScale} label="Day" labelOffset={15} numTicks={5} top={yMax} />
+        {data.map((point, pointIndex) => (
+          <circle
+            key={pointIndex}
+            r={5}
+            cx={xScale(x(point))}
+            cy={yScale(y(point))}
+            stroke="#222222"
+            fill="#222222"
+            fillOpacity={0.5}
+          />
+        ))}
+        <LinePath
+          data={data}
+          curve={curveLinear}
+          x={(d) => xScale(x(d))}
+          y={(d) => yScale(y(d))}
+          stroke="#222222"
+          strokeWidth={1.5}
+        />
+      </Group>
+    </svg>
+  )
+}
+
+export default LineChart
+```
+
+## Bonus
+
+For better sizing/resizing we can use a resize observer hook in our component. I like to use the package `use-resize-observer` for this. Let's see how we can use it in our component.
+
+```jsx {7,18,35,61}
+import React from "react"
+import { Group } from "@vx/group"
+import { scaleTime, scaleLinear } from "@vx/scale"
+import { AxisLeft, AxisBottom } from "@vx/axis"
+import { LinePath } from "@vx/shape"
+import { curveLinear } from "@vx/curve"
+import useResizeObserver from "use-resize-observer"
+
+// dimensions
+const height = 500
+const width = 800
+
+// accessors
+const x = (d) => new Date(d.date).valueOf()
+const y = (d) => d.miles
+
+const LineChart = ({ data = [] }) => {
+  const { ref, width = 1, height = 1 } = useResizeObserver()
+
+  // bounds
+  const xMax = width - 120
+  const yMax = height - 80
+
+  const xScale = scaleTime({
+    rangeRound: [0, xMax],
+    domain: [Math.min(...data.map(x)), Math.max(...data.map(x))],
+  })
+
+  const yScale = scaleLinear({
+    rangeRound: [0, yMax],
+    domain: [Math.max(...data.map(y)), 0],
+  })
+
+  return (
+    <div style={{ width: "100%", height: "100%" }} ref={ref}>
+      <svg width={width} height={height}>
+        <Group top={25} left={65}>
+          <AxisLeft scale={yScale} numTicks={4} label="Miles" />
+          <AxisBottom scale={xScale} label="Day" labelOffset={15} numTicks={5} top={yMax} />
+          {data.map((point, pointIndex) => (
+            <circle
+              key={pointIndex}
+              r={5}
+              cx={xScale(x(point))}
+              cy={yScale(y(point))}
+              stroke="#222222"
+              fill="#222222"
+              fillOpacity={0.5}
+            />
+          ))}
+          <LinePath
+            data={data}
+            curve={curveLinear}
+            x={(d) => xScale(x(d))}
+            y={(d) => yScale(y(d))}
+            stroke="#222222"
+            strokeWidth={1.5}
+          />
+        </Group>
+      </svg>
+    </div>
+  )
+}
+
+export default LineChart
+```
