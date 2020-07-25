@@ -2,6 +2,7 @@
 // exports.createPages = require("./scripts/createPages").createPages
 // exports.onCreateNode = require("./scripts/onCreateNode").onCreateNode
 const path = require(`path`)
+const createPages = require('./scripts/createPages').createPages;
 // Implement the Gatsby API “createPages”. This is called once the
 // data layer is bootstrapped to let plugins create pages from data.
 exports.createPages = async ({ graphql, actions, reporter }) => {
@@ -50,6 +51,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       },
     })
   })
+
+  await createPages({ graphql, actions, reporter });
 }
 
 exports.onCreateNode = async ({ node, actions }) => {

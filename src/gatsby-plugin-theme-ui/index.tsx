@@ -5,7 +5,6 @@ import typography from "./typography"
 import { Theme } from "theme-ui"
 
 const baseMerged = merge(base, typography)
-console.log('baseMerged', baseMerged)
 const iconStyles = {
   ml: 2,
   fill: "text",

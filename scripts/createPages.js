@@ -13,6 +13,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             node {
               frontmatter {
                 category
+                slug
+                tags
               }
             }
           }
@@ -26,11 +28,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     return
   }
   // Create pages for each markdown file.
-  const blogPostsTemplate = path.resolve(`src/gatsby-theme-ui-blog/posts.tsx`)
-  result.data.allMdx.edges.forEach(({ node }) => {
-    // console.log("node", node)
+  const blogPostsTemplate = path.resolve(`./src/gatsby-theme-ui-blog/posts.tsx`)
+  const edges = result.data.allMdx.edges
+
+  edges.forEach(({ node }) => {
     const category = node.frontmatter.category
-    const newPath = `/blog/category/${category}`
+    const newPath = `/blog/category/${category.toLowerCase()}`
     createPage({
       path: newPath,
       component: blogPostsTemplate,
@@ -39,6 +42,36 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       context: {
         isArchive: true,
         newPath,
+        archiveType: 'category',
+        archiveValue: category
+      },
+    })
+  })
+
+  // eslint-disable-next-line no-undef
+  const tagList = new Map()
+  edges.forEach(({node}) => {
+    const slug = node.frontmatter.slug
+    const tags = node.frontmatter.tags
+    if (tags.length > 0) {
+      tags.forEach((tag) => {
+        const storedSlugs = tagList.get(tag) || []
+        tagList.set(tag, [...storedSlugs, slug])
+      })
+    }
+  })
+
+  tagList.forEach((value, tag) => {
+    createPage({
+      path: `/blog/tag/${tag.toLowerCase()}`,
+      component: blogPostsTemplate,
+      // In your blog post template's graphql query, you can use path
+      // as a GraphQL variable to query for data from the markdown file.
+      context: {
+        isArchive: true,
+        id: tag,
+        archiveType: 'tag',
+        archiveValue: tag
       },
     })
   })

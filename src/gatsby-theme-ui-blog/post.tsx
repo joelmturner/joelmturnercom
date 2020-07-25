@@ -17,6 +17,8 @@ type PostProps = {
   frontmatter: {
     title?: string;
     slug?: string;
+    tags?: string[];
+    category?: string;
     cover?: {
       publicURL: string;
     };
@@ -28,7 +30,7 @@ type PostProps = {
 }
 
 const Post: React.FC<PostProps> = ({
-  frontmatter: { cover, slug, title } = {},
+  frontmatter: { cover, slug, title, tags, category = "" } = {},
   children,
   excerpt,
   data: { previous, next } = {},
@@ -38,33 +40,56 @@ const Post: React.FC<PostProps> = ({
     <Layout sx={{ variant: "post" }}>
       <SEO title={title} description={excerpt} image={cover && cover.publicURL} />
       <Styled.h1>{title}</Styled.h1>
+
       {children}
-      <Grid columns="1fr 1fr" gap={2} sx={{ mt: 4, borderTop: "1px solid", borderColor: "muted", py: 3 }}>
-        <Fragment>
-          {previous && (
-            <Flexbox left>
-              <Styled.p>
-                <Link
-                  sx={{ variant: "link" }}
-                  to={`/blog/${previous.frontmatter.slug}`}
-                >{`<-- ${previous.frontmatter.title}`}</Link>
-              </Styled.p>
-            </Flexbox>
-          )}
-          {next && (
-            <Flexbox right>
-              <Styled.p>
-                <Link
-                  sx={{ variant: "link" }}
-                  to={`/blog/${next.frontmatter.slug}`}
-                >{`${next.frontmatter.title} -->`}</Link>
-              </Styled.p>
-            </Flexbox>
-          )}
-        </Fragment>
-      </Grid>
+
+      <Flexbox vertical sx={{ mt: 4, borderTop: "1px solid", borderColor: "muted", py: 3 }}>
+        {category && (
+          <Flexbox gap={1}>
+            <Styled.h6 sx={{ fontWeight: "normal" }}>Category</Styled.h6>
+            <Link to={`/blog/category/${category.toLowerCase()}`} sx={{ fontWeight: "normal", variant: "link" }}>
+              <Styled.h6 sx={{ variant: "link" }}>{category}</Styled.h6>
+            </Link>
+          </Flexbox>
+        )}
+
+        {tags && <Flexbox gap={1} sx={{ mb: 3 }}>
+          <Styled.h6 sx={{ fontWeight: "normal" }}>Tags: </Styled.h6>
+          {tags.map((tag) => (
+              <Link key={tag} to={`/blog/tag/${tag.toLowerCase()}`} sx={{ fontWeight: "normal", variant: "link" }}>
+                <Styled.h6 sx={{ variant: "link" }}>{tag}</Styled.h6>
+              </Link>
+            ))}
+        </Flexbox>}
+
+        <Grid columns="1fr 1fr" gap={2}>
+          <Fragment>
+            {previous && (
+              <Flexbox left>
+                <Styled.p>
+                  <Link
+                    sx={{ variant: "link" }}
+                    to={`/blog/${previous.frontmatter.slug}`}
+                  >{`<-- ${previous.frontmatter.title}`}</Link>
+                </Styled.p>
+              </Flexbox>
+            )}
+            {next && (
+              <Flexbox right>
+                <Styled.p>
+                  <Link
+                    sx={{ variant: "link" }}
+                    to={`/blog/${next.frontmatter.slug}`}
+                  >{`${next.frontmatter.title} -->`}</Link>
+                </Styled.p>
+              </Flexbox>
+            )}
+          </Fragment>
+        </Grid>
+      </Flexbox>
+
       <Flexbox vertical gap right>
-        <Styled.h6 sx={{color: 'gray'}}>
+        <Styled.h6 sx={{ color: "gray" }}>
           Discuss this article on{" "}
           <Styled.a
             target="_blank"
@@ -74,10 +99,9 @@ const Post: React.FC<PostProps> = ({
             Twitter
           </Styled.a>
         </Styled.h6>
-
       </Flexbox>
     </Layout>
   )
 }
 
-export default Post;
+export default Post
