@@ -19,6 +19,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             id
             frontmatter {
               slug
+              series
+              order
+              title
             }
           }
         }
@@ -38,6 +41,10 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     const previous = index === nodes.length - 1 ? null : nodes[index + 1]
     const next = index === 0 ? null : nodes[index - 1]
     const slug = node.frontmatter.slug
+    const series = node.frontmatter.series || ''
+    const order = node.frontmatter.order
+
+    const postsInSeries = nodes.filter(node => node.frontmatter.series === series).sort((a,b) => a.frontmatter.order - b.frontmatter.order).map(node => ({title: node.frontmatter.title, slug: node.frontmatter.slug}));
 
     createPage({
       path: `/blog/${slug}`,
@@ -48,6 +55,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         id: node.id,
         previousId: previous ? previous.id : undefined,
         nextId: next ? next.id : undefined,
+        series,
+        order,
+        postsInSeries
       },
     })
   })
@@ -64,6 +74,16 @@ exports.onCreateNode = async ({ node, actions }) => {
       name: "category",
       value: node.frontmatter.category,
     })
+    createNodeField({
+        node,
+        name: "series",
+        value: node.frontmatter.series,
+      })
+    createNodeField({
+        node,
+        name: "order",
+        value: node.frontmatter.order,
+      })
   }
 }
 
@@ -75,6 +95,8 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     }
     type MdxFrontmatter {
       category: String
+      series: String
+      order: Int
     }
   `)
 
@@ -84,6 +106,12 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       fields: {
         category: {
           type: `String`,
+        },
+        series: {
+          type: `String`,
+        },
+        order: {
+          type: `Int`,
         },
       },
       interfaces: [`Node`, `BlogPost`],

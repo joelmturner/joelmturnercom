@@ -3,6 +3,7 @@ import { jsx, Styled } from "theme-ui"
 import { Layout, Flexbox, Grid, SEO } from "../components"
 import { Fragment, ReactNode } from "react"
 import { Link } from "gatsby"
+import PostSeries from "../components/postSeries"
 
 type PostNavProps = {
   frontmatter: {
@@ -19,10 +20,15 @@ type PostProps = {
     slug?: string;
     tags?: string[];
     category?: string;
+    series?: string;
+    order?: number;
     cover?: {
       publicURL: string;
     };
   };
+  pageContext: {
+    postsInSeries?: {title: string; slug: string}[];
+  } ; 
   data: {
     previous?: PostNavProps;
     next?: PostNavProps;
@@ -30,16 +36,23 @@ type PostProps = {
 }
 
 const Post: React.FC<PostProps> = ({
-  frontmatter: { cover, slug, title, tags, category = "" } = {},
+  frontmatter: { cover, slug, title, tags, category = "", series = '', order = 0 } = {},
   children,
   excerpt,
   data: { previous, next } = {},
+  pageContext: {postsInSeries = []},
+  ...props
 }) => {
+    console.log('series', series)
+    console.log('order', order)
+    console.log('props', props)
   const siteBaseUrl = "https://joelmturner.com"
   return (
     <Layout sx={{ variant: "post" }}>
       <SEO title={title} description={excerpt} image={cover && cover.publicURL} />
       <Styled.h1>{title}</Styled.h1>
+
+      <PostSeries series={series} order={order} postsInSeries={postsInSeries} />
 
       {children}
 

@@ -123,6 +123,7 @@ export default {
     li: {
       ...baseMerged.styles.li,
       fontSize: 3,
+      mb: 1,
       "&.task-list-item": {
         listStyle: "none",
         display: "flex",

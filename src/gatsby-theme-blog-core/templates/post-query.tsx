@@ -25,6 +25,8 @@ export const query = graphql`
         slug
         tags
         title
+        series
+        order
         cover {
           publicURL
         }
