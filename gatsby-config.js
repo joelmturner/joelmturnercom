@@ -1,4 +1,4 @@
-require('dotenv').config()
+require("dotenv").config();
 
 module.exports = {
   siteMetadata: {
@@ -125,8 +125,8 @@ module.exports = {
                   image: site.siteMetadata.siteUrl + node.frontmatter.cover.publicURL,
                   category: [node.frontmatter.category],
                   custom_elements: [{ "content:encoded": node.html }],
-                })
-              })
+                });
+              });
             },
             query: `
                 {
@@ -160,16 +160,16 @@ module.exports = {
       },
     },
     {
-        resolve: `gatsby-source-instagram`,
-        options: {
-          username: '31980847',
-          access_token: process.env.INSTAGRAM_ACCESS_TOKEN,
-          instagram_id: process.env.INSTAGRAM_INSTAGRAM_ID,
-          paginate: 1000,
-          maxPosts: 10000,
-          hashtags: true
-        },
+      resolve: `gatsby-source-instagram`,
+      options: {
+        username: "31980847",
+        access_token: process.env.INSTAGRAM_ACCESS_TOKEN,
+        instagram_id: process.env.INSTAGRAM_INSTAGRAM_ID,
+        paginate: 1000,
+        maxPosts: 10000,
+        hashtags: true,
       },
+    },
     {
       resolve: "gatsby-plugin-robots-txt",
       options: {
@@ -212,4 +212,4 @@ module.exports = {
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
   ],
-}
+};
