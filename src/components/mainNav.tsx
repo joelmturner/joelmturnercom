@@ -1,14 +1,17 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
-import Flexbox from "./flexbox"
-import { Link } from "gatsby"
-import { useState, Fragment, useCallback } from "react"
+import { jsx } from "theme-ui";
+import Flexbox from "./flexbox";
+import { Link } from "gatsby";
+import { useState, Fragment, useCallback } from "react";
 
 const MainNav = () => {
-  const [showNav, setShowNav] = useState<boolean>(false)
-  const toggleNav = useCallback(function() {
-    setShowNav(!showNav);
-  }, [setShowNav, showNav])
+  const [showNav, setShowNav] = useState<boolean>(false);
+  const toggleNav = useCallback(
+    function () {
+      setShowNav(!showNav);
+    },
+    [setShowNav, showNav]
+  );
   return (
     <Fragment>
       <Flexbox
@@ -62,7 +65,7 @@ const MainNav = () => {
           </Link>
         </h3>
       </Flexbox>
-      <button sx={{ variant: "nav.button" }} onClick={toggleNav}>
+      <button sx={{ variant: "nav.button" }} onClick={toggleNav} aria-label="theme switcher">
         <div
           sx={{
             width: "24px",
@@ -97,7 +100,7 @@ const MainNav = () => {
         />
       </button>
     </Fragment>
-  )
-}
+  );
+};
 
-export default MainNav
+export default MainNav;

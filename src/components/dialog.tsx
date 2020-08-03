@@ -1,15 +1,15 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
-import { DialogOverlay, DialogContent } from "@reach/dialog"
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
-import "@reach/dialog/styles.css"
-import { handleEnterKeyPress } from "../utils/a11y"
-import { useState, useCallback, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import Img from "gatsby-image"
-import { wrap } from "@popmotion/popcorn"
-import { InstaNode } from "../pages"
-import { useOnClickOutside, useKeypress } from "../hooks"
+import { jsx } from "theme-ui";
+import { DialogOverlay, DialogContent } from "@reach/dialog";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import "@reach/dialog/styles.css";
+import { handleEnterKeyPress } from "../utils/a11y";
+import { useState, useCallback, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Img from "gatsby-image";
+import { wrap } from "@popmotion/popcorn";
+import { InstaNode } from "../pages";
+import { useOnClickOutside, useKeypress } from "../hooks";
 
 type DialogProps = {
   className?: any;
@@ -19,7 +19,7 @@ type DialogProps = {
   onClose?: () => void;
   onPrev?: () => void;
   onNext?: () => void;
-}
+};
 
 const variants = {
   enter: (direction: number) => {
@@ -27,7 +27,7 @@ const variants = {
       x: direction > 0 ? 1000 : -1000,
       opacity: 0,
       y: "0%",
-    }
+    };
   },
   center: {
     zIndex: 1,
@@ -41,60 +41,60 @@ const variants = {
       x: direction < 0 ? 1000 : -1000,
       opacity: 0,
       y: "0%",
-    }
+    };
   },
-}
+};
 
-const swipeConfidenceThreshold = 10000
+const swipeConfidenceThreshold = 10000;
 const swipePower = (offset: number, velocity: number) => {
-  return Math.abs(offset) * velocity
-}
+  return Math.abs(offset) * velocity;
+};
 
 const Dialog: React.FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => {
-  const ref = useRef(null)
+  const ref = useRef(null);
   const currentPage = useRef(-1);
-  const [isNavFocused, setIsNavFocused] = useState<boolean>(false)
+  const [isNavFocused, setIsNavFocused] = useState<boolean>(false);
 
-  const [[page, direction], setPage] = useState([offset, 0])
+  const [[page, direction], setPage] = useState([offset, 0]);
   const paginate = useCallback(
     (newDirection: number) => {
-      setPage([page + newDirection, newDirection])
+      setPage([page + newDirection, newDirection]);
     },
     [setPage, page]
-  )
+  );
 
   const onNext = useCallback(() => {
-    paginate(1)
-  }, [paginate])
+    paginate(1);
+  }, [paginate]);
 
   const onPrev = useCallback(() => {
-    paginate(-1)
-  }, [paginate])
+    paginate(-1);
+  }, [paginate]);
 
-  const rightArrow = useKeypress("ArrowRight")
-  const leftArrow = useKeypress("ArrowLeft")
+  const rightArrow = useKeypress("ArrowRight");
+  const leftArrow = useKeypress("ArrowLeft");
 
   useEffect(() => {
-      if (currentPage.current === page) {
-          if (rightArrow) {
-            onNext()
-          }
-          if (leftArrow) {
-            onPrev()
-          }
+    if (currentPage.current === page) {
+      if (rightArrow) {
+        onNext();
       }
-      currentPage.current = page;
-  }, [onNext, onPrev, rightArrow, leftArrow, page])
+      if (leftArrow) {
+        onPrev();
+      }
+    }
+    currentPage.current = page;
+  }, [onNext, onPrev, rightArrow, leftArrow, page]);
 
   const setNavFocus = useCallback(() => {
-    setIsNavFocused(true)
-  }, [])
+    setIsNavFocused(true);
+  }, []);
   const unsetNavFocus = useCallback(() => {
-    setIsNavFocused(false)
-  }, [])
+    setIsNavFocused(false);
+  }, []);
 
-  const imageIndex = wrap(0, imageEdges.length, page)
-  useOnClickOutside(ref, onClose as any)
+  const imageIndex = wrap(0, imageEdges.length, page);
+  useOnClickOutside(ref, onClose as any);
 
   return (
     <DialogOverlay sx={{ variant: "dialog.overlay" }} isOpen onDismiss={onClose} className={className} ref={ref}>
@@ -125,12 +125,12 @@ const Dialog: React.FC<DialogProps> = ({ className, imageEdges, offset, onClose 
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={1}
             onDragEnd={(e, { offset, velocity }) => {
-              const swipe = swipePower(offset.x, velocity.x)
+              const swipe = swipePower(offset.x, velocity.x);
 
               if (swipe < -swipeConfidenceThreshold) {
-                paginate(1)
+                paginate(1);
               } else if (swipe > swipeConfidenceThreshold) {
-                paginate(-1)
+                paginate(-1);
               }
             }}
           >
@@ -154,6 +154,7 @@ const Dialog: React.FC<DialogProps> = ({ className, imageEdges, offset, onClose 
             borderRadius: "50%",
           }}
           onClick={onClose}
+          aria-label="close image viewer"
         >
           X
         </button>
@@ -166,6 +167,7 @@ const Dialog: React.FC<DialogProps> = ({ className, imageEdges, offset, onClose 
           onClick={onNext}
           data-reach-dialog-nav="next"
           role="button"
+          aria-label="next image"
           tabIndex={0}
           onKeyPress={handleEnterKeyPress(onNext)}
           onFocus={setNavFocus}
@@ -181,6 +183,7 @@ const Dialog: React.FC<DialogProps> = ({ className, imageEdges, offset, onClose 
             onClick={onPrev}
             data-reach-dialog-nav="prev"
             role="button"
+            aria-label="previous image"
             tabIndex={0}
             onKeyPress={handleEnterKeyPress(onPrev)}
             onFocus={setNavFocus}
@@ -189,7 +192,7 @@ const Dialog: React.FC<DialogProps> = ({ className, imageEdges, offset, onClose 
         )}
       </DialogContent>
     </DialogOverlay>
-  )
-}
+  );
+};
 
-export default Dialog
+export default Dialog;

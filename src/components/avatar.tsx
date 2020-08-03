@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
-import { useStaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
+import { jsx } from "theme-ui";
+import { useStaticQuery, graphql } from "gatsby";
+import Img from "gatsby-image";
 
 type AvatarProps = {
   user?: "monster1" | "monster2";
   className?: string;
-}
+};
 
 const Avatar: React.FC<AvatarProps> = ({ user, className }) => {
   const data = useStaticQuery(graphql`
@@ -15,20 +15,22 @@ const Avatar: React.FC<AvatarProps> = ({ user, className }) => {
       joel: file(relativePath: { eq: "joel-turner-headshot-web.jpg" }) {
         childImageSharp {
           fixed(height: 55, width: 55) {
-            ...GatsbyImageSharpFixed
+            ...GatsbyImageSharpFixed_withWebp_noBase64
           }
         }
       }
     }
-  `)
+  `);
 
-  const image = data && data[user || "joel"] && data[user || "joel"].childImageSharp.fixed
+  const image = data && data[user || "joel"] && data[user || "joel"].childImageSharp.fixed;
 
   return (
     <Img
       Tag="div"
       className={className}
       fixed={image}
+      loading="eager"
+      fadeIn={false}
       sx={{
         bg: "text",
         width: "75px",
@@ -37,7 +39,7 @@ const Avatar: React.FC<AvatarProps> = ({ user, className }) => {
         borderRadius: "50%",
       }}
     />
-  )
-}
+  );
+};
 
 export default Avatar;
