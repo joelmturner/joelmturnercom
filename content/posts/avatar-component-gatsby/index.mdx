@@ -5,51 +5,44 @@ draft: false
 cover: "./gatsby-avatar-01.png"
 slug: avatar-component-gatsby-1
 category: dev
-tags: 
+tags:
   - React
+series: Create an Avatar Component in Gatsby with TypeScript
+order: 0
 ---
-import Avatar, {SeriesBlock} from './components';
 
-<SeriesBlock />
+import Avatar from "./components";
 
 In this series we're going to take a look at creating a simple avatar component that is typed with TypeScript and has some special goodies in Gatsby land.
 
-> I usually write TypeScript from the start but I wanted to show each piece individually in case others aren't familiar with TypeScript yet. 
+> I usually write TypeScript from the start but I wanted to show each piece individually in case others aren't familiar with TypeScript yet.
 
-Let's start by identifying what our needs are for our avatar component. 
+Let's start by identifying what our needs are for our avatar component.
 
 - [ ] Should show an image
 - [ ] Should be round
 - [ ] Should accept an image url
 - [ ] Should display an image based on name (for small sets)
 
-Cool, now we can start building our avatar. Start with an img element using a placeholder image as src. Add a little bit of styling to make it round and give it a size. 
+Cool, now we can start building our avatar. Start with an img element using a placeholder image as src. Add a little bit of styling to make it round and give it a size.
 
 ```jsx
-function Avatar(props){
+function Avatar(props) {
+  const { url, altText, title } = props;
 
-    const {url, altText, title} = props;
+  const styles = {
+    width: "75px",
+    height: "75px",
+    borderRadius: "50%",
+  };
 
-    const styles = {
-        width: '75px',
-        height: '75px',
-        borderRadius: '50%'
-    }
-
-    return (
-        <img
-            style={styles}
-            src={url}
-            alt={altText}
-            title={title} />
-    );
+  return <img style={styles} src={url} alt={altText} title={title} />;
 }
 
 export default Avatar;
 ```
 
 Then we can pass it the image url and alt text. We can see that the component is working in its basic implementation now.
-
 
 <Grid columns='75px 3fr' gap={2} sx={{ mb: 3 }}>
 <Flexbox middle>
@@ -58,10 +51,12 @@ Then we can pass it the image url and alt text. We can see that the component is
 
 ```jsx
 <Avatar
-    url="https://res.cloudinary.com/joelmturner/monster-01.png"
-    alText='Monster P. Whittington portrait'
-    title='Monster P. Whittington' />
+  url="https://res.cloudinary.com/joelmturner/monster-01.png"
+  alText="Monster P. Whittington portrait"
+  title="Monster P. Whittington"
+/>
 ```
+
 </Grid>
 
 - [x] Should show an image
@@ -69,6 +64,4 @@ Then we can pass it the image url and alt text. We can see that the component is
 - [x] Should accept an image url
 - [ ] Should display an image based on name (for small sets)
 
-Looks good. We've met our first three criteria for this component. In step 2 we'll make it more powerful with Gatsby Image. 
-
-
+Looks good. We've met our first three criteria for this component. In step 2 we'll make it more powerful with Gatsby Image.

@@ -12,7 +12,7 @@ type PostSeriesProps = {
 const PostSeries: React.FC<PostSeriesProps> = ({ series, order, postsInSeries }) => {
   if (!series) return null;
   return (
-    <Flexbox vertical sx={{ borderColor: "textMuted", borderWidth: "1px", borderStyle: "dotted", mb: 2 }}>
+    <Flexbox vertical sx={{ borderColor: "textMuted", borderWidth: "1px", borderStyle: "dotted", my: 3 }}>
       <Styled.h4
         sx={{
           m: 0,
