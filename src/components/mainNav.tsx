@@ -4,14 +4,28 @@ import Flexbox from "./flexbox";
 import { Link } from "gatsby";
 import { useState, Fragment, useCallback } from "react";
 
+const navLinks = [
+  {
+    to: "/about",
+    label: "About",
+  },
+  {
+    to: "/blog",
+    label: "Blog",
+  },
+  {
+    to: "/illustration",
+    label: "Illustration",
+  },
+  {
+    to: "/notes",
+    label: "TIL",
+  },
+];
+
 const MainNav = () => {
   const [showNav, setShowNav] = useState<boolean>(false);
-  const toggleNav = useCallback(
-    function () {
-      setShowNav(!showNav);
-    },
-    [setShowNav, showNav]
-  );
+  const toggleNav = useCallback(() => setShowNav(!showNav), [setShowNav, showNav]);
   return (
     <Fragment>
       <Flexbox
@@ -22,48 +36,22 @@ const MainNav = () => {
         }}
         role="navigation"
       >
-        <h3 sx={{ variant: "nav.link" }}>
-          <Link
-            to="/illustration"
-            activeClassName="active"
-            partiallyActive={true}
-            sx={{
-              "&.active": {
-                color: "text",
-              },
-            }}
-          >
-            Illustration
-          </Link>
-        </h3>
-        <h3 sx={{ variant: "nav.link" }}>
-          <Link
-            to="/blog"
-            activeClassName="active"
-            partiallyActive={true}
-            sx={{
-              "&.active": {
-                color: "text",
-              },
-            }}
-          >
-            Blog
-          </Link>
-        </h3>
-        <h3 sx={{ variant: "nav.link" }}>
-          <Link
-            to="/notes"
-            activeClassName="active"
-            partiallyActive={true}
-            sx={{
-              "&.active": {
-                color: "text",
-              },
-            }}
-          >
-            Notes
-          </Link>
-        </h3>
+        {navLinks.map((navLink) => (
+          <h3 sx={{ variant: "nav.link" }} key={navLink.label}>
+            <Link
+              to={navLink.to}
+              activeClassName="active"
+              partiallyActive={true}
+              sx={{
+                "&.active": {
+                  color: "text",
+                },
+              }}
+            >
+              {navLink.label}
+            </Link>
+          </h3>
+        ))}
       </Flexbox>
       <button sx={{ variant: "nav.button" }} onClick={toggleNav} aria-label="theme switcher">
         <div

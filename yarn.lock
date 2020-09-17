@@ -1085,7 +1085,7 @@
     "@emotion/sheet" "0.9.4"
     "@emotion/utils" "0.11.3"
 
-"@emotion/core@^10.0.28", "@emotion/core@^10.0.9":
+"@emotion/core@^10.0.9":
   version "10.0.28"
   resolved "https://registry.npmjs.org/@emotion/core/-/core-10.0.28.tgz#bb65af7262a234593a9e952c041d0f1c9b9bef3d"
   integrity sha512-pH8UueKYO5jgg0Iq+AmCLxBsvuGtvlmiDCOuv8fGNYn3cowFpLN98L8zO56U0H1PjDIyAlXymgL3Wu7u7v6hbA==
@@ -1579,7 +1579,7 @@
     "@mdx-js/react" "1.6.17"
     loader-utils "2.0.0"
 
-"@mdx-js/mdx@1.6.17", "@mdx-js/mdx@^1.6.17", "@mdx-js/mdx@^1.6.6", "@mdx-js/mdx@^2.0.0-next.4", "@mdx-js/mdx@^2.0.0-next.7":
+"@mdx-js/mdx@1.6.17", "@mdx-js/mdx@^1.6.14", "@mdx-js/mdx@^1.6.17", "@mdx-js/mdx@^1.6.6", "@mdx-js/mdx@^2.0.0-next.4", "@mdx-js/mdx@^2.0.0-next.7":
   version "1.6.17"
   resolved "https://registry.npmjs.org/@mdx-js/mdx/-/mdx-1.6.17.tgz#d98038961f2cf162e11479ae19a923fdf807e21a"
   integrity sha512-ys3Tm3V3yngccBKgF80jgDQW/SH9on3C2mJ+fZBS7g5AxbaX8JghZfPD0xwtjVNkFsOUS5vsjn1D2X1aPsjKMw==
@@ -1604,7 +1604,7 @@
     unist-builder "2.0.3"
     unist-util-visit "2.0.3"
 
-"@mdx-js/react@1.6.17", "@mdx-js/react@^1.0.0", "@mdx-js/react@^1.5.2", "@mdx-js/react@^1.6.17", "@mdx-js/react@^1.6.6", "@mdx-js/react@^2.0.0-next.4", "@mdx-js/react@^2.0.0-next.7":
+"@mdx-js/react@1.6.17", "@mdx-js/react@^1.0.0", "@mdx-js/react@^1.5.2", "@mdx-js/react@^1.6.17", "@mdx-js/react@^2.0.0-next.4", "@mdx-js/react@^2.0.0-next.7":
   version "1.6.17"
   resolved "https://registry.npmjs.org/@mdx-js/react/-/react-1.6.17.tgz#2c3a0ec3f9f5e03440f9d2f34296a79933d73231"
   integrity sha512-UdzGY6/eeeJlGOWw0evhQfUxP/+DRt+530lqOkgNrYPyp6q2t1kr0Z0kukPAY9Bwv9lyIGMEm9jeNvBpRnYVgg==
@@ -2040,6 +2040,16 @@
     "@theme-ui/css" "^0.3.1"
     deepmerge "^4.2.2"
 
+"@theme-ui/color-modes@^0.4.0-alpha.3", "@theme-ui/color-modes@^0.4.0-rc.5":
+  version "0.4.0-rc.5"
+  resolved "https://registry.npmjs.org/@theme-ui/color-modes/-/color-modes-0.4.0-rc.5.tgz#a44803bc0a698a5ef0351b3d84322e280c4fe622"
+  integrity sha512-ThB66ZUnukiaiUyvIO1092FdRlAwA0a9Qh3+USdsqG1YbdaW1rpZWhk8WjmMXmnQqDp1T4yCiWik5jiM5CsyBQ==
+  dependencies:
+    "@emotion/core" "^10.0.0"
+    "@theme-ui/core" "^0.4.0-rc.5"
+    "@theme-ui/css" "^0.4.0-rc.5"
+    deepmerge "^4.2.2"
+
 "@theme-ui/components@^0.3.1":
   version "0.3.1"
   resolved "https://registry.npmjs.org/@theme-ui/components/-/components-0.3.1.tgz#fe023e156c1e1c076d5f2258466426e94adc2765"
@@ -2052,6 +2062,18 @@
     "@styled-system/space" "^5.1.2"
     "@theme-ui/css" "^0.3.1"
 
+"@theme-ui/components@^0.4.0-alpha.3":
+  version "0.4.0-rc.5"
+  resolved "https://registry.npmjs.org/@theme-ui/components/-/components-0.4.0-rc.5.tgz#42b5d88616e6a051c4afeaf235933971890c9c29"
+  integrity sha512-QChZAFxwuJmcyXWq3OjfX///OLBa47DOQ0yWiBv4AfdNM9mzecZnGrDLB/MMVyrKxUHznB1Yhu3TL6Woz3NQqg==
+  dependencies:
+    "@emotion/core" "^10.0.0"
+    "@emotion/styled" "^10.0.0"
+    "@styled-system/color" "^5.1.2"
+    "@styled-system/should-forward-prop" "^5.1.2"
+    "@styled-system/space" "^5.1.2"
+    "@theme-ui/css" "^0.4.0-rc.5"
+
 "@theme-ui/core@^0.3.1":
   version "0.3.1"
   resolved "https://registry.npmjs.org/@theme-ui/core/-/core-0.3.1.tgz#dbe9800b9d6e923e1a7417e6adebce21524f8c02"
@@ -2061,10 +2083,26 @@
     "@theme-ui/css" "^0.3.1"
     deepmerge "^4.2.2"
 
+"@theme-ui/core@^0.4.0-alpha.3", "@theme-ui/core@^0.4.0-rc.5":
+  version "0.4.0-rc.5"
+  resolved "https://registry.npmjs.org/@theme-ui/core/-/core-0.4.0-rc.5.tgz#b1e94e0f064bee8ba4b4a42d4c4c9b348729a14f"
+  integrity sha512-3nquBPFIQibJVWpyQsfqFXBs45nMQLEXDs01t0W26Bt7MSiJGGQiIrdo4p8etmSJZZtWi3jwwvf5kr7HvuQR0g==
+  dependencies:
+    "@emotion/core" "^10.0.0"
+    "@theme-ui/css" "^0.4.0-rc.5"
+    deepmerge "^4.2.2"
+
 "@theme-ui/css@^0.3.1":
   version "0.3.1"
   resolved "https://registry.npmjs.org/@theme-ui/css/-/css-0.3.1.tgz#b85c7e8fae948dc0de65aa30b853368993e25cb3"
   integrity sha512-QB2/fZBpo4inaLHL3OrB8NOBgNfwnj8GtHzXWHb9iQSRjmtNX8zPXBe32jLT7qQP0+y8JxPT4YChZIkm5ZyIdg==
+
+"@theme-ui/css@^0.4.0-alpha.2", "@theme-ui/css@^0.4.0-rc.5":
+  version "0.4.0-rc.5"
+  resolved "https://registry.npmjs.org/@theme-ui/css/-/css-0.4.0-rc.5.tgz#0fa254f90eecf6d8df28b1e3b4677d7fc3338d82"
+  integrity sha512-KJly9bIbfcMFwHiDB6WZ5bTMgjJSQssBFkyqETA1GpfK/M7AwpupPeyLzc65K8tYatMFXlUQmYo9JNPtLYawwg==
+  dependencies:
+    csstype "^2.5.7"
 
 "@theme-ui/mdx@^0.3.0":
   version "0.3.0"
@@ -2075,17 +2113,19 @@
     "@emotion/styled" "^10.0.0"
     "@mdx-js/react" "^1.0.0"
 
+"@theme-ui/mdx@^0.4.0-alpha.1", "@theme-ui/mdx@^0.4.0-rc.5":
+  version "0.4.0-rc.5"
+  resolved "https://registry.npmjs.org/@theme-ui/mdx/-/mdx-0.4.0-rc.5.tgz#f2de02bc1a0507632516d61e203b9656a9d50fde"
+  integrity sha512-0cARWd1zOxFsoLJFQXXX1VYe8pD3KXDaJ9yo8GtriBeAv/ZhkqIWydGVWzHoJZPXHMxquaX0bAX6C7rD9dKY5w==
+  dependencies:
+    "@emotion/core" "^10.0.0"
+    "@emotion/styled" "^10.0.0"
+    "@mdx-js/react" "^1.0.0"
+
 "@theme-ui/preset-base@^0.3.0":
   version "0.3.0"
   resolved "https://registry.npmjs.org/@theme-ui/preset-base/-/preset-base-0.3.0.tgz#853a78195beead04ece4391c5672d690899bec47"
   integrity sha512-bFCYoxfe/Ugr5k5BEy3Gv5jg8+idZHWDt/NM95jgla4qITlaOAMuEL6afoQ5HXbJjp5TnZFZ73qO6cKI8/BFfQ==
-
-"@theme-ui/prism@^0.2.50":
-  version "0.2.50"
-  resolved "https://registry.npmjs.org/@theme-ui/prism/-/prism-0.2.50.tgz#0f1dafb7d71248ba26f90cddc643b414dd9f4378"
-  integrity sha512-FD9UtROhol8limL2XtQPfnTUfUJETUC37wYW6dSIfVCDR4l0CSbqYS+niQAqVGcuD0wtL1pbkvb/qDtUg94Ebw==
-  dependencies:
-    prism-react-renderer "^1.0.2"
 
 "@theme-ui/prism@^0.3.0":
   version "0.3.0"
@@ -2104,14 +2144,15 @@
     "@theme-ui/core" "^0.3.1"
     "@theme-ui/mdx" "^0.3.0"
 
-"@theme-ui/typography@^0.2.46":
-  version "0.2.46"
-  resolved "https://registry.npmjs.org/@theme-ui/typography/-/typography-0.2.46.tgz#24e20989450a35eb715967b99cbfd8fa4291ba17"
-  integrity sha512-66VMjZ/7fvhwtJHwYZH4/Vl+wYpLXN2QzNU6wn/7VcBf9xJZPXEumI8wSp9P1R2eEjLAlaz8tpl1VDMGPDxsVA==
+"@theme-ui/theme-provider@^0.4.0-alpha.3":
+  version "0.4.0-rc.5"
+  resolved "https://registry.npmjs.org/@theme-ui/theme-provider/-/theme-provider-0.4.0-rc.5.tgz#85783c844b6ef2ee87053610de6ac237ab907795"
+  integrity sha512-RF9I+8e2CKTxdu3YoCI/mFfcda3I/4W0glwiNLiwoDMvMfoWCL9hJ9xRHvcHC/B9Tw4LbMmTrngHLz31G8iwfQ==
   dependencies:
-    compass-vertical-rhythm "^1.4.5"
-    modularscale "^2.0.1"
-    object-assign "^4.1.1"
+    "@emotion/core" "^10.0.0"
+    "@theme-ui/color-modes" "^0.4.0-rc.5"
+    "@theme-ui/core" "^0.4.0-rc.5"
+    "@theme-ui/mdx" "^0.4.0-rc.5"
 
 "@theme-ui/typography@^0.3.0":
   version "0.3.0"
@@ -7742,7 +7783,7 @@ gatsby-core-utils@^1.3.12:
     tmp "^0.2.1"
     xdg-basedir "^4.0.0"
 
-gatsby-core-utils@^1.3.20:
+gatsby-core-utils@^1.3.13, gatsby-core-utils@^1.3.20:
   version "1.3.20"
   resolved "https://registry.npmjs.org/gatsby-core-utils/-/gatsby-core-utils-1.3.20.tgz#3fee11634ec457f01d1327da885a9f8fe50c6823"
   integrity sha512-tTry2Iz7QKfMEkYiqXOEbMhR96hpttkKeUCQAj7syC9tQwFGd1nkGlpbD4n8lBa22cXKLlL9J2edhDo1xwnfGQ==
@@ -7844,12 +7885,12 @@ gatsby-plugin-compile-es6-packages@^2.1.0:
     "@babel/runtime" "^7.0.0"
     regex-escape "^3.4.8"
 
-gatsby-plugin-emotion@^4.3.9:
-  version "4.3.10"
-  resolved "https://registry.npmjs.org/gatsby-plugin-emotion/-/gatsby-plugin-emotion-4.3.10.tgz#569e9489837fa0f55db0a0264efda7f3c6c4a4cd"
-  integrity sha512-OQrNgq3Te+bjra/sNo2PwOm24dPVr8MsjWf3X/3ciPf4bkf+Ey0jzJ36JnIIUIzZvpbyBHAr6eNzSOWnE2X2zA==
+gatsby-plugin-emotion@^4.3.10:
+  version "4.3.11"
+  resolved "https://registry.npmjs.org/gatsby-plugin-emotion/-/gatsby-plugin-emotion-4.3.11.tgz#9ca84ddc3f4199069f171c8b3473792f3e505dcf"
+  integrity sha512-CTXJ1N02o/6hdqFyIHvW/+5uGUjfO8E9D2O2v/w7gceuJBUxNdoCA1y9aJeJTFkBLICe7emXMi5Aa0M5Wup0SQ==
   dependencies:
-    "@babel/runtime" "^7.10.3"
+    "@babel/runtime" "^7.11.2"
     "@emotion/babel-preset-css-prop" "^10.0.27"
 
 gatsby-plugin-feed@^2.3.28:
@@ -7919,6 +7960,48 @@ gatsby-plugin-mdx@^1.2.22:
     remark "^10.0.1"
     remark-retext "^3.1.3"
     retext-english "^3.0.4"
+    static-site-generator-webpack-plugin "^3.4.2"
+    style-to-object "^0.3.0"
+    underscore.string "^3.3.5"
+    unified "^8.4.2"
+    unist-util-map "^1.0.5"
+    unist-util-remove "^1.0.3"
+    unist-util-visit "^1.4.1"
+
+gatsby-plugin-mdx@^1.2.28:
+  version "1.2.40"
+  resolved "https://registry.npmjs.org/gatsby-plugin-mdx/-/gatsby-plugin-mdx-1.2.40.tgz#061e9857a513ae1234dcf943b6d0132b78e7b23a"
+  integrity sha512-HX7a1kr6N5YXGU9alZ0dei3CbJ4dD0lqVg4nkcP7H6T79de32tMrbLH02GWXGfI08I4xkExe3X+LKnF/I3dh3w==
+  dependencies:
+    "@babel/core" "^7.11.6"
+    "@babel/generator" "^7.11.6"
+    "@babel/helper-plugin-utils" "^7.10.4"
+    "@babel/plugin-proposal-object-rest-spread" "^7.11.0"
+    "@babel/preset-env" "^7.11.5"
+    "@babel/preset-react" "^7.10.4"
+    "@babel/types" "^7.11.5"
+    camelcase-css "^2.0.1"
+    change-case "^3.1.0"
+    core-js "^3.6.5"
+    dataloader "^1.4.0"
+    debug "^4.1.1"
+    escape-string-regexp "^1.0.5"
+    eval "^0.1.4"
+    fs-extra "^8.1.0"
+    gatsby-core-utils "^1.3.20"
+    gray-matter "^4.0.2"
+    json5 "^2.1.3"
+    loader-utils "^1.4.0"
+    lodash "^4.17.20"
+    mdast-util-to-string "^1.1.0"
+    mdast-util-toc "^3.1.0"
+    mime "^2.4.6"
+    p-queue "^5.0.0"
+    pretty-bytes "^5.3.0"
+    remark "^10.0.1"
+    remark-retext "^3.1.3"
+    retext-english "^3.0.4"
+    slugify "^1.4.4"
     static-site-generator-webpack-plugin "^3.4.2"
     style-to-object "^0.3.0"
     underscore.string "^3.3.5"
@@ -8059,10 +8142,10 @@ gatsby-plugin-sitemap@^2.4.11:
     pify "^3.0.0"
     sitemap "^1.13.0"
 
-gatsby-plugin-theme-ui@^0.2.53:
-  version "0.2.53"
-  resolved "https://registry.npmjs.org/gatsby-plugin-theme-ui/-/gatsby-plugin-theme-ui-0.2.53.tgz#57a52339e50ede7ef4df0b1b5593d360b56b597d"
-  integrity sha512-AlQC+uC9lvrP3LlGsLe0f0azp7B5c49qWl4b3FDj8xbravBoqFmJT7XrNTpYYbxnCnx/K1v0QtwP8qindw0S2g==
+gatsby-plugin-theme-ui@0.4.0-alpha.3:
+  version "0.4.0-alpha.3"
+  resolved "https://registry.npmjs.org/gatsby-plugin-theme-ui/-/gatsby-plugin-theme-ui-0.4.0-alpha.3.tgz#0d1ad42e6cefc35610a8a74c54f73b25853e818b"
+  integrity sha512-jaEN95M7z5f6pV4/4eaPxNx48GNpAYzNcnFtZ03Hou4RtXyzmM9A87zisXbQFayAWTF+C7efZ4Bp3Pv2+NAvbA==
 
 gatsby-plugin-theme-ui@^0.3.0:
   version "0.3.0"
@@ -8282,7 +8365,7 @@ gatsby-source-filesystem@^2.3.18:
     valid-url "^1.0.9"
     xstate "^4.11.0"
 
-gatsby-source-filesystem@^2.3.19:
+gatsby-source-filesystem@^2.3.19, gatsby-source-filesystem@^2.3.22:
   version "2.3.30"
   resolved "https://registry.npmjs.org/gatsby-source-filesystem/-/gatsby-source-filesystem-2.3.30.tgz#4d5298ed1470c0aa9ae9d5e735191d4b5ad6ad23"
   integrity sha512-jZ6fWTT0a/aUMmhEyGcxEc8IdTJvxA/806qkan/5Mhctt4tjqmjSq8TWC0yde+0uHBWBf9krbzKtuT/+hT9KuA==
@@ -8346,31 +8429,24 @@ gatsby-theme-blog-core@^1.0.2:
     gatsby-transformer-sharp "^2.5.10"
     remark-slug "^5.1.2"
 
-gatsby-theme-notes@^1.1.13:
-  version "1.3.87"
-  resolved "https://registry.npmjs.org/gatsby-theme-notes/-/gatsby-theme-notes-1.3.87.tgz#5fbc6224377b42659e1b23949fa355f80858c43f"
-  integrity sha512-/H+bOyaCyLTQAotCiv9cjWbWorsHlAsQ+M9oa8LVEdhNTc2HhDZh5FS3uj696+1QQDreazZms6HgHY5c6op4tg==
+gatsby-theme-notes@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.npmjs.org/gatsby-theme-notes/-/gatsby-theme-notes-2.0.3.tgz#ba74a53cfa3d3f5e45df027d1e6aaddc4b96e99b"
+  integrity sha512-BPLGV7WE+GYM9/Ch9n6Xa/tY0H+umAd5MPw4y3q43SeHqYDSAq7Obo7KLAAoqlsacEwznDtieI8oXT8KNgW77w==
   dependencies:
-    "@emotion/core" "^10.0.28"
-    "@mdx-js/mdx" "^1.6.6"
-    "@mdx-js/react" "^1.6.6"
-    "@theme-ui/prism" "^0.2.50"
-    "@theme-ui/typography" "^0.2.46"
-    deepmerge "^4.2.2"
-    gatsby-core-utils "^1.3.11"
+    "@mdx-js/mdx" "^1.6.14"
+    gatsby-core-utils "^1.3.13"
     gatsby-plugin-compile-es6-packages "^2.1.0"
-    gatsby-plugin-emotion "^4.3.9"
-    gatsby-plugin-mdx "^1.2.22"
+    gatsby-plugin-emotion "^4.3.10"
+    gatsby-plugin-mdx "^1.2.28"
     gatsby-plugin-meta-redirect "^1.1.1"
     gatsby-plugin-redirects "^1.0.0"
-    gatsby-plugin-theme-ui "^0.2.53"
-    gatsby-source-filesystem "^2.3.18"
+    gatsby-plugin-theme-ui "0.4.0-alpha.3"
+    gatsby-source-filesystem "^2.3.22"
+    gatsby-theme-ui-preset "^1.0.2"
     is-present "^1.0.0"
     react-feather "^1.1.6"
-    theme-ui "^0.2.52"
-    typeface-merriweather "0.0.72"
-    typeface-montserrat "0.0.75"
-    typography-theme-wordpress-2016 "^0.16.19"
+    theme-ui "0.4.0-alpha.3"
 
 gatsby-theme-ui-blog@^0.3.1:
   version "0.3.1"
@@ -8391,6 +8467,13 @@ gatsby-theme-ui-layout@^0.3.0:
   version "0.3.0"
   resolved "https://registry.npmjs.org/gatsby-theme-ui-layout/-/gatsby-theme-ui-layout-0.3.0.tgz#90f0991bc7c1393ac4109c24e056b0f9b3cbbbc8"
   integrity sha512-beZfUwZfB4IH0maqVfYSTI2lc37xmC29jKxdqNSfPBv9DwEYV2rU4cBZtdJl9H9V4E9MIz/Gp8pVQomxGBK6YA==
+
+gatsby-theme-ui-preset@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/gatsby-theme-ui-preset/-/gatsby-theme-ui-preset-1.0.2.tgz#e87cdbb169dd52c0c46f66f2751e5d677a8bdb62"
+  integrity sha512-WF72PoC2n2oY9tVANpYENvNqoYrPeG55y8DzkTpwxDuOoyZojk5Isx3zXm+TegeWyWpkHxMAtKrDPdgCXQLlew==
+  dependencies:
+    theme-ui "0.4.0-alpha.3"
 
 gatsby-tinacms-git@^0.4.9:
   version "0.4.12"
@@ -9051,11 +9134,6 @@ gray-matter@^4.0.2:
     kind-of "^6.0.2"
     section-matter "^1.0.0"
     strip-bom-string "^1.0.0"
-
-gray-percentage@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/gray-percentage/-/gray-percentage-2.0.0.tgz#b72a274d1b1379104a0050b63b207dc53fe56f99"
-  integrity sha1-tyonTRsTeRBKAFC2OyB9xT/lb5k=
 
 gud@^1.0.0:
   version "1.0.0"
@@ -16740,7 +16818,19 @@ text-table@0.2.0, text-table@^0.2.0:
   resolved "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
-theme-ui@^0.2.49, theme-ui@^0.2.52:
+theme-ui@0.4.0-alpha.3:
+  version "0.4.0-alpha.3"
+  resolved "https://registry.npmjs.org/theme-ui/-/theme-ui-0.4.0-alpha.3.tgz#6114a4ea9d8ec3d5866de240667d7187b35631e9"
+  integrity sha512-kxJ6BWCtbO/uyUJ760mep4VCyklyKpCWDD6KiCoMH9G0ib6X+jLkuSAt13CSQzqgBlGzind94kOL/KR1TcPSSw==
+  dependencies:
+    "@theme-ui/color-modes" "^0.4.0-alpha.3"
+    "@theme-ui/components" "^0.4.0-alpha.3"
+    "@theme-ui/core" "^0.4.0-alpha.3"
+    "@theme-ui/css" "^0.4.0-alpha.2"
+    "@theme-ui/mdx" "^0.4.0-alpha.1"
+    "@theme-ui/theme-provider" "^0.4.0-alpha.3"
+
+theme-ui@^0.2.49:
   version "0.2.52"
   resolved "https://registry.npmjs.org/theme-ui/-/theme-ui-0.2.52.tgz#c041a32b0b257fc8ecbae273e14e92abd48c0f2d"
   integrity sha512-JFujorP5aFxIm1UyVCtefN5baXjwh5TXHKFYNWgAP+3rqVvggIr46uSMrRNvDjyhFOQiMK8YI8ctPQrrhcETpw==
@@ -17123,16 +17213,6 @@ typedarray@^0.0.6:
   resolved "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typeface-merriweather@0.0.72:
-  version "0.0.72"
-  resolved "https://registry.npmjs.org/typeface-merriweather/-/typeface-merriweather-0.0.72.tgz#2b990f5293252052d51d170c82d3892319ff0555"
-  integrity sha512-gO0+fcZ1fTyKUsYY1ltYOOTI6FmBGeEdyIfeQg9NL8aInndk0feiJJVJsKHm/DiyYrnQEezraAQhz/KQoqMGtw==
-
-typeface-montserrat@0.0.75:
-  version "0.0.75"
-  resolved "https://registry.npmjs.org/typeface-montserrat/-/typeface-montserrat-0.0.75.tgz#b796d9c767ab8ed1343271985beb1e44b382b7b3"
-  integrity sha512-8ski20t3hdwu2T85pVfjK4jsDbwW8yWzd+LAKxYEmu+JVLVlB7G2yfmdKZz06pUwYCLVFvHvup+NYYulHDpE+w==
-
 typescript@^3.2.1:
   version "3.9.6"
   resolved "https://registry.npmjs.org/typescript/-/typescript-3.9.6.tgz#8f3e0198a34c3ae17091b35571d3afd31999365a"
@@ -17143,23 +17223,10 @@ typescript@^3.8.3:
   resolved "https://registry.npmjs.org/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
   integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
 
-typography-breakpoint-constants@^0.16.19:
-  version "0.16.19"
-  resolved "https://registry.npmjs.org/typography-breakpoint-constants/-/typography-breakpoint-constants-0.16.19.tgz#e0e89147749562cbb46ce76c47ff0f73372765e7"
-  integrity sha512-vXjfV9hwAXIOf5+U5GN137ahBkK+sj1TJu/5ksmP+8XB/D80lmGb/m0nKviWaQ3t7HLrK848VGrFS+6E2vcmVg==
-
 typography-theme-noriega@^0.16.19:
   version "0.16.19"
   resolved "https://registry.npmjs.org/typography-theme-noriega/-/typography-theme-noriega-0.16.19.tgz#3a2c99e244606181c5a887a90071e53e1234bc73"
   integrity sha512-tmEbX6Kiot0mQk3GoaD7fkEFbFG9jpscrh8J1CP6DCs7sJNtuAVZUqIplvXxn1H7+HDORb7OGOKMx9KiRSCyfA==
-
-typography-theme-wordpress-2016@^0.16.19:
-  version "0.16.19"
-  resolved "https://registry.npmjs.org/typography-theme-wordpress-2016/-/typography-theme-wordpress-2016-0.16.19.tgz#de2ecf20fc4f51db9ca2b149a731d31d8ca9c9ab"
-  integrity sha512-J7AWs8mHQyCtAzvhTs1QcAuzv1QoYsue0xw5U430fBxUystWLQba9OphcycFshgDbm6B/k5ge0d4feYp9xOJ2A==
-  dependencies:
-    gray-percentage "^2.0.0"
-    typography-breakpoint-constants "^0.16.19"
 
 ua-parser-js@^0.7.18:
   version "0.7.21"

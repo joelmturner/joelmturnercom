@@ -6,15 +6,18 @@ draft: false
 
 ### I am Joel M Turner
 
-I spent many of my summers living on glaciers in Alaska. Living in a remote camp with a bunch of other interesting people was great. You never know where the conversations will go and what kind of friends you'll make. I received my BA with a graphic design emphasis in December of 2005. Most of my free time in college was spent playing in the Symphony Orchestra and playing basketball. I was born in Laramie, Wyoming. I now live with my wife, [Suzanne Turner](http://inclinedcreative.com "Suzanne Turner DelysiaStyle"), our son, and our two dogs in Portland, Oregon.
+My main professional role is Product Engineer (Frontend) at [Sprinklr](https://sprinklr.com) where I help support the visualization products. Through this avenue, I have been able to contribute to some great projects such as the [World Health Organization Covid-19 Dashboard](https://covid19.who.int/), the [Covid HQ Africa Dashboard](https://www.covidhqafrica.com/), and [Sprinklr.com](https://sprinklr.com).
 
-### Daily Practice
+### How I Got Here
 
-I have been doing a meditation practice every day for over a year now which has helped me learn more about myself and how I interact with the rest of the world. This has allowed me to start listening more fully to others and have genuine experiences with those around me. I love that it is an ongoing practice. Part of my daily practice is running, which has helped me release some excess energy and work through struggles in an active way.
+I was born in Laramie, Wyoming. I received my BA with a graphic design emphasis in December of 2005. Most of my free time in college was spent playing in the Symphony Orchestra and playing basketball. I dabble in hand lettering and illustration, which I share mainly on [Instagram](https://www.instagram.com/joelmturner/) and have the "best of", in my opinion, on my [illustration page](/illustration).
 
-### Connect With Me
+I spent many of my summers living on glaciers in Alaska. Living in a remote camp with a bunch of other interesting people was great; you never know where the conversations will go and what kind of friends you'll make. While I was on the glacier I would read PHP books and write code on a piece of paper which I would then enter on my computer when I had a day off in town. Between this and cramming as much CSS as I could, I was able to cobble together some experience in building sites.
 
-* [Joel Turner Twitter](https://twitter.com/joelmturner)
-* [Joel Turner LinkedIn](http://www.linkedin.com/in/joelmturner)
+After a few years of performing design, design systems, and development roles for a superfood company I was encouraged by my friend [Nathan](https://rttnbrgr.com/) to apply for an internship with his team at Sprinklr. From then on, I have been coding away on TypeScript, React, MobX, and Gatsby projects.
 
-### My Latest Blog Article
+### Now
+
+I now live with my wife, [Suzanne Turner](http://inclinedcreative.com "Suzanne Turner DelysiaStyle"), our two children, and our two dogs in Portland, Oregon.
+
+Feel free to connect with me on [Twitter](https://twitter.com/joelmturner), [Instagram](https://www.instagram.com/joelmturner/) or [LinkedIn](http://www.linkedin.com/in/joelmturner)

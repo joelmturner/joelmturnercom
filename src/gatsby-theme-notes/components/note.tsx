@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui"
-import { MDXRenderer } from "gatsby-plugin-mdx"
-import components from "../../gatsby-plugin-theme-ui/components"
-import Layout from "./layout"
-import { Link } from "gatsby"
-import { Flexbox } from "../../components"
+import { jsx, Styled } from "theme-ui";
+import { MDXRenderer } from "gatsby-plugin-mdx";
+import components from "../../gatsby-plugin-theme-ui/components";
+import Layout from "./layout";
+import { Link } from "gatsby";
+import { Flexbox } from "../../components";
 
 const WikiPage = ({
   data: {
@@ -19,10 +19,11 @@ const WikiPage = ({
   },
   ...props
 }: any) => {
-  const route = path.substring(path.lastIndexOf("/notes/") + 7, path.lastIndexOf("/"))
+  const route = path.substring(path.lastIndexOf("/notes/") + 7, path.lastIndexOf("/"));
+
   return (
     <Layout {...props} title={title}>
-      <Flexbox noGrow gap={1} sx={{ mb: 3 }} middle role='navigation'>
+      <Flexbox noGrow gap={1} sx={{ mb: 3 }} middle role="navigation">
         <Link sx={{ variant: "link", textDecoration: "none", fontWeight: 700 }} to={`/`}>
           ~
         </Link>
@@ -39,7 +40,7 @@ const WikiPage = ({
       </Flexbox>
       <MDXRenderer components={components}>{body}</MDXRenderer>
     </Layout>
-  )
-}
+  );
+};
 
-export default WikiPage
+export default WikiPage;

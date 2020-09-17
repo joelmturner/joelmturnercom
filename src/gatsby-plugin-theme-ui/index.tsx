@@ -254,7 +254,7 @@ export default {
   nav: {
     button: {
       zIndex: "30",
-      top: "1.5rem",
+      top: ".9rem",
       right: "1rem",
       position: "absolute",
       bg: "transparent",

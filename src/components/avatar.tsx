@@ -6,9 +6,10 @@ import Img from "gatsby-image";
 type AvatarProps = {
   user?: "monster1" | "monster2";
   className?: string;
+  size?: "s" | "l";
 };
 
-const Avatar: React.FC<AvatarProps> = ({ user, className }) => {
+const Avatar: React.FC<AvatarProps> = ({ user, className, size = "s" }) => {
   const data = useStaticQuery(graphql`
     query {
       ...monsters
@@ -19,10 +20,19 @@ const Avatar: React.FC<AvatarProps> = ({ user, className }) => {
           }
         }
       }
+      joelLarge: file(relativePath: { eq: "joel-turner-headshot-web.jpg" }) {
+        childImageSharp {
+          fixed(height: 300, width: 300) {
+            ...GatsbyImageSharpFixed_withWebp_noBase64
+          }
+        }
+      }
     }
   `);
 
-  const image = data && data[user || "joel"] && data[user || "joel"].childImageSharp.fixed;
+  const sized = size === "s" ? "joel" : "joelLarge";
+
+  const image = data && data[user || sized] && data[user || sized].childImageSharp.fixed;
 
   return (
     <Img
