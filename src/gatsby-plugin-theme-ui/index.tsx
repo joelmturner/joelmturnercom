@@ -1,10 +1,10 @@
-import base from "gatsby-theme-ui-blog/src/gatsby-plugin-theme-ui"
-import prism from "@theme-ui/prism/presets/theme-ui"
-import merge from "lodash.merge"
-import typography from "./typography"
-import { Theme } from "theme-ui"
+import base from "gatsby-theme-ui-blog/src/gatsby-plugin-theme-ui";
+import prism from "@theme-ui/prism/presets/theme-ui";
+import merge from "lodash.merge";
+import typography from "./typography";
+import { Theme } from "theme-ui";
 
-const baseMerged = merge(base, typography)
+const baseMerged = merge(base, typography);
 const iconStyles = {
   ml: 2,
   fill: "text",
@@ -16,7 +16,7 @@ const iconStyles = {
     color: "primary",
     opacity: 1,
   },
-}
+};
 
 const switchIcon = {
   top: "50%",
@@ -30,7 +30,7 @@ const switchIcon = {
     fill: "textMuted",
     cursor: "pointer",
   },
-}
+};
 
 const tabDefaults = {
   fontSize: 2,
@@ -40,7 +40,7 @@ const tabDefaults = {
   px: 2,
   py: 1,
   cursor: "pointer",
-}
+};
 
 export default {
   initialColorMode: "light",
@@ -93,16 +93,16 @@ export default {
     },
     h2: {
       ...baseMerged.styles.h2,
-    //   margin: "0",
-    mt: 3,
-    mb: 2
+      //   margin: "0",
+      mt: 3,
+      mb: 2,
     },
     h3: {
       ...baseMerged.styles.h3,
       color: "primary",
       mt: 3,
-      mb: 2
-    //   margin: "0 0 1em 0",
+      mb: 2,
+      //   margin: "0 0 1em 0",
     },
     h5: {
       ...baseMerged.styles.h5,
@@ -139,6 +139,7 @@ export default {
     },
     a: {
       ...baseMerged.styles.a,
+      color: "primary",
       transition: "color 300ms ease-in",
       ":hover": {
         color: "accent",
@@ -312,7 +313,7 @@ export default {
       left: "50%",
       top: "50%",
       width: "100%",
-      height: '100%',
+      height: "100%",
       margin: 0,
       maxWidth: ["85vw", "960px"],
       maxHeight: ["85vw", "960px"],
@@ -502,4 +503,4 @@ export default {
       },
     },
   },
-}
+};

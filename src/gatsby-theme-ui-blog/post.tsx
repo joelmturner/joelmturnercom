@@ -1,16 +1,15 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui"
-import { Layout, Flexbox, Grid, SEO } from "../components"
-import { Fragment, ReactNode } from "react"
-import { Link } from "gatsby"
-import PostSeries from "../components/postSeries"
+import { jsx, Styled } from "theme-ui";
+import { Layout, Flexbox, Grid, SEO, Link } from "../components";
+import { Fragment, ReactNode } from "react";
+import PostSeries from "../components/postSeries";
 
 type PostNavProps = {
   frontmatter: {
     slug: string;
     title: string;
   };
-}
+};
 
 type PostProps = {
   children: ReactNode | ReactNode[];
@@ -27,26 +26,26 @@ type PostProps = {
     };
   };
   pageContext: {
-    postsInSeries?: {title: string; slug: string}[];
-  } ; 
+    postsInSeries?: { title: string; slug: string }[];
+  };
   data: {
     previous?: PostNavProps;
     next?: PostNavProps;
   };
-}
+};
 
 const Post: React.FC<PostProps> = ({
-  frontmatter: { cover, slug, title, tags, category = "", series = '', order = 0 } = {},
+  frontmatter: { cover, slug, title, tags, category = "", series = "", order = 0 } = {},
   children,
   excerpt,
   data: { previous, next } = {},
-  pageContext: {postsInSeries = []},
+  pageContext: { postsInSeries = [] },
   ...props
 }) => {
-    console.log('series', series)
-    console.log('order', order)
-    console.log('props', props)
-  const siteBaseUrl = "https://joelmturner.com"
+  console.log("series", series);
+  console.log("order", order);
+  console.log("props", props);
+  const siteBaseUrl = "https://joelmturner.com";
   return (
     <Layout sx={{ variant: "post" }}>
       <SEO title={title} description={excerpt} image={cover && cover.publicURL} />
@@ -66,34 +65,30 @@ const Post: React.FC<PostProps> = ({
           </Flexbox>
         )}
 
-        {tags && <Flexbox gap={1} sx={{ mb: 3 }}>
-          <Styled.h6 sx={{ fontWeight: "normal" }}>Tags: </Styled.h6>
-          {tags.map((tag) => (
+        {tags && (
+          <Flexbox gap={1} sx={{ mb: 3 }}>
+            <Styled.h6 sx={{ fontWeight: "normal" }}>Tags: </Styled.h6>
+            {tags.map((tag) => (
               <Link key={tag} to={`/blog/tag/${tag.toLowerCase()}`} sx={{ fontWeight: "normal", variant: "link" }}>
                 <Styled.h6 sx={{ variant: "link" }}>{tag}</Styled.h6>
               </Link>
             ))}
-        </Flexbox>}
+          </Flexbox>
+        )}
 
         <Grid columns="1fr 1fr" gap={2}>
           <Fragment>
             {previous && (
               <Flexbox left>
                 <Styled.p>
-                  <Link
-                    sx={{ variant: "link" }}
-                    to={`/blog/${previous.frontmatter.slug}`}
-                  >{`<-- ${previous.frontmatter.title}`}</Link>
+                  <Link to={`/blog/${previous.frontmatter.slug}`}>{`<-- ${previous.frontmatter.title}`}</Link>
                 </Styled.p>
               </Flexbox>
             )}
             {next && (
               <Flexbox right>
                 <Styled.p>
-                  <Link
-                    sx={{ variant: "link" }}
-                    to={`/blog/${next.frontmatter.slug}`}
-                  >{`${next.frontmatter.title} -->`}</Link>
+                  <Link to={`/blog/${next.frontmatter.slug}`}>{`${next.frontmatter.title} -->`}</Link>
                 </Styled.p>
               </Flexbox>
             )}
@@ -114,7 +109,7 @@ const Post: React.FC<PostProps> = ({
         </Styled.h6>
       </Flexbox>
     </Layout>
-  )
-}
+  );
+};
 
-export default Post
+export default Post;
