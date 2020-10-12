@@ -69,7 +69,7 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/core@7.11.6", "@babel/core@^7.10.3", "@babel/core@^7.11.6":
+"@babel/core@^7.10.3", "@babel/core@^7.11.6":
   version "7.11.6"
   resolved "https://registry.npmjs.org/@babel/core/-/core-7.11.6.tgz#3a9455dc7387ff1bac45770650bc13ba04a15651"
   integrity sha512-Wpcv03AGnmkgm6uS6k8iwhIwTrcP0m17TL1n1sy7qD0qelDu4XNeW0dN0mHfa+Gei211yDaLoEe/VlbXQzM4Bg==
@@ -1073,7 +1073,7 @@
     "@emotion/utils" "0.11.3"
     "@emotion/weak-memoize" "0.2.5"
 
-"@emotion/core@^10.0.0", "@emotion/core@^10.0.14", "@emotion/core@^10.0.16":
+"@emotion/core@^10.0.0", "@emotion/core@^10.0.14":
   version "10.0.35"
   resolved "https://registry.npmjs.org/@emotion/core/-/core-10.0.35.tgz#513fcf2e22cd4dfe9d3894ed138c9d7a859af9b3"
   integrity sha512-sH++vJCdk025fBlRZSAhkRlSUoqSqgCzYf5fMOmqqi3bM6how+sQpg3hkgJonj8GxXM4WbD7dRO+4tegDB9fUw==
@@ -1633,40 +1633,10 @@
     unist-builder "2.0.3"
     unist-util-visit "2.0.3"
 
-"@mdx-js/mdx@^1.6.18":
-  version "1.6.18"
-  resolved "https://registry.npmjs.org/@mdx-js/mdx/-/mdx-1.6.18.tgz#c73345ef75be0ec303c5d87f3b95cbe55c192742"
-  integrity sha512-RXtdFBP3cnf/RILx/ipp5TsSY1k75bYYmjorv7jTaPcHPQwhQdI6K4TrVUed/GL4f8zX5TN2QwO5g+3E/8RsXA==
-  dependencies:
-    "@babel/core" "7.11.6"
-    "@babel/plugin-syntax-jsx" "7.10.4"
-    "@babel/plugin-syntax-object-rest-spread" "7.8.3"
-    "@mdx-js/util" "1.6.18"
-    babel-plugin-apply-mdx-type-prop "1.6.18"
-    babel-plugin-extract-import-names "1.6.18"
-    camelcase-css "2.0.1"
-    detab "2.0.3"
-    hast-util-raw "6.0.1"
-    lodash.uniq "4.5.0"
-    mdast-util-to-hast "9.1.1"
-    remark-footnotes "2.0.0"
-    remark-mdx "1.6.18"
-    remark-parse "8.0.3"
-    remark-squeeze-paragraphs "4.0.0"
-    style-to-object "0.3.0"
-    unified "9.2.0"
-    unist-builder "2.0.3"
-    unist-util-visit "2.0.3"
-
 "@mdx-js/react@1.6.18", "@mdx-js/react@^1.0.0", "@mdx-js/react@^1.5.2", "@mdx-js/react@^1.6.17", "@mdx-js/react@^2.0.0-next.4", "@mdx-js/react@^2.0.0-next.8":
   version "1.6.17"
   resolved "https://registry.npmjs.org/@mdx-js/react/-/react-1.6.17.tgz#2c3a0ec3f9f5e03440f9d2f34296a79933d73231"
   integrity sha512-UdzGY6/eeeJlGOWw0evhQfUxP/+DRt+530lqOkgNrYPyp6q2t1kr0Z0kukPAY9Bwv9lyIGMEm9jeNvBpRnYVgg==
-
-"@mdx-js/react@^1.6.18":
-  version "1.6.18"
-  resolved "https://registry.npmjs.org/@mdx-js/react/-/react-1.6.18.tgz#f83cbb2355de9cf36a213140ce21647da1e34fa7"
-  integrity sha512-aFHsZVu7r9WamlP+WO/lyvHHZAubkQjkcRYlvS7fQElypfJvjKdHevjC3xiqlsQpasx/4KqRMoEIb++wNtd+6w==
 
 "@mdx-js/runtime@^2.0.0-next.4":
   version "2.0.0-next.8"
@@ -1686,11 +1656,6 @@
   version "1.6.17"
   resolved "https://registry.npmjs.org/@mdx-js/util/-/util-1.6.17.tgz#952da84dd470427fd2033d30a999787517e61378"
   integrity sha512-YFRBmsMyQdOQ2l48hn6DipCmSpz2ySQNrjOptA1RC3+YYC9NcOVvNu2fL0GhuN6Ji/XDJ7bXS+0BADyK6uhP8w==
-
-"@mdx-js/util@1.6.18":
-  version "1.6.18"
-  resolved "https://registry.npmjs.org/@mdx-js/util/-/util-1.6.18.tgz#c7563bf72cb4520b8b7100b64006a64be717e936"
-  integrity sha512-axMe+NoLF55OlXPbhRn4GNCHcL1f5W3V3c0dWzg05S9JXm3Ecpxzxaht3g3vTP0dcqBL/yh/xCvzK0ZpO54Eug==
 
 "@mdx-js/util@^2.0.0-next.8":
   version "2.0.0-next.8"
@@ -2244,15 +2209,15 @@
     modularscale "^2.0.1"
     object-assign "^4.1.1"
 
-"@tinacms/alerts@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/@tinacms/alerts/-/alerts-0.29.0.tgz#7c3e390cbfc595b6b21ead9e926739f69a9ccd11"
-  integrity sha512-1f8rceaYikx82RFQHeiOHuDtmfgs0dPEoe2nqmA83q/JpVv2vfCgXEByBVEM11wG6BXARph7EjzlQb5tdvknJQ==
+"@tinacms/alerts@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@tinacms/alerts/-/alerts-0.31.0.tgz#3d74812f74b966bbeab29518d9bcc1a3ce0c09bd"
+  integrity sha512-jXPWwZ6xK7PwmtZWIW5a3SCvP7/t60xRmz1gmBVPwETxqNj0X3CwF6nVgleYs+ybEp/bCeLdATKF2lqrbhJs8g==
 
-"@tinacms/api-git@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/@tinacms/api-git/-/api-git-0.29.0.tgz#b690aac490c7a6057800829b02db9f6ecc5ea948"
-  integrity sha512-q7UYMx7kE+Cme+J3fNEBqzJgX3Q1jBCtQwJ+Ncyl+fvFlTYT1SvwgzwwKi1aNKUpLxuDqjbAw6BdYTrySFC+aw==
+"@tinacms/api-git@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@tinacms/api-git/-/api-git-0.31.0.tgz#8bafa14e45963e2532132c3cc245ed086c295b3b"
+  integrity sha512-oQFr9ym0Y7C9+LgpAp141RFz4XWqxAu7SyRCqnjwPj5Z2FD6KseWv8kRiLTbJyEVsGYP4HryTx9WiTO1ntHSSg==
   dependencies:
     atob "2.1.2"
     cors "^2.8.5"
@@ -2260,15 +2225,15 @@
     multer "1.4.2"
     simple-git "1.126.0"
 
-"@tinacms/core@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/@tinacms/core/-/core-0.29.0.tgz#d5af121051fc0740287c6aba2d3538bcc93e3e0e"
-  integrity sha512-v0kKuIiuQbw19SgdQgL1qUjiQ3+NiR2v/2lznadd/ckYP5PtYE4w0k7mW9ULh2wsiiGo/OD3Cwv/dNSQxcg0Zg==
+"@tinacms/core@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@tinacms/core/-/core-0.31.0.tgz#da97b78c8f972ac41b6d7ca327e20e017f0d1b3b"
+  integrity sha512-stfCyx1eqFSx8kWoQGiFLkm42bZ7VduIXzjFd+RTieccuDYbAyiH5CNPJxjqixKgaKmzQ++c3l6+bjdYvkb6xw==
 
-"@tinacms/fields@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/@tinacms/fields/-/fields-0.29.0.tgz#1a229cf6fe5f08b6f31135f3e14d962f2f146162"
-  integrity sha512-pS2qrBZhvu2uGACCs0aD/VF+qHYpXpE/b2QCuT0Alwc29N9HfkXeB+yLZqSzREP6xzR0HGynyGGocxKysHV47A==
+"@tinacms/fields@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@tinacms/fields/-/fields-0.31.0.tgz#c5ae90b75fbf5bdb8f278b79d2d229f88efdd609"
+  integrity sha512-5q3cnj41/j0NKsX+rAwaTEJF2txQkuhPaE6pXk4bWH5MzFy8pvjQPZhWz6C5yufXNIVGpK4WSb0xOhEm34Z6yw==
   dependencies:
     "@sambego/storybook-styles" "^1.0.0"
     "@types/react-select" "^2.0.11"
@@ -2277,87 +2242,82 @@
     react-dismissible "^1.3.0"
     react-dropzone "10.1.8"
 
-"@tinacms/form-builder@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/@tinacms/form-builder/-/form-builder-0.29.0.tgz#d19470724ef2b7da3865dd0e522f5f95163803ad"
-  integrity sha512-XpkuTjJyFcgkn+UVog6DZyMrXZtaXkA+rqhXrhXHA8uWg0H6ancjcJi/+E2utA+VMLTdBfM5wMS4IGhxjLDTqQ==
+"@tinacms/form-builder@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@tinacms/form-builder/-/form-builder-0.31.0.tgz#97dd593c16aa29113f62c1fe52565cf444301833"
+  integrity sha512-ZvNnabrqS18wdtP54EzJnmoOTXc+daxFDCa7JJSqG15ou39Zpdjq8Upn7j9EUP7ppiLSHDp+0vSGEQqthFL5HQ==
   dependencies:
-    "@tinacms/forms" "^0.29.0"
-    "@tinacms/react-core" "^0.29.0"
+    "@tinacms/forms" "^0.31.0"
+    "@tinacms/react-core" "^0.31.0"
     react-final-form "^6.3.0"
 
-"@tinacms/forms@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/@tinacms/forms/-/forms-0.29.0.tgz#5bf07a15c0e7447689b0a44092f2b137b735810a"
-  integrity sha512-5od+CPJVxvXgr0tUqyYGUlQutFLCRWCCH1O+dA2aY4gzWUMjAA6o64Z9uFHUJ4IU8RTnpfxJZzpHUPN37ynayg==
+"@tinacms/forms@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@tinacms/forms/-/forms-0.31.0.tgz#17c9683f2d1b178b4b2844cdc12ce3ae7268f315"
+  integrity sha512-j/31kOZj/f4/aelj+Qs2QzD7pPL/fakKrwmmFESqptZQY++pqlVW6LTwq4AfaDsbji+LWVJXLpMYDxO4ASWUdA==
   dependencies:
     final-form "^4.18.2"
     final-form-arrays "^3.0.1"
 
-"@tinacms/git-client@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/@tinacms/git-client/-/git-client-0.29.0.tgz#a79407229d28ed147de80c6957b2ed6689c8173a"
-  integrity sha512-jQuzEuq7aBi8RwBkpCZn9Rc3pWttB2Et6jnnNkPbo+JOeL2y4uh9jHtuV/SEWwewQwrDQAeqyY9Ckd1O9ncojg==
+"@tinacms/git-client@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@tinacms/git-client/-/git-client-0.31.0.tgz#217f71d2f06e5de551f46b5f62d7b227b68e0a05"
+  integrity sha512-Gl4EpRXm0qlXJU1r7iv4V7JfOOcd3ZEbNuyP2c+lMqwstx8OWPMcae95rwTZypDvnJgrWfPP85671CJG5pF4+g==
 
-"@tinacms/icons@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/@tinacms/icons/-/icons-0.29.0.tgz#b999c06ce095512317213d28ddbe10810458e16d"
-  integrity sha512-yjwAPpVqQ3RzdT0F2qzupUgkL/dm0p4CtjldT9yx/AGzACLjt6PBvVVYiI9tC2WWbRT1pC4ZLcIBplRoph6ZMA==
+"@tinacms/icons@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@tinacms/icons/-/icons-0.31.0.tgz#26d98607e7c484163ddb19d9e5dbfd368910e0c6"
+  integrity sha512-UHHrruFfWbQycOJDBkv71qF/AOcV36db2iOo3lbAgJjhq7iBBQ3a03cP78Ji7Y8jjVBIRcQ6PMdJKTCZBreiJw==
 
-"@tinacms/media@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/@tinacms/media/-/media-0.29.0.tgz#d8b05945edf6aa15b127fcb2d78a3051f02f0934"
-  integrity sha512-5Sw6EiXIEoBMtIaAmAEHlC3dcdoEQAiZjy9pFdxOvDUlsRqRCGZes0284vg2WP0Z/NidtxPbl1uWpFg/x9Nttg==
+"@tinacms/react-alerts@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@tinacms/react-alerts/-/react-alerts-0.31.0.tgz#525be04f19c180ac4bb12d0f0df7b55ddfdbc932"
+  integrity sha512-yt3fIO83KrrULfEAYPO9WpfvyLOFJtLu1RtBKDSUABndcvL+YHjRnkbfWHQdRLKcBH+tgf956aRNifCJVed87Q==
 
-"@tinacms/react-alerts@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/@tinacms/react-alerts/-/react-alerts-0.29.0.tgz#213cccabbb5c6dd86dc9efc7a95aeacf12898766"
-  integrity sha512-CA+vxFF2JDjp7weNztymu6J4WC/2M+NkMEuMq2M9R0UOQkUVd5lNr/yPa5zDxvYDUPQt5KDVvekqJIxwRkon7Q==
-
-"@tinacms/react-core@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/@tinacms/react-core/-/react-core-0.29.0.tgz#743d527d8d09794a13ab69d0f607936ef0a0f34f"
-  integrity sha512-uX9Nz0L6UW7QZsXOzMI4VIjFCMGxFBfO3bCDrlrMbAKjEVvYU1z1mK07/urJhrxHEOs4O9T5pt5cYejeuE/2cg==
+"@tinacms/react-core@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@tinacms/react-core/-/react-core-0.31.0.tgz#d6eb77edac4e4cc6f1c616ee7ad17c8bc1b4ff4f"
+  integrity sha512-gz9AbGtkQikm5FQVPWSuiBSFBsP0wzwIgOedORg5eh65AeTm4pXsJ/QTL4t5PIBMJEr/aTDXNMEq0vxGpvGJnw==
   dependencies:
-    "@tinacms/core" "^0.29.0"
-    "@tinacms/forms" "^0.29.0"
+    "@tinacms/core" "^0.31.0"
+    "@tinacms/forms" "^0.31.0"
 
-"@tinacms/react-forms@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/@tinacms/react-forms/-/react-forms-0.29.0.tgz#ceaefd2511476556141f9ce2c69ef00ba3bd525a"
-  integrity sha512-pv5xIBN6iNIeHYDZbNzH7IDXv4u5KLRPNST5CHBgKuVFqBFd6RWUqVQj68RPhcAH/GQt8+ZoZfQ1E2YM7zS3Dg==
+"@tinacms/react-forms@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@tinacms/react-forms/-/react-forms-0.31.0.tgz#7a5f6ec4efd9213dfc6b90527671f1a6bb866771"
+  integrity sha512-QIk93YhyNplhjMoAe0P30Nl9iDUki64B747N/37X3KU9659WS2i2oSpMdTyYSdVzRuLQp6AWcw8OXz8DQoVNug==
   dependencies:
-    "@tinacms/form-builder" "^0.29.0"
+    "@tinacms/form-builder" "^0.31.0"
     react-beautiful-dnd "^11.0.5"
     react-dismissible "^1.3.0"
 
-"@tinacms/react-modals@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/@tinacms/react-modals/-/react-modals-0.29.0.tgz#a5dccb257ea76af8dbacabc7b6ccbbef2c1fbb8c"
-  integrity sha512-8Nyg4T5aqUnlppmT2HkH02AZKADXc5Mma1QKFT94fGuB3PDWI+99bx5curnJNyFhprLfwoacuPdtwQ5vlWLfZg==
+"@tinacms/react-modals@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@tinacms/react-modals/-/react-modals-0.31.0.tgz#bda51cd0927c11aa831d39827651940cf8eb57b3"
+  integrity sha512-kB46nppeTVXjXWSz6AW5wrldBrsUYcXDCf9xdqG54CiXib/PCZQIPMFPBiLu98U9cFB0Ewg6Uz6tr0fECsUsyg==
 
-"@tinacms/react-screens@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/@tinacms/react-screens/-/react-screens-0.29.0.tgz#1b8921dd7f35f36a14f451acf22335ac43e92cb1"
-  integrity sha512-93Z3g3kN7mv6i564X6M7BGFfIRRC7VUbJXHTEM3lPZwp8JOMMBuxoLHTUNIuuPgeoUo+HVhKI5gcPmheKU8xUw==
+"@tinacms/react-screens@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@tinacms/react-screens/-/react-screens-0.31.0.tgz#f6d9ac31b1f800441412ba23f9784f457b46f077"
+  integrity sha512-cYgc5Uc9UqwWCX3jSyzJxlLEaW9bTSqEs03+LKcAFNnqq3GdJwb8HxOtpBKx2JXEG5JiHX1IbCGyZbZFwYumQQ==
 
-"@tinacms/react-sidebar@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/@tinacms/react-sidebar/-/react-sidebar-0.29.0.tgz#70165fc428e9d7d9df128eed0c656b9c410bb9b3"
-  integrity sha512-y/DJDLWVlOrDTV/bNJp/qI2FdJLQETEUH19drWp+KTCXQeAVYht8kWqXcdhzGxEB/IPyooL23+ubQm8/4fKKag==
+"@tinacms/react-sidebar@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@tinacms/react-sidebar/-/react-sidebar-0.31.0.tgz#d4b9cda4b43bae259eaa6e30debcd183d30e3be1"
+  integrity sha512-MVhUkafNpQdB0wSUChYxtCkTlKq0uNEIR3w2Z9u1Rj9nRfxYRhP425Q26vaQFUgCGfrTQZiQSLL32mXxSi92Pw==
   dependencies:
-    "@tinacms/core" "^0.29.0"
-    "@tinacms/forms" "^0.29.0"
+    "@tinacms/core" "^0.31.0"
+    "@tinacms/forms" "^0.31.0"
     react-dismissible "^1.3.0"
 
-"@tinacms/react-toolbar@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/@tinacms/react-toolbar/-/react-toolbar-0.29.0.tgz#5ffd80c48ac5d66e24f49c391a23a4d2795686e9"
-  integrity sha512-CnLCOH6FeGMxKPL5YeakofC5eYaoskJiJt3pXYBrFKPnxIBuxm68T3r/24U90gyd3SHBgtalfyTQbrqVZbVczg==
+"@tinacms/react-toolbar@^0.31.0":
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/@tinacms/react-toolbar/-/react-toolbar-0.31.0.tgz#d054d76d254fe4059e7e03e09d3c3c6381fce24f"
+  integrity sha512-0+EsskqoxgeEGPpXjKz+JsyNmjUIChLiTfy4e26RqY2c6bhgWoPk9h7Vtk7hUphvX4nneOV86vXuFeJ3jQ1N5A==
   dependencies:
-    "@tinacms/core" "^0.29.0"
-    "@tinacms/fields" "^0.29.0"
-    "@tinacms/forms" "^0.29.0"
+    "@tinacms/core" "^0.31.0"
+    "@tinacms/fields" "^0.31.0"
+    "@tinacms/forms" "^0.31.0"
     react-dismissible "^1.3.0"
 
 "@tinacms/styles@^0.29.0":
@@ -3584,6 +3544,11 @@ attr-accept@^1.1.3:
   dependencies:
     core-js "^2.5.0"
 
+attr-accept@^2.0.0:
+  version "2.2.2"
+  resolved "https://registry.npmjs.org/attr-accept/-/attr-accept-2.2.2.tgz#646613809660110749e92f2c10833b70968d929b"
+  integrity sha512-7prDjvt9HmqiZ0cl5CRjtS84sEyhsHP2coDkaZKRKVfCDo9s7iw7ChVmar78Gu9pC4SoR/28wFu/G5JJhTnqEg==
+
 auto-bind@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/auto-bind/-/auto-bind-4.0.0.tgz#e3589fc6c2da8f7ca43ba9f84fa52a744fc997fb"
@@ -3695,14 +3660,6 @@ babel-plugin-apply-mdx-type-prop@1.6.17:
     "@babel/helper-plugin-utils" "7.10.4"
     "@mdx-js/util" "1.6.17"
 
-babel-plugin-apply-mdx-type-prop@1.6.18:
-  version "1.6.18"
-  resolved "https://registry.npmjs.org/babel-plugin-apply-mdx-type-prop/-/babel-plugin-apply-mdx-type-prop-1.6.18.tgz#81f31b472f3b28289d4cea0f76c0315e6b85394f"
-  integrity sha512-lcpbj/GatKQp48jsJ8Os/ZXv381ZYFNKA27EPllcpFMpqiS696XkoK+xie/2GjzQSe5IIbo3srsXpd6/ik8PsQ==
-  dependencies:
-    "@babel/helper-plugin-utils" "7.10.4"
-    "@mdx-js/util" "1.6.18"
-
 babel-plugin-dynamic-import-node@^2.3.3:
   version "2.3.3"
   resolved "https://registry.npmjs.org/babel-plugin-dynamic-import-node/-/babel-plugin-dynamic-import-node-2.3.3.tgz#84fda19c976ec5c6defef57f9427b3def66e17a3"
@@ -3730,13 +3687,6 @@ babel-plugin-extract-import-names@1.6.17:
   version "1.6.17"
   resolved "https://registry.npmjs.org/babel-plugin-extract-import-names/-/babel-plugin-extract-import-names-1.6.17.tgz#7a73aabee065360d6d998984e366b48eac4cf322"
   integrity sha512-CkC0IVA5tW1Vb9d6CnVYEU2eKR+ufZMHfzXDpC7NK90fk5FRs0xjmu+QHgUeiifQNro9capLsj/rR98aZgM5/Q==
-  dependencies:
-    "@babel/helper-plugin-utils" "7.10.4"
-
-babel-plugin-extract-import-names@1.6.18:
-  version "1.6.18"
-  resolved "https://registry.npmjs.org/babel-plugin-extract-import-names/-/babel-plugin-extract-import-names-1.6.18.tgz#be74a5e12e1b5a5db5af53015a6a62ad16ac18f5"
-  integrity sha512-2EyZia3Ezl3UdhBcgDl6KZTNkYa2VhmAHHbJdhCroa1pZD/E56BulVsSKIhm/kza9agnabDR2VEHO+ZnqpfxbQ==
   dependencies:
     "@babel/helper-plugin-utils" "7.10.4"
 
@@ -7463,6 +7413,13 @@ file-selector@^0.1.11:
   dependencies:
     tslib "^1.9.0"
 
+file-selector@^0.1.12:
+  version "0.1.13"
+  resolved "https://registry.npmjs.org/file-selector/-/file-selector-0.1.13.tgz#5efd977ca2bca1700992df1b10e254f4e73d2df4"
+  integrity sha512-T2efCBY6Ps+jLIWdNQsmzt/UnAjKOEAlsZVdnQztg/BtAZGNL4uX1Jet9cMM8gify/x4CSudreji2HssGBNVIQ==
+  dependencies:
+    tslib "^2.0.1"
+
 file-type@5.2.0, file-type@^5.2.0:
   version "5.2.0"
   resolved "https://registry.npmjs.org/file-type/-/file-type-5.2.0.tgz#2ddbea7c73ffe36368dfae49dc338c058c2b8ad6"
@@ -8383,12 +8340,12 @@ gatsby-plugin-theme-ui@^0.3.0:
   resolved "https://registry.npmjs.org/gatsby-plugin-theme-ui/-/gatsby-plugin-theme-ui-0.3.0.tgz#ab84216536ae45abe09a6edf24156b9dbf50d6a5"
   integrity sha512-Q2tS8EeYMy7AAtt6hvDtEsd1uwrLMjkDNqabyXhAo38AFoWQ0oKtq9u1YqbiRvp1TK06pAMPQQ3to48LAqc9Cw==
 
-gatsby-plugin-tinacms@^0.29.0:
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/gatsby-plugin-tinacms/-/gatsby-plugin-tinacms-0.29.0.tgz#272f4045508a54c144607568813bcc1c2f9dc6d7"
-  integrity sha512-Cte3MzVGWFLLz0KF20O1202zRAfEy2WGjGxto071fHv640fLiima/fvF3ir90Tv+C6IBYWC3eknQAPh65nrH1A==
+gatsby-plugin-tinacms@^0.31.0:
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/gatsby-plugin-tinacms/-/gatsby-plugin-tinacms-0.31.0.tgz#c005072752b65b66721c2f544160dc83d1f02301"
+  integrity sha512-30b1MP4FO8A8+G44ZPbRcwyzUxSN+adpA+hlBRnjk4E7G/ASyeU/aE13u/9dq9Nx07QPuQqU8GOpO8SGNmeRbQ==
   dependencies:
-    tinacms "^0.29.0"
+    tinacms "^0.31.0"
 
 gatsby-plugin-typescript@^2.2.1, gatsby-plugin-typescript@^2.4.21:
   version "2.4.21"
@@ -8733,13 +8690,13 @@ gatsby-theme-ui-preset@^1.0.2:
   dependencies:
     theme-ui "0.4.0-alpha.3"
 
-gatsby-tinacms-git@^0.29.0:
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/gatsby-tinacms-git/-/gatsby-tinacms-git-0.29.0.tgz#7938d50116edbe8e503b0b248aad0f50d7b73b32"
-  integrity sha512-gXK5ngqL9FpcsFXTWw8u0OsftLEe0HHD1nUjNyODyqXE+q/Nb+1a4UrmFosRr4P3vadvT3iB4BPzUV1TacnnZg==
+gatsby-tinacms-git@^0.31.0:
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/gatsby-tinacms-git/-/gatsby-tinacms-git-0.31.0.tgz#2e397f8deda6d5f828aaf2ca4615a8985cd47eee"
+  integrity sha512-BzKIit8opBkKoYZaQWa9gnefasVdUbFVBueRGYxrjR+z3NoXsApLVRcdsJBLg3PPnvL/ZZYIgwvOUnhUXOdJnA==
   dependencies:
-    "@tinacms/api-git" "^0.29.0"
-    "@tinacms/git-client" "^0.29.0"
+    "@tinacms/api-git" "^0.31.0"
+    "@tinacms/git-client" "^0.31.0"
 
 gatsby-transformer-remark@^2.8.35:
   version "2.8.38"
@@ -9619,22 +9576,6 @@ hast-util-raw@6.0.0:
   version "6.0.0"
   resolved "https://registry.npmjs.org/hast-util-raw/-/hast-util-raw-6.0.0.tgz#49a38f5107d483f83a139709f2f705f22e7e7d32"
   integrity sha512-IQo6tv3bMMKxk53DljswliucCJOQxaZFCuKEJ7X80249dmJ1nA9LtOnnylsLlqTG98NjQ+iGcoLAYo9q5FRhRg==
-  dependencies:
-    "@types/hast" "^2.0.0"
-    hast-util-from-parse5 "^6.0.0"
-    hast-util-to-parse5 "^6.0.0"
-    html-void-elements "^1.0.0"
-    parse5 "^6.0.0"
-    unist-util-position "^3.0.0"
-    vfile "^4.0.0"
-    web-namespaces "^1.0.0"
-    xtend "^4.0.0"
-    zwitch "^1.0.0"
-
-hast-util-raw@6.0.1:
-  version "6.0.1"
-  resolved "https://registry.npmjs.org/hast-util-raw/-/hast-util-raw-6.0.1.tgz#973b15930b7529a7b66984c98148b46526885977"
-  integrity sha512-ZMuiYA+UF7BXBtsTBNcLBF5HzXzkyE6MLzJnL605LKE8GJylNjGc4jjxazAHUtcwT5/CEt6afRKViYB4X66dig==
   dependencies:
     "@types/hast" "^2.0.0"
     hast-util-from-parse5 "^6.0.0"
@@ -11467,7 +11408,7 @@ lodash.bind@^4.1.4:
   resolved "https://registry.npmjs.org/lodash.bind/-/lodash.bind-4.2.1.tgz#7ae3017e939622ac31b7d7d7dcb1b34db1690d35"
   integrity sha1-euMBfpOWIqwxt9fX3LGzTbFpDTU=
 
-lodash.clonedeep@4.5.0, lodash.clonedeep@^4.5.0:
+lodash.clonedeep@4.5.0:
   version "4.5.0"
   resolved "https://registry.npmjs.org/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
   integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
@@ -11932,20 +11873,6 @@ mdast-util-to-hast@9.1.0:
     mdast-util-definitions "^3.0.0"
     mdurl "^1.0.0"
     trim-lines "^1.0.0"
-    unist-builder "^2.0.0"
-    unist-util-generated "^1.0.0"
-    unist-util-position "^3.0.0"
-    unist-util-visit "^2.0.0"
-
-mdast-util-to-hast@9.1.1:
-  version "9.1.1"
-  resolved "https://registry.npmjs.org/mdast-util-to-hast/-/mdast-util-to-hast-9.1.1.tgz#953ff12aed57464b11d7e5549a45913e561909fa"
-  integrity sha512-vpMWKFKM2mnle+YbNgDXxx95vv0CoLU0v/l3F5oFAG5DV7qwkZVWA206LsAdOnEVyf5vQcLnb3cWJywu7mUxsQ==
-  dependencies:
-    "@types/mdast" "^3.0.0"
-    "@types/unist" "^2.0.3"
-    mdast-util-definitions "^3.0.0"
-    mdurl "^1.0.0"
     unist-builder "^2.0.0"
     unist-util-generated "^1.0.0"
     unist-util-position "^3.0.0"
@@ -14719,6 +14646,15 @@ react-dropzone@10.1.8:
     file-selector "^0.1.11"
     prop-types "^15.7.2"
 
+react-dropzone@^11.1.0:
+  version "11.2.0"
+  resolved "https://registry.npmjs.org/react-dropzone/-/react-dropzone-11.2.0.tgz#4e54fa3479e6b6bb93f67914e4a27f1260807fdb"
+  integrity sha512-S/qaXQHCCg7MVlcrhqd05MLC6DupITLUB0CFn3iCLs6OTjzxdGDF1WTktTe5Jyq8jZdxYfMHNUZOHL0mg+K0Dw==
+  dependencies:
+    attr-accept "^2.0.0"
+    file-selector "^0.1.12"
+    prop-types "^15.7.2"
+
 react-error-overlay@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/react-error-overlay/-/react-error-overlay-3.0.0.tgz#c2bc8f4d91f1375b3dad6d75265d51cd5eeaf655"
@@ -15276,11 +15212,6 @@ remark-footnotes@1.0.0:
   resolved "https://registry.npmjs.org/remark-footnotes/-/remark-footnotes-1.0.0.tgz#9c7a97f9a89397858a50033373020b1ea2aad011"
   integrity sha512-X9Ncj4cj3/CIvLI2Z9IobHtVi8FVdUrdJkCNaL9kdX8ohfsi18DXHsCVd/A7ssARBdccdDb5ODnt62WuEWaM/g==
 
-remark-footnotes@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/remark-footnotes/-/remark-footnotes-2.0.0.tgz#9001c4c2ffebba55695d2dd80ffb8b82f7e6303f"
-  integrity sha512-3Clt8ZMH75Ayjp9q4CorNeyjwIxHFcTkaektplKGl2A1jNGEUey8cKL0ZC5vJwfcD5GFGsNLImLG/NGzWIzoMQ==
-
 remark-mdx@1.6.17:
   version "1.6.17"
   resolved "https://registry.npmjs.org/remark-mdx/-/remark-mdx-1.6.17.tgz#a1ca0f99a06dc2f8dcffd0e1f29b230e12f568c4"
@@ -15294,20 +15225,6 @@ remark-mdx@1.6.17:
     is-alphabetical "1.0.4"
     remark-parse "8.0.3"
     unified "9.1.0"
-
-remark-mdx@1.6.18:
-  version "1.6.18"
-  resolved "https://registry.npmjs.org/remark-mdx/-/remark-mdx-1.6.18.tgz#d8c76017c95824cc7fb853bb2759add8ba0cf319"
-  integrity sha512-xNhjv4kJZ8L6RV68yK8fQ6XWlvSIFOE5VPmM7wMKSwkvwBu6tlUJy0gRF2WiZ4fPPOj6jpqlVB9QakipvZuEqg==
-  dependencies:
-    "@babel/core" "7.11.6"
-    "@babel/helper-plugin-utils" "7.10.4"
-    "@babel/plugin-proposal-object-rest-spread" "7.11.0"
-    "@babel/plugin-syntax-jsx" "7.10.4"
-    "@mdx-js/util" "1.6.18"
-    is-alphabetical "1.0.4"
-    remark-parse "8.0.3"
-    unified "9.2.0"
 
 remark-mdx@^1.6.16:
   version "1.6.16"
@@ -17278,28 +17195,26 @@ timsort@^0.3.0:
   resolved "https://registry.npmjs.org/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
 
-tinacms@^0.29.0:
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/tinacms/-/tinacms-0.29.0.tgz#0d7c338c362f04641159b80bb3b334448f2ec30e"
-  integrity sha512-VbFPo9sIFwYqkQ/BJic0yiu5e9qRnUZF9sXxwY9iBMG0Xw83335OXxP0glSFf0BqjBMYTiXGW+0MgsRJEX0qng==
+tinacms@^0.31.0:
+  version "0.31.0"
+  resolved "https://registry.npmjs.org/tinacms/-/tinacms-0.31.0.tgz#91fd61dc1b7652d877c89277aae06dc3b0e91f97"
+  integrity sha512-GALwlcg5rJ9JZb+LcjKRk+Zj+svRQ48rJ1RKX9okrBXdljcn9fC1NpaMW3F+fvEOmYRomD+ERj6t4dz3PpVQyw==
   dependencies:
-    "@tinacms/alerts" "^0.29.0"
-    "@tinacms/core" "^0.29.0"
-    "@tinacms/fields" "^0.29.0"
-    "@tinacms/form-builder" "^0.29.0"
-    "@tinacms/forms" "^0.29.0"
-    "@tinacms/icons" "^0.29.0"
-    "@tinacms/media" "^0.29.0"
-    "@tinacms/react-alerts" "^0.29.0"
-    "@tinacms/react-core" "^0.29.0"
-    "@tinacms/react-forms" "^0.29.0"
-    "@tinacms/react-modals" "^0.29.0"
-    "@tinacms/react-screens" "^0.29.0"
-    "@tinacms/react-sidebar" "^0.29.0"
-    "@tinacms/react-toolbar" "^0.29.0"
+    "@tinacms/alerts" "^0.31.0"
+    "@tinacms/core" "^0.31.0"
+    "@tinacms/fields" "^0.31.0"
+    "@tinacms/form-builder" "^0.31.0"
+    "@tinacms/forms" "^0.31.0"
+    "@tinacms/icons" "^0.31.0"
+    "@tinacms/react-alerts" "^0.31.0"
+    "@tinacms/react-core" "^0.31.0"
+    "@tinacms/react-forms" "^0.31.0"
+    "@tinacms/react-modals" "^0.31.0"
+    "@tinacms/react-screens" "^0.31.0"
+    "@tinacms/react-sidebar" "^0.31.0"
+    "@tinacms/react-toolbar" "^0.31.0"
     "@tinacms/styles" "^0.29.0"
-    lodash.clonedeep "^4.5.0"
-    lodash.merge "^4.6.2"
+    react-dropzone "^11.1.0"
 
 tiny-emitter@^2.0.0:
   version "2.1.0"
@@ -17699,18 +17614,6 @@ unified@9.1.0:
     trough "^1.0.0"
     vfile "^4.0.0"
 
-unified@9.2.0, unified@^9.1.0:
-  version "9.2.0"
-  resolved "https://registry.npmjs.org/unified/-/unified-9.2.0.tgz#67a62c627c40589edebbf60f53edfd4d822027f8"
-  integrity sha512-vx2Z0vY+a3YoTj8+pttM3tiJHCwY5UFbYdiWrwBEbHmK8pvsPj2rtAX2BFfgXen8T39CJWblWRDT4L5WGXtDdg==
-  dependencies:
-    bail "^1.0.0"
-    extend "^3.0.0"
-    is-buffer "^2.0.0"
-    is-plain-obj "^2.0.0"
-    trough "^1.0.0"
-    vfile "^4.0.0"
-
 unified@^6.0.0, unified@^6.2.0:
   version "6.2.0"
   resolved "https://registry.npmjs.org/unified/-/unified-6.2.0.tgz#7fbd630f719126d67d40c644b7e3f617035f6dba"
@@ -17744,6 +17647,18 @@ unified@^8.4.2:
   dependencies:
     bail "^1.0.0"
     extend "^3.0.0"
+    is-plain-obj "^2.0.0"
+    trough "^1.0.0"
+    vfile "^4.0.0"
+
+unified@^9.1.0:
+  version "9.2.0"
+  resolved "https://registry.npmjs.org/unified/-/unified-9.2.0.tgz#67a62c627c40589edebbf60f53edfd4d822027f8"
+  integrity sha512-vx2Z0vY+a3YoTj8+pttM3tiJHCwY5UFbYdiWrwBEbHmK8pvsPj2rtAX2BFfgXen8T39CJWblWRDT4L5WGXtDdg==
+  dependencies:
+    bail "^1.0.0"
+    extend "^3.0.0"
+    is-buffer "^2.0.0"
     is-plain-obj "^2.0.0"
     trough "^1.0.0"
     vfile "^4.0.0"

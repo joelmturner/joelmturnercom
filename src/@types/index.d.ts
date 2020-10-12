@@ -1,8 +1,8 @@
 declare module "@mdx-js/react" {
-  import { ComponentType, StyleHTMLAttributes, Component } from "react"
+  import { Component, ReactNode } from "react"
   type MDXProps = {
-    children: React.ReactNode;
-    components: { wrapper: React.ReactNode };
+    children: ReactNode;
+    components: { wrapper: ReactNode };
   }
   export class MDXProvider extends Component<MDXProps> {}
 }
@@ -28,12 +28,10 @@ declare module "typography-theme-noriega" {
 }
 
 declare module "*.md" {
+  // eslint-disable-next-line no-undef
   let Md: (props: any) => JSX.Element
   export default Md
 }
 
-declare module "gatsby-plugin-mdx" {
-  const MDXRenderer: any
-  export { MDXRenderer }
-}
-
+declare module '@theme-ui/prism';
+declare module 'mdx-utils';

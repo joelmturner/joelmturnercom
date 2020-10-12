@@ -7,9 +7,10 @@ import { FluidObject } from "gatsby-image"
 import matchSorter from "match-sorter"
 import loadable from "@loadable/component"
 import { useKeypress } from "../hooks"
+import { FC } from "react"
 const PostCard = loadable(() => import("../components/postCard"))
 
-type Posts = {
+type IPosts = {
   edges: Array<{
     node: {
       frontmatter: {
@@ -31,8 +32,8 @@ type Posts = {
 }
 
 type Data = {
-  allBlogPosts: Posts;
-  recentBlogPosts: Posts;
+  allBlogPosts: IPosts;
+  recentBlogPosts: IPosts;
 }
 
 type PostsProps = {
@@ -50,7 +51,7 @@ const pageTitle = {
   tag: "Tag",
 }
 
-const Posts: React.FC<PostsProps> = ({ pageContext, ...props }) => {
+const Posts: FC<PostsProps> = ({ pageContext, ...props }) => {
   console.log("props", props)
   const [search, setSearch] = useState<string>("")
   const esc = useKeypress("Escape")
@@ -81,7 +82,7 @@ const Posts: React.FC<PostsProps> = ({ pageContext, ...props }) => {
 
   const { allBlogPosts: { edges = [] } = {} } = data
 
-  const filteredEdges: Posts["edges"] = useMemo(() => {
+  const filteredEdges: IPosts["edges"] = useMemo(() => {
     if (!pageContext?.isArchive) {
       return edges
     }

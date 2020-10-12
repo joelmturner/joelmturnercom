@@ -73,7 +73,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
         </Flexbox>
       </Grid>
 
-      <Intro sx={{ a: { color: "green" } }} />
+      <Intro />
 
       <Flexbox between bottom>
         <Flexbox vertical>

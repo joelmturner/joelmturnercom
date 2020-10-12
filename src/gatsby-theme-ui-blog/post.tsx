@@ -3,6 +3,7 @@ import { jsx, Styled } from "theme-ui";
 import { Layout, Flexbox, Grid, SEO, Link } from "../components";
 import { Fragment, ReactNode } from "react";
 import PostSeries from "../components/postSeries";
+import { FC } from "react";
 
 type PostNavProps = {
   frontmatter: {
@@ -34,18 +35,15 @@ type PostProps = {
   };
 };
 
-const Post: React.FC<PostProps> = ({
+const Post: FC<PostProps> = ({
   frontmatter: { cover, slug, title, tags, category = "", series = "", order = 0 } = {},
   children,
   excerpt,
   data: { previous, next } = {},
   pageContext: { postsInSeries = [] },
-  ...props
 }) => {
-  console.log("series", series);
-  console.log("order", order);
-  console.log("props", props);
   const siteBaseUrl = "https://joelmturner.com";
+  console.log('children', children)
   return (
     <Layout sx={{ variant: "post" }}>
       <SEO title={title} description={excerpt} image={cover && cover.publicURL} />

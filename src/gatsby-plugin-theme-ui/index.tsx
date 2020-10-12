@@ -43,8 +43,9 @@ const tabDefaults = {
 };
 
 export default {
-  initialColorMode: "light",
+  initialColorModeName: "light",
   useCustomProperties: true,
+  useColorSchemeMediaQuery: true,
   ...baseMerged,
   fonts: {
     ...baseMerged.fonts,
@@ -119,6 +120,14 @@ export default {
       ...baseMerged.styles.p,
       fontSize: 3,
       mb: 2,
+      a: {
+        ...baseMerged.styles.a,
+        color: "primary",
+        transition: "color 300ms ease-in",
+        ":hover": {
+          color: "accent",
+        },
+      },
     },
     li: {
       ...baseMerged.styles.li,
