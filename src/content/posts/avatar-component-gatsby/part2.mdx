@@ -12,7 +12,7 @@ series: Create an Avatar Component in Gatsby with TypeScript
 order: 1
 ---
 
-import AvatarPart2 from "../../../src/components/avatar.tsx";
+import AvatarPart2 from "./components/part2.tsx";
 
 In <Link to='/blog/avatar-component-gatsby-1'>Part 1</Link> we put together a simple avatar component that can receive an image url and render it out as a round image.
 
@@ -64,7 +64,7 @@ const data = useStaticQuery(graphql`
     placeholderImage: file(relativePath: { eq: "monster-01-headshot.png" }) {
       childImageSharp {
         fixed(width: 75, height: 75) {
-          ...GatsbyImageSharpFixed
+          ...GatsbyImageSharpFixed_withWebp
         }
       }
     }
@@ -102,7 +102,7 @@ function Avatar(props) {
       placeholderImage: file(relativePath: { eq: "monster-01-headshot.png" }) {
         childImageSharp {
           fixed(width: 75, height: 75) {
-            ...GatsbyImageSharpFixed
+            ...GatsbyImageSharpFixed_withWebp
           }
         }
       }
@@ -135,7 +135,7 @@ function Avatar(props) {
       placeholderImage: file(relativePath: { eq: "monster-01-headshot.png" }) {
         childImageSharp {
           fixed(width: 75, height: 75) {
-            ...GatsbyImageSharpFixed
+            ...GatsbyImageSharpFixed_withWebp
           }
         }
       }
@@ -168,14 +168,14 @@ function Avatar(props) {
         monster1: file(relativePath: { eq: "monster-01-headshot.png" }) {
           childImageSharp {
             fixed(width: 75, height: 75) {
-              ...GatsbyImageSharpFixed
+              ...GatsbyImageSharpFixed_withWebp
             }
           }
         }
         monster2: file(relativePath: { eq: "monster-02-headshot.png" }) {
           childImageSharp {
             fixed(width: 75, height: 75) {
-              ...GatsbyImageSharpFixed
+              ...GatsbyImageSharpFixed_withWebp
             }
           }
         }
@@ -184,7 +184,7 @@ function Avatar(props) {
 
   const {url, altText, title, user} = props;
   const image = data[user].childImageSharp.fixed;
-  {...}
+  ...
 ```
 
 That way we can pass `monster1` or `monster2` in our `user` prop to have it render that monster.

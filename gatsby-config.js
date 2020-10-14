@@ -55,6 +55,7 @@ module.exports = {
       resolve: `gatsby-theme-ui-blog`,
       options: {
         basePath: `/blog/`,
+        contentPath: 'src/content/posts'
       },
     },
     `gatsby-plugin-typescript`,
@@ -182,6 +183,8 @@ module.exports = {
         // basePath defaults to `/`
         basePath: `/notes`,
         mdx: false,
+        preset: false,
+        contentPath: 'src/content/notes'
       },
     },
     {

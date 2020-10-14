@@ -4,7 +4,9 @@ import { useState, useCallback, useEffect, useMemo } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import { Layout, SEO, Flexbox } from "../components"
 import { FluidObject } from "gatsby-image"
-import matchSorter from "match-sorter"
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { matchSorter } from "match-sorter"
 import loadable from "@loadable/component"
 import { useKeypress } from "../hooks"
 import { FC } from "react"
@@ -101,7 +103,7 @@ const Posts: FC<PostsProps> = ({ pageContext, ...props }) => {
     return edges
   }, [pageContext, edges])
 
-  const posts = search
+  const posts: IPosts["edges"] = search
     ? matchSorter(filteredEdges, search, {
         keys: ["node.frontmatter.title", "node.frontmatter.category", "node.frontmatter.tags"],
       })

@@ -5,14 +5,14 @@ export const query = graphql`
     monster1: file(relativePath: { eq: "monster-01-headshot.png" }) {
       childImageSharp {
         fixed(width: 75) {
-          ...GatsbyImageSharpFixed_noBase64
+          ...GatsbyImageSharpFixed_withWebp_noBase64
         }
       }
     }
     monster2: file(relativePath: { eq: "monster-02-headshot.png" }) {
       childImageSharp {
         fixed(width: 75) {
-          ...GatsbyImageSharpFixed_noBase64
+          ...GatsbyImageSharpFixed_withWebp_noBase64
         }
       }
     }
@@ -22,7 +22,7 @@ export const query = graphql`
     localFile {
       childImageSharp {
         fluid(maxWidth: 1248, maxHeight: 1248) {
-          ...GatsbyImageSharpFluid_noBase64
+          ...GatsbyImageSharpFluid_withWebp_noBase64
         }
       }
     }
@@ -86,7 +86,7 @@ export const query = graphql`
         localFile {
           childImageSharp {
             fluid(maxWidth: 170, maxHeight: 170) {
-              ...GatsbyImageSharpFluid_noBase64
+              ...GatsbyImageSharpFluid_withWebp_noBase64
             }
           }
         }

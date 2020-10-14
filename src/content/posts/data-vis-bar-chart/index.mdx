@@ -12,7 +12,7 @@ order: 0
 
 Data visualization is steadily becoming more valuable to companies as they try to understand all the data they have coming in. There are a lot of different solutions for data visualization in javaScript, [d3](https://d3js.org/) being one of the most popular.
 
-When working in React it can frustrating to handle d3 since they tend to compete for the DOM. There is a solution that we've been using for a little while at Sprinklr to help with this.
+When working in React it can be frustrating to handle d3 since they tend to compete for the DOM. There is a solution that we've been using for a little while at Sprinklr to help with this.
 
 That solution is the library [@vx](https://vx-demo.now.sh/). It's a set of base components in React that wrap d3, made to build a charting library from. There are some great helpers rolled up in the components that make working with `svg`'s much better. It hasn't been released as stable quite yet but it works for our purposes.
 
@@ -65,7 +65,7 @@ const defaultData1 = [
 ]
 ```
 
-Now that we have the shape of our data we can add some helper functions that will access those items. This will help us add the labels across the x axis and the values along the y axis. We'll see how these come into play a little later.
+Now that we have the shape of our data we can add some helper functions that will access those items. This will help us add the labels across the x-axis, and the values along the y-axis. We'll see how these come into play a little later.
 
 ```js
 // accessors return the label and value of that data item
@@ -75,7 +75,7 @@ const y = (d) => d.value
 
 ## Scales
 
-We can now define the max height and max width that we would like our chart to be. Our component will take height and width as props and then we can add a little padding. This will help us as we define our scales for this chart.
+We can now define the max height and max width that we would like our chart to be. Our component will take height and width as props, and then we can add a little padding. This will help us as we define our scales for this chart.
 
 ```js
 // bounds
@@ -149,9 +149,9 @@ export default BarChart
 
 - [x] Can take an array of single dimension data
 
-Looks good. The first thing we'll add is the y axis. To do this we use [`AxisLeft`](https://vx-demo.now.sh/docs/axis#AxisLeft) from @vx. We need to pass it our yScale and we'll give it a few other props for styling. The prop `left` pushes the axis over enough to show the `label` and the `numTicks` limits the number of values shown on the y axis.
+Looks good. The first thing we'll add is the y-axis. To do this we use [`AxisLeft`](https://vx-demo.now.sh/docs/axis#AxisLeft) from @vx. We need to pass it our yScale, and we'll give it a few other props for styling. The prop `left` pushes the axis over enough to show the `label` and the `numTicks` limits the number of values shown on the y-axis.
 
-Then we'll add the [`AxisBottom`](https://vx-demo.now.sh/docs/axis#AxisBottom) that has similar props to to `AxisLeft`. It should look like this:
+Then we'll add the [`AxisBottom`](https://vx-demo.now.sh/docs/axis#AxisBottom) that has similar props to `AxisLeft`. It should look like this:
 
 ```jsx {2-3}
 <Group top={25} left={55}>
