@@ -8,6 +8,7 @@ import Code from "../components/code"
 import Embed from "../components/embed"
 import Link from "gatsby-link"
 import PostGallery from "../components/PostGallery";
+import Note from "../components/note";
 
 const components = {
   pre: (preProps: any) => {
@@ -52,5 +53,6 @@ export default {
   ),
   Series,
   Image,
-  PostGallery
+  PostGallery,
+  Note,
 }
