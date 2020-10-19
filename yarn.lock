@@ -8220,9 +8220,10 @@ gatsby-source-filesystem@^2.3.18, gatsby-source-filesystem@^2.3.19, gatsby-sourc
     valid-url "^1.0.9"
     xstate "^4.13.0"
 
-gatsby-source-instagram@joelmturner/gatsby-source-instagram#temp:
-  version "0.8.0"
-  resolved "https://codeload.github.com/joelmturner/gatsby-source-instagram/tar.gz/29d9133be0fecaf6eef8425489a9bc50de36401f"
+gatsby-source-instagram@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.npmjs.org/gatsby-source-instagram/-/gatsby-source-instagram-0.9.0.tgz#a0778d9b9262c535a1788dcb522040a29305718f"
+  integrity sha512-g/TdvMkowzcoIGyHc5lygE2U+QYw+8d9829r2+/vu9mye+xtHXfGCEgCfGOvhDDHiCwTfodGN67RDMu+oSUOTw==
   dependencies:
     axios "^0.19.0"
 
