@@ -1,7 +1,7 @@
-import React from "react"
-import {Helmet} from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
-import { Schema } from "."
+import React from "react";
+import { Helmet } from "react-helmet";
+import { useStaticQuery, graphql } from "gatsby";
+import Schema from "./schema";
 
 type SEOProps = {
   description?: string;
@@ -17,7 +17,7 @@ type SEOProps = {
   isBlogPost?: boolean;
   datePublished?: string;
   dateModified?: string;
-}
+};
 
 function SEO({
   description,
@@ -44,12 +44,14 @@ function SEO({
         }
       }
     `
-  )
+  );
 
-  const metaDescription = description || site.siteMetadata.description
+  const metaDescription = description || site.siteMetadata.description;
 
-  const metaImage = image ? site.siteMetadata.siteUrl + image : `https://res.cloudinary.com/joelmturner/joel-turner.jpg`
-  const metaKeywords = keywords ? keywords : site.siteMetadata.keywords
+  const metaImage = image
+    ? site.siteMetadata.siteUrl + image
+    : `https://res.cloudinary.com/joelmturner/joel-turner.jpg`;
+  const metaKeywords = keywords ? keywords : site.siteMetadata.keywords;
 
   return (
     <>
@@ -131,7 +133,7 @@ function SEO({
         defaultTitle={title}
       />
     </>
-  )
+  );
 }
 
-export default SEO
+export default SEO;

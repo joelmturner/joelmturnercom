@@ -1,10 +1,9 @@
-import base from "gatsby-theme-ui-blog/src/gatsby-plugin-theme-ui";
-import prism from "@theme-ui/prism/presets/theme-ui";
-import merge from "lodash.merge";
+// import prism from "@theme-ui/prism/presets/theme-ui";
+import merge from "lodash/merge";
 import typography from "./typography";
 import { Theme } from "theme-ui";
 
-const baseMerged = merge(base, typography);
+const baseMerged = merge({}, typography);
 const iconStyles = {
   ml: 2,
   fill: "text",
@@ -172,7 +171,7 @@ export default {
       mt: 3,
     },
     pre: {
-      ...prism,
+      // ...prism,
       p: [1, 2],
       bg: "muted",
       float: "left",
@@ -254,6 +253,7 @@ export default {
     },
   },
   link: {
+    ...baseMerged.styles.a,
     color: "primary",
     transition: "color 300ms ease-in",
     ":hover": {

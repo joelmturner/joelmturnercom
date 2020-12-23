@@ -1,0 +1,102 @@
+---
+title: Productivity Practices for Front End Development
+slug: productivity-practices-front-end-development
+cover: ./productivity-practices-for-front-end-development.png
+date: 2019-09-30T00:00:00.000Z
+draft: false
+tags:
+  - productivity
+  - admin
+category: dev
+series: Productivity Practices
+order: 0
+---
+
+A big part of me getting things done are the systems that I have in place. Today I'll talk about a few of the systems that I'm currently using.
+
+## Window Management
+
+I'm using [Better Touch Tools (BTT)](https://www.folivora.ai/) to snap my windows to specific areas on my screens. BTT as the ability to snap a window to a quarter or half of the screen by dressing the window to the corner or edge of the screen.
+
+This is incredibly helpful for diffing or creating a dashboard. I use the custom window size and position for a few of my windows. Since I use a 2 screen set up I usually have my code (VS Code), terminal (iTerm2), and dev tools on the larger screen.
+
+<Image
+  src="https://res.cloudinary.com/joelmturner/image/upload/w_946,q_80/v1569567747/code-screen.png"
+  alt="vs code, dev tools, iterm2 on screen"
+/>
+
+## Spaces
+
+I position the rest of my apps on my laptop spaces. I've tried having all the apps in the same space and just using the app switcher to toggle between the apps but it felt a little too unorganized for me.
+
+I now have a screen for certain jobs. Here's the breakdown of my current setup by space.
+
+### Screen 1 (just one space)
+
+1. Code
+   1. [VS Code](https://code.visualstudio.com/)
+   2. dev tools ([Chrome](https://developers.google.com/web/tools/chrome-devtools), [Firefox](https://developer.mozilla.org/en-US/docs/Tools))
+   3. [iTerm2](https://www.iterm2.com/)
+
+### Screen 2 (6 spaces)
+
+1. Personal design ([Figma](https://www.figma.com))
+2. Personal
+   1. Personal project dev browser
+   2. Music ([Spotify](https://www.spotify.com))
+3. Communication/Tracking
+   1. [Slack](https://slack.com/)
+   2. [Todoist](https://todoist.com/r/joelmturner_rooqqg)
+4. Git manager ([GitKraken](https://www.gitkraken.com/invite/78cNgZYg))
+5. Work project dev browsers
+6. Work design (Slack, [Abstract](https://www.abstract.com/))
+
+I love that everything has its place and I can just swipe to that space or use the app switcher for quick access. After about a week of using this setup I knew where everything was without thinking about it. That had sped up my project speed by quite a bit while reducing my mental fatigue.
+
+## [App Launching](#app-launching)
+
+Alfred is my go to for app launching and switching. It might be one of the most used apps on my computer currently.
+
+## Clipboard History
+
+This is one of my favorite parts of Alfred. I use the history all the time. Sometimes I use it to save my text in a form so I don't lose it on some save glitch. Being able to grab multiple pieces from a document and paste each one. It's nice to be able to go back and grab something that I didn't know that I would need again but it's there in the history.
+
+## Expanding Text
+
+Expanding text through keyboard shortcuts can speed up so many redundant tasks.
+
+Until recently I was using TextExpander 4 (just before they moved to a subscription model) and have moved all my shortcuts to Alfred. Since I was already using and loving Alfred for its other powerful features I decided to go all in with it for snippets. One of the expansions that I use the most is for `console.log()`. I can type `2log` and it will prompt me for input and fill in `console.log("prompText", prompText)`.
+
+Simple snippets are a breeze with Alfred. Form snippets are a little bit of work but still easy enough.
+
+## Task List
+
+I use Todoist for my task list. It is one of my most valuable tools in my tool belt. I love that it is seamless on all my devices and it's set up well for [GTD](https://gettingthingsdone.com/). I usually dump/collect my ideas, todos, and projects into the inbox and sort them out later when I'm in the project management zone.
+
+One feature I use quite a bit is the template copy. When I get assigned a new ticket I copy my ticket checklist and rename it with the ticket number. This helps me make sure that I get everything done before handing it off to QA.
+
+<Flexbox center>
+
+<Image
+  width="50%"
+  src="https://res.cloudinary.com/joelmturner/image/upload/q_80/v1569567747/todoist-ticket.png"
+  alt="todoist app screen with tasks"
+/>
+
+</Flexbox>
+
+## ZSH/Bash Alias
+
+I have a few helpful aliases set up for quickly switching directories, running tests, starting projects, etc. Here are a few of them:
+
+```bash
+alias nis="npm install; npm start"
+alias ns="npm start"
+alias nt="npm run test"
+alias nsstory="npm run storybook"
+alias grun="./gradlew bootrun"
+alias gtest="./gradlew test"
+alias jmt="cd ~/Desktop/Dev/joelmturner"
+```
+
+I would love to hear about how your setup works for you. Let me know on <a href="https://mobile.twitter.com/search?q=https://joelmturner.com/blog/productivity-practices-front-end-development">Twitter</a>.

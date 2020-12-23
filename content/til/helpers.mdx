@@ -1,0 +1,35 @@
+---
+title: Helpers
+date: 2020-01-01
+draft: false
+slug: helpers
+category: node
+tags:
+  - node
+  - memory
+  - dependencies
+---
+
+### [Heap out of memory fix](https://www.npmjs.com/package/increase-memory-limit)
+
+```bash
+increase-memory-limit
+```
+
+### Version number of package
+
+```bash
+grep version node_modules/react/package.json
+```
+
+### Check dependency conflicts
+
+```bash
+npm ls react-dom
+```
+
+### Update library to alpha version
+
+```bash
+npm version prerelease --preid=alpha.1
+```
