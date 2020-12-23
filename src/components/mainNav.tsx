@@ -18,7 +18,7 @@ const navLinks = [
     label: "Illustration",
   },
   {
-    to: "/notes",
+    to: "/til",
     label: "TIL",
   },
 ];

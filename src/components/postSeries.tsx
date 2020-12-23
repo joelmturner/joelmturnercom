@@ -2,6 +2,7 @@
 import { jsx, Styled } from "theme-ui";
 import Flexbox from "./flexbox";
 import { Link } from "gatsby";
+import { slugify } from "../utils/utils";
 
 type PostSeriesProps = {
   series: string;
@@ -41,7 +42,7 @@ const PostSeries: React.FC<PostSeriesProps> = ({ series, order, postsInSeries })
             );
           }
           return (
-            <Link key={post.slug} to={`/blog/${post.slug}`} sx={{ variant: "link" }}>
+            <Link key={post.slug} to={slugify(post.slug, "/blog")} sx={{ variant: "link" }}>
               <Styled.li sx={{ p: 1, pl: 3, m: 0, fontSize: 1, letterSpacing: "1px" }}>{`${index + 1}) ${
                 post.title
               }`}</Styled.li>

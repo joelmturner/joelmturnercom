@@ -27,6 +27,59 @@ export const query = graphql`
       }
     }
   }
+  fragment PostCard on MdxConnection {
+    edges {
+      node {
+        postPath: gatsbyPath(filePath: "/blog/{Mdx.slug}")
+        slug
+        excerpt
+        frontmatter {
+          title
+          cover {
+            childImageSharp {
+              fluid(maxWidth: 731, maxHeight: 464) {
+                ...GatsbyImageSharpFluid_withWebp_noBase64
+              }
+            }
+          }
+          series
+          order
+          category
+          tags
+        }
+      }
+    }
+  }
+  fragment allBlogPosts on Query {
+    allBlogPosts: allMdx(
+      sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }
+      filter: { frontmatter: { draft: { eq: false } }, fileAbsolutePath: { regex: "/content/blog/" } }
+    ) {
+      ...PostCard
+    }
+  }
+  fragment recentBlogPosts on Query {
+    recentBlogPosts: allMdx(
+      limit: 2
+      sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }
+      filter: { frontmatter: { draft: { eq: false } }, fileAbsolutePath: { regex: "/content/blog/" } }
+    ) {
+      ...PostCard
+    }
+  }
+  fragment allTil on Query {
+    allTil: allMdx(sort: { fields: slug, order: DESC }, filter: { fileAbsolutePath: { regex: "/content/til/" } }) {
+      nodes {
+        body
+        frontmatter {
+          category
+          slug
+          tags
+          title
+        }
+      }
+    }
+  }
   fragment inktober2017 on Query {
     inktober2017: allInstaNode(filter: { hashtags: { glob: "#ink*2017" } }, sort: { fields: timestamp, order: ASC }) {
       nodes {
@@ -108,45 +161,6 @@ export const query = graphql`
       nodes {
         ...InstaNodes
       }
-    }
-  }
-  fragment PostCard on MdxConnection {
-    edges {
-      node {
-        frontmatter {
-          title
-          cover {
-            childImageSharp {
-              fluid(maxWidth: 731, maxHeight: 464) {
-                ...GatsbyImageSharpFluid_withWebp_noBase64
-              }
-            }
-          }
-          category
-          tags
-        }
-        childMdxBlogPost {
-          excerpt(pruneLength: 150)
-          slug
-        }
-      }
-    }
-  }
-  fragment allBlogPosts on Query {
-    allBlogPosts: allMdx(
-      sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }
-      filter: { frontmatter: { draft: { eq: false } } }
-    ) {
-      ...PostCard
-    }
-  }
-  fragment recentBlogPosts on Query {
-    recentBlogPosts: allMdx(
-      limit: 2
-      sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }
-      filter: { frontmatter: { draft: { eq: false } } }
-    ) {
-      ...PostCard
     }
   }
 `;

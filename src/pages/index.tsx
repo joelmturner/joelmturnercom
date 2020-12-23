@@ -4,9 +4,9 @@ import React, { useCallback, useState } from "react";
 import { graphql } from "gatsby";
 import { Layout, SEO, Avatar, Flexbox, Dialog, Gallery, Grid, Link } from "../components";
 import { FluidObject } from "gatsby-image";
-import Intro from "../utils/content-snippets/intro.md";
-import loadable from "@loadable/component";
-const PostCard = loadable(() => import("../components/postCard"));
+import PostCard from "../components/postCard";
+import PartialRenderer from "../components/partialRenderer";
+import { slugify } from "../utils/utils";
 
 export type InstaNode = {
   id: string;
@@ -27,9 +27,7 @@ type MDXNode = {
         };
       };
     };
-    childMdxBlogPost: {
-      slug: string;
-    };
+    slug: string;
   };
 };
 type IndexPageProps = {
@@ -40,12 +38,15 @@ type IndexPageProps = {
     recentBlogPosts: {
       edges: MDXNode[];
     };
+    mdx: {
+      body: any;
+    };
   };
 };
 
 const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
   const [offset, setOffset] = useState(-1);
-  const { featuredInstaRecent: { nodes: insta = [] } = {}, recentBlogPosts: { edges: posts = [] } = {} } = data;
+  const { featuredInstaRecent: { nodes: insta = [] } = {}, recentBlogPosts: { edges: blog = [] } = {}, mdx } = data;
 
   const onClose = useCallback(
     function () {
@@ -73,7 +74,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
         </Flexbox>
       </Grid>
 
-      <Intro />
+      <PartialRenderer mdx={mdx} />
 
       <Flexbox between bottom>
         <Flexbox vertical>
@@ -98,15 +99,9 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
       </Flexbox>
 
       <div sx={{ variant: "collection.post", mt: 2 }}>
-        {posts.length > 0 &&
-          posts.map((edge) => (
-            <PostCard
-              key={edge.node.frontmatter.title}
-              slug={`${edge.node.childMdxBlogPost.slug}`}
-              title={edge.node.frontmatter.title}
-              image={edge.node.frontmatter.cover && edge.node.frontmatter.cover.childImageSharp.fluid}
-            />
-          ))}
+        {blog?.map(({ node: { frontmatter: { title, cover }, slug } }) => (
+          <PostCard key={title} slug={slugify(slug, `/blog`)} title={title} image={cover?.childImageSharp.fluid} />
+        ))}
       </div>
 
       {offset > -1 && <Dialog imageEdges={insta} offset={offset} onClose={onClose} />}
@@ -120,5 +115,12 @@ export const pageQuery = graphql`
   query PageQuery {
     ...recentBlogPosts
     ...featuredInstaRecent
+    mdx(slug: { eq: "intro" }) {
+      frontmatter {
+        title
+      }
+      body
+      slug
+    }
   }
 `;

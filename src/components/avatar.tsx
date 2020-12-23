@@ -12,7 +12,6 @@ type AvatarProps = {
 const Avatar: React.FC<AvatarProps> = ({ user, className, size = "s" }) => {
   const data = useStaticQuery(graphql`
     query {
-      ...monsters
       joel: file(relativePath: { eq: "joel-turner-headshot-web.jpg" }) {
         childImageSharp {
           fixed(height: 55, width: 55) {
