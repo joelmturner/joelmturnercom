@@ -163,6 +163,7 @@ module.exports = {
           "/til/dev/avatar-component-gatsby-2/",
           "/til/dev/avatar-component-gatsby-1/",
           "/til/dev/animated-css-timer-icon/",
+          "/til/dev/svelte-animated-water-svg-pictorial-fraction/",
           "/til/personal-development/concepts/",
           "til/null/",
         ],
