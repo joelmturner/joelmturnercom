@@ -1,7 +1,21 @@
-// import prism from "@theme-ui/prism/presets/theme-ui";
+import nightOwl from "@theme-ui/prism/presets/night-owl.json";
 import merge from "lodash/merge";
 import typography from "./typography";
 import { Theme } from "theme-ui";
+
+const diffHighlight = merge({}, nightOwl, {
+  ".changed": {
+    color: "rgb(162, 191, 252)",
+  },
+  ".deleted": {
+    color: "deleted",
+    textDecoration: "none!important",
+  },
+  ".inserted": {
+    color: "inserted",
+    textDecoration: "none!important",
+  },
+});
 
 const baseMerged = merge({}, typography);
 const iconStyles = {
@@ -72,6 +86,8 @@ export default {
         backgroundSubtle: "#212121",
         muted: "#313131",
         primary: "#fc9",
+        deleted: "rgb(150, 12, 12)",
+        inserted: "rgb(12, 150, 12)",
         secondary: "#bab0ea",
         primaryHighlight: "#f9da9c",
         gray: "#aaa",
@@ -171,7 +187,7 @@ export default {
       mt: 3,
     },
     pre: {
-      // ...prism,
+      ...diffHighlight,
       p: [1, 2],
       bg: "muted",
       float: "left",
@@ -448,6 +464,7 @@ export default {
     },
     '.gatsby-highlight pre[class*="language-"]': {
       webkitOverflowScrolling: "touch",
+      mt: 0,
     },
     '.gatsby-highlight pre[class*="language-"]::before': {
       background: "black",
@@ -460,7 +477,7 @@ export default {
       right: "1rem",
       textAlign: "right",
       textTransform: "uppercase",
-      top: "1rem",
+      top: 0,
     },
     '.gatsby-highlight pre[class~="language-js"]::before': {
       content: '"js"',
@@ -489,6 +506,16 @@ export default {
     },
     '.gatsby-highlight pre[class~="language-css"]::before': {
       content: '"css"',
+      bg: "accent",
+      color: "muted",
+    },
+    '.gatsby-highlight pre[class~="language-html"]::before': {
+      content: '"html"',
+      bg: "accent",
+      color: "muted",
+    },
+    ".gatsby-highlight pre.language-html.svelte::before": {
+      content: '"svelte"',
       bg: "accent",
       color: "muted",
     },

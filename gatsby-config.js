@@ -37,7 +37,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-theme-ui",
       options: {
-        prismPreset: "theme-ui",
+        prismPreset: "nightOwl",
       },
     },
     {

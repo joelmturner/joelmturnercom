@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import { Fragment, ReactElement } from "react";
-import Prism from "@theme-ui/prism";
+import ThemeUIPrism from "@theme-ui/prism";
 import { preToCodeBlock } from "mdx-utils";
 import { Grid, Flexbox, Series, Avatar } from "../components";
 import Code from "../components/code";
@@ -53,7 +53,7 @@ function Image({
 
 export default {
   ...components,
-  code: Prism,
+  code: ThemeUIPrism,
   Avatar,
   Grid,
   Flexbox,
