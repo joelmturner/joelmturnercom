@@ -1,0 +1,194 @@
+---
+title: Animated SVG Water Pictorial Fraction in Svelte
+slug: svelte-animated-water-svg-pictorial-fraction
+cover: "./cover.png"
+draft: false
+date: 2021-01-04
+category: Dev
+tags: [Data Visualization, Svelte, SVG]
+---
+
+One of my favorite charts in data visualization is [Pictorial Fraction](https://datavizproject.com/data-type/pictorial-fraction-chart/). It's essentially a bar chart as a shape that can be partially filled or used as a [small multiple](https://datavizproject.com/data-type/fraction-of-pictograms/) to represent the ratio.
+
+## What We're Building
+<Embed source="codeSandbox" id="svelte-svg-pictorial-fraction-f1hv2" title="Svelte Animated SVG Pictorial Fraction" height="600" />
+
+## Why Svelte.js?
+I've been excited to check out [svelte.js](https://svelte.dev/) for a while and this winter break gave me some time to try it out. It seemed especially great as a way to run data vis in a light-weight way. This was a way to learn a little more about it and see I can make multiple components.
+
+## The Pieces
+The pictorial fraction is a combination of svg pieces that come together to show and mask elements.
+
+## Fill Area
+Let's create a new file and call it `PictorialFraction.svelte`. In here, we'll set up our svg and add a rectangle with a color of your choosing. This will be the color that will show up in the droplet.
+
+```html filename=PictorialFraction.svelte class=svelte
+<svg xmlns="http://www.w3.org/2000/svg" width='264.5' height='264.5'>
+  <rect width='264.5' height='264.5' fill="#ff9900" />
+</svg>
+```
+
+Now we can add some variables for width and height. In svelte, we export these in the script tag. We can also pass those variable into the elements.
+
+```html {1-4,6-7} class=svelte
+<script>
+  export let width;
+  export let height;
+</script>
+
+<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
+  <rect width={width} height={height} fill="#ff9900" />
+</svg>
+```
+
+💡 Svelte tip: we can use a shortcut to add those variables since they have the same name as the attributes. Instead of `<svg width={width} />` we can use `<svg width />`.
+
+Let's position the rectangle using `transform: translate(0, 20px);`. This should allow us to `slide` the rectangle up using the y position, giving our mask the feeling that the water drop is filling up. We're using the style attribute for transform rather than the `transform` attribute on `rect` because Safari doesn't animate the attribute in the same way Chrome and Firefox do, making it choppy.
+
+```html {7} class=svelte
+<script>
+  export let width;
+  export let height;
+</script>
+
+<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
+  <rect width={width} height={height} style={`transform: translate(0, 20px);`} fill="#ff9900" />
+</svg>
+```
+
+Now we'll create the ripple shape that will be placed on top of our rectangle to give a "fluid" feel. For this, we'll use a `path` element and animate it with css.
+
+```html
+<path class='water' d="M420 20.0047C441.5 19.6047 458.8 17.5047 471.1 15.5047C484.5 13.3047 497.6 10.3047 498.4 10.1047C514 6.50474 518 4.70474 528.5 2.70474C535.6 1.40474 546.4 -0.0952561 560 0.00474393V20.0047H420ZM420 20.0047C398.5 19.6047 381.2 17.5047 368.9 15.5047C355.5 13.3047 342.4 10.3047 341.6 10.1047C326 6.50474 322 4.70474 311.5 2.70474C304.3 1.40474 293.6 -0.0952561 280 0.00474393V20.0047H420ZM140 20.0047C118.5 19.6047 101.2 17.5047 88.9 15.5047C75.5 13.3047 62.4 10.3047 61.6 10.1047C46 6.50474 42 4.70474 31.5 2.70474C24.3 1.40474 13.6 -0.0952561 0 0.00474393V20.0047H140ZM140 20.0047C161.5 19.6047 178.8 17.5047 191.1 15.5047C204.5 13.3047 217.6 10.3047 218.4 10.1047C234 6.50474 238 4.70474 248.5 2.70474C255.6 1.40474 266.4 -0.0952561 280 0.00474393V20.0047H140Z"/>
+```
+
+That creates the shape, and now we'll position it to be on top of the rectangle. To do this we'll need to know where the rectangle will be positioned, and we'll wrap the `path` in group that's positioned based on `rect`'s y position.
+
+```html {9-11} class=svelte
+<script>
+  export let width;
+  export let height;
+</script>
+
+<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
+  <rect width={width} height={height} style={`transform: translate(0, 20px);`} fill="#ff9900" />
+
+  <g class='water-container'  style={`transform: translate(0, 0);`}>
+    <path class='water' d="M420 20.0047C441.5 19.6047 458.8 17.5047 471.1 15.5047C484.5 13.3047 497.6 10.3047 498.4 10.1047C514 6.50474 518 4.70474 528.5 2.70474C535.6 1.40474 546.4 -0.0952561 560 0.00474393V20.0047H420ZM420 20.0047C398.5 19.6047 381.2 17.5047 368.9 15.5047C355.5 13.3047 342.4 10.3047 341.6 10.1047C326 6.50474 322 4.70474 311.5 2.70474C304.3 1.40474 293.6 -0.0952561 280 0.00474393V20.0047H420ZM140 20.0047C118.5 19.6047 101.2 17.5047 88.9 15.5047C75.5 13.3047 62.4 10.3047 61.6 10.1047C46 6.50474 42 4.70474 31.5 2.70474C24.3 1.40474 13.6 -0.0952561 0 0.00474393V20.0047H140ZM140 20.0047C161.5 19.6047 178.8 17.5047 191.1 15.5047C204.5 13.3047 217.6 10.3047 218.4 10.1047C234 6.50474 238 4.70474 248.5 2.70474C255.6 1.40474 266.4 -0.0952561 280 0.00474393V20.0047H140Z"/>
+  </g>
+</svg>
+```
+
+Let's add our styles to get the ripples animating in smooth way. To do this we can add a `<style>` tag underneath our `<script>` tag.
+
+```html {6-22} class=svelte
+<script>
+  export let width;
+  export let height;
+</script>
+
+<style>
+  rect,
+  .water-container {
+    transition: transform 500ms;
+  }
+
+  .water {
+    animation: ripple 1.4s infinite linear;
+    fill: #ff9900;
+  }
+
+  @keyframes ripple {
+    100% {
+      transform: translate3d(-105%, 0, 0);
+    }
+  }
+</style>
+
+<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
+  <rect width={width} height={height} style={`transform: translate(0, 20px);`} fill="#ff9900" />
+
+  <g class='water-container'  style={`transform: translate(0, 0);`}>
+    <path class='water' d="M420 20.0047C441.5 19.6047 458.8 17.5047 471.1 15.5047C484.5 13.3047 497.6 10.3047 498.4 10.1047C514 6.50474 518 4.70474 528.5 2.70474C535.6 1.40474 546.4 -0.0952561 560 0.00474393V20.0047H420ZM420 20.0047C398.5 19.6047 381.2 17.5047 368.9 15.5047C355.5 13.3047 342.4 10.3047 341.6 10.1047C326 6.50474 322 4.70474 311.5 2.70474C304.3 1.40474 293.6 -0.0952561 280 0.00474393V20.0047H420ZM140 20.0047C118.5 19.6047 101.2 17.5047 88.9 15.5047C75.5 13.3047 62.4 10.3047 61.6 10.1047C46 6.50474 42 4.70474 31.5 2.70474C24.3 1.40474 13.6 -0.0952561 0 0.00474393V20.0047H140ZM140 20.0047C161.5 19.6047 178.8 17.5047 191.1 15.5047C204.5 13.3047 217.6 10.3047 218.4 10.1047C234 6.50474 238 4.70474 248.5 2.70474C255.6 1.40474 266.4 -0.0952561 280 0.00474393V20.0047H140Z"/>
+  </g>
+</svg>
+```
+
+We declare a `keyframes` animation and let `.water` leverage that in an infinite loop. We're adding a transition to the rectangle and container for the ripple to make sure it slides up and down smoothly.
+
+## Mask Area
+
+Now we can work on the mask area which will give us the water drop shape. We're going to use a `clipPath` with a path shaped as a water droplet. We'll apply the clipPath to a group that wraps the rectangle and ripple to mask out anything outside the water droplet shape.
+
+We fill the droplet path with black to make the mask full opacity. We can then add another droplet of a different color so that we can have a different background color for our `empty` section.
+
+```html {2-4,6,8,14} class=svelte
+<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
+  <clipPath id='mask_shape'>
+    <path d="M132.281 264.564c51.24 0 92.931-41.681 92.931-92.918 0-50.18-87.094-164.069-90.803-168.891L132.281 0l-2.128 2.773c-3.704 4.813-90.802 118.71-90.802 168.882.001 51.228 41.691 92.909 92.93 92.909z" fill="#000000" />
+  </clipPath>
+
+  <path d="M132.281 264.564c51.24 0 92.931-41.681 92.931-92.918 0-50.18-87.094-164.069-90.803-168.891L132.281 0l-2.128 2.773c-3.704 4.813-90.802 118.71-90.802 168.882.001 51.228 41.691 92.909 92.93 92.909z" fill="#555"/>
+
+  <g clip-path='url(#mask_shape)'>
+    <rect width={width} height={height} style={`transform: translate(0, 20px);`} fill="#ff9900" />
+
+    <g class='water-container' style={`transform: translate(0, 0);`}>
+      <path class='water' d="M420 20.0047C441.5 19.6047 458.8 17.5047 471.1 15.5047C484.5 13.3047 497.6 10.3047 498.4 10.1047C514 6.50474 518 4.70474 528.5 2.70474C535.6 1.40474 546.4 -0.0952561 560 0.00474393V20.0047H420ZM420 20.0047C398.5 19.6047 381.2 17.5047 368.9 15.5047C355.5 13.3047 342.4 10.3047 341.6 10.1047C326 6.50474 322 4.70474 311.5 2.70474C304.3 1.40474 293.6 -0.0952561 280 0.00474393V20.0047H420ZM140 20.0047C118.5 19.6047 101.2 17.5047 88.9 15.5047C75.5 13.3047 62.4 10.3047 61.6 10.1047C46 6.50474 42 4.70474 31.5 2.70474C24.3 1.40474 13.6 -0.0952561 0 0.00474393V20.0047H140ZM140 20.0047C161.5 19.6047 178.8 17.5047 191.1 15.5047C204.5 13.3047 217.6 10.3047 218.4 10.1047C234 6.50474 238 4.70474 248.5 2.70474C255.6 1.40474 266.4 -0.0952561 280 0.00474393V20.0047H140Z"/>
+    </g>
+  </g>
+</svg>
+```
+
+## Fill
+
+Cool, now that we have the mask and bar set up we can configure the logic for the filling of the droplet. For this we'll create a variable of `ratio` and a [reactive declaration](https://svelte.dev/tutorial/reactive-declarations) that updates when props change. We'll call our reactive declaration `offsetY` and it will be based on `ratio` and `height`.
+
+```html {4,6-7} class=svelte
+<script>
+  export let width;
+  export let height;
+  export let ratio;
+
+  // offset should help the bar "fill" from the bottom
+  $: offsetY = height - height * ratio;
+</script>
+```
+
+Now we'll pass that offset to the rectangle and ripple container, so they'll be positioned together. If the ratio is zero, the y should be the negative height of the ripple path which is 19px.
+
+```html {9,11} class=svelte
+<svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewbox='0 0 264 264' >
+  <clipPath id='mask_shape' >
+    <path d="M132.281 264.564c51.24 0 92.931-41.681 92.931-92.918 0-50.18-87.094-164.069-90.803-168.891L132.281 0l-2.128 2.773c-3.704 4.813-90.802 118.71-90.802 168.882.001 51.228 41.691 92.909 92.93 92.909z" fill="#000000" />
+  </clipPath>
+
+  <path d="M132.281 264.564c51.24 0 92.931-41.681 92.931-92.918 0-50.18-87.094-164.069-90.803-168.891L132.281 0l-2.128 2.773c-3.704 4.813-90.802 118.71-90.802 168.882.001 51.228 41.691 92.909 92.93 92.909z" fill="#555"/>
+
+  <g clip-path='url(#mask_shape)'>
+    <rect width={width} height={height} style={`transform: translate(0, ${offsetY}px)`} fill="#ff9900" />
+
+    <g class='water-container' style={`transform: translate(0, ${ratio === 0 ? offsetY : offsetY - 19}px);`}>
+      <path class='water' d="M420 20.0047C441.5 19.6047 458.8 17.5047 471.1 15.5047C484.5 13.3047 497.6 10.3047 498.4 10.1047C514 6.50474 518 4.70474 528.5 2.70474C535.6 1.40474 546.4 -0.0952561 560 0.00474393V20.0047H420ZM420 20.0047C398.5 19.6047 381.2 17.5047 368.9 15.5047C355.5 13.3047 342.4 10.3047 341.6 10.1047C326 6.50474 322 4.70474 311.5 2.70474C304.3 1.40474 293.6 -0.0952561 280 0.00474393V20.0047H420ZM140 20.0047C118.5 19.6047 101.2 17.5047 88.9 15.5047C75.5 13.3047 62.4 10.3047 61.6 10.1047C46 6.50474 42 4.70474 31.5 2.70474C24.3 1.40474 13.6 -0.0952561 0 0.00474393V20.0047H140ZM140 20.0047C161.5 19.6047 178.8 17.5047 191.1 15.5047C204.5 13.3047 217.6 10.3047 218.4 10.1047C234 6.50474 238 4.70474 248.5 2.70474C255.6 1.40474 266.4 -0.0952561 280 0.00474393V20.0047H140Z"/>
+    </g>
+  </g>
+</svg>
+```
+
+## Using the component
+
+To use this component we import it and pass it our width, height and ratio. Let's give it a height and width of 264.5px and a ratio of 0.5 (50%). Update the ratio to see the droplet fill or drain smoothly.
+
+```html filename=App.svelte class=svelte
+<script>
+  import PictorialFraction from "./PictorialFraction.svelte";
+</script>
+
+<main>
+  <PictorialFraction width={264.5} height={264.5} ratio={0.5} />
+</main>
+```
+
+## Conclusion
+
+Thanks for following along! We now have a droplet component that we can use in our svelte app. We can add ways to control the ratio and make it more interactive. To add buttons to control the increase/decrease, check out the example on [codesandbox](https://codesandbox.io/s/svelte-svg-pictorial-fraction-f1hv2?from-embed=&file=/App.svelte)
