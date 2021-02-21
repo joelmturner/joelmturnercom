@@ -1,7 +1,6 @@
 require("dotenv").config();
 module.exports = {
   flags: {
-    QUERY_ON_DEMAND: true,
     FAST_DEV: true,
     PRESERVE_FILE_DOWNLOAD_CACHE: true,
     FAST_REFRESH: true,
