@@ -3,6 +3,7 @@ import { jsx, Styled } from "theme-ui";
 import Flexbox from "./flexbox";
 import { Link } from "gatsby";
 import { slugify } from "../utils/utils";
+import { FC, memo } from "react";
 
 type PostSeriesProps = {
   series: string;
@@ -10,7 +11,7 @@ type PostSeriesProps = {
   postsInSeries?: { title: string; slug: string }[];
 };
 
-const PostSeries: React.FC<PostSeriesProps> = ({ series, order, postsInSeries }) => {
+const PostSeries: FC<PostSeriesProps> = ({ series, order, postsInSeries }) => {
   if (!series) return null;
   return (
     <Flexbox vertical sx={{ borderColor: "textMuted", borderWidth: "1px", borderStyle: "dotted", my: 3 }}>
@@ -55,4 +56,4 @@ const PostSeries: React.FC<PostSeriesProps> = ({ series, order, postsInSeries })
 };
 
 PostSeries.displayName = "PostSeries";
-export default PostSeries;
+export default memo(PostSeries);

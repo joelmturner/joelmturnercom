@@ -1,14 +1,25 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui";
 import { graphql } from "gatsby";
-import { Layout, SEO, Dialog, Flexbox, Gallery } from "../components";
+import { Layout, SEO, Flexbox, Gallery } from "../components";
 import { FaTh, FaThLarge, FaSquare } from "react-icons/fa";
 import { InstaNode } from ".";
-import { Dropdown } from "../components";
 import { RouteComponentProps } from "@reach/router";
 import { GallerySizes } from "../components/gallery";
 import { handleEnterKeyPress } from "../utils/a11y";
-import { useCallback, useState } from "react";
+import { FC, useCallback, useMemo, useState } from "react";
+import loadable from "@loadable/component";
+const Dropdown = loadable(() => import("../components"), { resolveComponent: (components) => components.Dropdown });
+const Dialog = loadable(() => import("../components"), { resolveComponent: (components) => components.Dialog });
+
+const GALLERY_MENU_OPTIONS = [
+  { value: "featuredInsta", label: "Featured" },
+  { value: "inktober2017", label: "Inktober 2017" },
+  { value: "inktober2018", label: "Inktober 2018" },
+  { value: "inktober2019", label: "Inktober 2019" },
+  { value: "letterClash", label: "LetterClash" },
+  { value: "joelmturner_abcs2017", label: "#HandletteredABCs 2017" },
+];
 
 type IllustrationProps = {
   location: RouteComponentProps["location"];
@@ -45,11 +56,11 @@ export type InstaCollections =
   | "insta2016"
   | null;
 
-const Illustration: React.FC<IllustrationProps> = ({ data, location }) => {
+const Illustration: FC<IllustrationProps> = ({ data, location }) => {
   const [sketchSize, setSketchSize] = useState<GallerySizes>("m");
   const [offset, setOffset] = useState(-1);
   const hash: InstaCollections =
-    location && location.hash ? (location.hash.replace("#", "") as InstaCollections) : "featuredInsta";
+    (location?.hash?.replace("#", "") as InstaCollections) ?? ("featuredInsta" as InstaCollections);
   const [filter, setFilter] = useState<InstaCollections>(hash);
   const {
     featuredInsta: { nodes: featuredEdges = [] } = {},
@@ -60,7 +71,7 @@ const Illustration: React.FC<IllustrationProps> = ({ data, location }) => {
     joelmturner_abcs2017: { nodes: jmt2017Edges = [] } = {},
   } = data;
 
-  const filteredEdges = useCallback(
+  const filteredEdges = useMemo(
     function () {
       switch (filter) {
         case "featuredInsta":
@@ -91,23 +102,23 @@ const Illustration: React.FC<IllustrationProps> = ({ data, location }) => {
 
   const handleSetOffset = useCallback(
     (edge) => {
-      setOffset(filteredEdges().indexOf(edge));
+      setOffset(filteredEdges.indexOf(edge));
     },
     [setOffset, filteredEdges]
   );
 
-  const galleryOptions = [
-    { value: "featuredInsta", label: "Featured" },
-    { value: "inktober2017", label: "Inktober 2017" },
-    { value: "inktober2018", label: "Inktober 2018" },
-    { value: "inktober2019", label: "Inktober 2019" },
-    { value: "letterClash", label: "LetterClash" },
-    { value: "joelmturner_abcs2017", label: "#HandletteredABCs 2017" },
-  ];
-
   const handleClose = useCallback(() => {
     setOffset(-1);
   }, [setOffset]);
+
+  const handleChange = useCallback(
+    (selected) => {
+      setFilter(selected.value);
+    },
+    [setFilter]
+  );
+
+  const selectedMenuOption = useMemo(() => GALLERY_MENU_OPTIONS.find((opt) => opt.value === filter), [filter]);
 
   return (
     <Layout>
@@ -115,11 +126,7 @@ const Illustration: React.FC<IllustrationProps> = ({ data, location }) => {
       <Flexbox vertical>
         <Styled.h2>Explorations of Handlettering and Illustration</Styled.h2>
         <Flexbox between middle>
-          <Dropdown
-            options={galleryOptions}
-            selected={galleryOptions.find((opt) => opt.value === filter)}
-            onChange={(selected) => setFilter(selected.value)}
-          />
+          <Dropdown options={GALLERY_MENU_OPTIONS} selected={selectedMenuOption} onChange={handleChange} />
           <Flexbox right>
             <FaTh
               sx={{ variant: sketchSize === "s" ? "icon.active" : "icon" }}
@@ -151,12 +158,12 @@ const Illustration: React.FC<IllustrationProps> = ({ data, location }) => {
           </Flexbox>
         </Flexbox>
       </Flexbox>
-      <Gallery size={sketchSize} imageEdges={filteredEdges()} setLightbox={handleSetOffset} sx={{ my: 3 }} />
+      <Gallery size={sketchSize} imageEdges={filteredEdges} setLightbox={handleSetOffset} sx={{ my: 3 }} />
 
       {/* {showLightbox && ( */}
       {offset > -1 && (
         <Dialog
-          imageEdges={filteredEdges()}
+          imageEdges={filteredEdges}
           offset={offset}
           onClose={handleClose}
           aria-label="Gallery of my sketches on Instagram"

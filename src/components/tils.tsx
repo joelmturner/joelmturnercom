@@ -2,7 +2,7 @@
 import { jsx, Styled } from "theme-ui";
 import Layout from "./layout";
 import Link from "./link";
-import { ReactElement } from "react";
+import { memo, ReactElement } from "react";
 
 type TilsProps = {
   data: {
@@ -33,4 +33,4 @@ function Tils({ data }: TilsProps): ReactElement {
   );
 }
 
-export default Tils;
+export default memo(Tils);

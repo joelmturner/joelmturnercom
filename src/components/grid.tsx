@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
-import { ReactElement } from "react"
+import { jsx } from "theme-ui";
+import { memo, ReactElement } from "react";
 
 type GridProps = {
   children: ReactElement | ReactElement[];
@@ -8,7 +8,7 @@ type GridProps = {
   columns?: string | string[];
   rows?: string | string[];
   className?: string;
-}
+};
 
 const Grid: React.FC<GridProps> = ({ children, gap = 0, columns = "none", rows = "none", className }) => {
   return (
@@ -26,7 +26,7 @@ const Grid: React.FC<GridProps> = ({ children, gap = 0, columns = "none", rows =
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
-export default Grid;
+export default memo(Grid);

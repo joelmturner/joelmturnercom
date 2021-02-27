@@ -2,7 +2,7 @@
 import { jsx } from "theme-ui";
 import Flexbox from "./flexbox";
 import { Link } from "gatsby";
-import { useState, Fragment, useCallback } from "react";
+import { useState, Fragment, useCallback, memo } from "react";
 
 const navLinks = [
   {
@@ -91,4 +91,4 @@ const MainNav = () => {
   );
 };
 
-export default MainNav;
+export default memo(MainNav);

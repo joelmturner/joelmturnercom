@@ -2,11 +2,12 @@
 import { jsx, Styled } from "theme-ui";
 import React, { useCallback, useState } from "react";
 import { graphql } from "gatsby";
-import { Layout, SEO, Avatar, Flexbox, Dialog, Gallery, Grid, Link } from "../components";
+import { Layout, SEO, Avatar, Flexbox, Gallery, Grid, Link } from "../components";
 import { FluidObject } from "gatsby-image";
-import PostCard from "../components/postCard";
 import PartialRenderer from "../components/partialRenderer";
-import { slugify } from "../utils/utils";
+import { PostsList } from "../components/PostsList";
+import loadable from "@loadable/component";
+const Dialog = loadable(() => import("../components"), { resolveComponent: (components) => components.Dialog });
 
 export type InstaNode = {
   id: string;
@@ -16,7 +17,8 @@ export type InstaNode = {
     };
   };
 };
-type MDXNode = {
+
+export type MDXNode = {
   node: {
     excerpt: string;
     frontmatter: {
@@ -30,6 +32,7 @@ type MDXNode = {
     slug: string;
   };
 };
+
 type IndexPageProps = {
   data: {
     featuredInstaRecent: {
@@ -98,11 +101,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
         </Styled.h5>
       </Flexbox>
 
-      <div sx={{ variant: "collection.post", mt: 2 }}>
-        {blog?.map(({ node: { frontmatter: { title, cover }, slug } }) => (
-          <PostCard key={title} slug={slugify(slug, `/blog`)} title={title} image={cover?.childImageSharp.fluid} />
-        ))}
-      </div>
+      <PostsList edges={blog} />
 
       {offset > -1 && <Dialog imageEdges={insta} offset={offset} onClose={onClose} />}
     </Layout>

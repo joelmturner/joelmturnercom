@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Helmet } from "react-helmet";
 import { useStaticQuery, graphql } from "gatsby";
 import Schema from "./schema";
@@ -21,7 +21,7 @@ type SEOProps = {
 
 function SEO({
   description,
-  lang,
+  lang = "en",
   meta = [],
   title = "",
   image,
@@ -136,4 +136,4 @@ function SEO({
   );
 }
 
-export default SEO;
+export default memo(SEO);

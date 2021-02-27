@@ -2,7 +2,7 @@
 import { jsx, Styled } from "theme-ui";
 import Img, { FluidObject } from "gatsby-image";
 import { Link } from "gatsby";
-import { ReactElement, ReactNode } from "react";
+import { memo, ReactElement, ReactNode } from "react";
 
 type PostCardProps = {
   slug: string;
@@ -12,7 +12,7 @@ type PostCardProps = {
   excerpt?: string;
 };
 
-function Linked({
+const Linked = memo(function Linked({
   slug,
   title,
   className,
@@ -23,11 +23,11 @@ function Linked({
       {children}
     </Link>
   );
-}
+});
 
 function PostCard({ title, slug, image, className, excerpt }: PostCardProps): ReactElement {
   return (
-    <div>
+    <article>
       <Linked slug={slug} title={title} className={className}>
         <Img fluid={image} sx={{ variant: "postCard.img" }} />
       </Linked>
@@ -37,8 +37,8 @@ function PostCard({ title, slug, image, className, excerpt }: PostCardProps): Re
         </Styled.h2>
       </Linked>
       <Styled.p sx={{ variant: "postCard.excerpt" }}>{excerpt}</Styled.p>
-    </div>
+    </article>
   );
 }
 
-export default PostCard;
+export default memo(PostCard);

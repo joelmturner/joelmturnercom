@@ -3,6 +3,7 @@ import { jsx, Styled } from "theme-ui";
 import Layout from "./layout";
 import { Link } from "gatsby";
 import Flexbox from "./flexbox";
+import { memo } from "react";
 
 function TIL({
   data: {
@@ -32,4 +33,4 @@ function TIL({
   );
 }
 
-export default TIL;
+export default memo(TIL);

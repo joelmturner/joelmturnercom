@@ -1,14 +1,15 @@
 /** @jsx jsx */
-import { jsx, useThemeUI } from "theme-ui"
-import Select from "react-select"
-import { ActionMeta, Theme } from "react-select/src/types"
+import { jsx, useThemeUI } from "theme-ui";
+import Select from "react-select";
+import { ActionMeta, Theme } from "react-select/src/types";
+import { FC, memo, useCallback } from "react";
 
 type DropDownProps = {
   selected: any;
   options: any[];
   onChange: (((value: any, actionMeta: ActionMeta) => void) & ((value: any, action: ActionMeta) => void)) | undefined;
   className?: string;
-}
+};
 
 function customTheme(selectTheme: Theme, theme: any): Theme {
   return {
@@ -25,11 +26,12 @@ function customTheme(selectTheme: Theme, theme: any): Theme {
       neutral60: theme.colors.text, // icons
       neutral80: theme.colors.text, // multi value color
     },
-  }
+  };
 }
 
-const DropDown: React.FC<DropDownProps> = ({ selected, options, onChange, className }) => {
-  const themeUI = useThemeUI()
+const DropDown: FC<DropDownProps> = ({ selected, options, onChange, className }) => {
+  const themeUI = useThemeUI();
+  const handleTheme = useCallback((theme) => customTheme(theme, themeUI.theme), []);
   return (
     <Select
       placeholder="Collection"
@@ -40,9 +42,9 @@ const DropDown: React.FC<DropDownProps> = ({ selected, options, onChange, classN
       sx={{
         width: "100%",
       }}
-      theme={theme => customTheme(theme, themeUI.theme)}
+      theme={handleTheme}
     />
-  )
-}
+  );
+};
 
-export default DropDown;
+export default memo(DropDown);

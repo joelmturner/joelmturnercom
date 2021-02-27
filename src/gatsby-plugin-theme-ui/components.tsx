@@ -1,14 +1,15 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { Fragment, ReactElement } from "react";
+import { Fragment, memo, ReactElement } from "react";
 import ThemeUIPrism from "@theme-ui/prism";
 import { preToCodeBlock } from "mdx-utils";
 import { Grid, Flexbox, Series, Avatar } from "../components";
-import Code from "../components/code";
-import Embed from "../components/embed";
 import Link from "gatsby-link";
 import PostGallery from "../components/PostGallery";
 import Note from "../components/note";
+import loadable from "@loadable/component";
+const Embed = loadable(() => import("../components/embed"));
+const Code = loadable(() => import("../components/code"));
 
 const components = {
   pre: (preProps: any) => {
@@ -23,7 +24,7 @@ const components = {
   wrapper: ({ children }: { children: any }) => <Fragment>{children}</Fragment>,
 };
 
-function Image({
+const Image = memo(function Image({
   src,
   width,
   alt,
@@ -49,7 +50,7 @@ function Image({
       break;
   }
   return <img sx={{ width: w }} src={src} {...props} alt={alt} />;
-}
+});
 
 export default {
   ...components,

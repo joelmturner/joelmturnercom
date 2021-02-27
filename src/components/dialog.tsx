@@ -4,7 +4,7 @@ import { DialogOverlay, DialogContent } from "@reach/dialog";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "@reach/dialog/styles.css";
 import { handleEnterKeyPress } from "../utils/a11y";
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef, useEffect, FC } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Img from "gatsby-image";
 import { wrap } from "@popmotion/popcorn";
@@ -21,7 +21,7 @@ type DialogProps = {
   onNext?: () => void;
 };
 
-const variants = {
+const VARIANTS = {
   enter: (direction: number) => {
     return {
       x: direction > 0 ? 1000 : -1000,
@@ -50,7 +50,7 @@ const swipePower = (offset: number, velocity: number) => {
   return Math.abs(offset) * velocity;
 };
 
-const Dialog: React.FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => {
+const Dialog: FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => {
   const ref = useRef(null);
   const currentPage = useRef(-1);
   const [isNavFocused, setIsNavFocused] = useState<boolean>(false);
@@ -112,7 +112,7 @@ const Dialog: React.FC<DialogProps> = ({ className, imageEdges, offset, onClose 
           <motion.div
             key={page}
             custom={direction}
-            variants={variants}
+            variants={VARIANTS}
             initial="enter"
             animate="center"
             exit="exit"

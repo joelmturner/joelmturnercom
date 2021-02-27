@@ -1,13 +1,12 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui";
-import { Fragment, ReactNode } from "react";
+import { memo, ReactNode } from "react";
 import { FC } from "react";
 import PostSeries from "./postSeries";
 import Layout from "./layout";
 import SEO from "./seo";
 import Flexbox from "./flexbox";
 import Link from "./link";
-import Grid from "./grid";
 import { usePostSeries } from "../hooks";
 import { slugify } from "../utils/utils";
 import { PostNav } from "./postNav";
@@ -48,7 +47,6 @@ const Post: FC<PostProps> = ({
   children,
   excerpt,
   data: { previous, next } = {},
-  // pageContext: { postsInSeries = [] },
   slug,
 }) => {
   const postsInSeries = usePostSeries(series);
@@ -58,10 +56,9 @@ const Post: FC<PostProps> = ({
     <Layout sx={{ variant: "post" }}>
       <SEO title={title} description={excerpt} image={cover && cover.publicURL} />
       <Styled.h1>{title}</Styled.h1>
-
       <PostSeries series={series} order={order} postsInSeries={postsInSeries} />
 
-      {children}
+      <article>{children}</article>
 
       <Flexbox vertical sx={{ mt: 4, borderTop: "1px solid", borderColor: "muted", py: 3 }}>
         {category && (
@@ -103,4 +100,4 @@ const Post: FC<PostProps> = ({
   );
 };
 
-export default Post;
+export default memo(Post);

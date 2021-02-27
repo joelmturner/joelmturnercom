@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { jsx, Styled, useColorMode } from "theme-ui";
 import Highlight, { defaultProps, Language, PrismTheme } from "prism-react-renderer";
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live";
-import { Styled, useColorMode } from "theme-ui";
 import themeMod from "../utils/themeMod";
+import { memo } from "react";
 
 const LINE_NUM_REGULAR_EXPRESSION: any = /{([\d,-]+)}/;
 const META_ATTRIBUTES = ["filename", "class"];
@@ -48,7 +48,7 @@ function getMetaAttributes(meta: string): MetaAttributes | null {
   );
 }
 
-const highlightLine = {
+const HIGHLIGHT_LINE_STYLES = {
   bg: "highlightLine",
   my: "0px",
   mx: "-10px",
@@ -74,6 +74,7 @@ const Code = ({
   const shouldHighlightLine = calculateLinesToHighlight(metastring);
   const metaAttributes = getMetaAttributes(metastring);
   const metaClasses = metaAttributes?.class ?? "";
+
   if ((props as any)["react-live"]) {
     return (
       <LiveProvider code={codeString} noInline={true} theme={theme}>
@@ -83,9 +84,7 @@ const Code = ({
       </LiveProvider>
     );
   }
-  console.log("codeString", codeString);
-  console.log("language", language);
-  console.log("metastring", metastring);
+
   return (
     <Highlight {...defaultProps} code={codeString} language={scrubbedLanguage} theme={theme}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
@@ -102,7 +101,7 @@ const Code = ({
               <div
                 key={`${line} ${i}`}
                 {...getLineProps({ line, key: i })}
-                sx={shouldHighlightLine(i) ? highlightLine : {}}
+                sx={shouldHighlightLine(i) ? HIGHLIGHT_LINE_STYLES : {}}
               >
                 <span
                   sx={{
@@ -126,4 +125,4 @@ const Code = ({
   );
 };
 
-export default Code;
+export default memo(Code);

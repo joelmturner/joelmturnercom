@@ -1,27 +1,31 @@
 /** @jsx jsx */
-import { jsx, Styled, useColorMode } from "theme-ui"
-import * as React from "react"
-import { Link } from "gatsby"
-import Flexbox from "./flexbox"
-import ThemeSwitch from "./themeSwitch"
-import MainNav from "./mainNav"
+import { jsx, Styled, useColorMode } from "theme-ui";
+import * as React from "react";
+import { Link } from "gatsby";
+import Flexbox from "./flexbox";
+import ThemeSwitch from "./themeSwitch";
+import MainNav from "./mainNav";
+import { memo } from "react";
 
 type HeaderProps = {
   siteTitle: string;
-}
+};
 
 const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
-  const [colorMode, setColorMode] = useColorMode()
-  const [isSkipFocused, setIsSkipFocused] = React.useState<boolean>(false)
-  const setFocused = React.useCallback(function() {
-    setIsSkipFocused(true)
-  }, [])
-  const unsetFocused = React.useCallback(function() {
-    setIsSkipFocused(false)
-  }, [])
-  const setColor = React.useCallback(function() {
-    setColorMode(colorMode === "light" ? "dark" : "light");
-  }, [setColorMode, colorMode])
+  const [colorMode, setColorMode] = useColorMode();
+  const [isSkipFocused, setIsSkipFocused] = React.useState<boolean>(false);
+  const setFocused = React.useCallback(function () {
+    setIsSkipFocused(true);
+  }, []);
+  const unsetFocused = React.useCallback(function () {
+    setIsSkipFocused(false);
+  }, []);
+  const setColor = React.useCallback(
+    function () {
+      setColorMode(colorMode === "light" ? "dark" : "light");
+    },
+    [setColorMode, colorMode]
+  );
 
   return (
     <header sx={{ mb: 2, position: "relative" }}>
@@ -31,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
         sx={{
           position: "absolute",
           top: isSkipFocused ? "0%" : "-500%",
-          color: 'primary'
+          color: "primary",
         }}
         onFocus={setFocused}
         onBlur={unsetFocused}
@@ -53,18 +57,15 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
 
           <MainNav />
 
-          <ThemeSwitch
-            checked={colorMode === "light"}
-            onClick={setColor}
-          />
+          <ThemeSwitch checked={colorMode === "light"} onClick={setColor} />
         </Flexbox>
       </div>
     </header>
-  )
-}
+  );
+};
 
 Header.defaultProps = {
   siteTitle: ``,
-}
+};
 
-export default Header
+export default memo(Header);

@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui";
-import { Fragment } from "react";
+import { Fragment, memo } from "react";
 import Flexbox from "./flexbox";
 import Link from "./link";
 import { slugify } from "../utils/utils";
 import Grid from "./grid";
 import { usePostNav } from "../hooks/usePostNav";
 
-export function PostNav({ slug }: { slug: string }) {
+export const PostNav = memo(function PostNav({ slug }: { slug: string }) {
   const { previous, next } = usePostNav(slug);
 
   return (
@@ -30,4 +30,4 @@ export function PostNav({ slug }: { slug: string }) {
       </Fragment>
     </Grid>
   );
-}
+});

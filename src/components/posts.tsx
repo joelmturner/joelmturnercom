@@ -1,18 +1,12 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui";
 import { useState, useCallback, useEffect, useMemo } from "react";
-import { graphql, useStaticQuery } from "gatsby";
 import { Layout, SEO, Flexbox } from "../components";
 import { FluidObject } from "gatsby-image";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import { matchSorter } from "match-sorter";
-// import loadable from "@loadable/component";
 import { useKeypress } from "../hooks";
 import { FC } from "react";
-// const PostCard = loadable(() => import("../components/postCard"));
-import PostCard from "./postCard";
-import { slugify } from "../utils/utils";
+import { PostsList } from "./PostsList";
 
 type IPosts = {
   edges: Array<{
@@ -31,11 +25,6 @@ type IPosts = {
       excerpt: string;
     };
   }>;
-};
-
-type Data = {
-  allBlogPosts: IPosts;
-  recentBlogPosts: IPosts;
 };
 
 type PostsProps = {
@@ -101,15 +90,20 @@ const Posts: FC<PostsProps> = ({ pageContext, data, ...props }) => {
     return edges;
   }, [pageContext, edges]);
 
-  const posts: IPosts["edges"] = search
-    ? matchSorter(filteredEdges, search, {
-        keys: ["node.frontmatter.title", "node.frontmatter.category", "node.frontmatter.tags"],
-      })
-    : filteredEdges;
+  const posts: IPosts["edges"] = useMemo(
+    () =>
+      search
+        ? matchSorter(filteredEdges, search, {
+            keys: ["node.frontmatter.title", "node.frontmatter.category", "node.frontmatter.tags"],
+          })
+        : filteredEdges,
+    [search, filteredEdges]
+  );
 
   const title = pageContext?.isArchive
     ? `${pageTitle[pageContext.archiveType]}: ${pageContext.archiveValue}`
     : pageTitle.default;
+
   return (
     <Layout>
       <SEO title="Blog" description="A journey through Gatsby, React, TypeScript, and illustration" />
@@ -146,17 +140,8 @@ const Posts: FC<PostsProps> = ({ pageContext, data, ...props }) => {
           </Styled.p>
         </Flexbox>
       </Flexbox>
-      <div sx={{ variant: "collection.post" }}>
-        {posts.map((edge) => (
-          <PostCard
-            key={`${edge.node.slug}`}
-            slug={slugify(edge.node.slug, "/blog")}
-            title={edge.node.frontmatter.title}
-            image={edge.node.frontmatter.cover?.childImageSharp?.fluid}
-            excerpt={edge.node.excerpt}
-          />
-        ))}
-      </div>
+
+      <PostsList edges={posts} />
     </Layout>
   );
 };

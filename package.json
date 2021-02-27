@@ -61,6 +61,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-progress": "^0.0.1",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.20",
     "gatsby-source-instagram": "^0.9.0",
     "husky": "^5.0.9",
     "lint-staged": "^10.5.4",

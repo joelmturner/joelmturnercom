@@ -2,14 +2,14 @@
 import { jsx } from "theme-ui";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { handleEnterKeyPress } from "../utils/a11y";
-import { useCallback } from "react";
+import { FC, memo, useCallback } from "react";
 
 type ThemeSwitchProps = {
   checked: boolean;
   onClick(): void;
 };
 
-const ThemeSwitch: React.FC<ThemeSwitchProps> = ({ checked, onClick }) => {
+const ThemeSwitch: FC<ThemeSwitchProps> = ({ checked, onClick }) => {
   const handleOnClick = useCallback(
     function () {
       if (onClick) {
@@ -18,6 +18,7 @@ const ThemeSwitch: React.FC<ThemeSwitchProps> = ({ checked, onClick }) => {
     },
     [onClick]
   );
+
   const handleKey = useCallback(
     function () {
       if (onClick) {
@@ -26,6 +27,7 @@ const ThemeSwitch: React.FC<ThemeSwitchProps> = ({ checked, onClick }) => {
     },
     [onClick]
   );
+
   return (
     <div
       role="button"
@@ -42,4 +44,4 @@ const ThemeSwitch: React.FC<ThemeSwitchProps> = ({ checked, onClick }) => {
   );
 };
 
-export default ThemeSwitch;
+export default memo(ThemeSwitch);

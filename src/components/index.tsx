@@ -1,37 +1,18 @@
-import Avatar from "./avatar";
-import Embed from "./embed";
-import Dialog from "./dialog";
-import Flexbox from "./flexbox";
-import Gallery from "./gallery";
-import Grid from "./grid";
-import Header from "./header";
-import Layout from "./layout";
-import Menu from "./mainNav";
-import PostCard from "./postCard";
-import PostGallery from "./PostGallery";
-import SEO from "./seo";
-import ThemeSwitch from "./themeSwitch";
-import Series from "./series";
-import Dropdown from "./dropdown";
-import Schema from "./schema";
-
-export {
-  Avatar,
-  Embed,
-  Dialog,
-  Flexbox,
-  Gallery,
-  Grid,
-  Header,
-  Layout,
-  Menu,
-  PostCard,
-  PostGallery,
-  SEO,
-  ThemeSwitch,
-  Series,
-  Dropdown,
-  Schema,
-};
+export { default as Avatar } from "./avatar";
+export { default as Embed } from "./embed";
+export { default as Dialog } from "./dialog";
+export { default as Flexbox } from "./flexbox";
+export { default as Gallery } from "./gallery";
+export { default as Grid } from "./grid";
+export { default as Header } from "./header";
+export { default as Layout } from "./layout";
+export { default as Menu } from "./mainNav";
+export { default as PostCard } from "./postCard";
+export { default as PostGallery } from "./PostGallery";
+export { default as SEO } from "./seo";
+export { default as ThemeSwitch } from "./themeSwitch";
+export { default as Series } from "./series";
+export { default as Dropdown } from "./dropdown";
+export { default as Schema } from "./schema";
 
 export { default as Link } from "./link";
