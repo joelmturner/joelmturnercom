@@ -16,7 +16,7 @@ order: 1
 
 </Note>
 
-We’ve built a [bar chart](blog/data-vis-react-bar-chart-vx/) in react using the data vis library [@vx](https://github.com/hshoff/vx). The next chart that we can build to help tell our data’s story is a line chart. Line charts are great for showing trends over time and that’s what we’ll build today.
+We’ve built a [bar chart](/blog/data-vis-react-bar-chart-vx/) in react using the data vis library [@vx](https://github.com/hshoff/vx). The next chart that we can build to help tell our data’s story is a line chart. Line charts are great for showing trends over time and that’s what we’ll build today.
 
 ## What We're Building TL;DR
 
@@ -151,7 +151,7 @@ export default LineChart;
 
 Looks good. The first thing we'll add is the y-axis. To do this we use [`AxisLeft`](https://vx-demo.now.sh/docs/axis#AxisLeft) from @vx. We need to pass it our yScale and we'll give it a few other props for styling. The `numTicks` limits the number of values shown on the y-axis and `label` is what will display along the axis.
 
-Then we'll add the [`AxisBottom`](https://vx-demo.now.sh/docs/axis#AxisBottom) that has similar props to to `AxisLeft`. The `top` is where it should start vertically from the top, which is the chart height in this case. The `labelOffset` prop dictates how much space is in between the ticks and the axis label. It should look like this:
+Then we'll add the [`AxisBottom`](https://vx-demo.now.sh/docs/axis#AxisBottom) that has similar props to `AxisLeft`. The `top` is where it should start vertically from the top, which is the chart height in this case. The `labelOffset` prop dictates how much space is in between the ticks and the axis label. It should look like this:
 
 ```jsx {4,9-10}
 import React from "react"
