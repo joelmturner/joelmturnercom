@@ -18,7 +18,8 @@ export const query = graphql`
     id
     localFile {
       childImageSharp {
-        gatsbyImageData(placeholder: NONE, layout: FULL_WIDTH)
+        thumb: gatsbyImageData(placeholder: NONE, layout: FULL_WIDTH)
+        fullSize: gatsbyImageData(placeholder: NONE, layout: FULL_WIDTH)
       }
     }
   }
@@ -142,7 +143,8 @@ export const query = graphql`
         id
         localFile {
           childImageSharp {
-            gatsbyImageData(placeholder: NONE, layout: FULL_WIDTH)
+            fullSize: gatsbyImageData(placeholder: NONE, layout: FULL_WIDTH)
+            thumb: gatsbyImageData(width: 170, height: 170, placeholder: NONE, layout: CONSTRAINED)
           }
         }
       }

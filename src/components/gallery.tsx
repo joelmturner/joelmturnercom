@@ -31,7 +31,7 @@ const GalleryImage = memo(
       return null;
     }
 
-    const fluid = node?.localFile?.childImageSharp?.gatsbyImageData ?? null;
+    const fluid = node?.localFile?.childImageSharp?.thumb ?? null;
     return (
       <div
         role="button"
@@ -41,7 +41,7 @@ const GalleryImage = memo(
         onKeyPress={handleKeyPress}
         onClick={handleClick}
       >
-        {fluid && <GatsbyImage image={node.localFile.childImageSharp.gatsbyImageData} alt={`image ${index + 1}`} />}
+        {fluid && <GatsbyImage image={node.localFile.childImageSharp.thumb} alt={`image ${index + 1}`} />}
       </div>
     );
   }
@@ -51,7 +51,8 @@ export type GallerySizes = "s" | "m" | "l";
 export type GalleryImage = {
   localFile: {
     childImageSharp: {
-      gatsbyImageData: IGatsbyImageData;
+      fullSize: IGatsbyImageData;
+      thumb: IGatsbyImageData;
     };
   };
   id: string;

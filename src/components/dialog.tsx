@@ -134,8 +134,7 @@ const Dialog: FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => 
               }
             }}
           >
-            <GatsbyImage
-              image={imageEdges[imageIndex]?.localFile?.childImageSharp?.gatsbyImageData} />
+            <GatsbyImage image={imageEdges[imageIndex]?.localFile?.childImageSharp?.fullSize} alt={`full size page`} />
           </motion.div>
         </AnimatePresence>
         <button

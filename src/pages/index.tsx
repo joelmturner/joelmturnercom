@@ -13,7 +13,8 @@ export type InstaNode = {
   id: string;
   localFile: {
     childImageSharp: {
-      gatsbyImageData: IGatsbyImageData;
+      fullSize: IGatsbyImageData;
+      thumb: IGatsbyImageData;
     };
   };
 };

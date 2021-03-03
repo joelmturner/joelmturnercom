@@ -29,7 +29,7 @@ function PostCard({ title, slug, image, className, excerpt }: PostCardProps): Re
   return (
     <article>
       <Linked slug={slug} title={title} className={className}>
-        <GatsbyImage image={image} sx={{ variant: "postCard.img" }} />
+        <GatsbyImage image={image} sx={{ variant: "postCard.img" }} alt={title} />
       </Linked>
       <Linked slug={slug} title={title} className={className}>
         <Styled.h2 sx={{ variant: "postCard.title" }} key={title}>
