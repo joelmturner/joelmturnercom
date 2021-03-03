@@ -2,7 +2,7 @@
 import { jsx, Styled } from "theme-ui";
 import { useState, useCallback, useEffect, useMemo } from "react";
 import { Layout, SEO, Flexbox } from "../components";
-import { FluidObject } from "gatsby-image";
+import { GatsbyImage } from "gatsby-plugin-image";
 import { matchSorter } from "match-sorter";
 import { useKeypress } from "../hooks";
 import { FC } from "react";
@@ -15,7 +15,7 @@ type IPosts = {
         title: string;
         cover: {
           childImageSharp: {
-            fluid: FluidObject;
+            fluid: GatsbyImage;
           };
         };
         category: string;

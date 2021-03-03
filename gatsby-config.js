@@ -3,7 +3,6 @@ module.exports = {
   flags: {
     FAST_DEV: true,
     PRESERVE_FILE_DOWNLOAD_CACHE: true,
-    FAST_REFRESH: true,
     PARALLEL_SOURCING: true,
   },
   siteMetadata: {
@@ -99,6 +98,7 @@ module.exports = {
         ],
       },
     },
+    `gatsby-plugin-image`,
     `gatsby-transformer-remark`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import { useStaticQuery, graphql } from "gatsby";
-import Img from "gatsby-image";
+import { GatsbyImage } from "gatsby-plugin-image";
 
 type AvatarProps = {
   user?: "monster1" | "monster2";
@@ -11,19 +11,15 @@ type AvatarProps = {
 
 const Avatar: React.FC<AvatarProps> = ({ user, className, size = "s" }) => {
   const data = useStaticQuery(graphql`
-    query {
+    {
       joel: file(relativePath: { eq: "joel-turner-headshot-web.jpg" }) {
         childImageSharp {
-          fixed(height: 55, width: 55) {
-            ...GatsbyImageSharpFixed_withWebp_noBase64
-          }
+          gatsbyImageData(height: 55, width: 55, placeholder: NONE, layout: FIXED)
         }
       }
       joelLarge: file(relativePath: { eq: "joel-turner-headshot-web.jpg" }) {
         childImageSharp {
-          fixed(height: 300, width: 300) {
-            ...GatsbyImageSharpFixed_withWebp_noBase64
-          }
+          gatsbyImageData(height: 300, width: 300, placeholder: NONE, layout: FIXED)
         }
       }
     }
@@ -31,15 +27,14 @@ const Avatar: React.FC<AvatarProps> = ({ user, className, size = "s" }) => {
 
   const sized = size === "s" ? "joel" : "joelLarge";
 
-  const image = data && data[user || sized] && data[user || sized].childImageSharp.fixed;
+  const image = data && data[user || sized] && data[user || sized].childImageSharp.gatsbyImageData;
 
   return (
-    <Img
-      Tag="div"
+    <GatsbyImage
+      image={image}
       className={className}
-      fixed={image}
       loading="eager"
-      fadeIn={false}
+      alt="avatar"
       sx={{
         bg: "text",
         width: "75px",

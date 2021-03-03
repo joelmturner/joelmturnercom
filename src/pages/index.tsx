@@ -3,7 +3,7 @@ import { jsx, Styled } from "theme-ui";
 import React, { useCallback, useState } from "react";
 import { graphql } from "gatsby";
 import { Layout, SEO, Avatar, Flexbox, Gallery, Grid, Link } from "../components";
-import { FluidObject } from "gatsby-image";
+import { IGatsbyImageData } from "gatsby-plugin-image";
 import PartialRenderer from "../components/partialRenderer";
 import { PostsList } from "../components/PostsList";
 import loadable from "@loadable/component";
@@ -13,7 +13,7 @@ export type InstaNode = {
   id: string;
   localFile: {
     childImageSharp: {
-      fluid: FluidObject;
+      gatsbyImageData: IGatsbyImageData;
     };
   };
 };
@@ -25,7 +25,7 @@ export type MDXNode = {
       title: string;
       cover: {
         childImageSharp: {
-          fluid: FluidObject;
+          gatsbyImageData: IGatsbyImageData;
         };
       };
     };

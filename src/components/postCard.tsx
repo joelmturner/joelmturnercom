@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui";
-import Img, { FluidObject } from "gatsby-image";
+import { GatsbyImage } from "gatsby-plugin-image";
 import { Link } from "gatsby";
 import { memo, ReactElement, ReactNode } from "react";
 
@@ -29,7 +29,7 @@ function PostCard({ title, slug, image, className, excerpt }: PostCardProps): Re
   return (
     <article>
       <Linked slug={slug} title={title} className={className}>
-        <Img fluid={image} sx={{ variant: "postCard.img" }} />
+        <GatsbyImage image={image} sx={{ variant: "postCard.img" }} />
       </Linked>
       <Linked slug={slug} title={title} className={className}>
         <Styled.h2 sx={{ variant: "postCard.title" }} key={title}>

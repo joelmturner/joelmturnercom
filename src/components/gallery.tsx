@@ -1,9 +1,8 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { FluidObject } from "gatsby-image";
 import { useKeypress } from "../hooks";
 import { memo, ReactElement, useCallback } from "react";
-import Img from "gatsby-image";
+import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 
 const GalleryImage = memo(
   ({
@@ -32,7 +31,7 @@ const GalleryImage = memo(
       return null;
     }
 
-    const fluid = node?.localFile?.childImageSharp.fluid ?? null;
+    const fluid = node?.localFile?.childImageSharp?.gatsbyImageData ?? null;
     return (
       <div
         role="button"
@@ -42,7 +41,7 @@ const GalleryImage = memo(
         onKeyPress={handleKeyPress}
         onClick={handleClick}
       >
-        {fluid && <Img fadeIn fluid={node.localFile.childImageSharp.fluid} />}
+        {fluid && <GatsbyImage image={node.localFile.childImageSharp.gatsbyImageData} alt={`image ${index + 1}`} />}
       </div>
     );
   }
@@ -52,7 +51,7 @@ export type GallerySizes = "s" | "m" | "l";
 export type GalleryImage = {
   localFile: {
     childImageSharp: {
-      fluid: FluidObject;
+      gatsbyImageData: IGatsbyImageData;
     };
   };
   id: string;

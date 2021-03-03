@@ -13,7 +13,7 @@ export const PostsList = memo(({ edges }: { edges: MDXNode[] }) => {
           key={title}
           slug={slugify(slug, `/blog`)}
           title={title}
-          image={cover?.childImageSharp.fluid}
+          image={cover?.childImageSharp?.gatsbyImageData}
           excerpt={excerpt}
         />
       ))}

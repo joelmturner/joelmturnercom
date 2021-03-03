@@ -6,7 +6,7 @@ import "@reach/dialog/styles.css";
 import { handleEnterKeyPress } from "../utils/a11y";
 import { useState, useCallback, useRef, useEffect, FC } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Img from "gatsby-image";
+import { GatsbyImage } from "gatsby-plugin-image";
 import { wrap } from "@popmotion/popcorn";
 import { InstaNode } from "../pages";
 import { useOnClickOutside, useKeypress } from "../hooks";
@@ -134,7 +134,8 @@ const Dialog: FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => 
               }
             }}
           >
-            <Img fluid={imageEdges[imageIndex]?.localFile?.childImageSharp.fluid} />
+            <GatsbyImage
+              image={imageEdges[imageIndex]?.localFile?.childImageSharp?.gatsbyImageData} />
           </motion.div>
         </AnimatePresence>
         <button
