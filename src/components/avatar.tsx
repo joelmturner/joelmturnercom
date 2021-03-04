@@ -27,7 +27,7 @@ const Avatar: React.FC<AvatarProps> = ({ user, className, size = "s" }) => {
 
   const sized = size === "s" ? "joel" : "joelLarge";
 
-  const image = data && data[user || sized] && data[user || sized].childImageSharp.gatsbyImageData;
+  const image = data?.[user || sized]?.childImageSharp.gatsbyImageData;
 
   return (
     <GatsbyImage
@@ -41,6 +41,11 @@ const Avatar: React.FC<AvatarProps> = ({ user, className, size = "s" }) => {
         height: "75px",
         m: 0,
         borderRadius: "50%",
+        // fix for safari rounded images with transitions
+        zIndex: 10,
+        img: {
+          zIndex: -10,
+        },
       }}
     />
   );
