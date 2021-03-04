@@ -13,6 +13,7 @@
     "@theme-ui/prism": "^0.3.5",
     "@theme-ui/typography": "^0.3.5",
     "@types/prismjs": "^1.16.3",
+    "@types/react-select": "^4.0.13",
     "@types/theme-ui": "^0.3.7",
     "eslint-config-prettier": "^8.1.0",
     "framer-motion": "^3.10.0",
