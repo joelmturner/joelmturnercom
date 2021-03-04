@@ -1,9 +1,8 @@
 /** @jsx jsx */
 import { jsx, useThemeUI } from "theme-ui";
+import Select from "react-select";
 import { ActionMeta, OptionTypeBase, Theme } from "react-select/src/types";
 import { FC, memo, useCallback } from "react";
-import loadable from "@loadable/component";
-const Select = loadable(() => import("react-select"));
 
 type DropDownProps = {
   selected: any;
