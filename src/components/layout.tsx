@@ -7,6 +7,7 @@ import { FaDev } from "react-icons/fa";
 import Header from "./header";
 import { Flexbox } from ".";
 import Global from "./global";
+import { ExternalLink } from "./ExternalLink";
 
 type LayoutProps = {
   children: ReactNode | ReactNode[];
@@ -37,28 +38,28 @@ const Layout: React.FC<LayoutProps> = ({ children, title = "", className }) => {
           <Flexbox left gap={2}>
             <Styled.p sx={{ fontSize: 2, mb: 0 }}>
               © 2012-{new Date().getFullYear()}, Proudly built with{` `}
-              <Styled.a tabIndex={0} href="https://www.gatsbyjs.org">
+              <ExternalLink href="https://www.gatsbyjs.org" title="Gatsby.js">
                 Gatsby
-              </Styled.a>{" "}
+              </ExternalLink>{" "}
               and{" "}
-              <Styled.a tabIndex={0} href="https://theme-ui.com">
+              <ExternalLink href="https://theme-ui.com" title="Theme UI">
                 Theme UI
-              </Styled.a>
+              </ExternalLink>
             </Styled.p>
           </Flexbox>
           <Flexbox gap={2} right>
-            <Styled.a tabIndex={0} href="https://www.instagram.com/joelmturner/" target="_blank" title="instagram">
+            <ExternalLink href="https://www.instagram.com/joelmturner/" title="instagram">
               <IoLogoInstagram />
-            </Styled.a>
-            <Styled.a tabIndex={0} href="https://twitter.com/joelmturner" target="_blank" title="twitter">
+            </ExternalLink>
+            <ExternalLink href="https://twitter.com/joelmturner" title="twitter">
               <IoLogoTwitter />
-            </Styled.a>
-            <Styled.a tabIndex={0} href="https://github.com/joelmturner" target="_blank" title="github">
+            </ExternalLink>
+            <ExternalLink href="https://github.com/joelmturner" title="github">
               <IoLogoGithub />
-            </Styled.a>
-            <Styled.a tabIndex={0} href="https://dev.to/joelmturner" target="_blank" title="joelmturner's DEV Profile">
+            </ExternalLink>
+            <ExternalLink href="https://dev.to/joelmturner" title="joelmturner's DEV Profile">
               <FaDev />
-            </Styled.a>
+            </ExternalLink>
           </Flexbox>
         </Flexbox>
       </footer>

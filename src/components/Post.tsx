@@ -10,6 +10,7 @@ import Link from "./link";
 import { usePostSeries } from "../hooks";
 import { slugify } from "../utils/utils";
 import { PostNav } from "./postNav";
+import { ExternalLink } from "./ExternalLink";
 
 type PostNavProps = {
   frontmatter: {
@@ -87,13 +88,12 @@ const Post: FC<PostProps> = ({
       <Flexbox vertical gap right>
         <Styled.h6 sx={{ color: "gray" }}>
           Discuss this article on{" "}
-          <Styled.a
-            target="_blank"
-            rel="noopener noreferrer"
+          <ExternalLink
             href={`https://mobile.twitter.com/search?q=${encodeURI(siteBaseUrl + "/blog/" + slug)}`}
+            title="Twitter discuss"
           >
             Twitter
-          </Styled.a>
+          </ExternalLink>
         </Styled.h6>
       </Flexbox>
     </Layout>
