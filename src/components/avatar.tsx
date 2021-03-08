@@ -35,6 +35,7 @@ const Avatar: React.FC<AvatarProps> = ({ user, className, size = "s" }) => {
       className={className}
       loading="eager"
       alt="avatar"
+      data-testid="avatar"
       sx={{
         bg: "backgroundSubtle",
         width: "75px",

@@ -19,7 +19,6 @@ function Embed({ title, id, height = 320, source }: EmbedProps) {
   return (
     <Iframe
       sx={{ width: "100%", height: `${height}px`, mb: 4, mt: 1, border: 0, borderRadius: "4px", overflow: "hidden" }}
-      scrolling="no"
       title={title}
       url={url}
       allowFullScreen={true}

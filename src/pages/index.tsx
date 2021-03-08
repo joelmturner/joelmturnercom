@@ -74,7 +74,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
         <Avatar />
         <Flexbox vertical left middle>
           <Styled.h1 sx={{ mb: 1 }}>Joel M. Turner</Styled.h1>
-          <Styled.h3 sx={{ m: 0 }}>Frontend Developer</Styled.h3>
+          <Styled.h2 sx={{ m: 0, color: "primary" }}>Frontend Developer</Styled.h2>
         </Flexbox>
       </Grid>
 
@@ -85,9 +85,9 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
           <Styled.h2 sx={{ mb: 1, mt: 2 }}>Sketching</Styled.h2>
           <Styled.h3 sx={{ mb: 0, mt: 1 }}>My Favorite Explorations</Styled.h3>
         </Flexbox>
-        <Styled.h5 sx={{ mx: 0, my: 0, textAlign: "right" }}>
+        <Styled.h4 sx={{ mx: 0, my: 0, textAlign: "right" }}>
           <Link to="/illustration">See more illustrations</Link>
-        </Styled.h5>
+        </Styled.h4>
       </Flexbox>
 
       <Gallery size={"s"} imageEdges={insta} setLightbox={handleSetOffset} sx={{ mt: 2, mb: 4 }} />
@@ -97,9 +97,9 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
           <Styled.h2 sx={{ mb: 1, mt: 0 }}>Writing</Styled.h2>
           <Styled.h3 sx={{ mb: 0, mt: 1 }}>Learning Through Writing</Styled.h3>
         </Flexbox>
-        <Styled.h5 sx={{ mx: 0, my: 0, textAlign: "right" }}>
+        <Styled.h4 sx={{ mx: 0, my: 0, textAlign: "right" }}>
           <Link to="/blog">See all articles</Link>
-        </Styled.h5>
+        </Styled.h4>
       </Flexbox>
 
       <PostsList edges={blog} />

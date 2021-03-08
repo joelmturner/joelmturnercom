@@ -67,15 +67,15 @@ export default {
   colors: {
     ...baseMerged.colors,
     text: "#575757",
-    textMuted: "#777",
+    textMuted: "#444",
     background: "#ffffff",
     backgroundSubtle: "#f9f9f9",
     muted: "#eaeaea",
-    primary: "#e7aa61",
+    primary: "#cc4e13",
     primaryHighlight: "#ffc689",
-    secondary: "#a462ab",
+    secondary: "#8d5493",
     gray: "#777",
-    accent: "#728fcb",
+    accent: "#5b72a2",
     overlay: "rgba(255,255,255,0.8)",
     highlightLine: "rgba(114, 143, 203, 0.075)",
     modes: {
@@ -315,6 +315,7 @@ export default {
       fontFamily: "body",
       fontSize: [4, 2],
       letterSpacing: 2,
+      fontWeight: "bold",
       a: {
         textDecoration: "none",
         color: "textMuted",
@@ -466,7 +467,7 @@ export default {
       webkitOverflowScrolling: "touch",
       mt: 0,
     },
-    '.gatsby-highlight pre[class*="language-"]::before': {
+    '.gatsby-highlight pre[class*="language-"]::after': {
       background: "black",
       borderRadius: "0 0 0.25rem 0.25rem",
       color: "white",
@@ -479,42 +480,42 @@ export default {
       textTransform: "uppercase",
       top: 0,
     },
-    '.gatsby-highlight pre[class~="language-js"]::before': {
+    '.gatsby-highlight pre[class~="language-js"]::after': {
       content: '"js"',
       bg: "primaryHighlight",
       color: "background",
     },
-    '.gatsby-highlight pre[class~="language-jsx"]::before': {
+    '.gatsby-highlight pre[class~="language-jsx"]::after': {
       content: '"jsx"',
       bg: "primary",
       color: "muted",
     },
-    '.gatsby-highlight pre[class~="language-bash"]::before': {
+    '.gatsby-highlight pre[class~="language-bash"]::after': {
       content: '"bash"',
       bg: "accent",
       color: "muted",
     },
-    '.gatsby-highlight pre[class~="language-typescript"]::before': {
+    '.gatsby-highlight pre[class~="language-typescript"]::after': {
       content: '"typescript"',
       bg: "secondary",
       color: "muted",
     },
-    '.gatsby-highlight pre[class~="language-graphql"]::before': {
+    '.gatsby-highlight pre[class~="language-graphql"]::after': {
       content: '"graphql"',
       bg: "gray",
       color: "background",
     },
-    '.gatsby-highlight pre[class~="language-css"]::before': {
+    '.gatsby-highlight pre[class~="language-css"]::after': {
       content: '"css"',
       bg: "accent",
       color: "muted",
     },
-    '.gatsby-highlight pre[class~="language-html"]::before': {
+    '.gatsby-highlight pre[class~="language-html"]::after': {
       content: '"html"',
       bg: "accent",
       color: "muted",
     },
-    ".gatsby-highlight pre.language-html.svelte::before": {
+    ".gatsby-highlight pre.language-html.svelte::after": {
       content: '"svelte"',
       bg: "accent",
       color: "muted",

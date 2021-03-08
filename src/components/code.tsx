@@ -96,7 +96,7 @@ const Code = ({
               </Styled.h6>
             </div>
           )}
-          <Styled.pre className={`${className} ${metaClasses}`} style={style}>
+          <Styled.pre className={`${className} ${metaClasses}`} style={style} tabIndex={0}>
             {tokens.map((line, i) => (
               <div
                 key={`${line} ${i}`}
@@ -108,7 +108,7 @@ const Code = ({
                     display: "inline-block",
                     width: "2em",
                     userSelect: "none",
-                    opacity: "0.3",
+                    opacity: "0.7",
                   }}
                 >
                   {i + 1}

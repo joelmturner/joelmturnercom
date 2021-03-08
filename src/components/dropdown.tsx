@@ -32,7 +32,7 @@ function customTheme(selectTheme: Theme, theme: any): Theme {
   };
 }
 
-const DropDown: FC<DropDownProps> = ({ selected, options, onChange, className }) => {
+const DropDown: FC<DropDownProps> = ({ selected, options, onChange, className, ...props }) => {
   const themeUI = useThemeUI();
   const handleTheme = useCallback((theme) => customTheme(theme, themeUI.theme), []);
   return (
@@ -46,6 +46,7 @@ const DropDown: FC<DropDownProps> = ({ selected, options, onChange, className })
         width: "100%",
       }}
       theme={handleTheme}
+      {...props}
     />
   );
 };

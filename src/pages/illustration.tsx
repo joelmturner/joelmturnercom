@@ -126,7 +126,12 @@ const Illustration: FC<IllustrationProps> = ({ data, location }) => {
       <Flexbox vertical>
         <Styled.h2>Explorations of Handlettering and Illustration</Styled.h2>
         <Flexbox between middle>
-          <Dropdown options={GALLERY_MENU_OPTIONS} selected={selectedMenuOption} onChange={handleChange} />
+          <Dropdown
+            options={GALLERY_MENU_OPTIONS}
+            selected={selectedMenuOption}
+            onChange={handleChange}
+            aria-label="select filter for instagram images"
+          />
           <Flexbox right>
             <FaTh
               sx={{ variant: sketchSize === "s" ? "icon.active" : "icon" }}

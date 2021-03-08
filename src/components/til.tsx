@@ -4,6 +4,7 @@ import Layout from "./layout";
 import { Link } from "gatsby";
 import Flexbox from "./flexbox";
 import { memo } from "react";
+import { SEO } from "./index";
 
 function TIL({
   data: {
@@ -18,6 +19,7 @@ function TIL({
 }: any) {
   return (
     <Layout {...props} title={title}>
+      <SEO title={title} />
       <Flexbox noGrow gap={1} sx={{ mb: 3 }} middle role="navigation">
         <Link sx={{ variant: "link", textDecoration: "none", fontWeight: 700 }} to={`/til`}>
           TIL
@@ -26,7 +28,7 @@ function TIL({
         <Link sx={{ variant: "link", textDecoration: "none", fontWeight: 700 }} to={`/til/${category}`}>
           {category}
         </Link>
-        /<Styled.h4 sx={{ mb: 0, ml: 2 }}>{slug}</Styled.h4>
+        /<span sx={{ mb: 0, ml: 2 }}>{slug}</span>
       </Flexbox>
       {children}
     </Layout>

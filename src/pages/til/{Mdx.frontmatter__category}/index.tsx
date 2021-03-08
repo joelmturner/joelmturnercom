@@ -45,9 +45,9 @@ function TILCategory({ data, params }: TILCategoryProps): ReactElement {
         .map((note) => {
           const url = `/til/${slugify(note.frontmatter.category)}/${slugify(note.frontmatter.slug)}`;
           return (
-            <Styled.h3 key={url}>
-              <Link to={url}>{note.frontmatter.slug}</Link>
-            </Styled.h3>
+            <Link key={url} to={url}>
+              {note.frontmatter.slug}
+            </Link>
           );
         })}
     </Layout>

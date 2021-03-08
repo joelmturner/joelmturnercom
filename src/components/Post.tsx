@@ -64,19 +64,19 @@ const Post: FC<PostProps> = ({
       <Flexbox vertical sx={{ mt: 4, borderTop: "1px solid", borderColor: "muted", py: 3 }}>
         {category && (
           <Flexbox gap={1}>
-            <Styled.h6 sx={{ fontWeight: "normal" }}>Category</Styled.h6>
+            <span sx={{ fontWeight: "normal" }}>Category</span>
             <Link to={slugify(category, `/blog/category`)} sx={{ fontWeight: "normal", variant: "link" }}>
-              <Styled.h6 sx={{ variant: "link" }}>{category}</Styled.h6>
+              <span sx={{ variant: "link" }}>{category}</span>
             </Link>
           </Flexbox>
         )}
 
         {tags && (
           <Flexbox gap={1} sx={{ mb: 3 }}>
-            <Styled.h6 sx={{ fontWeight: "normal" }}>Tags: </Styled.h6>
+            <span sx={{ fontWeight: "normal" }}>Tags: </span>
             {tags.map((tag) => (
               <Link key={tag} to={slugify(tag, `/blog/tag`)} sx={{ fontWeight: "normal", variant: "link" }}>
-                <Styled.h6 sx={{ variant: "link" }}>{tag}</Styled.h6>
+                <span sx={{ variant: "link" }}>{tag}</span>
               </Link>
             ))}
           </Flexbox>
@@ -86,15 +86,14 @@ const Post: FC<PostProps> = ({
       </Flexbox>
 
       <Flexbox vertical gap right>
-        <Styled.h6 sx={{ color: "gray" }}>
-          Discuss this article on{" "}
+        <span sx={{ color: "gray" }}>
           <ExternalLink
             href={`https://mobile.twitter.com/search?q=${encodeURI(siteBaseUrl + "/blog/" + slug)}`}
-            title="Twitter discuss"
+            title="Twitter discussion"
           >
-            Twitter
+            Discuss this article on Twitter
           </ExternalLink>
-        </Styled.h6>
+        </span>
       </Flexbox>
     </Layout>
   );

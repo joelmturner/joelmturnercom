@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
-import { CSSProperties } from "react"
+import { jsx } from "theme-ui";
+import { CSSProperties, ReactElement } from "react";
 
-export type FlexboxProps = React.HTMLAttributes<HTMLDivElement> & {
+export type FlexboxProps = React.HTMLAttributes<HTMLElement> & {
   className?: string;
   inline?: boolean;
   vertical?: boolean;
@@ -23,7 +23,8 @@ export type FlexboxProps = React.HTMLAttributes<HTMLDivElement> & {
   around?: boolean;
 
   gap?: boolean | number;
-}
+  as?: ReactElement;
+};
 
 export const getFlexProperties = ({
   top,
@@ -38,34 +39,34 @@ export const getFlexProperties = ({
   gap,
 }: FlexboxProps): CSSProperties => {
   // check all booleans and return appropriate css
-  let primaryAxis = "initial"
-  let secondaryAxis = "initial"
-  let gridGap: string | number = "none"
+  let primaryAxis = "initial";
+  let secondaryAxis = "initial";
+  let gridGap: string | number = "none";
 
   // does primary axis have a value?
   if (left || center || right || between || around) {
     // set value
     if (left) {
-      primaryAxis = "flex-start"
+      primaryAxis = "flex-start";
     } else if (center) {
-      primaryAxis = "center"
+      primaryAxis = "center";
     } else if (right) {
-      primaryAxis = "flex-end"
+      primaryAxis = "flex-end";
     } else if (between) {
-      primaryAxis = "space-between"
+      primaryAxis = "space-between";
     } else if (around) {
-      primaryAxis = "space-around"
+      primaryAxis = "space-around";
     }
   }
 
   // secondary axis
   if (top || middle || bottom) {
     if (top) {
-      secondaryAxis = "flex-start"
+      secondaryAxis = "flex-start";
     } else if (middle) {
-      secondaryAxis = "center"
+      secondaryAxis = "center";
     } else if (bottom) {
-      secondaryAxis = "flex-end"
+      secondaryAxis = "flex-end";
     }
   }
 
@@ -73,44 +74,44 @@ export const getFlexProperties = ({
   if (vertical) {
     if (left || center || right) {
       if (left) {
-        secondaryAxis = "flex-start"
+        secondaryAxis = "flex-start";
       } else if (center) {
-        secondaryAxis = "center"
+        secondaryAxis = "center";
       } else if (right) {
-        secondaryAxis = "flex-end"
+        secondaryAxis = "flex-end";
       }
     }
 
     if (top || middle || bottom || between || around) {
       if (top) {
-        primaryAxis = "flex-start"
+        primaryAxis = "flex-start";
       } else if (middle) {
-        primaryAxis = "center"
+        primaryAxis = "center";
       } else if (bottom) {
-        primaryAxis = "flex-end"
+        primaryAxis = "flex-end";
       } else if (between) {
-        primaryAxis = "space-between"
+        primaryAxis = "space-between";
       } else if (around) {
-        primaryAxis = "space-around"
+        primaryAxis = "space-around";
       }
     }
   }
 
   if (gap) {
     if (gap == true) {
-      gridGap = 2
+      gridGap = 2;
     } else {
-      gridGap = gap
+      gridGap = gap;
     }
   }
 
   return {
     justifyContent: primaryAxis,
     alignItems: secondaryAxis,
-    marginLeft: gap && !vertical ? gridGap : 'initial',
-    marginTop: gap && vertical ? gridGap : 'initial',
-  }
-}
+    marginLeft: gap && !vertical ? gridGap : "initial",
+    marginTop: gap && vertical ? gridGap : "initial",
+  };
+};
 
 const Flexbox: React.FC<FlexboxProps> = ({
   top,
@@ -128,6 +129,7 @@ const Flexbox: React.FC<FlexboxProps> = ({
   wrap,
   noGrow,
   children,
+  as = "div",
   ...rest
 }) => {
   const { justifyContent, alignItems, marginLeft, marginTop } = getFlexProperties({
@@ -141,9 +143,10 @@ const Flexbox: React.FC<FlexboxProps> = ({
     around,
     vertical,
     gap,
-  })
+  });
+  const Element = as;
   return (
-    <div
+    <Element
       sx={{
         display: (inline ? "inline-flex" : "flex") as CSSProperties,
         flexDirection: (vertical ? "column" : "row") as CSSProperties,
@@ -160,9 +163,9 @@ const Flexbox: React.FC<FlexboxProps> = ({
       {...rest}
     >
       {children}
-    </div>
-  )
-}
+    </Element>
+  );
+};
 
 /** @component */
-export default Flexbox
+export default Flexbox;

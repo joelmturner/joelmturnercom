@@ -34,10 +34,12 @@ const MainNav = () => {
         sx={{
           variant: `nav.wrapper${showNav ? "Active" : ""}`,
         }}
+        as="nav"
         role="navigation"
+        aria-label="main navigation"
       >
         {navLinks.map((navLink) => (
-          <h3 sx={{ variant: "nav.link" }} key={navLink.label}>
+          <span sx={{ variant: "nav.link" }} key={navLink.label}>
             <Link
               to={navLink.to}
               activeClassName="active"
@@ -50,7 +52,7 @@ const MainNav = () => {
             >
               {navLink.label}
             </Link>
-          </h3>
+          </span>
         ))}
       </Flexbox>
       <button sx={{ variant: "nav.button" }} onClick={toggleNav} aria-label="theme switcher">

@@ -30,7 +30,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title = "", className }) => {
     <Styled.root className={className}>
       <Global />
       <Header siteTitle={title ? title : data.site.siteMetadata.title} />
-      <main id="mainContent" sx={{ variant: "content.wrapper" }}>
+      <main id="mainContent" sx={{ variant: "content.wrapper" }} role={"main"}>
         {children}
       </main>
       <footer sx={{ mt: 2 }}>
