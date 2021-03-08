@@ -12,6 +12,10 @@ tags:
 
 We had a need for an auto advancing image slider in React. I chose to use hooks for this feature. This hook leverages a `useInterval` hook from [Dan Abrimov](https://overreacted.io/making-setinterval-declarative-with-react-hooks/).
 
+## What We're Building TL;DR
+
+<Embed source="codeSandbox" id="simple-react-hooks-interval-slider-vsmi1" title='Simple React Hooks Slider' height={500} />
+
 <!-- TODO: double check useInterval post -->
 
 ## Requirements
@@ -191,9 +195,7 @@ function Slider() {
 
 Now we can add our hook to our slider component. This will give us all the state that we’ll need for this feature. When it's all together we get a slider that moves the slides horizontally and rewinds after the last one. You can hook up the slider props to manage the slider options if needed. It can also be made to go vertical with a little modification.
 
-<Embed source="codeSandbox" id="simple-react-hooks-interval-slider-vsmi1" title='Simple React Hooks Slider' height='500px' />
-
-Cool! Requirements met.
+### Cool! Requirements met.
 - [x] Should accept an slide array
 - [x] Should accept a duration in milliseconds
 - [x] Should animate between slides

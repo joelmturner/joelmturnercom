@@ -13,6 +13,12 @@ tags:
 
 There are a few components that I use almost every day in development. They are used for layouts and are made from flexbox and css grid. On this site I pass both of these down with the MdxProvider so all my pages and posts have access to them easily.
 
+## What We're Using TL;DR
+
+<Embed id='react-layout-components-flexbox-grid-d9e1u' source='codeSandbox' title='React Layout Components Flexbox & Grid' height={600} />
+
+I had used a column component that accepted different span amounts, but I ended up not using it as much. I tend to add `span` to the children through the `sx` prop or extending with styled components.
+
 ## Flexbox
 
 This one is by far my favorite. 90% of the time it works perfectly with the props given. It can easily be extended through styled components, emotion's `css` prop, or Theme UI's `sx` prop for those few cases where I need something extra.
@@ -83,9 +89,3 @@ Here's an example of using it. See more examples in the [CodeSandbox](#example).
   <img src='catsSinging.png' />
 </Grid>
 ```
-
-## <a name="example"></a>Examples
-
-<Embed id='react-layout-components-flexbox-grid-d9e1u' source='codeSandbox' title='React Layout Components Flexbox & Grid' height={600} />
-
-I had used a column component that accepted different span amounts but I ended up not using it as much. I tend to add `span` to the children through the `sx` prop or extending with styled components.

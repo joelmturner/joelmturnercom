@@ -14,7 +14,7 @@ function Embed({ title, id, height = 320, source }: EmbedProps) {
   const url =
     source === "codePen"
       ? `//codepen.io/joelmturner/embed/${id}/?height=320&theme-id=dark&default-tab=result`
-      : `//codesandbox.io/embed/${id}?autoresize=1&fontsize=14&hidenavigation=1&view=preview`;
+      : `//codesandbox.io/embed/${id}?autoresize=1&fontsize=14&hidenavigation=1&view=preview&codemirror=1&hidedevtools=1`;
 
   return (
     <Iframe
@@ -23,8 +23,8 @@ function Embed({ title, id, height = 320, source }: EmbedProps) {
       url={url}
       allowFullScreen={true}
       frameBorder={0}
-      allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
-      sandbox={"allow-modals allow-forms allow-popups allow-scripts allow-same-origin" as any}
+      allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
       loading="lazy"
     />
   );
