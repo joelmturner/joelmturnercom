@@ -165,7 +165,6 @@ const Illustration: FC<IllustrationProps> = ({ data, location }) => {
       </Flexbox>
       <Gallery size={sketchSize} imageEdges={filteredEdges} setLightbox={handleSetOffset} sx={{ my: 3 }} />
 
-      {/* {showLightbox && ( */}
       {offset > -1 && (
         <Dialog
           imageEdges={filteredEdges}
@@ -174,7 +173,6 @@ const Illustration: FC<IllustrationProps> = ({ data, location }) => {
           aria-label="Gallery of my sketches on Instagram"
         />
       )}
-      {/* )} */}
     </Layout>
   );
 };

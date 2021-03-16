@@ -1,4 +1,5 @@
 export { default as useKeypress } from "./useKeypress";
+export { default as useKeypressSimple } from "./useKeypressSimple";
 export { default as useLightbox } from "./useLightbox";
 export { default as useLightboxNav } from "./useLightboxNav";
 export { default as useLocalStorage } from "./useLocalStorage";

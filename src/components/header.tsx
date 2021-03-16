@@ -5,36 +5,42 @@ import { Link } from "gatsby";
 import Flexbox from "./flexbox";
 import ThemeSwitch from "./themeSwitch";
 import MainNav from "./mainNav";
-import { memo } from "react";
+import { memo, useRef } from "react";
 
 type HeaderProps = {
   siteTitle: string;
 };
 
-const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
-  const [colorMode, setColorMode] = useColorMode();
-  const [isSkipFocused, setIsSkipFocused] = React.useState<boolean>(false);
-  const setFocused = React.useCallback(function () {
-    setIsSkipFocused(true);
-  }, []);
-  const unsetFocused = React.useCallback(function () {
-    setIsSkipFocused(false);
-  }, []);
-  const setColor = React.useCallback(
+const Header: React.FC<HeaderProps> = ({ siteTitle = "" }) => {
+  const skipRef = useRef<HTMLAnchorElement>(null);
+
+  const setFocused = React.useCallback(
     function () {
-      setColorMode(colorMode === "light" ? "dark" : "light");
+      if (skipRef?.current) {
+        skipRef.current.style.top = "0%";
+      }
     },
-    [setColorMode, colorMode]
+    [skipRef.current]
+  );
+
+  const unsetFocused = React.useCallback(
+    function () {
+      if (skipRef?.current) {
+        skipRef.current.style.top = "-500%";
+      }
+    },
+    [skipRef.current]
   );
 
   return (
     <header sx={{ mb: 2, position: "relative" }}>
       <a
+        ref={skipRef}
         href="#mainContent"
         tabIndex={0}
         sx={{
           position: "absolute",
-          top: isSkipFocused ? "0%" : "-500%",
+          top: "-500%",
           color: "primary",
         }}
         onFocus={setFocused}
@@ -57,15 +63,11 @@ const Header: React.FC<HeaderProps> = ({ siteTitle }) => {
 
           <MainNav />
 
-          <ThemeSwitch checked={colorMode === "light"} onClick={setColor} />
+          <ThemeSwitch />
         </Flexbox>
       </div>
     </header>
   );
-};
-
-Header.defaultProps = {
-  siteTitle: ``,
 };
 
 export default memo(Header);

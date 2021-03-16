@@ -2,14 +2,14 @@
 import { jsx } from "theme-ui";
 import { DialogOverlay, DialogContent } from "@reach/dialog";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import "@reach/dialog/styles.css";
 import { handleEnterKeyPress } from "../utils/a11y";
-import { useState, useCallback, useRef, useEffect, FC } from "react";
+import { useState, useCallback, useRef, FC } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { wrap } from "@popmotion/popcorn";
 import { InstaNode } from "../pages";
-import { useOnClickOutside, useKeypress } from "../hooks";
+import { useOnClickOutside, useKeypressSimple } from "../hooks";
+import "@reach/dialog/styles.css";
 
 type DialogProps = {
   className?: any;
@@ -21,28 +21,31 @@ type DialogProps = {
   onNext?: () => void;
 };
 
+// based on https://codesandbox.io/s/framer-motion-image-gallery-pqvx3?fontsize=14&module=/src/Example.tsx&file=/src/Example.tsx:1884-2000
 const VARIANTS = {
   enter: (direction: number) => {
     return {
       x: direction > 0 ? 1000 : -1000,
       opacity: 0,
-      y: "0%",
     };
   },
   center: {
     zIndex: 1,
     x: 0,
     opacity: 1,
-    y: "0%",
   },
   exit: (direction: number) => {
     return {
       zIndex: 0,
       x: direction < 0 ? 1000 : -1000,
       opacity: 0,
-      y: "0%",
     };
   },
+};
+
+const TRANSITION = {
+  x: { type: "spring", stiffness: 300, damping: 30 },
+  opacity: { duration: 0.2 },
 };
 
 const swipeConfidenceThreshold = 10000;
@@ -51,16 +54,14 @@ const swipePower = (offset: number, velocity: number) => {
 };
 
 const Dialog: FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => {
-  const ref = useRef(null);
-  const currentPage = useRef(-1);
-  const [isNavFocused, setIsNavFocused] = useState<boolean>(false);
-
+  const ref = useRef<HTMLDivElement>(null);
   const [[page, direction], setPage] = useState([offset, 0]);
+
   const paginate = useCallback(
     (newDirection: number) => {
-      setPage([page + newDirection, newDirection]);
+      setPage(([prevPage, prevDirection]) => [prevPage + newDirection, newDirection]);
     },
-    [setPage, page]
+    [setPage]
   );
 
   const onNext = useCallback(() => {
@@ -71,26 +72,39 @@ const Dialog: FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => 
     paginate(-1);
   }, [paginate]);
 
-  const rightArrow = useKeypress("ArrowRight");
-  const leftArrow = useKeypress("ArrowLeft");
+  const handleDragEnd = useCallback((e, { offset, velocity }) => {
+    const swipe = swipePower(offset.x, velocity.x);
 
-  useEffect(() => {
-    if (currentPage.current === page) {
-      if (rightArrow) {
-        onNext();
-      }
-      if (leftArrow) {
-        onPrev();
-      }
+    if (swipe < -swipeConfidenceThreshold) {
+      paginate(1);
+    } else if (swipe > swipeConfidenceThreshold) {
+      paginate(-1);
     }
-    currentPage.current = page;
-  }, [onNext, onPrev, rightArrow, leftArrow, page]);
+  }, []);
+
+  // handle key presses
+  useKeypressSimple("ArrowRight", onNext, [page]);
+  useKeypressSimple("ArrowLeft", onPrev, [page]);
+
+  // handle navigation opacity
+  const setNavOpacity = useCallback(
+    (value = 0) => {
+      const nextEl = ref?.current?.querySelectorAll('[data-reach-dialog-nav="next"]')[0];
+      const prevEl = ref?.current?.querySelectorAll('[data-reach-dialog-nav="prev"]')[0];
+
+      if (nextEl && prevEl) {
+        nextEl.style.opacity = value;
+        prevEl.style.opacity = value;
+      }
+    },
+    [ref.current]
+  );
 
   const setNavFocus = useCallback(() => {
-    setIsNavFocused(true);
+    setNavOpacity(1);
   }, []);
   const unsetNavFocus = useCallback(() => {
-    setIsNavFocused(false);
+    setNavOpacity(0);
   }, []);
 
   const imageIndex = wrap(0, imageEdges.length, page);
@@ -116,23 +130,12 @@ const Dialog: FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => 
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{
-              x: { type: "spring", stiffness: 300, damping: 200 },
-              opacity: { duration: 0.3 },
-            }}
+            transition={TRANSITION}
             drag="x"
             style={{ y: "0%", position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={1}
-            onDragEnd={(e, { offset, velocity }) => {
-              const swipe = swipePower(offset.x, velocity.x);
-
-              if (swipe < -swipeConfidenceThreshold) {
-                paginate(1);
-              } else if (swipe > swipeConfidenceThreshold) {
-                paginate(-1);
-              }
-            }}
+            onDragEnd={handleDragEnd}
           >
             <GatsbyImage image={imageEdges[imageIndex]?.localFile?.childImageSharp?.fullSize} alt={`full size page`} />
           </motion.div>
@@ -162,7 +165,7 @@ const Dialog: FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => 
           sx={{
             variant: "dialog.nav",
             right: -4,
-            opacity: isNavFocused ? 1 : 0,
+            opacity: 0,
           }}
           onClick={onNext}
           data-reach-dialog-nav="next"
@@ -178,7 +181,7 @@ const Dialog: FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => 
             sx={{
               variant: "dialog.nav",
               left: -4,
-              opacity: isNavFocused ? 1 : 0,
+              opacity: 0,
             }}
             onClick={onPrev}
             data-reach-dialog-nav="prev"

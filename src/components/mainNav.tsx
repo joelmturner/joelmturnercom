@@ -25,7 +25,8 @@ const navLinks = [
 
 const MainNav = () => {
   const [showNav, setShowNav] = useState<boolean>(false);
-  const toggleNav = useCallback(() => setShowNav(!showNav), [setShowNav, showNav]);
+  const toggleNav = useCallback(() => setShowNav((prevState) => !prevState), [setShowNav]);
+
   return (
     <Fragment>
       <Flexbox

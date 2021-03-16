@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import { CSSProperties, ReactElement } from "react";
+import { CSSProperties, ElementType, ReactElement } from "react";
 
 export type FlexboxProps = React.HTMLAttributes<HTMLElement> & {
   className?: string;
@@ -23,7 +23,7 @@ export type FlexboxProps = React.HTMLAttributes<HTMLElement> & {
   around?: boolean;
 
   gap?: boolean | number;
-  as?: ReactElement;
+  as?: ElementType;
 };
 
 export const getFlexProperties = ({

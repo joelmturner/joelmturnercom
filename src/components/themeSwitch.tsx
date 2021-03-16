@@ -1,32 +1,29 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { jsx, useColorMode } from "theme-ui";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { handleEnterKeyPress } from "../utils/a11y";
 import { FC, memo, useCallback } from "react";
+import * as React from "react";
 
-type ThemeSwitchProps = {
-  checked: boolean;
-  onClick(): void;
-};
+type ThemeSwitchProps = {};
 
-const ThemeSwitch: FC<ThemeSwitchProps> = ({ checked, onClick }) => {
-  const handleOnClick = useCallback(
+const ThemeSwitch: FC<ThemeSwitchProps> = ({}) => {
+  const [colorMode, setColorMode] = useColorMode();
+  const setColor = React.useCallback(
     function () {
-      if (onClick) {
-        onClick();
-      }
+      setColorMode((prevState) => (prevState === "light" ? "dark" : "light"));
     },
-    [onClick]
+    [setColorMode, colorMode]
   );
+  const handleOnClick = useCallback(function () {
+    setColor();
+  }, []);
 
-  const handleKey = useCallback(
-    function () {
-      if (onClick) {
-        handleEnterKeyPress(onClick);
-      }
-    },
-    [onClick]
-  );
+  const handleKey = useCallback(function () {
+    setColor();
+  }, []);
+
+  const checked = colorMode === "light";
 
   return (
     <div
@@ -39,7 +36,7 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ checked, onClick }) => {
     >
       <input sx={{ variant: "themeSwitch.switch" }} type="checkbox" name="onoffswitch" checked={checked} readOnly />
       <div sx={{ variant: "themeSwitch.label" }} />
-      <span sx={{ variant: `themeSwitch.icon.${checked ? "light" : "dark"}` }}>{checked ? <FaSun /> : <FaMoon />}</span>
+      <span sx={{ variant: `themeSwitch.icon.${colorMode}` }}>{checked ? <FaSun /> : <FaMoon />}</span>
     </div>
   );
 };
