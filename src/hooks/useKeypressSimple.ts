@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
-export default function useKeypress(key: string, action, deps = []) {
+export default function useKeypress(key: string, action: any, deps: any[] = []) {
   useEffect(() => {
-    function onKeyup(e) {
-      if (e.key === key) action();
+    function onKeyup(event: KeyboardEvent) {
+      if (event.key === key) action();
     }
     window.addEventListener("keyup", onKeyup);
     return () => window.removeEventListener("keyup", onKeyup);

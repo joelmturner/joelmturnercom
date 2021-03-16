@@ -89,12 +89,12 @@ const Dialog: FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => 
   // handle navigation opacity
   const setNavOpacity = useCallback(
     (value = 0) => {
-      const nextEl = ref?.current?.querySelectorAll('[data-reach-dialog-nav="next"]')[0];
-      const prevEl = ref?.current?.querySelectorAll('[data-reach-dialog-nav="prev"]')[0];
+      const nextEl = ref?.current?.querySelectorAll('[data-reach-dialog-nav="next"]')?.[0];
+      const prevEl = ref?.current?.querySelectorAll('[data-reach-dialog-nav="prev"]')?.[0];
 
       if (nextEl && prevEl) {
-        nextEl.style.opacity = value;
-        prevEl.style.opacity = value;
+        ((nextEl as unknown) as HTMLElement).style.opacity = value;
+        ((prevEl as unknown) as HTMLElement).style.opacity = value;
       }
     },
     [ref.current]
