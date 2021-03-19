@@ -310,7 +310,7 @@ export default {
       alignItems: "center",
       flexDirection: ["column", "row"],
       justifyContent: ["center", "flex-end"],
-      bg: ["muted", "hsl(0,0,0,0%)"],
+      bg: ["muted", "hsl(0, 0%, 0%, 0%)"],
       display: ["none", "flex"],
     },
     wrapperActive: {
