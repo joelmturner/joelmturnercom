@@ -125,6 +125,13 @@ module.exports = {
       },
     },
     {
+      resolve: "@sentry/gatsby",
+      options: {
+        dsn: ***REMOVED***,
+        sampleRate: 0.7,
+      },
+    },
+    {
       resolve: `gatsby-plugin-sitemap`,
       options: {
         output: `/sitemap.xml`,
