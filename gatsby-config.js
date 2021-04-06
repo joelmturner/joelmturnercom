@@ -129,6 +129,7 @@ module.exports = {
       options: {
         dsn: ***REMOVED***,
         sampleRate: 0.7,
+        tracesSampleRate: 1,
       },
     },
     {
