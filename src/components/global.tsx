@@ -1,15 +1,16 @@
-import React from 'react'
-import { Global as GlobalEmotion } from '@emotion/core'
+import React from "react";
+import { Global as GlobalEmotion } from "@emotion/core";
 
-const Global = () =>
+const Global = () => (
   <GlobalEmotion
-    styles={theme => ({
+    styles={(theme) => ({
       body: {
-        color: theme.colors.text,
-        backgroundColor: theme.colors.background,
-        margin: 0
-      }
+        color: theme.colors?.text,
+        backgroundColor: theme.colors?.background,
+        margin: 0,
+      },
     })}
   />
+);
 
-  export default Global;
+export default Global;
