@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui";
+import { jsx, Themed } from "theme-ui";
 import { graphql } from "gatsby";
 import Link from "../../../components/link";
 import Layout from "../../../components/layout";
@@ -30,9 +30,9 @@ function BlogCategoryIndex({ data, params }: BlogCategoryIndexProps): ReactEleme
       {set.map((category) => {
         const url = `${category}`;
         return (
-          <Styled.h3 key={url}>
+          <Themed.h3 key={url}>
             <Link to={url}>{url}</Link>
-          </Styled.h3>
+          </Themed.h3>
         );
       })}
     </Layout>

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui";
+import { jsx, Themed } from "theme-ui";
 import React, { memo } from "react";
 import PostCard from "./postCard";
 import { slugify } from "../utils/utils";

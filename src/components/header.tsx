@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled, useColorMode } from "theme-ui";
+import { jsx, Themed, useColorMode } from "theme-ui";
 import * as React from "react";
 import { Link } from "gatsby";
 import Flexbox from "./flexbox";
@@ -50,7 +50,7 @@ const Header: React.FC<HeaderProps> = ({ siteTitle = "" }) => {
       </a>
       <div sx={{ variant: "content.wrapper" }}>
         <Flexbox between middle>
-          <Styled.h1
+          <Themed.h1
             sx={{
               mb: 0,
               fontSize: 3,
@@ -59,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({ siteTitle = "" }) => {
             <Link to="/" tabIndex={0} sx={{ color: "textMuted", textDecoration: "none" }}>
               {siteTitle}
             </Link>
-          </Styled.h1>
+          </Themed.h1>
 
           <MainNav />
 

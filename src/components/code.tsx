@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled, useColorMode } from "theme-ui";
+import { jsx, Themed, useColorMode } from "theme-ui";
 import Highlight, { defaultProps, Language, PrismTheme } from "prism-react-renderer";
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live";
 import themeMod from "../utils/themeMod";
@@ -91,12 +91,12 @@ const Code = ({
         <div className="gatsby-highlight" data-language={scrubbedLanguage} sx={{ overflow: "auto" }}>
           {metaAttributes?.filename && (
             <div className="code-filename" sx={{ bg: "muted", p: 1 }}>
-              <Styled.h6 sx={{ p: 0, m: 0, fontStyle: "italic", letterSpacing: ".5px", fontWeight: 1 }}>
+              <Themed.h6 sx={{ p: 0, m: 0, fontStyle: "italic", letterSpacing: ".5px", fontWeight: 1 }}>
                 {metaAttributes?.filename}
-              </Styled.h6>
+              </Themed.h6>
             </div>
           )}
-          <Styled.pre className={`${className} ${metaClasses}`} style={style} tabIndex={0}>
+          <Themed.pre className={`${className} ${metaClasses}`} style={style} tabIndex={0}>
             {tokens.map((line, i) => (
               <div
                 key={`${line} ${i}`}
@@ -118,7 +118,7 @@ const Code = ({
                 ))}
               </div>
             ))}
-          </Styled.pre>
+          </Themed.pre>
         </div>
       )}
     </Highlight>

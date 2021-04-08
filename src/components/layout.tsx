@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui";
+import { jsx, Themed } from "theme-ui";
 import { memo, ReactNode } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import { IoLogoInstagram, IoLogoGithub, IoLogoTwitter } from "react-icons/io";
@@ -27,7 +27,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title = "", className }) => {
   `);
 
   return (
-    <Styled.root className={className}>
+    <Themed.root className={className}>
       <Global />
       <Header siteTitle={title ? title : data.site.siteMetadata.title} />
       <main id="mainContent" sx={{ variant: "content.wrapper" }} role={"main"}>
@@ -36,7 +36,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title = "", className }) => {
       <footer sx={{ mt: 2 }}>
         <Flexbox middle sx={{ variant: "content.wrapper", borderTop: "1px solid", borderColor: "muted", py: 3 }}>
           <Flexbox left gap={2}>
-            <Styled.p sx={{ fontSize: 2, mb: 0 }}>
+            <Themed.p sx={{ fontSize: 2, mb: 0 }}>
               © 2012-{new Date().getFullYear()}, Proudly built with{` `}
               <ExternalLink href="https://www.gatsbyjs.org" title="Gatsby.js">
                 Gatsby
@@ -45,7 +45,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title = "", className }) => {
               <ExternalLink href="https://theme-ui.com" title="Theme UI">
                 Theme UI
               </ExternalLink>
-            </Styled.p>
+            </Themed.p>
           </Flexbox>
           <Flexbox gap={2} right>
             <ExternalLink href="https://www.instagram.com/joelmturner/" title="instagram">
@@ -63,7 +63,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title = "", className }) => {
           </Flexbox>
         </Flexbox>
       </footer>
-    </Styled.root>
+    </Themed.root>
   );
 };
 

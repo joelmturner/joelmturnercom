@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui";
+import { jsx, Themed } from "theme-ui";
 import React, { useCallback, useState } from "react";
 import { graphql } from "gatsby";
 import { Layout, SEO, Avatar, Flexbox, Gallery, Grid, Link } from "../components";
@@ -73,8 +73,8 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
       <Grid gap={2} columns="75px 1fr" sx={{ mb: 3 }}>
         <Avatar />
         <Flexbox vertical left middle>
-          <Styled.h1 sx={{ mb: 1 }}>Joel M. Turner</Styled.h1>
-          <Styled.h2 sx={{ m: 0, color: "primary" }}>Frontend Developer</Styled.h2>
+          <Themed.h1 sx={{ mb: 1 }}>Joel M. Turner</Themed.h1>
+          <Themed.h2 sx={{ m: 0, color: "primary" }}>Frontend Developer</Themed.h2>
         </Flexbox>
       </Grid>
 
@@ -82,24 +82,24 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
 
       <Flexbox between bottom>
         <Flexbox vertical>
-          <Styled.h2 sx={{ mb: 1, mt: 2 }}>Sketching</Styled.h2>
-          <Styled.h3 sx={{ mb: 0, mt: 1 }}>My Favorite Explorations</Styled.h3>
+          <Themed.h2 sx={{ mb: 1, mt: 2 }}>Sketching</Themed.h2>
+          <Themed.h3 sx={{ mb: 0, mt: 1 }}>My Favorite Explorations</Themed.h3>
         </Flexbox>
-        <Styled.h4 sx={{ mx: 0, my: 0, textAlign: "right" }}>
+        <Themed.h4 sx={{ mx: 0, my: 0, textAlign: "right" }}>
           <Link to="/illustration">See more illustrations</Link>
-        </Styled.h4>
+        </Themed.h4>
       </Flexbox>
 
       <Gallery size={"s"} imageEdges={insta} setLightbox={handleSetOffset} sx={{ mt: 2, mb: 4 }} />
 
       <Flexbox between bottom>
         <Flexbox vertical>
-          <Styled.h2 sx={{ mb: 1, mt: 0 }}>Writing</Styled.h2>
-          <Styled.h3 sx={{ mb: 0, mt: 1 }}>Learning Through Writing</Styled.h3>
+          <Themed.h2 sx={{ mb: 1, mt: 0 }}>Writing</Themed.h2>
+          <Themed.h3 sx={{ mb: 0, mt: 1 }}>Learning Through Writing</Themed.h3>
         </Flexbox>
-        <Styled.h4 sx={{ mx: 0, my: 0, textAlign: "right" }}>
+        <Themed.h4 sx={{ mx: 0, my: 0, textAlign: "right" }}>
           <Link to="/blog">See all articles</Link>
-        </Styled.h4>
+        </Themed.h4>
       </Flexbox>
 
       <PostsList edges={blog} />

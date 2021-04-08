@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui";
+import { jsx, Themed } from "theme-ui";
 import { useState, useCallback, useEffect, useMemo } from "react";
 import { Layout, SEO, Flexbox } from "../components";
 import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
@@ -108,7 +108,7 @@ const Posts: FC<PostsProps> = ({ pageContext, data, ...props }) => {
     <Layout>
       <SEO title="Blog" description="A journey through Gatsby, React, TypeScript, and illustration" />
       <Flexbox gap={3} between>
-        <Styled.h1>{title}</Styled.h1>
+        <Themed.h1>{title}</Themed.h1>
         <Flexbox right gap={2} middle sx={{ mb: 3 }}>
           <input
             onChange={handleSearch}
@@ -124,7 +124,7 @@ const Posts: FC<PostsProps> = ({ pageContext, data, ...props }) => {
               background: "transparent",
             }}
           />
-          <Styled.p
+          <Themed.p
             onClick={emptySearch}
             sx={{
               m: 0,
@@ -137,7 +137,7 @@ const Posts: FC<PostsProps> = ({ pageContext, data, ...props }) => {
             }}
           >
             x
-          </Styled.p>
+          </Themed.p>
         </Flexbox>
       </Flexbox>
 

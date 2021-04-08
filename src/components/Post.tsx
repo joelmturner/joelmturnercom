@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui";
+import { jsx, Themed } from "theme-ui";
 import { memo, ReactNode } from "react";
 import { FC } from "react";
 import PostSeries from "./postSeries";
@@ -47,7 +47,6 @@ const Post: FC<PostProps> = ({
   frontmatter: { cover, title, tags, category = "", series = "", order = 0 } = {},
   children,
   excerpt,
-  data: { previous, next } = {},
   slug,
 }) => {
   const postsInSeries = usePostSeries(series);
@@ -56,7 +55,7 @@ const Post: FC<PostProps> = ({
   return (
     <Layout sx={{ variant: "post" }}>
       <SEO title={title} description={excerpt} image={cover && cover.publicURL} />
-      <Styled.h1>{title}</Styled.h1>
+      <Themed.h1>{title}</Themed.h1>
       <PostSeries series={series} order={order} postsInSeries={postsInSeries} />
 
       <article>{children}</article>

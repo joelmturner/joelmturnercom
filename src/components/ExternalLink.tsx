@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui";
+import { jsx, Themed } from "theme-ui";
 import { ReactNode } from "react";
 
 type ExternalLinkProps = {
@@ -11,8 +11,8 @@ type ExternalLinkProps = {
 
 export function ExternalLink({ children, tabIndex = 0, title, href }: ExternalLinkProps) {
   return (
-    <Styled.a tabIndex={tabIndex} href={href} target="_blank" rel="noopener noreferrer" title={title}>
+    <Themed.a tabIndex={tabIndex} href={href} target="_blank" rel="noopener noreferrer" title={title}>
       {children}
-    </Styled.a>
+    </Themed.a>
   );
 }

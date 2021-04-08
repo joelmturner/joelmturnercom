@@ -201,7 +201,7 @@ export default {
       color: "secondary",
       px: 1,
       py: "2px",
-      fontSize: 1,
+      fontSize: "95%",
       borderRadius: "3px",
     },
     hr: {},

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui";
+import { jsx, Themed } from "theme-ui";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { Link } from "gatsby";
 import { memo, ReactElement, ReactNode } from "react";
@@ -32,11 +32,11 @@ function PostCard({ title, slug, image, className, excerpt }: PostCardProps): Re
         <GatsbyImage image={image} sx={{ variant: "postCard.img" }} alt={title} />
       </Linked>
       <Linked slug={slug} title={title} className={className}>
-        <Styled.h2 sx={{ variant: "postCard.title" }} key={title}>
+        <Themed.h2 sx={{ variant: "postCard.title" }} key={title}>
           {title}
-        </Styled.h2>
+        </Themed.h2>
       </Linked>
-      <Styled.p sx={{ variant: "postCard.excerpt" }}>{excerpt}</Styled.p>
+      <Themed.p sx={{ variant: "postCard.excerpt" }}>{excerpt}</Themed.p>
     </article>
   );
 }

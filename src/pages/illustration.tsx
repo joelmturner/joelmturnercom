@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui";
+import { jsx, Themed } from "theme-ui";
 import { graphql } from "gatsby";
 import { Layout, SEO, Flexbox, Gallery } from "../components";
 import { FaTh, FaThLarge, FaSquare } from "react-icons/fa";
@@ -124,7 +124,7 @@ const Illustration: FC<IllustrationProps> = ({ data, location }) => {
     <Layout>
       <SEO title="Illustration" />
       <Flexbox vertical>
-        <Styled.h2>Explorations of Handlettering and Illustration</Styled.h2>
+        <Themed.h2>Explorations of Handlettering and Illustration</Themed.h2>
         <Flexbox between middle>
           <Dropdown
             options={GALLERY_MENU_OPTIONS}

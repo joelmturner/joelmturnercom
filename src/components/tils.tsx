@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui";
+import { jsx, Themed } from "theme-ui";
 import Layout from "./layout";
 import Link from "./link";
 import { memo, ReactElement } from "react";
@@ -26,9 +26,9 @@ function Tils({ data }: TilsProps): ReactElement {
       {data.allTil.nodes.map((note) => {
         const url = `${note.frontmatter.category}/${note.frontmatter.slug}`;
         return (
-          <Styled.h2 key={url}>
+          <Themed.h2 key={url}>
             <Link to={url}>{note.frontmatter.slug}</Link>
-          </Styled.h2>
+          </Themed.h2>
         );
       })}
     </Layout>

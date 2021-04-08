@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui";
+import { jsx, Themed } from "theme-ui";
 import Layout from "./layout";
 import { Link } from "gatsby";
 import Flexbox from "./flexbox";

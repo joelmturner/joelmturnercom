@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui";
+import { jsx, Themed } from "theme-ui";
 import { Fragment, memo } from "react";
 import Flexbox from "./flexbox";
 import Link from "./link";
@@ -15,16 +15,16 @@ export const PostNav = memo(function PostNav({ slug }: { slug: string }) {
       <Fragment>
         {previous && (
           <Flexbox left>
-            <Styled.p>
+            <Themed.p>
               <Link to={slugify(previous.slug, `/blog`)}>{`<-- ${previous.frontmatter.title}`}</Link>
-            </Styled.p>
+            </Themed.p>
           </Flexbox>
         )}
         {next && (
           <Flexbox right>
-            <Styled.p>
+            <Themed.p>
               <Link to={slugify(next.slug, `/blog`)}>{`${next.frontmatter.title} -->`}</Link>
-            </Styled.p>
+            </Themed.p>
           </Flexbox>
         )}
       </Fragment>
