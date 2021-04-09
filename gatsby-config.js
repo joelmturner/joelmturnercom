@@ -133,6 +133,14 @@ module.exports = {
       },
     },
     {
+      resolve: "gatsby-plugin-robots-txt",
+      options: {
+        host: "https://joelmturner.com",
+        sitemap: "https://joelmturner.com/sitemap.xml",
+        policy: [{ userAgent: "*", allow: "/" }],
+      },
+    },
+    {
       resolve: `gatsby-plugin-sitemap`,
       options: {
         output: `/sitemap.xml`,
@@ -181,6 +189,7 @@ module.exports = {
           "/til/dev/avatar-component-gatsby-1/",
           "/til/dev/animated-css-timer-icon/",
           "/til/dev/svelte-animated-water-svg-pictorial-fraction/",
+          "/til/dev/sequential-interval-react-hook",
           "/til/personal-development/concepts/",
           "til/null/",
         ],
