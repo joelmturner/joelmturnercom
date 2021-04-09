@@ -8,8 +8,6 @@ export function useKeypress(targetKey: string) {
   useEffect(() => {
     // If pressed key is our target key then set to true
     function downHandler({ key }: KeyboardEvent) {
-      console.log("key", key);
-      console.log("targetKey", targetKey);
       if (key === targetKey) {
         setKeyPressed(true);
       }
@@ -18,7 +16,6 @@ export function useKeypress(targetKey: string) {
     // If released key is our target key then set to false
     const upHandler = ({ key }: KeyboardEvent) => {
       if (key === targetKey) {
-        console.log("key", key);
         setKeyPressed(false);
       }
     };
