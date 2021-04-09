@@ -44,7 +44,7 @@ type PostProps = {
 };
 
 const Post: FC<PostProps> = ({
-  frontmatter: { cover, title, tags, category = "", series = "", order = 0 } = {},
+  frontmatter: { cover, title, tags = [], category = "", series = "", order = 0 } = {},
   children,
   excerpt,
   slug,
@@ -54,7 +54,7 @@ const Post: FC<PostProps> = ({
 
   return (
     <Layout sx={{ variant: "post" }}>
-      <SEO title={title} description={excerpt} image={cover && cover.publicURL} />
+      <SEO title={title} description={excerpt} image={cover?.publicURL} keywords={[category, ...tags]} />
       <Themed.h1>{title}</Themed.h1>
       <PostSeries series={series} order={order} postsInSeries={postsInSeries} />
 

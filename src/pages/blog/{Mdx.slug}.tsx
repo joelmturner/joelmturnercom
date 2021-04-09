@@ -24,6 +24,7 @@ export const postQuery = graphql`
   query($id: String) {
     mdx(id: { eq: $id }, fileAbsolutePath: { regex: "/content/blog/" }) {
       slug
+      excerpt
       frontmatter {
         title
         tags
