@@ -2,7 +2,7 @@ import theme from "../gatsby-plugin-theme-ui/index";
 import { PrismTheme } from "prism-react-renderer";
 
 const newTheme = (colorMode: "light" | "dark"): PrismTheme => {
-  const colors = colorMode === "dark" ? theme.colors.modes[colorMode] : theme.colors;
+  const colors = colorMode === "light" ? theme.colors.modes[colorMode] : theme.colors;
   return {
     plain: {
       backgroundColor: `var(--theme-ui-colors-backgroundSubtle, ${colors.backgroundSubtle})`,

@@ -1,27 +1,18 @@
 /** @jsx jsx */
 import { jsx, useColorMode } from "theme-ui";
 import { FaMoon, FaSun } from "react-icons/fa";
-import { handleEnterKeyPress } from "../utils/a11y";
 import { FC, memo, useCallback } from "react";
-import * as React from "react";
 
 type ThemeSwitchProps = {};
 
 const ThemeSwitch: FC<ThemeSwitchProps> = ({}) => {
   const [colorMode, setColorMode] = useColorMode();
-  const setColor = React.useCallback(
+  const setColor = useCallback(
     function () {
-      setColorMode((prevState) => (prevState === "light" ? "dark" : "light"));
+      setColorMode((prevState) => (prevState === "dark" ? "light" : "dark"));
     },
-    [setColorMode, colorMode]
+    [setColorMode]
   );
-  const handleOnClick = useCallback(function () {
-    setColor();
-  }, []);
-
-  const handleKey = useCallback(function () {
-    setColor();
-  }, []);
 
   const checked = colorMode === "light";
 
@@ -29,8 +20,8 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({}) => {
     <div
       role="button"
       sx={{ variant: "themeSwitch.wrapper" }}
-      onClick={handleOnClick}
-      onKeyPress={handleKey}
+      onClick={setColor}
+      onKeyPress={setColor}
       tabIndex={0}
       aria-label="theme switcher"
     >
