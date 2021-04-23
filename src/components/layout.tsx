@@ -1,5 +1,7 @@
 /** @jsx jsx */
 import { jsx, Themed } from "theme-ui";
+import "@fontsource/fira-sans";
+import "@fontsource/fira-code";
 import { memo, ReactNode } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import { IoLogoInstagram, IoLogoGithub, IoLogoTwitter } from "react-icons/io";

@@ -62,7 +62,7 @@ export default {
   ...baseMerged,
   fonts: {
     ...baseMerged.fonts,
-    heading: "Roboto, sans-serif",
+    // heading: "Roboto, sans-serif",
   },
   colors: {
     ...baseMerged.colors,
@@ -100,10 +100,6 @@ export default {
   },
   styles: {
     ...baseMerged.styles,
-    lineHeights: {
-      ...baseMerged.styles.lineHeights,
-      body: 1.7,
-    },
     h1: {
       ...baseMerged.styles.h1,
       margin: "0",
@@ -134,7 +130,6 @@ export default {
     },
     p: {
       ...baseMerged.styles.p,
-      fontSize: 3,
       mb: 2,
       a: {
         ...baseMerged.styles.a,
@@ -147,14 +142,14 @@ export default {
     },
     li: {
       ...baseMerged.styles.li,
-      fontSize: 3,
+      //   fontSize: 3,
       mb: 1,
       "&.task-list-item": {
         listStyle: "none",
         display: "flex",
         alignItems: "center",
         input: {
-          fontSize: 3,
+          //   fontSize: 3,
           mr: 2,
         },
       },

@@ -70,10 +70,10 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
     <Layout title="Howdy!">
       <SEO title="Home" />
 
-      <Grid gap={2} columns="75px 1fr" sx={{ mb: 3 }}>
+      <Grid gap={3} columns="75px 1fr" sx={{ mb: 3, alignItems: "center" }}>
         <Avatar />
         <Flexbox vertical left middle>
-          <Themed.h1 sx={{ mb: 1 }}>Joel M. Turner</Themed.h1>
+          <Themed.h1 sx={{ mb: 0 }}>Joel M. Turner</Themed.h1>
           <Themed.h2 sx={{ m: 0, color: "primary" }}>Frontend Developer</Themed.h2>
         </Flexbox>
       </Grid>
@@ -82,7 +82,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
 
       <Flexbox between bottom>
         <Flexbox vertical>
-          <Themed.h2 sx={{ mb: 1, mt: 2 }}>Sketching</Themed.h2>
+          <Themed.h2 sx={{ mb: 0, mt: 2 }}>Sketching</Themed.h2>
           <Themed.h3 sx={{ mb: 0, mt: 1 }}>My Favorite Explorations</Themed.h3>
         </Flexbox>
         <Themed.h4 sx={{ mx: 0, my: 0, textAlign: "right" }}>
@@ -94,7 +94,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
 
       <Flexbox between bottom>
         <Flexbox vertical>
-          <Themed.h2 sx={{ mb: 1, mt: 0 }}>Writing</Themed.h2>
+          <Themed.h2 sx={{ mb: 0, mt: 0 }}>Writing</Themed.h2>
           <Themed.h3 sx={{ mb: 0, mt: 1 }}>Learning Through Writing</Themed.h3>
         </Flexbox>
         <Themed.h4 sx={{ mx: 0, my: 0, textAlign: "right" }}>

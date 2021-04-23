@@ -14,7 +14,7 @@ const Avatar: React.FC<AvatarProps> = ({ user, className, size = "s" }) => {
     {
       joel: file(relativePath: { eq: "joel-turner-headshot-web.jpg" }) {
         childImageSharp {
-          gatsbyImageData(height: 55, width: 55, placeholder: NONE, layout: FIXED)
+          gatsbyImageData(height: 80, width: 80, placeholder: NONE, layout: FIXED)
         }
       }
       joelLarge: file(relativePath: { eq: "joel-turner-headshot-web.jpg" }) {
@@ -38,8 +38,8 @@ const Avatar: React.FC<AvatarProps> = ({ user, className, size = "s" }) => {
       data-testid="avatar"
       sx={{
         bg: "backgroundSubtle",
-        width: "75px",
-        height: "75px",
+        width: "80px",
+        height: "80px",
         m: 0,
         borderRadius: "50%",
         // fix for safari rounded images with transitions
