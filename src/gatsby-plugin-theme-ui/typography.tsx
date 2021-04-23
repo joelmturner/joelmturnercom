@@ -5,7 +5,7 @@ import wp2016 from "typography-theme-wordpress-2016";
 import merge from "lodash/merge";
 
 const typography = toTheme(wp2016);
-console.log("typography", typography);
+
 export default merge(typography, {
   // optional style overrides go here
   fonts: {
