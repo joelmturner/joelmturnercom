@@ -33,7 +33,7 @@ module.exports = {
     ],
   },
   plugins: [
-    `gatsby-plugin-ts-config`,
+    // `gatsby-plugin-ts-config`,
     `gatsby-plugin-gatsby-cloud`,
     `gatsby-plugin-react-helmet`,
     {
@@ -221,59 +221,60 @@ module.exports = {
           }),
       },
     },
-    {
-      resolve: `gatsby-plugin-feed`,
-      options: {
-        query: `
-            {
-              site {
-                siteMetadata {
-                  title
-                  description
-                  siteUrl
-                  site_url: siteUrl
-                }
-              }
-            }
-          `,
-        feeds: [
-          {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.edges.map((edge) => {
-                return Object.assign({}, edge.node.frontmatter, {
-                  description: edge.node.excerpt,
-                  date: edge.node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  custom_elements: [{ "content:encoded": edge.node.html }],
-                });
-              });
-            },
-            query: `
-                {
-                  allMarkdownRemark(
-                    sort: { order: DESC, fields: [frontmatter___date] },
-                  ) {
-                    edges {
-                      node {
-                        excerpt
-                        html
-                        fields { slug }
-                        frontmatter {
-                          title
-                          date
-                        }
-                      }
-                    }
-                  }
-                }
-              `,
-            output: "/rss.xml",
-            title: "Your Site's RSS Feed",
-          },
-        ],
-      },
-    },
+    // throwing error for some reason
+    // {
+    //   resolve: `gatsby-plugin-feed`,
+    //   options: {
+    //     query: `
+    //         {
+    //           site {
+    //             siteMetadata {
+    //               title
+    //               description
+    //               siteUrl
+    //               site_url: siteUrl
+    //             }
+    //           }
+    //         }
+    //       `,
+    //     feeds: [
+    //       {
+    //         serialize: ({ query: { site, allMdx } }) => {
+    //           return allMdx.nodes.map((node) => {
+    //             return Object.assign({}, node.frontmatter, {
+    //               description: node.excerpt,
+    //               date: node.frontmatter.date,
+    //               url: site.siteMetadata.siteUrl + node.slug,
+    //               guid: site.siteMetadata.siteUrl + node.slug,
+    //               custom_elements: [{ "content:encoded": node.html }],
+    //             });
+    //           });
+    //         },
+    //         query: `
+    //             {
+    //                 allMdx(
+    //                     sort: {order: DESC, fields: frontmatter___date}
+    //                     filter: { fileAbsolutePath: {regex: "/\/content/blog\/g"}}
+    //                   ) {
+    //                     nodes {
+    //                       excerpt
+    //                       frontmatter {
+    //                         title
+    //                         date
+    //                         category
+    //                       }
+    //                       slug
+    //                       html
+    //                     }
+    //                   }
+    //             }
+    //           `,
+    //         output: "/rss.xml",
+    //         title: "Your Site's RSS Feed",
+    //       },
+    //     ],
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
