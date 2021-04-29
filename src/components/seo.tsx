@@ -8,8 +8,8 @@ type SEOProps = {
   lang?: string;
   meta?: Array<{
     name: string;
-    content: string;
-    property: string;
+    content?: string;
+    property?: string;
   }>;
   title?: string;
   image?: string; // full path to image

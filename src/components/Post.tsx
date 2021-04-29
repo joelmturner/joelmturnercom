@@ -43,6 +43,11 @@ type PostProps = {
   body: any;
 };
 
+const PAYMENT_INFO = {
+  name: "monetization",
+  content: "$ilp.uphold.com/ZMdxHJD42dUF",
+};
+
 const Post: FC<PostProps> = ({
   frontmatter: { cover, title, tags = [], category = "", series = "", order = 0 } = {},
   children,
@@ -54,7 +59,13 @@ const Post: FC<PostProps> = ({
 
   return (
     <Layout sx={{ variant: "post" }}>
-      <SEO title={title} description={excerpt} image={cover?.publicURL} keywords={[category, ...tags]} />
+      <SEO
+        title={title}
+        description={excerpt}
+        image={cover?.publicURL}
+        keywords={[category, ...tags]}
+        meta={[PAYMENT_INFO]}
+      />
       <Themed.h1>{title}</Themed.h1>
       <PostSeries series={series} order={order} postsInSeries={postsInSeries} />
 
