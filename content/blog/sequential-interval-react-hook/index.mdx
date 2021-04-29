@@ -28,7 +28,7 @@ Here's the hook in an example.
 
 ## Background
 
-We have an animation heartbeat player that switches between four animation states, each with their own user-configurable duration.
+We have an animation heartbeat player that switches between four animation states, each with its own user-configurable duration.
 
 We have a ping service that sends out a ping to our component on an interval, or heartbeat, and each ping kicks off an animation cycle. This cycle goes through the sequence: `rest` -> `tick` -> `exit` -> `enter` -> `rest`.
 
@@ -61,15 +61,15 @@ We're at a point where we need to update the renderer housing this logic and I t
 
 ## Criteria
 
-The four animation states we need to switch between are `tick`, `exit`, `enter`, and `rest`; while each of our widgets have CSS animations that are tied to a `className` of `status_[animationState]`.
+The four animation states we need to switch between are `tick`, `exit`, `enter`, and `rest`; while each of our widgets has CSS animations that are tied to a `className` of `status_[animationState]`.
 
-Each of these animation states need their own duration that is user configurable.
+Each of these animation states needs its own duration that is user-configurable.
 
 ## Attempts
 
 First, I tried to implement something similar to what we see above in a `useEffect` and `setState`. The downside here is that the `useEffect` is new every render so I wasn't able to track timeouts effectively.
 
-The second thing I tried, was to leverage the [`useInterval` hook](https://overreacted.io/making-setinterval-declarative-with-react-hooks/) that Dan Abrimov created. The downside here is that the callback is a `ref` so it never changes, which means I can't pass it a different callback for each step/duration.
+The second thing I tried, was to leverage the [`useInterval` hook](https://overreacted.io/making-setinterval-declarative-with-react-hooks/) that Dan Abramov created. The downside here is that the callback is a `ref` so it never changes, which means I can't pass it a different callback for each step/duration.
 
 Finally, I settled on a mix of `ref`s for persistence and a custom hook to handle the `setTimeout`s.
 
@@ -79,7 +79,7 @@ I thought I would be able to jam the `setTimeout`s in an array and use a `for of
 
 I ended up coming across two solutions that helped me piece it together, [How to resolve a useReducer's dispatch function inside a promise in ReactJS](https://stackoverflow.com/a/60360051) and [Why Using reduce() to Sequentially Resolve Promises Works](https://css-tricks.com/why-using-reduce-to-sequentially-resolve-promises-works/).
 
-The idea here is that each is wrapped in a `Promise` and added to an array where we can loop over them in a `reduce`, awaiting the previous `Promise` before starting starting the next.
+The idea here is that each is wrapped in a `Promise` and added to an array where we can loop over them in a `reduce`, awaiting the previous `Promise` before starting the next.
 
 This worked like a charm!
 
@@ -102,7 +102,7 @@ export function useStepInterval<StatusType>(
 }
 ```
 
-Next we set up a `useEffect` that will watch `isRunning` to see if the cycle should start. In this hook we'll have two functions, one that sets up the `Promise`s and another that will run the `reduce` over the `Promise`s.
+Next, we set up a `useEffect` that will watch `isRunning` to see if the cycle should start. In this hook, we'll have two functions, one that sets up the `Promise`s and another that will run the `reduce` over the `Promise`s.
 
 ```ts
 import { useState, useEffect, SetStateAction, Dispatch } from "react";
@@ -159,7 +159,7 @@ export function useStepInterval<StatusType>(
 
 ## Using the `useStepInterval` Hook
 
-In our component we can now run our hook and have a `ref` that catches the ping from our player service, which sets `isRunning` to `true`, starting the animation cycle.
+In our component, we can now run our hook and have a `ref` that catches the ping from our player service, which sets `isRunning` to `true`, starting the animation cycle.
 
 ```tsx
 type AnimationState = "tick" | "exit" | "enter" | "rest";
@@ -196,4 +196,4 @@ export function MyComponent() {
 
 Now we have an animation cycler that can be started from our component, and the best part is, we can have our component be functional 😀.
 
-I definitely learned more about `refs` and how to work with promises during this feature, Hopefully there will some more refactors to functional component that can challenge other areas.
+I definitely learned more about `refs` and how to work with promises during this feature. Hopefully, there will some more refactors to a functional component that can challenge other areas.
