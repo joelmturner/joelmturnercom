@@ -1,0 +1,35 @@
+---
+title: Data Visualizations
+date: 2021-04-29
+draft: false
+slug: data-visualizations
+category: data-vis
+tags:
+  - D3
+  - VisX
+  - VX
+---
+
+## Domain and Range
+It can be confusing at first to remember which values domain and range map to. Ryan Legler helped me remember with the pneumonic, d for data, r for rems.
+```js
+// domain === data
+const data = [3000, 4560, 8340, 123];
+// domain is [123, 8340]
+
+// range === rems (it's really pixels
+// but the notion of space is true)
+const width = 450;
+// range is [0, 450]
+```
+
+## Scales
+You can pass a pixel value to get the domain value by using `scale.invert()`.
+```js
+const scale = d3.scaleLinear()
+        .domain([3000, 4560, 8340, 123])
+        .range([0, 450])
+
+scale.invert(225)
+// 3780
+```
