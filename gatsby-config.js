@@ -164,6 +164,7 @@ module.exports = {
           `/blog/helpers/`,
           "/blog/mobx/",
           `/blog/react-typescript/`,
+          `/blog/data-vis/`,
           `/blog/concepts/`,
           `/blog/about/`,
           `/blog/intro/`,
