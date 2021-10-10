@@ -1,9 +1,9 @@
 import React from "react";
-import { Global as GlobalEmotion } from "@emotion/core";
+import { Global as GlobalEmotion } from "@emotion/react";
 
 const Global = () => (
   <GlobalEmotion
-    styles={(theme) => ({
+    styles={(theme: any) => ({
       html: {
         fontSize: "100%",
       },
