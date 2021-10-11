@@ -14,20 +14,14 @@ export const query = graphql`
     }
   }
 
-  fragment InstaNodes on InstaNode {
+  fragment InstaNodes on CloudinaryMedia {
     id
-    localFile {
-      childImageSharp {
-        thumb: gatsbyImageData(placeholder: NONE, layout: FULL_WIDTH)
-        fullSize: gatsbyImageData(placeholder: NONE, layout: FULL_WIDTH)
-      }
-    }
+    url
   }
 
   fragment PostCard on MdxConnection {
     edges {
       node {
-        postPath: gatsbyPath(filePath: "/blog/{Mdx.slug}")
         slug
         excerpt
         frontmatter {
@@ -80,7 +74,10 @@ export const query = graphql`
   }
 
   fragment inktober2017 on Query {
-    inktober2017: allInstaNode(filter: { hashtags: { glob: "#ink*2017" } }, sort: { fields: timestamp, order: ASC }) {
+    inktober2017: allCloudinaryMedia(
+      filter: { tags: { in: "inktober2017" } }
+      sort: { fields: public_id, order: ASC }
+    ) {
       nodes {
         ...InstaNodes
       }
@@ -88,7 +85,10 @@ export const query = graphql`
   }
 
   fragment inktober2018 on Query {
-    inktober2018: allInstaNode(filter: { hashtags: { glob: "#ink*2018" } }, sort: { fields: timestamp, order: ASC }) {
+    inktober2018: allCloudinaryMedia(
+      filter: { tags: { in: "inktober2018" } }
+      sort: { fields: public_id, order: ASC }
+    ) {
       nodes {
         ...InstaNodes
       }
@@ -96,7 +96,10 @@ export const query = graphql`
   }
 
   fragment inktober2019 on Query {
-    inktober2019: allInstaNode(filter: { hashtags: { glob: "#ink*2019" } }, sort: { fields: timestamp, order: ASC }) {
+    inktober2019: allCloudinaryMedia(
+      filter: { tags: { in: "inktober2019" } }
+      sort: { fields: public_id, order: ASC }
+    ) {
       nodes {
         ...InstaNodes
       }
@@ -104,7 +107,7 @@ export const query = graphql`
   }
 
   fragment letterClash on Query {
-    letterClash: allInstaNode(filter: { hashtags: { eq: "#letterclash" } }, sort: { fields: timestamp, order: ASC }) {
+    letterClash: allCloudinaryMedia(filter: { tags: { in: "letterclash" } }, sort: { fields: public_id, order: ASC }) {
       nodes {
         ...InstaNodes
       }
@@ -112,9 +115,9 @@ export const query = graphql`
   }
 
   fragment joelmturner_abcs2017 on Query {
-    joelmturner_abcs2017: allInstaNode(
-      filter: { hashtags: { glob: "#j*2017" } }
-      sort: { fields: timestamp, order: ASC }
+    joelmturner_abcs2017: allCloudinaryMedia(
+      filter: { tags: { in: "joelmturner_abcs2017" } }
+      sort: { fields: public_id, order: ASC }
     ) {
       nodes {
         ...InstaNodes
@@ -123,9 +126,9 @@ export const query = graphql`
   }
 
   fragment featuredInsta on Query {
-    featuredInsta: allInstaNode(
-      filter: { hashtags: { eq: "#joelmturner_featured" } }
-      sort: { fields: likes, order: DESC }
+    featuredInsta: allCloudinaryMedia(
+      filter: { tags: { in: "joelmturner_featured" } }
+      sort: { fields: public_id, order: ASC }
     ) {
       nodes {
         ...InstaNodes
@@ -134,27 +137,17 @@ export const query = graphql`
   }
 
   fragment featuredInstaRecent on Query {
-    featuredInstaRecent: allInstaNode(
-      filter: { hashtags: { eq: "#joelmturner_featured" } }
-      sort: { fields: likes, order: DESC }
-      limit: 6
-    ) {
+    featuredInstaRecent: allCloudinaryMedia(filter: { tags: { in: "joelmturner_featured" } }, limit: 6) {
       nodes {
-        id
-        localFile {
-          childImageSharp {
-            fullSize: gatsbyImageData(placeholder: NONE, layout: FULL_WIDTH)
-            thumb: gatsbyImageData(width: 170, height: 170, placeholder: NONE, layout: CONSTRAINED)
-          }
-        }
+        ...InstaNodes
       }
     }
   }
 
   fragment insta2016 on Query {
-    insta2016: allInstaNode(
-      filter: { hashtags: { eq: "#handletteredabcs_2016" } }
-      sort: { fields: timestamp, order: DESC }
+    insta2016: allCloudinaryMedia(
+      filter: { tags: { in: "handletteredabcs2016" } }
+      sort: { fields: public_id, order: ASC }
     ) {
       nodes {
         ...InstaNodes
@@ -163,7 +156,7 @@ export const query = graphql`
   }
 
   fragment recentInsta on Query {
-    recentInsta: allInstaNode(sort: { fields: timestamp, order: DESC }, limit: 18) {
+    recentInsta: allCloudinaryMedia(sort: { fields: public_id, order: DESC }, limit: 18) {
       nodes {
         ...InstaNodes
       }

@@ -1,11 +1,9 @@
 /** @jsx jsx */
 import { jsx, Themed } from "theme-ui";
 import { graphql } from "gatsby";
-import Link from "../../../components/link";
-import Layout from "../../../components/layout";
 import { ReactElement } from "react";
-import Flexbox from "../../../components/flexbox";
-import { slugify } from "../../../utils/utils";
+import { Flexbox, Layout, Link } from "../components";
+import { slugify } from "../utils/utils";
 
 type TILCategoryProps = {
   data: {
@@ -19,12 +17,12 @@ type TILCategoryProps = {
       }>;
     };
   };
-  params: {
-    frontmatter__category: string;
+  pageContext: {
+    category: string;
   };
 };
 
-function TILCategory({ data, params }: TILCategoryProps): ReactElement {
+function TILCategory({ data, pageContext: { category }, ...rest }: TILCategoryProps): ReactElement {
   return (
     <Layout>
       <Flexbox noGrow gap={1} sx={{ mb: 3 }} middle role="navigation">
@@ -32,16 +30,13 @@ function TILCategory({ data, params }: TILCategoryProps): ReactElement {
           TIL
         </Link>
         /
-        <Link
-          sx={{ variant: "link", textDecoration: "none", fontWeight: 700 }}
-          to={slugify(params.frontmatter__category, `/til`)}
-        >
-          {params.frontmatter__category}
+        <Link sx={{ variant: "link", textDecoration: "none", fontWeight: 700 }} to={slugify(category, `/til`)}>
+          {category}
         </Link>
       </Flexbox>
 
       {data.allTil.nodes
-        .filter((note) => note.frontmatter.category === params.frontmatter__category)
+        .filter((note) => note.frontmatter.category === category)
         .map((note) => {
           const url = `/til/${slugify(note.frontmatter.category)}/${slugify(note.frontmatter.slug)}`;
           return (
@@ -57,7 +52,23 @@ function TILCategory({ data, params }: TILCategoryProps): ReactElement {
 export default TILCategory;
 
 export const tilCategoryQuery = graphql`
-  query TilCategoryQuery {
-    ...allTil
+  query TilCategoryQuery($category: String) {
+    allTil: allMdx(
+      sort: { fields: [frontmatter___date, frontmatter___title], order: DESC }
+      filter: {
+        frontmatter: { draft: { eq: false }, category: { eq: $category } }
+        fileAbsolutePath: { regex: "/content/til/" }
+      }
+    ) {
+      nodes {
+        body
+        frontmatter {
+          category
+          slug
+          tags
+          title
+        }
+      }
+    }
   }
 `;

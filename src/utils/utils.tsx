@@ -21,5 +21,5 @@ export const getImageStep = (index: number, arr: any[], direction: "prev" | "nex
 };
 
 export function slugify(str: string, prefix?: string): string {
-  return prefix ? `${prefix}/${slugifyFn(str)}` : slugifyFn(str);
+  return prefix ? `${prefix}/${slugifyFn(str)}/` : slugifyFn(str);
 }

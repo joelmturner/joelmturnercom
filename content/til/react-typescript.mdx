@@ -1,5 +1,5 @@
 ---
-title: React TypesScript
+title: React TypeScript
 date: 2020-01-01
 draft: false
 slug: react-typescript
@@ -15,24 +15,24 @@ tags:
 
 ```typescript
 // add type before parens
-React.useState<boolean>(false)
-React.useRef<HTMLDivElement>(null)
+React.useState<boolean>(false);
+React.useRef<HTMLDivElement>(null);
 React.useCallback(
-  function() {
+  function () {
     if (theMoon) {
-      setSomethingAwesome()
+      setSomethingAwesome();
     }
   },
   [theMoon]
-)
+);
 ```
 
 ## Props
 
 ```typescript
 type FooProps = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 ```
 
 ## Components

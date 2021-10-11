@@ -1,7 +1,7 @@
 import { jsx } from "theme-ui";
 import { FC } from "react";
 import { graphql } from "gatsby";
-import Tils from "../../components/tils";
+import Tils from "../components/tils";
 
 const TilsRenderer: FC<any> = (props) => {
   return jsx(Tils, {

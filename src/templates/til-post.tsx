@@ -1,7 +1,7 @@
 import { jsx } from "theme-ui";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { graphql } from "gatsby";
-import TIL from "../../../components/til";
+import TIL from "../components/til";
 
 type NotesProps = {
   data: {
@@ -28,7 +28,7 @@ function NotesRenderer(props: NotesProps) {
 export default NotesRenderer;
 
 export const noteQuery = graphql`
-  query($id: String) {
+  query ($id: String) {
     site {
       siteMetadata {
         title

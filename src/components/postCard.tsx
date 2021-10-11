@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { jsx, Themed } from "theme-ui";
-import { GatsbyImage } from "gatsby-plugin-image";
+import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import { Link } from "gatsby";
 import { memo, ReactElement, ReactNode } from "react";
 
 type PostCardProps = {
   slug: string;
   title: string;
-  image: FluidObject;
+  image: IGatsbyImageData;
   className?: string;
   excerpt?: string;
 };

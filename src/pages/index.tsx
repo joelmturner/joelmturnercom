@@ -11,12 +11,7 @@ const Dialog = loadable(() => import("../components"), { resolveComponent: (comp
 
 export type InstaNode = {
   id: string;
-  localFile: {
-    childImageSharp: {
-      fullSize: IGatsbyImageData;
-      thumb: IGatsbyImageData;
-    };
-  };
+  url: string;
 };
 
 export type MDXNode = {

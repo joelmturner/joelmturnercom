@@ -6,6 +6,8 @@ module.exports = {
     PARALLEL_SOURCING: true,
     DEV_SSR: true,
     PRESERVE_WEBPACK_CACHE: true,
+    PARALLEL_QUERY_RUNNING: true,
+    LMDB_STORE: true,
   },
   siteMetadata: {
     title: `Joel M. Turner`,
@@ -78,14 +80,15 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-source-instagram`,
+      resolve: `gatsby-source-cloudinary`,
       options: {
-        username: "31980847",
-        access_token: process.env.INSTAGRAM_ACCESS_TOKEN,
-        instagram_id: process.env.INSTAGRAM_INSTAGRAM_ID,
-        paginate: 1000,
-        maxPosts: 10000,
-        hashtags: true,
+        cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+        apiKey: process.env.CLOUDINARY_API_KEY,
+        apiSecret: process.env.CLOUDINARY_API_SECRET,
+        resourceType: `image`,
+        prefix: `illustration/`,
+        tags: true,
+        maxResults: 1000,
       },
     },
     `gatsby-remark-images`,
@@ -110,9 +113,9 @@ module.exports = {
       },
     },
     `gatsby-plugin-image`,
-    `gatsby-transformer-remark`,
-    `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    `gatsby-transformer-remark`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

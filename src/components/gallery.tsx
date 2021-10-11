@@ -2,7 +2,7 @@
 import { jsx } from "theme-ui";
 import { useKeypress } from "../hooks";
 import { memo, ReactElement, useCallback } from "react";
-import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
+import { StaticImage, IGatsbyImageData } from "gatsby-plugin-image";
 
 const GalleryImage = memo(
   ({
@@ -31,7 +31,8 @@ const GalleryImage = memo(
       return null;
     }
 
-    const fluid = node?.localFile?.childImageSharp?.thumb ?? null;
+    // const fluid = node?.localFile?.childImageSharp?.thumb ?? null;
+    const src = node?.url;
     return (
       <div
         role="button"
@@ -41,7 +42,7 @@ const GalleryImage = memo(
         onKeyPress={handleKeyPress}
         onClick={handleClick}
       >
-        {fluid && <GatsbyImage image={node.localFile.childImageSharp.thumb} alt={`image ${index + 1}`} />}
+        <img loading="lazy" src={src} alt={`image ${index + 1}`} style={{ maxWidth: "100%" }} />
       </div>
     );
   }
@@ -49,12 +50,7 @@ const GalleryImage = memo(
 
 export type GallerySizes = "s" | "m" | "l";
 export type GalleryImage = {
-  localFile: {
-    childImageSharp: {
-      fullSize: IGatsbyImageData;
-      thumb: IGatsbyImageData;
-    };
-  };
+  url: string;
   id: string;
 };
 

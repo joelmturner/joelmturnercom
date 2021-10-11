@@ -2,7 +2,7 @@ import { jsx } from "theme-ui";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { FC } from "react";
 import { graphql } from "gatsby";
-import Post from "../../components/Post";
+import Post from "../components/Post";
 
 const PostRenderer: FC<any> = (props) => {
   if (!props?.data?.mdx?.body ?? false) {
@@ -21,7 +21,7 @@ const PostRenderer: FC<any> = (props) => {
 export default PostRenderer;
 
 export const postQuery = graphql`
-  query($id: String) {
+  query ($id: String) {
     mdx(id: { eq: $id }, fileAbsolutePath: { regex: "/content/blog/" }) {
       slug
       excerpt

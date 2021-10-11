@@ -224,6 +224,7 @@ export default {
         gridGap: [".5rem", "1rem"],
         contentVisibility: "auto",
         containIntrinsicSize: "946px",
+        img: { width: "960px" },
       },
     },
     post: {

@@ -14,7 +14,7 @@ function TIL({
   },
   path,
   children,
-  params: { frontmatter__category: category, frontmatter__slug: slug },
+  frontmatter: { category, slug },
   ...props
 }: any) {
   return (

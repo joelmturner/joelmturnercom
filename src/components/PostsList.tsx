@@ -8,15 +8,23 @@ import { MDXNode } from "../pages";
 export const PostsList = memo(({ edges }: { edges: MDXNode[] }) => {
   return (
     <div sx={{ variant: "collection.post", mt: 2 }}>
-      {edges?.map(({ node: { frontmatter: { title, cover }, slug, excerpt } }) => (
-        <PostCard
-          key={title}
-          slug={slugify(slug, `/blog`)}
-          title={title}
-          image={cover?.childImageSharp?.gatsbyImageData}
-          excerpt={excerpt}
-        />
-      ))}
+      {edges?.map(
+        ({
+          node: {
+            frontmatter: { title, cover },
+            slug,
+            excerpt,
+          },
+        }) => (
+          <PostCard
+            key={title}
+            slug={slugify(slug, `/blog`)}
+            title={title}
+            image={cover?.childImageSharp?.gatsbyImageData}
+            excerpt={excerpt}
+          />
+        )
+      )}
     </div>
   );
 });

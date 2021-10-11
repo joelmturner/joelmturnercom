@@ -93,8 +93,8 @@ const Dialog: FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => 
       const prevEl = ref?.current?.querySelectorAll('[data-reach-dialog-nav="prev"]')?.[0];
 
       if (nextEl && prevEl) {
-        ((nextEl as unknown) as HTMLElement).style.opacity = value;
-        ((prevEl as unknown) as HTMLElement).style.opacity = value;
+        (nextEl as unknown as HTMLElement).style.opacity = value;
+        (prevEl as unknown as HTMLElement).style.opacity = value;
       }
     },
     [ref.current]
@@ -137,7 +137,11 @@ const Dialog: FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => 
             dragElastic={1}
             onDragEnd={handleDragEnd}
           >
-            <GatsbyImage image={imageEdges[imageIndex]?.localFile?.childImageSharp?.fullSize} alt={`full size page`} />
+            <img
+              src={imageEdges[imageIndex]?.url}
+              alt={`full size page`}
+              style={{ maxWidth: "100%", width: "960px" }}
+            />
           </motion.div>
         </AnimatePresence>
         <button
