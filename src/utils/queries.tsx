@@ -16,7 +16,7 @@ export const query = graphql`
 
   fragment InstaNodes on CloudinaryMedia {
     id
-    url
+    secure_url
   }
 
   fragment PostCard on MdxConnection {

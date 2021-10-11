@@ -11,7 +11,7 @@ const Dialog = loadable(() => import("../components"), { resolveComponent: (comp
 
 export type InstaNode = {
   id: string;
-  url: string;
+  secure_url: string;
 };
 
 export type MDXNode = {

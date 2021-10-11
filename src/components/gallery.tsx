@@ -1,8 +1,7 @@
 /** @jsx jsx */
+import { memo, ReactElement, useCallback } from "react";
 import { jsx } from "theme-ui";
 import { useKeypress } from "../hooks";
-import { memo, ReactElement, useCallback } from "react";
-import { StaticImage, IGatsbyImageData } from "gatsby-plugin-image";
 
 const GalleryImage = memo(
   ({
@@ -16,13 +15,13 @@ const GalleryImage = memo(
     onKeyPress: (node: GalleryImage) => void;
     onClick: (node: GalleryImage) => void;
   }): ReactElement | null => {
-    const handleKeyPress = useCallback((event) => {
+    const handleKeyPress = useCallback(() => {
       if (onKeyPress) {
         onKeyPress(node);
       }
     }, []);
 
-    const handleClick = useCallback((event) => {
+    const handleClick = useCallback(() => {
       if (onClick) {
         onClick(node);
       }
@@ -32,7 +31,7 @@ const GalleryImage = memo(
     }
 
     // const fluid = node?.localFile?.childImageSharp?.thumb ?? null;
-    const src = node?.url;
+    const src = node?.secure_url;
     return (
       <div
         role="button"
@@ -50,7 +49,7 @@ const GalleryImage = memo(
 
 export type GallerySizes = "s" | "m" | "l";
 export type GalleryImage = {
-  url: string;
+  secure_url: string;
   id: string;
 };
 

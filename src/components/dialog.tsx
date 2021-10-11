@@ -138,7 +138,7 @@ const Dialog: FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => 
             onDragEnd={handleDragEnd}
           >
             <img
-              src={imageEdges[imageIndex]?.url}
+              src={imageEdges[imageIndex]?.secure_url}
               alt={`full size page`}
               style={{ maxWidth: "100%", width: "960px" }}
             />
