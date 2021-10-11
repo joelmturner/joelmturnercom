@@ -17,6 +17,7 @@ const GALLERY_MENU_OPTIONS = [
   { value: "inktober2017", label: "Inktober 2017" },
   { value: "inktober2018", label: "Inktober 2018" },
   { value: "inktober2019", label: "Inktober 2019" },
+  { value: "inktober2021", label: "Inktober 2021" },
   { value: "letterClash", label: "LetterClash" },
   { value: "joelmturner_abcs2017", label: "#HandletteredABCs 2017" },
 ];
@@ -36,6 +37,9 @@ type IllustrationProps = {
     inktober2019: {
       nodes: InstaNode[];
     };
+    inktober2021: {
+      nodes: InstaNode[];
+    };
     letterClash: {
       nodes: InstaNode[];
     };
@@ -50,6 +54,7 @@ export type InstaCollections =
   | "inktober2017"
   | "inktober2018"
   | "inktober2019"
+  | "inktober2021"
   | "letterClash"
   | "joelmturner_abcs2017"
   | "recentInsta"
@@ -67,6 +72,7 @@ const Illustration: FC<IllustrationProps> = ({ data, location }) => {
     inktober2017: { nodes: ink2017Edges = [] } = {},
     inktober2018: { nodes: ink2018Edges = [] } = {},
     inktober2019: { nodes: ink2019Edges = [] } = {},
+    inktober2021: { nodes: ink2021Edges = [] } = {},
     letterClash: { nodes: letterClashEdges = [] } = {},
     joelmturner_abcs2017: { nodes: jmt2017Edges = [] } = {},
   } = data;
@@ -82,6 +88,8 @@ const Illustration: FC<IllustrationProps> = ({ data, location }) => {
           return ink2018Edges;
         case "inktober2019":
           return ink2019Edges;
+        case "inktober2021":
+          return ink2021Edges;
         case "letterClash":
           return letterClashEdges;
         case "joelmturner_abcs2017":
@@ -92,12 +100,13 @@ const Illustration: FC<IllustrationProps> = ({ data, location }) => {
             ...ink2017Edges,
             ...ink2018Edges,
             ...ink2019Edges,
+            ...ink2021Edges,
             ...letterClashEdges,
             ...jmt2017Edges,
           ];
       }
     },
-    [filter, featuredEdges, ink2017Edges, ink2018Edges, ink2019Edges, letterClashEdges, jmt2017Edges]
+    [filter, featuredEdges, ink2017Edges, ink2018Edges, ink2019Edges, ink2021Edges, letterClashEdges, jmt2017Edges]
   );
 
   const handleSetOffset = useCallback(
@@ -183,6 +192,7 @@ export const IllustrationPageQuery = graphql`
     ...inktober2017
     ...inktober2018
     ...inktober2019
+    ...inktober2021
     ...letterClash
     ...joelmturner_abcs2017
   }

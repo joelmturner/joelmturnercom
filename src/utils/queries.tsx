@@ -106,6 +106,17 @@ export const query = graphql`
     }
   }
 
+  fragment inktober2021 on Query {
+    inktober2021: allCloudinaryMedia(
+      filter: { tags: { in: "inktober2021" } }
+      sort: { fields: public_id, order: ASC }
+    ) {
+      nodes {
+        ...InstaNodes
+      }
+    }
+  }
+
   fragment letterClash on Query {
     letterClash: allCloudinaryMedia(filter: { tags: { in: "letterclash" } }, sort: { fields: public_id, order: ASC }) {
       nodes {
