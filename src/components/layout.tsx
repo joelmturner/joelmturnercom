@@ -15,9 +15,10 @@ type LayoutProps = {
   children: ReactNode | ReactNode[];
   title?: string;
   className?: string;
+  variant?: "POST";
 };
 
-const Layout: React.FC<LayoutProps> = ({ children, title = "", className }) => {
+const Layout: React.FC<LayoutProps> = ({ children, title = "", className, variant }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -33,7 +34,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title = "", className }) => {
       <Global />
       <Header siteTitle={title ? title : data.site.siteMetadata.title} />
       <main id="mainContent" sx={{ variant: "content.wrapper" }} role={"main"}>
-        {children}
+        {variant !== "POST" ? <div sx={{ variant: "content" }}>{children}</div> : children}
       </main>
       <footer sx={{ mt: 2 }}>
         <Flexbox middle sx={{ variant: "content.wrapper", borderTop: "1px solid", borderColor: "muted", py: 3 }}>

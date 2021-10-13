@@ -174,6 +174,7 @@ export default {
         marginRight: "1rem",
         textDecoration: "none",
       },
+      fontWeight: 300,
     },
     blockquote: {
       ...baseMerged.styles.blockquote,
@@ -456,17 +457,32 @@ export default {
     },
   },
   content: {
+    maxWidth: "60rem",
+    mx: "auto",
     wrapper: {
       py: 2,
       px: 1,
-      mx: `auto`,
-      maxWidth: 960,
+      mx: `10vw`,
+      "main *": {
+        maxWidth: "60rem",
+        mx: "auto",
+      },
     },
   },
   post: {
+    article: {
+      display: "grid",
+      columnGap: ["1rem", "1.5rem"],
+      gridTemplateColumns: ["repeat(4, minmax(0, 1fr))", "repeat(12, minmax(0, 1fr))"],
+      "> *": {
+        gridColumn: ["1 / -1", "3 / span 8"],
+      },
+    },
     ".gatsby-highlight": {
       position: "relative",
       webkitOverflowScrolling: "touch",
+      gridColumn: ["1 / -1", "2 / span 10"],
+      mx: ["-10vw", 0],
     },
     '.gatsby-highlight pre[class*="language-"]': {
       webkitOverflowScrolling: "touch",

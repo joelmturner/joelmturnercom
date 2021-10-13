@@ -26,9 +26,9 @@ function Tils({ data }: TilsProps): ReactElement {
       {data.allTil.nodes.map((note) => {
         const url = `${note.frontmatter.category}/${note.frontmatter.slug}`;
         return (
-          <Themed.h2 key={url}>
+          <Themed.h4 key={url}>
             <Link to={url}>{note.frontmatter.slug}</Link>
-          </Themed.h2>
+          </Themed.h4>
         );
       })}
     </Layout>

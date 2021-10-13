@@ -9,12 +9,11 @@ const typography = toTheme(wp2016);
 export default merge(typography, {
   // optional style overrides go here
   fonts: {
-    body:
-      "'Fira Sans', system, -apple-system, '.SFNSText-Regular', 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Lucida Grande', sans-serif",
+    body: "'Inter', system-ui, '-apple-system', /* Firefox supports this but not yet `system-ui` */ 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'",
     heading:
       "'Fira Sans', '.SFNSText-Regular', 'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Lucida Grande', sans-serif",
   },
-  fontSizes: ["0.833rem", "1.2rem", "1.44rem", "1.728rem", "2.074rem", "2.488rem"],
+  fontSizes: ["0.75rem", "0.833rem", "1.2rem", "1.44rem", "1.728rem", "2.074rem", "2.488rem"],
   lineHeights: {
     body: 1.55,
     heading: 1.3,

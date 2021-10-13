@@ -58,7 +58,7 @@ const Post: FC<PostProps> = ({
   const siteBaseUrl = "https://joelmturner.com";
 
   return (
-    <Layout sx={{ variant: "post" }}>
+    <Layout sx={{ variant: "post" }} variant={"POST"}>
       <SEO
         title={title}
         description={excerpt}
@@ -66,45 +66,47 @@ const Post: FC<PostProps> = ({
         keywords={[category, ...tags]}
         meta={[PAYMENT_INFO]}
       />
-      <Themed.h1>{title}</Themed.h1>
-      <PostSeries series={series} order={order} postsInSeries={postsInSeries} />
+      <article sx={{ variant: "post.article" }}>
+        <Themed.h1>{title}</Themed.h1>
+        <PostSeries series={series} order={order} postsInSeries={postsInSeries} />
 
-      <article>{children}</article>
+        {children}
 
-      <Flexbox vertical sx={{ mt: 4, borderTop: "1px solid", borderColor: "muted", py: 3 }}>
-        {category && (
-          <Flexbox gap={1}>
-            <span sx={{ fontWeight: "normal" }}>Category</span>
-            <Link to={slugify(category, `/blog/category`)} sx={{ fontWeight: "normal", variant: "link" }}>
-              <span sx={{ variant: "link" }}>{category}</span>
-            </Link>
-          </Flexbox>
-        )}
-
-        {tags && (
-          <Flexbox gap={1} sx={{ mb: 3 }}>
-            <span sx={{ fontWeight: "normal" }}>Tags: </span>
-            {tags.map((tag) => (
-              <Link key={tag} to={slugify(tag, `/blog/tag`)} sx={{ fontWeight: "normal", variant: "link" }}>
-                <span sx={{ variant: "link" }}>{tag}</span>
+        <Flexbox vertical sx={{ mt: 4, borderTop: "1px solid", borderColor: "muted", py: 3 }}>
+          {category && (
+            <Flexbox gap={1}>
+              <span sx={{ fontWeight: "normal" }}>Category</span>
+              <Link to={slugify(category, `/blog/category`)} sx={{ fontWeight: "normal", variant: "link" }}>
+                <span sx={{ variant: "link" }}>{category}</span>
               </Link>
-            ))}
-          </Flexbox>
-        )}
+            </Flexbox>
+          )}
 
-        <PostNav slug={slug} />
-      </Flexbox>
+          {tags && (
+            <Flexbox gap={1} sx={{ mb: 3, flexWrap: "wrap" }}>
+              <span sx={{ fontWeight: "normal" }}>Tags: </span>
+              {tags.map((tag) => (
+                <Link key={tag} to={slugify(tag, `/blog/tag`)} sx={{ fontWeight: "normal", variant: "link" }}>
+                  <span sx={{ variant: "link" }}>{tag}</span>
+                </Link>
+              ))}
+            </Flexbox>
+          )}
 
-      <Flexbox vertical gap right>
-        <span sx={{ color: "gray" }}>
-          <ExternalLink
-            href={`https://mobile.twitter.com/search?q=${encodeURI(siteBaseUrl + "/blog/" + slug)}`}
-            title="Twitter discussion"
-          >
-            Discuss this article on Twitter
-          </ExternalLink>
-        </span>
-      </Flexbox>
+          <PostNav slug={slug} />
+        </Flexbox>
+
+        <Flexbox vertical gap right>
+          <span sx={{ color: "gray" }}>
+            <ExternalLink
+              href={`https://mobile.twitter.com/search?q=${encodeURI(siteBaseUrl + "/blog/" + slug)}`}
+              title="Twitter discussion"
+            >
+              Discuss this article on Twitter
+            </ExternalLink>
+          </span>
+        </Flexbox>
+      </article>
     </Layout>
   );
 };

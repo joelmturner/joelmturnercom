@@ -18,7 +18,7 @@ function TIL({
   ...props
 }: any) {
   return (
-    <Layout {...props} title={title}>
+    <Layout {...props} title={title} sx={{ variant: "post" }} variant="POST">
       <SEO title={title} />
       <Flexbox noGrow gap={1} sx={{ mb: 3 }} middle role="navigation">
         <Link sx={{ variant: "link", textDecoration: "none", fontWeight: 700 }} to={`/til`}>
@@ -30,7 +30,7 @@ function TIL({
         </Link>
         /<span sx={{ mb: 0, ml: 2 }}>{slug}</span>
       </Flexbox>
-      {children}
+      <article sx={{ variant: "post.article" }}>{children}</article>
     </Layout>
   );
 }
