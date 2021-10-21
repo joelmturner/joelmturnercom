@@ -4,10 +4,7 @@ module.exports = {
     FAST_DEV: true,
     PRESERVE_FILE_DOWNLOAD_CACHE: true,
     PARALLEL_SOURCING: true,
-    DEV_SSR: true,
-    PRESERVE_WEBPACK_CACHE: true,
     PARALLEL_QUERY_RUNNING: true,
-    LMDB_STORE: true,
   },
   siteMetadata: {
     title: `Joel M. Turner`,
