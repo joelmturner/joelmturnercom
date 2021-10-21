@@ -114,6 +114,7 @@ const Posts: FC<PostsProps> = ({ pageContext, data, ...props }) => {
             onChange={handleSearch}
             placeholder="Search..."
             value={search}
+            data-testid="blog-search"
             sx={{
               p: 1,
               color: "textMuted",
@@ -135,6 +136,7 @@ const Posts: FC<PostsProps> = ({ pageContext, data, ...props }) => {
               cursor: "pointer",
               pb: 1,
             }}
+            data-testid="blog-search-clear"
           >
             x
           </Themed.p>
