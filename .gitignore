@@ -73,3 +73,5 @@ yarn-error.log
 .idea/
 .vscode
 .nova/
+frontmatter.json
+.frontmatter
