@@ -2,7 +2,6 @@
 title: "React Hooks: useDims"
 date: 2019-09-13
 draft: false
-cover: "./useDims.png"
 slug: react-hooks-useDims
 category: dev
 tags:
@@ -20,32 +19,32 @@ function useDims(ref, isSvg = false) {
     height: 0,
     width: 0,
     top: 0,
-    left: 0
+    left: 0,
   });
 
   useLayoutEffect(() => {
     if (ref && ref.current) {
       if (isSvg) {
-        const {height, width, x, y} = ref.current.getBBox();
+        const { height, width, x, y } = ref.current.getBBox();
         setDim({
           height,
           width,
           top: y,
-          left: x
+          left: x,
         });
       } else {
         setDim({
           height: ref.current.offsetHeight,
           width: ref.current.offsetWidth,
           top: ref.current.offsetTop,
-          left: ref.current.offsetLeft
+          left: ref.current.offsetLeft,
         });
       }
     }
   }, [ref, isSvg]);
 
   return dim;
-};
+}
 
 export default useDims;
 ```
@@ -53,11 +52,11 @@ export default useDims;
 It can be used in a component like this.
 
 ```jsx {5}
-import React from 'react';
+import React from "react";
 
 function Chart() {
   const chartRef = React.useRef(null);
-  const {width, height, top, left} = useDims(chartRef);
+  const { width, height, top, left } = useDims(chartRef);
 
   return (
     <div ref={chartRef}>
@@ -66,9 +65,9 @@ function Chart() {
         <li>height: {height}</li>
         <li>top: {top}</li>
         <li>left: {left}</li>
-      </ul> 
+      </ul>
     </div>
-  )
+  );
 }
 ```
 
@@ -89,6 +88,7 @@ function useDims(ref, isSvg = false) {
 
     return dim;
 ```
+
 Next, we have `useEffect` which does the heavy lifting. We're checking to see if we have a value in the ref and we are having useEffect watch the `ref` and `isSvg`.
 
 ```js
@@ -103,19 +103,19 @@ Then, we have the calcs for the html and svg element. For the html element we ca
 
 ```js
 if (isSvg) {
-  const {height, width, x, y} = ref.current.getBBox();
+  const { height, width, x, y } = ref.current.getBBox();
   setDim({
     height,
     width,
     top: y,
-    left: x
+    left: x,
   });
 } else {
   setDim({
     height: ref.current.offsetHeight,
     width: ref.current.offsetWidth,
     top: ref.current.offsetTop,
-    left: ref.current.offsetLeft
+    left: ref.current.offsetLeft,
   });
 }
 ```

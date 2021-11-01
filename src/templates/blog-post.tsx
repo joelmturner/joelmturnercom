@@ -33,9 +33,6 @@ export const postQuery = graphql`
         draft
         series
         order
-        cover {
-          publicURL
-        }
       }
       body
     }

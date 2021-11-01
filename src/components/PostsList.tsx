@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import { jsx, Themed } from "theme-ui";
-import React, { memo } from "react";
+import { jsx } from "theme-ui";
+import { memo } from "react";
+import _camelCase from "lodash/camelCase";
 import PostCard from "./postCard";
 import { slugify } from "../utils/utils";
 import { MDXNode } from "../pages";
@@ -11,18 +12,12 @@ export const PostsList = memo(({ edges }: { edges: MDXNode[] }) => {
       {edges?.map(
         ({
           node: {
-            frontmatter: { title, cover },
+            frontmatter: { title, tags },
             slug,
             excerpt,
           },
         }) => (
-          <PostCard
-            key={title}
-            slug={slugify(slug, `/blog`)}
-            title={title}
-            image={cover?.childImageSharp?.gatsbyImageData}
-            excerpt={excerpt}
-          />
+          <PostCard key={title} slug={slugify(slug, `/blog`)} title={title} excerpt={excerpt} tags={tags} />
         )
       )}
     </div>

@@ -28,13 +28,11 @@ type PostProps = {
     category?: string;
     series?: string;
     order?: number;
-    cover?: {
-      publicURL: string;
-    };
   };
   slug: string;
   pageContext: {
     postsInSeries?: { title: string; slug: string }[];
+    socialImage: string;
   };
   data: {
     previous?: PostNavProps;
@@ -49,10 +47,12 @@ const PAYMENT_INFO = {
 };
 
 const Post: FC<PostProps> = ({
-  frontmatter: { cover, title, tags = [], category = "", series = "", order = 0 } = {},
+  frontmatter: { title, tags = [], category = "", series = "", order = 0 } = {},
   children,
   excerpt,
   slug,
+  pageContext: { socialImage = "" },
+  ...rest
 }) => {
   const postsInSeries = usePostSeries(series);
   const siteBaseUrl = "https://joelmturner.com";
@@ -62,7 +62,7 @@ const Post: FC<PostProps> = ({
       <SEO
         title={title}
         description={excerpt}
-        image={cover?.publicURL}
+        image={socialImage}
         keywords={[category, ...tags]}
         meta={[PAYMENT_INFO]}
       />

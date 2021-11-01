@@ -1,11 +1,9 @@
 /** @jsx jsx */
-import { jsx, Themed } from "theme-ui";
-import { useState, useCallback, useEffect, useMemo } from "react";
-import { Layout, SEO, Flexbox } from "../components";
-import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import { matchSorter } from "match-sorter";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { jsx, Themed } from "theme-ui";
+import { Flexbox, Layout, SEO } from "../components";
 import { useKeypress } from "../hooks";
-import { FC } from "react";
 import { PostsList } from "./PostsList";
 
 type IPosts = {
@@ -13,11 +11,6 @@ type IPosts = {
     node: {
       frontmatter: {
         title: string;
-        cover: {
-          childImageSharp: {
-            gatsbyImageData: IGatsbyImageData;
-          };
-        };
         category: string;
         tags: string[];
       };
@@ -106,7 +99,7 @@ const Posts: FC<PostsProps> = ({ pageContext, data, ...props }) => {
 
   return (
     <Layout>
-      <SEO title="Blog" description="A journey through Gatsby, React, TypeScript, and illustration" />
+      <SEO title="Blog" description="A journey through Frontend, React, TypeScript, and illustration" />
       <Flexbox gap={3} between>
         <Themed.h1>{title}</Themed.h1>
         <Flexbox right gap={2} middle sx={{ mb: 3 }}>

@@ -2,10 +2,9 @@
 title: "Quick Tip: GraphQL Fragments in Gatsby"
 date: 2019-09-09
 draft: false
-cover: "./graphql-fragments.png"
 slug: quick-tip-graphql-fragments
 category: dev
-tags: 
+tags:
   - Gatsby
   - GraphQL
   - React
@@ -14,7 +13,7 @@ tags:
 
 GraphQL makes it easy to get exactly the data we need for a given component. There are many times when we end up using the same query or part of a query in multiple places. This is where [GraphQL Fragments](https://graphql.org/learn/queries/#fragments) can help us.
 
-To declare a fragment we can add `fragment MyAwesomeFragment on BlogPost`. The keyword `fragment` tells GraphQL that we're creating the fragment with the name, `MyAwesomeFragment`. And all of this is on the type `BlogPost`. 
+To declare a fragment we can add `fragment MyAwesomeFragment on BlogPost`. The keyword `fragment` tells GraphQL that we're creating the fragment with the name, `MyAwesomeFragment`. And all of this is on the type `BlogPost`.
 
 In this site I have a few different places where I'm querying images for galleries. So instead of repeating the whole query in every variation across the site I can create a queries file and drop the repeated parts in there. Here's an example of that in action.
 
@@ -45,15 +44,13 @@ Then we can use them in our components with a page query or static query.
 ```jsx {7}
 const data = useStaticQuery(graphql`
   query {
-    allInstagramContent(
-      filter: { tags: { glob: "ink*2017" } },
-      sort: { fields: created_time, order: ASC }) {
-        edges {
-          ...InstaNodes
-        }
+    allInstagramContent(filter: { tags: { glob: "ink*2017" } }, sort: { fields: created_time, order: ASC }) {
+      edges {
+        ...InstaNodes
+      }
     }
   }
-`)
+`);
 ```
 
 ## Typing
@@ -67,17 +64,17 @@ type IInstaNodes = {
     localImage: {
       childImageSharp: {
         fluid: FluidObject;
-      }
-    }
+      };
+    };
     images: {
       standard_resolution: {
         width: number;
         height: number;
         url: string;
-      }
-    }
-  }
-}
+      };
+    };
+  };
+};
 ```
 
 ## Bonus
@@ -88,37 +85,41 @@ Add an alias if you're doing similar top level requests. Here's an example of my
 fragment inktober2017 on Query {
   inktober2017: allInstagramContent(
     filter: { tags: { glob: "ink*2017" } }
-    sort: { fields: created_time, order: ASC } ) {
-      edges {
-        ...InstaNodes
-      }
+    sort: { fields: created_time, order: ASC }
+  ) {
+    edges {
+      ...InstaNodes
+    }
   }
 }
 fragment inktober2018 on Query {
   inktober2018: allInstagramContent(
     filter: { tags: { glob: "ink*2018" } }
-    sort: { fields: created_time, order: ASC } ) {
-      edges {
-        ...InstaNodes
-      }
+    sort: { fields: created_time, order: ASC }
+  ) {
+    edges {
+      ...InstaNodes
+    }
   }
 }
 fragment letterClash on Query {
   letterClash: allInstagramContent(
     filter: { tags: { eq: "letterclash" } }
-    sort: { fields: created_time, order: ASC } ) {
-      edges {
-        ...InstaNodes
-      }
+    sort: { fields: created_time, order: ASC }
+  ) {
+    edges {
+      ...InstaNodes
+    }
   }
 }
 ```
+
 Now we can grab that data like this:
 
 ```js
 const {
-    inktober2017: { edges: ink2017Edges = [] } = {},
-    inktober2018: { edges: ink2018Edges = [] } = {},
-    letterClash: { edges: letterClashEdges = [] } = {},
-  } = data
+  inktober2017: { edges: ink2017Edges = [] } = {},
+  inktober2018: { edges: ink2018Edges = [] } = {},
+  letterClash: { edges: letterClashEdges = [] } = {},
+} = data;
 ```

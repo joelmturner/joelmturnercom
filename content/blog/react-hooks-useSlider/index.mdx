@@ -3,9 +3,8 @@ title: "React Hooks: useSlider"
 date: 2019-09-11
 draft: false
 slug: react-hooks-useslider
-cover: "./react-hooks-useslider.png"
 category: dev
-tags: 
+tags:
   - React
   - React hooks
 ---
@@ -14,7 +13,12 @@ We had a need for an auto advancing image slider in React. I chose to use hooks 
 
 ## What We're Building TL;DR
 
-<Embed source="codeSandbox" id="simple-react-hooks-interval-slider-vsmi1" title='Simple React Hooks Slider' height={500} />
+<Embed
+  source="codeSandbox"
+  id="simple-react-hooks-interval-slider-vsmi1"
+  title="Simple React Hooks Slider"
+  height={500}
+/>
 
 <!-- TODO: double check useInterval post -->
 
@@ -22,17 +26,17 @@ We had a need for an auto advancing image slider in React. I chose to use hooks 
 
 This component needs do a few things.
 
-- [ ]  Should accept an slide array
-- [ ]  Should accept a duration in milliseconds
-- [ ]  Should animate between slides
-- [ ]  Should move through array on it's own
+- [ ] Should accept an slide array
+- [ ] Should accept a duration in milliseconds
+- [ ] Should animate between slides
+- [ ] Should move through array on it's own
 
 ## useInterval
 
 Here's the `useInterval` code.
 
 ```jsx
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -55,50 +59,50 @@ function useInterval(callback, delay) {
 }
 ```
 
-Setting an interval can be problematic in JavaScript, mostly because of cleanup (or lack of). With `useEffect` we get a nice cleanup with the return function, `return () => clearInterval(id);`. 
+Setting an interval can be problematic in JavaScript, mostly because of cleanup (or lack of). With `useEffect` we get a nice cleanup with the return function, `return () => clearInterval(id);`.
 
 ## useSlider
 
-Now that we have that set up we can leverage it to help us with timing. 
+Now that we have that set up we can leverage it to help us with timing.
 
 ```jsx
-import * as React from 'react';
-import useInterval from './UseInterval';
+import * as React from "react";
+import useInterval from "./UseInterval";
 
 function useSlider({
-    total = 0, // the length of the slide array
-    enabled = false, // pauses/disables the player
-    useLoaded = false, // this allows for delayed loads like images or embeds
-    speed = 1000, // speed in milliseconds to show each slide
-    loop = true, // should it start back at the beginning
+  total = 0, // the length of the slide array
+  enabled = false, // pauses/disables the player
+  useLoaded = false, // this allows for delayed loads like images or embeds
+  speed = 1000, // speed in milliseconds to show each slide
+  loop = true, // should it start back at the beginning
 }) {
-    const [offset, setOffset] = React.useState(0);
-    const [items, setItems] = React.useState([]);
+  const [offset, setOffset] = React.useState(0);
+  const [items, setItems] = React.useState([]);
 
-    function incrementOffset() {
-        if (offset === total - 1) {
-            setOffset(loop ? 0 : offset);
-        } else {
-            setOffset(offset + 1);
-        }
+  function incrementOffset() {
+    if (offset === total - 1) {
+      setOffset(loop ? 0 : offset);
+    } else {
+      setOffset(offset + 1);
     }
+  }
 
-    function addItem(ref) {
-        setItems([...items, ref]);
+  function addItem(ref) {
+    setItems([...items, ref]);
+  }
+
+  const loaded = useLoaded ? items.length === total : true;
+
+  useInterval(() => {
+    if (loaded && enabled && offset < total) {
+      incrementOffset();
     }
+  }, speed);
 
-    const loaded = useLoaded ? items.length === total : true;
-
-    useInterval(() => {
-        if (loaded && enabled && offset < total) {
-            incrementOffset();
-        }
-    }, speed);
-
-    return {
-      offset, // this is the current index of the slider
-      addItem // this takes a ref and adds it to the items array to see if all have loaded
-    };
+  return {
+    offset, // this is the current index of the slider
+    addItem, // this takes a ref and adds it to the items array to see if all have loaded
+  };
 }
 
 export default useSlider;
@@ -139,20 +143,19 @@ import useSlider from "./useSlider";
 const slides = [
   {
     title: "Slide 1",
-    color: "#56777A"
+    color: "#56777A",
   },
   {
     title: "Slide 2",
-    color: "#84ACAC"
+    color: "#84ACAC",
   },
   {
     title: "Slide 3",
-    color: "#FBA434"
-  }
+    color: "#FBA434",
+  },
 ];
 
 function Slider() {
-
   const slideWidth = 300;
 
   return (
@@ -161,15 +164,15 @@ function Slider() {
       style={{
         backgroundColor: slide.color,
         width: slideWidth,
-        height: slideWidth
+        height: slideWidth,
       }}
-      >
+    >
       <div
         className="scroller"
         style={{
           // our counter offset will go here
           transform: `translate3d(-${offset * slideWidth}px,0,0)`,
-          width: `${slides.length * slideWidth}px`
+          width: `${slides.length * slideWidth}px`,
         }}
       >
         {slides.map((slide, index) => (
@@ -179,7 +182,7 @@ function Slider() {
             style={{
               backgroundColor: slide.color,
               width: slideWidth,
-              height: slideWidth
+              height: slideWidth,
             }}
           >
             {slide.title}
@@ -196,6 +199,7 @@ function Slider() {
 Now we can add our hook to our slider component. This will give us all the state that we’ll need for this feature. When it's all together we get a slider that moves the slides horizontally and rewinds after the last one. You can hook up the slider props to manage the slider options if needed. It can also be made to go vertical with a little modification.
 
 ### Cool! Requirements met.
+
 - [x] Should accept an slide array
 - [x] Should accept a duration in milliseconds
 - [x] Should animate between slides

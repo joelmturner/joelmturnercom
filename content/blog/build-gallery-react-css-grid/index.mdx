@@ -2,17 +2,16 @@
 title: Build a React Gallery With CSS Grid
 date: 2019-09-10
 draft: false
-cover: "./css-grid-gallery.png"
 slug: build-gallery-react-css-grid
 category: dev
-tags: 
+tags:
   - React
   - TypeScript
   - Gatsby
   - CSS
 ---
 
-CSS Grid is super powerful and can be used to create some creative layouts which makes it a great way to create galleries. In this guide we’re going to use a simple grid that keeps the images the same size. 
+CSS Grid is super powerful and can be used to create some creative layouts which makes it a great way to create galleries. In this guide we’re going to use a simple grid that keeps the images the same size.
 
 > This will be a quick view of CSS Grid. If you would like to know more I highly recommend the [CSS Grid Course](https://cssgrid.io/) (free) from [Wes Bos](https://twitter.com/wesbos).
 
@@ -47,56 +46,55 @@ The wrapper styles will give the children their sizes based on the grid and row 
 We'll add a function that can handle the different sizing from the `size` prop and pass these into the wrapper styles.
 
 ```jsx {4,6-25,29}
-import React from 'react';
-import Img from 'gatsby-image';
+import React from "react";
+import Img from "gatsby-image";
 
-function Gallery({nodes = [], size = 'm'}) {
-
+function Gallery({ nodes = [], size = "m" }) {
   function getStylesForSize() {
     switch (size) {
-      case 's': 
+      case "s":
         return {
           gridTemplateColumns: "repeat(auto-fill, minmax(142px, 1fr))",
           gridGap: "0.25rem",
-        }
-      case 'm':
+        };
+      case "m":
       default:
         return {
           gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
           gridGap: "0.5rem",
-        }
-      case 'l': 
+        };
+      case "l":
         return {
           gridTemplateColumns: "1fr",
           gridGap: ".75rem",
-        }
+        };
     }
   }
 
   const wrapperStyles = {
-    display: 'grid',
-    ...getStylesForSize()
-  }
+    display: "grid",
+    ...getStylesForSize(),
+  };
 
   return (
     <div style={wrapperStyles}>
-      {nodes.length > 0 && nodes.map(node => <Img fluid={node.localImage.childImageSharp.fluid} />)}
+      {nodes.length > 0 && nodes.map((node) => <Img fluid={node.localImage.childImageSharp.fluid} />)}
     </div>
-  )
+  );
 }
 ```
 
-We can now pass our size changes to the gallery component. Cool! 
+We can now pass our size changes to the gallery component. Cool!
 
 ## TypeScript
 
 Now, let's type it. This will help us and others know what we shape we need passed to the gallery.
 
 ```typescript {2,4-19,21,23,44}
-import React from 'react';
-import Img, { FluidObject } from 'gatsby-image';
+import React from "react";
+import Img, { FluidObject } from "gatsby-image";
 
-type GallerySizes = "s" | "m" | "l"
+type GallerySizes = "s" | "m" | "l";
 type GalleryImage = {
   node: {
     localImage: {
@@ -106,46 +104,45 @@ type GalleryImage = {
     };
     id: string;
   };
-}
+};
 
 type GalleryProps = {
   imageNodes: GalleryImage[];
   size?: GallerySizes;
-}
+};
 
-function Gallery({images, size = 'm'}: GalleryProps) {
-
+function Gallery({ images, size = "m" }: GalleryProps) {
   function getStylesForSize(): React.CSSProperties {
     switch (size) {
-      case 's': 
+      case "s":
         return {
           gridTemplateColumns: "repeat(auto-fill, minmax(142px, 1fr))",
           gridGap: "0.25rem",
-        }
-      case 'm':
+        };
+      case "m":
       default:
         return {
           gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
           gridGap: "0.5rem",
-        }
-      case 'l': 
+        };
+      case "l":
         return {
           gridTemplateColumns: "1fr",
           gridGap: ".75rem",
-        }
+        };
     }
   }
 
   const wrapperStyles: React.CSSProperties = {
-    display: 'grid',
+    display: "grid",
     ...getStylesForSize(),
-  }
+  };
 
   return (
     <div style={wrapperStyles}>
-      {nodes.length > 0 && nodes.map(node => <Img fluid={node.localImage.childImageSharp.fluid} />)}
+      {nodes.length > 0 && nodes.map((node) => <Img fluid={node.localImage.childImageSharp.fluid} />)}
     </div>
-  )
+  );
 }
 ```
 

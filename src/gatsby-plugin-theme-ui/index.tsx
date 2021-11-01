@@ -112,7 +112,7 @@ export default {
     },
     h3: {
       ...baseMerged.styles.h3,
-      color: "primary",
+      color: "secondary",
       mt: 3,
       mb: 2,
       //   margin: "0 0 1em 0",
@@ -186,7 +186,7 @@ export default {
     pre: {
       ...diffHighlight,
       p: [1, 2],
-      bg: "muted",
+      bg: "backgroundSubtle",
       float: "left",
       minWidth: "100%",
       overflow: "initial",
@@ -194,7 +194,7 @@ export default {
     },
     inlineCode: {
       ...baseMerged.styles.code,
-      bg: "muted",
+      bg: "backgroundSubtle",
       color: "secondary",
       px: 1,
       py: "2px",
@@ -230,8 +230,8 @@ export default {
     },
     post: {
       display: "grid",
-      gridTemplateColumns: ["1fr", "repeat(auto-fill, minmax(350px, 1fr))"],
-      gridGap: ["1rem", "2rem"],
+      gridTemplateColumns: "1fr", // ["1fr", "repeat(auto-fill, minmax(350px, 1fr))"],
+      gridGap: [".75rem", "1rem"],
       contentVisibility: "auto",
       containIntrinsicSize: "550px",
     },
@@ -240,11 +240,18 @@ export default {
     title: {
       mb: 0,
       mt: 1,
-      px: 1,
-      py: 2,
+      pt: 2,
       "a &": {
-        color: "text",
+        color: "primary",
         textDecoration: "none",
+        transition: "color 250ms",
+        willChange: "color",
+      },
+      "a:hover &": {
+        color: "accent",
+        textDecoration: "underline",
+        transition: "color 250ms",
+        willChange: "color",
       },
     },
     img: {
@@ -253,8 +260,10 @@ export default {
       height: "auto",
     },
     excerpt: {
-      px: 1,
       py: 1,
+    },
+    tags: {
+      fontSize: 1,
     },
   },
   buttons: {

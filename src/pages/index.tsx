@@ -19,11 +19,7 @@ export type MDXNode = {
     excerpt: string;
     frontmatter: {
       title: string;
-      cover: {
-        childImageSharp: {
-          gatsbyImageData: IGatsbyImageData;
-        };
-      };
+      tags: string[];
     };
     slug: string;
   };

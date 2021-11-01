@@ -2,7 +2,6 @@
 title: Beginning Web Accessibility in React
 date: 2020-01-13
 draft: false
-cover: ./web-accessibility-react-a11y.png
 slug: beginning-web-accessibility-react
 category: dev
 tags:
@@ -92,11 +91,11 @@ Here's a great snippet from [John Luke Garofalo's post about React accessibility
 ```jsx
 // attach to a onKeyPress to handle Enter keyboard
 // presses in the same way as onClicks
-export const handleEnterKeyPress = onClick => event => {
+export const handleEnterKeyPress = (onClick) => (event) => {
   if (event.key === "Enter") {
-    onClick(event)
+    onClick(event);
   }
-}
+};
 ```
 
 Here's that snippet in TypeScript:
@@ -104,14 +103,14 @@ Here's that snippet in TypeScript:
 ```typescript
 type HandleKeyPress = (
   onClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>
-) => React.KeyboardEventHandler<HTMLElement | SVGElement>
+) => React.KeyboardEventHandler<HTMLElement | SVGElement>;
 
 // attach to a onKeyPress to handle Enter keyboard clicks in the same way as onClicks
-export const handleEnterKeyPress: HandleKeyPress = onClick => event => {
+export const handleEnterKeyPress: HandleKeyPress = (onClick) => (event) => {
   if (event.key === "Enter") {
-    onClick(event)
+    onClick(event);
   }
-}
+};
 ```
 
 ## Conclusion

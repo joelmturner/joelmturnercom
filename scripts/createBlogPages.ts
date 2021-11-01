@@ -1,7 +1,11 @@
 import { CreatePagesArgs } from "gatsby";
 import { resolve } from "path";
+import getShareImage from "@jlengstorf/get-share-image";
+import _camelCase from "lodash/camelCase";
 import { slugify } from "../src/utils/utils";
-import { AllMdxNode } from "./types";
+import { AllMdxNode, DraftMdxNode } from "./types";
+
+const isDev = process.env.NODE_ENV === "development";
 
 export const createBlogPages = async ({ graphql, actions }: CreatePagesArgs) => {
   const { createPage } = actions;
@@ -10,8 +14,19 @@ export const createBlogPages = async ({ graphql, actions }: CreatePagesArgs) => 
   const blogTagsTemplate = resolve(`src/templates/blog-tags.tsx`);
   const blogCategoriesTemplate = resolve(`src/templates/blog-categories.tsx`);
 
-  const result = await graphql<AllMdxNode>(`
+  const result = await graphql<AllMdxNode & DraftMdxNode>(`
     query {
+      drafts: allMdx(filter: { fileAbsolutePath: { regex: "/content/blog/" }, frontmatter: { draft: { eq: true } } }) {
+        nodes {
+          id
+          slug
+          frontmatter {
+            title
+            category
+            tags
+          }
+        }
+      }
       allMdx(filter: { fileAbsolutePath: { regex: "/content/blog/" } }) {
         nodes {
           id
@@ -29,7 +44,11 @@ export const createBlogPages = async ({ graphql, actions }: CreatePagesArgs) => 
   let categories: string[] = [];
   let tags: string[] = [];
 
-  result.data?.allMdx.nodes.forEach((node) => {
+  const posts = isDev
+    ? [...(result.data?.allMdx.nodes ?? []), ...(result.data?.drafts.nodes ?? [])]
+    : result.data?.allMdx.nodes ?? [];
+
+  posts.forEach((node) => {
     if (node.frontmatter.category) {
       categories.push(node.frontmatter.category);
     }
@@ -72,13 +91,24 @@ export const createBlogPages = async ({ graphql, actions }: CreatePagesArgs) => 
   });
 
   // blog posts
-  result.data?.allMdx.nodes.forEach((node) => {
+  posts.forEach((node) => {
+    const socialImage = getShareImage({
+      title: node.frontmatter.title,
+      tagline: (node.frontmatter.tags as unknown as string[]).map((tag) => `#${_camelCase(tag)}`).join(", "),
+      cloudName: "joelmturner",
+      imagePublicID: "blog-post-card",
+      titleFont: "futura",
+      taglineFont: "futura",
+      textColor: "232129",
+    } as any);
+
     createPage({
       path: slugify(node.slug, "/blog"),
       component: blogPostTemplate,
       context: {
         id: node.id,
         title: node.frontmatter.title,
+        socialImage,
       },
     });
   });

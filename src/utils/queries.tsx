@@ -26,11 +26,6 @@ export const query = graphql`
         excerpt
         frontmatter {
           title
-          cover {
-            childImageSharp {
-              gatsbyImageData(width: 731, height: 464, placeholder: NONE, layout: CONSTRAINED)
-            }
-          }
           series
           order
           category

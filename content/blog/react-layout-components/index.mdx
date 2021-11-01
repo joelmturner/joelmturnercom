@@ -2,7 +2,6 @@
 title: My Favorite Layout Components in React
 date: 2019-09-12
 draft: false
-cover: "./layout-components.png"
 slug: react-layout-components
 category: dev
 tags:
@@ -15,7 +14,12 @@ There are a few components that I use almost every day in development. They are 
 
 ## What We're Using TL;DR
 
-<Embed id='react-layout-components-flexbox-grid-d9e1u' source='codeSandbox' title='React Layout Components Flexbox & Grid' height={600} />
+<Embed
+  id="react-layout-components-flexbox-grid-d9e1u"
+  source="codeSandbox"
+  title="React Layout Components Flexbox & Grid"
+  height={600}
+/>
 
 I had used a column component that accepted different span amounts, but I ended up not using it as much. I tend to add `span` to the children through the `sx` prop or extending with styled components.
 
@@ -49,9 +53,10 @@ type FlexboxProps = {
   between?: boolean;
   around?: boolean;
   gap?: boolean | number; // add margin between children similar to grid-gap on grid
-}
+};
 ```
-Here is some example usage. See the [CodeSandbox](#example) down below for more. 
+
+Here is some example usage. See the [CodeSandbox](#example) down below for more.
 
 ```jsx
 <Flexbox vertical gap={3}>
@@ -76,16 +81,17 @@ Let's take a look at the props.
 type GridProps = {
   className?: string;
   children: React.ReactNode;
-  gap?: string | number;        // grid-gap
-  columns?: string | string[];  // grid-template-columns
-  rows?: string | string[];     // grid-template-rows
-}
+  gap?: string | number; // grid-gap
+  columns?: string | string[]; // grid-template-columns
+  rows?: string | string[]; // grid-template-rows
+};
 ```
+
 Here's an example of using it. See more examples in the [CodeSandbox](#example).
 
 ```jsx
 <Grid columns="1fr 1fr" gap="2">
   <img src="myImage.png" />
-  <img src='catsSinging.png' />
+  <img src="catsSinging.png" />
 </Grid>
 ```
