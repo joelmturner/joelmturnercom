@@ -6,8 +6,8 @@ import themeMod from "../utils/themeMod";
 import { memo } from "react";
 
 const LINE_NUM_REGULAR_EXPRESSION: any = /{([\d,-]+)}/;
-const META_ATTRIBUTES = ["filename", "class"];
-const META_ATTRIBUTES_REGULAR_EXPRESSION: any = new RegExp(`(${META_ATTRIBUTES.join("|")})=[\\w+.\\-_]+`, "g");
+const META_ATTRIBUTES = ["filename", "class"] as const;
+const META_ATTRIBUTES_REGULAR_EXPRESSION: any = new RegExp(`(${META_ATTRIBUTES.join("|")})=[\\w+.\/\\-_]+`, "g");
 
 function calculateLinesToHighlight(meta: string) {
   if (LINE_NUM_REGULAR_EXPRESSION.test(meta)) {
@@ -26,7 +26,8 @@ function calculateLinesToHighlight(meta: string) {
   }
 }
 
-type MetaAttributes = Partial<{ [key: "filename" | "class"]: string }>;
+type MetaAttributeKeys = typeof META_ATTRIBUTES[number];
+type MetaAttributes = Partial<{ [key in MetaAttributeKeys]: string }>;
 
 function getMetaAttributes(meta: string): MetaAttributes | null {
   const found = META_ATTRIBUTES_REGULAR_EXPRESSION.test(meta);
@@ -37,7 +38,7 @@ function getMetaAttributes(meta: string): MetaAttributes | null {
 
   return (
     matches?.reduce((acc, curr) => {
-      const [key, value] = curr.split("=");
+      const [key, value] = curr.split("=") as [MetaAttributeKeys, string];
       if (acc[key]) {
         acc[key] = acc[key] + " " + value;
       } else {
@@ -70,7 +71,7 @@ const Code = ({
 }) => {
   const [colorMode] = useColorMode<"light" | "dark">();
   const theme: PrismTheme = themeMod(colorMode);
-  const scrubbedLanguage = language.replace(" svelte", "");
+  const scrubbedLanguage = language.replace(" svelte", "") as Language;
   const shouldHighlightLine = calculateLinesToHighlight(metastring);
   const metaAttributes = getMetaAttributes(metastring);
   const metaClasses = metaAttributes?.class ?? "";

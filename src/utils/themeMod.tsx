@@ -5,7 +5,6 @@ const newTheme = (colorMode: "light" | "dark"): PrismTheme => {
   const colors = colorMode === "light" ? theme.colors.modes[colorMode] : theme.colors;
   return {
     plain: {
-      backgroundColor: `var(--theme-ui-colors-backgroundSubtle, ${colors.backgroundSubtle})`,
       color: `var(--theme-ui-colors-accent, ${colors.accent})`,
     },
     styles: [

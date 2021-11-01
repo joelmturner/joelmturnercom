@@ -64,8 +64,10 @@ export type InstaCollections =
 const Illustration: FC<IllustrationProps> = ({ data, location }) => {
   const [sketchSize, setSketchSize] = useState<GallerySizes>("m");
   const [offset, setOffset] = useState(-1);
-  const hash: InstaCollections =
-    (location?.hash?.replace("#", "") as InstaCollections) ?? ("featuredInsta" as InstaCollections);
+  const hash: InstaCollections = location?.hash
+    ? (location.hash.replace("#", "") as InstaCollections)
+    : ("featuredInsta" as InstaCollections);
+
   const [filter, setFilter] = useState<InstaCollections>(hash);
   const {
     featuredInsta: { nodes: featuredEdges = [] } = {},
@@ -80,6 +82,7 @@ const Illustration: FC<IllustrationProps> = ({ data, location }) => {
   const filteredEdges = useMemo(
     function () {
       switch (filter) {
+        default:
         case "featuredInsta":
           return featuredEdges;
         case "inktober2017":
@@ -94,16 +97,6 @@ const Illustration: FC<IllustrationProps> = ({ data, location }) => {
           return letterClashEdges;
         case "joelmturner_abcs2017":
           return jmt2017Edges;
-        default:
-          return [
-            ...featuredEdges,
-            ...ink2017Edges,
-            ...ink2018Edges,
-            ...ink2019Edges,
-            ...ink2021Edges,
-            ...letterClashEdges,
-            ...jmt2017Edges,
-          ];
       }
     },
     [filter, featuredEdges, ink2017Edges, ink2018Edges, ink2019Edges, ink2021Edges, letterClashEdges, jmt2017Edges]
