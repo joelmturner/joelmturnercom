@@ -48,9 +48,7 @@ function SEO({
 
   const metaDescription = description || site.siteMetadata.description;
 
-  const metaImage = image
-    ? site.siteMetadata.siteUrl + image
-    : `https://res.cloudinary.com/joelmturner/joel-turner.jpg`;
+  const metaImage = image ? image : `https://res.cloudinary.com/joelmturner/joel-turner.jpg`;
   const metaKeywords = keywords ? keywords : site.siteMetadata.keywords;
 
   return (
