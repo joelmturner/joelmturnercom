@@ -1,0 +1,45 @@
+---
+title: Gatsby Client-Side External Redirect
+slug: gatsby-client-side-external-redirect
+draft: false
+date: "2021-11-02T05:16:08.131Z"
+category: Dev
+tags:
+  - Gatsby
+  - Redirect
+  - QuickTip
+lastmod: "2021-11-02T05:12:58.794Z"
+---
+
+We had a case where we needed to set up a redirect on the client side of Gatsby but we didn't want to spin up a lambda to handle this one case. A redirect like this wouldn't be a problem with some of the hosts out there, but we're just using s3 and Cloudfront for this site.
+
+To set up a quick redirect on the client we can send a redirect link through page context and handle the window location in a `useEffect`.
+
+```javascript filename=gatsby-node.js
+ {
+    path: "/path",
+    component: resolve(__dirname, "../src/templates/EmptyPage.tsx"),
+    context: {
+        redirectTo:
+            "https://someawesomewebsite.com/newLink",
+    },
+},
+```
+
+```tsx filename=templates/emptyPage.tsx
+import React, { useEffect } from "react";
+
+function isClient() {
+  return typeof window === "object";
+}
+
+export default function EmptyPage({ pageContext }) {
+  useEffect(() => {
+    if (isClient() && pageContext?.redirectTo) {
+      window.location.href = pageContext.redirectTo;
+    }
+  }, []);
+
+  return <div />;
+}
+```
