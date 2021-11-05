@@ -1,6 +1,6 @@
 ---
 title: Helpers
-date: 2020-01-01
+date: 2020-01-01T00:00:00.000Z
 draft: false
 slug: helpers
 category: node
@@ -8,6 +8,7 @@ tags:
   - node
   - memory
   - dependencies
+lastmod: "2021-11-05T19:51:33.248Z"
 ---
 
 # Node Command Line
@@ -37,19 +38,43 @@ npm version prerelease --preid=alpha.1
 ```
 
 ## Templates
+
 When working from a js template, it's helpful to make a deep copy, so the original template is preserved. I have run into some issues with this many times, and it still bites me.
+
 ```ts
-import cloneDeep from 'lodash/cloneDeep'
+import cloneDeep from "lodash/cloneDeep";
 
 const template = {
-	'1a': {
-		id: '1a',
-		name: 'template 1',
-		widgets: []
-	}
-}
+  "1a": {
+    id: "1a",
+    name: "template 1",
+    widgets: [],
+  },
+};
 
 function getTemplate(id: string) {
-	return cloneDeep(template[id])
+  return cloneDeep(template[id]);
 }
 ```
+
+## Debugging
+
+### Trace deprecation
+
+Replace `node_modules/gatsby/dist/bin/gatsby` with the runner of the script.
+
+```bash
+node --trace-deprecation node_modules/gatsby/dist/bin/gatsby build
+```
+
+This helped me find an issue I was running into with Gatsby 4.0 on `build`. The error I was seeing was:
+
+```bash
+[DEP_WEBPACK_COMPILATION_ASSETS] DeprecationWarning: Compilation.assets will be frozen in future, all modifications are deprecated.
+BREAKING CHANGE: No more changes should happen to Compilation.assets after sealing the Compilation.
+    Do changes to assets earlier, e. g. in Compilation.hooks.processAssets.
+    Make sure to select an appropriate stage from Compilation.PROCESS_ASSETS_STAGE_*.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+```
+
+This case was caused by `gatsby-plugin-bundle-stats` and was fixed when commented out.
