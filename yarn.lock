@@ -10429,6 +10429,16 @@ jsprim@^1.2.2:
     array-includes "^3.1.2"
     object.assign "^4.1.2"
 
+just-camel-case@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/just-camel-case/-/just-camel-case-5.1.1.tgz#03d6f2525f21f2a7f0f1db0e7865a7c5c171a692"
+  integrity sha512-kIDKzbfCsO3kqPziv8MQsc9yVtyLqfTx5F7BbOZIwKOJmjK/J2p7DpzmZdkZXZiL3cQ4KYcGnhIJxzzZBphT0w==
+
+just-merge@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/just-merge/-/just-merge-2.1.1.tgz#18e5249df51edde59ae1a6b91281369bb4802f16"
+  integrity sha512-4BfyIRpEAPtSyyCEThy2KvnN2A5YOiEXDxm7MS/JFODudLw5Lc6cMUO0HFBNp8fK1KQBxNhOm3k59IZLcfxkTQ==
+
 kebab-hash@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/kebab-hash/-/kebab-hash-0.1.2.tgz#dfb7949ba34d8e70114ea7d83e266e5e2a4abaac"

@@ -42,7 +42,7 @@ npm version prerelease --preid=alpha.1
 When working from a js template, it's helpful to make a deep copy, so the original template is preserved. I have run into some issues with this many times, and it still bites me.
 
 ```ts
-import cloneDeep from "lodash/cloneDeep";
+import clone from "just-clone";
 
 const template = {
   "1a": {
@@ -53,7 +53,7 @@ const template = {
 };
 
 function getTemplate(id: string) {
-  return cloneDeep(template[id]);
+  return clone(template[id]);
 }
 ```
 

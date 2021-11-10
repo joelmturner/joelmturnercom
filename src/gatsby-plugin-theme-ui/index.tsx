@@ -1,5 +1,5 @@
 import nightOwl from "@theme-ui/prism/presets/night-owl.json";
-import merge from "lodash/merge";
+import merge from "just-merge";
 import typography from "./typography";
 import { Theme } from "theme-ui";
 

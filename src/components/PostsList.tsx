@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import { memo } from "react";
-import _camelCase from "lodash/camelCase";
+import _camelCase from "just-camel-case";
 import PostCard from "./postCard";
 import { slugify } from "../utils/utils";
 import { MDXNode } from "../pages";

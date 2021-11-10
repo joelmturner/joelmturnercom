@@ -1,7 +1,7 @@
 import { CreatePagesArgs } from "gatsby";
 import { resolve } from "path";
 import getShareImage from "@jlengstorf/get-share-image";
-import _camelCase from "lodash/camelCase";
+import _camelCase from "just-camel-case";
 import { slugify } from "../src/utils/utils";
 import { AllMdxNode, DraftMdxNode } from "./types";
 

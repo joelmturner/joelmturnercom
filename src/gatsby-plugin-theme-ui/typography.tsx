@@ -1,8 +1,7 @@
 // example theme with Typography.js
 import { toTheme } from "@theme-ui/typography";
 import wp2016 from "typography-theme-wordpress-2016";
-// import noriega from "typography-theme-noriega";
-import merge from "lodash/merge";
+import merge from "just-merge";
 
 const typography = toTheme(wp2016);
 
