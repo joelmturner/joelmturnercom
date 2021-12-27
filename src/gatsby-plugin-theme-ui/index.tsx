@@ -1,7 +1,7 @@
 import nightOwl from "@theme-ui/prism/presets/night-owl.json";
 import merge from "just-merge";
 import typography from "./typography";
-import { Theme } from "theme-ui";
+import { Theme, ThemeStyles } from "theme-ui";
 
 const diffHighlight = merge({}, nightOwl, {
   ".changed": {
@@ -17,7 +17,7 @@ const diffHighlight = merge({}, nightOwl, {
   },
 });
 
-const baseMerged = merge({}, typography);
+const baseMerged = merge({}, typography) as Theme & { styles: ThemeStyles };
 const iconStyles = {
   ml: 2,
   fill: "text",
