@@ -8,7 +8,6 @@ import Link from "gatsby-link";
 import PostGallery from "../components/PostGallery";
 import Note from "../components/note";
 import loadable from "@loadable/component";
-const Embed = loadable(() => import("../components/embed"));
 const Code = loadable(() => import("../components/code"));
 
 const components = {
@@ -58,7 +57,6 @@ export default {
   Avatar,
   Grid,
   Flexbox,
-  Embed,
   Link: (props: any) => (
     <Link {...props} sx={{ variant: "post.link" }} activeClassName="active" partiallyActive={true} />
   ),

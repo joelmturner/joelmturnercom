@@ -1,5 +1,4 @@
 export { default as Avatar } from "./avatar";
-export { default as Embed } from "./embed";
 export { default as Dialog } from "./dialog";
 export { default as Flexbox } from "./flexbox";
 export { default as Gallery } from "./gallery";
