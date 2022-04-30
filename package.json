@@ -26,7 +26,7 @@
         "gatsby": "^4.10.3",
         "gatsby-image": "^3.11.0",
         "gatsby-plugin-gatsby-cloud": "^4.10.1",
-        "gatsby-plugin-google-analytics": "^4.10.0",
+        "gatsby-plugin-google-gtag": "^4.13.0",
         "gatsby-plugin-image": "^2.10.1",
         "gatsby-plugin-loadable-components-ssr": "^4.2.0",
         "gatsby-plugin-manifest": "^4.10.2",
