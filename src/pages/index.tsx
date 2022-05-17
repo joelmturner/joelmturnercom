@@ -50,7 +50,7 @@ const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
   );
 
   const handleSetOffset = useCallback(
-    (edge) => {
+    (edge: InstaNode) => {
       setOffset(insta.indexOf(edge));
     },
     [setOffset, insta]
