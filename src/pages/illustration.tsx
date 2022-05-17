@@ -103,7 +103,7 @@ const Illustration: FC<IllustrationProps> = ({ data, location }) => {
   );
 
   const handleSetOffset = useCallback(
-    (edge) => {
+    (edge: InstaNode) => {
       setOffset(filteredEdges.indexOf(edge));
     },
     [setOffset, filteredEdges]
@@ -114,7 +114,7 @@ const Illustration: FC<IllustrationProps> = ({ data, location }) => {
   }, [setOffset]);
 
   const handleChange = useCallback(
-    (selected) => {
+    (selected: { value: InstaCollections; label: string }) => {
       setFilter(selected.value);
     },
     [setFilter]

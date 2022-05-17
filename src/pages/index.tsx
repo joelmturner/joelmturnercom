@@ -3,7 +3,6 @@ import { jsx, Themed } from "theme-ui";
 import React, { useCallback, useState } from "react";
 import { graphql } from "gatsby";
 import { Layout, SEO, Avatar, Flexbox, Gallery, Grid, Link } from "../components";
-import { IGatsbyImageData } from "gatsby-plugin-image";
 import PartialRenderer from "../components/partialRenderer";
 import { PostsList } from "../components/PostsList";
 import loadable from "@loadable/component";
