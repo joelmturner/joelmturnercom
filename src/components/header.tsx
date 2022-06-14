@@ -56,7 +56,7 @@ export function Header() {
         <Button w="full" variant="ghost" leftIcon={<AiFillHome />}>
           <Link href="/">Dashboard</Link>
         </Button>
-        <Button w="full" variant="solid" colorScheme="brand" leftIcon={<AiOutlineInbox />}>
+        <Button w="full" variant="solid" colorScheme="orange" leftIcon={<AiOutlineInbox />}>
           Inbox
         </Button>
         <Button w="full" variant="ghost" leftIcon={<BsFillCameraVideoFill />}>
@@ -74,7 +74,7 @@ export function Header() {
       transition="box-shadow 0.2s"
       bg={bg}
       borderTop="6px solid"
-      borderTopColor="brand.400"
+      borderTopColor="orange.200"
       w="full"
       overflowY="hidden"
       borderBottomWidth={2}

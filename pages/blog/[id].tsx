@@ -1,20 +1,29 @@
+import { Box, chakra, Divider, Flex, HStack, Link } from "@chakra-ui/react";
+import { getMDXComponent } from "mdx-bundler/client";
 import dynamic from "next/dynamic";
-import { MDXProvider } from "@mdx-js/react";
+import NextLink from "next/link";
+import { useMemo } from "react";
 import { getAllPostIds, getPostData } from "../../lib/posts";
 import { FrontMatter } from "../../lib/types";
 import { MDXComponents } from "../../src/components/MDXComponents";
-import { Box, chakra } from "@chakra-ui/react";
-import { useMemo } from "react";
-import { getMDXComponent } from "mdx-bundler/client";
-import { bundleMDX } from "mdx-bundler";
-import remarkFrontmatter from "remark-frontmatter";
-import remarkGfm from "remark-gfm";
-import rehypeExternalLinks from "rehype-external-links";
-import rehypeHighlight from "rehype-highlight";
-import rehypeMetaAttribute from "../../lib/rehype-meta-attribute";
-import rehypeHighlightCode from "../../lib/rehype-highlight-code";
 
-export default function Post({ title, id, content }: { id: string; content: string } & FrontMatter) {
+function getJustification(next, prev) {
+  if (next && prev) {
+    return "space-between";
+  } else if (next && !prev) {
+    return "flex-end";
+  } else {
+    return "flex-start";
+  }
+}
+
+export default function Post({
+  title,
+  id,
+  content,
+  next,
+  prev,
+}: { id: string; content: string; next: FrontMatter; prev: FrontMatter } & FrontMatter) {
   const Post = useMemo(() => getMDXComponent(content), [content]);
 
   //   dynamic import because not ESM compatible
@@ -33,6 +42,23 @@ export default function Post({ title, id, content }: { id: string; content: stri
       <chakra.article>
         <Post components={components} />
       </chakra.article>
+      <Divider my={4} />
+      <Flex justifyContent={getJustification(next, prev)} py={4} gap={6}>
+        {prev && (
+          <Box justifyContent="flex-start">
+            <NextLink href={`/blog/${prev.slug}`}>
+              <Link color="orange.200">{`<-- ${prev.title}`}</Link>
+            </NextLink>
+          </Box>
+        )}
+        {next && (
+          <Box justifyContent="flex-end">
+            <NextLink href={`/blog/${next.slug}`}>
+              <Link color="orange.200">{`${next.title} -->`}</Link>
+            </NextLink>
+          </Box>
+        )}
+      </Flex>
     </>
   );
 }
@@ -46,25 +72,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const postData = getPostData(params.id);
-  const content = await bundleMDX({
-    source: postData.content,
-    mdxOptions: function (options, frontmatter) {
-      (options.rehypePlugins = [
-        ...(options.rehypePlugins ?? []),
-        rehypeExternalLinks,
-        rehypeHighlight,
-        rehypeMetaAttribute,
-        rehypeHighlightCode,
-      ]),
-        (options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm, remarkFrontmatter]);
-      return options;
-    },
-  });
+  const postData = await getPostData(params.id);
+
   return {
     props: {
       ...postData,
-      content: content.code,
     },
   };
 }

@@ -73,7 +73,7 @@ const wrapLines = function wrapLines(ast, linesToHighlight) {
       properties: {
         dataLine: line,
         className: "highlight-line",
-        dataHighlighted: linesToHighlight.includes(line) || highlightAll ? "true" : "false",
+        dataHighlighted: linesToHighlight.includes(line) || /* highlightAll ? "true" : */ "false",
       },
       children: children,
       lineNumber: line,
@@ -104,7 +104,6 @@ const applyMultilineFix = function (ast) {
 };
 
 export default function (ast, lines) {
-  console.log("ast", ast);
   const formattedAst = applyMultilineFix(ast);
   const numbered = lineNumberify(formattedAst).nodes;
 

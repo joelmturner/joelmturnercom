@@ -1,32 +1,20 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui";
-import { FC } from "react";
+import { Box } from "@chakra-ui/react";
 
-type NoteProps = {
-  children: any;
-};
-
-const Note: FC<NoteProps> = ({ children }) => {
+export function Note({ children }) {
   return (
-    <div
+    <Box
+      mb={2}
+      px={3}
+      pt={0.025}
+      pb={0.25}
+      bg="gray.700"
       sx={{
-        bg: "backgroundSubtle",
-        pt: 2,
-        px: 2,
-        pb: 1,
         borderLeftStyle: "solid",
         borderLeftWidth: "5px",
         borderLeftColor: "secondary",
-        mb: 2,
-        "> p": {
-          fontSize: 1,
-        },
       }}
     >
       {children}
-    </div>
+    </Box>
   );
-};
-
-Note.displayName = "Note";
-export default Note;
+}

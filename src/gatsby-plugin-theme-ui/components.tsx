@@ -6,7 +6,7 @@ import { preToCodeBlock } from "mdx-utils";
 import { Grid, Flexbox, Series, Avatar } from "../components";
 import Link from "gatsby-link";
 import PostGallery from "../components/PostGallery";
-import Note from "../components/note";
+import Note from "../components/note2";
 import loadable from "@loadable/component";
 const Code = loadable(() => import("../components/code"));
 

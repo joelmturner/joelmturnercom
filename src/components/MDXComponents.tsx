@@ -1,7 +1,7 @@
-import { Alert, Box, chakra, Code, css, Divider, Heading, Link, Text, useColorMode } from "@chakra-ui/react";
-import { jsx } from "@emotion/react";
+import { Alert, Box, chakra, Code, css, Divider, Flex, Heading, Link, Text, useColorMode } from "@chakra-ui/react";
 import NextLink from "next/link";
 import Image from "next/image";
+import { Note } from "../../src/components/Note";
 
 const CustomImage = (props: any) => {
   return <Image width={props.width} height={props.height} src={props.src} alt={props.alt} />;
@@ -10,8 +10,8 @@ const CustomImage = (props: any) => {
 const CustomLink = (props: any) => {
   const { colorMode } = useColorMode();
   const color = {
-    light: "blue.500",
-    dark: "blue.500",
+    light: "blue.300",
+    dark: "blue.300",
   };
 
   const href = props.href;
@@ -125,41 +125,30 @@ export const MDXComponents = {
   hr: Hr,
   a: CustomLink,
   code: (props: any) => {
-    console.log("props", props);
     if (!props.className) {
       // inline code
       return <Code colorScheme="orange" fontSize="0.84em" {...props} />;
     }
-    const lines = props.lines?.split(",")?.reduce((acc, curr) => {
-      if (curr.includes("-")) {
-        const [start, end] = curr.split("-");
-        const newValues = Array.from({ length: parseInt(end) - parseInt(start) + 1 }, (_, i) => parseInt(start) + i);
-        return [...acc, ...newValues];
-      } else {
-        acc.push(parseInt(curr));
-      }
 
-      return acc;
-    }, []);
-    console.log("lines", lines);
     return (
       <Box
         fontSize="0.84em"
         w="100%"
         overflow="auto"
-        p={4}
+        py={2}
         my={4}
         sx={{
           ".highlight-line": {
             position: "relative",
             borderLeft: "5px solid transparent",
-            pl: 5,
+            pl: 8,
+            pr: 2,
 
             "&::before": {
               content: "attr(data-line)",
               position: "absolute",
               top: 0,
-              left: 2,
+              left: 1,
               color: "gray.600",
             },
           },
@@ -168,4 +157,6 @@ export const MDXComponents = {
       />
     );
   },
+  Note,
+  Flex,
 };

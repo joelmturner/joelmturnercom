@@ -4,6 +4,7 @@ export const nightOwl = css`
   div[class*="language-"],
   code[class*="language-"],
   pre[class*="language-"] {
+    background: rgba(0, 0, 0, 0.3);
     color: #d6deeb;
     font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     text-align: left;

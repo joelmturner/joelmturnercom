@@ -18,7 +18,6 @@ export default function (options = {}) {
     if (parentNode.tagName === "pre" && node.tagName === "code") {
       // syntax highlight
       const lang = node.properties.className ? node.properties.className[1].split("-")[1] : "md";
-      console.log("lang", lang);
       let result = refractor.highlight(toString(node), lang);
 
       // line highlight

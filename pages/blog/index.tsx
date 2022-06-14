@@ -60,7 +60,6 @@ type PostIndexProps = {
 
 export default function PostIndex({ posts }: PostIndexProps) {
   const featured = useMemo(() => posts.filter((post) => post.featured)?.[0], [posts]);
-  console.log("posts", posts);
 
   return (
     <>

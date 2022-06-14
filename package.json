@@ -19,6 +19,7 @@
     "@reach/tooltip": "^0.17.0",
     "@remark-embedder/core": "^2.0.0",
     "@remark-embedder/transformer-oembed": "^2.0.0",
+    "cloudinary": "^1.30.0",
     "esbuild": "^0.14.43",
     "framer-motion": "^6",
     "gray-matter": "^4.0.3",
