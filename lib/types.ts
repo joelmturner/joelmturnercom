@@ -10,3 +10,17 @@ export type FrontMatter = {
   excerpt: string;
   cover: string;
 };
+
+export type IllustrationTag =
+  | "handletteredabcs_2016"
+  | "inktober2017"
+  | "inktober2018"
+  | "inktober2019"
+  | "inktober2021"
+  | "joelmturner_abcs2017"
+  | "joelmturner_featured"
+  | "letterclash";
+
+export type Illustrations = {
+  [key in IllustrationTag]: { id: string; url: string; tags: string[] }[];
+};
