@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, Themed } from "theme-ui";
-import Flexbox from "./flexbox";
+import Flexbox from "./flexbox2";
 import { Link } from "gatsby";
 import { slugify } from "../utils/utils";
 import { FC, memo } from "react";

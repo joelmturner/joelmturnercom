@@ -6,7 +6,7 @@ import { memo, ReactNode } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import { IoLogoInstagram, IoLogoGithub, IoLogoTwitter } from "react-icons/io";
 import { FaDev } from "react-icons/fa";
-import Header from "./header";
+import Header from "./header2";
 import { Flexbox } from ".";
 import Global from "./global";
 import { ExternalLink } from "./ExternalLink";

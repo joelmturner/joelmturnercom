@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from "theme-ui";
 import { CSSProperties, ElementType, ReactElement } from "react";
 
 export type FlexboxProps = React.HTMLAttributes<HTMLElement> & {
@@ -35,7 +37,7 @@ export const getFlexProperties = ({
   around,
   vertical,
   gap,
-}: FlexboxProps) => {
+}: FlexboxProps): CSSProperties => {
   // check all booleans and return appropriate css
   let primaryAxis = "initial";
   let secondaryAxis = "initial";
@@ -111,7 +113,7 @@ export const getFlexProperties = ({
   };
 };
 
-export function Flexbox({
+const Flexbox: React.FC<FlexboxProps> = ({
   top,
   middle,
   bottom,
@@ -129,7 +131,7 @@ export function Flexbox({
   children,
   as = "div",
   ...rest
-}: FlexboxProps) {
+}) => {
   const { justifyContent, alignItems, marginLeft, marginTop } = getFlexProperties({
     top,
     middle,
@@ -163,4 +165,7 @@ export function Flexbox({
       {children}
     </Element>
   );
-}
+};
+
+/** @component */
+export default Flexbox;

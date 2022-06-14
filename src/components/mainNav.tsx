@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import Flexbox from "./flexbox";
+import Flexbox from "./flexbox2";
 import { Link } from "gatsby";
 import { useState, Fragment, useCallback, memo } from "react";
 

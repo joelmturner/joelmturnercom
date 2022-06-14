@@ -2,13 +2,15 @@
 title: Gatsby Client-Side External Redirect
 slug: gatsby-client-side-external-redirect
 draft: false
-date: "2021-11-02T05:16:08.131Z"
+date: 2021-11-02T05:16:08.131Z
 category: Dev
 tags:
   - Gatsby
   - Redirect
   - QuickTip
-lastmod: "2021-11-02T05:12:58.794Z"
+lastmod: 2022-06-13T22:24:45.399Z
+excerpt: A client-side redirect for Gatsby when you don't have access to the CloudFront
+  settings.
 ---
 
 We had a case where we needed to set up a redirect on the client side of Gatsby but we didn't want to spin up a lambda to handle this one case. A redirect like this wouldn't be a problem with some of the hosts out there, but we're just using s3 and Cloudfront for this site.

@@ -5,7 +5,7 @@ import { FC } from "react";
 import PostSeries from "./postSeries";
 import Layout from "./layout";
 import SEO from "./seo";
-import Flexbox from "./flexbox";
+import Flexbox from "./flexbox2";
 import Link from "./link";
 import { usePostSeries } from "../hooks";
 import { slugify } from "../utils/utils";

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, Themed } from "theme-ui";
 import { Fragment, memo } from "react";
-import Flexbox from "./flexbox";
+import Flexbox from "./flexbox2";
 import Link from "./link";
 import { slugify } from "../utils/utils";
 import Grid from "./grid";

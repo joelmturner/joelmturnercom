@@ -1,9 +1,9 @@
-export { default as Avatar } from "./avatar";
+export { default as Avatar } from "./avatar2";
 export { default as Dialog } from "./dialog";
-export { default as Flexbox } from "./flexbox";
+export { default as Flexbox } from "./flexbox2";
 export { default as Gallery } from "./gallery";
 export { default as Grid } from "./grid";
-export { default as Header } from "./header";
+export { default as Header } from "./header2";
 export { default as Layout } from "./layout";
 export { default as Menu } from "./mainNav";
 export { default as PostCard } from "./postCard";

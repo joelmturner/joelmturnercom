@@ -2,7 +2,7 @@
 import { jsx, Themed } from "theme-ui";
 import Layout from "./layout";
 import { Link } from "gatsby";
-import Flexbox from "./flexbox";
+import Flexbox from "./flexbox2";
 import { memo } from "react";
 import { SEO } from "./index";
 
