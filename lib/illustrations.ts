@@ -33,7 +33,7 @@ export async function getIllustrations(): Promise<Illustrations> {
           url: imageResult.secure_url,
           tags: imageResult.tags,
         };
-        console.log("tag", tag);
+
         const prev = acc[tag] || [];
 
         acc[`${tag}`] = [...prev, image];

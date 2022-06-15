@@ -1,10 +1,9 @@
 import * as React from "react";
 import NextImage from "next/image";
-import { Box } from "@chakra-ui/react";
+import { Box, BoxProps } from "@chakra-ui/react";
 
-export function ChakraNextImage(props) {
+export function ChakraNextImage(props: BoxProps & { src: string; alt: string; nextSize?: number }) {
   const { src, alt, nextSize, ...rest } = props;
-  console.log("nextSize", nextSize);
 
   const resolvedNextSize = React.useMemo(() => {
     if (nextSize) {
@@ -16,7 +15,7 @@ export function ChakraNextImage(props) {
 
     return {};
   }, [nextSize]);
-  console.log("resolvedNextSize", resolvedNextSize);
+
   return (
     <Box position="relative" {...rest}>
       <NextImage objectFit="cover" layout="fill" src={src} alt={alt} {...resolvedNextSize} />

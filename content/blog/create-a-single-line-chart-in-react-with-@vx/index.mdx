@@ -11,7 +11,7 @@ tags:
 category: dev
 series: Data Visualization with React and @vx
 order: 1
-lastmod: 2022-06-13T22:44:17.632Z
+lastmod: 2022-06-15T16:12:15.570Z
 excerpt: This is a simple example of a single line chart built with the @vx charting
   primitives. We can use this to as a base to add multiple lines to our chart.
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157939/Posts/vx-line-chart.jpg
@@ -162,7 +162,7 @@ Looks good. The first thing we'll add is the y-axis. To do this we use [`AxisLef
 
 Then we'll add the [`AxisBottom`](https://vx-demo.now.sh/docs/axis#AxisBottom) that has similar props to `AxisLeft`. The `top` is where it should start vertically from the top, which is the chart height in this case. The `labelOffset` prop dictates how much space is in between the ticks and the axis label. It should look like this:
 
-```jsx {4,9-10}
+```jsx line=4,9-10
 import React from "react"
 import { Group } from "@vx/group"
 import { scaleTime, scaleLinear } from "@vx/scale"
@@ -181,7 +181,7 @@ import { AxisLeft, AxisBottom } from "@vx/axis"
 
 Now we can add the line to the chart using `LinePath` from `@vx/shapes` and we'll pass it `curveLinear` from `@vx/curve` to dictate its shape.
 
-```jsx {5-6,13-20}
+```jsx line=5-6,13-20
 import React from "react"
 import { Group } from "@vx/group"
 import { scaleTime, scaleLinear } from "@vx/scale"
@@ -207,7 +207,7 @@ import { curveLinear } from "@vx/curve"
 
 It's looking like a nice, one-line chart now. We might want to add some dots to represent the data points. To do that we'll map over the data items and use the `circle` element positioned using each item's points.
 
-```jsx {4-14}
+```jsx line=4-14
 <Group top={25} left={65}>
   <AxisLeft scale={yScale} numTicks={4} label="Miles" />
   <AxisBottom scale={xScale} label="Day" labelOffset={15} numTicks={5} top={yMax} />
@@ -304,7 +304,7 @@ export default LineChart;
 
 For better sizing/resizing we can use a resize observer hook in our component. I like to use the package `use-resize-observer` for this. Let's see how we can use it in our component.
 
-```jsx {7,18,35,61}
+```jsx line=7,18,35,61
 import React from "react";
 import { Group } from "@vx/group";
 import { scaleTime, scaleLinear } from "@vx/scale";

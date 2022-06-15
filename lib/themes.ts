@@ -4,7 +4,7 @@ export const nightOwl = css`
   div[class*="language-"],
   code[class*="language-"],
   pre[class*="language-"] {
-    background: rgba(0, 0, 0, 0.3);
+    background: var(--chakra-colors-gray-900);
     color: #d6deeb;
     font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     text-align: left;
@@ -36,7 +36,7 @@ export const nightOwl = css`
     background: rgba(29, 59, 83, 0.99);
   }
 
-  pre div[class*="language-"] div[data-highlighted="true"] {
+  pre code[class*="language-"] div[data-highlighted="true"] {
     text-shadow: none;
     background: hsl(200, 94%, 67%, 8%);
     border-left: 5px solid hsl(200, 94%, 67%);
@@ -138,6 +138,7 @@ export const nightOwl = css`
 export const nightOwlLight = css`
   code[class*="language-"],
   pre[class*="language-"] {
+    background: var(--chakra-colors-orange-50);
     color: #403f53;
     font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     text-align: left;
@@ -167,6 +168,11 @@ export const nightOwlLight = css`
   pre[class*="language-"]::selection {
     text-shadow: none;
     background: #fbfbfb;
+  }
+  pre code[class*="language-"] div[data-highlighted="true"] {
+    text-shadow: none;
+    background: hsl(39 94% 67% / 20%);
+    border-left: 5px solid hsl(39 100% 79%);
   }
   @media print {
     code[class*="language-"],

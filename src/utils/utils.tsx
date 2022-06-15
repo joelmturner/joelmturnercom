@@ -1,4 +1,4 @@
-import slugifyFn from "@sindresorhus/slugify";
+// import slugifyFn from "@sindresorhus/slugify";
 
 export const getImageStep = (index: number, arr: any[], direction: "prev" | "next") => {
   if (index === -1) {
@@ -20,6 +20,6 @@ export const getImageStep = (index: number, arr: any[], direction: "prev" | "nex
   }
 };
 
-export function slugify(str: string, prefix?: string): string {
-  return prefix ? `${prefix}/${slugifyFn(str)}/` : slugifyFn(str);
-}
+// export function slugify(str: string, prefix?: string): string {
+//   return prefix ? `${prefix}/${slugifyFn(str)}/` : slugifyFn(str);
+// }

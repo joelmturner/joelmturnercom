@@ -10,30 +10,29 @@ import rehypeHighlight from "rehype-highlight";
 import rehypeMetaAttribute from "./rehype-meta-attribute";
 import rehypeHighlightCode from "./rehype-highlight-code";
 
-const postsDirectory = "content/blog";
+const tilsDirectory = "content/til";
 
-export function getAllPostIds() {
-  const files = fs.readdirSync(postsDirectory, { withFileTypes: true });
+export function getAllTilIds() {
+  const fileNames = fs.readdirSync(tilsDirectory, { withFileTypes: true });
 
-  return files
+  return fileNames
+    .filter((file) => file.name.endsWith(".mdx"))
     .map((file) => {
-      if (!file.isDirectory()) return;
-
-      const fullPath = path.join(postsDirectory, file.name, `index.mdx`);
+      const fullPath = path.join(tilsDirectory, file.name);
       const fileContents = fs.readFileSync(fullPath, "utf8");
 
+      // Use gray-matter to parse the post metadata section
       const matterResult = matter(fileContents);
 
       return {
         params: {
-          id: matterResult.data.slug ?? file.name,
+          id: matterResult.data.slug,
         },
       };
-    })
-    .filter((params) => params);
+    });
 }
 
-export async function getPostData(id: string): Promise<
+export async function getTilData(id: string): Promise<
   FrontMatter & {
     id: string;
     content: any;
@@ -41,7 +40,7 @@ export async function getPostData(id: string): Promise<
     prev: Pick<FrontMatter, "slug" | "title"> | null;
   }
 > {
-  const posts = getPosts();
+  const posts = getTILs();
   const postIndex = posts.findIndex((post) => post.slug === id);
   const nextIndex = postIndex + 1 < posts.length ? postIndex + 1 : null;
   const prevIndex = postIndex - 1 >= 0 ? postIndex - 1 : null;
@@ -74,17 +73,17 @@ export async function getPostData(id: string): Promise<
   };
 }
 
-export function getPosts(
+export function getTILs(
   sort: "date" | "name" = "date",
   sortBy: "ASC" | "DESC" = "DESC"
 ): Array<FrontMatter & { content: string }> {
-  const files = fs.readdirSync(postsDirectory, { withFileTypes: true });
+  const files = fs.readdirSync(tilsDirectory, { withFileTypes: true });
 
-  const posts = files
+  const tils = files
     .map((file) => {
-      if (!file.isDirectory()) return;
+      if (!file.name.includes(".mdx")) return;
 
-      const fullPath = path.join(postsDirectory, file.name, `index.mdx`);
+      const fullPath = path.join(tilsDirectory, file.name);
       const fileContents = fs.readFileSync(fullPath, "utf8");
 
       // Use gray-matter to parse the post metadata section
@@ -104,10 +103,5 @@ export function getPosts(
       }
     });
 
-  return posts;
-}
-
-export async function getLatestPost() {
-  const posts = getPosts();
-  return posts[0];
+  return tils;
 }

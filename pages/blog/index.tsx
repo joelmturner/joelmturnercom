@@ -21,6 +21,8 @@ import {
 } from "@chakra-ui/react";
 import { FrontMatter } from "../../lib/types";
 import { getDateString } from "../../src/utils/strings";
+import { Post } from "../../src/components/Post";
+import { PostList } from "../../src/components/PostList";
 
 interface IBlogTags {
   tags: Array<string>;
@@ -118,44 +120,7 @@ export default function PostIndex({ posts }: PostIndexProps) {
       </Heading>
 
       <Divider marginTop="5" />
-      <VStack paddingTop="40px" spacing="50" alignItems="flex-start">
-        {posts?.map((post) => (
-          <Wrap key={post.slug} spacing="30px" marginTop="5" w="100%">
-            <WrapItem width={{ base: "100%", sm: "45%", md: "45%", lg: "100%" }}>
-              <Box w="100%">
-                {post.cover ? (
-                  <Box borderRadius="lg" overflow="hidden">
-                    <NextLink href={`/blog/${post.slug}`}>
-                      <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
-                        <Image
-                          transform="scale(1.0)"
-                          src={post.cover}
-                          alt="some text"
-                          objectFit="contain"
-                          width="100%"
-                          transition="0.3s ease-in-out"
-                          _hover={{
-                            transform: "scale(1.05)",
-                          }}
-                        />
-                      </Link>
-                    </NextLink>
-                  </Box>
-                ) : null}
-                {!post.cover ? <PostTitle title={post.title} slug={post.slug} /> : null}
-                <Flex alignItems="center" justifyContent="space-between" marginTop="3">
-                  {post.tags?.length ? <BlogTags tags={post.tags} /> : null}
-                  <Text as="i">{getDateString(post.date)}</Text>
-                </Flex>
-                {post.cover ? <PostTitle title={post.title} slug={post.slug} /> : null}
-                <Text as="p" fontSize="md" marginTop="2">
-                  {post.excerpt}
-                </Text>
-              </Box>
-            </WrapItem>
-          </Wrap>
-        ))}
-      </VStack>
+      <PostList posts={posts} />
     </>
   );
 }

@@ -5,4 +5,4 @@ export { default as useLightboxNav } from "./useLightboxNav";
 export { default as useLocalStorage } from "./useLocalStorage";
 export { default as useOnClickOutside } from "./useOnClickOutside";
 export { default as useScript } from "./useScript";
-export { usePostSeries } from "./usePostSeries";
+// export { usePostSeries } from "./usePostSeries";

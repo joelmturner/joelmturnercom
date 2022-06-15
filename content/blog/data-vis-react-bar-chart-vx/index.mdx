@@ -11,7 +11,7 @@ tags:
   - "@vx"
 series: Data Visualization with React and @vx
 order: 0
-lastmod: 2022-06-13T22:44:17.611Z
+lastmod: 2022-06-15T16:12:15.579Z
 excerpt: Building a bar chart in React using the @vx library of charting primitives.
   This is one of the most widely used charts and gives a good base for building
   upon.
@@ -173,7 +173,7 @@ Looks good. The first thing we'll add is the y-axis. To do this we use [`AxisLef
 
 Then we'll add the [`AxisBottom`](https://vx-demo.now.sh/docs/axis#AxisBottom) that has similar props to `AxisLeft`. It should look like this:
 
-```jsx {2-3}
+```jsx line=2-3
 <Group top={25} left={55}>
   <AxisLeft left={10} scale={yScale} numTicks={4} label="Times Expressed" />
   <AxisBottom scale={xScale} label="Emotion" labelOffset={15} top={yMax} />

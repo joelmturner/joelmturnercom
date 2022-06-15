@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
   return (
     <VStack w="full" h="full" spacing="24px">
       <Header />
-      <Container maxW="2xl">{children}</Container>
+      <Container maxW="3xl">{children}</Container>
       <Footer />
     </VStack>
   );

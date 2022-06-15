@@ -10,7 +10,7 @@ tags:
 excerpt: Here's another helpful React hook. This one returns the dimensions of an
   element that's passed to it.
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157939/Posts/useDims.jpg
-lastmod: 2022-06-13T22:46:11.601Z
+lastmod: 2022-06-15T16:12:15.588Z
 ---
 
 Here's another helpful React hook. This one returns the dimensions of an element that's passed to it.
@@ -55,7 +55,7 @@ export default useDims;
 
 It can be used in a component like this.
 
-```jsx {5}
+```jsx line=5
 import React from "react";
 
 function Chart() {
@@ -79,7 +79,7 @@ Let's break it down a bit. We start by receiving a ref and an optional boolean o
 
 Our hook is using a default dimension object in state with all values set to zero. We then return that `dim` if there aren't any changes.
 
-```js {2-7}
+```js line=2-7
 function useDims(ref, isSvg = false) {
   const [dim, setDim] = useState({
       height: 0,

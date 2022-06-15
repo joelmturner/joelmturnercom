@@ -13,7 +13,7 @@ excerpt: CSS Grid is super powerful and can be used to create some creative layo
   which makes it a great way to create galleries. In this guide we’re going to
   use a simple grid that keeps the images the same size.
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157938/Posts/css-grid-gallery.jpg
-lastmod: 2022-06-13T22:48:14.553Z
+lastmod: 2022-06-15T16:12:15.592Z
 ---
 
 CSS Grid is super powerful and can be used to create some creative layouts which makes it a great way to create galleries. In this guide we’re going to use a simple grid that keeps the images the same size.
@@ -50,7 +50,7 @@ The wrapper styles will give the children their sizes based on the grid and row 
 
 We'll add a function that can handle the different sizing from the `size` prop and pass these into the wrapper styles.
 
-```jsx {4,6-25,29}
+```jsx line=4,6-25,29
 import React from "react";
 import Img from "gatsby-image";
 
@@ -95,7 +95,7 @@ We can now pass our size changes to the gallery component. Cool!
 
 Now, let's type it. This will help us and others know what we shape we need passed to the gallery.
 
-```typescript {2,4-19,21,23,44}
+```typescript line=2,4-19,21,23,44
 import React from "react";
 import Img, { FluidObject } from "gatsby-image";
 

@@ -1,6 +1,18 @@
-import { Alert, Box, chakra, Code, css, Divider, Flex, Heading, Link, Text, useColorMode } from "@chakra-ui/react";
-import NextLink from "next/link";
+import {
+  Alert,
+  Box,
+  chakra,
+  Code,
+  Divider,
+  Flex,
+  Heading,
+  Link,
+  Text,
+  useColorMode,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import Image from "next/image";
+import NextLink from "next/link";
 import { Note } from "../../src/components/Note";
 
 const CustomImage = (props: any) => {
@@ -10,7 +22,7 @@ const CustomImage = (props: any) => {
 const CustomLink = (props: any) => {
   const { colorMode } = useColorMode();
   const color = {
-    light: "blue.300",
+    light: "blue.500",
     dark: "blue.300",
   };
 
@@ -130,14 +142,31 @@ export const MDXComponents = {
       return <Code colorScheme="orange" fontSize="0.84em" {...props} />;
     }
 
+    const { filename, line, ...rest } = props;
+
     return (
-      <Box
+      <chakra.code
+        data-filename={filename}
+        display="block"
+        border="1px solid"
+        borderColor={useColorModeValue("orange.100", "gray.700")}
         fontSize="0.84em"
         w="100%"
-        overflow="auto"
+        overflowX="auto"
         py={2}
         my={4}
         sx={{
+          "&[data-filename]::before": {
+            content: "attr(data-filename)",
+            padding: 2,
+            background: useColorModeValue("gray.200", "gray.700"),
+            display: "block",
+            fontSize: "smaller",
+            marginBottom: "0.5rem",
+          },
+          "&[data-filename]": {
+            paddingTop: 0,
+          },
           ".highlight-line": {
             position: "relative",
             borderLeft: "5px solid transparent",
@@ -149,11 +178,11 @@ export const MDXComponents = {
               position: "absolute",
               top: 0,
               left: 1,
-              color: "gray.600",
+              color: useColorModeValue("gray.500", "gray.600"),
             },
           },
         }}
-        {...props}
+        {...rest}
       />
     );
   },

@@ -10,7 +10,7 @@ tags:
   - Media
   - TypeScript
   - Cloudinary
-lastmod: 2022-06-13T22:29:24.946Z
+lastmod: 2022-06-15T15:22:51.447Z
 excerpt: Setting up a GitHub Action to upload images to Cloudinary from Instagram. This
   solves some of the issues that I was having with getting Instagram images into
   Gatsby.
@@ -145,14 +145,14 @@ Next, let's set up some environment variables for Instagram. For this, you'll ne
 
 Create a `.env` file at the root of your project and add your values like:
 
-```env filename=.env
+```bash filename=.env
 INSTAGRAM_ACCESS_TOKEN=XXXXXX
 INSTAGRAM_ID=XXXXXX
 ```
 
 Now that we have these ready, we can start putting the script together. I'll put the Instagram fetching in its own function, so it's easier to reason about later.
 
-```typescript filename=src/index.ts {1-10,13}
+```typescript filename=src/index.ts line=1-10,13
 require("dotenv").config();
 const MAX_POSTS = 500;
 
@@ -185,7 +185,7 @@ We're using the environment variables declared above to place into these paramet
 
 We then use an `await` to make sure the posts resolve before moving on to the next step. We can also add a try-catch in case there is a failure.
 
-```typescript filename=src/index.ts {2,8-10}
+```typescript filename=src/index.ts line=2,8-10
 async function fetchInstagramPosts() {
   try {
     console.log("🚀 fetching Instagram posts");
@@ -203,7 +203,7 @@ async function fetchInstagramPosts() {
 
 Let's do this section in its own function as well. We can add the invocation of it to `instagramToCloudinary()`. We'll add a type of `UploadPost` that we can define in `src/types.ts` and import into our script. The `UploadPost` array will store our data in a way that we can pass to Cloudinary more easily.
 
-```typescript filename=src/index.ts {7-10,13}
+```typescript filename=src/index.ts line=7-10,13
 import { UploadPost } from "./types";
 
 async function instagramToCloudinary() {
@@ -302,7 +302,7 @@ export const HASHTAG_CONFIG = [
 
 First, we'll loop over the hashtag config and filter down to the posts that have the hashtags that we want. Then, we'll be able to combine the hashtags, if a post has more than one and create an entity that will be easier for the upload step. We can store these in a variable outside of the loop that will be returned at the end of the function.
 
-```typescript filename=src/index.ts {3-51}
+```typescript filename=src/index.ts line=3-51
 function convertInstagramPostToCloudinaryEntity(posts: Post[]): UploadPost[] {
   console.log("🚀 converting posts to Cloudinary");
   const cloudinaryCollection: UploadPost[] = [];
@@ -375,7 +375,7 @@ Once finished, you should see all the details you'll need at the top of your Clo
 
 Let's get the Cloudinary client connected. We'll need to add some items to our `.env` file.
 
-```env filename=.env {5-8}
+```bash line=5-8 filename=.env
 # Instagram
 INSTAGRAM_ACCESS_TOKEN=XXXXXX
 INSTAGRAM_ID=XXXXXX
@@ -401,7 +401,7 @@ cloudinary.v2.config({
 
 We're now ready to start the upload process. We'll start by creating a new async function because we want to know if all of the uploads made it successfully.
 
-```typescript filename=src/index.ts {12}
+```typescript filename=src/index.ts line=12
 import { UploadPost } from "./types";
 
 async function instagramToCloudinary() {
@@ -427,7 +427,7 @@ async function sendToCloudinary(postGroup: UploadPost[]) {
 
 Cloudinary doesn't have a bulk upload script but their individual upload is very quick and can handle many uploads simultaneously so we can just loop over our entities and send them up. Here's the [upload API](https://cloudinary.com/documentation/image_upload_api_reference) we'll be using. There are a lot of options that can be adjusted based on the projects' needs. Here, we're just using the basic options.
 
-```typescript filename=src/index.ts {3-31}
+```typescript filename=src/index.ts line=3-31
 async function sendToCloudinary(postGroup: UploadPost[]) {
   console.log("🚀 uploading to Cloudinary");
   const resolves = postGroup.map(async ({ public_id, folder, overwrite, tags, url }) => {
@@ -470,7 +470,7 @@ The last argument in the upload function is a callback that can help us determin
 
 If all the images were uploaded successfully, we'll trigger the build on Netlify. First, we'll need our Netlify webhook. You can set one up in the deploys settings `https://app.netlify.com/sites/<account>/settings/deploys` under the Build Hooks section. Once you have the hook, you can add that to your `.env` file.
 
-```env filename=.env {10-11}
+```bash filename=.env line=10-11
 # Instagram
 INSTAGRAM_ACCESS_TOKEN=XXXXXX
 INSTAGRAM_ID=XXXXXX

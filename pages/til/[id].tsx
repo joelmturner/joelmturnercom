@@ -1,10 +1,10 @@
-import { getAllPostIds, getPostData } from "../../lib/posts";
+import { getAllTilIds, getTilData } from "../../lib/tils";
 import { PostPage } from "../../src/components/PostPage";
 
 export default PostPage;
 
 export async function getStaticPaths() {
-  const paths = getAllPostIds();
+  const paths = getAllTilIds();
   return {
     paths,
     fallback: false,
@@ -12,12 +12,12 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const postData = await getPostData(params.id);
+  const postData = await getTilData(params.id);
 
   return {
     props: {
       ...postData,
-      postType: "blog",
+      postType: "til",
     },
   };
 }

@@ -1,20 +1,26 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui";
 import { DialogOverlay, DialogContent } from "@reach/dialog";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
 import { handleEnterKeyPress } from "../utils/a11y";
-import { useState, useCallback, useRef, FC } from "react";
+import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { GatsbyImage } from "gatsby-plugin-image";
 import { wrap } from "@popmotion/popcorn";
-import { InstaNode } from "../pages";
 import { useOnClickOutside, useKeypressSimple } from "../hooks";
+import { IllustrationItem } from "../../lib/types";
+import { ChakraNextImage } from "./ChakraNextImage";
+import { chakra, useColorModeValue } from "@chakra-ui/react";
 import "@reach/dialog/styles.css";
+
+const Overlay = chakra(DialogOverlay);
+const Content = chakra(DialogContent);
+const LeftNav = chakra(FaChevronLeft);
+const RightNav = chakra(FaChevronRight);
+const Close = chakra(IoMdClose);
 
 type DialogProps = {
   className?: any;
   children?: any;
-  imageEdges: InstaNode[];
+  images: IllustrationItem[];
   offset: number;
   onClose?: () => void;
   onPrev?: () => void;
@@ -53,7 +59,7 @@ const swipePower = (offset: number, velocity: number) => {
   return Math.abs(offset) * velocity;
 };
 
-const Dialog: FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => {
+export function Dialog({ className, images, offset, onClose }: DialogProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [[page, direction], setPage] = useState([offset, 0]);
 
@@ -107,15 +113,34 @@ const Dialog: FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => 
     setNavOpacity(0);
   }, []);
 
-  const imageIndex = wrap(0, imageEdges.length, page);
+  const imageIndex = wrap(0, images.length, page);
   useOnClickOutside(ref, onClose as any);
 
   return (
-    <DialogOverlay sx={{ variant: "dialog.overlay" }} isOpen onDismiss={onClose} className={className} ref={ref}>
-      <DialogContent
+    <Overlay
+      sx={{ bg: useColorModeValue("rgb(255,255,255,0.85)", "rgb(0,0,0,0.85)"), zIndex: 100 }}
+      isOpen
+      onDismiss={onClose}
+      className={className}
+      ref={ref}
+    >
+      <Content
         aria-label="gallery of Instagram images"
         sx={{
-          variant: "dialog.content",
+          background: "transparent",
+          padding: 0,
+          position: "relative",
+          left: "50%",
+          top: "50%",
+          width: "100%",
+          height: "100%",
+          margin: 0,
+          maxWidth: ["85vw", "960px"],
+          maxHeight: ["85vw", "960px"],
+          transform: "translate3d(-50%, -50%, 0)",
+          ":hover [data-reach-dialog-nav]": {
+            opacity: 1,
+          },
           "[data-reach-dialog-overlay]": {
             background: "black",
             backgroundColor: "black",
@@ -137,38 +162,49 @@ const Dialog: FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => 
             dragElastic={1}
             onDragEnd={handleDragEnd}
           >
-            <img
-              src={imageEdges[imageIndex]?.secure_url}
+            <ChakraNextImage
+              src={images[imageIndex]?.url}
               alt={`full size page`}
+              h="90%"
               style={{ maxWidth: "100%", width: "960px" }}
             />
           </motion.div>
         </AnimatePresence>
-        <button
+        <Close
           sx={{
-            bg: "muted",
-            border: "none",
+            border: "1px solid",
+            borderColor: useColorModeValue("gray.300", "gray.700"),
             padding: "0",
             margin: "0 0 1rem",
             width: "1.9rem",
             height: "1.9rem",
             fontSize: "1.3rem",
-            color: "text",
+            color: useColorModeValue("gray.700", "gray.300"),
             cursor: "pointer",
             position: "absolute",
-            right: "-1.3rem",
-            top: "-1.5rem",
+            right: "-2rem",
+            top: "-2rem",
             borderRadius: "50%",
           }}
           onClick={onClose}
           aria-label="close image viewer"
-        >
-          X
-        </button>
-        <FaChevronRight
+          role="button"
+        />
+        <RightNav
           sx={{
-            variant: "dialog.nav",
-            right: -4,
+            border: "none",
+            padding: "0",
+            margin: "0 0 1rem",
+            width: "1.9rem",
+            height: "1.9rem",
+            fontSize: ".75rem",
+            color: useColorModeValue("gray.700", "gray.300"),
+            cursor: "pointer",
+            position: "absolute",
+            top: "50%",
+            borderRadius: "50%",
+            transition: "opacity 300ms",
+            right: -10,
             opacity: 0,
           }}
           onClick={onNext}
@@ -181,10 +217,21 @@ const Dialog: FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => 
           onBlur={unsetNavFocus}
         />
         {onPrev && (
-          <FaChevronLeft
+          <LeftNav
             sx={{
-              variant: "dialog.nav",
-              left: -4,
+              border: "none",
+              padding: "0",
+              margin: "0 0 1rem",
+              width: "1.9rem",
+              height: "1.9rem",
+              fontSize: ".75rem",
+              color: useColorModeValue("gray.700", "gray.300"),
+              cursor: "pointer",
+              position: "absolute",
+              top: "50%",
+              borderRadius: "50%",
+              transition: "opacity 300ms",
+              left: -10,
               opacity: 0,
             }}
             onClick={onPrev}
@@ -197,9 +244,7 @@ const Dialog: FC<DialogProps> = ({ className, imageEdges, offset, onClose }) => 
             onBlur={unsetNavFocus}
           />
         )}
-      </DialogContent>
-    </DialogOverlay>
+      </Content>
+    </Overlay>
   );
-};
-
-export default Dialog;
+}
