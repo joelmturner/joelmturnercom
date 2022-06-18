@@ -5,8 +5,7 @@ import { getIllustrations } from "../lib/illustrations";
 import { ChakraNextImage } from "../components/ChakraNextImage";
 import { Illustrations, IllustrationTag } from "../lib/types";
 import { ILLUSTRATION_FILTER_OPTIONS } from "../lib/constants";
-import { Dialog } from "../components/dialog";
-import NextImage from "next/image";
+import { Dialog } from "../components/Dialog";
 import Head from "next/head";
 
 type IllustrationPageProps = {

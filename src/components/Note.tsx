@@ -1,6 +1,6 @@
 import { Box, useColorModeValue } from "@chakra-ui/react";
 
-export function Note({ children }) {
+export function Note({ children }: { children: React.ReactNode }) {
   return (
     <Box
       mb={2}
