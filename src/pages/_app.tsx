@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <ColorModeProvider
         options={{
-          initialColorMode: "light",
+          initialColorMode: "dark",
           useSystemColorMode: true,
         }}
       >
