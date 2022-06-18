@@ -3,17 +3,17 @@ title: Mobx
 date: 2020-01-01
 draft: false
 slug: mobx
-category: "state-management"
+category: state-management
 tags:
   - debug
   - state
+lastmod: 2022-06-18T04:55:51.456Z
 ---
-
-# MobX
 
 ## Debugging
 
 ### trace()
+
 `trace()` helps show what it was that made MobX update. this is helpful for tracking down unexpected renders or infinite loops.
 
 ```jsx
@@ -25,5 +25,7 @@ render() {
   return ();
 }
 ```
+
 ## toJS()
+
 Each observable has a method of `toJS()` on it. May need to look into typing them correctly.

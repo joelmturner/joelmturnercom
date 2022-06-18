@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Link from "next/link";
 import {
   Button,
@@ -14,11 +14,15 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useViewportScroll } from "framer-motion";
-
-import { AiFillHome, AiOutlineInbox, AiOutlineMenu } from "react-icons/ai";
-import { BsFillCameraVideoFill } from "react-icons/bs";
+import { AiOutlineMenu } from "react-icons/ai";
 import { FaMoon, FaSun } from "react-icons/fa";
-import { IoIosArrowDown } from "react-icons/io";
+
+const NAV_LINKS = [
+  { id: "about", component: <Link href="/about">About</Link> },
+  { id: "blog", component: <Link href="/blog">Blog</Link> },
+  { id: "illustration", component: <Link href="/illustration">Illustration</Link> },
+  { id: "til", component: <Link href="/til">TIL</Link> },
+];
 
 export function Header() {
   const { toggleColorMode: toggleMode } = useColorMode();
@@ -28,13 +32,17 @@ export function Header() {
   const ref = React.useRef<HTMLHeadElement>();
   const [y, setY] = React.useState(0);
   const { height = 0 } = ref.current ? ref.current.getBoundingClientRect() : {};
-
   const { scrollY } = useViewportScroll();
+  const cl = useColorModeValue("gray.800", "white");
+  const mobileNav = useDisclosure();
+
   React.useEffect(() => {
     return scrollY.onChange(() => setY(scrollY.get()));
   }, [scrollY]);
-  const cl = useColorModeValue("gray.800", "white");
-  const mobileNav = useDisclosure();
+
+  const handleMobileNavClick = useCallback(() => {
+    mobileNav.onClose();
+  }, []);
 
   const MobileNavContent = React.useMemo(
     () => (
@@ -45,24 +53,26 @@ export function Header() {
         right={0}
         display={mobileNav.isOpen ? "flex" : "none"}
         flexDirection="column"
-        p={2}
+        p={5}
         pb={4}
         m={2}
         bg={bg}
         spacing={3}
         rounded="sm"
         shadow="sm"
+        zIndex={5}
       >
-        <CloseButton aria-label="Close menu" justifySelf="self-start" onClick={mobileNav.onClose} />
-        <Button w="full" variant="ghost" leftIcon={<AiFillHome />}>
-          <Link href="/">Dashboard</Link>
-        </Button>
-        <Button w="full" variant="solid" colorScheme="orange" leftIcon={<AiOutlineInbox />}>
-          Inbox
-        </Button>
-        <Button w="full" variant="ghost" leftIcon={<BsFillCameraVideoFill />}>
-          Videos
-        </Button>
+        <CloseButton
+          aria-label="Close menu"
+          justifySelf="self-start"
+          alignSelf="flex-end"
+          onClick={mobileNav.onClose}
+        />
+        {NAV_LINKS.map((link) => (
+          <Button key={link.id} w="full" variant="ghost" onClick={handleMobileNavClick}>
+            {link.component}
+          </Button>
+        ))}
       </VStack>
     ),
     [mobileNav.isOpen]
@@ -96,51 +106,29 @@ export function Header() {
           <Flex>
             <HStack spacing="5" display={{ base: "none", md: "flex" }}></HStack>
           </Flex>
-          <Flex justify="flex-end" align="center" color="gray.400">
-            <Button
-              bg={bg}
-              color="gray.500"
-              display="inline-flex"
-              alignItems="center"
-              fontSize="md"
-              _hover={{ color: cl }}
-              _focus={{ boxShadow: "none" }}
-            >
-              <Link href="/about">About</Link>
-            </Button>
-            <Button
-              bg={bg}
-              color="gray.500"
-              display="inline-flex"
-              alignItems="center"
-              fontSize="md"
-              _hover={{ color: cl }}
-              _focus={{ boxShadow: "none" }}
-            >
-              <Link href="/blog">Blog</Link>
-            </Button>
-            <Button
-              bg={bg}
-              color="gray.500"
-              display="inline-flex"
-              alignItems="center"
-              fontSize="md"
-              _hover={{ color: cl }}
-              _focus={{ boxShadow: "none" }}
-            >
-              <Link href="/illustration">Illustration</Link>
-            </Button>
-            <Button
-              bg={bg}
-              color="gray.500"
-              display="inline-flex"
-              alignItems="center"
-              fontSize="md"
-              _hover={{ color: cl }}
-              _focus={{ boxShadow: "none" }}
-            >
-              <Link href="/til">TIL</Link>
-            </Button>
+          <Flex
+            justify="flex-end"
+            align="center"
+            color="gray.400"
+            display={{
+              base: "none",
+              md: "flex",
+            }}
+          >
+            {NAV_LINKS.map((link) => (
+              <Button
+                key={link.id}
+                bg={bg}
+                color="gray.500"
+                display="inline-flex"
+                alignItems="center"
+                fontSize="md"
+                _hover={{ color: cl }}
+                _focus={{ boxShadow: "none" }}
+              >
+                {link.component}
+              </Button>
+            ))}
             <IconButton
               size="md"
               fontSize="lg"
@@ -151,16 +139,16 @@ export function Header() {
               onClick={toggleMode}
               icon={<SwitchIcon />}
             />
-            <IconButton
-              display={{ base: "flex", md: "none" }}
-              aria-label="Open menu"
-              fontSize="20px"
-              color={useColorModeValue("gray.800", "inherit")}
-              variant="ghost"
-              icon={<AiOutlineMenu />}
-              onClick={mobileNav.onOpen}
-            />
           </Flex>
+          <IconButton
+            display={{ base: "flex", md: "none" }}
+            aria-label="Open menu"
+            fontSize="20px"
+            color={useColorModeValue("gray.800", "inherit")}
+            variant="ghost"
+            icon={<AiOutlineMenu />}
+            onClick={mobileNav.onOpen}
+          />
         </Flex>
         {MobileNavContent}
       </chakra.div>
