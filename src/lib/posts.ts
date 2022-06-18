@@ -10,7 +10,7 @@ import rehypeHighlight from "rehype-highlight";
 import rehypeMetaAttribute from "./rehype-meta-attribute";
 import rehypeHighlightCode from "./rehype-highlight-code";
 
-const postsDirectory = "content/blog";
+const postsDirectory = path.join(process.cwd(), "src/content/blog");
 
 export function getAllPostIds() {
   const files = fs.readdirSync(postsDirectory, { withFileTypes: true });

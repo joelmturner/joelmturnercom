@@ -10,7 +10,7 @@ import rehypeHighlight from "rehype-highlight";
 import rehypeMetaAttribute from "./rehype-meta-attribute";
 import rehypeHighlightCode from "./rehype-highlight-code";
 
-const tilsDirectory = "content/til";
+const tilsDirectory = path.join(process.cwd(), "src/content/til");
 
 export function getAllTilIds() {
   const fileNames = fs.readdirSync(tilsDirectory, { withFileTypes: true });
