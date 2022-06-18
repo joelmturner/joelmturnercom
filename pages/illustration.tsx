@@ -6,6 +6,8 @@ import { ChakraNextImage } from "../src/components/ChakraNextImage";
 import { Illustrations, IllustrationTag } from "../lib/types";
 import { ILLUSTRATION_FILTER_OPTIONS } from "../lib/constants";
 import { Dialog } from "../src/components/dialog";
+import NextImage from "next/image";
+import Head from "next/head";
 
 type IllustrationPageProps = {
   images: Illustrations;
@@ -33,6 +35,9 @@ function IllustrationPage({ images }: IllustrationPageProps) {
 
   return (
     <>
+      <Head>
+        <title>Illustrations | Joel M Turner</title>
+      </Head>
       <VStack alignItems="flex-start" gap={4}>
         <MDXComponents.h1>Explorations of Handlettering and Illustration</MDXComponents.h1>
         <FormControl>
@@ -48,17 +53,17 @@ function IllustrationPage({ images }: IllustrationPageProps) {
         <Grid
           gap={2}
           w="full"
-          templateColumns="repeat(4, 1fr)"
+          templateColumns={{ sm: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }}
           sx={{ containIntrinsicSize: "160px", contentVisibility: "auto" }}
         >
           {selectedImages?.map(({ id, url }, index) => (
-            <GridItem w="100%" h="154" key={id}>
+            <GridItem w="100%" key={id}>
               <ChakraNextImage
                 h="100%"
                 w="100%"
                 src={url}
                 alt={id}
-                nextSize={154}
+                nextSize={178}
                 cursor="pointer"
                 onClick={() => handleImageClick(index)}
               />

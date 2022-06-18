@@ -6,6 +6,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FrontMatter } from "../../lib/types";
 import { MDXComponents } from "./MDXComponents";
 import NextLink from "next/link";
+import Head from "next/head";
 
 function getJustification(next, prev) {
   if (next && prev) {
@@ -39,6 +40,9 @@ export function PostPage({
 
   return (
     <>
+      <Head>
+        <title>{`${title} | Joel M Turner`}</title>
+      </Head>
       <components.h1>{title}</components.h1>
       <chakra.article>
         <Post components={components} />

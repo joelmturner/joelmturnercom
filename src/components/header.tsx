@@ -5,6 +5,7 @@ import {
   chakra,
   CloseButton,
   Flex,
+  Heading,
   HStack,
   IconButton,
   useColorMode,
@@ -86,7 +87,9 @@ export function Header() {
             <Link href="/">
               <HStack>
                 {/* <Logo /> */}
-                <div>Joel M Turner</div>
+                <Heading size="lg" fontWeight="300" cursor="pointer" color="gray.300">
+                  Joel M Turner
+                </Heading>
               </HStack>
             </Link>
           </Flex>

@@ -1,6 +1,7 @@
-import { getPosts } from "../../lib/posts";
 import NextLink from "next/link";
-import React, { useMemo } from "react";
+import { matchSorter } from "match-sorter";
+import { getPosts } from "../../lib/posts";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   Box,
   Heading,
@@ -18,11 +19,13 @@ import {
   VStack,
   Flex,
   TagProps,
+  Input,
 } from "@chakra-ui/react";
 import { FrontMatter } from "../../lib/types";
 import { getDateString } from "../../src/utils/strings";
 import { Post } from "../../src/components/Post";
 import { PostList } from "../../src/components/PostList";
+import Head from "next/head";
 
 interface IBlogTags {
   tags: Array<string>;
@@ -61,12 +64,34 @@ type PostIndexProps = {
 };
 
 export default function PostIndex({ posts }: PostIndexProps) {
+  const [search, setSearch] = useState<string>("");
+  const handleSearch = useCallback(
+    function (event) {
+      setSearch(event.target.value);
+    },
+    [setSearch]
+  );
   const featured = useMemo(() => posts.filter((post) => post.featured)?.[0], [posts]);
+  const filteredPosts: FrontMatter[] = useMemo(
+    () =>
+      search
+        ? matchSorter(posts, search, {
+            keys: ["title", "category", "tags"],
+          })
+        : posts,
+    [search, posts]
+  );
 
   return (
     <>
-      <Heading as="h1">Blog</Heading>
-      {featured ? (
+      <Head>
+        <title>Blog | Joel M Turner</title>
+      </Head>
+      <Flex justify="space-between" alignItems="flex-end">
+        <Heading as="h1">Blog</Heading>
+        <Input onChange={handleSearch} placeholder="Search..." value={search} data-testid="blog-search" w="30%" />
+      </Flex>
+      {/* {featured ? (
         <Box
           marginTop={{ base: "1", sm: "5" }}
           display="flex"
@@ -117,10 +142,10 @@ export default function PostIndex({ posts }: PostIndexProps) {
 
       <Heading as="h2" marginTop="5">
         Latest articles
-      </Heading>
+      </Heading> */}
 
       <Divider marginTop="5" />
-      <PostList posts={posts} />
+      <PostList posts={filteredPosts} />
     </>
   );
 }

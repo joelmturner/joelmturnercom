@@ -18,7 +18,13 @@ export function ChakraNextImage(props: BoxProps & { src: string; alt: string; ne
 
   return (
     <Box position="relative" {...rest}>
-      <NextImage objectFit="cover" layout="fill" src={src} alt={alt} {...resolvedNextSize} />
+      <NextImage
+        objectFit="cover"
+        layout={nextSize ? "responsive" : "fill"}
+        src={src}
+        alt={alt}
+        {...resolvedNextSize}
+      />
     </Box>
   );
 }

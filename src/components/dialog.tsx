@@ -8,7 +8,7 @@ import { wrap } from "@popmotion/popcorn";
 import { useOnClickOutside, useKeypressSimple } from "../hooks";
 import { IllustrationItem } from "../../lib/types";
 import { ChakraNextImage } from "./ChakraNextImage";
-import { chakra, useColorModeValue } from "@chakra-ui/react";
+import { Box, chakra, useColorModeValue, Flex } from "@chakra-ui/react";
 import "@reach/dialog/styles.css";
 
 const Overlay = chakra(DialogOverlay);
@@ -107,10 +107,10 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
   );
 
   const setNavFocus = useCallback(() => {
-    setNavOpacity(1);
+    // setNavOpacity(1);
   }, []);
   const unsetNavFocus = useCallback(() => {
-    setNavOpacity(0);
+    // setNavOpacity(0);
   }, []);
 
   const imageIndex = wrap(0, images.length, page);
@@ -126,18 +126,48 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
     >
       <Content
         aria-label="gallery of Instagram images"
+        alignItems="center"
+        display="flex"
+        flexDirection="column"
+        gap={3}
+        pos="relative"
+        bg="transparent"
+        w="80%"
+        pointerEvents="none"
+        // h={["100%", "80%"]}
+        // w={["100%", "80%"]}
+        // w="50%"
+        // pb="25%"
+        // m="10% auto"
+        // overflow="hidden"
+        // maxHeight="100vh"
+        // h="100%"
         sx={{
-          background: "transparent",
-          padding: 0,
-          position: "relative",
-          left: "50%",
-          top: "50%",
-          width: "100%",
-          height: "100%",
-          margin: 0,
-          maxWidth: ["85vw", "960px"],
-          maxHeight: ["85vw", "960px"],
-          transform: "translate3d(-50%, -50%, 0)",
+          //   position: "relative",
+          //   background: "transparent",
+          //   width: "50%",
+          //   paddingBottom: "25%",
+          //   margin: "10% auto",
+          //   overflow: "hidden",
+          //   maxHeight: "100vh",
+          //   height: "100%",
+          //   padding: 0,
+          //   position: "relative",
+          //   left: "50%",
+          //   top: "50%",
+          //   width: "50%",
+          //   maxWidth: "85vw",
+          //   height: "100%",
+          //   paddingBottom: "100%",
+          //   ":after": {
+          //     content: '""',
+          //     display: "block",
+          //     paddingBottom: "100%",
+          //   },
+          //   margin: 0,
+          //   maxWidth: ["85vw", "960px"],
+          //   maxHeight: ["85vw", "960px"],
+          //   transform: "translate3d(-50%, -50%, 0)",
           ":hover [data-reach-dialog-nav]": {
             opacity: 1,
           },
@@ -145,105 +175,158 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
             background: "black",
             backgroundColor: "black",
           },
+          "[data-reach-dialog-content]": {
+            margin: "0 auto",
+          },
         }}
       >
-        <AnimatePresence initial={false} custom={direction}>
-          <motion.div
-            key={page}
-            custom={direction}
-            variants={VARIANTS}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={TRANSITION}
-            drag="x"
-            style={{ y: "0%", position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={1}
-            onDragEnd={handleDragEnd}
-          >
-            <ChakraNextImage
-              src={images[imageIndex]?.url}
-              alt={`full size page`}
-              h="90%"
-              style={{ maxWidth: "100%", width: "960px" }}
-            />
-          </motion.div>
-        </AnimatePresence>
-        <Close
-          sx={{
-            border: "1px solid",
-            borderColor: useColorModeValue("gray.300", "gray.700"),
-            padding: "0",
-            margin: "0 0 1rem",
-            width: "1.9rem",
-            height: "1.9rem",
-            fontSize: "1.3rem",
-            color: useColorModeValue("gray.700", "gray.300"),
-            cursor: "pointer",
-            position: "absolute",
-            right: "-2rem",
-            top: "-2rem",
-            borderRadius: "50%",
-          }}
-          onClick={onClose}
-          aria-label="close image viewer"
-          role="button"
-        />
-        <RightNav
-          sx={{
-            border: "none",
-            padding: "0",
-            margin: "0 0 1rem",
-            width: "1.9rem",
-            height: "1.9rem",
-            fontSize: ".75rem",
-            color: useColorModeValue("gray.700", "gray.300"),
-            cursor: "pointer",
-            position: "absolute",
-            top: "50%",
-            borderRadius: "50%",
-            transition: "opacity 300ms",
-            right: -10,
-            opacity: 0,
-          }}
-          onClick={onNext}
-          data-reach-dialog-nav="next"
-          role="button"
-          aria-label="next image"
-          tabIndex={0}
-          onKeyPress={handleEnterKeyPress(onNext)}
-          onFocus={setNavFocus}
-          onBlur={unsetNavFocus}
-        />
-        {onPrev && (
-          <LeftNav
+        <Flex justifyContent="flex-end" w="80%">
+          <Close
             sx={{
-              border: "none",
+              border: "1px solid",
+              borderColor: useColorModeValue("gray.300", "gray.700"),
               padding: "0",
               margin: "0 0 1rem",
               width: "1.9rem",
               height: "1.9rem",
-              fontSize: ".75rem",
+              fontSize: "1.3rem",
               color: useColorModeValue("gray.700", "gray.300"),
               cursor: "pointer",
-              position: "absolute",
-              top: "50%",
+              //   position: "absolute",
+              //   right: "-2rem",
+              //   top: "-2rem",
               borderRadius: "50%",
-              transition: "opacity 300ms",
-              left: -10,
-              opacity: 0,
             }}
-            onClick={onPrev}
-            data-reach-dialog-nav="prev"
+            pointerEvents="auto"
+            onClick={onClose}
+            aria-label="close image viewer"
             role="button"
-            aria-label="previous image"
-            tabIndex={0}
-            onKeyPress={handleEnterKeyPress(onPrev)}
-            onFocus={setNavFocus}
-            onBlur={unsetNavFocus}
           />
-        )}
+        </Flex>
+        <Flex
+          gap={4}
+          w="80%"
+          alignItems="center"
+          pointerEvents="auto"
+          sx={{
+            ":hover [data-reach-dialog-nav]": {
+              opacity: 1,
+            },
+          }}
+        >
+          {onPrev && (
+            <LeftNav
+              sx={{
+                border: "none",
+                padding: "0",
+                margin: "0 0 1rem",
+                width: "1.9rem",
+                height: "1.9rem",
+                fontSize: ".75rem",
+                color: useColorModeValue("gray.700", "gray.300"),
+                cursor: "pointer",
+                top: "50%",
+                borderRadius: "50%",
+                transition: "opacity 300ms",
+                left: -10,
+                // opacity: 1,
+                opacity: 0,
+                ":focus": {
+                  opacity: 1,
+                  "& ~ [data-reach-dialog-nav]": {
+                    opacity: 1,
+                  },
+                },
+              }}
+              display={["none", "none", "block"]}
+              onClick={onPrev}
+              data-reach-dialog-nav="prev"
+              role="button"
+              aria-label="previous image"
+              tabIndex={0}
+              onKeyPress={handleEnterKeyPress(onPrev)}
+              onFocus={setNavFocus}
+              //   _focus={{
+              //     opacity: 1,
+              //     "& + [data-reach-dialog-nav]": {
+              //       opacity: 1,
+              //     },
+              //   }}
+              onBlur={unsetNavFocus}
+            />
+          )}
+          <Box
+            //   h="100%"
+            //   w="100%"
+            position="relative"
+            w={"100%"}
+            pb={"100%"}
+            m="0 auto"
+            overflow="hidden"
+            maxHeight="100vh"
+          >
+            <AnimatePresence initial={false} custom={direction}>
+              <motion.div
+                key={page}
+                custom={direction}
+                variants={VARIANTS}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={TRANSITION}
+                drag="x"
+                style={{ y: "0%", position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={1}
+                onDragEnd={handleDragEnd}
+              >
+                <ChakraNextImage
+                  src={images[imageIndex]?.url}
+                  alt={`full size page`}
+                  h="90%"
+                  style={{ maxWidth: "100%" /* width: "960px" */ }}
+                />
+              </motion.div>
+            </AnimatePresence>
+          </Box>
+          {onNext && (
+            <RightNav
+              sx={{
+                border: "none",
+                padding: "0",
+                margin: "0 0 1rem",
+                width: "1.9rem",
+                height: "1.9rem",
+                fontSize: ".75rem",
+                color: useColorModeValue("gray.700", "gray.300"),
+                cursor: "pointer",
+                // position: "absolute",
+                top: "50%",
+                borderRadius: "50%",
+                transition: "opacity 300ms",
+                right: -10,
+                // opacity: 1,
+                opacity: 0,
+                ":focus": {
+                  opacity: 1,
+                  "& + [data-reach-dialog-nav]": {
+                    opacity: 1,
+                  },
+                },
+              }}
+              display={["none", "none", "block"]}
+              onClick={onNext}
+              data-reach-dialog-nav="next"
+              role="button"
+              aria-label="next image"
+              tabIndex={0}
+              onKeyPress={handleEnterKeyPress(onNext)}
+              //   _focus={}
+              onFocus={setNavFocus}
+              onBlur={unsetNavFocus}
+            />
+          )}
+        </Flex>
       </Content>
     </Overlay>
   );
