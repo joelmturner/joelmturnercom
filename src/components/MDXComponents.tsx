@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import NextLink from "next/link";
-import { Note } from "../../src/components/Note";
+import { Note } from "./Note";
 
 const CustomImage = (props: any) => {
   return <Image width={props.width} height={props.height} src={props.src} alt={props.alt} />;
