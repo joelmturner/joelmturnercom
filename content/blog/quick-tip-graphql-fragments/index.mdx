@@ -11,7 +11,7 @@ tags:
   - quick tip
 excerpt: A few quick tips about working with GraphQL fragments in Gatsby.
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157938/Posts/graphql-fragments.jpg
-lastmod: 2022-06-15T16:12:15.584Z
+lastmod: 2022-06-18T02:44:56.166Z
 ---
 
 GraphQL makes it easy to get exactly the data we need for a given component. There are many times when we end up using the same query or part of a query in multiple places. This is where [GraphQL Fragments](https://graphql.org/learn/queries/#fragments) can help us.
@@ -20,7 +20,7 @@ To declare a fragment we can add `fragment MyAwesomeFragment on BlogPost`. The k
 
 In this site I have a few different places where I'm querying images for galleries. So instead of repeating the whole query in every variation across the site I can create a queries file and drop the repeated parts in there. Here's an example of that in action.
 
-```graphql
+```
 fragment InstaNodes on InstagramContentEdge {
   node {
     id
@@ -84,7 +84,7 @@ type IInstaNodes = {
 
 Add an alias if you're doing similar top level requests. Here's an example of my Instagram requests.
 
-```graphql
+```
 fragment inktober2017 on Query {
   inktober2017: allInstagramContent(
     filter: { tags: { glob: "ink*2017" } }

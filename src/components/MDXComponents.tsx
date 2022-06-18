@@ -136,6 +136,7 @@ export const MDXComponents = {
   image: CustomImage,
   hr: Hr,
   a: CustomLink,
+  Link: CustomLink,
   code: (props: any) => {
     if (!props.className) {
       // inline code

@@ -29,7 +29,7 @@ export function PostPage({
   const Post = useMemo(() => getMDXComponent(content), [content]);
 
   //   dynamic import because not ESM compatible
-  const embeds = dynamic(() => import("mdx-embed") as any);
+  const embeds = dynamic(() => import("mdx-embed") as any, { ssr: false });
   const { CodePen, CodeSandbox } = embeds as any;
 
   const components = {

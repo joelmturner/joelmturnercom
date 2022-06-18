@@ -8,6 +8,7 @@ tags:
   - React
 series: Create an Avatar Component in Gatsby with TypeScript
 order: 0
+lastmod: 2022-06-18T02:39:02.304Z
 ---
 
 In this series we're going to take a look at creating a simple avatar component that is typed with TypeScript and has some special goodies in Gatsby land.
@@ -41,11 +42,6 @@ export default Avatar;
 
 Then we can pass it the image url and alt text. We can see that the component is working in its basic implementation now.
 
-<Grid columns='75px 3fr' gap={2} sx={{ mb: 3 }}>
-<Flexbox middle>
-    <Avatar /> 
-</Flexbox>
-
 ```jsx
 <Avatar
   url="https://res.cloudinary.com/joelmturner/monster-01.png"
@@ -53,8 +49,6 @@ Then we can pass it the image url and alt text. We can see that the component is
   title="Monster P. Whittington"
 />
 ```
-
-</Grid>
 
 - [x] Should show an image
 - [x] Should be round

@@ -6,9 +6,11 @@ import highlightLine from "./rehype-highlight-line";
 import _omit from "lodash/omit";
 import jsx from "refractor/lang/jsx.js";
 import tsx from "refractor/lang/tsx.js";
+import graphql from "refractor/lang/graphql.js";
 
 refractor.register(jsx);
 refractor.register(tsx);
+refractor.register(graphql);
 
 export default function (options = {}) {
   return (tree) => {
@@ -26,7 +28,7 @@ export default function (options = {}) {
 
       // line highlight
       const linesToHighlight = rangeParser(node.properties.line || "0");
-      result = highlightLine(result, linesToHighlight);
+      result = highlightLine(result, linesToHighlight) as any;
 
       //   // word highlight
       //   result = highlightWord(result);

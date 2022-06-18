@@ -9,6 +9,7 @@ tags:
   - Gatsby
 series: Create an Avatar Component in Gatsby with TypeScript
 order: 1
+lastmod: 2022-06-18T02:22:32.745Z
 ---
 
 In <Link to='/blog/avatar-component-gatsby-1'>Part 1</Link> we put together a simple avatar component that can receive an image url and render it out as a round image.
@@ -186,20 +187,20 @@ function Avatar(props) {
 
 That way we can pass `monster1` or `monster2` in our `user` prop to have it render that monster.
 
-<Grid columns='75px 3fr' rows='1fr 1fr' gap={2} sx={{alignItems: 'center', mb: 3}}>
+{/* <Grid columns='75px 3fr' rows='1fr 1fr' gap={2} sx={{alignItems: 'center', mb: 3}}> */}
 
-<AvatarPart user={"monster1"} />
+{/* <AvatarPart user={"monster1"} /> */}
 
 ```jsx
 <Avatar alText="Monster P. Whittington portrait" title="Monster P. Whittington" user="monster1" />
 ```
 
-<AvatarPart user={"monster2"} />
+{/* <AvatarPart user={"monster2"} /> */}
 
 ```jsx
 <Avatar alText="Mons T. Cobblepot portrait" title="Mons T. Cobblepot" user="monster2" />
 ```
 
-</Grid>
+{/* </Grid> */}
 
 Nice, now we can type it so it's easier to know what name can be used and to see if our structure is correct if we ever need to edit it.

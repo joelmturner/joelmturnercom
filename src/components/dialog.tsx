@@ -99,8 +99,8 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
       const prevEl = ref?.current?.querySelectorAll('[data-reach-dialog-nav="prev"]')?.[0];
 
       if (nextEl && prevEl) {
-        (nextEl as unknown as HTMLElement).style.opacity = value;
-        (prevEl as unknown as HTMLElement).style.opacity = value;
+        (nextEl as unknown as HTMLElement).style.opacity = `${value}`;
+        (prevEl as unknown as HTMLElement).style.opacity = `${value}`;
       }
     },
     [ref.current]
