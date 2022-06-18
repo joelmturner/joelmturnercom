@@ -6,7 +6,7 @@ import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { wrap } from "@popmotion/popcorn";
 import { useOnClickOutside, useKeypressSimple } from "../hooks";
-import { IllustrationItem } from "../../lib/types";
+import { IllustrationItem } from "../lib/types";
 import { ChakraNextImage } from "./ChakraNextImage";
 import { Box, chakra, useColorModeValue, Flex } from "@chakra-ui/react";
 import "@reach/dialog/styles.css";

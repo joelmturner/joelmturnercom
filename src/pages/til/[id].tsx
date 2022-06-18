@@ -1,5 +1,5 @@
 import { getAllTilIds, getTilData } from "../../lib/tils";
-import { PostPage } from "../../src/components/PostPage";
+import { PostPage } from "../../components/PostPage";
 
 export default PostPage;
 

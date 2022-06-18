@@ -5,7 +5,7 @@ import type { AppProps } from "next/app";
 import { ChakraProvider, ColorModeProvider, useColorMode } from "@chakra-ui/react";
 import Layout from "../layouts/Layout";
 import { MDXProvider } from "@mdx-js/react";
-import { MDXComponents } from "../src/components/MDXComponents";
+import { MDXComponents } from "../components/MDXComponents";
 import { css, Global } from "@emotion/react";
 import { nightOwl, nightOwlLight } from "../lib/themes";
 import theme from "../lib/theme";

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { getTILs } from "../../lib/tils";
-import { MDXComponents } from "../../src/components/MDXComponents";
-import { PostList } from "../../src/components/PostList";
+import { MDXComponents } from "../../components/MDXComponents";
+import { PostList } from "../../components/PostList";
 
 export default function TILIndex({ tils }) {
   return (

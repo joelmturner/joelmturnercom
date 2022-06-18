@@ -1,11 +1,11 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { MDXComponents } from "../src/components/MDXComponents";
+import { MDXComponents } from "../components/MDXComponents";
 import { FormControl, FormLabel, Grid, GridItem, Select, VStack } from "@chakra-ui/react";
 import { getIllustrations } from "../lib/illustrations";
-import { ChakraNextImage } from "../src/components/ChakraNextImage";
+import { ChakraNextImage } from "../components/ChakraNextImage";
 import { Illustrations, IllustrationTag } from "../lib/types";
 import { ILLUSTRATION_FILTER_OPTIONS } from "../lib/constants";
-import { Dialog } from "../src/components/dialog";
+import { Dialog } from "../components/dialog";
 import NextImage from "next/image";
 import Head from "next/head";
 

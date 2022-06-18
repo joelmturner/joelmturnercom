@@ -3,7 +3,7 @@ import { getMDXComponent } from "mdx-bundler/client";
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { FrontMatter } from "../../lib/types";
+import { FrontMatter } from "../lib/types";
 import { MDXComponents } from "./MDXComponents";
 import NextLink from "next/link";
 import Head from "next/head";

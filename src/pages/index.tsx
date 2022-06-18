@@ -5,8 +5,8 @@ import NextLink from "next/link";
 import { useState } from "react";
 import { ACTIVITIES } from "../lib/constants";
 import { getLatestPost } from "../lib/posts";
-import { FeaturedPost } from "../src/components/FeaturedPost";
-import { MDXComponents } from "../src/components/MDXComponents";
+import { FeaturedPost } from "../components/FeaturedPost";
+import { MDXComponents } from "../components/MDXComponents";
 
 const VARIANTS = {
   enter: (direction: number) => {

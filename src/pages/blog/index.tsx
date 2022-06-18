@@ -22,9 +22,9 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { FrontMatter } from "../../lib/types";
-import { getDateString } from "../../src/utils/strings";
-import { Post } from "../../src/components/Post";
-import { PostList } from "../../src/components/PostList";
+import { getDateString } from "../../utils/strings";
+import { Post } from "../../components/Post";
+import { PostList } from "../../components/PostList";
 import Head from "next/head";
 
 interface IBlogTags {

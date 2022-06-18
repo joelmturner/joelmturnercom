@@ -1,5 +1,5 @@
 import { getAllPostIds, getPostData } from "../../lib/posts";
-import { PostPage } from "../../src/components/PostPage";
+import { PostPage } from "../../components/PostPage";
 
 export default PostPage;
 
