@@ -1,0 +1,162 @@
+---
+title: Helpers
+date: 2020-01-01T00:00:00.000Z
+draft: false
+slug: helpers
+category: node
+tags:
+  - node
+  - memory
+  - dependencies
+lastmod: 2022-06-18T04:55:51.461Z
+---
+
+## [Heap out of memory fix](https://www.npmjs.com/package/increase-memory-limit)
+
+```bash
+increase-memory-limit
+```
+
+## Version number of package
+
+```bash
+grep version node_modules/react/package.json
+```
+
+## Check dependency conflicts
+
+```bash
+npm ls react-dom
+```
+
+## Update library to alpha version
+
+```bash
+npm version prerelease --preid=alpha.1
+```
+
+## Templates
+
+When working from a js template, it's helpful to make a deep copy, so the original template is preserved. I have run into some issues with this many times, and it still bites me.
+
+```ts
+import clone from "just-clone";
+
+const template = {
+  "1a": {
+    id: "1a",
+    name: "template 1",
+    widgets: [],
+  },
+};
+
+function getTemplate(id: string) {
+  return clone(template[id]);
+}
+```
+
+## Debugging
+
+### Trace deprecation
+
+Replace `node_modules/gatsby/dist/bin/gatsby` with the runner of the script.
+
+```bash
+node --trace-deprecation node_modules/gatsby/dist/bin/gatsby build
+```
+
+This helped me find an issue I was running into with Gatsby 4.0 on `build`. The error I was seeing was:
+
+```bash
+[DEP_WEBPACK_COMPILATION_ASSETS] DeprecationWarning: Compilation.assets will be frozen in future, all modifications are deprecated.
+BREAKING CHANGE: No more changes should happen to Compilation.assets after sealing the Compilation.
+    Do changes to assets earlier, e. g. in Compilation.hooks.processAssets.
+    Make sure to select an appropriate stage from Compilation.PROCESS_ASSETS_STAGE_*.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+```
+
+This case was caused by `gatsby-plugin-bundle-stats` and was fixed when commented out.
+
+### Logging to Terminal
+
+When using a standard console log, `console.log('stars', stars)`, to the terminal in a node.js app, you might see some of the values at a certain depth be represented by `[object]` or `[Array]`. Let's consider the following data:
+
+```javascript
+const baseItems = {
+  CHIPS_BLUE: {
+    id: "CHIPS_BLUE",
+    type: "chips",
+    label: "Blue Corn Tortilla Chips",
+    variants: ["blue corn"],
+    attributes: ["organic", "non-gmo", "vegan", "gluten-free"],
+  },
+};
+
+const toppingItems = {
+  CHEEZE_BLEND_SHREDS: {
+    id: "CHEEZE_BLEND_SHREDS",
+    type: "cheese",
+    label: "Cheeze Blend Shreds",
+    variants: ["cheddar", "jack"],
+    attributes: ["organic", "non-gmo", "vegan"],
+  },
+  JALAPENOS: {
+    id: "JALAPENOS",
+    type: "vegetable",
+    label: "Jalapenos",
+    variants: ["sliced"],
+    attributes: ["organic", "non-gmo", "vegan", "gluten-free"],
+  },
+};
+
+const nachos = [
+  {
+    base: [baseItems["CHIPS_BLUE"]],
+    toppings: [toppingItems["CHEEZE_BLEND_SHREDS"], toppingItems["JALAPENOS"]],
+  },
+];
+```
+
+With `console.log("nachos", nachos);`, we get:
+
+```bash
+nachos [ { base: [ [Object] ], toppings: [ [Object], [Object] ] } ]
+```
+
+To see the rest of the values we can use `console.dir()` with the first argument being the object to log and the second specifying the depth. In this case, we'll set the depth to `null` to show all levels.
+
+So `console.dir({ nachos }, { depth: null });` gives us:
+
+```javascript
+{
+  nachos: [
+    {
+      base: [
+        {
+          id: "CHIPS_BLUE",
+          type: "chips",
+          label: "Blue Corn Tortilla Chips",
+          variants: ["blue corn"],
+          attributes: ["organic", "non-gmo", "vegan", "gluten-free"],
+        },
+      ],
+      toppings: [
+        {
+          id: "CHEEZE_BLEND_SHREDS",
+          type: "cheese",
+          label: "Cheeze Blend Shreds",
+          variants: ["cheddar", "jack"],
+          attributes: ["organic", "non-gmo", "vegan"],
+        },
+        {
+          id: "JALAPENOS",
+          type: "vegetable",
+          label: "Jalapenos",
+          variants: ["sliced"],
+          attributes: ["organic", "non-gmo", "vegan", "gluten-free"],
+        },
+      ],
+    },
+  ];
+}
+```

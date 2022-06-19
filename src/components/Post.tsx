@@ -1,114 +1,58 @@
-/** @jsx jsx */
-import { jsx, Themed } from "theme-ui";
-import { memo, ReactNode } from "react";
-import { FC } from "react";
-import PostSeries from "./postSeries";
-import Layout from "./layout";
-import SEO from "./seo";
-import Flexbox from "./flexbox";
-import Link from "./link";
-import { usePostSeries } from "../hooks";
-import { slugify } from "../utils/utils";
-import { PostNav } from "./postNav";
-import { ExternalLink } from "./ExternalLink";
+import { Box, Flex, Heading, Image, Link, Text, Wrap, WrapItem } from "@chakra-ui/react";
+import NextLink from "next/link";
+import { getDateString } from "../utils/strings";
+import { PostTags } from "./PostTags";
 
-type PostNavProps = {
-  frontmatter: {
-    slug: string;
-    title: string;
-  };
-};
-
-type PostProps = {
-  children: ReactNode | ReactNode[];
-  excerpt: string;
-  frontmatter: {
-    title?: string;
-    tags?: string[];
-    category?: string;
-    series?: string;
-    order?: number;
-  };
-  slug: string;
-  pageContext: {
-    postsInSeries?: { title: string; slug: string }[];
-    socialImage: string;
-  };
-  data: {
-    previous?: PostNavProps;
-    next?: PostNavProps;
-  };
-  body: any;
-};
-
-const PAYMENT_INFO = {
-  name: "monetization",
-  content: "$ilp.uphold.com/ZMdxHJD42dUF",
-};
-
-const Post: FC<PostProps> = ({
-  frontmatter: { title, tags = [], category = "", series = "", order = 0 } = {},
-  children,
-  excerpt,
-  slug,
-  pageContext: { socialImage = "" },
-  ...rest
-}) => {
-  const postsInSeries = usePostSeries(series);
-  const siteBaseUrl = "https://joelmturner.com";
-
+export function PostTitle({ title, url }) {
   return (
-    <Layout sx={{ variant: "post" }} variant={"POST"}>
-      <SEO
-        title={title}
-        description={excerpt}
-        image={socialImage}
-        keywords={[category, ...tags]}
-        meta={[PAYMENT_INFO]}
-      />
-      <article sx={{ variant: "post.article" }}>
-        <Themed.h1>{title}</Themed.h1>
-        <PostSeries series={series} order={order} postsInSeries={postsInSeries} />
-
-        {children}
-
-        <Flexbox vertical sx={{ mt: 4, borderTop: "1px solid", borderColor: "muted", py: 3 }}>
-          {category && (
-            <Flexbox gap={1}>
-              <span sx={{ fontWeight: "normal" }}>Category</span>
-              <Link to={slugify(category, `/blog/category`)} sx={{ fontWeight: "normal", variant: "link" }}>
-                <span sx={{ variant: "link" }}>{category}</span>
-              </Link>
-            </Flexbox>
-          )}
-
-          {tags && (
-            <Flexbox gap={1} sx={{ mb: 3, flexWrap: "wrap" }}>
-              <span sx={{ fontWeight: "normal" }}>Tags: </span>
-              {tags.map((tag) => (
-                <Link key={tag} to={slugify(tag, `/blog/tag`)} sx={{ fontWeight: "normal", variant: "link" }}>
-                  <span sx={{ variant: "link" }}>{tag}</span>
-                </Link>
-              ))}
-            </Flexbox>
-          )}
-
-          <PostNav slug={slug} />
-        </Flexbox>
-
-        <Flexbox vertical gap right>
-          <span sx={{ color: "gray" }}>
-            <ExternalLink
-              href={`https://mobile.twitter.com/search?q=${encodeURI(siteBaseUrl + "/blog/" + slug)}`}
-              title="Twitter discussion"
-            >
-              Discuss this article on Twitter
-            </ExternalLink>
-          </span>
-        </Flexbox>
-      </article>
-    </Layout>
+    <Heading fontSize="xl" marginTop="2">
+      <NextLink href={url}>
+        <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
+          {title}
+        </Link>
+      </NextLink>
+    </Heading>
   );
-};
+}
 
-export default memo(Post);
+export function Post({ post, root = "blog" }) {
+  const postUrl = `/${root}/${post.slug}`;
+  return (
+    <Wrap key={post.slug} spacing="30px" marginTop="5" w="100%">
+      <WrapItem w="100%">
+        <Box w="100%">
+          {post.cover ? (
+            <Box borderRadius="lg" overflow="hidden">
+              <NextLink href={postUrl}>
+                <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
+                  <Image
+                    transform="scale(1.0)"
+                    src={post.cover}
+                    alt={post.title}
+                    objectFit="contain"
+                    width="100%"
+                    transition="0.3s ease-in-out"
+                    _hover={{
+                      transform: "scale(1.05)",
+                    }}
+                  />
+                </Link>
+              </NextLink>
+            </Box>
+          ) : null}
+          {!post.cover ? <PostTitle title={post.title} url={postUrl} /> : null}
+          <Flex alignItems="center" justifyContent="space-between" marginTop="3">
+            {post.tags?.length ? <PostTags tags={post.tags} /> : null}
+            <Text as="i" display={["none", "block"]}>
+              {getDateString(post.date)}
+            </Text>
+          </Flex>
+          {post.cover ? <PostTitle title={post.title} url={postUrl} /> : null}
+          <Text as="p" fontSize="md" marginTop="2">
+            {post.excerpt}
+          </Text>
+        </Box>
+      </WrapItem>
+    </Wrap>
+  );
+}

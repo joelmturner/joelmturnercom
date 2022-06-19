@@ -1,0 +1,154 @@
+---
+title: Build a React Gallery With CSS Grid
+date: 2019-09-10
+draft: false
+slug: build-gallery-react-css-grid
+category: dev
+tags:
+  - React
+  - TypeScript
+  - Gatsby
+  - CSS
+excerpt: CSS Grid is super powerful and can be used to create some creative layouts
+  which makes it a great way to create galleries. In this guide we’re going to
+  use a simple grid that keeps the images the same size.
+cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157938/Posts/css-grid-gallery.jpg
+lastmod: 2022-06-15T16:12:15.592Z
+---
+
+CSS Grid is super powerful and can be used to create some creative layouts which makes it a great way to create galleries. In this guide we’re going to use a simple grid that keeps the images the same size.
+
+> This will be a quick view of CSS Grid. If you would like to know more I highly recommend the [CSS Grid Course](https://cssgrid.io/) (free) from [Wes Bos](https://twitter.com/wesbos).
+
+Here are the requirements for this component:
+
+- Accepts an array of images (using Gatsby Image)
+- Needs to respond to different size screens (using `minmax`)
+- Takes a size prop of `s`, `m`, or `l`
+
+Cool, let’s start building it out. We're building this one based on a query for [Gatsby Image](https://www.gatsbyjs.org/packages/gatsby-image/). You can set this up for any image component or element that you may be using.
+
+```jsx
+import React from 'react';
+import Img from 'gatsby-image';
+
+function Gallery({images = []}) {
+  const wrapperStyles = {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+    gridGap: '1rem';
+  }
+  return (
+    <div style={wrapperStyles}>
+      {nodes.length > 0 && nodes.map(node => <Img fluid={node.localImage.childImageSharp.fluid} />)}
+    </div>
+  )
+}
+```
+
+The wrapper styles will give the children their sizes based on the grid and row declarations. In this case we have `gridTemplateColumns: ‘repeat(auto-fill, minmax(300px, 1fr))’` Which tells the images to lay out in as many columns that will fit based on a minimum width of `300px` and a maximum of `1fr`. The `gridGap` tells them to have a gap of `1rem` between images.
+
+We'll add a function that can handle the different sizing from the `size` prop and pass these into the wrapper styles.
+
+```jsx line=4,6-25,29
+import React from "react";
+import Img from "gatsby-image";
+
+function Gallery({ nodes = [], size = "m" }) {
+  function getStylesForSize() {
+    switch (size) {
+      case "s":
+        return {
+          gridTemplateColumns: "repeat(auto-fill, minmax(142px, 1fr))",
+          gridGap: "0.25rem",
+        };
+      case "m":
+      default:
+        return {
+          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+          gridGap: "0.5rem",
+        };
+      case "l":
+        return {
+          gridTemplateColumns: "1fr",
+          gridGap: ".75rem",
+        };
+    }
+  }
+
+  const wrapperStyles = {
+    display: "grid",
+    ...getStylesForSize(),
+  };
+
+  return (
+    <div style={wrapperStyles}>
+      {nodes.length > 0 && nodes.map((node) => <Img fluid={node.localImage.childImageSharp.fluid} />)}
+    </div>
+  );
+}
+```
+
+We can now pass our size changes to the gallery component. Cool!
+
+## TypeScript
+
+Now, let's type it. This will help us and others know what we shape we need passed to the gallery.
+
+```typescript line=2,4-19,21,23,44
+import React from "react";
+import Img, { FluidObject } from "gatsby-image";
+
+type GallerySizes = "s" | "m" | "l";
+type GalleryImage = {
+  node: {
+    localImage: {
+      childImageSharp: {
+        fluid: FluidObject;
+      };
+    };
+    id: string;
+  };
+};
+
+type GalleryProps = {
+  imageNodes: GalleryImage[];
+  size?: GallerySizes;
+};
+
+function Gallery({ images, size = "m" }: GalleryProps) {
+  function getStylesForSize(): React.CSSProperties {
+    switch (size) {
+      case "s":
+        return {
+          gridTemplateColumns: "repeat(auto-fill, minmax(142px, 1fr))",
+          gridGap: "0.25rem",
+        };
+      case "m":
+      default:
+        return {
+          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+          gridGap: "0.5rem",
+        };
+      case "l":
+        return {
+          gridTemplateColumns: "1fr",
+          gridGap: ".75rem",
+        };
+    }
+  }
+
+  const wrapperStyles: React.CSSProperties = {
+    display: "grid",
+    ...getStylesForSize(),
+  };
+
+  return (
+    <div style={wrapperStyles}>
+      {nodes.length > 0 && nodes.map((node) => <Img fluid={node.localImage.childImageSharp.fluid} />)}
+    </div>
+  );
+}
+```
+
+Nice! Now we have a functioning gallery component that can change sizes. You can see my implementation of this on the <Link to='/illustration'>illustration page</Link>.

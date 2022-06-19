@@ -1,0 +1,58 @@
+---
+title: Create an Avatar Component in Gatsby with TypeScript Part 1
+date: 2019-09-06
+draft: false
+slug: avatar-component-gatsby-1
+category: dev
+tags:
+  - React
+series: Create an Avatar Component in Gatsby with TypeScript
+order: 0
+lastmod: 2022-06-18T02:39:02.304Z
+---
+
+In this series we're going to take a look at creating a simple avatar component that is typed with TypeScript and has some special goodies in Gatsby land.
+
+> I usually write TypeScript from the start, but I wanted to show each piece individually in case others aren't familiar with TypeScript yet.
+
+Let's start by identifying what our needs are for our avatar component.
+
+- [ ] Should show an image
+- [ ] Should be round
+- [ ] Should accept an image url
+- [ ] Should display an image based on a name (for small sets)
+
+Cool, now we can start building our avatar. Start with an img element using a placeholder image as src. Add a little bit of styling to make it round and give it a size.
+
+```jsx
+function Avatar(props) {
+  const { url, altText, title } = props;
+
+  const styles = {
+    width: "75px",
+    height: "75px",
+    borderRadius: "50%",
+  };
+
+  return <img style={styles} src={url} alt={altText} title={title} />;
+}
+
+export default Avatar;
+```
+
+Then we can pass it the image url and alt text. We can see that the component is working in its basic implementation now.
+
+```jsx
+<Avatar
+  url="https://res.cloudinary.com/joelmturner/monster-01.png"
+  alText="Monster P. Whittington portrait"
+  title="Monster P. Whittington"
+/>
+```
+
+- [x] Should show an image
+- [x] Should be round
+- [x] Should accept an image url
+- [ ] Should display an image based on a name (for small sets)
+
+Looks good. We've met our first three criteria for this component. In step 2 we'll make it more powerful with Gatsby Image.

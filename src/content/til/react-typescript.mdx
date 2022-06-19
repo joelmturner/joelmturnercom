@@ -1,0 +1,50 @@
+---
+title: React TypeScript
+date: 2020-01-01
+draft: false
+slug: react-typescript
+category: types
+tags:
+  - TypeScript
+  - React
+lastmod: 2022-06-18T04:55:51.442Z
+---
+
+## Hooks
+
+```typescript
+// add type before parens
+React.useState<boolean>(false);
+React.useRef<HTMLDivElement>(null);
+React.useCallback(
+  function () {
+    if (theMoon) {
+      setSomethingAwesome();
+    }
+  },
+  [theMoon]
+);
+```
+
+## Props
+
+```typescript
+type FooProps = {
+  children: React.ReactNode;
+};
+```
+
+## Components
+
+```typescript
+// functional
+const Foo: React.FC<FooProps> = (props) => ()
+// class
+class Foo extends React.Component<FooProps> {}
+```
+
+## emotion
+
+```jsx
+const Foo = styled<FooProps>.div``;
+```

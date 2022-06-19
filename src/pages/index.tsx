@@ -1,116 +1,117 @@
-/** @jsx jsx */
-import { jsx, Themed } from "theme-ui";
-import React, { useCallback, useState } from "react";
-import { graphql } from "gatsby";
-import { Layout, SEO, Avatar, Flexbox, Gallery, Grid, Link } from "../components";
-import PartialRenderer from "../components/partialRenderer";
-import { PostsList } from "../components/PostsList";
-import loadable from "@loadable/component";
-const Dialog = loadable(() => import("../components"), { resolveComponent: (components) => components.Dialog });
+import { Button, Container, Flex, Heading, Stack, Text, useColorModeValue, useInterval } from "@chakra-ui/react";
+import { AnimatePresence, motion } from "framer-motion";
+import type { NextPage } from "next";
+import NextLink from "next/link";
+import { useState } from "react";
+import { ACTIVITIES } from "../lib/constants";
+import { getLatestPost } from "../lib/posts";
+import { FeaturedPost } from "../components/FeaturedPost";
+import { MDXComponents } from "../components/MDXComponents";
 
-export type InstaNode = {
-  id: string;
-  secure_url: string;
+const VARIANTS = {
+  enter: (direction: number) => {
+    return {
+      y: direction < 0 ? 40 : -40,
+      opacity: 0,
+    };
+  },
+  center: {
+    zIndex: 1,
+    y: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => {
+    return {
+      zIndex: 0,
+      y: direction > 0 ? 40 : -40,
+      opacity: 0,
+    };
+  },
 };
 
-export type MDXNode = {
-  node: {
-    excerpt: string;
-    frontmatter: {
-      title: string;
-      tags: string[];
-    };
-    slug: string;
-  };
+const TRANSITION = {
+  ease: "linear",
+  opacity: { duration: 0.2 },
 };
 
-type IndexPageProps = {
-  data: {
-    featuredInstaRecent: {
-      nodes: InstaNode[];
-    };
-    recentBlogPosts: {
-      edges: MDXNode[];
-    };
-    mdx: {
-      body: any;
-    };
-  };
-};
+export default function Home({ post }) {
+  const [activity, setActivity] = useState(ACTIVITIES[0]);
 
-const IndexPage: React.FC<IndexPageProps> = ({ data }) => {
-  const [offset, setOffset] = useState(-1);
-  const { featuredInstaRecent: { nodes: insta = [] } = {}, recentBlogPosts: { edges: blog = [] } = {}, mdx } = data;
-
-  const onClose = useCallback(
-    function () {
-      setOffset(-1);
-    },
-    [setOffset]
-  );
-
-  const handleSetOffset = useCallback(
-    (edge: InstaNode) => {
-      setOffset(insta.indexOf(edge));
-    },
-    [setOffset, insta]
-  );
+  useInterval(() => {
+    setActivity((prev) => {
+      const index = ACTIVITIES.findIndex((activityItem) => activityItem === prev);
+      if (index + 1 > ACTIVITIES.length - 1) {
+        return ACTIVITIES[0];
+      } else {
+        return ACTIVITIES[index + 1];
+      }
+    });
+  }, 2000);
 
   return (
-    <Layout title="Howdy!">
-      <SEO title="Home" />
-
-      <Grid gap={3} columns="75px 1fr" sx={{ mb: 3, alignItems: "center" }}>
-        <Avatar />
-        <Flexbox vertical left middle>
-          <Themed.h1 sx={{ mb: 0 }}>Joel M. Turner</Themed.h1>
-          <Themed.h2 sx={{ m: 0, color: "primary" }}>Frontend Developer</Themed.h2>
-        </Flexbox>
-      </Grid>
-
-      <PartialRenderer mdx={mdx} />
-
-      <Flexbox between bottom>
-        <Flexbox vertical>
-          <Themed.h2 sx={{ mb: 0, mt: 2 }}>Sketching</Themed.h2>
-          <Themed.h3 sx={{ mb: 0, mt: 1 }}>My Favorite Explorations</Themed.h3>
-        </Flexbox>
-        <Themed.h4 sx={{ mx: 0, my: 0, textAlign: "right" }}>
-          <Link to="/illustration">See more illustrations</Link>
-        </Themed.h4>
-      </Flexbox>
-
-      <Gallery size={"s"} imageEdges={insta} setLightbox={handleSetOffset} sx={{ mt: 2, mb: 4 }} />
-
-      <Flexbox between bottom>
-        <Flexbox vertical>
-          <Themed.h2 sx={{ mb: 0, mt: 0 }}>Writing</Themed.h2>
-          <Themed.h3 sx={{ mb: 0, mt: 1 }}>Learning Through Writing</Themed.h3>
-        </Flexbox>
-        <Themed.h4 sx={{ mx: 0, my: 0, textAlign: "right" }}>
-          <Link to="/blog">See all articles</Link>
-        </Themed.h4>
-      </Flexbox>
-
-      <PostsList edges={blog} />
-
-      {offset > -1 && <Dialog imageEdges={insta} offset={offset} onClose={onClose} />}
-    </Layout>
+    <Container maxW={"5xl"}>
+      <Stack spacing={{ base: 8, md: 10 }} py={{ base: 12, md: 20 }}>
+        <Heading
+          fontWeight={600}
+          fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
+          lineHeight={"50%"}
+          w="full"
+          textAlign={"center"}
+        >
+          👋🏻 Howdy! I'm Joel.
+        </Heading>
+        <Heading
+          fontWeight={600}
+          fontSize={{ base: "2xl", sm: "1xl", md: "3xl" }}
+          lineHeight={"50%"}
+          w="full"
+          textAlign={"center"}
+        >
+          <Flex position="relative" height="40px" overflow="hidden" gap={{ base: 2, sm: 1, md: 2 }} alignItems="center">
+            <Flex justifyContent="flex-end" w="100%">
+              <Text as="span">I like to </Text>
+            </Flex>
+            <Flex
+              alignItems="flex-start"
+              position="relative"
+              w="100%"
+              textAlign={"center"}
+              align={"center"}
+              flexDirection="column"
+            >
+              <AnimatePresence initial={false}>
+                <motion.div key={activity} variants={VARIANTS} initial="enter" animate="center" transition={TRANSITION}>
+                  <Text textAlign="left" as={"span"} color={"orange.400"}>
+                    {activity}
+                  </Text>
+                </motion.div>
+              </AnimatePresence>
+            </Flex>
+          </Flex>
+        </Heading>
+        <Text color={useColorModeValue("gray.700", "gray.300")} maxW={"3xl"}>
+          My background is in graphic design and web development. I'm currently working as a Senior Product Engineer at{" "}
+          <MDXComponents.a href="https://sprinklr.com">Sprinklr</MDXComponents.a>. I spend some of my free time
+          exploring hand lettering and sketching as well as hiking in the Portland area with my wife, son, and our dogs.
+        </Text>
+        {post ? (
+          <>
+            <Heading as="h3" colorScheme="orange">
+              Latest Post
+            </Heading>
+            <FeaturedPost post={post} />
+          </>
+        ) : null}
+      </Stack>
+    </Container>
   );
-};
+}
 
-export default IndexPage;
-
-export const pageQuery = graphql`
-  query PageQuery {
-    ...recentBlogPosts
-    ...featuredInstaRecent
-    mdx(slug: { eq: "intro" }) {
-      frontmatter {
-        title
-      }
-      body
-      slug
-    }
-  }
-`;
+export async function getStaticProps({}) {
+  const post = await getLatestPost();
+  return {
+    props: {
+      post,
+    },
+  };
+}
