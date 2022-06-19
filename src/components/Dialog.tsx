@@ -93,65 +93,40 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
   useKeypressSimple("ArrowRight", onNext, [page]);
   useKeypressSimple("ArrowLeft", onPrev, [page]);
 
-  // handle navigation opacity
-  const setNavOpacity = useCallback(
-    (value = 0) => {
-      const nextEl = ref?.current?.querySelectorAll('[data-reach-dialog-nav="next"]')?.[0];
-      const prevEl = ref?.current?.querySelectorAll('[data-reach-dialog-nav="prev"]')?.[0];
-
-      if (nextEl && prevEl) {
-        (nextEl as unknown as HTMLElement).style.opacity = `${value}`;
-        (prevEl as unknown as HTMLElement).style.opacity = `${value}`;
-      }
-    },
-    [ref.current]
-  );
-
-  const setNavFocus = useCallback(() => {
-    // setNavOpacity(1);
-  }, []);
-  const unsetNavFocus = useCallback(() => {
-    // setNavOpacity(0);
-  }, []);
-
   const imageIndex = wrap(0, images.length, page);
   useOnClickOutside(ref, onClose as any);
 
   return (
     <Overlay
-      bg={useColorModeValue("rgb(255,255,255,0.93)", "rgb(0,0,0,0.93)")}
+      ref={ref}
       isOpen
       onDismiss={onClose}
       className={className}
-      ref={ref}
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      zIndex={100}
+      sx={{
+        "&[data-reach-dialog-overlay]": {
+          bg: useColorModeValue("rgb(255,255,255,0.93)", "rgb(0,0,0,0.93)"),
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 100,
+        },
+      }}
     >
       <Content
         aria-label="gallery of Instagram images"
-        alignItems="center"
         display="flex"
+        alignItems="center"
         flexDirection="column"
         gap={3}
         pos="relative"
-        bg="transparent"
-        w="100%"
         pointerEvents="none"
         height="calc(100vh - 7rem)"
-        margin={0}
-        padding={0}
         sx={{
-          ":hover [data-reach-dialog-nav]": {
-            opacity: 1,
-          },
-          "[data-reach-dialog-overlay]": {
-            background: "black",
-            backgroundColor: "black",
-          },
-          "[data-reach-dialog-content]": {
-            margin: "0 auto",
+          "&[data-reach-dialog-content]": {
+            padding: 0,
+            margin: 0,
+            width: "100%",
+            background: "transparent",
           },
         }}
       >
@@ -209,8 +184,6 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
               aria-label="previous image"
               tabIndex={0}
               onKeyPress={handleEnterKeyPress(onPrev)}
-              onFocus={setNavFocus}
-              onBlur={unsetNavFocus}
               sx={{
                 ":focus": {
                   opacity: 1,
@@ -232,7 +205,14 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
                 exit="exit"
                 transition={TRANSITION}
                 drag="x"
-                style={{ y: "0%", position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+                style={{
+                  y: "0%",
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                }}
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={1}
                 onDragEnd={handleDragEnd}
@@ -271,8 +251,6 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
               aria-label="next image"
               tabIndex={0}
               onKeyPress={handleEnterKeyPress(onNext)}
-              onFocus={setNavFocus}
-              onBlur={unsetNavFocus}
               sx={{
                 ":focus": {
                   opacity: 1,

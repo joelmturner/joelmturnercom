@@ -1,14 +1,12 @@
-import React, { useCallback, useMemo, useState } from "react";
-import { MDXComponents } from "../components/MDXComponents";
-import { chakra, FormControl, FormLabel, Grid, GridItem, Select, VStack } from "@chakra-ui/react";
-import { getIllustrations } from "../lib/illustrations";
-import { ChakraNextImage } from "../components/ChakraNextImage";
-import { Illustrations, IllustrationTag } from "../lib/types";
-import { ILLUSTRATION_FILTER_OPTIONS } from "../lib/constants";
-import { Dialog } from "../components/Dialog";
-import Head from "next/head";
+import { FormControl, FormLabel, Grid, GridItem, Select, VStack } from "@chakra-ui/react";
 import NextImage from "next/image";
+import React, { useCallback, useMemo, useState } from "react";
+import { Dialog } from "../components/Dialog";
+import { MDXComponents } from "../components/MDXComponents";
 import SEO from "../components/SEO";
+import { ILLUSTRATION_FILTER_OPTIONS } from "../lib/constants";
+import { getIllustrations } from "../lib/illustrations";
+import { Illustrations, IllustrationTag } from "../lib/types";
 
 function GridImage({ id, url, index, setLightboxOffset }) {
   const handleImageClick = useCallback((index) => {
