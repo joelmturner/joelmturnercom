@@ -91,7 +91,7 @@ export function Header() {
       borderBottomWidth={2}
       borderBottomColor={useColorModeValue("gray.200", "gray.900")}
     >
-      <chakra.div h="4.5rem" mx="auto" maxW="1200px">
+      <chakra.div h="4.5rem" mx="auto" maxW="4xl">
         <Flex w="full" h="full" px="6" alignItems="center" justifyContent="space-between">
           <Flex align="flex-start">
             <Link href="/">
