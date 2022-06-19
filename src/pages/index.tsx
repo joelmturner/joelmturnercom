@@ -62,7 +62,7 @@ export default function Home({ post }) {
         </Heading>
         <Heading
           fontWeight={600}
-          fontSize={{ base: "2xl", sm: "1xl", md: "3xl" }}
+          fontSize={{ base: "lg", sm: "md", md: "3xl" }}
           lineHeight={"50%"}
           w="full"
           textAlign={"center"}
@@ -81,7 +81,7 @@ export default function Home({ post }) {
             >
               <AnimatePresence initial={false}>
                 <motion.div key={activity} variants={VARIANTS} initial="enter" animate="center" transition={TRANSITION}>
-                  <Text textAlign="left" as={"span"} color={"orange.400"}>
+                  <Text textAlign="left" as={"span"} color={"orange.400"} lineHeight="0.8">
                     {activity}
                   </Text>
                 </motion.div>
