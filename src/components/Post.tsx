@@ -19,7 +19,7 @@ export function Post({ post, root = "blog" }) {
   const postUrl = `/${root}/${post.slug}`;
   return (
     <Wrap key={post.slug} spacing="30px" marginTop="5" w="100%">
-      <WrapItem width={{ base: "100%", sm: "45%", md: "45%", lg: "100%" }}>
+      <WrapItem w="100%">
         <Box w="100%">
           {post.cover ? (
             <Box borderRadius="lg" overflow="hidden">
@@ -43,7 +43,9 @@ export function Post({ post, root = "blog" }) {
           {!post.cover ? <PostTitle title={post.title} url={postUrl} /> : null}
           <Flex alignItems="center" justifyContent="space-between" marginTop="3">
             {post.tags?.length ? <PostTags tags={post.tags} /> : null}
-            <Text as="i">{getDateString(post.date)}</Text>
+            <Text as="i" display={["none", "block"]}>
+              {getDateString(post.date)}
+            </Text>
           </Flex>
           {post.cover ? <PostTitle title={post.title} url={postUrl} /> : null}
           <Text as="p" fontSize="md" marginTop="2">

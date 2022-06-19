@@ -1,4 +1,4 @@
-import { Box, chakra, Divider, Flex, Link } from "@chakra-ui/react";
+import { Box, chakra, Divider, Flex, HStack, Link, Tag, Text, VStack } from "@chakra-ui/react";
 import { getMDXComponent } from "mdx-bundler/client";
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
@@ -7,6 +7,7 @@ import { FrontMatter } from "../lib/types";
 import { MDXComponents } from "./MDXComponents";
 import NextLink from "next/link";
 import Head from "next/head";
+import { PostTags } from "./PostTags";
 
 function getJustification(next, prev) {
   if (next && prev) {
@@ -20,10 +21,11 @@ function getJustification(next, prev) {
 
 export function PostPage({
   title,
-  id,
   content,
   next,
   prev,
+  tags,
+  category,
   postType = "blog",
 }: { id: string; content: string; next: FrontMatter; prev: FrontMatter; postType: "blog" | "til" } & FrontMatter) {
   const Post = useMemo(() => getMDXComponent(content), [content]);
@@ -47,7 +49,18 @@ export function PostPage({
       <chakra.article>
         <Post components={components} />
       </chakra.article>
-      <Divider my={4} />
+      <VStack spacing={4} alignItems="flex-start">
+        <Divider my={4} />
+        {category ? (
+          <HStack spacing={2}>
+            <Text fontSize="md">Category: </Text>
+            <Tag size="sm" variant="subtle" colorScheme="orange">
+              <Link href={`/blog/category/${category.toLowerCase()}`}>{category}</Link>
+            </Tag>
+          </HStack>
+        ) : null}
+        {tags?.length ? <PostTags tags={tags} /> : null}
+      </VStack>
       <Flex justifyContent={getJustification(next, prev)} py={4} gap={6}>
         {prev && (
           <Box justifyContent="flex-start">

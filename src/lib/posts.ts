@@ -33,6 +33,28 @@ export function getAllPostIds() {
     .filter((params) => params);
 }
 
+export function getAllCategories() {
+  const posts = getPosts();
+  const categories = posts.reduce((acc, post) => {
+    const category = post.category.toLowerCase();
+    if (!acc.includes(category)) {
+      acc.push(category);
+    }
+    return acc;
+  }, []);
+  return categories.map((category) => ({ params: { slug: category } }));
+}
+
+export function getAllTags() {
+  const posts = getPosts();
+  const resolvedTags = posts.reduce((acc, post) => {
+    const tags = post.tags.map((tag) => tag.toLowerCase());
+    acc = Array.from(new Set([...acc, ...tags]));
+    return acc;
+  }, []);
+  return resolvedTags.map((tag) => ({ params: { slug: tag } }));
+}
+
 export async function getPostData(id: string): Promise<
   FrontMatter & {
     id: string;
@@ -110,4 +132,18 @@ export function getPosts(
 export async function getLatestPost() {
   const posts = getPosts();
   return posts[0];
+}
+
+export function getPostsByCategory(slug: string) {
+  const posts = getPosts();
+  return posts.filter((post) => post.category.toLowerCase() === slug.toLowerCase());
+}
+
+export function getPostsByTag(slug: string) {
+  const posts = getPosts();
+
+  return posts.filter((post) => {
+    const tags = post.tags.map((tag) => tag.toLowerCase()) ?? [];
+    return tags.includes(slug.toLowerCase());
+  });
 }
