@@ -8,6 +8,7 @@ import { MDXComponents } from "./MDXComponents";
 import NextLink from "next/link";
 import Head from "next/head";
 import { PostTags } from "./PostTags";
+import SEO from "./SEO";
 
 function getJustification(next, prev) {
   if (next && prev) {
@@ -27,6 +28,9 @@ export function PostPage({
   tags,
   category,
   postType = "blog",
+  cover,
+  date,
+  lastmod,
 }: { id: string; content: string; next: FrontMatter; prev: FrontMatter; postType: "blog" | "til" } & FrontMatter) {
   const Post = useMemo(() => getMDXComponent(content), [content]);
 
@@ -42,9 +46,14 @@ export function PostPage({
 
   return (
     <>
-      <Head>
-        <title>{`${title} | Joel M Turner`}</title>
-      </Head>
+      <SEO
+        title={title}
+        image={cover}
+        imageAlt={title}
+        isBlogPost
+        datePublished={`${date}`}
+        dateModified={`${lastmod}`}
+      />
       <components.h1>{title}</components.h1>
       <chakra.article>
         <Post components={components} />

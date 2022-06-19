@@ -1,9 +1,9 @@
 import { Divider, Flex, Heading, Input } from "@chakra-ui/react";
 import { matchSorter } from "match-sorter";
-import Head from "next/head";
-import { useState, useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { FrontMatter } from "../lib/types";
 import { PostList } from "./PostList";
+import SEO from "./SEO";
 
 export function BlogArchive({ posts, title }) {
   const [search, setSearch] = useState<string>("");
@@ -25,9 +25,7 @@ export function BlogArchive({ posts, title }) {
 
   return (
     <>
-      <Head>
-        <title>{`${title} | Joel M Turner`}</title>
-      </Head>
+      <SEO title={title} />
       <Flex justify="space-between" alignItems="flex-end">
         <Heading as="h1">{title}</Heading>
         <Input onChange={handleSearch} placeholder="Search..." value={search} data-testid="blog-search" w="30%" />

@@ -34,9 +34,7 @@ function IllustrationPage({ images }: IllustrationPageProps) {
 
   return (
     <>
-      <Head>
-        <title>Illustrations | Joel M Turner</title>
-      </Head>
+      <SEO title="Illustrations" />
       <VStack alignItems="flex-start" gap={4}>
         <MDXComponents.h1>Explorations of Handlettering and Illustration</MDXComponents.h1>
         <FormControl>

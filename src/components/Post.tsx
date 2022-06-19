@@ -28,7 +28,7 @@ export function Post({ post, root = "blog" }) {
                   <Image
                     transform="scale(1.0)"
                     src={post.cover}
-                    alt="some text"
+                    alt={post.title}
                     objectFit="contain"
                     width="100%"
                     transition="0.3s ease-in-out"

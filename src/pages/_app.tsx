@@ -11,6 +11,7 @@ import { nightOwl, nightOwlLight } from "../lib/themes";
 import theme from "../lib/theme";
 import Script from "next/script";
 import Head from "next/head";
+import SEO from "../components/SEO";
 
 function GlobalStyle() {
   const { colorMode } = useColorMode();
@@ -42,10 +43,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           });
         `}
       </Script>
-      <Head>
-        <title>Joel M. Turner</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+      <SEO title="Howdy 👋🏻" />
       <ColorModeProvider
         options={{
           initialColorMode: "dark",
