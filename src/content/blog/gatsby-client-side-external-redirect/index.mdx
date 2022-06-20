@@ -8,10 +8,12 @@ tags:
   - Gatsby
   - Redirect
   - QuickTip
-lastmod: 2022-06-17T06:15:32.651Z
+lastmod: 2022-06-20T15:11:53.395Z
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655446459/Posts/gatsby-client-side-redirect.jpg
 excerpt: A client-side redirect for Gatsby when you don't have access to the CloudFront
   settings.
+description: A quick way to create a redirect from the client side of Gatsby. This is
+  useful if we don't have access to deployed setup.
 ---
 
 We had a case where we needed to set up a redirect on the client side of Gatsby but we didn't want to spin up a lambda to handle this one case. A redirect like this wouldn't be a problem with some of the hosts out there, but we're just using s3 and Cloudfront for this site.

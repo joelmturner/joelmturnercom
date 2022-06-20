@@ -1,4 +1,3 @@
-// import "../styles/globals.css";
 import '@fontsource/fira-sans';
 import '@fontsource/fira-code';
 import type { AppProps } from 'next/app';
@@ -10,7 +9,6 @@ import { css, Global } from '@emotion/react';
 import { nightOwl, nightOwlLight } from '../lib/themes';
 import theme from '../lib/theme';
 import Script from 'next/script';
-import Head from 'next/head';
 import SEO from '../components/SEO';
 
 function GlobalStyle() {
@@ -30,7 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme} resetCSS>
       <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_TRACKING_ID}`}
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_TRACKING_ID}`}
         strategy="afterInteractive"
       />
       <Script id="google-analytics" strategy="afterInteractive">
@@ -38,7 +36,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           window.dataLayer = window.dataLayer || [];
           function gtag(){window.dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '${process.env.GA_TRACKING_ID}', {
+          gtag('config', '${process.env.NEXT_PUBLIC_GA_TRACKING_ID}', {
             page_path: window.location.pathname,
           });
         `}
