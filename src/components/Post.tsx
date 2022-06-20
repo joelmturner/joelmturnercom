@@ -1,13 +1,13 @@
-import { Box, Flex, Heading, Image, Link, Text, Wrap, WrapItem } from "@chakra-ui/react";
-import NextLink from "next/link";
-import { getDateString } from "../utils/strings";
-import { PostTags } from "./PostTags";
+import { Box, Flex, Heading, Image, Link, Text, Wrap, WrapItem } from '@chakra-ui/react';
+import NextLink from 'next/link';
+import { getDateString } from '../utils/strings';
+import { PostTags } from './PostTags';
 
 export function PostTitle({ title, url }) {
   return (
     <Heading fontSize="xl" marginTop="2">
       <NextLink href={url}>
-        <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
+        <Link textDecoration="none" _hover={{ textDecoration: 'none' }}>
           {title}
         </Link>
       </NextLink>
@@ -15,7 +15,7 @@ export function PostTitle({ title, url }) {
   );
 }
 
-export function Post({ post, root = "blog" }) {
+export function Post({ post, root = 'blog' }) {
   const postUrl = `/${root}/${post.slug}`;
   return (
     <Wrap key={post.slug} spacing="30px" marginTop="5" w="100%">
@@ -24,7 +24,7 @@ export function Post({ post, root = "blog" }) {
           {post.cover ? (
             <Box borderRadius="lg" overflow="hidden">
               <NextLink href={postUrl}>
-                <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
+                <Link textDecoration="none" _hover={{ textDecoration: 'none' }}>
                   <Image
                     transform="scale(1.0)"
                     src={post.cover}
@@ -33,7 +33,7 @@ export function Post({ post, root = "blog" }) {
                     width="100%"
                     transition="0.3s ease-in-out"
                     _hover={{
-                      transform: "scale(1.05)",
+                      transform: 'scale(1.05)',
                     }}
                   />
                 </Link>
@@ -43,7 +43,7 @@ export function Post({ post, root = "blog" }) {
           {!post.cover ? <PostTitle title={post.title} url={postUrl} /> : null}
           <Flex alignItems="center" justifyContent="space-between" marginTop="3">
             {post.tags?.length ? <PostTags tags={post.tags} /> : null}
-            <Text as="i" display={["none", "block"]}>
+            <Text as="i" display={['none', 'block']}>
               {getDateString(post.date)}
             </Text>
           </Flex>

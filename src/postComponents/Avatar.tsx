@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
 function Avatar() {
   const styles = {
-    width: "75px",
-    height: "75px",
-    borderRadius: "50%",
+    width: '75px',
+    height: '75px',
+    borderRadius: '50%',
   };
 
   return (

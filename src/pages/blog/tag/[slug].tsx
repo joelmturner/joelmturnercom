@@ -1,7 +1,8 @@
-import { BlogArchive } from "../../../components/BlogArchive";
-import { getAllTags, getPostsByTag } from "../../../lib/posts";
+import { InferGetStaticPropsType } from 'next';
+import { BlogArchive } from '../../../components/BlogArchive';
+import { getAllTags, getPostsByTag } from '../../../lib/posts';
 
-export default function TagArchive({ posts, tag }) {
+export default function TagArchive({ posts, tag }: InferGetStaticPropsType<typeof getStaticProps>) {
   return <BlogArchive posts={posts} title={`Tag: ${tag}`} />;
 }
 

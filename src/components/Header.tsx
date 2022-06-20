@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import Link from "next/link";
+import React, { useCallback } from 'react';
+import Link from 'next/link';
 import {
   Button,
   chakra,
@@ -12,28 +12,28 @@ import {
   useColorModeValue,
   useDisclosure,
   VStack,
-} from "@chakra-ui/react";
-import { useViewportScroll } from "framer-motion";
-import { AiOutlineMenu } from "react-icons/ai";
-import { FaMoon, FaSun } from "react-icons/fa";
+} from '@chakra-ui/react';
+import { useViewportScroll } from 'framer-motion';
+import { AiOutlineMenu } from 'react-icons/ai';
+import { FaMoon, FaSun } from 'react-icons/fa';
 
 const NAV_LINKS = [
-  { id: "about", component: <Link href="/about">About</Link> },
-  { id: "blog", component: <Link href="/blog">Blog</Link> },
-  { id: "illustration", component: <Link href="/illustration">Illustration</Link> },
-  { id: "til", component: <Link href="/til">TIL</Link> },
+  { id: 'about', component: <Link href="/about">About</Link> },
+  { id: 'blog', component: <Link href="/blog">Blog</Link> },
+  { id: 'illustration', component: <Link href="/illustration">Illustration</Link> },
+  { id: 'til', component: <Link href="/til">TIL</Link> },
 ];
 
 export function Header() {
   const { toggleColorMode: toggleMode } = useColorMode();
-  const text = useColorModeValue("dark", "light");
+  const text = useColorModeValue('dark', 'light');
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
-  const bg = useColorModeValue("white", "gray.800");
+  const bg = useColorModeValue('white', 'gray.800');
   const ref = React.useRef<HTMLHeadElement>();
   const [y, setY] = React.useState(0);
   const { height = 0 } = ref.current ? ref.current.getBoundingClientRect() : {};
   const { scrollY } = useViewportScroll();
-  const cl = useColorModeValue("gray.800", "white");
+  const cl = useColorModeValue('gray.800', 'white');
   const mobileNav = useDisclosure();
 
   React.useEffect(() => {
@@ -51,7 +51,7 @@ export function Header() {
         top={0}
         left={0}
         right={0}
-        display={mobileNav.isOpen ? "flex" : "none"}
+        display={mobileNav.isOpen ? 'flex' : 'none'}
         flexDirection="column"
         p={5}
         pb={4}
@@ -81,7 +81,7 @@ export function Header() {
   return (
     <chakra.header
       ref={ref}
-      shadow={y > height ? "sm" : undefined}
+      shadow={y > height ? 'sm' : undefined}
       transition="box-shadow 0.2s"
       bg={bg}
       borderTop="6px solid"
@@ -89,7 +89,7 @@ export function Header() {
       w="full"
       overflowY="hidden"
       borderBottomWidth={2}
-      borderBottomColor={useColorModeValue("gray.200", "gray.900")}
+      borderBottomColor={useColorModeValue('gray.200', 'gray.900')}
     >
       <chakra.div h="4.5rem" mx="auto" maxW="4xl">
         <Flex w="full" h="full" px="6" alignItems="center" justifyContent="space-between">
@@ -104,15 +104,15 @@ export function Header() {
             </Link>
           </Flex>
           <Flex>
-            <HStack spacing="5" display={{ base: "none", md: "flex" }}></HStack>
+            <HStack spacing="5" display={{ base: 'none', md: 'flex' }}></HStack>
           </Flex>
           <Flex
             justify="flex-end"
             align="center"
             color="gray.400"
             display={{
-              base: "none",
-              md: "flex",
+              base: 'none',
+              md: 'flex',
             }}
           >
             {NAV_LINKS.map((link) => (
@@ -124,7 +124,7 @@ export function Header() {
                 alignItems="center"
                 fontSize="md"
                 _hover={{ color: cl }}
-                _focus={{ boxShadow: "none" }}
+                _focus={{ boxShadow: 'none' }}
               >
                 {link.component}
               </Button>
@@ -135,16 +135,16 @@ export function Header() {
               aria-label={`Switch to ${text} mode`}
               variant="ghost"
               color="current"
-              ml={{ base: "0", md: "3" }}
+              ml={{ base: '0', md: '3' }}
               onClick={toggleMode}
               icon={<SwitchIcon />}
             />
           </Flex>
           <IconButton
-            display={{ base: "flex", md: "none" }}
+            display={{ base: 'flex', md: 'none' }}
             aria-label="Open menu"
             fontSize="20px"
-            color={useColorModeValue("gray.800", "inherit")}
+            color={useColorModeValue('gray.800', 'inherit')}
             variant="ghost"
             icon={<AiOutlineMenu />}
             onClick={mobileNav.onOpen}

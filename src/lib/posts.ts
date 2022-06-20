@@ -1,16 +1,16 @@
-import * as fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-import { FrontMatter } from "./types";
-import { bundleMDX } from "mdx-bundler";
-import remarkFrontmatter from "remark-frontmatter";
-import remarkGfm from "remark-gfm";
-import rehypeExternalLinks from "rehype-external-links";
-import rehypeHighlight from "rehype-highlight";
-import rehypeMetaAttribute from "./rehype-meta-attribute";
-import rehypeHighlightCode from "./rehype-highlight-code";
+import * as fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { FrontMatter } from './types';
+import { bundleMDX } from 'mdx-bundler';
+import remarkFrontmatter from 'remark-frontmatter';
+import remarkGfm from 'remark-gfm';
+import rehypeExternalLinks from 'rehype-external-links';
+import rehypeHighlight from 'rehype-highlight';
+import rehypeMetaAttribute from './rehype-meta-attribute';
+import rehypeHighlightCode from './rehype-highlight-code';
 
-const postsDirectory = path.join(process.cwd(), "src/content/blog");
+const postsDirectory = path.join(process.cwd(), 'src/content/blog');
 
 export function getAllPostIds() {
   const files = fs.readdirSync(postsDirectory, { withFileTypes: true });
@@ -19,8 +19,8 @@ export function getAllPostIds() {
     .map((file) => {
       if (!file.isDirectory()) return;
 
-      const fullPath = path.join(postsDirectory, file.name, `index.mdx`);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const fullPath = path.join(postsDirectory, file.name, 'index.mdx');
+      const fileContents = fs.readFileSync(fullPath, 'utf8');
 
       const matterResult = matter(fileContents);
 
@@ -59,8 +59,8 @@ export async function getPostData(id: string): Promise<
   FrontMatter & {
     id: string;
     content: any;
-    next: Pick<FrontMatter, "slug" | "title"> | null;
-    prev: Pick<FrontMatter, "slug" | "title"> | null;
+    next: Pick<FrontMatter, 'slug' | 'title'> | null;
+    prev: Pick<FrontMatter, 'slug' | 'title'> | null;
   }
 > {
   const posts = getPosts();
@@ -68,8 +68,10 @@ export async function getPostData(id: string): Promise<
   const nextIndex = postIndex + 1 < posts.length ? postIndex + 1 : null;
   const prevIndex = postIndex - 1 >= 0 ? postIndex - 1 : null;
 
-  const next = nextIndex !== null ? { slug: posts[nextIndex].slug, title: posts[nextIndex].title } : null;
-  const prev = prevIndex !== null ? { slug: posts[prevIndex].slug, title: posts[prevIndex].title } : null;
+  const next =
+    nextIndex !== null ? { slug: posts[nextIndex].slug, title: posts[nextIndex].title } : null;
+  const prev =
+    prevIndex !== null ? { slug: posts[prevIndex].slug, title: posts[prevIndex].title } : null;
 
   const content = await bundleMDX({
     source: posts[postIndex].content,
@@ -97,8 +99,8 @@ export async function getPostData(id: string): Promise<
 }
 
 export function getPosts(
-  sort: "date" | "name" = "date",
-  sortBy: "ASC" | "DESC" = "DESC"
+  sort: 'date' | 'name' = 'date',
+  sortBy: 'ASC' | 'DESC' = 'DESC'
 ): Array<FrontMatter & { content: string }> {
   const files = fs.readdirSync(postsDirectory, { withFileTypes: true });
 
@@ -106,13 +108,13 @@ export function getPosts(
     .map((file) => {
       if (!file.isDirectory()) return;
 
-      const fullPath = path.join(postsDirectory, file.name, `index.mdx`);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const fullPath = path.join(postsDirectory, file.name, 'index.mdx');
+      const fileContents = fs.readFileSync(fullPath, 'utf8');
 
       // Use gray-matter to parse the post metadata section
       const matterResult = matter(fileContents);
       const frontMatter: FrontMatter = Object.keys(matterResult.data).reduce((acc, key) => {
-        const value = ["date", "lastmod"].includes(key)
+        const value = ['date', 'lastmod'].includes(key)
           ? new Date(matterResult.data[key]).valueOf()
           : matterResult.data[key];
         return { ...acc, [key]: value };
@@ -121,8 +123,8 @@ export function getPosts(
     })
     .filter((post) => post)
     .sort((a, b) => {
-      if (sort === "date") {
-        return sortBy === "ASC" ? a.date - b.date : b.date - a.date;
+      if (sort === 'date') {
+        return sortBy === 'ASC' ? a.date - b.date : b.date - a.date;
       }
     });
 

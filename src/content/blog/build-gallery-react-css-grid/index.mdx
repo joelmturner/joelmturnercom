@@ -51,39 +51,40 @@ The wrapper styles will give the children their sizes based on the grid and row 
 We'll add a function that can handle the different sizing from the `size` prop and pass these into the wrapper styles.
 
 ```jsx line=4,6-25,29
-import React from "react";
-import Img from "gatsby-image";
+import React from 'react';
+import Img from 'gatsby-image';
 
-function Gallery({ nodes = [], size = "m" }) {
+function Gallery({ nodes = [], size = 'm' }) {
   function getStylesForSize() {
     switch (size) {
-      case "s":
+      case 's':
         return {
-          gridTemplateColumns: "repeat(auto-fill, minmax(142px, 1fr))",
-          gridGap: "0.25rem",
+          gridTemplateColumns: 'repeat(auto-fill, minmax(142px, 1fr))',
+          gridGap: '0.25rem',
         };
-      case "m":
+      case 'm':
       default:
         return {
-          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-          gridGap: "0.5rem",
+          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+          gridGap: '0.5rem',
         };
-      case "l":
+      case 'l':
         return {
-          gridTemplateColumns: "1fr",
-          gridGap: ".75rem",
+          gridTemplateColumns: '1fr',
+          gridGap: '.75rem',
         };
     }
   }
 
   const wrapperStyles = {
-    display: "grid",
+    display: 'grid',
     ...getStylesForSize(),
   };
 
   return (
     <div style={wrapperStyles}>
-      {nodes.length > 0 && nodes.map((node) => <Img fluid={node.localImage.childImageSharp.fluid} />)}
+      {nodes.length > 0 &&
+        nodes.map((node) => <Img fluid={node.localImage.childImageSharp.fluid} />)}
     </div>
   );
 }
@@ -96,10 +97,10 @@ We can now pass our size changes to the gallery component. Cool!
 Now, let's type it. This will help us and others know what we shape we need passed to the gallery.
 
 ```typescript line=2,4-19,21,23,44
-import React from "react";
-import Img, { FluidObject } from "gatsby-image";
+import React from 'react';
+import Img, { FluidObject } from 'gatsby-image';
 
-type GallerySizes = "s" | "m" | "l";
+type GallerySizes = 's' | 'm' | 'l';
 type GalleryImage = {
   node: {
     localImage: {
@@ -116,36 +117,37 @@ type GalleryProps = {
   size?: GallerySizes;
 };
 
-function Gallery({ images, size = "m" }: GalleryProps) {
+function Gallery({ images, size = 'm' }: GalleryProps) {
   function getStylesForSize(): React.CSSProperties {
     switch (size) {
-      case "s":
+      case 's':
         return {
-          gridTemplateColumns: "repeat(auto-fill, minmax(142px, 1fr))",
-          gridGap: "0.25rem",
+          gridTemplateColumns: 'repeat(auto-fill, minmax(142px, 1fr))',
+          gridGap: '0.25rem',
         };
-      case "m":
+      case 'm':
       default:
         return {
-          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-          gridGap: "0.5rem",
+          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+          gridGap: '0.5rem',
         };
-      case "l":
+      case 'l':
         return {
-          gridTemplateColumns: "1fr",
-          gridGap: ".75rem",
+          gridTemplateColumns: '1fr',
+          gridGap: '.75rem',
         };
     }
   }
 
   const wrapperStyles: React.CSSProperties = {
-    display: "grid",
+    display: 'grid',
     ...getStylesForSize(),
   };
 
   return (
     <div style={wrapperStyles}>
-      {nodes.length > 0 && nodes.map((node) => <Img fluid={node.localImage.childImageSharp.fluid} />)}
+      {nodes.length > 0 &&
+        nodes.map((node) => <Img fluid={node.localImage.childImageSharp.fluid} />)}
     </div>
   );
 }

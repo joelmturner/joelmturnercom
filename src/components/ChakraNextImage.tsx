@@ -1,6 +1,6 @@
-import * as React from "react";
-import NextImage from "next/image";
-import { Box, BoxProps } from "@chakra-ui/react";
+import * as React from 'react';
+import NextImage from 'next/image';
+import { Box, BoxProps } from '@chakra-ui/react';
 
 export function ChakraNextImage(props: BoxProps & { src: string; alt: string; nextSize?: number }) {
   const { src, alt, nextSize, ...rest } = props;
@@ -20,7 +20,7 @@ export function ChakraNextImage(props: BoxProps & { src: string; alt: string; ne
     <Box position="relative" {...rest}>
       <NextImage
         objectFit="cover"
-        layout={nextSize ? "responsive" : "fill"}
+        layout={nextSize ? 'responsive' : 'fill'}
         src={src}
         alt={alt}
         {...resolvedNextSize}

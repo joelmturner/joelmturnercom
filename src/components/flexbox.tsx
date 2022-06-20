@@ -1,4 +1,4 @@
-import { CSSProperties, ElementType, ReactElement } from "react";
+import { CSSProperties, ElementType, ReactElement } from 'react';
 
 export type FlexboxProps = React.HTMLAttributes<HTMLElement> & {
   className?: string;
@@ -8,7 +8,7 @@ export type FlexboxProps = React.HTMLAttributes<HTMLElement> & {
   noGrow?: boolean;
   grow?: number;
   shrink?: number;
-  basis?: number | "auto";
+  basis?: number | 'auto';
   children?: React.ReactNode;
   //
   top?: boolean;
@@ -37,34 +37,34 @@ export const getFlexProperties = ({
   gap,
 }: FlexboxProps) => {
   // check all booleans and return appropriate css
-  let primaryAxis = "initial";
-  let secondaryAxis = "initial";
-  let gridGap: string | number = "none";
+  let primaryAxis = 'initial';
+  let secondaryAxis = 'initial';
+  let gridGap: string | number = 'none';
 
   // does primary axis have a value?
   if (left || center || right || between || around) {
     // set value
     if (left) {
-      primaryAxis = "flex-start";
+      primaryAxis = 'flex-start';
     } else if (center) {
-      primaryAxis = "center";
+      primaryAxis = 'center';
     } else if (right) {
-      primaryAxis = "flex-end";
+      primaryAxis = 'flex-end';
     } else if (between) {
-      primaryAxis = "space-between";
+      primaryAxis = 'space-between';
     } else if (around) {
-      primaryAxis = "space-around";
+      primaryAxis = 'space-around';
     }
   }
 
   // secondary axis
   if (top || middle || bottom) {
     if (top) {
-      secondaryAxis = "flex-start";
+      secondaryAxis = 'flex-start';
     } else if (middle) {
-      secondaryAxis = "center";
+      secondaryAxis = 'center';
     } else if (bottom) {
-      secondaryAxis = "flex-end";
+      secondaryAxis = 'flex-end';
     }
   }
 
@@ -72,25 +72,25 @@ export const getFlexProperties = ({
   if (vertical) {
     if (left || center || right) {
       if (left) {
-        secondaryAxis = "flex-start";
+        secondaryAxis = 'flex-start';
       } else if (center) {
-        secondaryAxis = "center";
+        secondaryAxis = 'center';
       } else if (right) {
-        secondaryAxis = "flex-end";
+        secondaryAxis = 'flex-end';
       }
     }
 
     if (top || middle || bottom || between || around) {
       if (top) {
-        primaryAxis = "flex-start";
+        primaryAxis = 'flex-start';
       } else if (middle) {
-        primaryAxis = "center";
+        primaryAxis = 'center';
       } else if (bottom) {
-        primaryAxis = "flex-end";
+        primaryAxis = 'flex-end';
       } else if (between) {
-        primaryAxis = "space-between";
+        primaryAxis = 'space-between';
       } else if (around) {
-        primaryAxis = "space-around";
+        primaryAxis = 'space-around';
       }
     }
   }
@@ -106,8 +106,8 @@ export const getFlexProperties = ({
   return {
     justifyContent: primaryAxis,
     alignItems: secondaryAxis,
-    marginLeft: gap && !vertical ? gridGap : "initial",
-    marginTop: gap && vertical ? gridGap : "initial",
+    marginLeft: gap && !vertical ? gridGap : 'initial',
+    marginTop: gap && vertical ? gridGap : 'initial',
   };
 };
 
@@ -127,7 +127,7 @@ export function Flexbox({
   wrap,
   noGrow,
   children,
-  as = "div",
+  as = 'div',
   ...rest
 }: FlexboxProps) {
   const { justifyContent, alignItems, marginLeft, marginTop } = getFlexProperties({
@@ -146,13 +146,13 @@ export function Flexbox({
   return (
     <Element
       sx={{
-        display: (inline ? "inline-flex" : "flex") as CSSProperties,
-        flexDirection: (vertical ? "column" : "row") as CSSProperties,
-        flexWrap: (wrap ? "wrap" : "no-wrap") as CSSProperties,
-        flex: noGrow ? `0 0 auto` : `1 1 auto`,
+        display: (inline ? 'inline-flex' : 'flex') as CSSProperties,
+        flexDirection: (vertical ? 'column' : 'row') as CSSProperties,
+        flexWrap: (wrap ? 'wrap' : 'no-wrap') as CSSProperties,
+        flex: noGrow ? '0 0 auto' : '1 1 auto',
         justifyContent,
         alignItems,
-        "& > * + *": {
+        '& > * + *': {
           marginLeft,
           marginTop,
         },

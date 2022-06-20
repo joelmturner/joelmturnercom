@@ -1,5 +1,5 @@
-import Script from "next/script";
-import React from "react";
+import Script from 'next/script';
+import React from 'react';
 
 type SchemaProps = {
   author: string;
@@ -29,8 +29,8 @@ export const Schema = React.memo(
   }: SchemaProps) => {
     const baseSchema = [
       {
-        "@context": "http://schema.org",
-        "@type": "WebSite",
+        '@context': 'http://schema.org',
+        '@type': 'WebSite',
         url,
         name: title,
         alternateName: defaultTitle,
@@ -41,14 +41,14 @@ export const Schema = React.memo(
       ? [
           ...baseSchema,
           {
-            "@context": "http://schema.org",
-            "@type": "BreadcrumbList",
+            '@context': 'http://schema.org',
+            '@type': 'BreadcrumbList',
             itemListElement: [
               {
-                "@type": "ListItem",
+                '@type': 'ListItem',
                 position: 1,
                 item: {
-                  "@id": url,
+                  '@id': url,
                   name: title,
                   image,
                 },
@@ -56,30 +56,30 @@ export const Schema = React.memo(
             ],
           },
           {
-            "@context": "http://schema.org",
-            "@type": "BlogPosting",
+            '@context': 'http://schema.org',
+            '@type': 'BlogPosting',
             url,
             name: title,
             alternateName: defaultTitle,
             headline: title,
             image: {
-              "@type": "ImageObject",
+              '@type': 'ImageObject',
               url: image,
             },
             description,
             author: {
-              "@type": "Person",
+              '@type': 'Person',
               name: author,
             },
             publisher: {
-              "@type": "Organization",
+              '@type': 'Organization',
               url,
               logo: image,
               name: title,
             },
             mainEntityOfPage: {
-              "@type": "WebSite",
-              "@id": canonicalUrl,
+              '@type': 'WebSite',
+              '@id': canonicalUrl,
             },
             datePublished,
             dateModified,

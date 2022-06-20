@@ -1,12 +1,13 @@
-import { FormControl, FormLabel, Grid, GridItem, Select, VStack } from "@chakra-ui/react";
-import NextImage from "next/image";
-import React, { useCallback, useMemo, useState } from "react";
-import { Dialog } from "../components/Dialog";
-import { MDXComponents } from "../components/MDXComponents";
-import SEO from "../components/SEO";
-import { ILLUSTRATION_FILTER_OPTIONS } from "../lib/constants";
-import { getIllustrations } from "../lib/illustrations";
-import { Illustrations, IllustrationTag } from "../lib/types";
+import { FormControl, FormLabel, Grid, GridItem, Select, VStack } from '@chakra-ui/react';
+import { InferGetStaticPropsType } from 'next';
+import NextImage from 'next/image';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Dialog } from '../components/Dialog';
+import { MDXComponents } from '../components/MDXComponents';
+import SEO from '../components/SEO';
+import { ILLUSTRATION_FILTER_OPTIONS } from '../lib/constants';
+import { getIllustrations } from '../lib/illustrations';
+import { Illustrations, IllustrationTag } from '../lib/types';
 
 function GridImage({ id, url, index, setLightboxOffset }) {
   const handleImageClick = useCallback((index) => {
@@ -22,18 +23,14 @@ function GridImage({ id, url, index, setLightboxOffset }) {
         height={200}
         layout="responsive"
         onClick={() => handleImageClick(index)}
-        style={{ cursor: "pointer" }}
+        style={{ cursor: 'pointer' }}
       />
     </GridItem>
   );
 }
 
-type IllustrationPageProps = {
-  images: Illustrations;
-};
-
-function IllustrationPage({ images }: IllustrationPageProps) {
-  const [selection, setSelection] = useState<IllustrationTag>("joelmturner_featured");
+function IllustrationPage({ images }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const [selection, setSelection] = useState<IllustrationTag>('joelmturner_featured');
   const [lightboxOffset, setLightboxOffset] = useState(-1);
 
   const selectedImages = useMemo(() => {
@@ -55,7 +52,12 @@ function IllustrationPage({ images }: IllustrationPageProps) {
         <MDXComponents.h1>Explorations of Handlettering and Illustration</MDXComponents.h1>
         <FormControl>
           <FormLabel htmlFor="collection">Collection</FormLabel>
-          <Select id="collection" placeholder="Select collection" value={selection} onChange={handleChange}>
+          <Select
+            id="collection"
+            placeholder="Select collection"
+            value={selection}
+            onChange={handleChange}
+          >
             {ILLUSTRATION_FILTER_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
@@ -66,11 +68,17 @@ function IllustrationPage({ images }: IllustrationPageProps) {
         <Grid
           gap={2}
           w="full"
-          templateColumns={{ sm: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }}
-          sx={{ containIntrinsicSize: "160px", contentVisibility: "auto" }}
+          templateColumns={{ sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }}
+          sx={{ containIntrinsicSize: '160px', contentVisibility: 'auto' }}
         >
           {selectedImages?.map(({ id, url }, index) => (
-            <GridImage key={id} id={id} url={url} index={index} setLightboxOffset={setLightboxOffset} />
+            <GridImage
+              key={id}
+              id={id}
+              url={url}
+              index={index}
+              setLightboxOffset={setLightboxOffset}
+            />
           ))}
         </Grid>
       </VStack>

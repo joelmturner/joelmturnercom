@@ -1,5 +1,5 @@
 ---
-title: "Quick Tip: GraphQL Fragments in Gatsby"
+title: 'Quick Tip: GraphQL Fragments in Gatsby'
 date: 2019-09-09
 draft: false
 slug: quick-tip-graphql-fragments
@@ -47,7 +47,10 @@ Then we can use them in our components with a page query or static query.
 ```jsx line=7
 const data = useStaticQuery(graphql`
   query {
-    allInstagramContent(filter: { tags: { glob: "ink*2017" } }, sort: { fields: created_time, order: ASC }) {
+    allInstagramContent(
+      filter: { tags: { glob: "ink*2017" } }
+      sort: { fields: created_time, order: ASC }
+    ) {
       edges {
         ...InstaNodes
       }

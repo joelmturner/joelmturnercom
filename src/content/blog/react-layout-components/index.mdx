@@ -15,7 +15,7 @@ excerpt: React components for rapid layout and ease of use. These components are
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157939/Posts/layout-components.jpg
 ---
 
-import { CodeSandbox } from "mdx-embed";
+import { CodeSandbox } from 'mdx-embed';
 
 There are a few components that I use almost every day in development. They are used for layouts and are made from flexbox and css grid. On this site I pass both of these down with the MdxProvider so all my pages and posts have access to them easily.
 
@@ -44,7 +44,7 @@ type FlexboxProps = {
   noGrow?: boolean; // acts as no-grow and no-shrink
   grow?: number;
   shrink?: number;
-  basis?: number | "auto";
+  basis?: number | 'auto';
 
   top?: boolean;
   middle?: boolean;
@@ -66,7 +66,10 @@ Here is some example usage. See the [CodeSandbox](#example) down below for more.
     <h1>A Title for You</h1>
   </Flexbox>
   <Flexbox bottom>
-    <p>This is some copy to show how the box will fill the whole area but the text will be aligned bottom.</p>
+    <p>
+      This is some copy to show how the box will fill the whole area but the text will be aligned
+      bottom.
+    </p>
   </Flexbox>
 </Flexbox>
 ```

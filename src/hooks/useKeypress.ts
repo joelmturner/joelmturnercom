@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 export function useKeypress(targetKey: string) {
   // State for keeping track of whether key is pressed
@@ -19,12 +19,12 @@ export function useKeypress(targetKey: string) {
         setKeyPressed(false);
       }
     };
-    window.addEventListener("keydown", downHandler);
-    window.addEventListener("keyup", upHandler);
+    window.addEventListener('keydown', downHandler);
+    window.addEventListener('keyup', upHandler);
     // Remove event listeners on cleanup
     return () => {
-      window.removeEventListener("keydown", downHandler);
-      window.removeEventListener("keyup", upHandler);
+      window.removeEventListener('keydown', downHandler);
+      window.removeEventListener('keyup', upHandler);
     };
   }, [targetKey]); // Empty array ensures that effect is only run on mount and unmount
 

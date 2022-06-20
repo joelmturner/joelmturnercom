@@ -1,16 +1,16 @@
-import { DialogOverlay, DialogContent } from "@reach/dialog";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
-import { handleEnterKeyPress } from "../utils/a11y";
-import { useState, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { wrap } from "@popmotion/popcorn";
-import { useOnClickOutside, useKeypressSimple } from "../hooks";
-import { IllustrationItem } from "../lib/types";
-import { ChakraNextImage } from "./ChakraNextImage";
-import { Box, chakra, useColorModeValue, Flex } from "@chakra-ui/react";
-import "@reach/dialog/styles.css";
-import NextImage from "next/image";
+import { DialogOverlay, DialogContent } from '@reach/dialog';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { IoMdClose } from 'react-icons/io';
+import { handleEnterKeyPress } from '../utils/a11y';
+import { useState, useCallback, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { wrap } from '@popmotion/popcorn';
+import { useOnClickOutside, useKeypressSimple } from '../hooks';
+import { IllustrationItem } from '../lib/types';
+import { ChakraNextImage } from './ChakraNextImage';
+import { Box, chakra, useColorModeValue, Flex } from '@chakra-ui/react';
+import '@reach/dialog/styles.css';
+import NextImage from 'next/image';
 
 const Overlay = chakra(DialogOverlay);
 const Content = chakra(DialogContent);
@@ -51,7 +51,7 @@ const VARIANTS = {
 };
 
 const TRANSITION = {
-  x: { type: "spring", stiffness: 300, damping: 30 },
+  x: { type: 'spring', stiffness: 300, damping: 30 },
   opacity: { duration: 0.2 },
 };
 
@@ -90,8 +90,8 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
   }, []);
 
   // handle key presses
-  useKeypressSimple("ArrowRight", onNext, [page]);
-  useKeypressSimple("ArrowLeft", onPrev, [page]);
+  useKeypressSimple('ArrowRight', onNext, [page]);
+  useKeypressSimple('ArrowLeft', onPrev, [page]);
 
   const imageIndex = wrap(0, images.length, page);
   useOnClickOutside(ref, onClose as any);
@@ -103,11 +103,11 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
       onDismiss={onClose}
       className={className}
       sx={{
-        "&[data-reach-dialog-overlay]": {
-          bg: useColorModeValue("rgb(255,255,255,0.93)", "rgb(0,0,0,0.93)"),
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+        '&[data-reach-dialog-overlay]': {
+          bg: useColorModeValue('rgb(255,255,255,0.93)', 'rgb(0,0,0,0.93)'),
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
           zIndex: 100,
         },
       }}
@@ -122,17 +122,17 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
         pointerEvents="none"
         height="calc(100vh - 7rem)"
         sx={{
-          "&[data-reach-dialog-content]": {
+          '&[data-reach-dialog-content]': {
             padding: 0,
             margin: 0,
-            width: "100%",
-            background: "transparent",
+            width: '100%',
+            background: 'transparent',
           },
         }}
       >
         <Flex
           gap={4}
-          w={["85%", "100%"]}
+          w={['85%', '100%']}
           h="100%"
           maxHeight="85vw"
           maxWidth="85vh"
@@ -140,7 +140,7 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
           pointerEvents="auto"
           pos="relative"
           sx={{
-            ":hover [data-reach-dialog-nav]": {
+            ':hover [data-reach-dialog-nav]': {
               opacity: 1,
             },
           }}
@@ -149,14 +149,14 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
             pos="absolute"
             top="-2rem"
             right="-1rem"
-            border={"1px solid"}
-            borderColor={useColorModeValue("gray.300", "gray.700")}
-            padding={"0"}
-            width={"1.5rem"}
-            height={"1.5rem"}
-            color={useColorModeValue("gray.700", "gray.300")}
-            cursor={"pointer"}
-            borderRadius={"50%"}
+            border={'1px solid'}
+            borderColor={useColorModeValue('gray.300', 'gray.700')}
+            padding={'0'}
+            width={'1.5rem'}
+            height={'1.5rem'}
+            color={useColorModeValue('gray.700', 'gray.300')}
+            cursor={'pointer'}
+            borderRadius={'50%'}
             pointerEvents="auto"
             onClick={onClose}
             aria-label="close image viewer"
@@ -170,14 +170,14 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
               width="1.9rem"
               height="1.9rem"
               fontSize=".75rem"
-              color={useColorModeValue("gray.700", "gray.300")}
+              color={useColorModeValue('gray.700', 'gray.300')}
               cursor="pointer"
               top="50%"
               borderRadius="50%"
               transition="opacity 300ms"
               left="-10"
               opacity={0}
-              display={["none", "none", "block"]}
+              display={['none', 'none', 'block']}
               onClick={onPrev}
               data-reach-dialog-nav="prev"
               role="button"
@@ -185,16 +185,16 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
               tabIndex={0}
               onKeyPress={handleEnterKeyPress(onPrev)}
               sx={{
-                ":focus": {
+                ':focus': {
                   opacity: 1,
-                  "& ~ [data-reach-dialog-nav]": {
+                  '& ~ [data-reach-dialog-nav]': {
                     opacity: 1,
                   },
                 },
               }}
             />
           )}
-          <Box position="relative" w={"100%"} h={"100%"} m="0 auto" overflow="hidden">
+          <Box position="relative" w={'100%'} h={'100%'} m="0 auto" overflow="hidden">
             <AnimatePresence initial={false} custom={direction}>
               <motion.div
                 key={page}
@@ -206,12 +206,12 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
                 transition={TRANSITION}
                 drag="x"
                 style={{
-                  y: "0%",
-                  position: "absolute",
+                  y: '0%',
+                  position: 'absolute',
                   top: 0,
                   left: 0,
-                  width: "100%",
-                  height: "100%",
+                  width: '100%',
+                  height: '100%',
                 }}
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={1}
@@ -219,12 +219,12 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
               >
                 <NextImage
                   src={images[imageIndex]?.url}
-                  alt={`full size page`}
+                  alt={'full size page'}
                   objectFit="contain"
                   width={200}
                   height={200}
                   layout="responsive"
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                 />
               </motion.div>
             </AnimatePresence>
@@ -237,14 +237,14 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
               width="1.9rem"
               height="1.9rem"
               fontSize=".75rem"
-              color={useColorModeValue("gray.700", "gray.300")}
+              color={useColorModeValue('gray.700', 'gray.300')}
               cursor="pointer"
               top="50%"
               borderRadius="50%"
               transition="opacity 300ms"
               right="-10"
               opacity={0}
-              display={["none", "none", "block"]}
+              display={['none', 'none', 'block']}
               onClick={onNext}
               data-reach-dialog-nav="next"
               role="button"
@@ -252,9 +252,9 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
               tabIndex={0}
               onKeyPress={handleEnterKeyPress(onNext)}
               sx={{
-                ":focus": {
+                ':focus': {
                   opacity: 1,
-                  "& + [data-reach-dialog-nav]": {
+                  '& + [data-reach-dialog-nav]': {
                     opacity: 1,
                   },
                 },

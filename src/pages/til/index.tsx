@@ -1,9 +1,10 @@
-import Head from "next/head";
-import { getTILs } from "../../lib/tils";
-import { MDXComponents } from "../../components/MDXComponents";
-import { PostList } from "../../components/PostList";
+import Head from 'next/head';
+import { getTILs } from '../../lib/tils';
+import { MDXComponents } from '../../components/MDXComponents';
+import { PostList } from '../../components/PostList';
+import { InferGetStaticPropsType } from 'next';
 
-export default function TILIndex({ tils }) {
+export default function TILIndex({ tils }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
       <Head>
@@ -15,7 +16,7 @@ export default function TILIndex({ tils }) {
   );
 }
 
-export async function getStaticProps({}) {
+export async function getStaticProps() {
   const tils = getTILs();
 
   return {

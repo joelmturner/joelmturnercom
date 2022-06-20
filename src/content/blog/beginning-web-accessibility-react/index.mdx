@@ -96,7 +96,7 @@ Here's a great snippet from [John Luke Garofalo's post about React accessibility
 // attach to a onKeyPress to handle Enter keyboard
 // presses in the same way as onClicks
 export const handleEnterKeyPress = (onClick) => (event) => {
-  if (event.key === "Enter") {
+  if (event.key === 'Enter') {
     onClick(event);
   }
 };
@@ -111,7 +111,7 @@ type HandleKeyPress = (
 
 // attach to a onKeyPress to handle Enter keyboard clicks in the same way as onClicks
 export const handleEnterKeyPress: HandleKeyPress = (onClick) => (event) => {
-  if (event.key === "Enter") {
+  if (event.key === 'Enter') {
     onClick(event);
   }
 };

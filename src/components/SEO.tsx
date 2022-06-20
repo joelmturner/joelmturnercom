@@ -1,21 +1,21 @@
-import React, { memo } from "react";
-import Head from "next/head";
-import { Schema } from "./Schema";
+import React, { memo } from 'react';
+import Head from 'next/head';
+import { Schema } from './Schema';
 
 const DESCRIPTION = `I'm a kombucha lovin' Front-End Dev at Sprinklr. Love lettering, love design, love development, love Portland.`;
 const KEYWORDS = [
-  "react",
-  "reactjs",
-  "javascript",
-  "typescript",
-  "developer",
-  "css",
-  "illustration",
-  "sketch",
-  "handlettering",
-  "portland",
-  "gatsby",
-  "gatsbyjs",
+  'react',
+  'reactjs',
+  'javascript',
+  'typescript',
+  'developer',
+  'css',
+  'illustration',
+  'sketch',
+  'handlettering',
+  'portland',
+  'gatsby',
+  'gatsbyjs',
 ];
 
 type SEOProps = {
@@ -32,16 +32,16 @@ type SEOProps = {
 
 function SEO({
   description,
-  title = "",
+  title = '',
   image,
-  imageAlt = "joel m turner portrait",
+  imageAlt = 'joel m turner portrait',
   isBlogPost = false,
   datePublished,
   dateModified,
   keywords,
 }: SEOProps) {
   const metaDescription = description ?? DESCRIPTION;
-  const metaImage = image ?? `https://res.cloudinary.com/joelmturner/joel-turner.jpg`;
+  const metaImage = image ?? 'https://res.cloudinary.com/joelmturner/joel-turner.jpg';
   const metaKeywords = keywords ?? KEYWORDS;
 
   return (
@@ -63,7 +63,7 @@ function SEO({
         <meta property="og:description" content={metaDescription} />
         <meta property="og:title" content={title} />
         <meta name="image" content={metaImage} />
-        <meta name="keywords" content={metaKeywords.join(", ")} />
+        <meta name="keywords" content={metaKeywords.join(', ')} />
       </Head>
       <Schema
         isBlogPost={isBlogPost}
@@ -71,8 +71,8 @@ function SEO({
         title={title}
         image={metaImage}
         description={metaDescription}
-        datePublished={datePublished || ""}
-        dateModified={dateModified || ""}
+        datePublished={datePublished || ''}
+        dateModified={dateModified || ''}
         canonicalUrl="https://joelmturner.com"
         author="@joelmturner"
         defaultTitle={title}

@@ -1,5 +1,5 @@
 ---
-title: "React Hooks: useDims"
+title: 'React Hooks: useDims'
 date: 2019-09-13
 draft: false
 slug: react-hooks-useDims
@@ -16,7 +16,7 @@ lastmod: 2022-06-15T16:12:15.588Z
 Here's another helpful React hook. This one returns the dimensions of an element that's passed to it.
 
 ```js
-import { useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect } from 'react';
 
 function useDims(ref, isSvg = false) {
   const [dim, setDim] = useState({
@@ -56,7 +56,7 @@ export default useDims;
 It can be used in a component like this.
 
 ```jsx line=5
-import React from "react";
+import React from 'react';
 
 function Chart() {
   const chartRef = React.useRef(null);

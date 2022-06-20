@@ -1,5 +1,5 @@
-import { getAllTilIds, getTilData } from "../../lib/tils";
-import { PostPage } from "../../components/PostPage";
+import { getAllTilIds, getTilData } from '../../lib/tils';
+import { PostPage } from '../../components/PostPage';
 
 export default PostPage;
 
@@ -17,7 +17,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       ...postData,
-      postType: "til",
+      postType: 'til',
     },
   };
 }

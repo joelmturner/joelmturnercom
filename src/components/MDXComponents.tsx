@@ -10,10 +10,10 @@ import {
   Text,
   useColorMode,
   useColorModeValue,
-} from "@chakra-ui/react";
-import Image from "next/image";
-import NextLink from "next/link";
-import { Note } from "./Note";
+} from '@chakra-ui/react';
+import Image from 'next/image';
+import NextLink from 'next/link';
+import { Note } from './Note';
 
 const CustomImage = (props: any) => {
   return <Image width={props.width} height={props.height} src={props.src} alt={props.alt} />;
@@ -22,12 +22,12 @@ const CustomImage = (props: any) => {
 const CustomLink = (props: any) => {
   const { colorMode } = useColorMode();
   const color = {
-    light: "blue.500",
-    dark: "blue.300",
+    light: 'blue.500',
+    dark: 'blue.300',
   };
 
   const href = props.href;
-  const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
+  const isInternalLink = href && (href.startsWith('/') || href.startsWith('#'));
 
   if (isInternalLink) {
     return (
@@ -43,8 +43,8 @@ const CustomLink = (props: any) => {
 const Quote = (props: any) => {
   const { colorMode } = useColorMode();
   const bgColor = {
-    light: "blue.50",
-    dark: "blue.900",
+    light: 'blue.50',
+    dark: 'blue.900',
   };
 
   return (
@@ -55,7 +55,7 @@ const Quote = (props: any) => {
       variant="left-accent"
       status="info"
       css={{
-        "> *:first-of-type": {
+        '> *:first-of-type': {
           marginTop: 0,
           marginLeft: 8,
         },
@@ -68,19 +68,19 @@ const Quote = (props: any) => {
 const DocsHeading = (props: any) => (
   <Heading
     css={{
-      scrollMarginTop: "100px",
-      scrollSnapMargin: "100px", // Safari
-      "&[id]": {
-        pointerEvents: "none",
+      scrollMarginTop: '100px',
+      scrollSnapMargin: '100px', // Safari
+      '&[id]': {
+        pointerEvents: 'none',
       },
-      "&[id]:before": {
-        display: "block",
-        height: " 6rem",
-        marginTop: "-6rem",
-        visibility: "hidden",
-        content: `""`,
+      '&[id]:before': {
+        display: 'block',
+        height: ' 6rem',
+        marginTop: '-6rem',
+        visibility: 'hidden',
+        content: '""',
       },
-      "&[id]:hover a": { opacity: 1 },
+      '&[id]:hover a': { opacity: 1 },
     }}
     {...props}
     mb="1em"
@@ -97,7 +97,7 @@ const DocsHeading = (props: any) => (
           outline="none"
           _focus={{
             opacity: 1,
-            boxShadow: "outline",
+            boxShadow: 'outline',
           }}
           opacity="0"
           ml="0.375rem"
@@ -113,8 +113,8 @@ const DocsHeading = (props: any) => (
 const Hr = () => {
   const { colorMode } = useColorMode();
   const borderColor = {
-    light: "gray.200",
-    dark: "gray.600",
+    light: 'gray.200',
+    dark: 'gray.600',
   };
 
   return <Divider borderColor={borderColor[colorMode]} my={4} w="100%" />;
@@ -150,36 +150,36 @@ export const MDXComponents = {
         data-filename={filename}
         display="block"
         border="1px solid"
-        borderColor={useColorModeValue("orange.100", "gray.700")}
+        borderColor={useColorModeValue('orange.100', 'gray.700')}
         fontSize="0.84em"
         w="100%"
         overflowX="auto"
         py={2}
         my={4}
         sx={{
-          "&[data-filename]::before": {
-            content: "attr(data-filename)",
+          '&[data-filename]::before': {
+            content: 'attr(data-filename)',
             padding: 2,
-            background: useColorModeValue("gray.200", "gray.700"),
-            display: "block",
-            fontSize: "smaller",
-            marginBottom: "0.5rem",
+            background: useColorModeValue('gray.200', 'gray.700'),
+            display: 'block',
+            fontSize: 'smaller',
+            marginBottom: '0.5rem',
           },
-          "&[data-filename]": {
+          '&[data-filename]': {
             paddingTop: 0,
           },
-          ".highlight-line": {
-            position: "relative",
-            borderLeft: "5px solid transparent",
+          '.highlight-line': {
+            position: 'relative',
+            borderLeft: '5px solid transparent',
             pl: 8,
             pr: 2,
 
-            "&::before": {
-              content: "attr(data-line)",
-              position: "absolute",
+            '&::before': {
+              content: 'attr(data-line)',
+              position: 'absolute',
               top: 0,
               left: 1,
-              color: useColorModeValue("gray.500", "gray.600"),
+              color: useColorModeValue('gray.500', 'gray.600'),
             },
           },
         }}

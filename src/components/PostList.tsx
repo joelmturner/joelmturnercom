@@ -1,7 +1,7 @@
-import { VStack } from "@chakra-ui/react";
-import { Post } from "./Post";
+import { VStack } from '@chakra-ui/react';
+import { Post } from './Post';
 
-export function PostList({ posts, root = "blog" }) {
+export function PostList({ posts, root = 'blog' }) {
   return (
     <VStack paddingTop="40px" spacing="50" alignItems="flex-start">
       {posts?.map((post) => (

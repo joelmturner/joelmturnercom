@@ -1,12 +1,12 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 export const nightOwl = css`
-  div[class*="language-"],
-  code[class*="language-"],
-  pre[class*="language-"] {
+  div[class*='language-'],
+  code[class*='language-'],
+  pre[class*='language-'] {
     background: var(--chakra-colors-gray-900);
     color: #d6deeb;
-    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     text-align: left;
     white-space: pre;
     word-spacing: normal;
@@ -21,43 +21,43 @@ export const nightOwl = css`
     -ms-hyphens: none;
     hyphens: none;
   }
-  code[class*="language-"] ::-moz-selection,
-  code[class*="language-"]::-moz-selection,
-  pre[class*="language-"] ::-moz-selection,
-  pre[class*="language-"]::-moz-selection {
+  code[class*='language-'] ::-moz-selection,
+  code[class*='language-']::-moz-selection,
+  pre[class*='language-'] ::-moz-selection,
+  pre[class*='language-']::-moz-selection {
     text-shadow: none;
     background: rgba(29, 59, 83, 0.99);
   }
-  code[class*="language-"] ::selection,
-  code[class*="language-"]::selection,
-  pre[class*="language-"] ::selection,
-  pre[class*="language-"]::selection {
+  code[class*='language-'] ::selection,
+  code[class*='language-']::selection,
+  pre[class*='language-'] ::selection,
+  pre[class*='language-']::selection {
     text-shadow: none;
     background: rgba(29, 59, 83, 0.99);
   }
 
-  pre code[class*="language-"] div[data-highlighted="true"] {
+  pre code[class*='language-'] div[data-highlighted='true'] {
     text-shadow: none;
     background: hsl(200, 94%, 67%, 8%);
     border-left: 5px solid hsl(200, 94%, 67%);
   }
   @media print {
-    code[class*="language-"],
-    pre[class*="language-"] {
+    code[class*='language-'],
+    pre[class*='language-'] {
       text-shadow: none;
     }
   }
-  pre[class*="language-"] {
+  pre[class*='language-'] {
     padding: 1em;
     margin: 0.5em 0;
     overflow: auto;
   }
-  :not(pre) > code[class*="language-"],
-  pre[class*="language-"] {
+  :not(pre) > code[class*='language-'],
+  pre[class*='language-'] {
     color: #fff;
     background: #011627;
   }
-  :not(pre) > code[class*="language-"] {
+  :not(pre) > code[class*='language-'] {
     padding: 0.1em;
     border-radius: 0.3em;
     white-space: normal;
@@ -136,11 +136,11 @@ export const nightOwl = css`
 `;
 
 export const nightOwlLight = css`
-  code[class*="language-"],
-  pre[class*="language-"] {
+  code[class*='language-'],
+  pre[class*='language-'] {
     background: var(--chakra-colors-orange-50);
     color: #403f53;
-    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     text-align: left;
     white-space: pre;
     word-spacing: normal;
@@ -155,42 +155,42 @@ export const nightOwlLight = css`
     -ms-hyphens: none;
     hyphens: none;
   }
-  code[class*="language-"] ::-moz-selection,
-  code[class*="language-"]::-moz-selection,
-  pre[class*="language-"] ::-moz-selection,
-  pre[class*="language-"]::-moz-selection {
+  code[class*='language-'] ::-moz-selection,
+  code[class*='language-']::-moz-selection,
+  pre[class*='language-'] ::-moz-selection,
+  pre[class*='language-']::-moz-selection {
     text-shadow: none;
     background: #fbfbfb;
   }
-  code[class*="language-"] ::selection,
-  code[class*="language-"]::selection,
-  pre[class*="language-"] ::selection,
-  pre[class*="language-"]::selection {
+  code[class*='language-'] ::selection,
+  code[class*='language-']::selection,
+  pre[class*='language-'] ::selection,
+  pre[class*='language-']::selection {
     text-shadow: none;
     background: #fbfbfb;
   }
-  pre code[class*="language-"] div[data-highlighted="true"] {
+  pre code[class*='language-'] div[data-highlighted='true'] {
     text-shadow: none;
     background: hsl(39 94% 67% / 20%);
     border-left: 5px solid hsl(39 100% 79%);
   }
   @media print {
-    code[class*="language-"],
-    pre[class*="language-"] {
+    code[class*='language-'],
+    pre[class*='language-'] {
       text-shadow: none;
     }
   }
-  pre[class*="language-"] {
+  pre[class*='language-'] {
     padding: 1em;
     margin: 0.5em 0;
     overflow: auto;
   }
-  :not(pre) > code[class*="language-"],
-  pre[class*="language-"] {
+  :not(pre) > code[class*='language-'],
+  pre[class*='language-'] {
     color: #fff;
     background: #fbfbfb;
   }
-  :not(pre) > code[class*="language-"] {
+  :not(pre) > code[class*='language-'] {
     padding: 0.1em;
     border-radius: 0.3em;
     white-space: normal;

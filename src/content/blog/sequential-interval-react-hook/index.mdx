@@ -16,7 +16,7 @@ excerpt: Create a React hook that can simulate a pulse-like cycle between animat
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157939/Posts/sequential-interval.jpg
 ---
 
-import { CodeSandbox } from "mdx-embed";
+import { CodeSandbox } from 'mdx-embed';
 
 Create a React hook that can simulate a pulse-like cycle between animation states through different durations per animation state.
 
@@ -37,16 +37,16 @@ The original implementation was built into a class component using a local [MobX
 This is a rough idea of how the nested `setTimeout`s are set up inside of the ping.
 
 ```tsx
-this.animationState = "tick";
+this.animationState = 'tick';
 setTimeout(
   action(() => {
-    this.animationState = "exit";
+    this.animationState = 'exit';
     setTimeout(
       action(() => {
-        this.animationState = "enter";
+        this.animationState = 'enter';
         setTimeout(
           action(() => {
-            this.animationState = "rest";
+            this.animationState = 'rest';
           })
         );
       }),
@@ -88,7 +88,7 @@ This worked like a charm!
 The custom hook is where the magic lies. We start with two `useState`s, one for the animation state and another to determine if the animation cycle is running. We'll return the `status` and the ability to set `isRunning` so our component can turn it on/off.
 
 ```ts
-import { useState, useEffect, SetStateAction, Dispatch } from "react";
+import { useState, useEffect, SetStateAction, Dispatch } from 'react';
 
 // steps through the heartbeat animation states
 export function useStepInterval<StatusType>(
@@ -105,7 +105,7 @@ export function useStepInterval<StatusType>(
 Next, we set up a `useEffect` that will watch `isRunning` to see if the cycle should start. In this hook, we'll have two functions, one that sets up the `Promise`s and another that will run the `reduce` over the `Promise`s.
 
 ```ts
-import { useState, useEffect, SetStateAction, Dispatch } from "react";
+import { useState, useEffect, SetStateAction, Dispatch } from 'react';
 
 // steps through the heartbeat animation states
 export function useStepInterval<StatusType>(

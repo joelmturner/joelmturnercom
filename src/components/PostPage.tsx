@@ -1,22 +1,22 @@
-import { Box, chakra, Divider, Flex, HStack, Link, Tag, Text, VStack } from "@chakra-ui/react";
-import { getMDXComponent } from "mdx-bundler/client";
-import dynamic from "next/dynamic";
-import { useMemo } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { FrontMatter } from "../lib/types";
-import { MDXComponents } from "./MDXComponents";
-import NextLink from "next/link";
-import Head from "next/head";
-import { PostTags } from "./PostTags";
-import SEO from "./SEO";
+import { Box, chakra, Divider, Flex, HStack, Link, Tag, Text, VStack } from '@chakra-ui/react';
+import { getMDXComponent } from 'mdx-bundler/client';
+import dynamic from 'next/dynamic';
+import { useMemo } from 'react';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FrontMatter } from '../lib/types';
+import { MDXComponents } from './MDXComponents';
+import NextLink from 'next/link';
+import Head from 'next/head';
+import { PostTags } from './PostTags';
+import SEO from './SEO';
 
 function getJustification(next, prev) {
   if (next && prev) {
-    return "space-between";
+    return 'space-between';
   } else if (next && !prev) {
-    return "flex-end";
+    return 'flex-end';
   } else {
-    return "flex-start";
+    return 'flex-start';
   }
 }
 
@@ -27,15 +27,21 @@ export function PostPage({
   prev,
   tags,
   category,
-  postType = "blog",
+  postType = 'blog',
   cover,
   date,
   lastmod,
-}: { id: string; content: string; next: FrontMatter; prev: FrontMatter; postType: "blog" | "til" } & FrontMatter) {
+}: {
+  id: string;
+  content: string;
+  next: FrontMatter;
+  prev: FrontMatter;
+  postType: 'blog' | 'til';
+} & FrontMatter) {
   const Post = useMemo(() => getMDXComponent(content), [content]);
 
   //   dynamic import because not ESM compatible
-  const embeds = dynamic(() => import("mdx-embed") as any, { ssr: false });
+  const embeds = dynamic(() => import('mdx-embed') as any, { ssr: false });
   const { CodePen, CodeSandbox } = embeds as any;
 
   const components = {
@@ -74,7 +80,7 @@ export function PostPage({
         {prev && (
           <Box justifyContent="flex-start">
             <NextLink href={`/${postType}/${prev.slug}`}>
-              <Link color="orange.200" sx={{ display: "flex", alignItems: "center", gap: 3 }}>
+              <Link color="orange.200" sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
                 <FaChevronLeft />
                 {prev.title}
               </Link>
@@ -84,7 +90,7 @@ export function PostPage({
         {next && (
           <Box justifyContent="flex-end">
             <NextLink href={`/${postType}/${next.slug}`}>
-              <Link color="orange.200" sx={{ display: "flex", alignItems: "center", gap: 3 }}>
+              <Link color="orange.200" sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
                 {next.title}
                 <FaChevronRight />
               </Link>

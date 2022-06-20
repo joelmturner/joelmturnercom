@@ -1,5 +1,5 @@
-import { getAllPostIds, getPostData } from "../../lib/posts";
-import { PostPage } from "../../components/PostPage";
+import { getAllPostIds, getPostData } from '../../lib/posts';
+import { PostPage } from '../../components/PostPage';
 
 export default PostPage;
 
@@ -17,7 +17,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       ...postData,
-      postType: "blog",
+      postType: 'blog',
     },
   };
 }

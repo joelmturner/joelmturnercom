@@ -5,7 +5,7 @@ date: 2020-07-23T00:00:00.000Z
 draft: false
 tags:
   - React
-  - "@vx"
+  - '@vx'
   - TypeScript
   - Data Visualization
 category: dev
@@ -17,7 +17,7 @@ excerpt: This is a simple example of a single line chart built with the @vx char
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157939/Posts/vx-line-chart.jpg
 ---
 
-import { CodeSandbox } from "mdx-embed";
+import { CodeSandbox } from 'mdx-embed';
 
 <Note>
 
@@ -121,9 +121,9 @@ const yScale = scaleLinear({
 Now we can start building the component. Let's start by setting up the `svg` that will hold our line and axes.
 
 ```jsx
-import React from "react";
-import { Group } from "@vx/group";
-import { scaleTime, scaleLinear } from "@vx/scale";
+import React from 'react';
+import { Group } from '@vx/group';
+import { scaleTime, scaleLinear } from '@vx/scale';
 
 // dimensions
 const height = 500;
@@ -238,12 +238,12 @@ It's looking like a nice, one-line chart now. We might want to add some dots to 
 Awesome, we fulfilled all of our requirements for this one-line chart. Here is all the code together.
 
 ```jsx
-import React from "react";
-import { Group } from "@vx/group";
-import { scaleTime, scaleLinear } from "@vx/scale";
-import { AxisLeft, AxisBottom } from "@vx/axis";
-import { LinePath } from "@vx/shape";
-import { curveLinear } from "@vx/curve";
+import React from 'react';
+import { Group } from '@vx/group';
+import { scaleTime, scaleLinear } from '@vx/scale';
+import { AxisLeft, AxisBottom } from '@vx/axis';
+import { LinePath } from '@vx/shape';
+import { curveLinear } from '@vx/curve';
 
 // dimensions
 const height = 500;
@@ -305,13 +305,13 @@ export default LineChart;
 For better sizing/resizing we can use a resize observer hook in our component. I like to use the package `use-resize-observer` for this. Let's see how we can use it in our component.
 
 ```jsx line=7,18,35,61
-import React from "react";
-import { Group } from "@vx/group";
-import { scaleTime, scaleLinear } from "@vx/scale";
-import { AxisLeft, AxisBottom } from "@vx/axis";
-import { LinePath } from "@vx/shape";
-import { curveLinear } from "@vx/curve";
-import useResizeObserver from "use-resize-observer";
+import React from 'react';
+import { Group } from '@vx/group';
+import { scaleTime, scaleLinear } from '@vx/scale';
+import { AxisLeft, AxisBottom } from '@vx/axis';
+import { LinePath } from '@vx/shape';
+import { curveLinear } from '@vx/curve';
+import useResizeObserver from 'use-resize-observer';
 
 // dimensions
 const height = 500;
@@ -339,7 +339,7 @@ const LineChart = ({ data = [] }) => {
   });
 
   return (
-    <div style={{ width: "100%", height: "100%" }} ref={ref}>
+    <div style={{ width: '100%', height: '100%' }} ref={ref}>
       <svg width={width} height={height}>
         <Group top={25} left={65}>
           <AxisLeft scale={yScale} numTicks={4} label="Miles" />

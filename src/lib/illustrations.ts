@@ -1,5 +1,5 @@
-import cloudinary from "cloudinary";
-import { Illustrations } from "./types";
+import cloudinary from 'cloudinary';
+import { Illustrations } from './types';
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -20,10 +20,10 @@ export async function getIllustrations(): Promise<Illustrations> {
     letterclash: [],
   };
   await cloudinary.v2.search
-    .expression("folder:illustration")
-    .sort_by("public_id", "desc")
+    .expression('folder:illustration')
+    .sort_by('public_id', 'desc')
     .max_results(300)
-    .with_field("tags")
+    .with_field('tags')
     .execute()
     .then((result) => {
       imageResults = result.resources.reduce((acc, imageResult) => {

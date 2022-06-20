@@ -1,7 +1,11 @@
-import { getAllCategories, getPostsByCategory } from "../../../lib/posts";
-import { BlogArchive } from "../../../components/BlogArchive";
+import { getAllCategories, getPostsByCategory } from '../../../lib/posts';
+import { BlogArchive } from '../../../components/BlogArchive';
+import { InferGetStaticPropsType } from 'next';
 
-export default function CategoryArchive({ posts, category }) {
+export default function CategoryArchive({
+  posts,
+  category,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return <BlogArchive posts={posts} title={`Category: ${category}`} />;
 }
 
@@ -14,12 +18,13 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const posts = await getPostsByCategory(params.slug);
+  const slug: string = params.slug;
+  const posts = await getPostsByCategory(slug);
 
   return {
     props: {
       posts,
-      category: params.slug,
+      category: slug,
     },
   };
 }

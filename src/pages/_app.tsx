@@ -1,17 +1,17 @@
 // import "../styles/globals.css";
-import "@fontsource/fira-sans";
-import "@fontsource/fira-code";
-import type { AppProps } from "next/app";
-import { ChakraProvider, ColorModeProvider, useColorMode } from "@chakra-ui/react";
-import Layout from "../layouts/Layout";
-import { MDXProvider } from "@mdx-js/react";
-import { MDXComponents } from "../components/MDXComponents";
-import { css, Global } from "@emotion/react";
-import { nightOwl, nightOwlLight } from "../lib/themes";
-import theme from "../lib/theme";
-import Script from "next/script";
-import Head from "next/head";
-import SEO from "../components/SEO";
+import '@fontsource/fira-sans';
+import '@fontsource/fira-code';
+import type { AppProps } from 'next/app';
+import { ChakraProvider, ColorModeProvider, useColorMode } from '@chakra-ui/react';
+import Layout from '../layouts/Layout';
+import { MDXProvider } from '@mdx-js/react';
+import { MDXComponents } from '../components/MDXComponents';
+import { css, Global } from '@emotion/react';
+import { nightOwl, nightOwlLight } from '../lib/themes';
+import theme from '../lib/theme';
+import Script from 'next/script';
+import Head from 'next/head';
+import SEO from '../components/SEO';
 
 function GlobalStyle() {
   const { colorMode } = useColorMode();
@@ -19,7 +19,7 @@ function GlobalStyle() {
     <>
       <Global
         styles={css`
-          ${colorMode === "light" ? nightOwlLight : nightOwl}
+          ${colorMode === 'light' ? nightOwlLight : nightOwl}
         `}
       />
     </>
@@ -46,7 +46,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <SEO title="Howdy 👋🏻" />
       <ColorModeProvider
         options={{
-          initialColorMode: "dark",
+          initialColorMode: 'dark',
           useSystemColorMode: true,
         }}
       >

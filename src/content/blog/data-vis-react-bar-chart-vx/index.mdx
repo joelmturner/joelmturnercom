@@ -8,7 +8,7 @@ tags:
   - Data Visualization
   - React
   - TypeScript
-  - "@vx"
+  - '@vx'
 series: Data Visualization with React and @vx
 order: 0
 lastmod: 2022-06-15T16:12:15.579Z
@@ -18,7 +18,7 @@ excerpt: Building a bar chart in React using the @vx library of charting primiti
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157939/Posts/vx-bar-chart.jpg
 ---
 
-import { CodeSandbox } from "mdx-embed";
+import { CodeSandbox } from 'mdx-embed';
 
 <Note>
 
@@ -63,23 +63,23 @@ Now that we have our packages we can start stubbing out our data. We're going to
 ```js
 const defaultData1 = [
   {
-    label: "Happy",
+    label: 'Happy',
     value: 4000,
   },
   {
-    label: "Sad",
+    label: 'Sad',
     value: 2000,
   },
   {
-    label: "Angry",
+    label: 'Angry',
     value: 3000,
   },
   {
-    label: "Joyful",
+    label: 'Joyful',
     value: 4500,
   },
   {
-    label: "Anxious",
+    label: 'Anxious',
     value: 7000,
   },
 ];
@@ -130,11 +130,11 @@ const yScale = scaleLinear({
 Cool, let's build the component! We'll start by setting up the `svg` and `Group` to hold our chart. The `Group` helps us place the axes and the bars.
 
 ```jsx
-import React from "react";
-import { Group } from "@vx/group";
-import { LinearGradient } from "@vx/gradient";
-import { scaleBand, scaleLinear } from "@vx/scale";
-import { AxisLeft, AxisBottom } from "@vx/axis";
+import React from 'react';
+import { Group } from '@vx/group';
+import { LinearGradient } from '@vx/gradient';
+import { scaleBand, scaleLinear } from '@vx/scale';
+import { AxisLeft, AxisBottom } from '@vx/axis';
 
 // accessors return the label and value of that data item
 const x = (d) => d.label;
@@ -205,11 +205,11 @@ Now we can loop over the data and return the bar. The width, height, and x are a
 Nice! It should be good to go. We're going to add in the `LinearGradient` for a background color as well. Here it is all together:
 
 ```jsx
-import React from "react";
-import { Group } from "@vx/group";
-import { LinearGradient } from "@vx/gradient";
-import { scaleBand, scaleLinear } from "@vx/scale";
-import { AxisLeft, AxisBottom } from "@vx/axis";
+import React from 'react';
+import { Group } from '@vx/group';
+import { LinearGradient } from '@vx/gradient';
+import { scaleBand, scaleLinear } from '@vx/scale';
+import { AxisLeft, AxisBottom } from '@vx/axis';
 
 // accessors return the label and value of that data item
 const x = (d) => d.label;

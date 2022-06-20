@@ -15,7 +15,7 @@ excerpt: One time password input component for React. Uses a separated input for
   OTP read and write.
 ---
 
-import { CodeSandbox } from "mdx-embed";
+import { CodeSandbox } from 'mdx-embed';
 
 I recently had an opportunity to create a one-time-password like component in a React app. The goal was to have a readonly separated, 6 digit/character code that can be displayed on one device and a separated input to enter that code in a web app.
 
@@ -33,7 +33,7 @@ The component that is orchestrating the `SeparatedInput` component will need to 
 
 ```tsx filename=OTPContainer.tsx
 export function OTPContainer({}) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
 
   const handleChange = (newValue: string) => {
     // do validation work here
@@ -276,9 +276,9 @@ export function OTPDisplayContainer({}) {
 The `SeparatedInput` will then use this to check for in the handlers and inputs to make sure it will only show the value, not change it. The final component code will then be as follows.
 
 ```tsx
-import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useKeyPressEvent } from "react-use";
-import { InputContainer, StyledInput } from "./styledComponents";
+import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useKeyPressEvent } from 'react-use';
+import { InputContainer, StyledInput } from './styledComponents';
 
 // can make this a passed prop if more/fewer digits/characters are needed
 const MAX_DIGITS = 6;
@@ -307,7 +307,7 @@ export function SeparatedInput({
   }, [onChange, readOnly, value]);
 
   // fires handleBackspace event when Backspace is pressed
-  useKeyPressEvent("Backspace", handleBackspace);
+  useKeyPressEvent('Backspace', handleBackspace);
 
   useEffect(() => {
     // focus the current input by index
@@ -318,7 +318,7 @@ export function SeparatedInput({
 
   const separatedValue = useMemo(() => {
     // fill the unused inputs with empty strings
-    const filler = Array(MAX_DIGITS - value.length).fill("");
+    const filler = Array(MAX_DIGITS - value.length).fill('');
     const resolvedValue = [...value, ...filler];
 
     // make sure it's only 6 characters long
@@ -341,7 +341,8 @@ export function SeparatedInput({
   return (
     <InputContainer ref={ref}>
       {separatedValue.map((character, index) => {
-        const disabled = readOnly || (index < value.length && index + 1 < MAX_DIGITS) || index > focusIndex;
+        const disabled =
+          readOnly || (index < value.length && index + 1 < MAX_DIGITS) || index > focusIndex;
         return (
           <StyledInput
             key={index}

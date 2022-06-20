@@ -1,24 +1,24 @@
-import { unified } from "unified";
-import parse from "rehype-parse";
-import { toHtml } from "hast-util-to-html";
+import { unified } from 'unified';
+import parse from 'rehype-parse';
+import { toHtml } from 'hast-util-to-html';
 
 const lineNumberify = function lineNumberify(ast, lineNum = 1) {
   let lineNumber = lineNum;
   return ast.reduce(
     (result, node) => {
-      if (node.type === "text") {
-        if (node.value.indexOf("\n") === -1) {
+      if (node.type === 'text') {
+        if (node.value.indexOf('\n') === -1) {
           node.lineNumber = lineNumber;
           result.nodes.push(node);
           return result;
         }
 
-        const lines = node.value.split("\n");
+        const lines = node.value.split('\n');
         for (let i = 0; i < lines.length; i++) {
           if (i !== 0) ++lineNumber;
           if (i === lines.length - 1 && lines[i].length === 0) continue;
           result.nodes.push({
-            type: "text",
+            type: 'text',
             value: i === lines.length - 1 ? lines[i] : `${lines[i]}\n`,
             lineNumber: lineNumber,
           });
@@ -68,12 +68,12 @@ const wrapLines = function wrapLines(ast, linesToHighlight) {
     }
 
     nodes.push({
-      type: "element",
-      tagName: "div",
+      type: 'element',
+      tagName: 'div',
       properties: {
         dataLine: line,
-        className: "highlight-line",
-        dataHighlighted: linesToHighlight.includes(line) || /* highlightAll ? "true" : */ "false",
+        className: 'highlight-line',
+        dataHighlighted: linesToHighlight.includes(line) || /* highlightAll ? "true" : */ 'false',
       },
       children: children,
       lineNumber: line,

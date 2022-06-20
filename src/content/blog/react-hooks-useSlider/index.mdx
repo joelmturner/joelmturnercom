@@ -1,5 +1,5 @@
 ---
-title: "React Hooks: useSlider"
+title: 'React Hooks: useSlider'
 date: 2019-09-11T00:00:00.000Z
 draft: false
 slug: react-hooks-useslider
@@ -12,7 +12,7 @@ excerpt: An auto-advancing image slider built in React with hooks.
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157939/Posts/useSlider.jpg
 ---
 
-import { CodeSandbox } from "mdx-embed";
+import { CodeSandbox } from 'mdx-embed';
 
 We had a need for an auto advancing image slider in React. I chose to use hooks for this feature. This hook leverages a `useInterval` hook from [Dan Abrimov](https://overreacted.io/making-setinterval-declarative-with-react-hooks/).
 
@@ -34,7 +34,7 @@ This component needs do a few things.
 Here's the `useInterval` code.
 
 ```jsx
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -64,8 +64,8 @@ Setting an interval can be problematic in JavaScript, mostly because of cleanup 
 Now that we have that set up we can leverage it to help us with timing.
 
 ```jsx
-import * as React from "react";
-import useInterval from "./UseInterval";
+import * as React from 'react';
+import useInterval from './UseInterval';
 
 function useSlider({
   total = 0, // the length of the slide array
@@ -135,21 +135,21 @@ Our slider component adds all slides next to each other and moves the `.scroller
 ```
 
 ```jsx
-import React from "react";
-import useSlider from "./useSlider";
+import React from 'react';
+import useSlider from './useSlider';
 
 const slides = [
   {
-    title: "Slide 1",
-    color: "#56777A",
+    title: 'Slide 1',
+    color: '#56777A',
   },
   {
-    title: "Slide 2",
-    color: "#84ACAC",
+    title: 'Slide 2',
+    color: '#84ACAC',
   },
   {
-    title: "Slide 3",
-    color: "#FBA434",
+    title: 'Slide 3',
+    color: '#FBA434',
   },
 ];
 

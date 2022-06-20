@@ -30,10 +30,10 @@ To set up a quick redirect on the client we can send a redirect link through pag
 ```
 
 ```tsx filename=templates/emptyPage.tsx
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
 function isClient() {
-  return typeof window === "object";
+  return typeof window === 'object';
 }
 
 export default function EmptyPage({ pageContext }) {

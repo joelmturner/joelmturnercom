@@ -1,24 +1,41 @@
-import { Flex, Text, Link, Container, Box, useColorModeValue, chakra, VisuallyHidden } from "@chakra-ui/react";
-import { IoLogoInstagram, IoLogoTwitter, IoLogoGithub } from "react-icons/io";
-import { FaDev } from "react-icons/fa";
-import { ReactNode } from "react";
+import {
+  Flex,
+  Text,
+  Link,
+  Container,
+  Box,
+  useColorModeValue,
+  chakra,
+  VisuallyHidden,
+} from '@chakra-ui/react';
+import { IoLogoInstagram, IoLogoTwitter, IoLogoGithub } from 'react-icons/io';
+import { FaDev } from 'react-icons/fa';
+import { ReactNode } from 'react';
 
-function SocialButton({ children, label, href }: { children: ReactNode; label: string; href: string }) {
+function SocialButton({
+  children,
+  label,
+  href,
+}: {
+  children: ReactNode;
+  label: string;
+  href: string;
+}) {
   return (
     <chakra.button
-      bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
-      rounded={"full"}
+      bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
+      rounded={'full'}
       w={8}
       h={8}
-      cursor={"pointer"}
-      as={"a"}
+      cursor={'pointer'}
+      as={'a'}
       href={href}
-      display={"inline-flex"}
-      alignItems={"center"}
-      justifyContent={"center"}
-      transition={"background 0.3s ease"}
+      display={'inline-flex'}
+      alignItems={'center'}
+      justifyContent={'center'}
+      transition={'background 0.3s ease'}
       _hover={{
-        bg: useColorModeValue("blackAlpha.200", "whiteAlpha.200"),
+        bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200'),
       }}
     >
       <VisuallyHidden>{label}</VisuallyHidden>
@@ -31,8 +48,8 @@ export function Footer() {
   return (
     <Box
       borderTopWidth={1}
-      borderStyle={"solid"}
-      borderColor={useColorModeValue("gray.200", "gray.700")}
+      borderStyle={'solid'}
+      borderColor={useColorModeValue('gray.200', 'gray.700')}
       w="100%"
       py={8}
     >
@@ -40,11 +57,11 @@ export function Footer() {
         <Flex justifyContent="space-between" w="100%" alignItems="center">
           <Flex justifyContent="flex-start" gap={2}>
             <Text>
-              © 2012-{new Date().getFullYear()}, built with{` `}
+              © 2012-{new Date().getFullYear()}, built with{' '}
               <Link href="https://nextjs.org/" title="Next.js">
                 Next.js
-              </Link>{" "}
-              and{" "}
+              </Link>{' '}
+              and{' '}
               <Link href="https://chakra-ui.com/" title="Chakra UI">
                 Chakra UI
               </Link>

@@ -1,5 +1,5 @@
 ---
-title: "Create an Avatar Component in Gatsby with TypeScript Part 2: Gatsby Image"
+title: 'Create an Avatar Component in Gatsby with TypeScript Part 2: Gatsby Image'
 date: 2019-09-07
 draft: false
 slug: avatar-component-gatsby-2
@@ -90,9 +90,9 @@ function Avatar(props) {
 Now let's put it all together.
 
 ```jsx
-import React from "react";
-import { useStaticQuery, graphql } from "gatsby";
-import Img from "gatsby-image";
+import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
+import Img from 'gatsby-image';
 
 function Avatar(props) {
   const data = useStaticQuery(graphql`
@@ -109,12 +109,19 @@ function Avatar(props) {
 
   const { url, altText, title } = props;
   const styles = {
-    width: "75px",
-    height: "75px",
-    borderRadius: "50%",
+    width: '75px',
+    height: '75px',
+    borderRadius: '50%',
   };
 
-  return <Img style={styles} fixed={data.placeholderImage.childImageSharp.fixed} alt={altText} title={title} />;
+  return (
+    <Img
+      style={styles}
+      fixed={data.placeholderImage.childImageSharp.fixed}
+      alt={altText}
+      title={title}
+    />
+  );
 }
 
 export default Avatar;
@@ -123,9 +130,9 @@ export default Avatar;
 We're still missing the ability to pass a url to our avatar component so let's add that back in. We can return a regular `img` element if we get a url. Using `fixed` will be better since we're not worried about fluid mode with this component.
 
 ```jsx
-import React from "react";
-import { useStaticQuery, graphql } from "gatsby";
-import Img from "gatsby-image";
+import React from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
+import Img from 'gatsby-image';
 
 function Avatar(props) {
   const data = useStaticQuery(graphql`
@@ -142,16 +149,23 @@ function Avatar(props) {
 
   const { url, altText, title } = props;
   const styles = {
-    width: "75px",
-    height: "75px",
-    borderRadius: "50%",
+    width: '75px',
+    height: '75px',
+    borderRadius: '50%',
   };
 
   if (url) {
     return <img style={styles} src={url} alt={altText} title={title} />;
   }
 
-  return <Img style={styles} fixed={data.placeholderImage.childImageSharp.fixed} alt={altText} title={title} />;
+  return (
+    <Img
+      style={styles}
+      fixed={data.placeholderImage.childImageSharp.fixed}
+      alt={altText}
+      title={title}
+    />
+  );
 }
 
 export default Avatar;

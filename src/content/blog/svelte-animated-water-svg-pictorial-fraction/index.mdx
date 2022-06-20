@@ -14,7 +14,7 @@ excerpt: Create a pictorial fraction of water in SVG using Svelte. Allows for
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157939/Posts/svelte-animated-water-svg-pictorial-fraction.jpg
 ---
 
-import { CodeSandbox } from "mdx-embed";
+import { CodeSandbox } from 'mdx-embed';
 
 One of my favorite charts in data visualization is [Pictorial Fraction](https://datavizproject.com/data-type/pictorial-fraction-chart/). It's essentially a bar chart as a shape that can be partially filled or used as a [small multiple](https://datavizproject.com/data-type/fraction-of-pictograms/) to represent the ratio.
 
@@ -64,7 +64,14 @@ Let's position the rectangle using `transform: translate(0, 20px);`. This should
 </script>
 
 <svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}">
-  <rect width="{width}" height="{height}" style="{`transform:" translate(0, 20px);`} fill="#ff9900" />
+  <rect
+    width="{width}"
+    height="{height}"
+    style="{`transform:"
+    translate(0,
+    20px);`}
+    fill="#ff9900"
+  />
 </svg>
 ```
 
@@ -86,7 +93,14 @@ That creates the shape, and now we'll position it to be on top of the rectangle.
 </script>
 
 <svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}">
-  <rect width="{width}" height="{height}" style="{`transform:" translate(0, 20px);`} fill="#ff9900" />
+  <rect
+    width="{width}"
+    height="{height}"
+    style="{`transform:"
+    translate(0,
+    20px);`}
+    fill="#ff9900"
+  />
 
   <g class="water-container" style="{`transform:" translate(0, 0);`}>
     <path
@@ -124,7 +138,14 @@ Let's add our styles to get the ripples animating in smooth way. To do this we c
 </style>
 
 <svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}">
-  <rect width="{width}" height="{height}" style="{`transform:" translate(0, 20px);`} fill="#ff9900" />
+  <rect
+    width="{width}"
+    height="{height}"
+    style="{`transform:"
+    translate(0,
+    20px);`}
+    fill="#ff9900"
+  />
 
   <g class="water-container" style="{`transform:" translate(0, 0);`}>
     <path
@@ -158,7 +179,14 @@ We fill the droplet path with black to make the mask full opacity. We can then a
   />
 
   <g clip-path="url(#mask_shape)">
-    <rect width="{width}" height="{height}" style="{`transform:" translate(0, 20px);`} fill="#ff9900" />
+    <rect
+      width="{width}"
+      height="{height}"
+      style="{`transform:"
+      translate(0,
+      20px);`}
+      fill="#ff9900"
+    />
 
     <g class="water-container" style="{`transform:" translate(0, 0);`}>
       <path
@@ -211,7 +239,7 @@ To use this component we import it and pass it our width, height and ratio. Let'
 
 ```html filename=App.svelte
 <script>
-  import PictorialFraction from "./PictorialFraction.svelte";
+  import PictorialFraction from './PictorialFraction.svelte';
 </script>
 
 <main>

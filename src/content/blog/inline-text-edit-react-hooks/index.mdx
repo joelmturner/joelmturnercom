@@ -14,7 +14,7 @@ featured: true
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157938/Posts/inline-edit-react-hooks.jpg
 ---
 
-import { CodeSandbox } from "mdx-embed";
+import { CodeSandbox } from 'mdx-embed';
 
 A nice feature in many apps is to edit a title or other text inline without leaving the context that we're in.
 
@@ -33,7 +33,7 @@ Let's take a look at the requirements for this component.
 Cool let's start by creating the resting state. We're going to do some basic styling with CSS to help us.
 
 ```jsx
-import React from "react";
+import React from 'react';
 
 function InlineEdit(props) {
   return (
@@ -90,7 +90,7 @@ const [isInputActive, setIsInputActive] = useState(false);
 Cool, now we have some state to help us display/hide our text and input. We also need some state to track what is being typed in our input. Let's add another `useState` to hold that text.
 
 ```jsx
-const [inputValue, setInputValue] = useState("");
+const [inputValue, setInputValue] = useState('');
 ```
 
 Let's hook this state up to our elements.
@@ -98,15 +98,17 @@ Let's hook this state up to our elements.
 ```jsx
 function InlineEdit(props) {
   const [isInputActive, setIsInputActive] = useState(false);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
 
   return (
     <span className="inline-text">
-      <span className={`inline-text_copy inline-text_copy--${!isInputActive ? "active" : "rest"}`}>{props.text}</span>
+      <span className={`inline-text_copy inline-text_copy--${!isInputActive ? 'active' : 'rest'}`}>
+        {props.text}
+      </span>
       <input
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        className={`inline-text_input inline-text_input--${isInputActive ? "active" : "rest"}`}
+        className={`inline-text_input inline-text_input--${isInputActive ? 'active' : 'rest'}`}
       />
     </span>
   );
@@ -216,9 +218,9 @@ We can help the user by focusing the input when they click on the text. To do th
 That was a lot of little parts. Let's put it together to see what we have. I've added a few helper functions as well.
 
 ```jsx
-import React, { useState, useEffect, useRef } from "react";
-import useKeypress from "../hooks/useKeypress";
-import useOnClickOutside from "../hooks/useOnClickOutside";
+import React, { useState, useEffect, useRef } from 'react';
+import useKeypress from '../hooks/useKeypress';
+import useOnClickOutside from '../hooks/useOnClickOutside';
 
 function InlineEdit(props) {
   const [isInputActive, setIsInputActive] = useState(false);
@@ -228,8 +230,8 @@ function InlineEdit(props) {
   const textRef = useRef(null);
   const inputRef = useRef(null);
 
-  const enter = useKeypress("Enter");
-  const esc = useKeypress("Escape");
+  const enter = useKeypress('Enter');
+  const esc = useKeypress('Escape');
 
   // check to see if the user clicked outside of this component
   useOnClickOutside(wrapperRef, () => {
@@ -284,7 +286,7 @@ function InlineEdit(props) {
       <span
         ref={textRef}
         onClick={handleSpanClick}
-        className={`inline-text_copy inline-text_copy--${!isInputActive ? "active" : "hidden"}`}
+        className={`inline-text_copy inline-text_copy--${!isInputActive ? 'active' : 'hidden'}`}
       >
         {props.text}
       </span>
@@ -292,10 +294,10 @@ function InlineEdit(props) {
         ref={inputRef}
         // set the width to the input length multiplied by the x height
         // it's not quite right but gets it close
-        style={{ minWidth: Math.ceil(inputValue.length) + "ch" }}
+        style={{ minWidth: Math.ceil(inputValue.length) + 'ch' }}
         value={inputValue}
         onChange={handleInputChange}
-        className={`inline-text_input inline-text_input--${isInputActive ? "active" : "hidden"}`}
+        className={`inline-text_input inline-text_input--${isInputActive ? 'active' : 'hidden'}`}
       />
     </span>
   );
