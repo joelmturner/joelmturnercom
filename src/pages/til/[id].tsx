@@ -12,7 +12,15 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const postData = await getTilData(params.id);
+  let postData;
+  try {
+    postData = await getTilData(params.id);
+  } catch (e) {
+    console.error(e);
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {

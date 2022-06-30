@@ -18,8 +18,16 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+  let posts;
+  try {
+    posts = await getPostsByCategory(params.slug);
+  } catch (e) {
+    console.error(e);
+    return {
+      notFound: true,
+    };
+  }
   const slug: string = params.slug;
-  const posts = await getPostsByCategory(slug);
 
   return {
     props: {

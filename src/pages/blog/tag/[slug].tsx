@@ -15,7 +15,15 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const posts = getPostsByTag(params.slug);
+  let posts;
+  try {
+    posts = getPostsByTag(params.slug);
+  } catch (e) {
+    console.error(e);
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
