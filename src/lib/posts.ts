@@ -56,15 +56,20 @@ export function getAllTags() {
 }
 
 export async function getPostData(id: string): Promise<
-  FrontMatter & {
-    id: string;
-    content: any;
-    next: Pick<FrontMatter, 'slug' | 'title'> | null;
-    prev: Pick<FrontMatter, 'slug' | 'title'> | null;
-  }
+  | (FrontMatter & {
+      id: string;
+      content: any;
+      next: Pick<FrontMatter, 'slug' | 'title'> | null;
+      prev: Pick<FrontMatter, 'slug' | 'title'> | null;
+    })
+  | null
 > {
   const posts = getPosts();
   const postIndex = posts.findIndex((post) => post.slug === id);
+  if (postIndex === -1) {
+    return null;
+  }
+
   const nextIndex = postIndex + 1 < posts.length ? postIndex + 1 : null;
   const prevIndex = postIndex - 1 >= 0 ? postIndex - 1 : null;
 

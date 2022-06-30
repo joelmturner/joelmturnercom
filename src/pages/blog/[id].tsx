@@ -1,15 +1,7 @@
 import { getAllPostIds, getPostData } from '../../lib/posts';
 import { PostPage } from '../../components/PostPage';
-import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorFallback } from '../../components/ErrorBoundaryFallback';
 
-export default function Post(props) {
-  return (
-    <ErrorBoundary fallback={ErrorFallback as any}>
-      <PostPage {...props} />
-    </ErrorBoundary>
-  );
-}
+export default PostPage;
 
 export async function getStaticPaths() {
   const paths = getAllPostIds();
@@ -20,7 +12,15 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const postData = await getPostData(params.id);
+  let postData;
+  try {
+    postData = await getPostData(params.id);
+  } catch (e) {
+    console.error(e);
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
