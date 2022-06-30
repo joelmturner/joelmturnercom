@@ -9,6 +9,8 @@ import NextLink from 'next/link';
 import Head from 'next/head';
 import { PostTags } from './PostTags';
 import SEO from './SEO';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorFallback } from './ErrorBoundaryFallback';
 
 function getJustification(next, prev) {
   if (next && prev) {
@@ -52,52 +54,56 @@ export function PostPage({
 
   return (
     <>
-      <SEO
-        title={title}
-        image={cover}
-        imageAlt={title}
-        isBlogPost
-        datePublished={`${date}`}
-        dateModified={`${lastmod}`}
-      />
-      <components.h1>{title}</components.h1>
-      <chakra.article>
-        <Post components={components} />
-      </chakra.article>
-      <VStack spacing={4} alignItems="flex-start">
-        <Divider my={4} />
-        {category ? (
-          <HStack spacing={2}>
-            <Text fontSize="md">Category: </Text>
-            <Tag size="sm" variant="subtle" colorScheme="orange">
-              <Link href={`/blog/category/${category.toLowerCase()}`}>{category}</Link>
-            </Tag>
-          </HStack>
-        ) : null}
-        {tags?.length ? <PostTags tags={tags} /> : null}
-      </VStack>
-      <Flex justifyContent={getJustification(next, prev)} py={4} gap={6}>
-        {prev && (
-          <Box justifyContent="flex-start">
-            <NextLink href={`/${postType}/${prev.slug}`}>
-              <Link color="orange.200" sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-                <FaChevronLeft />
-                {prev.title}
-              </Link>
-            </NextLink>
-          </Box>
-        )}
-        {next && (
-          <Box justifyContent="flex-end">
-            <NextLink href={`/${postType}/${next.slug}`}>
-              <Link color="orange.200" sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-                {next.title}
-                <FaChevronRight />
-              </Link>
-            </NextLink>
-          </Box>
-        )}
-      </Flex>
+      <ErrorBoundary fallback={ErrorFallback as any}>
+        <SEO
+          title={title}
+          image={cover}
+          imageAlt={title}
+          isBlogPost
+          datePublished={`${date}`}
+          dateModified={`${lastmod}`}
+        />
+        <components.h1>{title}</components.h1>
+        <chakra.article>
+          <ErrorBoundary fallback={ErrorFallback as any}>
+            <Post components={components} />
+          </ErrorBoundary>
+        </chakra.article>
+        <VStack spacing={4} alignItems="flex-start">
+          <Divider my={4} />
+          {category ? (
+            <HStack spacing={2}>
+              <Text fontSize="md">Category: </Text>
+              <Tag size="sm" variant="subtle" colorScheme="orange">
+                <Link href={`/blog/category/${category.toLowerCase()}`}>{category}</Link>
+              </Tag>
+            </HStack>
+          ) : null}
+          {tags?.length ? <PostTags tags={tags} /> : null}
+        </VStack>
+        <Flex justifyContent={getJustification(next, prev)} py={4} gap={6}>
+          {prev && (
+            <Box justifyContent="flex-start">
+              <NextLink href={`/${postType}/${prev.slug}`}>
+                <Link color="orange.200" sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+                  <FaChevronLeft />
+                  {prev.title}
+                </Link>
+              </NextLink>
+            </Box>
+          )}
+          {next && (
+            <Box justifyContent="flex-end">
+              <NextLink href={`/${postType}/${next.slug}`}>
+                <Link color="orange.200" sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+                  {next.title}
+                  <FaChevronRight />
+                </Link>
+              </NextLink>
+            </Box>
+          )}
+        </Flex>
+      </ErrorBoundary>
     </>
   );
 }
