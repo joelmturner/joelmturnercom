@@ -1,6 +1,10 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import Head from 'next/head';
 import { Schema } from './Schema';
+import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
+
+const BASE_URL = 'http://joelmturner.com';
 
 const DESCRIPTION = `I'm a kombucha lovin' Front-End Dev at Sprinklr. Love lettering, love design, love development, love Portland.`;
 const KEYWORDS = [
@@ -44,25 +48,41 @@ function SEO({
   const metaImage = image ?? 'https://res.cloudinary.com/joelmturner/joel-turner.jpg';
   const metaKeywords = keywords ?? KEYWORDS;
 
+  const { pathname, asPath } = useRouter();
+  const url = useMemo(() => {
+    return `${BASE_URL}${asPath ?? pathname}`;
+  }, []);
+
   return (
     <>
+      <NextSeo
+        title={title}
+        description={metaDescription}
+        canonical={url}
+        openGraph={{
+          url,
+          title,
+          description: metaDescription,
+          images: metaImage
+            ? [
+                {
+                  url: metaImage,
+                  alt: imageAlt,
+                },
+              ]
+            : undefined,
+          site_name: 'SiteName',
+          article: {
+            publishedTime: datePublished,
+            modifiedTime: dateModified,
+            authors: ['Joel Turner'],
+            tags: metaKeywords.join(', ') as unknown as Readonly<string[]>,
+          },
+        }}
+      />
       <Head>
         <title>{`${title} | Joel M Turner`}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <meta name="description" content={metaDescription} />
-        <meta property="twitter:image:alt" content={imageAlt} />
-        <meta name="twitter:image" content={metaImage} />
-        <meta name="twitter:description" content={metaDescription} />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:creator" content="@joelmturner" />
-        <meta name="twitter:card" content="summary" />
-        <meta property="og:image:alt" content={imageAlt} />
-        <meta property="og:image" content={metaImage} />
-        <meta property="og:type" content="website" />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:title" content={title} />
-        <meta name="image" content={metaImage} />
-        <meta name="keywords" content={metaKeywords.join(', ')} />
       </Head>
       <Schema
         isBlogPost={isBlogPost}

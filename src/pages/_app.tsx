@@ -9,8 +9,8 @@ import { css, Global } from '@emotion/react';
 import { nightOwl, nightOwlLight } from '../lib/themes';
 import theme from '../lib/theme';
 import Script from 'next/script';
-import SEO from '../components/SEO';
 import Head from 'next/head';
+import { DefaultSeo } from 'next-seo';
 
 function GlobalStyle() {
   const { colorMode } = useColorMode();
@@ -48,7 +48,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
-      <SEO title="Howdy 👋🏻" />
       <ColorModeProvider
         options={{
           initialColorMode: 'dark',
@@ -56,6 +55,28 @@ function MyApp({ Component, pageProps }: AppProps) {
         }}
       >
         <MDXProvider components={MDXComponents}>
+          <DefaultSeo
+            title="Howdy 👋🏻"
+            titleTemplate="%s | Joel M Turner"
+            defaultTitle="Joel M Turner"
+            openGraph={{
+              type: 'website',
+              locale: 'en_US',
+              url: 'https://joelmturner.com/',
+              site_name: 'Joel M. Turner',
+              images: [
+                {
+                  url: 'https://res.cloudinary.com/joelmturner/joel-turner.jpg',
+                  secureUrl: 'https://res.cloudinary.com/joelmturner/joel-turner.jpg',
+                },
+              ],
+            }}
+            twitter={{
+              handle: '@joelmturner',
+              site: '@joelmturner',
+              cardType: 'summary_large_image',
+            }}
+          />
           <GlobalStyle />
           <Layout>
             <Component {...pageProps} />

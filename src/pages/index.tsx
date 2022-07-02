@@ -1,5 +1,4 @@
 import {
-  Button,
   Container,
   Flex,
   Heading,
@@ -9,14 +8,12 @@ import {
   useInterval,
 } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
-import type { InferGetStaticPropsType, NextPage } from 'next';
-import NextLink from 'next/link';
+import type { InferGetStaticPropsType } from 'next';
 import { useState } from 'react';
-import { ACTIVITIES } from '../lib/constants';
-import { getLatestPost } from '../lib/posts';
 import { FeaturedPost } from '../components/FeaturedPost';
 import { MDXComponents } from '../components/MDXComponents';
-import { FrontMatter } from '../lib/types';
+import { ACTIVITIES } from '../lib/constants';
+import { getLatestPost } from '../lib/posts';
 
 const VARIANTS = {
   enter: (direction: number) => {
