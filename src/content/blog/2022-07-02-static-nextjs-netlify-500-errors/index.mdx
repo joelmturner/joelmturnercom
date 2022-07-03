@@ -1,0 +1,73 @@
+---
+title: Static Nextjs Netlify 500 Errors Instead of 404 Errors
+slug: static-nextjs-netlify-500-errors-404-errors
+description: "The problem: getting 500 errors instead of 404 errors on dynamic pages that
+  don't exist. The solution is to return pageFound: false."
+date: 2022-07-03T04:19:41.807Z
+draft: false
+tags:
+  - nextjs
+  - netlify
+  - static
+  - '500'
+  - '404'
+category: Dev
+cover: https://res.cloudinary.com/joelmturner/image/upload/v1656824921/Posts/nextjs-netlify-500-errors.jpg
+excerpt: Digging into a bug with Netlify's Next plugin that causes 500 errors instead of 404 errors. There is a quick workaround that works for this specific case.
+---
+
+I recently switched my site from Gatsby to Next while still deploying to Netlify. For the most part, it went very well. I'll write some more soon about the transition and some of the challenges that arose.
+
+## The Problem
+
+Today I'm going to cover an issue that I ran into after deploying my site to Netlify. The problem is that if someone were to go to a blog post that didn't exist, like [https://joelmturner.com/blog/abc](https://joelmturner.com/blog/abc), they would receive a 500 error message. Since it's a 500 from the server, the client doesn't spin up and I can't see which page was trying to be accessed.
+
+This had me searching all over for the root cause since it all worked locally and I would expect that it would just throw a 404 error like other missing pages. Finally, after searching for quite some time, I came across a [GitHub issue](https://github.com/netlify/netlify-plugin-nextjs/issues/1179) that resembled my problem. Sure enough, [hu0p](https://github.com/hu0p) had a [workaround](https://github.com/netlify/netlify-plugin-nextjs/issues/1179#issuecomment-1110301726) that worked for me as well.
+
+The factors that lead to this issue are:
+
+- Hosted on Netlify
+- Running the Essential Next.js plugin (the culprit)
+- Static site build of Nextjs
+- Have some dynamic routes like `pages/blog/[id].tsx`
+- Hit a route that doesn't exist on that dynamic route
+
+## The Solution
+
+By wrapping the data fetching with a try/catch, we are able to return `notFound: true` which will trigger the 404 page. I wasn't aware that `notFound` was a return value until I saw this workaround.
+
+Instead of:
+
+```ts
+export async function getStaticProps({ params }) {
+  const postData = await getPostData(params.id);
+
+  return {
+    props: {
+      ...postData,
+    },
+  };
+}
+```
+
+We use try/catch:
+
+```ts line=2-10
+export async function getStaticProps({ params }) {
+  let postData;
+  try {
+    postData = await getPostData(params.id);
+  } catch (e) {
+    console.error(e);
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      ...postData,
+    },
+  };
+}
+```
