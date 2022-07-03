@@ -2,8 +2,6 @@
 .idea/
 .vscode
 .nova/
-frontmatter.json
-.frontmatter
 .history/
 .cache/
 
