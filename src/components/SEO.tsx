@@ -71,7 +71,7 @@ function SEO({
                 },
               ]
             : undefined,
-          site_name: 'SiteName',
+          site_name: 'Joel M Turner',
           article: {
             publishedTime: datePublished,
             modifiedTime: dateModified,
