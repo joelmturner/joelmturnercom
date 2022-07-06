@@ -1,0 +1,100 @@
+---
+title: Working on a New Feature as a Senior Frontend Developer
+description: A Senior Frontend Engineer's guide for working through a new feature ticket
+  and the thought process involved.
+date: 2022-07-06T04:28:59.027Z
+draft: false
+tags:
+  - career
+  - workflow
+  - productivity
+category: dev
+slug: working-feature-senior-frontend-developer
+lastmod: 2022-07-06T05:50:49.478Z
+excerpt: Some of the questions and thought processes I have as I work through a new
+  feature ticket.
+cover: https://res.cloudinary.com/joelmturner/image/upload/v1657084434/Posts/new_feature_ticket.jpg
+---
+
+When I receive a ticket for a new feature, I generally follow a few guidelines to make sure I have what I need to get started. I'll share some of my questions and thoughts here for reference (as much for myself as anyone).
+
+## Before the Code
+
+I usually start out by assessing the scope of the feature. The following questions help guide me before I fire up VS Code.
+
+1. Do we have a design for this feature? _depending on size, this may need to push back into design's hands_
+2. Is this an existing pattern or a new one? _I prefer existing in the design system_
+3. Is this reusable or scoped to a certain part of the app? _can help with architecture_
+4. Will this need API updates to get to feature complete?
+   1. If yes, does API work need to happen before UI?
+   2. If yes, are they simple updates? _I can handle simple updates, otherwise I'll have to pass off the API work to someone with more Java experience on the team_
+5. What does finished look like? _this can help with tests and QA_
+6. Is this a part of the app that I'm familiar with? _might take longer if I'm not familiar_
+   1. If no, who can I ask for help if I get stuck?
+7. Is this an opportunity to refactor some older code? _often, these are the only chances to clean up tech debt_
+
+Whew! That's a lot! Let's get into the code already.
+
+<Flex alignItems="center" flexDirection="column" maxWidth="350px" m="0 auto">
+  <div
+    style={{
+      width: '100%',
+      height: 0,
+      paddingBottom: '100%',
+      position: 'relative',
+    }}
+  >
+    <iframe
+      src="https://giphy.com/embed/3krrjoL0vHRaWqwU3k"
+      width="100%"
+      height="100%"
+      style={{ position: 'absolute' }}
+      frameBorder="0"
+      class="giphy-embed"
+      allowFullScreen
+    ></iframe>
+  </div>
+  <p>
+    <a href="https://giphy.com/gifs/spotify-play-streaming-3krrjoL0vHRaWqwU3k">via GIPHY</a>
+  </p>
+</Flex>
+
+## Diving Into Code
+
+Once I have some satisfactory answers to the above questions, I dive into the code to help answer some other questions, as well as generate some new ones. There are usually still a few unknowns that arise before the downhill of writing the feature.
+
+Once I'm in the code, I try to determine the architecture of the feature and assess the state requirements.
+
+1. Can the state be isolated to this feature?
+   1. If no, how much needs to be refactored to implement this feature?
+   2. If no, how high does the state need to go?
+2. Is this feature directly coupled with another feature?
+   1. If yes, can I separate concerns so they are easier to reason about and maintain?
+3. Can I remove code to help reduce complexity? _ongoing tech debt work_
+
+From here, I can start piecing together the UI. I love seeing visual progress right away so I usually start by fleshing out the layout and adding placeholder divs for the elements. This helps me get a bit of a wireframe together before diving into the details, which can help me determine where the state should live and how to break the components down.
+
+As I fill in the details, I can create the types, helper functions, hooks, and components that are needed. Hopefully, most of this comes from the design library but sometimes we have to piece together a solution outside of it.
+
+I almost always run some parts of my solution or my architecture by my manager, [Ryan](https://www.linkedin.com/in/ryan-legler-b0807853/), who is an incredible architect and a master of thinking through edge cases. That helps determine a stable foundation to the feature and future maintenance/updates to the feature.
+
+Almost done!
+
+<Flex alignItems="center" flexDirection="column" m="0 auto">
+  <img
+    src="https://res.cloudinary.com/joelmturner/image/upload/w_512/v1657085654/gatsby-toasting-meme_kzslea.jpg"
+    alt="Leo DiCaprio as Great Gatsby toasting the viewer"
+    srcset="https://res.cloudinary.com/joelmturner/image/upload/w_1024/v1657085654/gatsby-toasting-meme_kzslea.jpg 1024w, https://res.cloudinary.com/joelmturner/image/upload/w_512/v1657085654/gatsby-toasting-meme_kzslea.jpg 512w, https://res.cloudinary.com/joelmturner/image/upload/w_256/v1657085654/gatsby-toasting-meme_kzslea.jpg 256w"
+    sizes="(min-width: 30em) 30em, 100vw"
+  />
+</Flex>
+
+## Wrapping Up
+
+I like to go through any helper functions I've added to make sure they are covered with tests. This can be true for the components as well, depending on their complexity. This is also the time when I create a Pull Request and have the rest of the team weigh in on patterns, issues, and things I've overlooked.
+
+Once the PR is approved it is on its way to QA where it has the edges poked at. If there are any edges found, I'll solve for those edges, and if applicable, add tests for those edges.
+
+## How do You Work Through a New Ticket?
+
+I would love to hear how other's work through feature tickets, no matter what experience you have in development. Hit me up on [Twitter](https://twitter.com/joelmturner) if you'd like. I think we all come at it from our unique angles and can help each other as we learn and grow.
