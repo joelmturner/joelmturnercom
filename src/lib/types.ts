@@ -9,6 +9,7 @@ export type FrontMatter = {
   featured?: boolean;
   excerpt: string;
   cover: string;
+  description?: string;
 };
 
 export type IllustrationTag =

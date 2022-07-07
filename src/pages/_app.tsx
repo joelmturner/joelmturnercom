@@ -76,6 +76,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               site: '@joelmturner',
               cardType: 'summary_large_image',
             }}
+            description="Joel M Turner is a Senior Frontend Developer specializing in data visualization, UI/UX architecture, component library/design system work."
           />
           <GlobalStyle />
           <Layout>

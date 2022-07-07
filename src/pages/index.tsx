@@ -64,6 +64,7 @@ export default function Home({ post }: InferGetStaticPropsType<typeof getStaticP
           lineHeight={'50%'}
           w="full"
           textAlign={'center'}
+          as="h1"
         >
           {`👋🏻 Howdy! I'm Joel.`}
         </Heading>

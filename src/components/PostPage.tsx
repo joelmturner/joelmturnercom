@@ -33,6 +33,8 @@ export function PostPage({
   cover,
   date,
   lastmod,
+  excerpt,
+  description,
 }: {
   id: string;
   content: string;
@@ -61,6 +63,8 @@ export function PostPage({
         isBlogPost
         datePublished={`${date}`}
         dateModified={`${lastmod}`}
+        description={description ?? excerpt}
+        keywords={tags}
       />
       <components.h1>{title}</components.h1>
       <chakra.article>
