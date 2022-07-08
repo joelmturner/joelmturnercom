@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
-import remarkFrontmatter from "remark-frontmatter";
-import rehypeExternalLinks from "rehype-external-links";
+import remarkFrontmatter from 'remark-frontmatter';
+import rehypeExternalLinks from 'rehype-external-links';
 
 const nextConfig = {
   webpack: (config, options) => {
@@ -9,9 +9,9 @@ const nextConfig = {
       use: [
         options.defaultLoaders.babel,
         {
-          loader: "@mdx-js/loader",
+          loader: '@mdx-js/loader',
           options: {
-            providerImportSource: "@mdx-js/react",
+            providerImportSource: '@mdx-js/react',
             rehypePlugins: [rehypeExternalLinks],
             remarkPlugins: [remarkFrontmatter],
           },
@@ -23,9 +23,9 @@ const nextConfig = {
   },
   reactStrictMode: true,
   experimental: { esmExternals: true },
-  pageExtensions: ["ts", "tsx", "md", "mdx"],
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   images: {
-    domains: ["res.cloudinary.com"],
+    domains: ['res.cloudinary.com'],
     deviceSizes: [640, 750, 828, 1080],
   },
 };

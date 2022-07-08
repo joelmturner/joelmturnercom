@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import NextLink from 'next/link';
+import { InPostGallery } from './InPostGallery';
 import { Note } from './Note';
 
 const CustomImage = (props: any) => {

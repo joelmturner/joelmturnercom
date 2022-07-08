@@ -3,6 +3,7 @@ import { InferGetStaticPropsType } from 'next';
 import NextImage from 'next/image';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Dialog } from '../components/Dialog';
+import { Gallery } from '../components/Gallery';
 import { MDXComponents } from '../components/MDXComponents';
 import SEO from '../components/SEO';
 import { ILLUSTRATION_FILTER_OPTIONS } from '../lib/constants';
@@ -31,7 +32,6 @@ function GridImage({ id, url, index, setLightboxOffset }) {
 
 function IllustrationPage({ images }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [selection, setSelection] = useState<IllustrationTag>('joelmturner_featured');
-  const [lightboxOffset, setLightboxOffset] = useState(-1);
 
   const selectedImages = useMemo(() => {
     return images[selection];
@@ -39,10 +39,6 @@ function IllustrationPage({ images }: InferGetStaticPropsType<typeof getStaticPr
 
   const handleChange = useCallback((selection: React.ChangeEvent<HTMLSelectElement>) => {
     setSelection(selection.target.value as IllustrationTag);
-  }, []);
-
-  const handleCloseLightbox = useCallback(() => {
-    setLightboxOffset(-1);
   }, []);
 
   return (
@@ -65,32 +61,8 @@ function IllustrationPage({ images }: InferGetStaticPropsType<typeof getStaticPr
             ))}
           </Select>
         </FormControl>
-        <Grid
-          gap={2}
-          w="full"
-          templateColumns={{ sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }}
-          sx={{ containIntrinsicSize: '160px', contentVisibility: 'auto' }}
-        >
-          {selectedImages?.map(({ id, url }, index) => (
-            <GridImage
-              key={id}
-              id={id}
-              url={url}
-              index={index}
-              setLightboxOffset={setLightboxOffset}
-            />
-          ))}
-        </Grid>
+        <Gallery images={selectedImages} />
       </VStack>
-
-      {lightboxOffset > -1 && (
-        <Dialog
-          images={selectedImages}
-          offset={lightboxOffset}
-          onClose={handleCloseLightbox}
-          aria-label="Gallery of my sketches on Instagram"
-        />
-      )}
     </>
   );
 }
