@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getIllustrations } from '../lib/illustrations';
-import { IllustrationTag } from '../lib/types';
+import { IllustrationItem, IllustrationTag } from '../lib/types';
 import { Gallery } from './Gallery';
-import { IllustrationItem } from '../../.vscode/.history/joelmturner/src/lib/types_20220707220852';
 
 type InPostGalleryProps = { collection: IllustrationTag };
 
