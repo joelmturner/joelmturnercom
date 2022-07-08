@@ -26,3 +26,5 @@ export type IllustrationItem = { id: string; url: string; tags: string[] };
 export type Illustrations = {
   [key in IllustrationTag]: IllustrationItem[];
 };
+
+export type PostType = 'post' | 'til';

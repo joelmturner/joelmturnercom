@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { FrontMatter } from './types';
+import { FrontMatter, PostType } from './types';
 import { bundleMDX } from 'mdx-bundler';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
@@ -11,26 +11,31 @@ import rehypeMetaAttribute from './rehype-meta-attribute';
 import rehypeHighlightCode from './rehype-highlight-code';
 
 const postsDirectory = path.join(process.cwd(), 'src/content/blog');
+const tilsDirectory = path.join(process.cwd(), 'src/content/til');
 
-export function getAllPostIds() {
-  const files = fs.readdirSync(postsDirectory, { withFileTypes: true });
+function getDirPath(type: PostType) {
+  return type === 'post' ? postsDirectory : tilsDirectory;
+}
 
-  return files
+export function getAllPostIds(type: PostType = 'post') {
+  const dirPath = getDirPath(type);
+  const fileNames = fs.readdirSync(dirPath, { withFileTypes: true });
+
+  return fileNames
+    .filter((file) => file.name.endsWith('.mdx'))
     .map((file) => {
-      if (!file.isDirectory()) return;
-
-      const fullPath = path.join(postsDirectory, file.name, 'index.mdx');
+      const fullPath = path.join(dirPath, file.name);
       const fileContents = fs.readFileSync(fullPath, 'utf8');
 
+      // Use gray-matter to parse the post metadata section
       const matterResult = matter(fileContents);
 
       return {
         params: {
-          id: matterResult.data.slug ?? file.name,
+          id: matterResult.data.slug,
         },
       };
-    })
-    .filter((params) => params);
+    });
 }
 
 export function getAllCategories() {
@@ -55,7 +60,10 @@ export function getAllTags() {
   return resolvedTags.map((tag) => ({ params: { slug: tag } }));
 }
 
-export async function getPostData(id: string): Promise<
+export async function getPostData(
+  id: string,
+  type: PostType = 'post'
+): Promise<
   | (FrontMatter & {
       id: string;
       content: any;
@@ -64,7 +72,7 @@ export async function getPostData(id: string): Promise<
     })
   | null
 > {
-  const posts = getPosts();
+  const posts = getPosts(type);
   const postIndex = posts.findIndex((post) => post.slug === id);
   if (postIndex === -1) {
     return null;
@@ -104,16 +112,18 @@ export async function getPostData(id: string): Promise<
 }
 
 export function getPosts(
+  type: PostType = 'post',
   sort: 'date' | 'name' = 'date',
   sortBy: 'ASC' | 'DESC' = 'DESC'
 ): Array<FrontMatter & { content: string }> {
-  const files = fs.readdirSync(postsDirectory, { withFileTypes: true });
+  const dirPath = getDirPath(type);
+  const files = fs.readdirSync(dirPath, { withFileTypes: true });
 
   const posts = files
     .map((file) => {
-      if (!file.isDirectory()) return;
+      if (!file.name.includes('.mdx')) return;
 
-      const fullPath = path.join(postsDirectory, file.name, 'index.mdx');
+      const fullPath = path.join(dirPath, file.name);
       const fileContents = fs.readFileSync(fullPath, 'utf8');
 
       // Use gray-matter to parse the post metadata section

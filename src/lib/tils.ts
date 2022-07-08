@@ -9,6 +9,7 @@ import rehypeExternalLinks from 'rehype-external-links';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeMetaAttribute from './rehype-meta-attribute';
 import rehypeHighlightCode from './rehype-highlight-code';
+import { getPosts } from './posts';
 
 const tilsDirectory = path.join(process.cwd(), 'src/content/til');
 
@@ -40,7 +41,7 @@ export async function getTilData(id: string): Promise<
     prev: Pick<FrontMatter, 'slug' | 'title'> | null;
   }
 > {
-  const posts = getTILs();
+  const posts = getPosts('til');
   const postIndex = posts.findIndex((post) => post.slug === id);
   const nextIndex = postIndex + 1 < posts.length ? postIndex + 1 : null;
   const prevIndex = postIndex - 1 >= 0 ? postIndex - 1 : null;
@@ -73,37 +74,4 @@ export async function getTilData(id: string): Promise<
     next,
     prev,
   };
-}
-
-export function getTILs(
-  sort: 'date' | 'name' = 'date',
-  sortBy: 'ASC' | 'DESC' = 'DESC'
-): Array<FrontMatter & { content: string }> {
-  const files = fs.readdirSync(tilsDirectory, { withFileTypes: true });
-
-  const tils = files
-    .map((file) => {
-      if (!file.name.includes('.mdx')) return;
-
-      const fullPath = path.join(tilsDirectory, file.name);
-      const fileContents = fs.readFileSync(fullPath, 'utf8');
-
-      // Use gray-matter to parse the post metadata section
-      const matterResult = matter(fileContents);
-      const frontMatter: FrontMatter = Object.keys(matterResult.data).reduce((acc, key) => {
-        const value = ['date', 'lastmod'].includes(key)
-          ? new Date(matterResult.data[key]).valueOf()
-          : matterResult.data[key];
-        return { ...acc, [key]: value };
-      }, {} as FrontMatter);
-      return { content: matterResult.content, ...frontMatter };
-    })
-    .filter((post) => post)
-    .sort((a, b) => {
-      if (sort === 'date') {
-        return sortBy === 'ASC' ? a.date - b.date : b.date - a.date;
-      }
-    });
-
-  return tils;
 }

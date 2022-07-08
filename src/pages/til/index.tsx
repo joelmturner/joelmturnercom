@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import { getTILs } from '../../lib/tils';
 import { MDXComponents } from '../../components/MDXComponents';
 import { PostList } from '../../components/PostList';
 import { InferGetStaticPropsType } from 'next';
+import { getPosts } from '../../lib/posts';
 
 export default function TILIndex({ tils }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
@@ -17,7 +17,7 @@ export default function TILIndex({ tils }: InferGetStaticPropsType<typeof getSta
 }
 
 export async function getStaticProps() {
-  const tils = getTILs();
+  const tils = getPosts('til');
 
   return {
     props: {
