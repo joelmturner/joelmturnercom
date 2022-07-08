@@ -9,7 +9,8 @@
         "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
         "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx,json}'",
         "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,mdx,json}' --config ./.prettierrc",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "postbuild": "next-sitemap --config next-sitemap.config.mjs"
     },
     "dependencies": {
         "@chakra-ui/react": "^2.2.1",
