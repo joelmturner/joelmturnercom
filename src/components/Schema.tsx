@@ -90,7 +90,7 @@ export const Schema = React.memo(
     return (
       <>
         {/* Schema.org tags */}
-        <Script data-schema-org type="application/ld+json" strategy="afterInteractive">
+        <Script data-schema-org type="application/ld+json" strategy="afterInteractive" id="schema">
           {JSON.stringify(schema)}
         </Script>
       </>
