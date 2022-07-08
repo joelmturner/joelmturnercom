@@ -1,0 +1,40 @@
+---
+title: "Quick Tip: VS Code Extension Folder Location"
+description: By relocating the folders that are created/updated by VS Code Extensions we
+  can bypass the need to update a gitignore file.
+date: 2022-07-08T05:56:36.085Z
+draft: false
+tags:
+  - git
+  - productivity
+  - vs code
+  - quick tip
+category: dev
+lastmod: 2022-07-08T07:04:25.240Z
+excerpt: By relocating the folders that are created/updated by VS Code Extensions we
+  can bypass the need to update a gitignore file.
+cover: https://res.cloudinary.com/joelmturner/image/upload/v1657262681/Posts/vs_code_extension_folder_location.jpg
+slug: quick-tip-code-extension-data
+---
+
+VS Code is awesome and there are so many great extensions that make life easier. Some of these extensions store data in folders which are usually placed at the root of the workspace like:
+
+```bash
+app
+└───.vscode
+└───.history # Local History extension folder
+```
+
+Until recently, I was adding those folders to my `.gitignore` file since they are mainly for personal/local use and didn't want to mess with my teammates' setups. This isn't cumbersome but felt a little weird, like mixing too much of my personal setup into our project.
+
+All of our projects already have `.vscode` in the `.gitignore` file so it makes sense to move any extension folders into the `.vscode` folder and bypass adding individual folders to `.gitignore`.
+
+```bash
+app
+└───.vscode
+│   └───.history
+```
+
+Most extensions that have settings/data folders also have a way to link to the path. The example above is for the [Local History](https://marketplace.visualstudio.com/items?itemName=xyz.local-history) extension which has a setting called `Local History: Path`. Just drop a `${workspaceFolder}/.vscode` in there and you're good to go.
+
+Not a huge win but it's nice that you don't have to add something to your `.gitignore` file every time you try out a new extension.
