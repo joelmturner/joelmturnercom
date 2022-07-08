@@ -1,65 +1,134 @@
 {
-    "$schema": "https://frontmatter.codes/frontmatter.schema.json",
-    "frontMatter.framework.id": "next",
-    "frontMatter.content.publicFolder": "public",
-    "frontMatter.content.pageFolders": [
+  "$schema": "https://frontmatter.codes/frontmatter.schema.json",
+  "frontMatter.framework.id": "next",
+  "frontMatter.content.publicFolder": "public",
+  "frontMatter.content.pageFolders": [
+    {
+      "title": "blog",
+      "path": "[[workspace]]/src/content/blog"
+    },
+    {
+      "title": "til",
+      "path": "[[workspace]]/src/content/til"
+    }
+  ],
+  "frontMatter.taxonomy.tags": [
+    "404",
+    "500",
+    "@vx",
+    "API",
+    "CSS",
+    "Cloudinary",
+    "Component",
+    "D3",
+    "Data Visualization",
+    "Gatsby",
+    "GraphQL",
+    "Media",
+    "OTP",
+    "QuickTip",
+    "React",
+    "React hooks",
+    "Redirect",
+    "SASS",
+    "SCSS",
+    "SVG",
+    "Svelte",
+    "TypeScript",
+    "VSCode",
+    "VX",
+    "VisX",
+    "a11y",
+    "accessibility",
+    "admin",
+    "animation",
+    "career",
+    "debug",
+    "dependencies",
+    "doctor who",
+    "git",
+    "growth",
+    "handlettering",
+    "layout",
+    "library",
+    "memory",
+    "mindset",
+    "motivation",
+    "music",
+    "netlify",
+    "nextjs",
+    "node",
+    "practice",
+    "productivity",
+    "project management",
+    "promise",
+    "quick tip",
+    "routine",
+    "setTimeout",
+    "sketching",
+    "state",
+    "static",
+    "storybook",
+    "tips",
+    "todo",
+    "vs code",
+    "work",
+    "workflow"
+  ],
+  "frontMatter.taxonomy.contentTypes": [
+    {
+      "name": "default",
+      "pageBundle": false,
+      "fields": [
         {
-            "title": "blog",
-            "path": "[[workspace]]/src/content/blog"
-        }
-    ],
-    "frontMatter.taxonomy.tags": [
-        "API",
-        "Cloudinary",
-        "Gatsby",
-        "Media",
-        "QuickTip",
-        "Redirect",
-        "TypeScript"
-    ],
-    "frontMatter.taxonomy.contentTypes": [
+          "title": "Title",
+          "name": "title",
+          "type": "string"
+        },
         {
-            "name": "default",
-            "pageBundle": false,
-            "fields": [
-                {
-                    "title": "Title",
-                    "name": "title",
-                    "type": "string"
-                },
-                {
-                    "title": "Description",
-                    "name": "description",
-                    "type": "string"
-                },
-                {
-                    "title": "Publishing date",
-                    "name": "date",
-                    "type": "datetime",
-                    "default": "{{now}}",
-                    "isPublishDate": true
-                },
-                {
-                    "title": "Is in draft",
-                    "name": "draft",
-                    "type": "boolean"
-                },
-                {
-                    "title": "Tags",
-                    "name": "tags",
-                    "type": "tags"
-                },
-                {
-                    "title": "category",
-                    "name": "category",
-                    "type": "categories"
-                },
-                {
-                    "title": "lastmod",
-                    "name": "lastmod",
-                    "type": "datetime"
-                }
-            ]
+          "title": "Description",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "title": "Publishing date",
+          "name": "date",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true
+        },
+        {
+          "title": "Is in draft",
+          "name": "draft",
+          "type": "boolean"
+        },
+        {
+          "title": "Tags",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "title": "category",
+          "name": "category",
+          "type": "categories"
+        },
+        {
+          "title": "lastmod",
+          "name": "lastmod",
+          "type": "datetime"
+        },
+        {
+          "title": "excerpt",
+          "name": "excerpt",
+          "type": "string"
+        },
+        {
+          "title": "cover",
+          "name": "cover",
+          "type": "string"
         }
-    ]
+      ]
+    }
+  ],
+  "frontMatter.taxonomy.categories": []
 }
