@@ -1,7 +1,7 @@
 import { FormControl, FormLabel, Grid, GridItem, Select, VStack } from '@chakra-ui/react';
 import { InferGetStaticPropsType } from 'next';
 import NextImage from 'next/image';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import { Dialog } from '../components/Dialog';
 import { Gallery } from '../components/Gallery';
 import { MDXComponents } from '../components/MDXComponents';
@@ -10,25 +10,7 @@ import { ILLUSTRATION_FILTER_OPTIONS } from '../lib/constants';
 import { getIllustrations } from '../lib/illustrations';
 import { Illustrations, IllustrationTag } from '../lib/types';
 
-function GridImage({ id, url, index, setLightboxOffset }) {
-  const handleImageClick = useCallback((index) => {
-    setLightboxOffset(index);
-  }, []);
-  return (
-    <GridItem w="100%" h="100%" key={url}>
-      <NextImage
-        src={url}
-        alt={id}
-        objectFit="cover"
-        width={200}
-        height={200}
-        layout="responsive"
-        onClick={() => handleImageClick(index)}
-        style={{ cursor: 'pointer' }}
-      />
-    </GridItem>
-  );
-}
+const MemoizedGallery = memo(Gallery);
 
 function IllustrationPage({ images }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [selection, setSelection] = useState<IllustrationTag>('joelmturner_featured');
@@ -61,7 +43,7 @@ function IllustrationPage({ images }: InferGetStaticPropsType<typeof getStaticPr
             ))}
           </Select>
         </FormControl>
-        <Gallery images={selectedImages} />
+        <MemoizedGallery images={selectedImages} />
       </VStack>
     </>
   );

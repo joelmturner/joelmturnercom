@@ -32,6 +32,8 @@ export async function getIllustrations(): Promise<Illustrations> {
           id: imageResult.asset_id,
           url: imageResult.secure_url,
           tags: imageResult.tags,
+          width: imageResult.width,
+          height: imageResult.height,
         };
 
         const prev = acc[tag] || [];

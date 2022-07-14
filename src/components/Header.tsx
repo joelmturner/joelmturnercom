@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import Link from 'next/link';
 import {
   Button,
@@ -17,12 +17,18 @@ import { useViewportScroll } from 'framer-motion';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaMoon, FaSun } from 'react-icons/fa';
 
+function NavLink({ slug, label }: { slug: string; label: string }) {
+  return <Link href={`/${slug}`}>{label}</Link>;
+}
+
+const MemoizedNavLink = memo(NavLink);
+
 const NAV_LINKS = [
-  { id: 'about', component: <Link href="/about">About</Link> },
-  { id: 'blog', component: <Link href="/blog">Blog</Link> },
-  { id: 'illustration', component: <Link href="/illustration">Illustration</Link> },
-  { id: 'til', component: <Link href="/til">TIL</Link> },
-  { id: 'uses', component: <Link href="/uses">Uses</Link> },
+  { id: 'about', component: <MemoizedNavLink slug="about" label="About" /> },
+  { id: 'blog', component: <MemoizedNavLink slug="blog" label="Blog" /> },
+  { id: 'illustration', component: <MemoizedNavLink slug="illustration" label="Illustration" /> },
+  { id: 'til', component: <MemoizedNavLink slug="til" label="TIL" /> },
+  { id: 'uses', component: <MemoizedNavLink slug="uses" label="Uses" /> },
 ];
 
 export function Header() {

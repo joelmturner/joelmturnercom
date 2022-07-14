@@ -1,5 +1,6 @@
 import { Box, Flex, Heading, Image, Link, Text, Wrap, WrapItem } from '@chakra-ui/react';
 import NextLink from 'next/link';
+import { memo } from 'react';
 import { getDateString } from '../utils/strings';
 import { PostTags } from './PostTags';
 
@@ -14,6 +15,8 @@ export function PostTitle({ title, url }) {
     </Heading>
   );
 }
+
+const MemoizedPostTitle = memo(PostTitle);
 
 export function Post({ post, root = 'blog' }) {
   const postUrl = `/${root}/${post.slug}`;
@@ -40,14 +43,14 @@ export function Post({ post, root = 'blog' }) {
               </NextLink>
             </Box>
           ) : null}
-          {!post.cover ? <PostTitle title={post.title} url={postUrl} /> : null}
+          {!post.cover ? <MemoizedPostTitle title={post.title} url={postUrl} /> : null}
           <Flex alignItems="center" justifyContent="space-between" marginTop="3">
             {post.tags?.length ? <PostTags tags={post.tags} /> : null}
             <Text as="i" display={['none', 'block']}>
               {getDateString(post.date)}
             </Text>
           </Flex>
-          {post.cover ? <PostTitle title={post.title} url={postUrl} /> : null}
+          {post.cover ? <MemoizedPostTitle title={post.title} url={postUrl} /> : null}
           <Text as="p" fontSize="md" marginTop="2">
             {post.excerpt}
           </Text>

@@ -22,7 +22,13 @@ export type IllustrationTag =
   | 'joelmturner_featured'
   | 'letterclash';
 
-export type IllustrationItem = { id: string; url: string; tags: string[] };
+export type IllustrationItem = {
+  id: string;
+  url: string;
+  tags: string[];
+  height: number;
+  width: number;
+};
 export type Illustrations = {
   [key in IllustrationTag]: IllustrationItem[];
 };
