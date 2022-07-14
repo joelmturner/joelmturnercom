@@ -130,5 +130,9 @@
       ]
     }
   ],
-  "frontMatter.taxonomy.categories": []
+  "frontMatter.taxonomy.categories": [],
+  "frontMatter.content.autoUpdateDate": true,
+  "frontMatter.content.defaultFileType": "mdx",
+  "frontMatter.framework.startCommand": "yarn dev",
+  "frontMatter.preview.host": "http://localhost:3000"
 }
