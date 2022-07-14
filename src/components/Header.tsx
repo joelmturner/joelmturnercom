@@ -22,6 +22,7 @@ const NAV_LINKS = [
   { id: 'blog', component: <Link href="/blog">Blog</Link> },
   { id: 'illustration', component: <Link href="/illustration">Illustration</Link> },
   { id: 'til', component: <Link href="/til">TIL</Link> },
+  { id: 'uses', component: <Link href="/uses">Uses</Link> },
 ];
 
 export function Header() {
