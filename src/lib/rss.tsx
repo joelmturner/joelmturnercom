@@ -1,7 +1,11 @@
 import * as ReactDOMServer from 'react-dom/server';
 import fs from 'fs';
 import { Feed } from 'feed';
-import { getPosts } from './posts';
+import { bundleContent, getPosts } from './posts';
+import { MDXProvider } from '@mdx-js/react';
+import { MDXComponents } from '../components/MDXComponents';
+import { MDXLayoutRenderer } from '../components/MDXLayoutRenderer';
+import { bundleMDX } from 'mdx-bundler';
 
 export async function generateRssFeed() {
   const posts = getPosts();
@@ -9,7 +13,6 @@ export async function generateRssFeed() {
   const date = new Date();
   const author = {
     name: 'Joel M Turner',
-    email: 'joel@joelmturner.com',
     link: 'https://twitter.com/joelmturner',
   };
   const feed = new Feed({
@@ -17,7 +20,7 @@ export async function generateRssFeed() {
     description: '',
     id: siteURL,
     link: siteURL,
-    image: `${siteURL}/jmt-logo-light.svg`,
+    image: `${siteURL}/favicon-32x32.png`,
     favicon: `${siteURL}/favicon.png`,
     copyright: `All rights reserved ${date.getFullYear()}, Joel M Turner`,
     updated: date,
@@ -30,9 +33,16 @@ export async function generateRssFeed() {
     author,
   });
 
-  posts.forEach((post) => {
+  // loop over posts for async processing
+  for (const post of posts) {
     const url = `${siteURL}/blog/${post.slug}`;
-    const html = ReactDOMServer.renderToStaticMarkup(post.content as any);
+    const content = await bundleContent(post);
+    const mdx = (
+      <MDXProvider components={MDXComponents}>
+        <MDXLayoutRenderer mdxSource={content.code} />
+      </MDXProvider>
+    );
+    const html = ReactDOMServer.renderToStaticMarkup(mdx);
     const postText = `<p><em>(The post <a href="${siteURL}/blog/${post.slug}">${post.title}</a> appeared first on <a href="${siteURL}">Joel M Turner Blog</a>.)</em></p>`;
     feed.addItem({
       title: post.title,
@@ -44,7 +54,11 @@ export async function generateRssFeed() {
       contributor: [author],
       date: new Date(post.date),
     });
-  });
+  }
+
+  //   posts.forEach((post) => {
+
+  //   });
 
   fs.mkdirSync('./public/rss', { recursive: true });
   fs.writeFileSync('./public/rss/feed.xml', feed.rss2());

@@ -60,6 +60,28 @@ export function getAllTags() {
   return resolvedTags.map((tag) => ({ params: { slug: tag } }));
 }
 
+export async function bundleContent(
+  post: FrontMatter & {
+    content: string;
+  }
+) {
+  const content = await bundleMDX({
+    source: post.content,
+    mdxOptions: function (options, frontmatter) {
+      (options.rehypePlugins = [
+        ...(options.rehypePlugins ?? []),
+        rehypeExternalLinks,
+        rehypeHighlight,
+        rehypeMetaAttribute,
+        rehypeHighlightCode,
+      ]),
+        (options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm, remarkFrontmatter]);
+      return options;
+    },
+  });
+  return content;
+}
+
 export async function getPostData(
   id: string,
   type: PostType = 'post'
@@ -86,20 +108,21 @@ export async function getPostData(
   const prev =
     prevIndex !== null ? { slug: posts[prevIndex].slug, title: posts[prevIndex].title } : null;
 
-  const content = await bundleMDX({
-    source: posts[postIndex].content,
-    mdxOptions: function (options, frontmatter) {
-      (options.rehypePlugins = [
-        ...(options.rehypePlugins ?? []),
-        rehypeExternalLinks,
-        rehypeHighlight,
-        rehypeMetaAttribute,
-        rehypeHighlightCode,
-      ]),
-        (options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm, remarkFrontmatter]);
-      return options;
-    },
-  });
+  //   const content = await bundleMDX({
+  //     source: posts[postIndex].content,
+  //     mdxOptions: function (options, frontmatter) {
+  //       (options.rehypePlugins = [
+  //         ...(options.rehypePlugins ?? []),
+  //         rehypeExternalLinks,
+  //         rehypeHighlight,
+  //         rehypeMetaAttribute,
+  //         rehypeHighlightCode,
+  //       ]),
+  //         (options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm, remarkFrontmatter]);
+  //       return options;
+  //     },
+  //   });
+  const content = await bundleContent(posts[postIndex]);
 
   // Combine the data with the id
   return {
