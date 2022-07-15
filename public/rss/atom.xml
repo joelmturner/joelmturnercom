@@ -1,0 +1,4692 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://joelmturner.com</id>
+    <title>Joel M Turner blog</title>
+    <updated>2022-07-15T05:54:39.980Z</updated>
+    <generator>Feed for Node.js</generator>
+    <author>
+        <name>Joel M Turner</name>
+        <email>joel@joelmturner.com</email>
+        <uri>https://twitter.com/joelmturner</uri>
+    </author>
+    <link rel="alternate" href="https://joelmturner.com"/>
+    <link rel="self" href="https://joelmturner.com/rss/atom.xml"/>
+    <logo>https://joelmturner.com/logo.svg</logo>
+    <icon>https://joelmturner.com/favicon.png</icon>
+    <rights>All rights reserved 2022, Joel M Turner</rights>
+    <entry>
+        <title type="html"><![CDATA[Quick Tip: VS Code Extension Folder Location]]></title>
+        <id>https://joelmturner.com/blog/quick-tip-code-extension-data</id>
+        <link href="https://joelmturner.com/blog/quick-tip-code-extension-data"/>
+        <updated>2022-07-08T05:56:36.085Z</updated>
+        <summary type="html"><![CDATA[By relocating the folders that are created/updated by VS Code Extensions we can bypass the need to update a gitignore file.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/quick-tip-code-extension-data">Quick Tip: VS Code Extension Folder Location</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+VS Code is awesome and there are so many great extensions that make life easier. Some of these extensions store data in folders which are usually placed at the root of the workspace like:
+
+```bash
+app
+└───.vscode
+└───.history # Local History extension folder
+```
+
+Until recently, I was adding those folders to my `.gitignore` file since they are mainly for personal/local use and didn&#x27;t want to mess with my teammates&#x27; setups. This isn&#x27;t cumbersome but felt a little weird, like mixing too much of my personal setup into our project.
+
+All of our projects already have `.vscode` in the `.gitignore` file so it makes sense to move any extension folders into the `.vscode` folder and bypass adding individual folders to `.gitignore`.
+
+```bash
+app
+└───.vscode
+│   └───.history
+```
+
+Most extensions that have settings/data folders also have a way to link to the path. The example above is for the [Local History](https://marketplace.visualstudio.com/items?itemName=xyz.local-history) extension which has a setting called `Local History: Path`. Just drop a `${workspaceFolder}/.vscode` in there and you&#x27;re good to go.
+
+Not a huge win but it&#x27;s nice that you don&#x27;t have to add something to your `.gitignore` file every time you try out a new extension.
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Working on a New Feature as a Senior Frontend Developer]]></title>
+        <id>https://joelmturner.com/blog/working-feature-senior-frontend-developer</id>
+        <link href="https://joelmturner.com/blog/working-feature-senior-frontend-developer"/>
+        <updated>2022-07-06T04:28:59.027Z</updated>
+        <summary type="html"><![CDATA[Some of the questions and thought processes I have as I work through a new feature ticket.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/working-feature-senior-frontend-developer">Working on a New Feature as a Senior Frontend Developer</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+When I receive a ticket for a new feature, I generally follow a few guidelines to make sure I have what I need to get started. I&#x27;ll share some of my questions and thoughts here for reference (as much for myself as anyone).
+
+## Before the Code
+
+I usually start out by assessing the scope of the feature. The following questions help guide me before I fire up VS Code.
+
+1. Do we have a design for this feature? _depending on size, this may need to push back into design&#x27;s hands_
+2. Is this an existing pattern or a new one? _I prefer existing in the design system_
+3. Is this reusable or scoped to a certain part of the app? _can help with architecture_
+4. Will this need API updates to get to feature complete?
+   1. If yes, does API work need to happen before UI?
+   2. If yes, are they simple updates? _I can handle simple updates, otherwise I&#x27;ll have to pass off the API work to someone with more Java experience on the team_
+5. What does finished look like? _this can help with tests and QA_
+6. Is this a part of the app that I&#x27;m familiar with? _might take longer if I&#x27;m not familiar_
+   1. If no, who can I ask for help if I get stuck?
+7. Is this an opportunity to refactor some older code? _often, these are the only chances to clean up tech debt_
+
+Whew! That&#x27;s a lot! Let&#x27;s get into the code already.
+
+&lt;Flex alignItems=&quot;center&quot; flexDirection=&quot;column&quot; maxWidth=&quot;350px&quot; m=&quot;0 auto&quot;&gt;
+  &lt;div
+    style={{
+      width: &#x27;100%&#x27;,
+      height: 0,
+      paddingBottom: &#x27;100%&#x27;,
+      position: &#x27;relative&#x27;,
+    }}
+  &gt;
+    &lt;iframe
+      src=&quot;https://giphy.com/embed/3krrjoL0vHRaWqwU3k&quot;
+      width=&quot;100%&quot;
+      height=&quot;100%&quot;
+      style={{ position: &#x27;absolute&#x27; }}
+      frameBorder=&quot;0&quot;
+      class=&quot;giphy-embed&quot;
+      allowFullScreen
+    &gt;&lt;/iframe&gt;
+  &lt;/div&gt;
+  &lt;p&gt;
+    &lt;a href=&quot;https://giphy.com/gifs/spotify-play-streaming-3krrjoL0vHRaWqwU3k&quot;&gt;via GIPHY&lt;/a&gt;
+  &lt;/p&gt;
+&lt;/Flex&gt;
+
+## Diving Into Code
+
+Once I have some satisfactory answers to the above questions, I dive into the code to help answer some other questions, as well as generate some new ones. There are usually still a few unknowns that arise before the downhill of writing the feature.
+
+Once I&#x27;m in the code, I try to determine the architecture of the feature and assess the state requirements.
+
+1. Can the state be isolated to this feature?
+   1. If no, how much needs to be refactored to implement this feature?
+   2. If no, how high does the state need to go?
+2. Is this feature directly coupled with another feature?
+   1. If yes, can I separate concerns so they are easier to reason about and maintain?
+3. Can I remove code to help reduce complexity? _ongoing tech debt work_
+
+From here, I can start piecing together the UI. I love seeing visual progress right away so I usually start by fleshing out the layout and adding placeholder divs for the elements. This helps me get a bit of a wireframe together before diving into the details, which can help me determine where the state should live and how to break the components down.
+
+As I fill in the details, I can create the types, helper functions, hooks, and components that are needed. Hopefully, most of this comes from the design library but sometimes we have to piece together a solution outside of it.
+
+I almost always run some parts of my solution or my architecture by my manager, [Ryan](https://www.linkedin.com/in/ryan-legler-b0807853/), who is an incredible architect and a master of thinking through edge cases. That helps determine a stable foundation to the feature and future maintenance/updates to the feature.
+
+Almost done!
+
+&lt;Flex alignItems=&quot;center&quot; flexDirection=&quot;column&quot; m=&quot;0 auto&quot;&gt;
+  &lt;img
+    src=&quot;https://res.cloudinary.com/joelmturner/image/upload/w_512/v1657085654/gatsby-toasting-meme_kzslea.jpg&quot;
+    alt=&quot;Leo DiCaprio as Great Gatsby toasting the viewer&quot;
+    srcset=&quot;https://res.cloudinary.com/joelmturner/image/upload/w_1024/v1657085654/gatsby-toasting-meme_kzslea.jpg 1024w, https://res.cloudinary.com/joelmturner/image/upload/w_512/v1657085654/gatsby-toasting-meme_kzslea.jpg 512w, https://res.cloudinary.com/joelmturner/image/upload/w_256/v1657085654/gatsby-toasting-meme_kzslea.jpg 256w&quot;
+    sizes=&quot;(min-width: 30em) 30em, 100vw&quot;
+  /&gt;
+&lt;/Flex&gt;
+
+## Wrapping Up
+
+I like to go through any helper functions I&#x27;ve added to make sure they are covered with tests. This can be true for the components as well, depending on their complexity. This is also the time when I create a Pull Request and have the rest of the team weigh in on patterns, issues, and things I&#x27;ve overlooked.
+
+Once the PR is approved it is on its way to QA where it has the edges poked at. If there are any edges found, I&#x27;ll solve for those edges, and if applicable, add tests for those edges.
+
+## How do You Work Through a New Ticket?
+
+I would love to hear how other&#x27;s work through feature tickets, no matter what experience you have in development. Hit me up on [Twitter](https://twitter.com/joelmturner) if you&#x27;d like. I think we all come at it from our unique angles and can help each other as we learn and grow.
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Static Nextjs Netlify 500 Errors Instead of 404 Errors]]></title>
+        <id>https://joelmturner.com/blog/static-nextjs-netlify-500-errors-404-errors</id>
+        <link href="https://joelmturner.com/blog/static-nextjs-netlify-500-errors-404-errors"/>
+        <updated>2022-07-03T04:19:41.807Z</updated>
+        <summary type="html"><![CDATA[Digging into a bug with Netlify's Next plugin that causes 500 errors instead of 404 errors. There is a quick workaround that works for this specific case.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/static-nextjs-netlify-500-errors-404-errors">Static Nextjs Netlify 500 Errors Instead of 404 Errors</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+I recently switched my site from Gatsby to Next while still deploying to Netlify. For the most part, it went very well. I&#x27;ll write some more soon about the transition and some of the challenges that arose.
+
+## The Problem
+
+Today I&#x27;m going to cover an issue that I ran into after deploying my site to Netlify. The problem is that if someone were to go to a blog post that didn&#x27;t exist, like [https://joelmturner.com/blog/abc](https://joelmturner.com/blog/abc), they would receive a 500 error message. Since it&#x27;s a 500 from the server, the client doesn&#x27;t spin up and I can&#x27;t see which page was trying to be accessed.
+
+This had me searching all over for the root cause since it all worked locally and I would expect that it would just throw a 404 error like other missing pages. Finally, after searching for quite some time, I came across a [GitHub issue](https://github.com/netlify/netlify-plugin-nextjs/issues/1179) that resembled my problem. Sure enough, [hu0p](https://github.com/hu0p) had a [workaround](https://github.com/netlify/netlify-plugin-nextjs/issues/1179#issuecomment-1110301726) that worked for me as well.
+
+The factors that lead to this issue are:
+
+- Hosted on Netlify
+- Running the Essential Next.js plugin (the culprit)
+- Static site build of Nextjs
+- Have some dynamic routes like `pages/blog/[id].tsx`
+- Hit a route that doesn&#x27;t exist on that dynamic route
+
+## The Solution
+
+By wrapping the data fetching with a try/catch, we are able to return `notFound: true` which will trigger the 404 page. I wasn&#x27;t aware that `notFound` was a return value until I saw this workaround.
+
+Instead of:
+
+```ts
+export async function getStaticProps({ params }) {
+  const postData = await getPostData(params.id);
+
+  return {
+    props: {
+      ...postData,
+    },
+  };
+}
+```
+
+We use try/catch:
+
+```ts line=2-10
+export async function getStaticProps({ params }) {
+  let postData;
+  try {
+    postData = await getPostData(params.id);
+  } catch (e) {
+    console.error(e);
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      ...postData,
+    },
+  };
+}
+```
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[React One Time Password Input Component]]></title>
+        <id>https://joelmturner.com/blog/react-one-time-password-input-component</id>
+        <link href="https://joelmturner.com/blog/react-one-time-password-input-component"/>
+        <updated>2022-03-26T05:07:58.270Z</updated>
+        <summary type="html"><![CDATA[One time password input component for React. Uses a separated input for the OTP read and write.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/react-one-time-password-input-component">React One Time Password Input Component</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+import { CodeSandbox } from &#x27;mdx-embed&#x27;;
+
+I recently had an opportunity to create a one-time-password like component in a React app. The goal was to have a readonly separated, 6 digit/character code that can be displayed on one device and a separated input to enter that code in a web app.
+
+The solution I arrived at is a 6-input component that advances the focus as the user types. This can also handle the &quot;Backspace&quot; key via the [useKeyPressEvent](https://github.com/streamich/react-use/blob/master/docs/useKeyPressEvent.md) hook from [react-use](https://github.com/streamich/react-use).
+
+This is the solution that worked for our case and I would love to hear others have solved this challenge as well.
+
+## What We&#x27;re Building
+
+&lt;CodeSandbox codeSandboxId=&quot;react-one-time-password-partition-input-29tzrq&quot; /&gt;
+
+## Parent Component
+
+The component that is orchestrating the `SeparatedInput` component will need to have a state for the value and a handler to update that state with the value that `SeparatedInput` will pass back up. We can set it up like this:
+
+```tsx filename=OTPContainer.tsx
+export function OTPContainer({}) {
+  const [value, setValue] = useState(&#x27;&#x27;);
+
+  const handleChange = (newValue: string) =&gt; {
+    // do validation work here
+    setValue(newValue);
+  };
+
+  return &lt;SeparatedInput value={value} onChange={handleChange} /&gt;;
+}
+```
+
+## Rendering The Inputs
+
+We&#x27;re going to start with a new component and name it something like `SeparatedInput.tsx`. This component will house our inputs and the handlers for them. We&#x27;ll be using [styled-components](https://styled-components.com/) to make the styling a bit easier.
+
+```tsx filename=SeparatedInput.tsx
+export const InputContainer = styled.div`
+  display: flex;
+  justify-content: between;
+  gap: 2em;
+  max-width: 44em; // magic number, can be whatever fits the project&#x27;s needs
+`;
+
+export function SeparatedInput({}) {
+  return &lt;InputContainer&gt;{/* we&#x27;ll place the inputs here */}&lt;/InputContainer&gt;;
+}
+```
+
+We&#x27;ll need to pass our value to this component so let&#x27;s add that as a prop.
+
+```tsx
+...
+export function SeparatedInput({ value }) {
+...
+```
+
+Now we need to separate this value into an array that we can map into our inputs.
+
+```tsx
+...
+// can make this a passed prop if reused and more/fewer digits/characters are needed
+const MAX_DIGITS = 6;
+
+export function SeparatedInput({ value }: { value: string }) {
+    const separatedValue = useMemo(() =&gt; {
+        // fill the unused inputs with empty strings
+        const filler = Array(MAX_DIGITS - value.length).fill(&quot;&quot;);
+        const resolvedValue = [...value, ...filler];
+
+        // make sure it&#x27;s only 6 characters long
+        resolvedValue.length = MAX_DIGITS;
+        return resolvedValue;
+    }, [value]);
+...
+```
+
+We can spread our value into an array to create an array of characters. This is great if our `value` is 6 characters long but doesn&#x27;t quite work if it&#x27;s less than that. To fix this, we can fill out the rest with empty strings using `Array(n).fill(&quot;&quot;)`. We can then spread this into our array as well.
+
+The line `resolvedValue.length = MAX_DIGITS;` trims any elements over our length of `MAX_DIGITS` (6).
+
+From here, we can map over our array and render our inputs using those strings.
+
+```tsx
+...
+export const StyledInput = styled.input`
+  padding: 0.5em 0.25em;
+  font-size: 2.75em;
+  margin-bottom: 0.25em;
+  border: none;
+  border-bottom: 6px solid hsl(0, 0%, 20%);
+  background-color: hsl(0, 0%, 7%);
+  color: hsl(0, 0%, 90%);
+  width: calc(100% / 6);
+  text-align: center;
+  /* we use a serif font to help differentiate characters/digits */
+  font-family: serif;
+`;
+...
+return (
+    &lt;InputContainer&gt;
+      {separatedValue.map((character, index) =&gt; {
+        return (
+          &lt;StyledInput
+            key={index}
+            id={`${index}`}
+            value={character}
+          /&gt;
+        );
+      })}
+    &lt;/InputContainer&gt;
+  );
+```
+
+## Handling Input Value Changes
+
+We can use one function to pass to the inputs since each input will send an event on change. With this, we&#x27;ll be passing our `onChange` back up via a prop.
+
+```tsx
+...
+export function SeparatedInput({ value, onChange }: {
+  value: string;
+  onChange?: (value: string) =&gt; void;
+}) {
+...
+    const handleChange = (event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {
+        onChange?.(value + event.target.value);
+    };
+
+    return (
+        &lt;InputContainer&gt;
+        {separatedValue.map((character, index) =&gt; {
+            return (
+            &lt;StyledInput
+                key={index}
+                id={`${index}`}
+                value={character}
+                onChange={handleChange}
+            /&gt;
+            );
+        })}
+        &lt;/InputContainer&gt;
+    );
+}
+```
+
+Great! This handler will take each unique event and add that to the value. We still have an issue with typing into the inputs since they don&#x27;t advance to the next input. This will cause the value to keep growing out of sync with the focussed input.
+
+For the focus we can leverage `useRef`. We&#x27;ll get the ref of the `InputContainer` so we can control the focus of its children. We&#x27;ll also need some state to handle the focus index. We can then update the focus via `useEffect` on the update of focus index.
+
+To set the focus index we can take the previous state and check to see if it&#x27;s less than the last input index and, if so, increment by one.
+
+```tsx
+...
+export function SeparatedInput({ value, onChange }: {
+  value: string;
+  onChange?: (value: string) =&gt; void;
+}) {
+    const ref = useRef&lt;HTMLDivElement&gt;(null);
+    // initial value of zero will focus the first input on load
+    const [focusIndex, setFocusIndex] = useState(0);
+
+    useEffect(() =&gt; {
+        // focus the current input by index
+        if (ref.current?.children[focusIndex]) {
+            (ref.current.children[focusIndex] as HTMLInputElement).focus();
+        }
+    }, [focusIndex, readOnly]);
+
+    const handleChange = (event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {
+        // move the cursor forward after input
+        setFocusIndex((prev) =&gt;
+            prev &lt; MAX_DIGITS - 1 ? prev + 1 : MAX_DIGITS - 1
+        );
+
+        onChange?.(value + event.target.value);
+    };
+...
+    return (
+        &lt;InputContainer&gt;
+            {separatedValue.map((character, index) =&gt; {
+                return (
+                    &lt;StyledInput
+                        key={index}
+                        id={`${index}`}
+                        value={character}
+                        onChange={handleChange}
+                    /&gt;
+                );
+            })}
+        &lt;/InputContainer&gt;
+    );
+}
+```
+
+Cool, this seems to work pretty well for adding characters to the inputs. The next thing we&#x27;ll need to do is handle removing characters using &quot;Backspace.&quot; To achieve this, we&#x27;ll use the [useKeyPressEvent](https://github.com/streamich/react-use/blob/master/docs/useKeyPressEvent.md) hook. This hook takes the keyPress key as the first argument and a callback function to do something when that key is pressed.
+
+Let&#x27;s set up the callback function first. For our specific case we want the &quot;Backspace&quot; key remove the last character in our value. We can use slice on the value string to handle this. After removing the item, we&#x27;ll set the focus to the previous input.
+
+Once our function is in place we can pass it to `useKeyPressEvent`.
+
+```tsx
+import { useKeyPressEvent } from &quot;react-use&quot;;
+...
+    const handleBackspace = useCallback(() =&gt; {
+        // remove the last character
+        const newValue = value.slice(0, -1);
+        // move the cursor back one
+        setFocusIndex((prev) =&gt; (prev &gt; 0 ? prev - 1 : 0));
+        onChange?.(newValue);
+    }, [onChange, value]);
+
+    // fires handleBackspace event when Backspace is pressed
+    useKeyPressEvent(&quot;Backspace&quot;, handleBackspace);
+...
+```
+
+Now we can move back and forth by typing characters and &quot;Backspace.&quot;
+
+We can still click into any input and the focus will shift to that one. However, if we type it will add the character to the next input in our sequence. There are few ways to improve this experience and I&#x27;ll share the one that is currently meeting our needs, though we may update it in the future.
+
+The input sequence we&#x27;ll use is just forward and back, without the user clicking or tabbing/shift+tabbing into other inputs. Since it&#x27;s only six characters it shouldn&#x27;t be too bad to hit &quot;Backspace&quot; a few times rather than update a previous input via mouse click. If it were longer I would definitely opt for a solution where you can correct any input in the chain.
+
+We can use the `disabled` attribute on the inputs to prevent the input from receiving focus. We&#x27;ll create a check to make sure that the inputs before and after our current focus index are disabled. We&#x27;ll also prevent it from disabling the last input if all values are filled.
+
+```tsx
+return (
+    &lt;InputContainer ref={ref}&gt;
+      {separatedValue.map((character, index) =&gt; {
+        const disabled =
+          (index &lt; value.length &amp;&amp; index + 1 &lt; MAX_DIGITS) ||
+          index &gt; focusIndex;
+        return (
+          &lt;StyledInput
+            key={index}
+            id={`${index}`}
+            value={character}
+            onChange={handleChange}
+            disabled={disabled}
+          /&gt;
+        );
+      })}
+    &lt;/InputContainer&gt;
+  );
+}
+```
+
+## Display the Code
+
+This component will also be used to display the generated code to the user in the other device. In order to use this as a display component we&#x27;ll want to make sure the user can&#x27;t update the inputs. We&#x27;ll use a combination of `disabled` and `readonly` attributes.
+
+The parent can pass the `value` and the `readOnly` props to the `SeparatedInput` component.
+
+```tsx filename=OTPDisplayContainer.tsx
+export function OTPDisplayContainer({}) {
+  const value = useGetValueFromService();
+
+  return &lt;SeparatedInput value={value} readOnly /&gt;;
+}
+```
+
+The `SeparatedInput` will then use this to check for in the handlers and inputs to make sure it will only show the value, not change it. The final component code will then be as follows.
+
+```tsx
+import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from &#x27;react&#x27;;
+import { useKeyPressEvent } from &#x27;react-use&#x27;;
+import { InputContainer, StyledInput } from &#x27;./styledComponents&#x27;;
+
+// can make this a passed prop if more/fewer digits/characters are needed
+const MAX_DIGITS = 6;
+
+export function SeparatedInput({
+  value,
+  onChange,
+  readOnly,
+}: {
+  value: string;
+  onChange?: (value: string) =&gt; void;
+  readOnly: boolean;
+}) {
+  const ref = useRef&lt;HTMLDivElement&gt;(null);
+  const [focusIndex, setFocusIndex] = useState(0);
+
+  const handleBackspace = useCallback(() =&gt; {
+    if (readOnly) {
+      return;
+    }
+    // remove the last character
+    const newValue = value.slice(0, -1);
+    // move the cursor back one
+    setFocusIndex((prev) =&gt; (prev &gt; 0 ? prev - 1 : 0));
+    onChange?.(newValue);
+  }, [onChange, readOnly, value]);
+
+  // fires handleBackspace event when Backspace is pressed
+  useKeyPressEvent(&#x27;Backspace&#x27;, handleBackspace);
+
+  useEffect(() =&gt; {
+    // focus the current input by index
+    if (ref.current?.children[focusIndex] &amp;&amp; !readOnly) {
+      (ref.current.children[focusIndex] as HTMLInputElement).focus();
+    }
+  }, [focusIndex, readOnly]);
+
+  const separatedValue = useMemo(() =&gt; {
+    // fill the unused inputs with empty strings
+    const filler = Array(MAX_DIGITS - value.length).fill(&#x27;&#x27;);
+    const resolvedValue = [...value, ...filler];
+
+    // make sure it&#x27;s only 6 characters long
+    resolvedValue.length = MAX_DIGITS;
+    return resolvedValue;
+  }, [value]);
+
+  const handleChange = useCallback(
+    (event: ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {
+      if (readOnly) {
+        return;
+      }
+      // move the cursor forward after input
+      setFocusIndex((prev) =&gt; (prev &lt; MAX_DIGITS - 1 ? prev + 1 : MAX_DIGITS - 1));
+      onChange?.(value + event.target.value);
+    },
+    [onChange, readOnly, value]
+  );
+
+  return (
+    &lt;InputContainer ref={ref}&gt;
+      {separatedValue.map((character, index) =&gt; {
+        const disabled =
+          readOnly || (index &lt; value.length &amp;&amp; index + 1 &lt; MAX_DIGITS) || index &gt; focusIndex;
+        return (
+          &lt;StyledInput
+            key={index}
+            id={`${index}`}
+            value={character}
+            onChange={handleChange}
+            readOnly={readOnly}
+            disabled={disabled}
+          /&gt;
+        );
+      })}
+    &lt;/InputContainer&gt;
+  );
+}
+```
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Gatsby Client-Side External Redirect]]></title>
+        <id>https://joelmturner.com/blog/gatsby-client-side-external-redirect</id>
+        <link href="https://joelmturner.com/blog/gatsby-client-side-external-redirect"/>
+        <updated>2021-11-02T05:16:08.131Z</updated>
+        <summary type="html"><![CDATA[A client-side redirect for Gatsby when you don't have access to the CloudFront settings.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/gatsby-client-side-external-redirect">Gatsby Client-Side External Redirect</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+We had a case where we needed to set up a redirect on the client side of Gatsby but we didn&#x27;t want to spin up a lambda to handle this one case. A redirect like this wouldn&#x27;t be a problem with some of the hosts out there, but we&#x27;re just using s3 and Cloudfront for this site.
+
+To set up a quick redirect on the client we can send a redirect link through page context and handle the window location in a `useEffect`.
+
+```javascript filename=gatsby-node.js
+ {
+    path: &quot;/path&quot;,
+    component: resolve(__dirname, &quot;../src/templates/EmptyPage.tsx&quot;),
+    context: {
+        redirectTo:
+            &quot;https://someawesomewebsite.com/newLink&quot;,
+    },
+},
+```
+
+```tsx filename=templates/emptyPage.tsx
+import React, { useEffect } from &#x27;react&#x27;;
+
+function isClient() {
+  return typeof window === &#x27;object&#x27;;
+}
+
+export default function EmptyPage({ pageContext }) {
+  useEffect(() =&gt; {
+    if (isClient() &amp;&amp; pageContext?.redirectTo) {
+      window.location.href = pageContext.redirectTo;
+    }
+  }, []);
+
+  return &lt;div /&gt;;
+}
+```
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Instagram to Cloudinary]]></title>
+        <id>https://joelmturner.com/blog/instagram-cloudinary</id>
+        <link href="https://joelmturner.com/blog/instagram-cloudinary"/>
+        <updated>2021-11-01T16:08:43.532Z</updated>
+        <summary type="html"><![CDATA[Setting up a GitHub Action to upload images to Cloudinary from Instagram. This solves some of the issues that I was having with getting Instagram images into Gatsby.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/instagram-cloudinary">Instagram to Cloudinary</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+We&#x27;re going to walk through setting up a Node.js project that will fetch Instagram posts, filter by a set of hashtags, then upload those images to Cloudinary, and then trigger a Netlify build. This script will run on a schedule through Github Actions.
+
+## tl;tr
+
+Here&#x27;s the [instagram-cloudinary](https://github.com/joelmturner/instagram-cloudinary) repo if you&#x27;d like to skip to the final code.
+
+## The Problem
+
+First, a little history...
+
+I&#x27;ve been using the [gatsby-source-instagram](https://www.gatsbyjs.com/plugins/gatsby-source-instagram/) plugin for a while on my site to highlight some of my [illustrations](&#x27;/illustrations&#x27;). I even [added some functionality to the plugin](https://github.com/oorestisime/gatsby-source-instagram/pull/164) so consumers could query their posts by hashtag.
+
+The [plugin author](https://github.com/oorestisime) has done a great job tracking down issues and documenting the convoluted steps to get Facebook/Instagram API credentials. The plugin worked great for a while, but due to many changes in the Facebook/Instagram API, it became less reliable and harder to debug.
+
+It got to a point where I couldn&#x27;t update my site because of the errors from the Instagram API. I believe that part of the problem is the frequency of querying the API, where it seemed to only work every few minutes, throwing an error in between of &quot;Please try again later.&quot; When working on the site locally, it would cause a cascade of errors in Gatsby&#x27;s graph. Because of this and the ever-changing permissions in the Facebook API, the plugin has been much harder to maintain.
+
+To query the Instagram API less frequently and have more control, I decided to set up a Node.js project to fetch posts from the Instagram API, filter and find hashtags, and then upload those to Cloudinary. When the posts send successfully, the script fires a Netlify build via a webhook.
+
+## The Goal
+
+To make this work for my case, I jotted down what I needed this script to do.
+
+1. fetch the latest posts from Instagram
+   - make sure we get the first few comments (I used to put the post&#x27;s hashtags in the first comment)
+2. upload the posts that match my hashtag list to Cloudinary
+3. trigger a build of my site (my site is running [gatsby-source-cloudinary](https://www.gatsbyjs.com/plugins/gatsby-source-cloudinary/))
+
+## Setting up a new project
+
+The first thing to do is set up a new Node.js project. There are quite a few starters out there, but, for this, I just started from scratch.
+
+Create the project folder and navigate to it.
+
+```bash
+mkdir instagram-cloudinary
+cd instagram-cloudinary
+```
+
+Initialize the package.json. I use `yarn`, but feel free to use `npm`.
+
+```bash
+yarn init
+```
+
+This is what my package.json file looks like after initialization:
+
+```json filename=package.json
+{
+  &quot;name&quot;: &quot;instagram-cloudinary&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;main&quot;: &quot;src/index.js&quot;,
+  &quot;author&quot;: &quot;@joelmturner&quot;,
+  &quot;license&quot;: &quot;MIT&quot;,
+  &quot;private&quot;: true
+}
+```
+
+I like to use TypeScript so that&#x27;s the first dependency I&#x27;ll add here. The `-D` flag sets them as `devDependencies`. `ts-node` is going to help run the script.
+
+```bash
+yarn add -D typescript ts-node @types/node
+```
+
+Next, it&#x27;s time to set up the `tsconfig.json` file. I usually run the `init` and update the items as necessary.
+
+```bash
+yarn tsc --init
+```
+
+This is how mine looks after cleanup.
+
+```json filename=tsconfig.json
+{
+  &quot;compilerOptions&quot;: {
+    &quot;target&quot;: &quot;esnext&quot;,
+    &quot;module&quot;: &quot;commonjs&quot;,
+    &quot;rootDir&quot;: &quot;src&quot;,
+    &quot;isolatedModules&quot;: true,
+    &quot;strict&quot;: true,
+    &quot;noImplicitAny&quot;: false,
+    &quot;resolveJsonModule&quot;: true,
+    &quot;esModuleInterop&quot;: true,
+    &quot;lib&quot;: [&quot;es2015&quot;, &quot;dom&quot;]
+  }
+}
+```
+
+Since we&#x27;ll be using API keys for Instagram and Cloudinary, we can add `dotenv` to help us with the environment variables.
+
+```bash
+yarn add -D dotenv
+```
+
+Next is adding the script file in the `src` folder.
+
+```bash
+mkdir src
+touch src/index.ts
+```
+
+In this file we can add some pseudo code to help us step through. Our `src/index.ts` can look like this:
+
+```typescript filename=src/index.ts
+async function instagramToCloudinary() {
+  // fetch the posts from Instagram
+  // convert the posts by hashtags
+  // upload to Cloudinary
+  // trigger a build if posts are pulled successfully
+}
+
+// fire the script
+instagramToCloudinary();
+```
+
+## Instagram Query
+
+Let&#x27;s get those posts!
+
+We&#x27;ll start with adding axios as a dependency. Axios will help us with the requests.
+
+```bash
+yarn add -D axios
+```
+
+Next, let&#x27;s set up some environment variables for Instagram. For this, you&#x27;ll need an access token and Instagram id from Facebook so that you can query Instagram. Honestly, I don&#x27;t remember how I got these working correctly but, the directions on [gatsby-source-instagram](https://www.gatsbyjs.com/plugins/gatsby-source-instagram/#instagram-graph-api-token) were helpful.
+
+Create a `.env` file at the root of your project and add your values like:
+
+```bash filename=.env
+INSTAGRAM_ACCESS_TOKEN=XXXXXX
+INSTAGRAM_ID=XXXXXX
+```
+
+Now that we have these ready, we can start putting the script together. I&#x27;ll put the Instagram fetching in its own function, so it&#x27;s easier to reason about later.
+
+```typescript filename=src/index.ts line=1-10,13
+require(&#x27;dotenv&#x27;).config();
+const MAX_POSTS = 500;
+
+async function fetchInstagramPosts() {
+  console.log(&#x27;🚀 fetching Instagram posts&#x27;);
+  const response = await axios.get(
+    `https://graph.facebook.com/v12.0/${process.env.INSTAGRAM_ID}/media?fields=media_url,caption,media_type,timestamp,children{media_url},comments.limit(3){text}&amp;limit=${MAX_POSTS}&amp;access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`
+  );
+  return response?.data?.data;
+}
+
+async function instagramToCloudinary() {
+  // fetch the posts from Instagram
+  const posts = await fetchInstagramPosts();
+
+  // convert the posts by hashtags
+  // upload to Cloudinary
+  // trigger a build if posts are pulled successfully
+}
+
+// fire the script
+instagramToCloudinary();
+```
+
+First, we add the `require(&quot;dotenv&quot;).config();` so we have access to the environment variables that we set up above.
+
+For the request, we&#x27;re using axios and building the URL with our parameters. The parameters are specialized to what we need for grabbing all the user&#x27;s posts and the first three comments on those posts.
+
+We&#x27;re using the environment variables declared above to place into these parameters for the id and access token. The `MAX_POSTS` is a setting that we can increase whenever we need to do more or decrease if we&#x27;re only trying to maintain the last few posts posted to Instagram.
+
+We then use an `await` to make sure the posts resolve before moving on to the next step. We can also add a try-catch in case there is a failure.
+
+```typescript filename=src/index.ts line=2,8-10
+async function fetchInstagramPosts() {
+  try {
+    console.log(&#x27;🚀 fetching Instagram posts&#x27;);
+    const response = await axios.get(
+      `https://graph.facebook.com/v12.0/${process.env.INSTAGRAM_ID}/media?fields=media_url,caption,media_type,timestamp,children{media_url},comments.limit(3){text}&amp;limit=${MAX_POSTS}&amp;access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`
+    );
+    return response?.data?.data;
+  } catch (error) {
+    console.log(&#x27;😿 Instagram fetch error&#x27;, error);
+  }
+}
+```
+
+## Prepare the Posts by Hashtag
+
+Let&#x27;s do this section in its own function as well. We can add the invocation of it to `instagramToCloudinary()`. We&#x27;ll add a type of `UploadPost` that we can define in `src/types.ts` and import into our script. The `UploadPost` array will store our data in a way that we can pass to Cloudinary more easily.
+
+```typescript filename=src/index.ts line=7-10,13
+import { UploadPost } from &#x27;./types&#x27;;
+
+async function instagramToCloudinary() {
+  // fetch the posts from Instagram
+  const posts = await fetchInstagramPosts();
+
+  if (posts?.length) {
+    // convert the posts by hashtags
+    const cloudinaryCollection: UploadPost[] = convertInstagramPostToCloudinaryEntity(posts);
+
+    // upload to Cloudinary
+    // trigger a build if posts are pulled successfully
+  }
+}
+```
+
+```typescript filename=src/types.ts
+export type UploadPost = {
+  url: string;
+  public_id: string;
+  folder: string;
+  overwrite: true;
+  tags: string[];
+  createdDate: number;
+};
+```
+
+Now, let&#x27;s create the `convertInstagramPostToCloudinaryEntity()` function. This one is fairly deep, so I&#x27;ll try to walk through it in pieces, then put it all together. We can stub out the function and add a type of `Post` which is, roughly, the shape we get back from the Instagram API.
+
+```typescript filename=src/index.ts
+import { Post, UploadPost } from &#x27;./types&#x27;;
+require(&#x27;dotenv&#x27;).config();
+const MAX_POSTS = 500;
+
+async function fetchInstagramPosts() {}
+
+function convertInstagramPostToCloudinaryEntity(posts: Post[]): UploadPost[] {
+  console.log(&#x27;🚀 converting posts to Cloudinary&#x27;);
+
+  // check for hashtags in the posts and add to the collection
+}
+```
+
+```typescript filename=src/types.ts
+export type Post = {
+  media_url: string;
+  caption?: string;
+  media_type: &#x27;IMAGE&#x27; | &#x27;VIDEO&#x27; | &#x27;AUDIO&#x27;;
+  timestamp: string;
+  comments_count: number;
+  id: string;
+  comments?: {
+    data: Comment[];
+  };
+};
+```
+
+Now that we have a function ready to start with, we need to figure out how to filter the posts based on a hashtag. I opted to create a list of the hashtags I would like to showcase on my site. The list has an `id` and a `regex` because I messed up the hashtags a few times on Instagram and didn&#x27;t want to go back through to fix them.
+
+```typescript filename=src/constants.ts
+export const HASHTAG_CONFIG = [
+  {
+    id: &#x27;joelmturner_abcs2017&#x27;,
+    regex: /#j.+?2017/gi,
+  },
+  {
+    id: &#x27;joelmturner_featured&#x27;,
+    regex: /#joelmturner_featured/gi,
+  },
+  {
+    id: &#x27;letterclash&#x27;,
+    regex: /#letterclash/gi,
+  },
+  {
+    id: &#x27;inktober2017&#x27;,
+    regex: /#ink.+?2017/gi,
+  },
+  {
+    id: &#x27;inktober2018&#x27;,
+    regex: /#ink.+?2018/gi,
+  },
+  {
+    id: &#x27;inktober2019&#x27;,
+    regex: /#ink.+?2019/gi,
+  },
+  {
+    id: &#x27;inktober2021&#x27;,
+    regex: /#ink.+?2021/gi,
+  },
+  {
+    id: &#x27;handletteredabcs_2016&#x27;,
+    regex: /#handletteredabcs_2016/gi,
+  },
+];
+```
+
+First, we&#x27;ll loop over the hashtag config and filter down to the posts that have the hashtags that we want. Then, we&#x27;ll be able to combine the hashtags, if a post has more than one and create an entity that will be easier for the upload step. We can store these in a variable outside of the loop that will be returned at the end of the function.
+
+```typescript filename=src/index.ts line=3-51
+function convertInstagramPostToCloudinaryEntity(posts: Post[]): UploadPost[] {
+  console.log(&#x27;🚀 converting posts to Cloudinary&#x27;);
+  const cloudinaryCollection: UploadPost[] = [];
+
+  // check for hashtags in the posts and add to collection
+  HASHTAG_CONFIG.forEach((config) =&gt; {
+    const postGroup = posts?.filter((post) =&gt; {
+      // making sure the post is an image instead of video
+      if (post.media_type !== &#x27;IMAGE&#x27;) {
+        return false;
+      }
+      // combines the text from the first 3 comments
+      const comments =
+        post?.comments?.data?.reduce((acc, comment) =&gt; {
+          acc = `${acc} ${comment?.text}`;
+          return acc;
+        }, &#x27;&#x27;) ?? &#x27;&#x27;;
+
+      const content = `${post?.caption} ${comments}`;
+      // check to see if our regex matches anything in the combined string
+      return content.match(config.regex);
+    });
+
+    // loop over the posts and add to stored variable
+    if (postGroup?.length) {
+      postGroup.forEach((post) =&gt; {
+        const timestamp = new Date(post.timestamp).valueOf();
+        // using a date value as id so it&#x27;s easier to sort by date
+        const combinedId = `${timestamp}_${post.id}`;
+        // see if this post is already in our collection
+        const found = cloudinaryCollection.find(
+          (uploadPost) =&gt; uploadPost.public_id === combinedId
+        );
+
+        if (found) {
+          // combine tags on the entity
+          found.tags = [...found.tags, config.id];
+        } else {
+          // create entity
+          cloudinaryCollection.push({
+            url: post.media_url,
+            public_id: combinedId,
+            folder: &#x27;illustration&#x27;,
+            overwrite: true,
+            tags: [config.id],
+            createdDate: timestamp,
+          });
+        }
+      });
+    }
+  });
+
+  return cloudinaryCollection;
+}
+```
+
+## Upload to Cloudinary
+
+Now that we have an array of Cloudinary-like entities, we&#x27;re ready to move on to uploading to Cloudinary. To achieve this, we&#x27;ll need to make sure we have upload credentials.
+
+### Cloudinary API Credentials
+
+If you&#x27;re new to Cloudinary, they have a very generous free tier where you can sign up at [cloudinary.com](https://cloudinary.com/) or use this [invite link](https://cloudinary.com/invites/lpov9zyyucivvxsnalc5/ioqt4f3bil10nezrxnml). Once you&#x27;re signed in, you can follow the steps below.
+
+If you have a Cloudinary account, you can log in and go to Settings -&gt; Security -&gt; Access Keys. Here, you can add a new pair, which will be used in this script.
+
+Once finished, you should see all the details you&#x27;ll need at the top of your Cloudinary dashboard.
+
+![screenshot of Cloudinary&#x27;s dashboard, showing api credentials](https://res.cloudinary.com/joelmturner/image/upload/v1635257186/Posts/cloudinary-dashboard-credentials.png)
+
+### Cloudinary Client
+
+Let&#x27;s get the Cloudinary client connected. We&#x27;ll need to add some items to our `.env` file.
+
+```bash line=5-8 filename=.env
+# Instagram
+INSTAGRAM_ACCESS_TOKEN=XXXXXX
+INSTAGRAM_ID=XXXXXX
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=XXXXXX
+CLOUDINARY_API_KEY=XXXXXX
+CLOUDINARY_API_SECRET=XXXXXX
+```
+
+We can now use these in our app to help us connect to Cloudinary. Here is the connection config. I placed this at the top of the index file, under the imports.
+
+```typescript filename=src/index.ts
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
+});
+```
+
+### Start the Uploads
+
+We&#x27;re now ready to start the upload process. We&#x27;ll start by creating a new async function because we want to know if all of the uploads made it successfully.
+
+```typescript filename=src/index.ts line=12
+import { UploadPost } from &#x27;./types&#x27;;
+
+async function instagramToCloudinary() {
+  // fetch the posts from Instagram
+  const posts = await fetchInstagramPosts();
+
+  if (posts?.length) {
+    // convert the posts by hashtags
+    const cloudinaryCollection: UploadPost[] = convertInstagramPostToCloudinaryEntity(posts);
+
+    // upload to Cloudinary
+    const uploadStatus = await sendToCloudinary(cloudinaryCollection);
+    // trigger a build if posts are pulled successfully
+  }
+}
+```
+
+```typescript filename=src/index.ts
+async function sendToCloudinary(postGroup: UploadPost[]) {
+  console.log(&#x27;🚀 uploading to Cloudinary&#x27;);
+}
+```
+
+Cloudinary doesn&#x27;t have a bulk upload script but their individual upload is very quick and can handle many uploads simultaneously so we can just loop over our entities and send them up. Here&#x27;s the [upload API](https://cloudinary.com/documentation/image_upload_api_reference) we&#x27;ll be using. There are a lot of options that can be adjusted based on the projects&#x27; needs. Here, we&#x27;re just using the basic options.
+
+```typescript filename=src/index.ts line=3-31
+async function sendToCloudinary(postGroup: UploadPost[]) {
+  console.log(&#x27;🚀 uploading to Cloudinary&#x27;);
+  const resolves = postGroup.map(async ({ public_id, folder, overwrite, tags, url }) =&gt; {
+    try {
+      return new Promise((resolve, reject) =&gt; {
+        cloudinary.v2.uploader.upload(
+          url,
+          {
+            public_id,
+            folder,
+            overwrite,
+            tags,
+          },
+          function (error) {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(&#x27;SUCCESS&#x27;);
+            }
+          }
+        );
+      });
+    } catch (error_1) {
+      console.log(&#x27;😿 Cloudinary upload error&#x27;, error_1);
+    }
+  });
+
+  // make sure all were successful
+  const successfullyResolved = (await Promise.all(resolves)).every((resolve) =&gt; !!resolve);
+
+  return successfullyResolved ? &#x27;SUCCESS&#x27; : &#x27;ERROR&#x27;;
+}
+```
+
+I&#x27;m using an array of promises to help me determine if any had an error while uploading. This may not be necessary for all cases but I like to know, especially before kicking off a new build of the site.
+
+The last argument in the upload function is a callback that can help us determine if the upload was successful or not. We can check against this in our `successfullyResolved` check and return an appropriate status.
+
+## Trigger Netlify Deploy
+
+If all the images were uploaded successfully, we&#x27;ll trigger the build on Netlify. First, we&#x27;ll need our Netlify webhook. You can set one up in the deploys settings `https://app.netlify.com/sites/&lt;account&gt;/settings/deploys` under the Build Hooks section. Once you have the hook, you can add that to your `.env` file.
+
+```bash filename=.env line=10-11
+# Instagram
+INSTAGRAM_ACCESS_TOKEN=XXXXXX
+INSTAGRAM_ID=XXXXXX
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=XXXXXX
+CLOUDINARY_API_KEY=XXXXXX
+CLOUDINARY_API_SECRET=XXXXXX
+
+# Netlify
+NETLIFY_WEBHOOK=XXXXXX
+```
+
+We&#x27;ll now set up a conditional build script using `axios`.
+
+```typescript filename=src/index.ts
+// trigger a build if posts are pulled successfully
+if (uploadStatus === &#x27;SUCCESS&#x27;) {
+  axios
+    .post(process.env.NETLIFY_WEBHOOK as string)
+    .then(() =&gt; {
+      console.log(&#x27;🚀 triggered Netlify build&#x27;);
+    })
+    .catch((error) =&gt; {
+      console.log(&#x27;😿 Netlify trigger error&#x27;, error);
+    });
+}
+```
+
+Our script should look something like this now:
+
+```typescript filename=src/index.ts
+import axios from &#x27;axios&#x27;;
+import cloudinary from &#x27;cloudinary&#x27;;
+import { HASHTAG_CONFIG, MAX_POSTS } from &#x27;./constants&#x27;;
+import { InstagramResponse, Post, UploadPost } from &#x27;./types&#x27;;
+require(&#x27;dotenv&#x27;).config();
+
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
+});
+
+async function sendToCloudinary(postGroup: UploadPost[]) {
+  console.log(&#x27;🚀 uploading to Cloudinary&#x27;);
+  const resolves = postGroup.map(async ({ public_id, folder, overwrite, tags, url }) =&gt; {
+    try {
+      return new Promise((resolve, reject) =&gt; {
+        cloudinary.v2.uploader.upload(
+          url,
+          {
+            public_id,
+            folder,
+            overwrite,
+            tags,
+          },
+          function (error) {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(&#x27;SUCCESS&#x27;);
+            }
+          }
+        );
+      });
+    } catch (error_1) {
+      console.log(&#x27;😿 Cloudinary upload error&#x27;, error_1);
+    }
+  });
+
+  // make sure all were successful
+  const successfullyResolved = (await Promise.all(resolves)).every((resolve) =&gt; !!resolve);
+
+  return successfullyResolved ? &#x27;SUCCESS&#x27; : &#x27;ERROR&#x27;;
+}
+
+async function fetchInstagramPosts(postRequestError) {
+  try {
+    console.log(&#x27;🚀 fetching Instagram posts&#x27;);
+    const response = await axios.get&lt;InstagramResponse&gt;(
+      `https://graph.facebook.com/v12.0/${process.env.INSTAGRAM_ID}/media?fields=media_url,caption,media_type,timestamp,username,children{media_url},permalink,comments.limit(3){text}&amp;limit=${MAX_POSTS}&amp;access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`
+    );
+    return response?.data?.data;
+  } catch (error) {
+    postRequestError = error;
+    console.log(&#x27;😿 Instagram fetch error&#x27;, error);
+  }
+}
+
+function convertInstagramPostToCloudinaryEntity(posts: Post[]): UploadPost[] {
+  console.log(&#x27;🚀 converting posts to Cloudinary&#x27;);
+  const cloudinaryCollection: UploadPost[] = [];
+
+  // check for hashtags in the posts and add to collection
+  HASHTAG_CONFIG.forEach((config) =&gt; {
+    const postGroup = posts?.filter((post) =&gt; {
+      // making sure the post is an image instead of video
+      if (post.media_type !== &#x27;IMAGE&#x27;) {
+        return false;
+      }
+      // combines the text from the first 3 comments
+      const comments =
+        post?.comments?.data?.reduce((acc, comment) =&gt; {
+          acc = `${acc} ${comment?.text}`;
+          return acc;
+        }, &#x27;&#x27;) ?? &#x27;&#x27;;
+
+      const content = `${post?.caption} ${comments}`;
+      // check to see if our regex matches anything in the combined string
+      return content.match(config.regex);
+    });
+
+    // loop over the posts and add to stored variable
+    if (postGroup?.length) {
+      postGroup.forEach((post) =&gt; {
+        const timestamp = new Date(post.timestamp).valueOf();
+        // using a date value as id so it&#x27;s easier to sort by date
+        const combinedId = `${timestamp}_${post.id}`;
+        // see if this post is already in our collection
+        const found = cloudinaryCollection.find(
+          (uploadPost) =&gt; uploadPost.public_id === combinedId
+        );
+
+        if (found) {
+          // combine tags on the entity
+          found.tags = [...found.tags, config.id];
+        } else {
+          // create entity
+          cloudinaryCollection.push({
+            url: post.media_url,
+            public_id: combinedId,
+            folder: &#x27;illustration&#x27;,
+            overwrite: true,
+            tags: [config.id],
+            createdDate: timestamp,
+          });
+        }
+      });
+    }
+  });
+
+  return cloudinaryCollection;
+}
+
+async function instagramToCloudinary() {
+  let postRequestError = null;
+
+  // fetch the posts from Instagram
+  const posts = await fetchInstagramPosts(postRequestError);
+
+  if (posts?.length) {
+    // convert the posts by hashtags
+    const cloudinaryCollection: UploadPost[] = convertInstagramPostToCloudinaryEntity(posts);
+
+    // upload to Cloudinary
+    const uploadStatus = await sendToCloudinary(cloudinaryCollection);
+
+    // trigger a build if posts are pulled successfully
+    if (!postRequestError &amp;&amp; uploadStatus === &#x27;SUCCESS&#x27;) {
+      axios
+        .post(process.env.NETLIFY_WEBHOOK as string)
+        .then(() =&gt; {
+          console.log(&#x27;🚀 triggered Netlify build&#x27;);
+        })
+        .catch((error) =&gt; {
+          console.log(&#x27;😿 Netlify trigger error&#x27;, error);
+        });
+    }
+  }
+
+  // for local debugging
+  //   fs.writeFile(&quot;test.json&quot;, JSON.stringify(cloudinaryCollection, null, 2), (err: any) =&gt; {
+  //     if (err) {
+  //       console.error(err);
+  //       return;
+  //     }
+  //     //file written successfully
+  //   });
+}
+
+// fire the script
+instagramToCloudinary();
+```
+
+## Github Action to Run on Schedule
+
+In your Github project you can create an action and use the following config for a daily run.
+
+```yml
+# This is a basic workflow to help you get started with Actions
+
+name: Post Fetch and Deploy
+
+# Controls when the workflow will run
+on:
+  schedule:
+    - cron: &#x27;0 0 * * *&#x27;
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called &quot;build&quot;
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.17.x]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Using Node version ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: create env file
+        run: |
+          MY_STRING=$(cat &lt;&lt; EOF
+          INSTAGRAM_ACCESS_TOKEN =${{secrets.INSTAGRAM_ACCESS_TOKEN}}
+          INSTAGRAM_ID =${{secrets.INSTAGRAM_ID}}
+          CLOUDINARY_CLOUD_NAME =${{secrets.CLOUDINARY_CLOUD_NAME}}
+          CLOUDINARY_API_KEY =${{secrets.CLOUDINARY_API_KEY}}
+          CLOUDINARY_API_SECRET =${{secrets.CLOUDINARY_API_SECRET}}
+          NETLIFY_WEBHOOK =${{secrets.NETLIFY_WEBHOOK}}
+          EOF
+          )
+          touch .env
+          echo &quot;$MY_STRING&quot; &gt;&gt; .env
+      - run: yarn
+      - run: yarn start
+```
+
+The `- cron: &quot;0 0 * * *&quot;` is what configures the action to run once a day.
+
+## Conclusion
+
+Offloading my Instagram posts to Cloudinary has made my site build more reliably, especially when I&#x27;m doing local development. The Cloudinary API has been rock solid for me so far and it&#x27;s easier to work with.
+
+Hopefully, this process is broken up enough that any service could be swapped out for another with little effort. I can see other social channels being aggregated into this pipeline as well.
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Sequential Interval React Hook]]></title>
+        <id>https://joelmturner.com/blog/sequential-interval-react-hook</id>
+        <link href="https://joelmturner.com/blog/sequential-interval-react-hook"/>
+        <updated>2021-04-08T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Create a React hook that can simulate a pulse-like cycle between animation states through different durations per animation state.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/sequential-interval-react-hook">Sequential Interval React Hook</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+import { CodeSandbox } from &#x27;mdx-embed&#x27;;
+
+Create a React hook that can simulate a pulse-like cycle between animation states through different durations per animation state.
+
+## tl;dr
+
+Here&#x27;s the hook in an example.
+
+&lt;CodeSandbox codeSandboxId=&quot;sequential-interval-react-hook-19qys&quot; /&gt;
+
+## Background
+
+We have an animation heartbeat player that switches between four animation states, each with its own user-configurable duration.
+
+We have a ping service that sends out a ping to our component on an interval, or heartbeat, and each ping kicks off an animation cycle. This cycle goes through the sequence: `rest` -&gt; `tick` -&gt; `exit` -&gt; `enter` -&gt; `rest`.
+
+The original implementation was built into a class component using a local [MobX](https://mobx.js.org/) observable and nested `setTimeout`s and has worked very well for the past few years.
+
+This is a rough idea of how the nested `setTimeout`s are set up inside of the ping.
+
+```tsx
+this.animationState = &#x27;tick&#x27;;
+setTimeout(
+  action(() =&gt; {
+    this.animationState = &#x27;exit&#x27;;
+    setTimeout(
+      action(() =&gt; {
+        this.animationState = &#x27;enter&#x27;;
+        setTimeout(
+          action(() =&gt; {
+            this.animationState = &#x27;rest&#x27;;
+          })
+        );
+      }),
+      widget.tickLength
+    );
+  }),
+  widget.tickDelay
+);
+```
+
+We&#x27;re at a point where we need to update the renderer housing this logic and I thought I would attempt to do it with a functional component.
+
+## Criteria
+
+The four animation states we need to switch between are `tick`, `exit`, `enter`, and `rest`; while each of our widgets has CSS animations that are tied to a `className` of `status_[animationState]`.
+
+Each of these animation states needs its own duration that is user-configurable.
+
+## Attempts
+
+First, I tried to implement something similar to what we see above in a `useEffect` and `setState`. The downside here is that the `useEffect` is new every render so I wasn&#x27;t able to track timeouts effectively.
+
+The second thing I tried, was to leverage the [`useInterval` hook](https://overreacted.io/making-setinterval-declarative-with-react-hooks/) that Dan Abramov created. The downside here is that the callback is a `ref` so it never changes, which means I can&#x27;t pass it a different callback for each step/duration.
+
+Finally, I settled on a mix of `ref`s for persistence and a custom hook to handle the `setTimeout`s.
+
+## Research
+
+I thought I would be able to jam the `setTimeout`s in an array and use a `for of` loop to run them, one by one. This ended up running them &quot;out of order.&quot;
+
+I ended up coming across two solutions that helped me piece it together, [How to resolve a useReducer&#x27;s dispatch function inside a promise in ReactJS](https://stackoverflow.com/a/60360051) and [Why Using reduce() to Sequentially Resolve Promises Works](https://css-tricks.com/why-using-reduce-to-sequentially-resolve-promises-works/).
+
+The idea here is that each is wrapped in a `Promise` and added to an array where we can loop over them in a `reduce`, awaiting the previous `Promise` before starting the next.
+
+This worked like a charm!
+
+## Creating the `useStepInterval` Hook
+
+The custom hook is where the magic lies. We start with two `useState`s, one for the animation state and another to determine if the animation cycle is running. We&#x27;ll return the `status` and the ability to set `isRunning` so our component can turn it on/off.
+
+```ts
+import { useState, useEffect, SetStateAction, Dispatch } from &#x27;react&#x27;;
+
+// steps through the heartbeat animation states
+export function useStepInterval&lt;StatusType&gt;(
+  initialStatus: StatusType,
+  steps: { status: StatusType; delay: number }[]
+): { status: StatusType; setIsRunning: Dispatch&lt;SetStateAction&lt;boolean&gt;&gt; } {
+  const [status, setStatus] = useState&lt;StatusType&gt;(initialStatus);
+  const [isRunning, setIsRunning] = useState(false);
+
+  return { status, setIsRunning };
+}
+```
+
+Next, we set up a `useEffect` that will watch `isRunning` to see if the cycle should start. In this hook, we&#x27;ll have two functions, one that sets up the `Promise`s and another that will run the `reduce` over the `Promise`s.
+
+```ts
+import { useState, useEffect, SetStateAction, Dispatch } from &#x27;react&#x27;;
+
+// steps through the heartbeat animation states
+export function useStepInterval&lt;StatusType&gt;(
+  initialStatus: StatusType,
+  steps: { status: StatusType; delay: number }[]
+): { status: StatusType; setIsRunning: Dispatch&lt;SetStateAction&lt;boolean&gt;&gt; } {
+  const [status, setStatus] = useState&lt;StatusType&gt;(initialStatus);
+  const [isRunning, setIsRunning] = useState(false);
+
+  useEffect(() =&gt; {
+    function setUpPromise(step, index): Promise&lt;void&gt; {
+      // we&#x27;re returning a promise that will clean up after itself
+      return new Promise((resolve, reject) =&gt; {
+        const wait = setTimeout(() =&gt; {
+          // clear previous setTimeout
+          clearTimeout(wait);
+
+          // set the status of the step
+          setStatus(step.status);
+
+          // if it&#x27;s the last item, stop the cycle
+          if (index === steps.length - 1) {
+            setIsRunning(false);
+          }
+
+          resolve();
+
+          // use the duration of the previous to this step
+        }, step.delay);
+      });
+    }
+
+    // using a reduce allows us to wait for the previous promise to resolve
+    // before starting the next more info at
+    // https://css-tricks.com/why-using-reduce-to-sequentially-resolve-promises-works/
+    function stepThrough() {
+      return steps.reduce(async (previousPromise, nextStep, index) =&gt; {
+        await previousPromise;
+        return setUpPromise(nextStep, index);
+      }, Promise.resolve());
+    }
+
+    if (isRunning) {
+      stepThrough();
+    }
+  }, [isRunning]);
+
+  return { status, setIsRunning };
+}
+```
+
+## Using the `useStepInterval` Hook
+
+In our component, we can now run our hook and have a `ref` that catches the ping from our player service, which sets `isRunning` to `true`, starting the animation cycle.
+
+```tsx
+type AnimationState = &quot;tick&quot; | &quot;exit&quot; | &quot;enter&quot; | &quot;rest&quot;;
+
+// these steps can be inside the app if the values are dynamic
+const ANIMATION_STEPS: { status: AnimationState; delay: number }[] = [
+  { status: &quot;tick&quot;, delay: 0 },
+  { status: &quot;exit&quot;, delay: 300 },
+  { status: &quot;enter&quot;, delay: 1500 },
+  { status: &quot;rest&quot;, delay: 300 }
+];
+
+export function MyComponent() {
+
+  const { status, setIsRunning } = useStepInterval&lt;AnimationState&gt;(
+    &quot;rest&quot;,
+    ANIMATION_STEPS
+  );
+
+  // this is the callback that receives the type of player status
+  // that&#x27;s coming in and fires a our running state
+  const playerCallback = useRef((playerStatus) =&gt; {
+    switch (playerStatus) {
+      case &quot;ping&quot;:
+        setIsRunning(true);
+        break;
+
+      case &quot;idle&quot;:
+      default:
+        break;
+    }
+  });
+```
+
+Now we have an animation cycler that can be started from our component, and the best part is, we can have our component be functional 😀.
+
+I definitely learned more about `refs` and how to work with promises during this feature. Hopefully, there will some more refactors to a functional component that can challenge other areas.
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Animated SVG Water Pictorial Fraction in Svelte]]></title>
+        <id>https://joelmturner.com/blog/svelte-animated-water-svg-pictorial-fraction</id>
+        <link href="https://joelmturner.com/blog/svelte-animated-water-svg-pictorial-fraction"/>
+        <updated>2021-01-04T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Create a pictorial fraction of water in SVG using Svelte. Allows for percentage progress so the image looks like it's filling or draining.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/svelte-animated-water-svg-pictorial-fraction">Animated SVG Water Pictorial Fraction in Svelte</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+import { CodeSandbox } from &#x27;mdx-embed&#x27;;
+
+One of my favorite charts in data visualization is [Pictorial Fraction](https://datavizproject.com/data-type/pictorial-fraction-chart/). It&#x27;s essentially a bar chart as a shape that can be partially filled or used as a [small multiple](https://datavizproject.com/data-type/fraction-of-pictograms/) to represent the ratio.
+
+## What We&#x27;re Building
+
+&lt;CodeSandbox codeSandboxId=&quot;svelte-svg-pictorial-fraction-f1hv2&quot; /&gt;
+
+## Why Svelte.js?
+
+I&#x27;ve been excited to check out [svelte.js](https://svelte.dev/) for a while and this winter break gave me some time to try it out. It seemed especially great as a way to run data vis in a light-weight way. This was a way to learn a little more about it and see I can make multiple components.
+
+## The Pieces
+
+The pictorial fraction is a combination of svg pieces that come together to show and mask elements.
+
+## Fill Area
+
+Let&#x27;s create a new file and call it `PictorialFraction.svelte`. In here, we&#x27;ll set up our svg and add a rectangle with a color of your choosing. This will be the color that will show up in the droplet.
+
+```html filename=PictorialFraction.svelte
+&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;264.5&quot; height=&quot;264.5&quot;&gt;
+  &lt;rect width=&quot;264.5&quot; height=&quot;264.5&quot; fill=&quot;#ff9900&quot; /&gt;
+&lt;/svg&gt;
+```
+
+Now we can add some variables for width and height. In svelte, we export these in the script tag. We can also pass those variables into the elements.
+
+```html 1-4,6-7
+&lt;script&gt;
+  export let width;
+  export let height;
+&lt;/script&gt;
+
+&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;{width}&quot; height=&quot;{height}&quot;&gt;
+  &lt;rect width=&quot;{width}&quot; height=&quot;{height}&quot; fill=&quot;#ff9900&quot; /&gt;
+&lt;/svg&gt;
+```
+
+💡 Svelte tip: we can use a shortcut to add those variables since they have the same name as the attributes. Instead of `&lt;svg width={width} /&gt;` we can use `&lt;svg width /&gt;`.
+
+Let&#x27;s position the rectangle using `transform: translate(0, 20px);`. This should allow us to `slide` the rectangle up using the y position, giving our mask the feeling that the water drop is filling up. We&#x27;re using the style attribute for transform rather than the `transform` attribute on `rect` because Safari doesn&#x27;t animate the attribute in the same way Chrome and Firefox do, making it choppy.
+
+```html line=7
+&lt;script&gt;
+  export let width;
+  export let height;
+&lt;/script&gt;
+
+&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;{width}&quot; height=&quot;{height}&quot;&gt;
+  &lt;rect
+    width=&quot;{width}&quot;
+    height=&quot;{height}&quot;
+    style=&quot;{`transform:&quot;
+    translate(0,
+    20px);`}
+    fill=&quot;#ff9900&quot;
+  /&gt;
+&lt;/svg&gt;
+```
+
+Now we&#x27;ll create the ripple shape that will be placed on top of our rectangle to give a &quot;fluid&quot; feel. For this, we&#x27;ll use a `path` element and animate it with css.
+
+```html
+&lt;path
+  class=&quot;water&quot;
+  d=&quot;M420 20.0047C441.5 19.6047 458.8 17.5047 471.1 15.5047C484.5 13.3047 497.6 10.3047 498.4 10.1047C514 6.50474 518 4.70474 528.5 2.70474C535.6 1.40474 546.4 -0.0952561 560 0.00474393V20.0047H420ZM420 20.0047C398.5 19.6047 381.2 17.5047 368.9 15.5047C355.5 13.3047 342.4 10.3047 341.6 10.1047C326 6.50474 322 4.70474 311.5 2.70474C304.3 1.40474 293.6 -0.0952561 280 0.00474393V20.0047H420ZM140 20.0047C118.5 19.6047 101.2 17.5047 88.9 15.5047C75.5 13.3047 62.4 10.3047 61.6 10.1047C46 6.50474 42 4.70474 31.5 2.70474C24.3 1.40474 13.6 -0.0952561 0 0.00474393V20.0047H140ZM140 20.0047C161.5 19.6047 178.8 17.5047 191.1 15.5047C204.5 13.3047 217.6 10.3047 218.4 10.1047C234 6.50474 238 4.70474 248.5 2.70474C255.6 1.40474 266.4 -0.0952561 280 0.00474393V20.0047H140Z&quot;
+/&gt;
+```
+
+That creates the shape, and now we&#x27;ll position it to be on top of the rectangle. To do this we&#x27;ll need to know where the rectangle will be positioned, and we&#x27;ll wrap the `path` in group that&#x27;s positioned based on `rect`&#x27;s y position.
+
+```html line=9-11
+&lt;script&gt;
+  export let width;
+  export let height;
+&lt;/script&gt;
+
+&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;{width}&quot; height=&quot;{height}&quot;&gt;
+  &lt;rect
+    width=&quot;{width}&quot;
+    height=&quot;{height}&quot;
+    style=&quot;{`transform:&quot;
+    translate(0,
+    20px);`}
+    fill=&quot;#ff9900&quot;
+  /&gt;
+
+  &lt;g class=&quot;water-container&quot; style=&quot;{`transform:&quot; translate(0, 0);`}&gt;
+    &lt;path
+      class=&quot;water&quot;
+      d=&quot;M420 20.0047C441.5 19.6047 458.8 17.5047 471.1 15.5047C484.5 13.3047 497.6 10.3047 498.4 10.1047C514 6.50474 518 4.70474 528.5 2.70474C535.6 1.40474 546.4 -0.0952561 560 0.00474393V20.0047H420ZM420 20.0047C398.5 19.6047 381.2 17.5047 368.9 15.5047C355.5 13.3047 342.4 10.3047 341.6 10.1047C326 6.50474 322 4.70474 311.5 2.70474C304.3 1.40474 293.6 -0.0952561 280 0.00474393V20.0047H420ZM140 20.0047C118.5 19.6047 101.2 17.5047 88.9 15.5047C75.5 13.3047 62.4 10.3047 61.6 10.1047C46 6.50474 42 4.70474 31.5 2.70474C24.3 1.40474 13.6 -0.0952561 0 0.00474393V20.0047H140ZM140 20.0047C161.5 19.6047 178.8 17.5047 191.1 15.5047C204.5 13.3047 217.6 10.3047 218.4 10.1047C234 6.50474 238 4.70474 248.5 2.70474C255.6 1.40474 266.4 -0.0952561 280 0.00474393V20.0047H140Z&quot;
+    /&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+```
+
+Let&#x27;s add our styles to get the ripples animating in smooth way. To do this we can add a `&lt;style&gt;` tag underneath our `&lt;script&gt;` tag.
+
+```html line=6-22
+&lt;script&gt;
+  export let width;
+  export let height;
+&lt;/script&gt;
+
+&lt;style&gt;
+  rect,
+  .water-container {
+    transition: transform 500ms;
+  }
+
+  .water {
+    animation: ripple 1.4s infinite linear;
+    fill: #ff9900;
+  }
+
+  @keyframes ripple {
+    100% {
+      transform: translate3d(-105%, 0, 0);
+    }
+  }
+&lt;/style&gt;
+
+&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;{width}&quot; height=&quot;{height}&quot;&gt;
+  &lt;rect
+    width=&quot;{width}&quot;
+    height=&quot;{height}&quot;
+    style=&quot;{`transform:&quot;
+    translate(0,
+    20px);`}
+    fill=&quot;#ff9900&quot;
+  /&gt;
+
+  &lt;g class=&quot;water-container&quot; style=&quot;{`transform:&quot; translate(0, 0);`}&gt;
+    &lt;path
+      class=&quot;water&quot;
+      d=&quot;M420 20.0047C441.5 19.6047 458.8 17.5047 471.1 15.5047C484.5 13.3047 497.6 10.3047 498.4 10.1047C514 6.50474 518 4.70474 528.5 2.70474C535.6 1.40474 546.4 -0.0952561 560 0.00474393V20.0047H420ZM420 20.0047C398.5 19.6047 381.2 17.5047 368.9 15.5047C355.5 13.3047 342.4 10.3047 341.6 10.1047C326 6.50474 322 4.70474 311.5 2.70474C304.3 1.40474 293.6 -0.0952561 280 0.00474393V20.0047H420ZM140 20.0047C118.5 19.6047 101.2 17.5047 88.9 15.5047C75.5 13.3047 62.4 10.3047 61.6 10.1047C46 6.50474 42 4.70474 31.5 2.70474C24.3 1.40474 13.6 -0.0952561 0 0.00474393V20.0047H140ZM140 20.0047C161.5 19.6047 178.8 17.5047 191.1 15.5047C204.5 13.3047 217.6 10.3047 218.4 10.1047C234 6.50474 238 4.70474 248.5 2.70474C255.6 1.40474 266.4 -0.0952561 280 0.00474393V20.0047H140Z&quot;
+    /&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+```
+
+We declare a `keyframes` animation and let `.water` leverage that in an infinite loop. We&#x27;re adding a transition to the rectangle and container for the ripple to make sure it slides up and down smoothly.
+
+## Mask Area
+
+Now we can work on the mask area which will give us the water drop shape. We&#x27;re going to use a `clipPath` with a path shaped as a water droplet. We&#x27;ll apply the clipPath to a group that wraps the rectangle and ripple to mask out anything outside the water droplet shape.
+
+We fill the droplet path with black to make the mask full opacity. We can then add another droplet of a different color so that we can have a different background color for our `empty` section.
+
+```html line=2-4,6,8,14
+&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;{width}&quot; height=&quot;{height}&quot;&gt;
+  &lt;clipPath id=&quot;mask_shape&quot;&gt;
+    &lt;path
+      d=&quot;M132.281 264.564c51.24 0 92.931-41.681 92.931-92.918 0-50.18-87.094-164.069-90.803-168.891L132.281 0l-2.128 2.773c-3.704 4.813-90.802 118.71-90.802 168.882.001 51.228 41.691 92.909 92.93 92.909z&quot;
+      fill=&quot;#000000&quot;
+    /&gt;
+  &lt;/clipPath&gt;
+
+  &lt;path
+    d=&quot;M132.281 264.564c51.24 0 92.931-41.681 92.931-92.918 0-50.18-87.094-164.069-90.803-168.891L132.281 0l-2.128 2.773c-3.704 4.813-90.802 118.71-90.802 168.882.001 51.228 41.691 92.909 92.93 92.909z&quot;
+    fill=&quot;#555&quot;
+  /&gt;
+
+  &lt;g clip-path=&quot;url(#mask_shape)&quot;&gt;
+    &lt;rect
+      width=&quot;{width}&quot;
+      height=&quot;{height}&quot;
+      style=&quot;{`transform:&quot;
+      translate(0,
+      20px);`}
+      fill=&quot;#ff9900&quot;
+    /&gt;
+
+    &lt;g class=&quot;water-container&quot; style=&quot;{`transform:&quot; translate(0, 0);`}&gt;
+      &lt;path
+        class=&quot;water&quot;
+        d=&quot;M420 20.0047C441.5 19.6047 458.8 17.5047 471.1 15.5047C484.5 13.3047 497.6 10.3047 498.4 10.1047C514 6.50474 518 4.70474 528.5 2.70474C535.6 1.40474 546.4 -0.0952561 560 0.00474393V20.0047H420ZM420 20.0047C398.5 19.6047 381.2 17.5047 368.9 15.5047C355.5 13.3047 342.4 10.3047 341.6 10.1047C326 6.50474 322 4.70474 311.5 2.70474C304.3 1.40474 293.6 -0.0952561 280 0.00474393V20.0047H420ZM140 20.0047C118.5 19.6047 101.2 17.5047 88.9 15.5047C75.5 13.3047 62.4 10.3047 61.6 10.1047C46 6.50474 42 4.70474 31.5 2.70474C24.3 1.40474 13.6 -0.0952561 0 0.00474393V20.0047H140ZM140 20.0047C161.5 19.6047 178.8 17.5047 191.1 15.5047C204.5 13.3047 217.6 10.3047 218.4 10.1047C234 6.50474 238 4.70474 248.5 2.70474C255.6 1.40474 266.4 -0.0952561 280 0.00474393V20.0047H140Z&quot;
+      /&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+```
+
+## Fill
+
+Cool, now that we have the mask and bar set up we can configure the logic for the filling of the droplet. For this we&#x27;ll create a variable of `ratio` and a [reactive declaration](https://svelte.dev/tutorial/reactive-declarations) that updates when props change. We&#x27;ll call our reactive declaration `offsetY` and it will be based on `ratio` and `height`.
+
+```html line=4,6-7
+&lt;script&gt;
+  export let width;
+  export let height;
+  export let ratio;
+
+  // offset should help the bar &quot;fill&quot; from the bottom
+  $: offsetY = height - height * ratio;
+&lt;/script&gt;
+```
+
+Now we&#x27;ll pass that offset to the rectangle and ripple container, so they&#x27;ll be positioned together. If the ratio is zero, the y should be the negative height of the ripple path which is 19px.
+
+```html line=9,11
+&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width={width} height={height} viewbox=&#x27;0 0 264 264&#x27; &gt;
+  &lt;clipPath id=&#x27;mask_shape&#x27; &gt;
+    &lt;path d=&quot;M132.281 264.564c51.24 0 92.931-41.681 92.931-92.918 0-50.18-87.094-164.069-90.803-168.891L132.281 0l-2.128 2.773c-3.704 4.813-90.802 118.71-90.802 168.882.001 51.228 41.691 92.909 92.93 92.909z&quot; fill=&quot;#000000&quot; /&gt;
+  &lt;/clipPath&gt;
+
+  &lt;path d=&quot;M132.281 264.564c51.24 0 92.931-41.681 92.931-92.918 0-50.18-87.094-164.069-90.803-168.891L132.281 0l-2.128 2.773c-3.704 4.813-90.802 118.71-90.802 168.882.001 51.228 41.691 92.909 92.93 92.909z&quot; fill=&quot;#555&quot;/&gt;
+
+  &lt;g clip-path=&#x27;url(#mask_shape)&#x27;&gt;
+    &lt;rect width={width} height={height} style={`transform: translate(0, ${offsetY}px)`} fill=&quot;#ff9900&quot; /&gt;
+
+    &lt;g class=&#x27;water-container&#x27; style={`transform: translate(0, ${ratio === 0 ? offsetY : offsetY - 19}px);`}&gt;
+      &lt;path class=&#x27;water&#x27; d=&quot;M420 20.0047C441.5 19.6047 458.8 17.5047 471.1 15.5047C484.5 13.3047 497.6 10.3047 498.4 10.1047C514 6.50474 518 4.70474 528.5 2.70474C535.6 1.40474 546.4 -0.0952561 560 0.00474393V20.0047H420ZM420 20.0047C398.5 19.6047 381.2 17.5047 368.9 15.5047C355.5 13.3047 342.4 10.3047 341.6 10.1047C326 6.50474 322 4.70474 311.5 2.70474C304.3 1.40474 293.6 -0.0952561 280 0.00474393V20.0047H420ZM140 20.0047C118.5 19.6047 101.2 17.5047 88.9 15.5047C75.5 13.3047 62.4 10.3047 61.6 10.1047C46 6.50474 42 4.70474 31.5 2.70474C24.3 1.40474 13.6 -0.0952561 0 0.00474393V20.0047H140ZM140 20.0047C161.5 19.6047 178.8 17.5047 191.1 15.5047C204.5 13.3047 217.6 10.3047 218.4 10.1047C234 6.50474 238 4.70474 248.5 2.70474C255.6 1.40474 266.4 -0.0952561 280 0.00474393V20.0047H140Z&quot;/&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+```
+
+## Using the component
+
+To use this component we import it and pass it our width, height and ratio. Let&#x27;s give it a height and width of 264.5px and a ratio of 0.5 (50%). Update the ratio to see the droplet fill or drain smoothly.
+
+```html filename=App.svelte
+&lt;script&gt;
+  import PictorialFraction from &#x27;./PictorialFraction.svelte&#x27;;
+&lt;/script&gt;
+
+&lt;main&gt;
+  &lt;PictorialFraction width=&quot;{264.5}&quot; height=&quot;{264.5}&quot; ratio=&quot;{0.5}&quot; /&gt;
+&lt;/main&gt;
+```
+
+## Conclusion
+
+Thanks for following along! We now have a droplet component that we can use in our svelte app. We can add ways to control the ratio and make it more interactive. To add buttons to control the increase/decrease, check out the example on [codesandbox](https://codesandbox.io/s/svelte-svg-pictorial-fraction-f1hv2?from-embed=&amp;file=/App.svelte)
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Create a Single Line Chart in React with @vx]]></title>
+        <id>https://joelmturner.com/blog/create-a-single-line-chart-in-react-with-@vx</id>
+        <link href="https://joelmturner.com/blog/create-a-single-line-chart-in-react-with-@vx"/>
+        <updated>2020-07-23T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[This is a simple example of a single line chart built with the @vx charting primitives. We can use this to as a base to add multiple lines to our chart.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/create-a-single-line-chart-in-react-with-@vx">Create a Single Line Chart in React with @vx</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+import { CodeSandbox } from &#x27;mdx-embed&#x27;;
+
+&lt;Note&gt;
+
+_Update: October 2020_ - @vx is now [@visx](https://github.com/airbnb/visx) and is at 1.0. You can read about [the update from Airbnb Engineering](https://medium.com/airbnb-engineering/introducing-visx-from-airbnb-fd6155ac4658). As of this update, the api is all the same, and it has TypeScript support 👍.
+
+&lt;/Note&gt;
+
+We’ve built a [bar chart](/blog/data-vis-react-bar-chart-vx/) in react using the data vis library [@vx](https://github.com/hshoff/vx). The next chart that we can build to help tell our data’s story is a line chart. Line charts are great for showing trends over time and that’s what we’ll build today.
+
+## What We&#x27;re Building TL;DR
+
+&lt;CodeSandbox codeSandboxId=&quot;single-line-chart-with-vx-322xd&quot; /&gt;
+
+## Requirements
+
+- [ ] Display time along the x-axis
+- [ ] Display metrics along the y-axis
+- [ ] Show each data point on line
+
+## Packages
+
+Let&#x27;s start by getting the packages we need from @vx. We&#x27;ll need shapes, scale, axis, gradient (easy background color), and some mock data to get started.
+
+```bash
+  yarn add @vx/shapes @vx/group @vx/scale @vx/axis @vx/curve @vx/gradient @vx/text
+```
+
+Or
+
+```bash
+  npm install @vx/shapes @vx/group @vx/scale @vx/axis @vx/curve @vx/gradient @vx/text --save
+```
+
+## Data
+
+Now that we have our packages we can start stubbing out our data. We&#x27;re going to use some mock data to get started so feel free to create your own or use this data set.
+
+```js
+const defaultData1 = [
+  {
+    miles: 5.6,
+    date: 1595228400000,
+  },
+  {
+    miles: 3.2,
+    date: 1595314800000,
+  },
+  {
+    miles: 7.9,
+    date: 1595401200000,
+  },
+  {
+    miles: 4.1,
+    date: 1595487600000,
+  },
+  {
+    miles: 9.3,
+    date: 1595574000000,
+  },
+];
+```
+
+Now that we have the shape of our data we can add some helper functions that will access those items. This will help us add the date across the x-axis and the miles along the y-axis. We&#x27;ll see how these come into play a little later.
+
+```js
+// accessors return the miles and date of that data item
+const x = (d) =&gt; d.miles;
+const y = (d) =&gt; d.date;
+```
+
+## Scales
+
+We can now define the max height and max width that we would like our chart to be. Our component will take height and width as props and then we can add a little padding. This will help us as we define our scales for this chart.
+
+```js
+// bounds
+const xMax = width - 120;
+const yMax = height - 80;
+```
+
+The scales are where the magic really happen. It all comes down to `domain` and `range`. The general rule of thumb based on my understanding is that `domain` is the lowest and highest data points. The `range` is the pixel range we would like to plot these data points on.
+
+In our scales below we can see that `range` (`rangeRound`) is from `0` to `xMax` which is the height bound of our chart. @vx gives us a helper, `rangeRound`, that prettifies the numbers.
+
+The `domain` is an array of all data points which resolves to lowest (4.1) and highest (9.3) of the data set.
+
+```js
+const xScale = scaleTime({
+  rangeRound: [0, xMax],
+  domain: [Math.min(...data.map(x)), Math.max(...data.map(x))],
+});
+
+const yScale = scaleLinear({
+  rangeRound: [0, yMax],
+  domain: [Math.max(...data.map(y)), 0],
+});
+```
+
+## Building our Line Chart
+
+Now we can start building the component. Let&#x27;s start by setting up the `svg` that will hold our line and axes.
+
+```jsx
+import React from &#x27;react&#x27;;
+import { Group } from &#x27;@vx/group&#x27;;
+import { scaleTime, scaleLinear } from &#x27;@vx/scale&#x27;;
+
+// dimensions
+const height = 500;
+const width = 800;
+
+// accessors
+const x = (d) =&gt; new Date(d.date).valueOf();
+const y = (d) =&gt; d.miles;
+
+const LineChart = ({ data = [] }) =&gt; {
+  // bounds
+  const xMax = width - 120;
+  const yMax = height - 80;
+
+  const xScale = scaleTime({
+    rangeRound: [0, xMax],
+    domain: [Math.min(...data.map(x)), Math.max(...data.map(x))],
+  });
+
+  const yScale = scaleLinear({
+    rangeRound: [0, yMax],
+    domain: [Math.max(...data.map(y)), 0],
+  });
+
+  return (
+    &lt;svg width={width} height={height}&gt;
+      &lt;Group top={25} left={65}&gt;&lt;/Group&gt;
+    &lt;/svg&gt;
+  );
+};
+
+export default LineChart;
+```
+
+Looks good. The first thing we&#x27;ll add is the y-axis. To do this we use [`AxisLeft`](https://vx-demo.now.sh/docs/axis#AxisLeft) from @vx. We need to pass it our yScale and we&#x27;ll give it a few other props for styling. The `numTicks` limits the number of values shown on the y-axis and `label` is what will display along the axis.
+
+Then we&#x27;ll add the [`AxisBottom`](https://vx-demo.now.sh/docs/axis#AxisBottom) that has similar props to `AxisLeft`. The `top` is where it should start vertically from the top, which is the chart height in this case. The `labelOffset` prop dictates how much space is in between the ticks and the axis label. It should look like this:
+
+```jsx line=4,9-10
+import React from &quot;react&quot;
+import { Group } from &quot;@vx/group&quot;
+import { scaleTime, scaleLinear } from &quot;@vx/scale&quot;
+import { AxisLeft, AxisBottom } from &quot;@vx/axis&quot;
+
+...
+
+&lt;Group top={25} left={65}&gt;
+  &lt;AxisLeft scale={yScale} numTicks={4} label=&quot;Miles&quot; /&gt;
+  &lt;AxisBottom scale={xScale} label=&quot;Day&quot; labelOffset={15} numTicks={5} top={yMax} /&gt;
+&lt;/Group&gt;
+```
+
+- [x] Display time along the x-axis
+- [x] Display metrics along the y-axis
+
+Now we can add the line to the chart using `LinePath` from `@vx/shapes` and we&#x27;ll pass it `curveLinear` from `@vx/curve` to dictate its shape.
+
+```jsx line=5-6,13-20
+import React from &quot;react&quot;
+import { Group } from &quot;@vx/group&quot;
+import { scaleTime, scaleLinear } from &quot;@vx/scale&quot;
+import { AxisLeft, AxisBottom } from &quot;@vx/axis&quot;
+import { LinePath } from &quot;@vx/shape&quot;
+import { curveLinear } from &quot;@vx/curve&quot;
+
+...
+
+&lt;Group top={25} left={65}&gt;
+  &lt;AxisLeft scale={yScale} numTicks={4} label=&quot;Miles&quot; /&gt;
+  &lt;AxisBottom scale={xScale} label=&quot;Day&quot; labelOffset={15} numTicks={5} top={yMax} /&gt;
+  &lt;LinePath
+    data={data}
+    curve={curveLinear}
+    x={(d) =&gt; xScale(x(d))}
+    y={(d) =&gt; yScale(y(d))}
+    stroke=&quot;#222222&quot;
+    strokeWidth={1.5}
+  /&gt;
+&lt;/Group&gt;
+```
+
+It&#x27;s looking like a nice, one-line chart now. We might want to add some dots to represent the data points. To do that we&#x27;ll map over the data items and use the `circle` element positioned using each item&#x27;s points.
+
+```jsx line=4-14
+&lt;Group top={25} left={65}&gt;
+  &lt;AxisLeft scale={yScale} numTicks={4} label=&quot;Miles&quot; /&gt;
+  &lt;AxisBottom scale={xScale} label=&quot;Day&quot; labelOffset={15} numTicks={5} top={yMax} /&gt;
+  {data.map((point, pointIndex) =&gt; (
+    &lt;circle
+      key={pointIndex}
+      r={5}
+      cx={xScale(x(point))}
+      cy={yScale(y(point))}
+      stroke=&quot;#222222&quot;
+      fill=&quot;#222222&quot;
+      fillOpacity={0.5}
+    /&gt;
+  ))}
+  &lt;LinePath
+    data={data}
+    curve={curveLinear}
+    x={(d) =&gt; xScale(x(d))}
+    y={(d) =&gt; yScale(y(d))}
+    stroke=&quot;#222222&quot;
+    strokeWidth={1.5}
+  /&gt;
+&lt;/Group&gt;
+```
+
+- [x] Show each data point on line
+
+Awesome, we fulfilled all of our requirements for this one-line chart. Here is all the code together.
+
+```jsx
+import React from &#x27;react&#x27;;
+import { Group } from &#x27;@vx/group&#x27;;
+import { scaleTime, scaleLinear } from &#x27;@vx/scale&#x27;;
+import { AxisLeft, AxisBottom } from &#x27;@vx/axis&#x27;;
+import { LinePath } from &#x27;@vx/shape&#x27;;
+import { curveLinear } from &#x27;@vx/curve&#x27;;
+
+// dimensions
+const height = 500;
+const width = 800;
+
+// accessors
+const x = (d) =&gt; new Date(d.date).valueOf();
+const y = (d) =&gt; d.miles;
+
+const LineChart = ({ data = [] }) =&gt; {
+  // bounds
+  const xMax = width - 120;
+  const yMax = height - 80;
+
+  const xScale = scaleTime({
+    rangeRound: [0, xMax],
+    domain: [Math.min(...data.map(x)), Math.max(...data.map(x))],
+  });
+
+  const yScale = scaleLinear({
+    rangeRound: [0, yMax],
+    domain: [Math.max(...data.map(y)), 0],
+  });
+
+  return (
+    &lt;svg width={width} height={height}&gt;
+      &lt;Group top={25} left={65}&gt;
+        &lt;AxisLeft scale={yScale} numTicks={4} label=&quot;Miles&quot; /&gt;
+        &lt;AxisBottom scale={xScale} label=&quot;Day&quot; labelOffset={15} numTicks={5} top={yMax} /&gt;
+        {data.map((point, pointIndex) =&gt; (
+          &lt;circle
+            key={pointIndex}
+            r={5}
+            cx={xScale(x(point))}
+            cy={yScale(y(point))}
+            stroke=&quot;#222222&quot;
+            fill=&quot;#222222&quot;
+            fillOpacity={0.5}
+          /&gt;
+        ))}
+        &lt;LinePath
+          data={data}
+          curve={curveLinear}
+          x={(d) =&gt; xScale(x(d))}
+          y={(d) =&gt; yScale(y(d))}
+          stroke=&quot;#222222&quot;
+          strokeWidth={1.5}
+        /&gt;
+      &lt;/Group&gt;
+    &lt;/svg&gt;
+  );
+};
+
+export default LineChart;
+```
+
+## Bonus
+
+For better sizing/resizing we can use a resize observer hook in our component. I like to use the package `use-resize-observer` for this. Let&#x27;s see how we can use it in our component.
+
+```jsx line=7,18,35,61
+import React from &#x27;react&#x27;;
+import { Group } from &#x27;@vx/group&#x27;;
+import { scaleTime, scaleLinear } from &#x27;@vx/scale&#x27;;
+import { AxisLeft, AxisBottom } from &#x27;@vx/axis&#x27;;
+import { LinePath } from &#x27;@vx/shape&#x27;;
+import { curveLinear } from &#x27;@vx/curve&#x27;;
+import useResizeObserver from &#x27;use-resize-observer&#x27;;
+
+// dimensions
+const height = 500;
+const width = 800;
+
+// accessors
+const x = (d) =&gt; new Date(d.date).valueOf();
+const y = (d) =&gt; d.miles;
+
+const LineChart = ({ data = [] }) =&gt; {
+  const { ref, width = 1, height = 1 } = useResizeObserver();
+
+  // bounds
+  const xMax = width - 120;
+  const yMax = height - 80;
+
+  const xScale = scaleTime({
+    rangeRound: [0, xMax],
+    domain: [Math.min(...data.map(x)), Math.max(...data.map(x))],
+  });
+
+  const yScale = scaleLinear({
+    rangeRound: [0, yMax],
+    domain: [Math.max(...data.map(y)), 0],
+  });
+
+  return (
+    &lt;div style={{ width: &#x27;100%&#x27;, height: &#x27;100%&#x27; }} ref={ref}&gt;
+      &lt;svg width={width} height={height}&gt;
+        &lt;Group top={25} left={65}&gt;
+          &lt;AxisLeft scale={yScale} numTicks={4} label=&quot;Miles&quot; /&gt;
+          &lt;AxisBottom scale={xScale} label=&quot;Day&quot; labelOffset={15} numTicks={5} top={yMax} /&gt;
+          {data.map((point, pointIndex) =&gt; (
+            &lt;circle
+              key={pointIndex}
+              r={5}
+              cx={xScale(x(point))}
+              cy={yScale(y(point))}
+              stroke=&quot;#222222&quot;
+              fill=&quot;#222222&quot;
+              fillOpacity={0.5}
+            /&gt;
+          ))}
+          &lt;LinePath
+            data={data}
+            curve={curveLinear}
+            x={(d) =&gt; xScale(x(d))}
+            y={(d) =&gt; yScale(y(d))}
+            stroke=&quot;#222222&quot;
+            strokeWidth={1.5}
+          /&gt;
+        &lt;/Group&gt;
+      &lt;/svg&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default LineChart;
+```
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Beginning Web Accessibility in React]]></title>
+        <id>https://joelmturner.com/blog/beginning-web-accessibility-react</id>
+        <link href="https://joelmturner.com/blog/beginning-web-accessibility-react"/>
+        <updated>2020-01-13T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/beginning-web-accessibility-react">Beginning Web Accessibility in React</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+I recently decided to dive into learning accessibility on the web. So many of the great developers that I follow on Twitter advocate for accessibility and I figured it was time to see what it would take. So far, I love it.
+
+If you&#x27;re interested in web accessibility I would suggest Gatsby, which gives a lot of win out of the gate and [@MarcySutton](https://twitter.com/marcysutton) who is an accessibility advocate and has a package, [`no-mouse-days`](https://github.com/marcysutton/no-mouse-days) that can disable the cursor on your site or app for a day. Nothing helps me see the cracks like taking away my comfort zone. Time to grow!
+
+There are a lot of resources online to help us learn so there&#x27;s nothing new in this post. I just wanted to document what I have found and learned so far.
+
+## Linting Rules for a11y
+
+One of the best ways to get some useful suggestions is to add the plugin, [`eslint-plugin-jsx-a11y`](https://www.npmjs.com/package/eslint-plugin-jsx-a11y) to your project. After I got it installed my editor lit up like New York City at night. Whew, I had some work to do.
+
+## WAI-ARIA
+
+WAI-ARIA is explained well from [MDN](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/WAI-ARIA_basics):
+
+&gt; WAI-ARIA (Web Accessibility Initiative - Accessible Rich Internet Applications) is a specification written by the W3C, defining a set of additional HTML attributes that can be applied to elements to provide additional semantics and improve accessibility wherever it is lacking.
+
+The three main features are Roles, Properties, and States.
+
+### Roles
+
+It&#x27;s best to use semantic elements for desired actions. A good example is to use the `button` element for a user action. If we are using a different element to perform the role of a button we can use a role to help out. An example might be an `svg` icon with an `onClick` method.
+
+```html
+&lt;svg viewBox=&quot;0 0 128 128&quot; onClick=&quot;{myOnClickFn}&quot; role=&quot;button&quot;&gt;
+  &lt;path d=&quot;M 10 10 H 90 V 90 H 10 L 10 10&quot; /&gt;
+&lt;/svg&gt;
+```
+
+Having a role of button tells the screen reader that the intention of this icon is to be a button.
+
+Here&#x27;s a list from [MDN of all the ARIA roles](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles).
+
+### Properties
+
+Properties let us give an element extra meaning if needed. A common example is in a form input. We may have a visual indicator to show that an `input` is required. Now we can add a data attribute of `aria-required=&quot;true&quot;` to let the user know that the input needs to be valid.
+
+```html
+&lt;form onSubmit=&quot;{onSubmit}&quot;&gt;
+  &lt;label for=&quot;fieldName&quot;&gt;Name&lt;/label&gt;
+  &lt;input name=&quot;fieldName&quot; type=&quot;text&quot; /&gt;
+
+  &lt;label for=&quot;fieldEmail&quot;&gt;Email&lt;/label&gt;
+  &lt;input name=&quot;fieldEmail&quot; type=&quot;email&quot; aria-required=&quot;true&quot; /&gt;
+&lt;/form&gt;
+```
+
+### States
+
+This is much like states in javascript. We may have a disabled input that will become enabled after validation of a previous field. We can specify the disabled state with `aria-disabled=&quot;true&quot;`.
+
+```html
+&lt;form onSubmit=&quot;{onSubmit}&quot;&gt;
+  &lt;label for=&quot;fieldName&quot;&gt;Name&lt;/label&gt;
+  &lt;input name=&quot;fieldName&quot; type=&quot;text&quot; /&gt;
+
+  &lt;label for=&quot;fieldEmail&quot;&gt;Email&lt;/label&gt;
+  &lt;input name=&quot;fieldEmail&quot; type=&quot;email&quot; aria-required=&quot;true&quot; /&gt;
+
+  &lt;label for=&quot;fieldSubscribe&quot;&gt;Subscribe&lt;/label&gt;
+  &lt;input name=&quot;fieldSubscribe&quot; type=&quot;checkbox&quot; checked=&quot;false&quot; aria-disabled=&quot;true&quot; /&gt;
+&lt;/form&gt;
+```
+
+## `tabIndex`
+
+This is one that I vaguely knew about. It turns out that there are three types of values that it can take.
+
+- `tabindex=&quot;-1&quot;` negative one or less allows elements to get the focus programmatically instead of through sequential keyboard navigation
+- `tabindex=&quot;0&quot;` zero allows non tabbable elements to become tabbable in sequential order by adding focus to them in the document&#x27;s source order
+- `tabindex=&quot;1&quot;` one or more makes the elements tabbable in the specific index order represented by this number
+
+## `onKeypress` handler
+
+For all the user clickable elements we can also provide an onKeyPress that handles an `Enter` or `Return` key on a clickable element. We can use a function to check for that keypress and if it&#x27;s is the key we&#x27;re looking for we can pass the event to the `onClick` function.
+
+Here&#x27;s a great snippet from [John Luke Garofalo&#x27;s post about React accessibility](https://dev.to/johnlukeg/make-react-navigation-accessible-again):
+
+```jsx
+// attach to a onKeyPress to handle Enter keyboard
+// presses in the same way as onClicks
+export const handleEnterKeyPress = (onClick) =&gt; (event) =&gt; {
+  if (event.key === &#x27;Enter&#x27;) {
+    onClick(event);
+  }
+};
+```
+
+Here&#x27;s that snippet in TypeScript:
+
+```typescript
+type HandleKeyPress = (
+  onClick: React.EventHandler&lt;React.MouseEvent | React.KeyboardEvent&gt;
+) =&gt; React.KeyboardEventHandler&lt;HTMLElement | SVGElement&gt;;
+
+// attach to a onKeyPress to handle Enter keyboard clicks in the same way as onClicks
+export const handleEnterKeyPress: HandleKeyPress = (onClick) =&gt; (event) =&gt; {
+  if (event.key === &#x27;Enter&#x27;) {
+    onClick(event);
+  }
+};
+```
+
+## Conclusion
+
+Hopefully this helps you dip your toes into the accessibility pond. I have a lot more to learn and implement but I feel like this was a good start. I would love to hear your resources if you have started down this road as well.
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Front-End Checklist for Ticket Completion]]></title>
+        <id>https://joelmturner.com/blog/front-end-ticket-checklist</id>
+        <link href="https://joelmturner.com/blog/front-end-ticket-checklist"/>
+        <updated>2020-01-10T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[A checklist that helps me stay organized and on task when working through various tickets from multiple projects.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/front-end-ticket-checklist">Front-End Checklist for Ticket Completion</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+On our dev team, we are assigned tickets that may be features or bug fixes. I fumbled through the lifecycle of a ticket a few times where I missed things, forgot things, or didn&#x27;t refactor where I should. After that, I started to put together a checklist that I use for most tickets.
+
+## TL;DR: Here&#x27;s the list without description:
+
+- [ ] Clean up debugger/trace/etc
+- [ ] Clean up logs
+- [ ] Search for TODO’s in code
+- [ ] Refactor where needed
+- [ ] Write tests
+- [ ] Make sure test coverage hasn’t gone down
+- [ ] Add translate functions
+- [ ] Verify on published url
+- [ ] Verify in builder
+- [ ] Update Jira
+- [ ] Notify PMs
+- [ ] Create MR
+
+## My Current Checklist
+
+I currently have these as tasks in [Todoist](https://todoist.com/) where I can duplicate for each new ticket. Sometimes I’ll create sub-tasks on a few of these if there is more to be done on that specific issue.
+
+### Clean up debugger/trace/etc
+
+A reminder to delete any `debugger;` or `trace()` (from [MobX](https://mobx.js.org/README.html)) that are left in the code.
+
+### Clean up logs
+
+Remove any `console.log`s and `console.group`s that may still be there.
+
+### Search for TODO’s in code
+
+I like to leave myself notes as I’m working through a feature or bug. They help me remember to resolve any of the todos that are left.
+
+I usually initial my todos TODO JT so I can find them more easily. [Todo Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree) is a great VS Code extension that has been a big help for this.
+
+### Refactor where needed
+
+There is inevitably some back and forth about how a feature or bug should be solved so they may be some prototype code that can be refactored.
+
+### Write tests
+
+I could write these tests upfront but I haven’t gotten into that habit yet. I try to make sure I catch the cases we need to cover based on newly added or deleted code.
+
+### Make sure test coverage hasn’t gone down
+
+This reminds me to run test coverage and make sure I haven’t just dropped our coverage.
+
+### Add translate functions
+
+This runs a scanner to add any new UI text to our language files for translation. This will eventually be part of the CI but for now, I need to remind myself.
+
+### Verify on published URL
+
+We publish the URLs of completed visualizations. It’s important to make sure that nothing regressed on the running URL and the feature is working correctly.
+
+### Verify in our builder UI
+
+This is our UI where customers build their visualizations. This is to make sure the fix/feature is working as expected. We also need to make sure it didn’t cause any regressions.
+
+### Update Jira
+
+Make sure the ticket get’s moved through the Jira columns. This signifies QA that it’s ready to be tested.
+
+### Notify PMs
+
+Let the project manager and product manager know that the ticket is complete and ready for their review.
+
+### Create MR
+
+Reminder to create a Merge Request so I can start getting feedback from code reviews.
+
+## Checklists FTW
+
+This checklist has helped me be more consistent with my contributions. I would love to hear how others are using checklists or workflows through individual tickets.
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Productivity Practices for Front End Development]]></title>
+        <id>https://joelmturner.com/blog/productivity-practices-front-end-development</id>
+        <link href="https://joelmturner.com/blog/productivity-practices-front-end-development"/>
+        <updated>2019-09-30T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Tools and tips that I use daily to help me achieve my dev and personal goals and enhance my productivity.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/productivity-practices-front-end-development">Productivity Practices for Front End Development</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+A big part of me getting things done are the systems that I have in place. Today I&#x27;ll talk about a few of the systems that I&#x27;m currently using.
+
+## Window Management
+
+I&#x27;m using [Better Touch Tools (BTT)](https://www.folivora.ai/) to snap my windows to specific areas on my screens. BTT as the ability to snap a window to a quarter or half of the screen by dressing the window to the corner or edge of the screen.
+
+This is incredibly helpful for diffing or creating a dashboard. I use the custom window size and position for a few of my windows. Since I use a 2 screen set up I usually have my code (VS Code), terminal (iTerm2), and dev tools on the larger screen.
+
+![vs code, dev tools, iterm2 on screen](https://res.cloudinary.com/joelmturner/image/upload/q_80/v1569567747/code-screen.png)
+
+## Spaces
+
+I position the rest of my apps on my laptop spaces. I&#x27;ve tried having all the apps in the same space and just using the app switcher to toggle between the apps but it felt a little too unorganized for me.
+
+I now have a screen for certain jobs. Here&#x27;s the breakdown of my current setup by space.
+
+### Screen 1 (just one space)
+
+1. Code
+   1. [VS Code](https://code.visualstudio.com/)
+   2. dev tools ([Chrome](https://developers.google.com/web/tools/chrome-devtools), [Firefox](https://developer.mozilla.org/en-US/docs/Tools))
+   3. [iTerm2](https://www.iterm2.com/)
+
+### Screen 2 (6 spaces)
+
+1. Personal design ([Figma](https://www.figma.com))
+2. Personal
+   1. Personal project dev browser
+   2. Music ([Spotify](https://www.spotify.com))
+3. Communication/Tracking
+   1. [Slack](https://slack.com/)
+   2. [Todoist](https://todoist.com/r/joelmturner_rooqqg)
+4. Git manager ([GitKraken](https://www.gitkraken.com/invite/78cNgZYg))
+5. Work project dev browsers
+6. Work design (Slack, [Abstract](https://www.abstract.com/))
+
+I love that everything has its place and I can just swipe to that space or use the app switcher for quick access. After about a week of using this setup I knew where everything was without thinking about it. That had sped up my project speed by quite a bit while reducing my mental fatigue.
+
+## [App Launching](#app-launching)
+
+Alfred is my go to for app launching and switching. It might be one of the most used apps on my computer currently.
+
+## Clipboard History
+
+This is one of my favorite parts of Alfred. I use the history all the time. Sometimes I use it to save my text in a form so I don&#x27;t lose it on some save glitch. Being able to grab multiple pieces from a document and paste each one. It&#x27;s nice to be able to go back and grab something that I didn&#x27;t know that I would need again but it&#x27;s there in the history.
+
+## Expanding Text
+
+Expanding text through keyboard shortcuts can speed up so many redundant tasks.
+
+Until recently I was using TextExpander 4 (just before they moved to a subscription model) and have moved all my shortcuts to Alfred. Since I was already using and loving Alfred for its other powerful features I decided to go all in with it for snippets. One of the expansions that I use the most is for `console.log()`. I can type `2log` and it will prompt me for input and fill in `console.log(&quot;prompText&quot;, prompText)`.
+
+Simple snippets are a breeze with Alfred. Form snippets are a little bit of work but still easy enough.
+
+## Task List
+
+I use Todoist for my task list. It is one of my most valuable tools in my tool belt. I love that it is seamless on all my devices and it&#x27;s set up well for [GTD](https://gettingthingsdone.com/). I usually dump/collect my ideas, todos, and projects into the inbox and sort them out later when I&#x27;m in the project management zone.
+
+One feature I use quite a bit is the template copy. When I get assigned a new ticket I copy my ticket checklist and rename it with the ticket number. This helps me make sure that I get everything done before handing it off to QA.
+
+![todoist app screen with tasks](https://res.cloudinary.com/joelmturner/image/upload/q_80/v1569567747/todoist-ticket.png#center)
+
+## ZSH/Bash Alias
+
+I have a few helpful aliases set up for quickly switching directories, running tests, starting projects, etc. Here are a few of them:
+
+```bash
+alias nis=&quot;npm install; npm start&quot;
+alias ns=&quot;npm start&quot;
+alias nt=&quot;npm run test&quot;
+alias nsstory=&quot;npm run storybook&quot;
+alias grun=&quot;./gradlew bootrun&quot;
+alias gtest=&quot;./gradlew test&quot;
+alias jmt=&quot;cd ~/Desktop/Dev/joelmturner&quot;
+```
+
+I would love to hear about how your setup works for you. Let me know on &lt;a href=&quot;https://mobile.twitter.com/search?q=https://joelmturner.com/blog/productivity-practices-front-end-development&quot;&gt;Twitter&lt;/a&gt;.
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Bar Chart in React with @vx]]></title>
+        <id>https://joelmturner.com/blog/data-vis-react-bar-chart-vx</id>
+        <link href="https://joelmturner.com/blog/data-vis-react-bar-chart-vx"/>
+        <updated>2019-09-17T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Building a bar chart in React using the @vx library of charting primitives. This is one of the most widely used charts and gives a good base for building upon.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/data-vis-react-bar-chart-vx">Bar Chart in React with @vx</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+import { CodeSandbox } from &#x27;mdx-embed&#x27;;
+
+&lt;Note&gt;
+
+_Update: October 2020_ - @vx is now [@visx](https://github.com/airbnb/visx) and is at 1.0. You can read about [the update from Airbnb Engineering](https://medium.com/airbnb-engineering/introducing-visx-from-airbnb-fd6155ac4658). As of this update, the api is all the same, and it has TypeScript support 👍.
+
+&lt;/Note&gt;
+
+## What We&#x27;re Building TL;DR
+
+&lt;CodeSandbox codeSandboxId=&quot;react-bar-chart-with-vx-yi48e&quot; /&gt;
+
+Data visualization is steadily becoming more valuable to companies as they try to understand all the data they have coming in. There are a lot of different solutions for data visualization in javaScript, [d3](https://d3js.org/) being one of the most popular.
+
+When working in React it can be frustrating to handle d3 since they tend to compete for the DOM. There is a solution that we&#x27;ve been using for a little while at Sprinklr to help with this.
+
+That solution is the library [@vx](https://vx-demo.now.sh/). It&#x27;s a set of base components in React that wrap d3, made to build a charting library from. There are some great helpers rolled up in the components that make working with `svg`&#x27;s much better. It hasn&#x27;t been released as stable quite yet but it works for our purposes.
+
+Today we&#x27;re going to focus on building a bar chart component. Here are the requirements for this component.
+
+- [ ] Can take an array of single dimension data
+- [ ] Render each item on a shared scale
+- [ ] Should have a x and y axis
+
+## Packages
+
+Let&#x27;s start by getting the packages we need from @vx. Well need shapes, scale, axis, gradient (easy background color), and some mock data to get started.
+
+```bash
+  yarn add @vx/shapes @vx/group @vx/scale @vx/axis @vx/gradient
+```
+
+Or
+
+```bash
+  npm install @vx/shapes @vx/group @vx/scale @vx/axis @vx/gradient --save
+```
+
+## Data
+
+Now that we have our packages we can start stubbing out our data. We&#x27;re going to use some mock data to get started so feel free to create your own or use this data set.
+
+```js
+const defaultData1 = [
+  {
+    label: &#x27;Happy&#x27;,
+    value: 4000,
+  },
+  {
+    label: &#x27;Sad&#x27;,
+    value: 2000,
+  },
+  {
+    label: &#x27;Angry&#x27;,
+    value: 3000,
+  },
+  {
+    label: &#x27;Joyful&#x27;,
+    value: 4500,
+  },
+  {
+    label: &#x27;Anxious&#x27;,
+    value: 7000,
+  },
+];
+```
+
+Now that we have the shape of our data we can add some helper functions that will access those items. This will help us add the labels across the x-axis, and the values along the y-axis. We&#x27;ll see how these come into play a little later.
+
+```js
+// accessors return the label and value of that data item
+const x = (d) =&gt; d.label;
+const y = (d) =&gt; d.value;
+```
+
+## Scales
+
+We can now define the max height and max width that we would like our chart to be. Our component will take height and width as props, and then we can add a little padding. This will help us as we define our scales for this chart.
+
+```js
+// bounds
+const xMax = width - 80;
+const yMax = height - 80;
+```
+
+The scales are where the magic really happen. It took me a while to understand what the `domain` and `range` in d3 were all about. The general rule of thumb based on my understanding is that `domain` is the lowest and highest data points. The `range` is the pixel range we would like to plot these data points on.
+
+In our scales below we can see that `range` (`rangeRound`) is from `0` to `xMax` which is the height bound of our chart. @vx gives us a helper, `rangeRound`, that prettifies the numbers.
+
+The `domain` is an array of all data points which resolves to lowest (2000) and highest (7000) of the data set.
+
+The padding is another helper from @vx that adds banding or space between and the width of the bars for us.
+
+```js
+// scales
+const xScale = scaleBand({
+  rangeRound: [0, xMax],
+  domain: data.map(x),
+  padding: 0.4,
+});
+
+const yScale = scaleLinear({
+  rangeRound: [0, yMax],
+  domain: [Math.max(...data.map(y)), 0],
+});
+```
+
+## Bar Chart
+
+Cool, let&#x27;s build the component! We&#x27;ll start by setting up the `svg` and `Group` to hold our chart. The `Group` helps us place the axes and the bars.
+
+```jsx
+import React from &#x27;react&#x27;;
+import { Group } from &#x27;@vx/group&#x27;;
+import { LinearGradient } from &#x27;@vx/gradient&#x27;;
+import { scaleBand, scaleLinear } from &#x27;@vx/scale&#x27;;
+import { AxisLeft, AxisBottom } from &#x27;@vx/axis&#x27;;
+
+// accessors return the label and value of that data item
+const x = (d) =&gt; d.label;
+const y = (d) =&gt; d.value;
+
+function BarChart({ data, width, height }) {
+  // bounds
+  const xMax = width - 80;
+  const yMax = height - 80;
+
+  // scales
+  const xScale = scaleBand({
+    rangeRound: [0, xMax],
+    domain: data.map(x),
+    padding: 0.4,
+  });
+
+  const yScale = scaleLinear({
+    rangeRound: [0, yMax],
+    domain: [Math.max(...data.map(y)), 0],
+  });
+
+  return (
+    &lt;svg width={width} height={height}&gt;
+      &lt;Group top={25} left={55}&gt;&lt;/Group&gt;
+    &lt;/svg&gt;
+  );
+}
+
+export default BarChart;
+```
+
+- [x] Can take an array of single dimension data
+
+Looks good. The first thing we&#x27;ll add is the y-axis. To do this we use [`AxisLeft`](https://vx-demo.now.sh/docs/axis#AxisLeft) from @vx. We need to pass it our yScale, and we&#x27;ll give it a few other props for styling. The prop `left` pushes the axis over enough to show the `label` and the `numTicks` limits the number of values shown on the y-axis.
+
+Then we&#x27;ll add the [`AxisBottom`](https://vx-demo.now.sh/docs/axis#AxisBottom) that has similar props to `AxisLeft`. It should look like this:
+
+```jsx line=2-3
+&lt;Group top={25} left={55}&gt;
+  &lt;AxisLeft left={10} scale={yScale} numTicks={4} label=&quot;Times Expressed&quot; /&gt;
+  &lt;AxisBottom scale={xScale} label=&quot;Emotion&quot; labelOffset={15} top={yMax} /&gt;
+&lt;/Group&gt;
+```
+
+- [x] Should have a x and y axis
+
+Now we can loop over the data and return the bar. The width, height, and x are all using the scale to determine where they would be plotted in the graph.
+
+```jsx
+{
+  data.map((d, i) =&gt; {
+    const label = x(d);
+    const barWidth = xScale.bandwidth();
+    const barHeight = yMax - yScale(y(d));
+    const barX = xScale(label);
+    const barY = yMax - barHeight;
+
+    return &lt;Bar key={`bar-${label}`} x={barX} y={barY} width={barWidth} height={barHeight} /&gt;;
+  });
+}
+```
+
+- [x] Render each item on a shared scale
+
+## Finish
+
+Nice! It should be good to go. We&#x27;re going to add in the `LinearGradient` for a background color as well. Here it is all together:
+
+```jsx
+import React from &#x27;react&#x27;;
+import { Group } from &#x27;@vx/group&#x27;;
+import { LinearGradient } from &#x27;@vx/gradient&#x27;;
+import { scaleBand, scaleLinear } from &#x27;@vx/scale&#x27;;
+import { AxisLeft, AxisBottom } from &#x27;@vx/axis&#x27;;
+
+// accessors return the label and value of that data item
+const x = (d) =&gt; d.label;
+const y = (d) =&gt; d.value;
+
+function BarChart({ data, width, height }) {
+  // bounds
+  const xMax = width - 80;
+  const yMax = height - 80;
+
+  // scales
+  const xScale = scaleBand({
+    rangeRound: [0, xMax],
+    domain: data.map(x),
+    padding: 0.4,
+  });
+
+  const yScale = scaleLinear({
+    rangeRound: [0, yMax],
+    domain: [Math.max(...data.map(y)), 0],
+  });
+
+  return (
+    &lt;svg width={width} height={height}&gt;
+      &lt;LinearGradient from={`#e9e9e9`} to={`#fff`} id={`gradientFill`} /&gt;
+      &lt;rect width={width} height={height} fill={`url(#gradientFill)`} rx={5} /&gt;
+      &lt;Group top={25} left={55}&gt;
+        &lt;AxisLeft left={10} scale={yScale} numTicks={4} label=&quot;Times&quot; /&gt;
+        {data.map((d, i) =&gt; {
+          const label = x(d);
+          const barWidth = xScale.bandwidth();
+          const barHeight = yMax - yScale(y(d));
+          const barX = xScale(label);
+          const barY = yMax - barHeight;
+
+          return &lt;Bar key={`bar-${label}`} x={barX} y={barY} width={barWidth} height={barHeight} /&gt;;
+        })}
+        &lt;AxisBottom scale={xScale} label=&quot;Emotion&quot; labelOffset={15} top={yMax} /&gt;
+      &lt;/Group&gt;
+    &lt;/svg&gt;
+  );
+}
+
+export default BarChart;
+```
+
+## Bonus
+
+Add a little smoothness to your bars with a css transition like:
+
+```css
+.vx-bar {
+  transition: height 150ms, y 150ms;
+}
+```
+
+This way, when the data changes it will move to the next height smoothly.
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Build an Inline Edit Text Input With React Hooks]]></title>
+        <id>https://joelmturner.com/blog/inline-text-edit-react-hooks</id>
+        <link href="https://joelmturner.com/blog/inline-text-edit-react-hooks"/>
+        <updated>2019-09-16T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[This is a simple example of how to build an inline edit text input with React Hooks.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/inline-text-edit-react-hooks">Build an Inline Edit Text Input With React Hooks</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+import { CodeSandbox } from &#x27;mdx-embed&#x27;;
+
+A nice feature in many apps is to edit a title or other text inline without leaving the context that we&#x27;re in.
+
+Here&#x27;s what we&#x27;ll be building.
+
+&lt;CodeSandbox codeSandboxId=&quot;inline-text-edit-react-hooks-6ql5m&quot; /&gt;
+
+Let&#x27;s take a look at the requirements for this component.
+
+- [ ] Must show text when in rest
+- [ ] Click on text to edit the text
+- [ ] Enter key to save
+- [ ] Esc key to exit without saving
+- [ ] Click outside to save
+
+Cool let&#x27;s start by creating the resting state. We&#x27;re going to do some basic styling with CSS to help us.
+
+```jsx
+import React from &#x27;react&#x27;;
+
+function InlineEdit(props) {
+  return (
+    &lt;span className=&quot;inline-text_copy inline-text_copy--active&quot;&gt;
+      {props.text}
+      &lt;input className=&quot;inline-text_input inline-text_input--rest&quot; /&gt;
+    &lt;/span&gt;
+  );
+}
+
+export default InlineEdit;
+```
+
+```css
+/* these make sure it can work in any text element */
+.inline-text_copy--active,
+.inline-text_input--active {
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  padding: 0;
+  background: none;
+  border: none;
+  border-bottom: 1px dashed #999999;
+  outline: none;
+}
+
+.inline-text_copy--active {
+  cursor: pointer;
+}
+
+.inline-text_copy--hidden,
+.inline-text_input--hidden {
+  display: none;
+}
+
+.inline-text_input--active {
+  border-bottom: 1px solid #666666;
+  text-align: left;
+}
+```
+
+- [x] Must show text when in rest
+
+This sets is us up with a simple text component that displays our text. Now the trickery begins!
+We want to click on the text and have the input show up. Let&#x27;s create some state to track whether we&#x27;re at rest or active.
+
+```jsx
+import React, {useState} from &quot;react&quot;;
+{...}
+const [isInputActive, setIsInputActive] = useState(false);
+```
+
+Cool, now we have some state to help us display/hide our text and input. We also need some state to track what is being typed in our input. Let&#x27;s add another `useState` to hold that text.
+
+```jsx
+const [inputValue, setInputValue] = useState(&#x27;&#x27;);
+```
+
+Let&#x27;s hook this state up to our elements.
+
+```jsx
+function InlineEdit(props) {
+  const [isInputActive, setIsInputActive] = useState(false);
+  const [inputValue, setInputValue] = useState(&#x27;&#x27;);
+
+  return (
+    &lt;span className=&quot;inline-text&quot;&gt;
+      &lt;span className={`inline-text_copy inline-text_copy--${!isInputActive ? &#x27;active&#x27; : &#x27;rest&#x27;}`}&gt;
+        {props.text}
+      &lt;/span&gt;
+      &lt;input
+        value={inputValue}
+        onChange={(e) =&gt; setInputValue(e.target.value)}
+        className={`inline-text_input inline-text_input--${isInputActive ? &#x27;active&#x27; : &#x27;rest&#x27;}`}
+      /&gt;
+    &lt;/span&gt;
+  );
+}
+```
+
+- [x] Click on text to edit the text
+
+Alright, now we need to set up the saving and escaping of the text. We can do this with a `useEffect` and [`useKeypress` hook](https://usehooks.com/useKeypress/) that watch for a key click and take an action.
+
+```jsx line=5-6,8-21
+function InlineEdit(props) {
+  const [isInputActive, setIsInputActive] = useState(false);
+  const [inputValue, setInputValue] = useState(props.text);
+
+  const enter = useKeypress(&#x27;Enter&#x27;);
+  const esc = useKeypress(&#x27;Escape&#x27;);
+
+  useEffect(() =&gt; {
+    if (isInputActive) {
+      // if Enter is pressed, save the text and case the editor
+      if (enter) {
+        props.onSetText(inputValue);
+        setIsInputActive(false);
+      }
+      // if Escape is pressed, revert the text and close the editor
+      if (esc) {
+        setInputValue(props.text);
+        setIsInputActive(false);
+      }
+    }
+  }, [enter, esc]); // watch the Enter and Escape key presses
+
+
+  return ({...}
+```
+
+- [x] Enter key to save
+- [x] Esc key to exit without saving
+
+Next we&#x27;ll add a `useRef` on the wrapping span to help us tell if a click happened outside of the component. We&#x27;re going to use the [`useOnClickOutside` hook](https://usehooks.com/useOnClickOutside/) from [useHooks.com](https://usehooks.com/).
+
+```jsx line=6,13-19
+function InlineEdit(props) {
+  const [isInputActive, setIsInputActive] = useState(false);
+  const [inputValue, setInputValue] = useState(props.text);
+
+  // get the the wrapping span node
+  const wrapperRef = useRef(null);
+
+  const enter = useKeypress(&#x27;Enter&#x27;);
+  const esc = useKeypress(&#x27;Escape&#x27;);
+
+  // this hook takes a ref to watch and a function to run
+  // if the click happened outside
+  useOnClickOutside(wrapperRef, () =&gt; {
+    if (isInputActive) {
+      // save the value and close the editor
+      props.onSetText(inputValue);
+      setIsInputActive(false);
+    }
+  });
+
+  useEffect(() =&gt; {
+    if (isInputActive) {
+      // if Enter is pressed, save the text and case the editor
+      if (enter) {
+        props.onSetText(inputValue);
+        setIsInputActive(false);
+      }
+      // if Escape is pressed, revert the text and close the editor
+      if (esc) {
+        setInputValue(props.text);
+        setIsInputActive(false);
+      }
+    }
+  }, [enter, esc]); // watch the Enter and Escape key presses
+
+  return (
+    &lt;span className=&quot;inline-text&quot; ref={wrapperRef}&gt;
+      {...}
+```
+
+- [x] Click outside to save
+
+We can help the user by focusing the input when they click on the text. To do this we can add a `useRef` on the input and a `useEffect` that watches to see if the input is active.
+
+```jsx
+  const inputRef = useRef(null);
+
+  // focus the cursor in the input field on edit start
+  useEffect(() =&gt; {
+    if (isInputActive) {
+      inputRef.current.focus();
+    }
+  }, [isInputActive]);
+
+  {...}
+
+  &lt;input
+    ref={inputRef}
+    value={inputValue}
+    onChange={(e) =&gt; setInputValue(e.target.value)}
+    className={`inline-text_input inline-text_input--${isInputActive ? &quot;active&quot; : &quot;rest&quot;}`} /&gt;
+```
+
+That was a lot of little parts. Let&#x27;s put it together to see what we have. I&#x27;ve added a few helper functions as well.
+
+```jsx
+import React, { useState, useEffect, useRef } from &#x27;react&#x27;;
+import useKeypress from &#x27;../hooks/useKeypress&#x27;;
+import useOnClickOutside from &#x27;../hooks/useOnClickOutside&#x27;;
+
+function InlineEdit(props) {
+  const [isInputActive, setIsInputActive] = useState(false);
+  const [inputValue, setInputValue] = useState(props.text);
+
+  const wrapperRef = useRef(null);
+  const textRef = useRef(null);
+  const inputRef = useRef(null);
+
+  const enter = useKeypress(&#x27;Enter&#x27;);
+  const esc = useKeypress(&#x27;Escape&#x27;);
+
+  // check to see if the user clicked outside of this component
+  useOnClickOutside(wrapperRef, () =&gt; {
+    if (isInputActive) {
+      props.onSetText(inputValue);
+      setIsInputActive(false);
+    }
+  });
+
+  const onEnter = useCallback(() =&gt; {
+    if (enter) {
+      props.onSetText(inputValue);
+      setIsInputActive(false);
+    }
+  }, [enter, inputValue, props.onSetText]);
+
+  const onEsc = useCallback(() =&gt; {
+    if (esc) {
+      setInputValue(props.text);
+      setIsInputActive(false);
+    }
+  }, [esc, props.text]);
+
+  // focus the cursor in the input field on edit start
+  useEffect(() =&gt; {
+    if (isInputActive) {
+      inputRef.current.focus();
+    }
+  }, [isInputActive]);
+
+  useEffect(() =&gt; {
+    if (isInputActive) {
+      // if Enter is pressed, save the text and close the editor
+      onEnter();
+      // if Escape is pressed, revert the text and close the editor
+      onEsc();
+    }
+  }, [onEnter, onEsc, isInputActive]); // watch the Enter and Escape key presses
+
+  const handleInputChange = useCallback(
+    (event) =&gt; {
+      // sanitize the input a little
+      setInputValue(DOMPurify.sanitize(event.target.value));
+    },
+    [setInputValue]
+  );
+
+  const handleSpanClick = useCallback(() =&gt; setIsInputActive(true), [setIsInputActive]);
+
+  return (
+    &lt;span className=&quot;inline-text&quot; ref={wrapperRef}&gt;
+      &lt;span
+        ref={textRef}
+        onClick={handleSpanClick}
+        className={`inline-text_copy inline-text_copy--${!isInputActive ? &#x27;active&#x27; : &#x27;hidden&#x27;}`}
+      &gt;
+        {props.text}
+      &lt;/span&gt;
+      &lt;input
+        ref={inputRef}
+        // set the width to the input length multiplied by the x height
+        // it&#x27;s not quite right but gets it close
+        style={{ minWidth: Math.ceil(inputValue.length) + &#x27;ch&#x27; }}
+        value={inputValue}
+        onChange={handleInputChange}
+        className={`inline-text_input inline-text_input--${isInputActive ? &#x27;active&#x27; : &#x27;hidden&#x27;}`}
+      /&gt;
+    &lt;/span&gt;
+  );
+}
+
+export default InlineEdit;
+```
+
+It&#x27;s worth noting that input text may need to be sanitized before being saved. I&#x27;ve had good luck with [DOMPurify](https://github.com/cure53/DOMPurify).
+
+That&#x27;s it! Go forth and edit!
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[React Hooks: useDims]]></title>
+        <id>https://joelmturner.com/blog/react-hooks-useDims</id>
+        <link href="https://joelmturner.com/blog/react-hooks-useDims"/>
+        <updated>2019-09-13T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Here's another helpful React hook. This one returns the dimensions of an element that's passed to it.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/react-hooks-useDims">React Hooks: useDims</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+Here&#x27;s another helpful React hook. This one returns the dimensions of an element that&#x27;s passed to it.
+
+```js
+import { useState, useLayoutEffect } from &#x27;react&#x27;;
+
+function useDims(ref, isSvg = false) {
+  const [dim, setDim] = useState({
+    height: 0,
+    width: 0,
+    top: 0,
+    left: 0,
+  });
+
+  useLayoutEffect(() =&gt; {
+    if (ref &amp;&amp; ref.current) {
+      if (isSvg) {
+        const { height, width, x, y } = ref.current.getBBox();
+        setDim({
+          height,
+          width,
+          top: y,
+          left: x,
+        });
+      } else {
+        setDim({
+          height: ref.current.offsetHeight,
+          width: ref.current.offsetWidth,
+          top: ref.current.offsetTop,
+          left: ref.current.offsetLeft,
+        });
+      }
+    }
+  }, [ref, isSvg]);
+
+  return dim;
+}
+
+export default useDims;
+```
+
+It can be used in a component like this.
+
+```jsx line=5
+import React from &#x27;react&#x27;;
+
+function Chart() {
+  const chartRef = React.useRef(null);
+  const { width, height, top, left } = useDims(chartRef);
+
+  return (
+    &lt;div ref={chartRef}&gt;
+      &lt;ul&gt;
+        &lt;li&gt;width: {width}&lt;/li&gt;
+        &lt;li&gt;height: {height}&lt;/li&gt;
+        &lt;li&gt;top: {top}&lt;/li&gt;
+        &lt;li&gt;left: {left}&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+```
+
+Let&#x27;s break it down a bit. We start by receiving a ref and an optional boolean of `isSvg`. Since svgs use a different function to calculate size we can use this flag to differentiate.
+
+Our hook is using a default dimension object in state with all values set to zero. We then return that `dim` if there aren&#x27;t any changes.
+
+```js line=2-7
+function useDims(ref, isSvg = false) {
+  const [dim, setDim] = useState({
+      height: 0,
+      width: 0,
+      top: 0,
+      left: 0
+    });
+
+    {...}
+
+    return dim;
+```
+
+Next, we have `useEffect` which does the heavy lifting. We&#x27;re checking to see if we have a value in the ref and we are having useEffect watch the `ref` and `isSvg`.
+
+```js
+useLayoutEffect(() =&gt; {
+  if (ref &amp;&amp; ref.current) {
+   {...}
+  }
+}, [ref, isSvg]);
+```
+
+Then, we have the calcs for the html and svg element. For the html element we can pull the offsets right off of the node. The svg, however, need to pass through `getBBox()` to get their dimensions.
+
+```js
+if (isSvg) {
+  const { height, width, x, y } = ref.current.getBBox();
+  setDim({
+    height,
+    width,
+    top: y,
+    left: x,
+  });
+} else {
+  setDim({
+    height: ref.current.offsetHeight,
+    width: ref.current.offsetWidth,
+    top: ref.current.offsetTop,
+    left: ref.current.offsetLeft,
+  });
+}
+```
+
+Once it&#x27;s all together we have a quick way to grab the dimensions from elements. You can also use it for multiple elements in the same component.
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[My Favorite Layout Components in React]]></title>
+        <id>https://joelmturner.com/blog/react-layout-components</id>
+        <link href="https://joelmturner.com/blog/react-layout-components"/>
+        <updated>2019-09-12T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[React components for rapid layout and ease of use. These components are designed to be used as building blocks for your own layouts. They are not meant to be used as the only way to build a layout.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/react-layout-components">My Favorite Layout Components in React</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+import { CodeSandbox } from &#x27;mdx-embed&#x27;;
+
+There are a few components that I use almost every day in development. They are used for layouts and are made from flexbox and css grid. On this site I pass both of these down with the MdxProvider so all my pages and posts have access to them easily.
+
+## What We&#x27;re Using TL;DR
+
+&lt;CodeSandbox codeSandboxId=&quot;react-layout-components-flexbox-grid-d9e1u&quot; /&gt;
+
+I had used a column component that accepted different span amounts, but I ended up not using it as much. I tend to add `span` to the children through the `sx` prop or extending with styled components.
+
+## Flexbox
+
+This one is by far my favorite. 90% of the time it works perfectly with the props given. It can easily be extended through styled components, emotion&#x27;s `css` prop, or Theme UI&#x27;s `sx` prop for those few cases where I need something extra.
+
+This is definitely an opinionated way to build a Flexbox component. The idea is to have booleans for certain aspects of the spec to help speed up composition.
+
+Here&#x27;s a list of the current props for it:
+
+```typescript
+type FlexboxProps = {
+  className?: string;
+  children?: React.ReactNode;
+
+  inline?: boolean;
+  vertical?: boolean; // column
+  wrap?: boolean;
+  noGrow?: boolean; // acts as no-grow and no-shrink
+  grow?: number;
+  shrink?: number;
+  basis?: number | &#x27;auto&#x27;;
+
+  top?: boolean;
+  middle?: boolean;
+  bottom?: boolean;
+  left?: boolean;
+  center?: boolean;
+  right?: boolean;
+  between?: boolean;
+  around?: boolean;
+  gap?: boolean | number; // add margin between children similar to grid-gap on grid
+};
+```
+
+Here is some example usage. See the [CodeSandbox](#example) down below for more.
+
+```jsx
+&lt;Flexbox vertical gap={3}&gt;
+  &lt;Flexbox noGrow&gt;
+    &lt;h1&gt;A Title for You&lt;/h1&gt;
+  &lt;/Flexbox&gt;
+  &lt;Flexbox bottom&gt;
+    &lt;p&gt;
+      This is some copy to show how the box will fill the whole area but the text will be aligned
+      bottom.
+    &lt;/p&gt;
+  &lt;/Flexbox&gt;
+&lt;/Flexbox&gt;
+```
+
+## Grid
+
+Grid is another one of my favorites and it&#x27;s also very opinionated to suit my needs. The idea is to use CSS grid to create layouts. Depending on the project it can align with a design grid.
+
+This can be paired with Flexbox for some powerful layouts. Add the `sx` prop from Theme UI for some wonderful [breakpoint awesomeness](https://theme-ui.com/theme-spec#breakpoints).
+
+Let&#x27;s take a look at the props.
+
+```typescript
+type GridProps = {
+  className?: string;
+  children: React.ReactNode;
+  gap?: string | number; // grid-gap
+  columns?: string | string[]; // grid-template-columns
+  rows?: string | string[]; // grid-template-rows
+};
+```
+
+Here&#x27;s an example of using it. See more examples in the [CodeSandbox](#example).
+
+```jsx
+&lt;Grid columns=&quot;1fr 1fr&quot; gap=&quot;2&quot;&gt;
+  &lt;img src=&quot;myImage.png&quot; /&gt;
+  &lt;img src=&quot;catsSinging.png&quot; /&gt;
+&lt;/Grid&gt;
+```
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[React Hooks: useSlider]]></title>
+        <id>https://joelmturner.com/blog/react-hooks-useslider</id>
+        <link href="https://joelmturner.com/blog/react-hooks-useslider"/>
+        <updated>2019-09-11T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[An auto-advancing image slider built in React with hooks.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/react-hooks-useslider">React Hooks: useSlider</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+import { CodeSandbox } from &#x27;mdx-embed&#x27;;
+
+We had a need for an auto advancing image slider in React. I chose to use hooks for this feature. This hook leverages a `useInterval` hook from [Dan Abrimov](https://overreacted.io/making-setinterval-declarative-with-react-hooks/).
+
+## What We&#x27;re Building TL;DR
+
+&lt;CodeSandbox codeSandboxId=&quot;simple-react-hooks-interval-slider-vsmi1&quot; /&gt;
+
+## Requirements
+
+This component needs do a few things.
+
+- [ ] Should accept an slide array
+- [ ] Should accept a duration in milliseconds
+- [ ] Should animate between slides
+- [ ] Should move through array on it&#x27;s own
+
+## useInterval
+
+Here&#x27;s the `useInterval` code.
+
+```jsx
+import React, { useState, useEffect, useRef } from &#x27;react&#x27;;
+
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  // Remember the latest callback.
+  useEffect(() =&gt; {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() =&gt; {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () =&gt; clearInterval(id);
+    }
+  }, [delay]);
+}
+```
+
+Setting an interval can be problematic in JavaScript, mostly because of cleanup (or lack of). With `useEffect` we get a nice cleanup with the return function, `return () =&gt; clearInterval(id);`.
+
+## useSlider
+
+Now that we have that set up we can leverage it to help us with timing.
+
+```jsx
+import * as React from &#x27;react&#x27;;
+import useInterval from &#x27;./UseInterval&#x27;;
+
+function useSlider({
+  total = 0, // the length of the slide array
+  enabled = false, // pauses/disables the player
+  useLoaded = false, // this allows for delayed loads like images or embeds
+  speed = 1000, // speed in milliseconds to show each slide
+  loop = true, // should it start back at the beginning
+}) {
+  const [offset, setOffset] = React.useState(0);
+  const [items, setItems] = React.useState([]);
+
+  function incrementOffset() {
+    if (offset === total - 1) {
+      setOffset(loop ? 0 : offset);
+    } else {
+      setOffset(offset + 1);
+    }
+  }
+
+  function addItem(ref) {
+    setItems([...items, ref]);
+  }
+
+  const loaded = useLoaded ? items.length === total : true;
+
+  useInterval(() =&gt; {
+    if (loaded &amp;&amp; enabled &amp;&amp; offset &lt; total) {
+      incrementOffset();
+    }
+  }, speed);
+
+  return {
+    offset, // this is the current index of the slider
+    addItem, // this takes a ref and adds it to the items array to see if all have loaded
+  };
+}
+
+export default useSlider;
+```
+
+## Slider Component
+
+Our slider component adds all slides next to each other and moves the `.scroller` (absolutely positioned) through the `.container` (relatively positioned). This allows us to animate between the slides. Here’s the stateless structure of our component.
+
+```css
+.container {
+  background-color: #ccc;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.scroller {
+  position: absolute;
+  transition: transform 350ms;
+  height: 100%;
+  display: flex;
+}
+
+.slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: opacity 350ms;
+}
+```
+
+```jsx
+import React from &#x27;react&#x27;;
+import useSlider from &#x27;./useSlider&#x27;;
+
+const slides = [
+  {
+    title: &#x27;Slide 1&#x27;,
+    color: &#x27;#56777A&#x27;,
+  },
+  {
+    title: &#x27;Slide 2&#x27;,
+    color: &#x27;#84ACAC&#x27;,
+  },
+  {
+    title: &#x27;Slide 3&#x27;,
+    color: &#x27;#FBA434&#x27;,
+  },
+];
+
+function Slider() {
+  const slideWidth = 300;
+
+  return (
+    &lt;div
+      className=&quot;container&quot;
+      style={{
+        backgroundColor: slide.color,
+        width: slideWidth,
+        height: slideWidth,
+      }}
+    &gt;
+      &lt;div
+        className=&quot;scroller&quot;
+        style={{
+          // our counter offset will go here
+          transform: `translate3d(-${offset * slideWidth}px,0,0)`,
+          width: `${slides.length * slideWidth}px`,
+        }}
+      &gt;
+        {slides.map((slide, index) =&gt; (
+          &lt;div
+            key={slide.title}
+            className=&quot;slide&quot;
+            style={{
+              backgroundColor: slide.color,
+              width: slideWidth,
+              height: slideWidth,
+            }}
+          &gt;
+            {slide.title}
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+```
+
+## Putting it All Together
+
+Now we can add our hook to our slider component. This will give us all the state that we’ll need for this feature. When it&#x27;s all together we get a slider that moves the slides horizontally and rewinds after the last one. You can hook up the slider props to manage the slider options if needed. It can also be made to go vertical with a little modification.
+
+### Cool! Requirements met.
+
+- [x] Should accept an slide array
+- [x] Should accept a duration in milliseconds
+- [x] Should animate between slides
+- [x] Should move through array on it&#x27;s own
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Build a React Gallery With CSS Grid]]></title>
+        <id>https://joelmturner.com/blog/build-gallery-react-css-grid</id>
+        <link href="https://joelmturner.com/blog/build-gallery-react-css-grid"/>
+        <updated>2019-09-10T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[CSS Grid is super powerful and can be used to create some creative layouts which makes it a great way to create galleries. In this guide we’re going to use a simple grid that keeps the images the same size.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/build-gallery-react-css-grid">Build a React Gallery With CSS Grid</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+CSS Grid is super powerful and can be used to create some creative layouts which makes it a great way to create galleries. In this guide we’re going to use a simple grid that keeps the images the same size.
+
+&gt; This will be a quick view of CSS Grid. If you would like to know more I highly recommend the [CSS Grid Course](https://cssgrid.io/) (free) from [Wes Bos](https://twitter.com/wesbos).
+
+Here are the requirements for this component:
+
+- Accepts an array of images (using Gatsby Image)
+- Needs to respond to different size screens (using `minmax`)
+- Takes a size prop of `s`, `m`, or `l`
+
+Cool, let’s start building it out. We&#x27;re building this one based on a query for [Gatsby Image](https://www.gatsbyjs.org/packages/gatsby-image/). You can set this up for any image component or element that you may be using.
+
+```jsx
+import React from &#x27;react&#x27;;
+import Img from &#x27;gatsby-image&#x27;;
+
+function Gallery({images = []}) {
+  const wrapperStyles = {
+    display: &#x27;grid&#x27;,
+    gridTemplateColumns: &#x27;repeat(auto-fill, minmax(300px, 1fr))&#x27;,
+    gridGap: &#x27;1rem&#x27;;
+  }
+  return (
+    &lt;div style={wrapperStyles}&gt;
+      {nodes.length &gt; 0 &amp;&amp; nodes.map(node =&gt; &lt;Img fluid={node.localImage.childImageSharp.fluid} /&gt;)}
+    &lt;/div&gt;
+  )
+}
+```
+
+The wrapper styles will give the children their sizes based on the grid and row declarations. In this case we have `gridTemplateColumns: ‘repeat(auto-fill, minmax(300px, 1fr))’` Which tells the images to lay out in as many columns that will fit based on a minimum width of `300px` and a maximum of `1fr`. The `gridGap` tells them to have a gap of `1rem` between images.
+
+We&#x27;ll add a function that can handle the different sizing from the `size` prop and pass these into the wrapper styles.
+
+```jsx line=4,6-25,29
+import React from &#x27;react&#x27;;
+import Img from &#x27;gatsby-image&#x27;;
+
+function Gallery({ nodes = [], size = &#x27;m&#x27; }) {
+  function getStylesForSize() {
+    switch (size) {
+      case &#x27;s&#x27;:
+        return {
+          gridTemplateColumns: &#x27;repeat(auto-fill, minmax(142px, 1fr))&#x27;,
+          gridGap: &#x27;0.25rem&#x27;,
+        };
+      case &#x27;m&#x27;:
+      default:
+        return {
+          gridTemplateColumns: &#x27;repeat(auto-fill, minmax(300px, 1fr))&#x27;,
+          gridGap: &#x27;0.5rem&#x27;,
+        };
+      case &#x27;l&#x27;:
+        return {
+          gridTemplateColumns: &#x27;1fr&#x27;,
+          gridGap: &#x27;.75rem&#x27;,
+        };
+    }
+  }
+
+  const wrapperStyles = {
+    display: &#x27;grid&#x27;,
+    ...getStylesForSize(),
+  };
+
+  return (
+    &lt;div style={wrapperStyles}&gt;
+      {nodes.length &gt; 0 &amp;&amp;
+        nodes.map((node) =&gt; &lt;Img fluid={node.localImage.childImageSharp.fluid} /&gt;)}
+    &lt;/div&gt;
+  );
+}
+```
+
+We can now pass our size changes to the gallery component. Cool!
+
+## TypeScript
+
+Now, let&#x27;s type it. This will help us and others know what we shape we need passed to the gallery.
+
+```typescript line=2,4-19,21,23,44
+import React from &#x27;react&#x27;;
+import Img, { FluidObject } from &#x27;gatsby-image&#x27;;
+
+type GallerySizes = &#x27;s&#x27; | &#x27;m&#x27; | &#x27;l&#x27;;
+type GalleryImage = {
+  node: {
+    localImage: {
+      childImageSharp: {
+        fluid: FluidObject;
+      };
+    };
+    id: string;
+  };
+};
+
+type GalleryProps = {
+  imageNodes: GalleryImage[];
+  size?: GallerySizes;
+};
+
+function Gallery({ images, size = &#x27;m&#x27; }: GalleryProps) {
+  function getStylesForSize(): React.CSSProperties {
+    switch (size) {
+      case &#x27;s&#x27;:
+        return {
+          gridTemplateColumns: &#x27;repeat(auto-fill, minmax(142px, 1fr))&#x27;,
+          gridGap: &#x27;0.25rem&#x27;,
+        };
+      case &#x27;m&#x27;:
+      default:
+        return {
+          gridTemplateColumns: &#x27;repeat(auto-fill, minmax(300px, 1fr))&#x27;,
+          gridGap: &#x27;0.5rem&#x27;,
+        };
+      case &#x27;l&#x27;:
+        return {
+          gridTemplateColumns: &#x27;1fr&#x27;,
+          gridGap: &#x27;.75rem&#x27;,
+        };
+    }
+  }
+
+  const wrapperStyles: React.CSSProperties = {
+    display: &#x27;grid&#x27;,
+    ...getStylesForSize(),
+  };
+
+  return (
+    &lt;div style={wrapperStyles}&gt;
+      {nodes.length &gt; 0 &amp;&amp;
+        nodes.map((node) =&gt; &lt;Img fluid={node.localImage.childImageSharp.fluid} /&gt;)}
+    &lt;/div&gt;
+  );
+}
+```
+
+Nice! Now we have a functioning gallery component that can change sizes. You can see my implementation of this on the &lt;Link to=&#x27;/illustration&#x27;&gt;illustration page&lt;/Link&gt;.
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Quick Tip: GraphQL Fragments in Gatsby]]></title>
+        <id>https://joelmturner.com/blog/quick-tip-graphql-fragments</id>
+        <link href="https://joelmturner.com/blog/quick-tip-graphql-fragments"/>
+        <updated>2019-09-09T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[A few quick tips about working with GraphQL fragments in Gatsby.]]></summary>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/quick-tip-graphql-fragments">Quick Tip: GraphQL Fragments in Gatsby</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+GraphQL makes it easy to get exactly the data we need for a given component. There are many times when we end up using the same query or part of a query in multiple places. This is where [GraphQL Fragments](https://graphql.org/learn/queries/#fragments) can help us.
+
+To declare a fragment we can add `fragment MyAwesomeFragment on BlogPost`. The keyword `fragment` tells GraphQL that we&#x27;re creating the fragment with the name, `MyAwesomeFragment`. And all of this is on the type `BlogPost`.
+
+In this site I have a few different places where I&#x27;m querying images for galleries. So instead of repeating the whole query in every variation across the site I can create a queries file and drop the repeated parts in there. Here&#x27;s an example of that in action.
+
+```
+fragment InstaNodes on InstagramContentEdge {
+  node {
+    id
+    localImage {
+      childImageSharp {
+        fluid(maxWidth: 1248, maxHeight: 1248) {
+          ...GatsbyImageSharpFluid_withWebp
+        }
+      }
+    }
+    images {
+      standard_resolution {
+        width
+        height
+        url
+      }
+    }
+  }
+}
+```
+
+Then we can use them in our components with a page query or static query.
+
+```jsx line=7
+const data = useStaticQuery(graphql`
+  query {
+    allInstagramContent(
+      filter: { tags: { glob: &quot;ink*2017&quot; } }
+      sort: { fields: created_time, order: ASC }
+    ) {
+      edges {
+        ...InstaNodes
+      }
+    }
+  }
+`);
+```
+
+## Typing
+
+If you&#x27;re using TypeScript you can also drop the types for the fragments in the queries file so they&#x27;re all together.
+
+```typescript
+type IInstaNodes = {
+  node: {
+    id: string;
+    localImage: {
+      childImageSharp: {
+        fluid: FluidObject;
+      };
+    };
+    images: {
+      standard_resolution: {
+        width: number;
+        height: number;
+        url: string;
+      };
+    };
+  };
+};
+```
+
+## Bonus
+
+Add an alias if you&#x27;re doing similar top level requests. Here&#x27;s an example of my Instagram requests.
+
+```
+fragment inktober2017 on Query {
+  inktober2017: allInstagramContent(
+    filter: { tags: { glob: &quot;ink*2017&quot; } }
+    sort: { fields: created_time, order: ASC }
+  ) {
+    edges {
+      ...InstaNodes
+    }
+  }
+}
+fragment inktober2018 on Query {
+  inktober2018: allInstagramContent(
+    filter: { tags: { glob: &quot;ink*2018&quot; } }
+    sort: { fields: created_time, order: ASC }
+  ) {
+    edges {
+      ...InstaNodes
+    }
+  }
+}
+fragment letterClash on Query {
+  letterClash: allInstagramContent(
+    filter: { tags: { eq: &quot;letterclash&quot; } }
+    sort: { fields: created_time, order: ASC }
+  ) {
+    edges {
+      ...InstaNodes
+    }
+  }
+}
+```
+
+Now we can grab that data like this:
+
+```js
+const {
+  inktober2017: { edges: ink2017Edges = [] } = {},
+  inktober2018: { edges: ink2018Edges = [] } = {},
+  letterClash: { edges: letterClashEdges = [] } = {},
+} = data;
+```
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Create an Avatar Component in Gatsby with TypeScript Part 3: Adding Types]]></title>
+        <id>https://joelmturner.com/blog/avatar-component-gatsby-3</id>
+        <link href="https://joelmturner.com/blog/avatar-component-gatsby-3"/>
+        <updated>2019-09-08T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/avatar-component-gatsby-3">Create an Avatar Component in Gatsby with TypeScript Part 3: Adding Types</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+We left off with our avatar component working using Gatsby Image and still able to receive an image url. Now, let&#x27;s look at what it would take to type this component. I like to use `type` instead of `interface` for the props. You can read more about [the difference between type and interface](https://medium.com/@martin_hotell/interface-vs-type-alias-in-typescript-2-7-2a8f1777af4c) if you&#x27;d like.
+
+The props type will look something like this:
+
+```typescript
+type AvatarProps = {
+  url?: string;
+  altText?: string;
+  title?: string;
+  user?: &#x27;monster1&#x27; | &#x27;monster2&#x27;;
+};
+
+function Avatar(props: AvatarProps) {}
+```
+
+The cool part here is that the `user` prop can be typed to match the graphql alias names. This helps anyone consuming this component know the values they can pass.
+
+Let&#x27;s take a look at typing our data variable. We know the shape of what we expect because of our graphql. We just need to provide the correct typing at the childImageSharp level. Luckily Gatsby Image has a type of `FixedObject` that can help us out here. We pass the type to the static query hook like `useStaticQuery&lt;Data&gt;(graphql` to signify that we expect the return to be `Data`.
+
+```typescript
+{...}
+import Img, { FixedObject } from &quot;gatsby-image&quot;
+{...}
+
+type Data = {
+  monster1: {
+    childImageSharp: {
+      fixed: FixedObject;
+    };
+  };
+  monster2: {
+    childImageSharp: {
+      fixed: FixedObject;
+    };
+  };
+}
+
+function Avatar(props: AvatarProps) {
+  const data = useStaticQuery&lt;Data&gt;(graphql``)
+    {...}
+}
+```
+
+Let&#x27;s refactor the redundancy in the `Data` type.
+
+```typescript
+type ChildImage = {
+  childImageSharp: {
+    fixed: FixedObject;
+  };
+};
+
+type Data = {
+  monster1: ChildImage;
+  monster2: ChildImage;
+};
+```
+
+Cool, now we should have something like this:
+
+```typescript
+import React from &#x27;react&#x27;;
+import { useStaticQuery, graphql } from &#x27;gatsby&#x27;;
+import Img, { FixedObject } from &#x27;gatsby-image&#x27;;
+
+type AvatarProps = {
+  url?: string;
+  altText?: string;
+  title?: string;
+  user?: &#x27;monster1&#x27; | &#x27;monster2&#x27;;
+};
+
+type ChildImage = {
+  childImageSharp: {
+    fixed: FixedObject;
+  };
+};
+
+type Data = {
+  monster1: ChildImage;
+  monster2: ChildImage;
+};
+
+function Avatar(props: AvatarProps) {
+  const data = useStaticQuery&lt;Data&gt;(graphql`
+    query {
+      monster1: file(relativePath: { eq: &quot;monster-01-headshot.png&quot; }) {
+        childImageSharp {
+          fixed(width: 75, height: 75) {
+            ...GatsbyImageSharpFixed_withWebp
+          }
+        }
+      }
+      monster2: file(relativePath: { eq: &quot;monster-02-headshot.png&quot; }) {
+        childImageSharp {
+          fixed(width: 75, height: 75) {
+            ...GatsbyImageSharpFixed_withWebp
+          }
+        }
+      }
+    }
+  `);
+
+  const { url, altText, title, user } = props;
+  const styles = {
+    width: &#x27;75px&#x27;,
+    height: &#x27;75px&#x27;,
+    borderRadius: &#x27;50%&#x27;,
+  };
+
+  if (url) {
+    return &lt;img style={styles} src={url} alt={altText} title={title} /&gt;;
+  }
+
+  return (
+    &lt;Img
+      style={styles}
+      fixed={user &amp;&amp; data[user].childImageSharp.fixed}
+      alt={altText}
+      title={title}
+    /&gt;
+  );
+}
+
+export default Avatar;
+```
+
+Thanks for following along!
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Create an Avatar Component in Gatsby with TypeScript Part 2: Gatsby Image]]></title>
+        <id>https://joelmturner.com/blog/avatar-component-gatsby-2</id>
+        <link href="https://joelmturner.com/blog/avatar-component-gatsby-2"/>
+        <updated>2019-09-07T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/avatar-component-gatsby-2">Create an Avatar Component in Gatsby with TypeScript Part 2: Gatsby Image</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+In &lt;Link to=&#x27;/blog/avatar-component-gatsby-1&#x27;&gt;Part 1&lt;/Link&gt; we put together a simple avatar component that can receive an image url and render it out as a round image.
+
+To get the full benefit of Gatsby Image we need to make sure our image is pulled into our graphql. We&#x27;ll need to install a couple of plugins to help us here. [`gatsby-image`](https://www.gatsbyjs.org/packages/gatsby-image), [`gatsby-transformer-sharp`](https://www.gatsbyjs.org/packages/gatsby-transformer-sharp), [`gatsby-plugin-sharp`](https://www.gatsbyjs.org/packages/gatsby-plugin-sharp) will be needed.
+
+Let&#x27;s install `gatsby-image`
+
+```bash
+npm install --save gatsby-image
+```
+
+Then, if you don&#x27;t already have `gatsby-transformer-sharp` and `gatsby-plugin-sharp` we can install them.
+
+```bash
+npm install --save gatsby-transformer-sharp gatsby-plugin-sharp
+```
+
+Then in your gatsby-config.js:
+
+```js title=&#x27;happy&#x27;
+plugins: [`gatsby-transformer-sharp`, `gatsby-plugin-sharp`];
+```
+
+We&#x27;ll need a source plugin set up as well. For this example we&#x27;re going to use `gatsby-source-filesystem`. Here what our `gatsby-config` might look like, assuming our images are in `src/assets`.
+
+```js
+const path = require(`path`);
+
+module.exports = {
+  plugins: [
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `assets`,
+        path: path.join(__dirname, `src`, `assets`),
+      },
+    },
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+  ],
+};
+```
+
+Now let&#x27;s drop our image file into our assets folder and create a query for it. We can use the hook for StaticQuery in our component which will make the image available through the data prop. Since we know the size of the image we can add those dimensions in our graphql query so the so the browser doesn&#x27;t have to do all the work.
+
+```jsx
+const data = useStaticQuery(graphql`
+  query {
+    placeholderImage: file(relativePath: { eq: &quot;monster-01-headshot.png&quot; }) {
+      childImageSharp {
+        fixed(width: 75, height: 75) {
+          ...GatsbyImageSharpFixed_withWebp
+        }
+      }
+    }
+  }
+`);
+```
+
+Then we need to add the `Img` component from `gatsby-image` so that it can do its magic.
+
+```jsx
+import Img from &quot;gatsby-image&quot;
+
+function Avatar(props) {
+  {...}
+  return (
+    &lt;Img
+      style={styles}
+      fixed={data.placeholderImage.childImageSharp.fixed}
+      alt={altText}
+      title={title} /&gt;
+  )
+}
+```
+
+Now let&#x27;s put it all together.
+
+```jsx
+import React from &#x27;react&#x27;;
+import { useStaticQuery, graphql } from &#x27;gatsby&#x27;;
+import Img from &#x27;gatsby-image&#x27;;
+
+function Avatar(props) {
+  const data = useStaticQuery(graphql`
+    query {
+      placeholderImage: file(relativePath: { eq: &quot;monster-01-headshot.png&quot; }) {
+        childImageSharp {
+          fixed(width: 75, height: 75) {
+            ...GatsbyImageSharpFixed_withWebp
+          }
+        }
+      }
+    }
+  `);
+
+  const { url, altText, title } = props;
+  const styles = {
+    width: &#x27;75px&#x27;,
+    height: &#x27;75px&#x27;,
+    borderRadius: &#x27;50%&#x27;,
+  };
+
+  return (
+    &lt;Img
+      style={styles}
+      fixed={data.placeholderImage.childImageSharp.fixed}
+      alt={altText}
+      title={title}
+    /&gt;
+  );
+}
+
+export default Avatar;
+```
+
+We&#x27;re still missing the ability to pass a url to our avatar component so let&#x27;s add that back in. We can return a regular `img` element if we get a url. Using `fixed` will be better since we&#x27;re not worried about fluid mode with this component.
+
+```jsx
+import React from &#x27;react&#x27;;
+import { useStaticQuery, graphql } from &#x27;gatsby&#x27;;
+import Img from &#x27;gatsby-image&#x27;;
+
+function Avatar(props) {
+  const data = useStaticQuery(graphql`
+    query {
+      placeholderImage: file(relativePath: { eq: &quot;monster-01-headshot.png&quot; }) {
+        childImageSharp {
+          fixed(width: 75, height: 75) {
+            ...GatsbyImageSharpFixed_withWebp
+          }
+        }
+      }
+    }
+  `);
+
+  const { url, altText, title } = props;
+  const styles = {
+    width: &#x27;75px&#x27;,
+    height: &#x27;75px&#x27;,
+    borderRadius: &#x27;50%&#x27;,
+  };
+
+  if (url) {
+    return &lt;img style={styles} src={url} alt={altText} title={title} /&gt;;
+  }
+
+  return (
+    &lt;Img
+      style={styles}
+      fixed={data.placeholderImage.childImageSharp.fixed}
+      alt={altText}
+      title={title}
+    /&gt;
+  );
+}
+
+export default Avatar;
+```
+
+This allows us to call avatar without us needing to pass a prop of image url. If you need multiple avatar images for your team you can add them to the quite and pass a user prop down and we&#x27;ll grab that from the query. We can name the queries to match the users like so:
+
+```jsx
+function Avatar(props) {
+  const data = useStaticQuery(graphql`
+      query {
+        monster1: file(relativePath: { eq: &quot;monster-01-headshot.png&quot; }) {
+          childImageSharp {
+            fixed(width: 75, height: 75) {
+              ...GatsbyImageSharpFixed_withWebp
+            }
+          }
+        }
+        monster2: file(relativePath: { eq: &quot;monster-02-headshot.png&quot; }) {
+          childImageSharp {
+            fixed(width: 75, height: 75) {
+              ...GatsbyImageSharpFixed_withWebp
+            }
+          }
+        }
+      }
+    `)
+
+  const {url, altText, title, user} = props;
+  const image = data[user].childImageSharp.fixed;
+  ...
+```
+
+That way we can pass `monster1` or `monster2` in our `user` prop to have it render that monster.
+
+{/* &lt;Grid columns=&#x27;75px 3fr&#x27; rows=&#x27;1fr 1fr&#x27; gap={2} sx={{alignItems: &#x27;center&#x27;, mb: 3}}&gt; */}
+
+{/* &lt;AvatarPart user={&quot;monster1&quot;} /&gt; */}
+
+```jsx
+&lt;Avatar alText=&quot;Monster P. Whittington portrait&quot; title=&quot;Monster P. Whittington&quot; user=&quot;monster1&quot; /&gt;
+```
+
+{/* &lt;AvatarPart user={&quot;monster2&quot;} /&gt; */}
+
+```jsx
+&lt;Avatar alText=&quot;Mons T. Cobblepot portrait&quot; title=&quot;Mons T. Cobblepot&quot; user=&quot;monster2&quot; /&gt;
+```
+
+{/* &lt;/Grid&gt; */}
+
+Nice, now we can type it so it&#x27;s easier to know what name can be used and to see if our structure is correct if we ever need to edit it.
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Create an Avatar Component in Gatsby with TypeScript Part 1]]></title>
+        <id>https://joelmturner.com/blog/avatar-component-gatsby-1</id>
+        <link href="https://joelmturner.com/blog/avatar-component-gatsby-1"/>
+        <updated>2019-09-06T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/avatar-component-gatsby-1">Create an Avatar Component in Gatsby with TypeScript Part 1</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+In this series we&#x27;re going to take a look at creating a simple avatar component that is typed with TypeScript and has some special goodies in Gatsby land.
+
+&gt; I usually write TypeScript from the start, but I wanted to show each piece individually in case others aren&#x27;t familiar with TypeScript yet.
+
+Let&#x27;s start by identifying what our needs are for our avatar component.
+
+- [ ] Should show an image
+- [ ] Should be round
+- [ ] Should accept an image url
+- [ ] Should display an image based on a name (for small sets)
+
+Cool, now we can start building our avatar. Start with an img element using a placeholder image as src. Add a little bit of styling to make it round and give it a size.
+
+```jsx
+function Avatar(props) {
+  const { url, altText, title } = props;
+
+  const styles = {
+    width: &#x27;75px&#x27;,
+    height: &#x27;75px&#x27;,
+    borderRadius: &#x27;50%&#x27;,
+  };
+
+  return &lt;img style={styles} src={url} alt={altText} title={title} /&gt;;
+}
+
+export default Avatar;
+```
+
+Then we can pass it the image url and alt text. We can see that the component is working in its basic implementation now.
+
+```jsx
+&lt;Avatar
+  url=&quot;https://res.cloudinary.com/joelmturner/monster-01.png&quot;
+  alText=&quot;Monster P. Whittington portrait&quot;
+  title=&quot;Monster P. Whittington&quot;
+/&gt;
+```
+
+- [x] Should show an image
+- [x] Should be round
+- [x] Should accept an image url
+- [ ] Should display an image based on a name (for small sets)
+
+Looks good. We&#x27;ve met our first three criteria for this component. In step 2 we&#x27;ll make it more powerful with Gatsby Image.
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Animated CSS Timer Icon]]></title>
+        <id>https://joelmturner.com/blog/animated-css-timer-icon</id>
+        <link href="https://joelmturner.com/blog/animated-css-timer-icon"/>
+        <updated>2017-11-11T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/animated-css-timer-icon">Animated CSS Timer Icon</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+import { CodePen } from &#x27;mdx-embed&#x27;;
+
+I recently had a need for a timer/revert icon that can animate forward and backward.
+
+## Pure CSS
+
+I wanted it to be a purely CSS and HTML versus an animated SVG or GIF so it can be manipulated more easily in the browser.
+
+## Adjustable Size
+
+The size of the icon is relative to the wrapper so setting a different font-size will scale the icon proportionally.
+
+## Animation in Multiple Directions
+
+The icon needs to animate forward and backward as well as have a rest state. The animation uses CSS keyframes based on the classes, &#x27;forward&#x27; and &#x27;backward&#x27;.
+
+### CSS Timer Icon
+
+&lt;CodePen codePenId=&quot;RLzVdO&quot; /&gt;
+
+### CSS Timer Icon as React Component
+
+&lt;CodePen codePenId=&quot;XzMoxY&quot; /&gt;
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[My Best Hand Lettering and Sketches of 2016]]></title>
+        <id>https://joelmturner.com/blog/handlettering-best-of-2016</id>
+        <link href="https://joelmturner.com/blog/handlettering-best-of-2016"/>
+        <updated>2017-01-16T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/handlettering-best-of-2016">My Best Hand Lettering and Sketches of 2016</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+After my year of lettering I continued going with my hand lettering and sketches on a daily basis. Much of my practice was inspired by other hand lettering and sketch artists that I found through Instagram. Looking back on 2016 I can see that I enjoy geometric shapes and ancient ideas/concepts. Here is a collection of my best from 2016.
+
+## Interactive
+
+This is how to get stuck in an analog social loop. http://i.imgur.com/X6QrcoN.gifv
+
+&lt;Flex gap={4}&gt;
+
+[![](https://res.cloudinary.com/joelmturner/w_500,h_500,c_fill,q_auto/blog/2017/01/viral-card-1-optimized.jpg)](https://res.cloudinary.com/joelmturner/w_500,h_500,c_fill,q_auto/blog/2017/01/viral-card-1-optimized.jpg)
+
+[![](https://res.cloudinary.com/joelmturner/w_500,h_500,c_fill,q_auto/blog/2017/01/viral-card-2-optimized.jpg)](https://res.cloudinary.com/joelmturner/w_500,h_500,c_fill,q_auto/blog/2017/01/viral-card-2-optimized.jpg)
+
+&lt;/Flex&gt;
+
+## Static
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Playing with Type]]></title>
+        <id>https://joelmturner.com/blog/playing-with-type</id>
+        <link href="https://joelmturner.com/blog/playing-with-type"/>
+        <updated>2015-06-26T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/playing-with-type">Playing with Type</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+For the past month and a half, I have played with hand lettering to help me practice more hands-on design. I have chosen to spend about half an hour each day on each (longer on weekends) and not to edit them digitally.
+
+Each day, I post a new lettering sketch on &lt;a href=&quot;https://instagram.com/joelmturner/&quot;&gt;Instagram&lt;/a&gt; and log the medium used on &lt;a href=&quot;https://plus.google.com/collection/oWKCX&quot;&gt;Google+&lt;/a&gt;.
+
+Here are&amp;nbsp;the creations so far:
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Post Modern Jukebox Art]]></title>
+        <id>https://joelmturner.com/blog/pmj-artwork</id>
+        <link href="https://joelmturner.com/blog/pmj-artwork"/>
+        <updated>2014-12-12T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/pmj-artwork">Post Modern Jukebox Art</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+After seeing Scott Bradlee and Post Modern Jukebox live in Portland on their Eviction Tour, I was inspired to create some promo images.
+
+## Post Modern Jukebox Artwork
+
+This first graphic is based on the design of the Post Modern Jukebox website. [![Post Modern Jukebox Promotional Poster](https://res.cloudinary.com/joelmturner/q_auto/blog/2014/12/PMJ-Promotional-Poster.jpg)](https://res.cloudinary.com/joelmturner/q_auto/blog/2014/12/PMJ-Promotional-Poster.jpg)
+
+## Scott Bradlee Art
+
+This one is for the Scott Bradlee who put the group together, writes the arrangements, and plays the piano. The poster is based on the jazz style event posters. [![Scott Bradlee Event Poster](https://res.cloudinary.com/joelmturner/q_auto/blog/2014/12/Scott-Bradlee-Event-Poster.jpg)](https://res.cloudinary.com/joelmturner/q_auto/blog/2014/12/Scott-Bradlee-Event-Poster.jpg)
+
+## Robyn Adele Anderson Art
+
+The next one is a promotion of one of the main singers, Robyn Adele-Anderson. [![Robyn Adele Anderson Eviction Tour Promo Poster](https://res.cloudinary.com/joelmturner/q_auto/blog/2014/12/Robyn-Eviction-Tour-Promo-Poster.jpg)](https://res.cloudinary.com/joelmturner/q_auto/blog/2014/12/Robyn-Eviction-Tour-Promo-Poster.jpg)
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Getting Sassy With Sass: Nesting]]></title>
+        <id>https://joelmturner.com/blog/sassy-with-sass</id>
+        <link href="https://joelmturner.com/blog/sassy-with-sass"/>
+        <updated>2014-10-03T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/sassy-with-sass">Getting Sassy With Sass: Nesting</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+As I&#x27;m learning to use Sass I decided to jot down some of the basics for reference. Most of this is coming from [Hampton Catlin](http://www.hamptoncatlin.com/)&#x27;s [Sass Basics](http://teamtreehouse.com/library/sass-basics) course on [Treehouse](http://referrals.trhou.se/joelmturner) (referral).
+
+## Nesting Selectors
+
+The selectors can be nested for ease of writing and reading. This can help organize code in a way that like selectors are together. It also keeps us from having to repeat strings of selectors. A quick example would be:
+
+### Sass:
+
+```scss
+.selector1 {
+  .selector2 {
+    color: red;
+  }
+}
+```
+
+### CSS Output:
+
+```css
+.selector1 .selector2 {
+  color: red;
+}
+```
+
+You can even go deeper if you would like. Let&#x27;s take a look at 4 levels deep (the suggested maximum depth for Sass).
+
+### Sass:
+
+```scss
+.selector1 {
+  .selector2 {
+    color: red;
+    .box {
+      background: blue;
+      h1 {
+        color: green;
+      }
+    }
+  }
+}
+```
+
+### CSS Output:
+
+```css
+.selector1 .selector2 {
+  color: red;
+}
+.selector1 .selector2 .box {
+  background: blue;
+}
+.selector1 .selector2 .box h1 {
+  color: green;
+}
+```
+
+## Using the &amp; Symbol
+
+There is a helper character that makes referencing parent selectors much easier. This character is the **ampersand (&amp;)** symbol.
+
+### Sass:
+
+```scss
+.blog {
+  &gt; h1 {
+    color: red;
+    border: 1px solid red;
+  }
+  .entry {
+    h1 {
+      font-size: 20px;
+      color: blue;
+    }
+    p {
+      font-size: 12px;
+      margin: 20px;
+      html.csscolumns &amp; {
+        column-count: 2;
+        column-gap: 10px;
+        margin: 10px;
+      }
+    }
+    a {
+      color: red;
+      &amp;:hover {
+        color: blue;
+      }
+    }
+  }
+}
+```
+
+### CSS Output:
+
+```css
+.blog &gt; h1 {
+  color: red;
+  border: 1px solid red;
+}
+.blog .entry h1 {
+  font-size: 20px;
+  color: blue;
+}
+.blog .entry p {
+  font-size: 12px;
+  margin: 20px;
+}
+html.csscolumns .blog .entry p {
+  column-count: 2;
+  column-gap: 10px;
+  margin: 10px;
+}
+.blog .entry a {
+  color: red;
+}
+.blog .entry a:hover {
+  color: blue;
+}
+```
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Choosing the Decisions We Make]]></title>
+        <id>https://joelmturner.com/blog/decisions-we-make</id>
+        <link href="https://joelmturner.com/blog/decisions-we-make"/>
+        <updated>2014-01-21T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/decisions-we-make">Choosing the Decisions We Make</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+You know that feeling of being run down by the overwhelming weight of the decisions that you have to make on a regular basis? I definitely have, and I&#x27;ve been practicing a solution that is working for me.
+
+## Decisions Use Energy
+
+All decisions take up energy as we try process them. I&#x27;m starting to see this as neither good nor bad. What is important is where we prefer to extend our energy. This doesn&#x27;t mean that I want to automate everything and then sleep on the beach all day. There is a therapeutic beauty in daily practice of things we enjoy, like a [Japanese Tea Ceremony](http://www.youtube.com/watch?v=lL9BiNuImws). I&#x27;ll share an example from my experience. Making a decision of which trail or path to run on is a decision that I enjoy making. Trying to figure out which bills I need to pay at what time is not a decision process I enjoy. From [The Simple Dollar](http://www.thesimpledollar.com/automating-small-decisions/)
+
+If we can find ways to take some of those decisions out of our hands, we reduce the number of active decisions we have to make in a given day. Thus, our decision fatigue is reduced and we’re less likely to make poor decisions due to such fatigue. Our solution is to automate little decisions. We do this by spending time up front thinking of ways to eliminate some of our little regular decisions. Even eliminating tiny decisions really helps.
+
+## Automating Tasks That Aren&#x27;t Important
+
+There are so many tools available that can help us with those decisions that we don&#x27;t enjoy as much. It might take a little work up front but the ease of mind later on is totally worth it. Using the bill paying example above, I have set up my bills to be paid automatically based on the days that I get paid. This helps free my mind from trying to hold it all in my mental calendar. It is so simple and it is very easy to forget that it is simple.
+
+## Choosing the Decisions We Make
+
+Automating some of these tasks allows me to enjoy the tasks/decisions that I enjoy to have as part of my [daily routine](/blog/daily-routine-freedom/ &#x27;Creating a Daily Routine for Freedom&#x27;). By doing this, I feel more fulfilled and have more energy to give to my favorite tasks. I can reassess these automated tasks and the tasks that I enjoy every few months to see if they are still working to my benefit. This is much less upkeep than having to deal with them all daily. What decisions do you enjoy making? Which would you prefer not to make as often? Are you able to automate some of those tasks?
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Creating a Daily Routine for Freedom]]></title>
+        <id>https://joelmturner.com/blog/daily-routine-freedom</id>
+        <link href="https://joelmturner.com/blog/daily-routine-freedom"/>
+        <updated>2014-01-17T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/daily-routine-freedom">Creating a Daily Routine for Freedom</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+The more I explore myself, the more I realize that my &quot;freedom&quot; is not from not having anything to do but by doing things that give me purpose.
+
+## Watching the Clock with Nothing to Do
+
+I spent many years without a daily routine. Not having a routine made me watch the clock, not getting anything done and I found it hard to feel fulfilled at the end of the day. Not having a routine made me check the time often and gave me a feeling like I was wasting time in some way. I wasn&#x27;t sure how to get things done or which item I should start next. There were no priorities and therefore, no way to know what was important.
+
+## Creating a Daily Routine
+
+It seemed counter intuitive to me but setting a full daily routine has helped me feel more free. I think part of the freedom feeling is feeling fulfilled. Doing what is important to me helps me feel like I have taken care of my list, even if some office work doesn&#x27;t get finished. Creating a daily routine for me is about simplicity. If I do the things that are most important for my welfare, I feel fulfilled. For me, if I do my daily meditation and mantra practice, I feel good, even if more work came in than I was able to finish. I have noticed that doing something daily, even if it is only for a few minutes a day, makes me much better at it. Aly Dunne ([@thewayofmantra](https://twitter.com/thewayofmantra)) explains how a [daily practice is like a river](http://thewayofmantra.com/daily-practice-the-unstoppable-power/) wearing down rock over time. Here is a quick view of my daily routine:
+
+- Wake up, meditate, chant
+- Drink elixir (modified from [Apple Cider Vinegar Elixir](http://kaleuniversity.org/recipes/apple-cider-vinegar-elixir/)), walk dogs, start hot water for tea, sing to [my kombucha scoby](https://plus.google.com/+JoelTurnerGo/posts/UNyep6bPPCy)
+- Work on graphic/web projects
+- Eat lunch
+- Work on graphic/web projects
+- Go for run, walk dogs, walk by myself
+- Meet with friends, network
+- Wind down, sleep
+
+## Resources for Optimizing the Daily Routine
+
+Here are some of the tools and resources that help me develop and stick with my routine.
+
+- [Aly Dunne](http://thewayofmantra.com), my Sanskrit Mantra teacher
+- [Insightly](https://insighttimer.com/), meditation timer
+- [Amazing routines of 7 successful entrepreneurs](http://blog.bufferapp.com/the-daily-routines-of-famous-entrepreneurs-and-how-to-design-your-own-master-routine), Buffer blog
+- [Benjamin Franklin](http://www.parade.com/35748/parade/what-was-benjamin-franklins-daily-routine/), Parade
+- [Leo Babauta](http://leobabauta.com/), founder of [Zen Habits](http://zenhabits.net/)
+- [StayFocused](https://chrome.google.com/webstore/detail/stayfocusd/laankejkbhbdhmipfmgcngdelahlfoji), Chrome tab blocking app
+- [Buffer](http://bufferapp.com), social media sharing tool
+
+## Your Routine
+
+Do you have a daily routine? If so, what have you noticed by following it/not following it?
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[The Doctor's Companions]]></title>
+        <id>https://joelmturner.com/blog/doctors-companions</id>
+        <link href="https://joelmturner.com/blog/doctors-companions"/>
+        <updated>2013-11-25T00:00:00.000Z</updated>
+        <content type="html"><![CDATA[<p><em>(The post <a href="https://joelmturner.com/blog/doctors-companions">The Doctor's Companions</a> appeared first on <a href="https://joelmturner.com">Joel M Turner Blog</a>.)</em></p>
+In honor of the 50th Anniversary of Doctor Who, my wife and I decided to do a little tribute to the Doctor&#x27;s companions in the series. This post covers some of the companions from the new series. Curating assistance on this post by Suzanne Turner ([DelysiaStyle](http://delysiastyle.com)).
+
+## Rose Tyler (Billie Piper)
+
+![Rose Tyler Billie Piper White Dress](https://res.cloudinary.com/joelmturner/q_auto/blog/2013/11/Rose-Tyler-Billie-Piper-White-Dress.jpg)
+
+[Image Credit](http://userserve-ak.last.fm/serve/_/50207127/Billie+Piper+hq+png.png)
+
+## Jack Harkness (John Barrowman)
+
+![John Barrowman smile](https://res.cloudinary.com/joelmturner/q_auto/blog/2013/11/John-Barrowman-smile.jpg)
+
+[Image Credit](http://lusciousandlovely19.files.wordpress.com/2013/08/john-barrowman-1.jpg?)
+
+## Mickey Smith (Noel Clarke)
+
+![Noel Clarke portrait](https://res.cloudinary.com/joelmturner/q_auto/blog/2013/11/Noel-Clarke-portrait.jpg)
+
+[Image Credit](http://www.bbc.co.uk/blogs/bbcthree/2011/07/noelclarkeqa1.shtml)
+
+## Donna Noble (Catherine Tate)
+
+![Catherine Tate blue shirt](https://res.cloudinary.com/joelmturner/q_auto/blog/2013/11/Catherine-Tate-blue-shirt.jpg)
+
+[Image Credit](http://venus.provocateuse.com/show/catherine_tate)
+
+## Martha Jones (Freema Agyeman)
+
+![Freema Agyeman blue shirt](https://res.cloudinary.com/joelmturner/q_auto/blog/2013/11/Freema-Agyeman-blue-shirt.jpg)
+
+[Image Credit](https://telestrekoza.com/link-gallery/albums/British_shows/Law_Order_UK/Cast/Season_1/Law_Order_UK_S1_Freema_Agyeman_002.jpg)
+
+## Wilfred Mott (Bernard Cribbins)
+
+![Bernard Cribbins](https://res.cloudinary.com/joelmturner/q_auto/blog/2013/11/Bernard-Cribbins.jpg)
+
+[Image Credit](http://www.david-tennant-news.com/blog/bernard-cribbins-is-on-graham-norton-s-bbc-radio-2-programme-today-at-10-am/)
+
+## Amy Pond (Karen Gillan)
+
+![Karen Gillan blue](https://res.cloudinary.com/joelmturner/q_auto/blog/2013/11/Karen-Gillan-blue.jpg)
+
+[Image Credit](http://www.wallcg.com/women-redheads-manhattan-karen-gillan-doctor-who-well-83695/)
+
+## Rory Williams (Arthur Darvill)
+
+![Arthur Darvill](https://res.cloudinary.com/joelmturner/q_auto/blog/2013/11/Arthur-Darvill.jpg)
+
+[Image Credit](http://www.standard.co.uk/goingout/theatre/dr-who-star-arthur-darvill-has-laptop-stolen-by-burglars-8225957.html)
+
+## River Song (Alex Kingston)
+
+![Alex Kingston black dress](https://res.cloudinary.com/joelmturner/q_auto/blog/2013/11/Alex-Kingston-black-dress.jpg)
+
+[Image Credit](http://www.picstopin.com/500/alex-kingston-/http:%7C%7C24*media*tumblr*com%7Ctumblr_md4sqnRVpB1qif9qto1_500*png/)
+
+## Craig Owens (James Corden)
+
+![James Corden blue](https://res.cloudinary.com/joelmturner/q_auto/blog/2013/11/James-Corden-blue.jpg)
+
+[Image Credit](http://hamishbrown.com/james-corden/)
+
+## Clara Oswald (Jenna-Louise Coleman)
+
+![Jenna-Louise Coleman yellow lace](https://res.cloudinary.com/joelmturner/q_auto/blog/2013/11/Jenna-Louise-Coleman.jpg)
+
+[Image Credit](http://www.mirror.co.uk/tv/tv-news/jenna-louise-coleman-doctor-who-sidekick-1781315)
+]]></content>
+        <author>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </author>
+        <contributor>
+            <name>Joel M Turner</name>
+            <email>joel@joelmturner.com</email>
+            <uri>https://twitter.com/joelmturner</uri>
+        </contributor>
+    </entry>
+</feed>

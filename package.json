@@ -33,6 +33,7 @@
         "cloudinary": "^1.30.0",
         "esbuild": "^0.14.43",
         "eslint-plugin-prettier": "^4.0.0",
+        "feed": "^4.2.2",
         "framer-motion": "^6",
         "gray-matter": "^4.0.3",
         "hast-util-to-html": "^8.0.3",
