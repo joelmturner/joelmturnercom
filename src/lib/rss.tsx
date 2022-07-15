@@ -53,6 +53,7 @@ export async function generateRssFeed() {
       author: [author],
       contributor: [author],
       date: new Date(post.date),
+      image: post.cover,
     });
   }
 
