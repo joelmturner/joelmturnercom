@@ -16,6 +16,7 @@ import {
 import { useViewportScroll } from 'framer-motion';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaMoon, FaSun } from 'react-icons/fa';
+import NextImage from 'next/image';
 
 function NavLink({ slug, label }: { slug: string; label: string }) {
   return <Link href={`/${slug}`}>{label}</Link>;
@@ -32,7 +33,7 @@ const NAV_LINKS = [
 ];
 
 export function Header() {
-  const { toggleColorMode: toggleMode } = useColorMode();
+  const { toggleColorMode: toggleMode, colorMode } = useColorMode();
   const text = useColorModeValue('dark', 'light');
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
   const bg = useColorModeValue('white', 'gray.800');
@@ -92,7 +93,7 @@ export function Header() {
       transition="box-shadow 0.2s"
       bg={bg}
       borderTop="6px solid"
-      borderTopColor="orange.200"
+      borderTopColor={useColorModeValue('brand.light.100', 'brand.dark.100')}
       w="full"
       overflowY="hidden"
       borderBottomWidth={2}
@@ -102,11 +103,13 @@ export function Header() {
         <Flex w="full" h="full" px="6" alignItems="center" justifyContent="space-between">
           <Flex align="flex-start">
             <Link href="/">
-              <HStack>
-                {/* <Logo /> */}
-                <Heading size="lg" fontWeight="300" cursor="pointer" color="gray.300">
-                  Joel M Turner
-                </Heading>
+              <HStack cursor="pointer">
+                <NextImage
+                  src={`/jmt-logo-${colorMode}.svg`}
+                  objectFit="cover"
+                  width={232}
+                  height={40}
+                />
               </HStack>
             </Link>
           </Flex>
@@ -126,11 +129,11 @@ export function Header() {
               <Button
                 key={link.id}
                 bg={bg}
-                color="gray.500"
+                color={useColorModeValue('brand.light.300', 'brand.dark.100')}
                 display="inline-flex"
                 alignItems="center"
                 fontSize="md"
-                _hover={{ color: cl }}
+                _hover={{ color: useColorModeValue('brand.light.200', 'brand.dark.200') }}
                 _focus={{ boxShadow: 'none' }}
               >
                 {link.component}
@@ -141,7 +144,7 @@ export function Header() {
               fontSize="lg"
               aria-label={`Switch to ${text} mode`}
               variant="ghost"
-              color="current"
+              color={useColorModeValue('brand.light.300', 'brand.dark.100')}
               ml={{ base: '0', md: '3' }}
               onClick={toggleMode}
               icon={<SwitchIcon />}
@@ -151,7 +154,7 @@ export function Header() {
             display={{ base: 'flex', md: 'none' }}
             aria-label="Open menu"
             fontSize="20px"
-            color={useColorModeValue('gray.800', 'inherit')}
+            color={useColorModeValue('brand.light.200', 'inherit')}
             variant="ghost"
             icon={<AiOutlineMenu />}
             onClick={mobileNav.onOpen}

@@ -1,16 +1,25 @@
-import { Box, chakra, Divider, Flex, HStack, Link, Tag, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  chakra,
+  Divider,
+  Flex,
+  HStack,
+  Link,
+  Tag,
+  Text,
+  useColorMode,
+  useColorModeValue,
+  VStack,
+} from '@chakra-ui/react';
 import { getMDXComponent } from 'mdx-bundler/client';
 import dynamic from 'next/dynamic';
+import NextLink from 'next/link';
 import { useMemo } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { FrontMatter } from '../lib/types';
 import { MDXComponents } from './MDXComponents';
-import NextLink from 'next/link';
-import Head from 'next/head';
 import { PostTags } from './PostTags';
 import SEO from './SEO';
-import { ErrorBoundary } from 'react-error-boundary';
-import { ErrorFallback } from './ErrorBoundaryFallback';
 
 function getJustification(next, prev) {
   if (next && prev) {
@@ -42,6 +51,7 @@ export function PostPage({
   prev: FrontMatter;
   postType: 'blog' | 'til';
 } & FrontMatter) {
+  const { colorMode } = useColorMode();
   const Post = useMemo(() => getMDXComponent(content), [content]);
 
   //   dynamic import because not ESM compatible
@@ -67,7 +77,14 @@ export function PostPage({
         keywords={tags}
       />
       <components.h1>{title}</components.h1>
-      <chakra.article>
+      <chakra.article
+        sx={{
+          "img[src*='#center']": {
+            display: 'block',
+            margin: 'auto',
+          },
+        }}
+      >
         <Post components={components} />
       </chakra.article>
       <VStack spacing={4} alignItems="flex-start">
@@ -75,7 +92,7 @@ export function PostPage({
         {category ? (
           <HStack spacing={2}>
             <Text fontSize="md">Category: </Text>
-            <Tag size="sm" variant="subtle" colorScheme="orange">
+            <Tag size="sm" variant="subtle" colorScheme={colorMode === 'light' ? 'red' : 'blue'}>
               <Link href={`/blog/category/${category.toLowerCase()}`}>{category}</Link>
             </Tag>
           </HStack>
@@ -86,7 +103,10 @@ export function PostPage({
         {prev && (
           <Box justifyContent="flex-start">
             <NextLink href={`/${postType}/${prev.slug}`}>
-              <Link color="orange.200" sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+              <Link
+                color={useColorModeValue('brand.light.400', 'brand.dark.200')}
+                sx={{ display: 'flex', alignItems: 'center', gap: 3 }}
+              >
                 <FaChevronLeft />
                 {prev.title}
               </Link>
@@ -96,7 +116,10 @@ export function PostPage({
         {next && (
           <Box justifyContent="flex-end">
             <NextLink href={`/${postType}/${next.slug}`}>
-              <Link color="orange.200" sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+              <Link
+                color={useColorModeValue('brand.light.400', 'brand.dark.200')}
+                sx={{ display: 'flex', alignItems: 'center', gap: 3 }}
+              >
                 {next.title}
                 <FaChevronRight />
               </Link>

@@ -23,8 +23,8 @@ const CustomImage = (props: any) => {
 const CustomLink = (props: any) => {
   const { colorMode } = useColorMode();
   const color = {
-    light: 'blue.500',
-    dark: 'blue.300',
+    light: 'brand.light.400',
+    dark: 'brand.dark.200',
   };
 
   const href = props.href;
@@ -93,7 +93,7 @@ const DocsHeading = (props: any) => (
         <Box
           aria-label="anchor"
           as="a"
-          color="blue.500"
+          color={useColorModeValue('brand.light.400', 'brand.dark.100')}
           fontWeight="normal"
           outline="none"
           _focus={{
@@ -141,7 +141,9 @@ export const MDXComponents = {
   code: (props: any) => {
     if (!props.className) {
       // inline code
-      return <Code colorScheme="orange" fontSize="0.84em" {...props} />;
+      return (
+        <Code colorScheme={useColorModeValue('orange', 'purple')} fontSize="0.84em" {...props} />
+      );
     }
 
     const { filename, line, ...rest } = props;
