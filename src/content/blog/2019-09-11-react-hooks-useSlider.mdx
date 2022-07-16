@@ -1,5 +1,5 @@
 ---
-title: 'React Hooks: useSlider'
+title: "React Hooks: useSlider"
 date: 2019-09-11T00:00:00.000Z
 draft: false
 slug: react-hooks-useslider
@@ -7,12 +7,16 @@ category: dev
 tags:
   - React
   - React hooks
-lastmod: 2022-06-13T22:47:30.045Z
+lastmod: 2022-07-16T05:10:17.671Z
 excerpt: An auto-advancing image slider built in React with hooks.
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157939/Posts/useSlider.jpg
 ---
 
 import { CodeSandbox } from 'mdx-embed';
+
+Creating a slider with React hooks that slides through an array on an interval.
+
+#### Table of Contents
 
 We had a need for an auto advancing image slider in React. I chose to use hooks for this feature. This hook leverages a `useInterval` hook from [Dan Abrimov](https://overreacted.io/making-setinterval-declarative-with-react-hooks/).
 
@@ -194,7 +198,7 @@ function Slider() {
 
 ## Putting it All Together
 
-Now we can add our hook to our slider component. This will give us all the state that we’ll need for this feature. When it's all together we get a slider that moves the slides horizontally and rewinds after the last one. You can hook up the slider props to manage the slider options if needed. It can also be made to go vertical with a little modification.
+Now we can add our hook to our slider component. This will give us all the state that we'll need for this feature. When it's all together we get a slider that moves the slides horizontally and rewinds after the last one. You can hook up the slider props to manage the slider options if needed. It can also be made to go vertical with a little modification.
 
 ### Cool! Requirements met.
 

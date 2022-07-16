@@ -9,6 +9,8 @@ import rehypeExternalLinks from 'rehype-external-links';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeMetaAttribute from './rehype-meta-attribute';
 import rehypeHighlightCode from './rehype-highlight-code';
+import remarkTableofContents from 'remark-toc';
+import rehypeSlug from 'rehype-slug';
 
 const postsDirectory = path.join(process.cwd(), 'src/content/blog');
 const tilsDirectory = path.join(process.cwd(), 'src/content/til');
@@ -74,8 +76,14 @@ export async function bundleContent(
         rehypeHighlight,
         rehypeMetaAttribute,
         rehypeHighlightCode,
+        rehypeSlug,
       ]),
-        (options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm, remarkFrontmatter]);
+        (options.remarkPlugins = [
+          ...(options.remarkPlugins ?? []),
+          remarkGfm,
+          remarkFrontmatter,
+          [remarkTableofContents, { tight: true }],
+        ]);
       return options;
     },
   });
@@ -108,20 +116,6 @@ export async function getPostData(
   const prev =
     prevIndex !== null ? { slug: posts[prevIndex].slug, title: posts[prevIndex].title } : null;
 
-  //   const content = await bundleMDX({
-  //     source: posts[postIndex].content,
-  //     mdxOptions: function (options, frontmatter) {
-  //       (options.rehypePlugins = [
-  //         ...(options.rehypePlugins ?? []),
-  //         rehypeExternalLinks,
-  //         rehypeHighlight,
-  //         rehypeMetaAttribute,
-  //         rehypeHighlightCode,
-  //       ]),
-  //         (options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm, remarkFrontmatter]);
-  //       return options;
-  //     },
-  //   });
   const content = await bundleContent(posts[postIndex]);
 
   // Combine the data with the id

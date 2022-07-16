@@ -66,49 +66,38 @@ const Quote = (props: any) => {
   );
 };
 
-const DocsHeading = (props: any) => (
-  <Heading
-    css={{
-      scrollMarginTop: '100px',
-      scrollSnapMargin: '100px', // Safari
-      '&[id]': {
-        pointerEvents: 'none',
-      },
-      '&[id]:before': {
-        display: 'block',
-        height: ' 6rem',
-        marginTop: '-6rem',
-        visibility: 'hidden',
-        content: '""',
-      },
-      '&[id]:hover a': { opacity: 1 },
+const CustomHeading = ({ id, ...props }: any) => (
+  <Link
+    href={`#${id}`}
+    _hover={{
+      color: useColorModeValue('brand.light.400', 'brand.dark.100'),
+      textDecoration: 'underline',
     }}
-    {...props}
-    mb="1em"
-    mt="2em"
   >
-    <Box pointerEvents="auto">
-      {props.children}
-      {props.id && (
-        <Box
-          aria-label="anchor"
-          as="a"
-          color={useColorModeValue('brand.light.400', 'brand.dark.100')}
-          fontWeight="normal"
-          outline="none"
-          _focus={{
-            opacity: 1,
-            boxShadow: 'outline',
-          }}
-          opacity="0"
-          ml="0.375rem"
-          href={`#${props.id}`}
-        >
-          #
-        </Box>
-      )}
-    </Box>
-  </Heading>
+    <NextLink href={`#${id}`}>
+      <Heading
+        id={id}
+        lineHeight={'1em'}
+        mb="1em"
+        mt="2em"
+        sx={{
+          scrollMarginTop: '10px',
+          scrollSnapMargin: '10px', // Safari
+        }}
+        {...props}
+        _hover={{
+          _before: {
+            content: '"#"',
+            position: 'relative',
+            marginLeft: '-1.4ch',
+            paddingRight: '0.5ch',
+            color: useColorModeValue('brand.light.400', 'brand.dark.100'),
+            textDecoration: 'none',
+          },
+        }}
+      />
+    </NextLink>
+  </Link>
 );
 
 const Hr = () => {
@@ -123,11 +112,11 @@ const Hr = () => {
 
 export const MDXComponents = {
   h1: (props: any) => <Heading as="h1" size="xl" my={4} {...props} />,
-  h2: (props: any) => <DocsHeading as="h2" size="lg" fontWeight="bold" {...props} />,
-  h3: (props: any) => <DocsHeading as="h3" size="md" fontWeight="bold" {...props} />,
-  h4: (props: any) => <DocsHeading as="h4" size="sm" fontWeight="bold" {...props} />,
-  h5: (props: any) => <DocsHeading as="h5" size="sm" fontWeight="bold" {...props} />,
-  h6: (props: any) => <DocsHeading as="h6" size="xs" fontWeight="bold" {...props} />,
+  h2: (props: any) => <CustomHeading as="h2" size="lg" fontWeight="bold" {...props} />,
+  h3: (props: any) => <CustomHeading as="h3" size="md" fontWeight="bold" {...props} />,
+  h4: (props: any) => <CustomHeading as="h4" size="sm" fontWeight="bold" {...props} />,
+  h5: (props: any) => <CustomHeading as="h5" size="sm" fontWeight="bold" {...props} />,
+  h6: (props: any) => <CustomHeading as="h6" size="xs" fontWeight="bold" {...props} />,
   br: (props: any) => <Box height="24px" {...props} />,
   p: (props: any) => <Text as="p" my={6} lineHeight="tall" {...props} />,
   ul: (props: any) => <Box as="ul" pt={2} pl={4} ml={2} {...props} />,
