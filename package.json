@@ -27,6 +27,7 @@
         "@reach/tooltip": "^0.17.0",
         "@remark-embedder/core": "^2.0.0",
         "@remark-embedder/transformer-oembed": "^2.0.0",
+        "@sentry/nextjs": "^7.7.0",
         "@types/next": "^9.0.0",
         "@typescript-eslint/eslint-plugin": "^5.28.0",
         "@typescript-eslint/parser": "^5.28.0",

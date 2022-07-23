@@ -46,6 +46,7 @@ export function PostPage({
   lastmod,
   excerpt,
   description,
+  slug,
 }: {
   id: string;
   content: string;
@@ -91,6 +92,17 @@ export function PostPage({
       </chakra.article>
       <VStack spacing={4} alignItems="flex-start">
         <Divider my={4} />
+        <Link
+          href={`https://mobile.twitter.com/search?q=${encodeURI(
+            'https://joelmturner.com/blog/' + slug
+          )}`}
+          target="_blank"
+          title="Twitter discussion"
+          alignSelf="flex-end"
+          color={useColorModeValue('brand.light.400', 'brand.dark.200')}
+        >
+          Discuss this article on Twitter
+        </Link>
         {category ? (
           <HStack spacing={2}>
             <Text fontSize="md">Category: </Text>
