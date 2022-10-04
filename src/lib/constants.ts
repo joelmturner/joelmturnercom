@@ -9,6 +9,7 @@ export const ILLUSTRATION_FILTER_OPTIONS: { value: IllustrationTag; label: strin
   { value: 'inktober2018', label: 'Inktober 2018' },
   { value: 'inktober2019', label: 'Inktober 2019' },
   { value: 'inktober2021', label: 'Inktober 2021' },
+  { value: 'inktober2022', label: 'Inktober 2022' },
 ];
 
 export const TIL_CATEGORY_VS_LABEL = {

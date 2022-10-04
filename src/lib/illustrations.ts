@@ -15,6 +15,7 @@ export async function getIllustrations(): Promise<Illustrations> {
     inktober2018: [],
     inktober2019: [],
     inktober2021: [],
+    inktober2022: [],
     joelmturner_abcs2017: [],
     joelmturner_featured: [],
     letterclash: [],
