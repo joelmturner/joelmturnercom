@@ -1,4 +1,4 @@
-import { Grid, GridItem, useColorMode } from '@chakra-ui/react';
+import { ColorMode, Grid, GridItem, useColorMode } from '@chakra-ui/react';
 import { IllustrationItem } from '../lib/types';
 import NextImage from 'next/image';
 import { memo, useCallback, useState } from 'react';
@@ -6,7 +6,7 @@ import { Dialog } from './Dialog';
 
 type GalleryProps = { images: IllustrationItem[] };
 
-const shimmer = (w, h, mode) => `
+const shimmer = (w: number, h: number, mode: ColorMode) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
     <linearGradient id="g">
@@ -20,16 +20,15 @@ const shimmer = (w, h, mode) => `
   <animate xlink:href="#r" attributeName="x" from="-${w}" to="${w}" dur="1s" repeatCount="indefinite"  />
 </svg>`;
 
-const toBase64 = (str) =>
+const toBase64 = (str: string) =>
   typeof window === 'undefined' ? Buffer.from(str).toString('base64') : window.btoa(str);
 
 function GridImage({ id, url, index, setLightboxOffset, height, width }) {
   const { colorMode } = useColorMode();
-  console.log('colorMode', colorMode);
   const handleImageClick = useCallback(() => {
     setLightboxOffset(index);
   }, [index]);
-  console.log('height, width', height, width);
+
   return (
     <GridItem w="100%" h="100%" key={url}>
       <NextImage
