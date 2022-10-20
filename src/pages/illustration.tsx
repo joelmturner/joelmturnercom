@@ -1,19 +1,27 @@
-import { FormControl, FormLabel, Grid, GridItem, Select, VStack } from '@chakra-ui/react';
+import { FormControl, FormLabel, Select, VStack } from '@chakra-ui/react';
 import { InferGetStaticPropsType } from 'next';
-import NextImage from 'next/image';
-import React, { memo, useCallback, useMemo, useState } from 'react';
-import { Dialog } from '../components/Dialog';
+import { useRouter } from 'next/router';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Gallery } from '../components/Gallery';
 import { MDXComponents } from '../components/MDXComponents';
 import SEO from '../components/SEO';
-import { ILLUSTRATION_FILTER_OPTIONS } from '../lib/constants';
+import { ILLUSTRATION_FILTER_OPTIONS, ILLUSTRATION_QUERY_VS_FILTER } from '../lib/constants';
 import { getIllustrations } from '../lib/illustrations';
-import { Illustrations, IllustrationTag } from '../lib/types';
+import { IllustrationTag } from '../lib/types';
 
 const MemoizedGallery = memo(Gallery);
 
 function IllustrationPage({ images }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const [selection, setSelection] = useState<IllustrationTag>('joelmturner_featured');
+  const router = useRouter();
+  const initialCollection: IllustrationTag =
+    ILLUSTRATION_QUERY_VS_FILTER[
+      ((router.query.collection as IllustrationTag) ?? 'featured').toLowerCase()
+    ];
+  const [selection, setSelection] = useState<IllustrationTag>(initialCollection);
+
+  useEffect(() => {
+    setSelection(initialCollection);
+  }, [initialCollection]);
 
   const selectedImages = useMemo(() => {
     return images[selection];
@@ -21,6 +29,8 @@ function IllustrationPage({ images }: InferGetStaticPropsType<typeof getStaticPr
 
   const handleChange = useCallback((selection: React.ChangeEvent<HTMLSelectElement>) => {
     setSelection(selection.target.value as IllustrationTag);
+    router.query['collection'] = selection.target.value;
+    router.push(router);
   }, []);
 
   return (
