@@ -9,17 +9,19 @@ import {
   VisuallyHidden,
 } from '@chakra-ui/react';
 import { IoLogoInstagram, IoLogoTwitter, IoLogoGithub } from 'react-icons/io';
-import { FaDev } from 'react-icons/fa';
+import { FaDev, FaMastodon } from 'react-icons/fa';
 import { ReactNode } from 'react';
 
 function SocialButton({
   children,
   label,
   href,
+  rel,
 }: {
   children: ReactNode;
   label: string;
   href: string;
+  rel?: string;
 }) {
   return (
     <chakra.button
@@ -34,6 +36,7 @@ function SocialButton({
       alignItems={'center'}
       justifyContent={'center'}
       transition={'background 0.3s ease'}
+      rel={rel}
       _hover={{
         bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200'),
       }}
@@ -79,6 +82,13 @@ export function Footer() {
             </SocialButton>
             <SocialButton href="https://dev.to/joelmturner" label="joelmturner's DEV Profile">
               <FaDev />
+            </SocialButton>
+            <SocialButton
+              rel="me"
+              href="https://mas.to/@joelmturner"
+              label="joelmturner's Mastodon Profile"
+            >
+              <FaMastodon />
             </SocialButton>
           </Flex>
         </Flex>
