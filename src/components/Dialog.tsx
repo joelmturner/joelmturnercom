@@ -7,10 +7,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { wrap } from '@popmotion/popcorn';
 import { useOnClickOutside, useKeypressSimple } from '../hooks';
 import { IllustrationItem } from '../lib/types';
-import { ChakraNextImage } from './ChakraNextImage';
 import { Box, chakra, useColorModeValue, Flex } from '@chakra-ui/react';
-import '@reach/dialog/styles.css';
 import NextImage from 'next/image';
+import { useLightBoxContext } from '../hooks/useLightBox';
+import '@reach/dialog/styles.css';
 
 const Overlay = chakra(DialogOverlay);
 const Content = chakra(DialogContent);
@@ -62,11 +62,22 @@ const swipePower = (offset: number, velocity: number) => {
 
 export function Dialog({ className, images, offset, onClose }: DialogProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const { setLightbox } = useLightBoxContext();
   const [[page, direction], setPage] = useState([offset, 0]);
+
+  const handleLightboxUpdate = useCallback(
+    (index: number) => {
+      setLightbox((prevState) => ({ ...prevState, index: page + index }));
+    },
+    [page]
+  );
 
   const paginate = useCallback(
     (newDirection: number) => {
-      setPage(([prevPage, prevDirection]) => [prevPage + newDirection, newDirection]);
+      handleLightboxUpdate(newDirection);
+      setPage(([prevPage, prevDirection]) => {
+        return [prevPage + newDirection, newDirection];
+      });
     },
     [setPage]
   );

@@ -1,10 +1,11 @@
 import { ColorMode, Grid, GridItem, useColorMode } from '@chakra-ui/react';
-import { IllustrationItem } from '../lib/types';
 import NextImage from 'next/image';
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback } from 'react';
+import { useLightBoxContext } from '../hooks/useLightBox';
+import { IllustrationItem } from '../lib/types';
 import { Dialog } from './Dialog';
 
-type GalleryProps = { images: IllustrationItem[] };
+type GalleryProps = { images: IllustrationItem[]; lightBoxIndex?: number };
 
 const shimmer = (w: number, h: number, mode: ColorMode) => `
 <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -23,10 +24,11 @@ const shimmer = (w: number, h: number, mode: ColorMode) => `
 const toBase64 = (str: string) =>
   typeof window === 'undefined' ? Buffer.from(str).toString('base64') : window.btoa(str);
 
-function GridImage({ id, url, index, setLightboxOffset, height, width }) {
+function GridImage({ id, url, index, onClick }) {
   const { colorMode } = useColorMode();
+
   const handleImageClick = useCallback(() => {
-    setLightboxOffset(index);
+    onClick(index);
   }, [index]);
 
   return (
@@ -51,9 +53,14 @@ function GridImage({ id, url, index, setLightboxOffset, height, width }) {
 const MemoizedGridImage = memo(GridImage);
 
 export function Gallery({ images }: GalleryProps) {
-  const [lightboxOffset, setLightboxOffset] = useState(-1);
+  const { lightbox, setLightbox } = useLightBoxContext();
+
   const handleCloseLightbox = useCallback(() => {
-    setLightboxOffset(-1);
+    setLightbox((prevState) => ({ ...prevState, index: -1 }));
+  }, []);
+
+  const handleClickImage = useCallback((index: number) => {
+    setLightbox((prevState) => ({ ...prevState, index }));
   }, []);
 
   return (
@@ -64,23 +71,15 @@ export function Gallery({ images }: GalleryProps) {
         templateColumns="repeat(auto-fit, minmax(200px, 1fr))"
         sx={{ containIntrinsicSize: '160px', contentVisibility: 'auto' }}
       >
-        {images?.map(({ id, url, height, width }, index) => (
-          <MemoizedGridImage
-            key={id}
-            id={id}
-            url={url}
-            index={index}
-            setLightboxOffset={setLightboxOffset}
-            height={height}
-            width={width}
-          />
+        {images?.map(({ id, url }, index) => (
+          <MemoizedGridImage key={id} id={id} url={url} index={index} onClick={handleClickImage} />
         ))}
       </Grid>
 
-      {lightboxOffset > -1 && (
+      {lightbox.index > -1 && (
         <Dialog
           images={images}
-          offset={lightboxOffset}
+          offset={lightbox.index}
           onClose={handleCloseLightbox}
           aria-label="Gallery of my sketches on Instagram"
         />

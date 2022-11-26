@@ -11,6 +11,7 @@ import theme from '../lib/theme';
 import Script from 'next/script';
 import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
+import { LightboxContextProvider } from '../hooks/useLightBox';
 
 function GlobalStyle() {
   const { colorMode } = useColorMode();
@@ -48,42 +49,44 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
-      <ColorModeProvider
-        options={{
-          initialColorMode: 'dark',
-          useSystemColorMode: true,
-        }}
-      >
-        <MDXProvider components={MDXComponents}>
-          <DefaultSeo
-            title="Howdy 👋🏻"
-            titleTemplate="%s | Joel M Turner"
-            defaultTitle="Joel M Turner"
-            openGraph={{
-              type: 'website',
-              locale: 'en_US',
-              url: 'https://joelmturner.com/',
-              site_name: 'Joel M. Turner',
-              images: [
-                {
-                  url: 'https://res.cloudinary.com/joelmturner/joel-turner.jpg',
-                  secureUrl: 'https://res.cloudinary.com/joelmturner/joel-turner.jpg',
-                },
-              ],
-            }}
-            twitter={{
-              handle: '@joelmturner',
-              site: '@joelmturner',
-              cardType: 'summary_large_image',
-            }}
-            description="Joel M Turner is a Senior Frontend Developer specializing in data visualization, UI/UX architecture, component library/design system work."
-          />
-          <GlobalStyle />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </MDXProvider>
-      </ColorModeProvider>
+      <LightboxContextProvider>
+        <ColorModeProvider
+          options={{
+            initialColorMode: 'dark',
+            useSystemColorMode: true,
+          }}
+        >
+          <MDXProvider components={MDXComponents}>
+            <DefaultSeo
+              title="Howdy 👋🏻"
+              titleTemplate="%s | Joel M Turner"
+              defaultTitle="Joel M Turner"
+              openGraph={{
+                type: 'website',
+                locale: 'en_US',
+                url: 'https://joelmturner.com/',
+                site_name: 'Joel M. Turner',
+                images: [
+                  {
+                    url: 'https://res.cloudinary.com/joelmturner/joel-turner.jpg',
+                    secureUrl: 'https://res.cloudinary.com/joelmturner/joel-turner.jpg',
+                  },
+                ],
+              }}
+              twitter={{
+                handle: '@joelmturner',
+                site: '@joelmturner',
+                cardType: 'summary_large_image',
+              }}
+              description="Joel M Turner is a Senior Frontend Developer specializing in data visualization, UI/UX architecture, component library/design system work."
+            />
+            <GlobalStyle />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </MDXProvider>
+        </ColorModeProvider>
+      </LightboxContextProvider>
     </ChakraProvider>
   );
 }
