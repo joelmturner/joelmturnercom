@@ -1,5 +1,5 @@
 import { ColorMode, Grid, GridItem, useColorMode } from '@chakra-ui/react';
-import NextImage from 'next/image';
+import NextImage from 'next/legacy/image';
 import { memo, useCallback } from 'react';
 import { useLightBoxContext } from '../hooks/useLightBox';
 import { IllustrationItem } from '../lib/types';

@@ -16,7 +16,7 @@ import {
 import { useViewportScroll } from 'framer-motion';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaMoon, FaSun } from 'react-icons/fa';
-import NextImage from 'next/image';
+import NextImage from 'next/legacy/image';
 
 function NavLink({ slug, label }: { slug: string; label: string }) {
   return <Link href={`/${slug}`}>{label}</Link>;

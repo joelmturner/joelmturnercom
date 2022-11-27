@@ -8,7 +8,7 @@ import { wrap } from '@popmotion/popcorn';
 import { useOnClickOutside, useKeypressSimple } from '../hooks';
 import { IllustrationItem } from '../lib/types';
 import { Box, chakra, useColorModeValue, Flex } from '@chakra-ui/react';
-import NextImage from 'next/image';
+import NextImage from 'next/legacy/image';
 import { useLightBoxContext } from '../hooks/useLightBox';
 import '@reach/dialog/styles.css';
 
