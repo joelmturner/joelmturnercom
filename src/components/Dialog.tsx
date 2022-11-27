@@ -8,7 +8,7 @@ import { wrap } from '@popmotion/popcorn';
 import { useOnClickOutside, useKeypressSimple } from '../hooks';
 import { IllustrationItem } from '../lib/types';
 import { Box, chakra, useColorModeValue, Flex } from '@chakra-ui/react';
-import NextImage from 'next/legacy/image';
+import NextImage from 'next/image';
 import { useLightBoxContext } from '../hooks/useLightBox';
 import '@reach/dialog/styles.css';
 
@@ -231,11 +231,15 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
                 <NextImage
                   src={images[imageIndex]?.url}
                   alt={'full size page'}
-                  objectFit="contain"
                   width={200}
                   height={200}
-                  layout="responsive"
-                  style={{ cursor: 'pointer' }}
+                  sizes="100vw"
+                  style={{
+                    cursor: 'pointer',
+                    width: '100%',
+                    height: 'auto',
+                    objectFit: 'contain',
+                  }}
                 />
               </motion.div>
             </AnimatePresence>

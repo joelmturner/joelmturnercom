@@ -1,5 +1,5 @@
 import { ColorMode, Grid, GridItem, useColorMode } from '@chakra-ui/react';
-import NextImage from 'next/legacy/image';
+import NextImage from 'next/image';
 import { memo, useCallback } from 'react';
 import { useLightBoxContext } from '../hooks/useLightBox';
 import { IllustrationItem } from '../lib/types';
@@ -36,15 +36,18 @@ function GridImage({ id, url, index, onClick }) {
       <NextImage
         src={url}
         alt={id}
-        objectFit="cover"
         width={200}
         height={200}
-        layout="responsive"
-        sizes="404px"
         onClick={handleImageClick}
         placeholder="blur"
         blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(404, 404, colorMode))}`}
-        style={{ cursor: 'pointer' }}
+        sizes="404px"
+        style={{
+          cursor: 'pointer',
+          width: '100%',
+          height: 'auto',
+          objectFit: 'cover',
+        }}
       />
     </GridItem>
   );

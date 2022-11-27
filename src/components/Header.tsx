@@ -16,7 +16,7 @@ import {
 import { useViewportScroll } from 'framer-motion';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaMoon, FaSun } from 'react-icons/fa';
-import NextImage from 'next/legacy/image';
+import NextImage from 'next/image';
 
 function NavLink({ slug, label }: { slug: string; label: string }) {
   return <Link href={`/${slug}`}>{label}</Link>;
@@ -106,9 +106,14 @@ export function Header() {
               <HStack cursor="pointer">
                 <NextImage
                   src={`/jmt-logo-${colorMode}.svg`}
-                  objectFit="cover"
+                  alt="joelmturner pyramid dark mode logo"
                   width={232}
                   height={40}
+                  style={{
+                    maxWidth: '100%',
+                    height: 'auto',
+                    objectFit: 'cover',
+                  }}
                 />
               </HStack>
             </Link>

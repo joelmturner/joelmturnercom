@@ -11,13 +11,24 @@ import {
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import NextLink from 'next/link';
 import { InPostGallery } from './InPostGallery';
 import { Note } from './Note';
 
 const CustomImage = (props: any) => {
-  return <Image width={props.width} height={props.height} src={props.src} alt={props.alt} />;
+  return (
+    <Image
+      width={props.width}
+      height={props.height}
+      src={props.src}
+      alt={props.alt}
+      style={{
+        maxWidth: '100%',
+        height: 'auto',
+      }}
+    />
+  );
 };
 
 const CustomLink = (props: any) => {
