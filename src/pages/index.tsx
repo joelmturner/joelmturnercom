@@ -109,13 +109,10 @@ export default function Home({ post }: InferGetStaticPropsType<typeof getStaticP
             </Flex>
           </Flex>
         </Heading>
-        <Text color={useColorModeValue('gray.700', 'gray.300')} maxW={'3xl'}>
-          {`My background is in graphic design and web development. I'm currently working as a Senior
-          Product Engineer at `}
-          <MDXComponents.a href="https://sprinklr.com">Sprinklr</MDXComponents.a>.
-          {` I spend some of
-          my free time exploring hand lettering and sketching as well as hiking in the Portland area
-          with my wife, son, and our dogs.`}
+        <Text as="p" color={useColorModeValue('gray.700', 'gray.300')} maxW={'3xl'}>
+          {`Hi there! I'm a frontend engineer with a background in graphic design and web development. By day, I'm a Senior Product Engineer at `}
+          <MDXComponents.a href="https://sprinklr.com">Sprinklr</MDXComponents.a>
+          {`, but in my free time I love to let my artistic side shine by practicing hand lettering and sketching. When I'm not busy creating, you can find me exploring the great outdoors in Portland with my awesome family (including our furry canine companions)!`}
         </Text>
         {post ? (
           <>
