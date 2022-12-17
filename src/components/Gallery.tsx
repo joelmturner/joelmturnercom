@@ -1,53 +1,38 @@
-import { ColorMode, Grid, GridItem, useColorMode } from '@chakra-ui/react';
-import NextImage from 'next/image';
-import { memo, useCallback } from 'react';
+import { Grid, GridItem } from '@chakra-ui/react';
+import { CldImage } from 'next-cloudinary';
+import { memo, useCallback, useMemo } from 'react';
 import { useLightBoxContext } from '../hooks/useLightBox';
 import { IllustrationItem } from '../lib/types';
 import { Dialog } from './Dialog';
 
 type GalleryProps = { images: IllustrationItem[]; lightBoxIndex?: number };
 
-const shimmer = (w: number, h: number, mode: ColorMode) => `
-<svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <defs>
-    <linearGradient id="g">
-      <stop stop-color="${mode === 'dark' ? '#333' : '#ccc'}" offset="20%" />
-      <stop stop-color="${mode === 'dark' ? '#222' : '#ddd'}" offset="50%" />
-      <stop stop-color="${mode === 'dark' ? '#333' : '#ccc'}" offset="70%" />
-    </linearGradient>
-  </defs>
-  <rect width="${w}" height="${h}" fill="${mode === 'dark' ? '#333' : '#ccc'}" />
-  <rect id="r" width="${w}" height="${h}" fill="url(#g)" />
-  <animate xlink:href="#r" attributeName="x" from="-${w}" to="${w}" dur="1s" repeatCount="indefinite"  />
-</svg>`;
-
-const toBase64 = (str: string) =>
-  typeof window === 'undefined' ? Buffer.from(str).toString('base64') : window.btoa(str);
-
 function GridImage({ id, url, index, onClick }) {
-  const { colorMode } = useColorMode();
-
   const handleImageClick = useCallback(() => {
     onClick(index);
   }, [index]);
 
+  const styles = useMemo(
+    () => ({
+      cursor: 'pointer',
+      width: '100%',
+      height: 'auto',
+      objectFit: 'cover',
+    }),
+    []
+  );
+
   return (
     <GridItem w="100%" h="100%" key={url}>
-      <NextImage
+      <CldImage
         src={url}
         alt={id}
         width={200}
         height={200}
         onClick={handleImageClick}
         placeholder="blur"
-        blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(404, 404, colorMode))}`}
         sizes="404px"
-        style={{
-          cursor: 'pointer',
-          width: '100%',
-          height: 'auto',
-          objectFit: 'cover',
-        }}
+        style={styles}
       />
     </GridItem>
   );

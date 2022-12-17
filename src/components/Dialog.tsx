@@ -8,7 +8,7 @@ import { wrap } from '@popmotion/popcorn';
 import { useOnClickOutside, useKeypressSimple } from '../hooks';
 import { IllustrationItem } from '../lib/types';
 import { Box, chakra, useColorModeValue, Flex } from '@chakra-ui/react';
-import NextImage from 'next/image';
+import { CldImage } from 'next-cloudinary';
 import { useLightBoxContext } from '../hooks/useLightBox';
 import '@reach/dialog/styles.css';
 
@@ -65,17 +65,18 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
   const { setLightbox } = useLightBoxContext();
   const [[page, direction], setPage] = useState([offset, 0]);
 
-  const handleLightboxUpdate = useCallback(
-    (index: number) => {
-      setLightbox((prevState) => ({ ...prevState, index: page + index }));
-    },
-    [page]
-  );
+  const handleLightboxUpdate = useCallback((index: number) => {
+    setLightbox((prevState) => ({ ...prevState, index: prevState.index + index }));
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setLightbox((prevState) => ({ ...prevState, index: undefined }));
+  }, []);
 
   const paginate = useCallback(
     (newDirection: number) => {
       handleLightboxUpdate(newDirection);
-      setPage(([prevPage, prevDirection]) => {
+      setPage(([prevPage]) => {
         return [prevPage + newDirection, newDirection];
       });
     },
@@ -105,13 +106,13 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
   useKeypressSimple('ArrowLeft', onPrev, [page]);
 
   const imageIndex = wrap(0, images.length, page);
-  useOnClickOutside(ref, onClose as any);
+  useOnClickOutside(ref, handleClose);
 
   return (
     <Overlay
       ref={ref}
       isOpen
-      onDismiss={onClose}
+      onDismiss={handleClose}
       className={className}
       sx={{
         '&[data-reach-dialog-overlay]': {
@@ -228,12 +229,13 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
                 dragElastic={1}
                 onDragEnd={handleDragEnd}
               >
-                <NextImage
+                <CldImage
                   src={images[imageIndex]?.url}
                   alt={'full size page'}
-                  width={200}
-                  height={200}
+                  width={700}
+                  height={700}
                   sizes="100vw"
+                  placeholder="blur"
                   style={{
                     cursor: 'pointer',
                     width: '100%',

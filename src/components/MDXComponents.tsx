@@ -11,14 +11,14 @@ import {
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
-import Image from 'next/image';
 import NextLink from 'next/link';
 import { InPostGallery } from './InPostGallery';
 import { Note } from './Note';
+import { CldImage } from 'next-cloudinary';
 
 const CustomImage = (props: any) => {
   return (
-    <Image
+    <CldImage
       width={props.width}
       height={props.height}
       src={props.src}

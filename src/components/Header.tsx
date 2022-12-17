@@ -1,11 +1,10 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import {
   Button,
   chakra,
   CloseButton,
   Flex,
-  Heading,
   HStack,
   IconButton,
   useColorMode,
@@ -16,7 +15,7 @@ import {
 import { useViewportScroll } from 'framer-motion';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaMoon, FaSun } from 'react-icons/fa';
-import NextImage from 'next/image';
+import { CldImage } from 'next-cloudinary';
 
 function NavLink({ slug, label }: { slug: string; label: string }) {
   return <Link href={`/${slug}`}>{label}</Link>;
@@ -51,6 +50,12 @@ export function Header() {
   const handleMobileNavClick = useCallback(() => {
     mobileNav.onClose();
   }, []);
+
+  const logo = useMemo(() => {
+    return colorMode === 'light'
+      ? `https://res.cloudinary.com/joelmturner/image/upload/v1671288060/jmt-logo-light_pa8izj.svg`
+      : `https://res.cloudinary.com/joelmturner/image/upload/v1671288060/jmt-logo-dark_e6yn1w.svg`;
+  }, [colorMode]);
 
   const MobileNavContent = React.useMemo(
     () => (
@@ -104,9 +109,9 @@ export function Header() {
           <Flex align="flex-start">
             <Link href="/">
               <HStack cursor="pointer">
-                <NextImage
-                  src={`/jmt-logo-${colorMode}.svg`}
-                  alt="joelmturner pyramid dark mode logo"
+                <CldImage
+                  src={logo}
+                  alt="joelmturner pyramid logo"
                   width={232}
                   height={40}
                   style={{
