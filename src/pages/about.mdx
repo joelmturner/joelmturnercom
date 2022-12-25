@@ -6,17 +6,14 @@ lastmod: 2022-06-24T00:24:17.214Z
 ---
 
 import { Flex } from '@chakra-ui/react';
-import { Avatar } from '@chakra-ui/react';
+import { Avatar } from '../components/Avatar.tsx';
 import { Meta } from '../components/Meta.tsx';
 
 <Meta title="About Joel M Turner" />
 
 <Flex justify="center">
   <Avatar
-    ignoreFallback
-    loading="eager"
-    size="2xl"
-    name="Joel M Turner"
+    alt="Joel M Turner portrait"
     src="https://res.cloudinary.com/joelmturner/image/upload/v1532201643/joel-turner.jpg"
   />
 </Flex>

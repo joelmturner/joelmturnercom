@@ -27,11 +27,11 @@ function GridImage({ id, url, index, onClick }) {
       <CldImage
         src={url}
         alt={id}
-        width={200}
-        height={200}
+        width={404}
+        height={404}
         onClick={handleImageClick}
         placeholder="blur"
-        sizes="404px"
+        // sizes="404px"
         style={styles}
       />
     </GridItem>
