@@ -18,14 +18,12 @@ export function FeaturedPost({ post }) {
           marginTop="5%"
         >
           <NextLink href={`/blog/${post.slug}`}>
-            <Link textDecoration="none" _hover={{ textDecoration: 'none' }}>
-              <Image
-                borderRadius="lg"
-                src={post.cover}
-                alt="some good alt text"
-                objectFit="contain"
-              />
-            </Link>
+            <Image
+              borderRadius="lg"
+              src={post.cover}
+              alt="some good alt text"
+              objectFit="contain"
+            />
           </NextLink>
         </Box>
         <Box zIndex="1" width="100%" position="absolute" height="100%">
@@ -49,11 +47,7 @@ export function FeaturedPost({ post }) {
       >
         <PostTags tags={post.tags} size="md" />
         <Heading marginTop="1">
-          <NextLink href={`/blog/${post.slug}`}>
-            <Link textDecoration="none" _hover={{ textDecoration: 'none' }}>
-              {post.title}
-            </Link>
-          </NextLink>
+          <NextLink href={`/blog/${post.slug}`}>{post.title}</NextLink>
         </Heading>
         <Text as="p" marginTop="2" color={useColorModeValue('gray.700', 'gray.200')} fontSize="lg">
           {post.excerpt}

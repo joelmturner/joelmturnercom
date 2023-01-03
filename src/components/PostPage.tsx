@@ -116,27 +116,33 @@ export function PostPage({
       <Flex justifyContent={getJustification(next, prev)} py={4} gap={6}>
         {prev && (
           <Box justifyContent="flex-start">
-            <NextLink href={`/${postType}/${prev.slug}`}>
-              <Link
-                color={useColorModeValue('brand.light.400', 'brand.dark.200')}
-                sx={{ display: 'flex', alignItems: 'center', gap: 3 }}
-              >
-                <FaChevronLeft />
-                {prev.title}
-              </Link>
+            <NextLink
+              href={`/${postType}/${prev.slug}`}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 3,
+                color: useColorModeValue('brand.light.400', 'brand.dark.200'),
+              }}
+            >
+              <FaChevronLeft />
+              {prev.title}
             </NextLink>
           </Box>
         )}
         {next && (
           <Box justifyContent="flex-end">
-            <NextLink href={`/${postType}/${next.slug}`}>
-              <Link
-                color={useColorModeValue('brand.light.400', 'brand.dark.200')}
-                sx={{ display: 'flex', alignItems: 'center', gap: 3 }}
-              >
-                {next.title}
-                <FaChevronRight />
-              </Link>
+            <NextLink
+              href={`/${postType}/${next.slug}`}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 3,
+                color: useColorModeValue('brand.light.400', 'brand.dark.200'),
+              }}
+            >
+              {next.title}
+              <FaChevronRight />
             </NextLink>
           </Box>
         )}
