@@ -43,9 +43,12 @@ const CustomLink = (props: any) => {
 
   if (isInternalLink) {
     return (
-      <NextLink href={href} passHref>
-        <Link color={color[colorMode]} {...props} />
-      </NextLink>
+      <NextLink
+        href={href}
+        passHref
+        {...props}
+        style={{ color: useColorModeValue(color.dark, color.light), textDecoration: 'underline' }}
+      />
     );
   }
 
@@ -78,37 +81,31 @@ const Quote = (props: any) => {
 };
 
 const CustomHeading = ({ id, ...props }: any) => (
-  <Link
-    href={`#${id}`}
-    _hover={{
-      color: useColorModeValue('brand.light.400', 'brand.dark.100'),
-      textDecoration: 'underline',
-    }}
-  >
-    <NextLink href={`#${id}`}>
-      <Heading
-        id={id}
-        lineHeight={'1em'}
-        mb="1em"
-        mt="2em"
-        sx={{
-          scrollMarginTop: '10px',
-          scrollSnapMargin: '10px', // Safari
-        }}
-        {...props}
-        _hover={{
-          _before: {
-            content: '"#"',
-            position: 'relative',
-            marginLeft: '-1.4ch',
-            paddingRight: '0.5ch',
-            color: useColorModeValue('brand.light.400', 'brand.dark.100'),
-            textDecoration: 'none',
-          },
-        }}
-      />
-    </NextLink>
-  </Link>
+  <NextLink href={`#${id}`}>
+    <Heading
+      id={id}
+      lineHeight={'1em'}
+      mb="1em"
+      mt="2em"
+      sx={{
+        scrollMarginTop: '10px',
+        scrollSnapMargin: '10px', // Safari
+      }}
+      {...props}
+      _hover={{
+        color: useColorModeValue('brand.light.400', 'brand.dark.100'),
+        textDecoration: 'underline',
+        _before: {
+          content: '"#"',
+          position: 'relative',
+          marginLeft: '-1.4ch',
+          paddingRight: '0.5ch',
+          color: useColorModeValue('brand.light.400', 'brand.dark.100'),
+          textDecoration: 'none',
+        },
+      }}
+    />
+  </NextLink>
 );
 
 const Hr = () => {
