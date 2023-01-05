@@ -43,12 +43,17 @@ const CustomLink = (props: any) => {
 
   if (isInternalLink) {
     return (
-      <NextLink
-        href={href}
-        passHref
-        {...props}
-        style={{ color: useColorModeValue(color.dark, color.light), textDecoration: 'underline' }}
-      />
+      <NextLink href={href} passHref {...props}>
+        <Text
+          as="span"
+          color={color[colorMode]}
+          _hover={{
+            textDecoration: 'underline',
+          }}
+        >
+          {props.children}
+        </Text>
+      </NextLink>
     );
   }
 
