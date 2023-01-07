@@ -10,7 +10,7 @@ tags:
   - Media
   - TypeScript
   - Cloudinary
-lastmod: 2023-01-05T01:33:20.772Z
+lastmod: 2023-01-07T15:56:12.097Z
 excerpt: Setting up a GitHub Action to upload images to Cloudinary from Instagram. This
   solves some of the issues that I was having with getting Instagram images into
   Gatsby.
@@ -24,6 +24,12 @@ We're going to walk through setting up a Node.js project that will fetch Instagr
 ## tl;tr
 
 Here's the [instagram-cloudinary](https://github.com/joelmturner/instagram-cloudinary) repo if you'd like to skip to the final code.
+
+<Note>
+
+_Update: January 2023_ - Shortly after posting this article, I moved my site from [Gatsby](https://www.gatsbyjs.com/) to [Nextjs](https://nextjs.org/). You can see how I retrieve the images in the [Retrieving Cloudinary Images](#retrieving-cloudinary-images) section.
+
+</Note>
 
 ## The Problem
 
@@ -44,7 +50,7 @@ To make this work for my case, I jotted down what I needed this script to do.
 1. fetch the latest posts from Instagram
    - make sure we get the first few comments (I used to put the post's hashtags in the first comment)
 2. upload the posts that match my hashtag list to Cloudinary
-3. trigger a build of my site (my site is running [gatsby-source-cloudinary](https://www.gatsbyjs.com/plugins/gatsby-source-cloudinary/))
+3. trigger a build of my site (my site was running [gatsby-source-cloudinary](https://www.gatsbyjs.com/plugins/gatsby-source-cloudinary/), now in pulls in the images with the Cloudinary client)
 
 ## Setting up a new project
 
@@ -716,6 +722,30 @@ jobs:
 ```
 
 The `- cron: "0 0 * * *"` is what configures the action to run once a day.
+
+## Retrieving Cloudinary Images
+
+I use the Cloudinary api to retrieve the images for my site. Here is search that I'm using:
+
+```ts
+cloudinary.v2.config({
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
+});
+
+...
+
+await cloudinary.v2.search
+    .expression('folder:illustration')
+    .sort_by('public_id', 'desc')
+    .max_results(300)
+    .with_field('tags')
+    .execute()
+```
+
+This searches my images in the illustration folder, sorts by alphabetical descending and makes sure the tags come along as well.
 
 ## Conclusion
 
