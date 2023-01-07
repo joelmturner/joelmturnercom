@@ -8,7 +8,7 @@ import {
   chakra,
   VisuallyHidden,
 } from '@chakra-ui/react';
-import { IoLogoInstagram, IoLogoTwitter, IoLogoGithub } from 'react-icons/io';
+import { IoLogoInstagram, IoLogoTwitter, IoLogoGithub, IoLogoLinkedin } from 'react-icons/io';
 import { FaDev, FaMastodon } from 'react-icons/fa';
 import { ReactNode } from 'react';
 
@@ -53,10 +53,10 @@ export function Footer() {
       borderTopWidth={1}
       borderStyle={'solid'}
       borderColor={useColorModeValue('gray.200', 'gray.700')}
-      w="100%"
+      w="full"
       py={8}
     >
-      <Container maxW="2xl" py={4}>
+      <chakra.div mx="auto" maxW="4xl">
         <Flex justifyContent="space-between" w="100%" alignItems="center">
           <Flex justifyContent="flex-start" gap={2}>
             <Text>
@@ -77,6 +77,9 @@ export function Footer() {
             <SocialButton href="https://twitter.com/joelmturner" label="twitter">
               <IoLogoTwitter />
             </SocialButton>
+            <SocialButton href="https://linkedin.com/in/joelmturner" label="linkedIn">
+              <IoLogoLinkedin />
+            </SocialButton>
             <SocialButton href="https://github.com/joelmturner" label="github">
               <IoLogoGithub />
             </SocialButton>
@@ -92,7 +95,7 @@ export function Footer() {
             </SocialButton>
           </Flex>
         </Flex>
-      </Container>
+      </chakra.div>
     </Box>
   );
 }
