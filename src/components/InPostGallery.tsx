@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getIllustrations } from '../lib/illustrations';
 import { IllustrationItem, IllustrationTag } from '../lib/types';
-import { Gallery } from './Gallery';
+import { Gallery } from './gallery';
 
 type InPostGalleryProps = { collection: IllustrationTag };
 
