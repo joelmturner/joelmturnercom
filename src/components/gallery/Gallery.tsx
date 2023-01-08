@@ -1,13 +1,12 @@
 import { Grid, GridItem } from '@chakra-ui/react';
 import { CldImage } from 'next-cloudinary';
 import { memo, useCallback, useMemo } from 'react';
-import { useLightBoxContext } from '../hooks/useLightBox';
-import { IllustrationItem } from '../lib/types';
-import { Dialog } from './Dialog';
+import { useLightBoxContext } from '../../hooks/useLightBox';
+import { Dialog } from '../Dialog';
+import { COLUMNS_VS_SIZE, COLUMNS_VS_STYLES, SIZE_VS_PX } from './constants';
+import { GalleryProps } from './types';
 
-type GalleryProps = { images: IllustrationItem[]; lightBoxIndex?: number };
-
-function GridImage({ id, url, index, onClick }) {
+function GridImage({ id, url, index, onClick, size = 'md' }) {
   const handleImageClick = useCallback(() => {
     onClick(index);
   }, [index]);
@@ -27,11 +26,10 @@ function GridImage({ id, url, index, onClick }) {
       <CldImage
         src={url}
         alt={id}
-        width={404}
-        height={404}
+        width={SIZE_VS_PX[size]}
+        height={SIZE_VS_PX[size]}
         onClick={handleImageClick}
         placeholder="blur"
-        // sizes="404px"
         style={styles}
       />
     </GridItem>
@@ -40,7 +38,7 @@ function GridImage({ id, url, index, onClick }) {
 
 const MemoizedGridImage = memo(GridImage);
 
-export function Gallery({ images }: GalleryProps) {
+export function Gallery({ images, columns = 3 }: GalleryProps) {
   const { lightbox, setLightbox } = useLightBoxContext();
 
   const handleCloseLightbox = useCallback(() => {
@@ -56,11 +54,18 @@ export function Gallery({ images }: GalleryProps) {
       <Grid
         gap={2}
         w="full"
-        templateColumns="repeat(auto-fit, minmax(200px, 1fr))"
+        templateColumns={COLUMNS_VS_STYLES[columns]}
         sx={{ containIntrinsicSize: '160px', contentVisibility: 'auto' }}
       >
         {images?.map(({ id, url }, index) => (
-          <MemoizedGridImage key={id} id={id} url={url} index={index} onClick={handleClickImage} />
+          <MemoizedGridImage
+            key={id}
+            id={id}
+            url={url}
+            index={index}
+            onClick={handleClickImage}
+            size={COLUMNS_VS_SIZE[columns]}
+          />
         ))}
       </Grid>
 
