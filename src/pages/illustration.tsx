@@ -1,7 +1,7 @@
-import { Box, Flex, FormControl, FormLabel, IconButton, Select, VStack } from '@chakra-ui/react';
+import { Flex, FormControl, FormLabel, IconButton, Select, VStack } from '@chakra-ui/react';
 import { InferGetStaticPropsType } from 'next';
 import React, { memo, useCallback, useMemo, useState } from 'react';
-import { Gallery } from '../components/Gallery';
+import { Gallery } from '../components/gallery';
 import { MDXComponents } from '../components/MDXComponents';
 import SEO from '../components/SEO';
 import { useLightBoxContext } from '../hooks/useLightBox';
