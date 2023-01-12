@@ -4,7 +4,7 @@ import { Schema } from './Schema';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 
-const BASE_URL = 'http://joelmturner.com';
+const BASE_URL = 'https://joelmturner.com';
 
 const DESCRIPTION = `I'm a kombucha lovin' Front-End Dev at Sprinklr. Love lettering, love design, love development, love Portland.`;
 const KEYWORDS = [

@@ -114,6 +114,7 @@ export function Header() {
                   alt="joelmturner pyramid logo"
                   width={232}
                   height={40}
+                  loading="eager"
                   style={{
                     maxWidth: '100%',
                     height: 'auto',
