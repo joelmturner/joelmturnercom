@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://joelmturner.com
+
+# Sitemaps
+Sitemap: https://joelmturner.com/sitemap.xml
