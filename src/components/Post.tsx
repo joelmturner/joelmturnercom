@@ -41,7 +41,7 @@ export function Post({ post, root = 'blog', index }) {
                   }}
                   sizes="(max-width: 480px) 100vw, 50vw"
                   maxHeight={'50vw'}
-                  loading={index < 2 ? 'eager' : 'lazy'}
+                  priority={index < 2}
                 />
               </NextLink>
             </Box>

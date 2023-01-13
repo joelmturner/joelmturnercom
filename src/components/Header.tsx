@@ -15,7 +15,7 @@ import {
   Link,
   Text,
 } from '@chakra-ui/react';
-import { useViewportScroll } from 'framer-motion';
+import { useScroll } from 'framer-motion';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { CldImage } from 'next-cloudinary';
@@ -45,20 +45,10 @@ export function Header() {
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
   const bg = useColorModeValue('white', 'gray.800');
   const ref = React.useRef<HTMLHeadElement>();
-  const [y, setY] = React.useState(0);
-  const { height = 0 } = ref.current ? ref.current.getBoundingClientRect() : {};
-  const { scrollY } = useViewportScroll();
   const mobileNav = useDisclosure();
 
   const router = useRouter();
-
-  console.log('router', router);
   const activeRootSlug = router.route.split('/')?.[1] ?? '';
-  console.log('activeRootSlug', activeRootSlug);
-
-  React.useEffect(() => {
-    return scrollY.onChange(() => setY(scrollY.get()));
-  }, [scrollY]);
 
   const handleMobileNavClick = useCallback(() => {
     mobileNav.onClose();
@@ -107,7 +97,6 @@ export function Header() {
   return (
     <chakra.header
       ref={ref}
-      shadow={y > height ? 'sm' : undefined}
       transition="box-shadow 0.2s"
       bg={bg}
       borderTop="6px solid"
