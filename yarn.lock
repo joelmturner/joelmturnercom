@@ -5229,10 +5229,10 @@ netmask@^2.0.2:
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-2.0.2.tgz#8b01a07644065d536383835823bc52004ebac5e7"
   integrity sha512-dBpDMdxv9Irdq66304OLfEmQ9tbNRFnFTuZiLo+bD+r332bBmMJ8GBLXklIXXgxd3+v9+KUnZaUR5PJMa75Gsg==
 
-next-cloudinary@^1.3.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/next-cloudinary/-/next-cloudinary-1.6.0.tgz#2c895e648cbf0eba8caf3d315eebc421ade82ba6"
-  integrity sha512-6o4CScTC0yDBTuOUoKyYp0RBy//aglk8rFbyzaFV0KF0n9fTn7tafOrk3KrkE5pGAe6AYcVpB1VcRl6JxTpyig==
+next-cloudinary@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/next-cloudinary/-/next-cloudinary-1.8.1.tgz#715ec0a408df154b3f86ef8603faba328f92a598"
+  integrity sha512-ZsULMzNl7WfIs1ZDmuz2UDwHmpHOfCV7HnVslTseTj+qSIvpPFefS+74InjoYNlfcz9l8yIv27C0SBnFtufKwQ==
   dependencies:
     "@cloudinary/url-gen" "^1.8.6"
 

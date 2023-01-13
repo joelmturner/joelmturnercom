@@ -1,4 +1,5 @@
-import { Box, Link, Image, useColorModeValue, Heading, Text } from '@chakra-ui/react';
+import { Box, Image, useColorModeValue, Heading, Text } from '@chakra-ui/react';
+import { CldImage } from 'next-cloudinary';
 import NextLink from 'next/link';
 import { PostTags } from './PostTags';
 
@@ -18,12 +19,15 @@ export function FeaturedPost({ post }) {
           marginTop="5%"
         >
           <NextLink href={`/blog/${post.slug}`}>
-            <Image
-              borderRadius="lg"
-              src={post.cover}
-              alt="some good alt text"
-              objectFit="contain"
-            />
+            <Box borderRadius="lg" overflow="hidden">
+              <CldImage
+                width={300 * 1.5}
+                height={190 * 1.5}
+                src={post.cover}
+                alt="some good alt text"
+                sizes="(max-width: 480px) 100vw, 50vw"
+              />
+            </Box>
           </NextLink>
         </Box>
         <Box zIndex="1" width="100%" position="absolute" height="100%">

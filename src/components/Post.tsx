@@ -1,7 +1,9 @@
-import { Box, Flex, Heading, Image, Link, Text, Wrap, WrapItem } from '@chakra-ui/react';
+import { Box, chakra, Flex, Heading, Image, Text, Wrap, WrapItem } from '@chakra-ui/react';
+import { CldImage } from 'next-cloudinary';
 import NextLink from 'next/link';
-import { memo } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { getDateString } from '../utils/strings';
+import { PostImage } from './CCImage';
 import { PostTags } from './PostTags';
 
 export function PostTitle({ title, url }) {
@@ -16,7 +18,7 @@ export function PostTitle({ title, url }) {
 
 const MemoizedPostTitle = memo(PostTitle);
 
-export function Post({ post, root = 'blog' }) {
+export function Post({ post, root = 'blog', index }) {
   const postUrl = `/${root}/${post.slug}`;
   return (
     <Wrap key={post.slug} spacing="30px" marginTop="5" w="100%">
@@ -25,16 +27,21 @@ export function Post({ post, root = 'blog' }) {
           {post.cover ? (
             <Box borderRadius="lg" overflow="hidden">
               <NextLink href={postUrl} style={{ textDecoration: 'none' }}>
-                <Image
+                <PostImage
                   transform="scale(1.0)"
+                  width={736}
+                  height={468}
                   src={post.cover}
                   alt={post.title}
-                  objectFit="contain"
-                  width="100%"
+                  objectFit="cover"
                   transition="0.3s ease-in-out"
+                  borderRadius="lg"
                   _hover={{
                     transform: 'scale(1.05)',
                   }}
+                  sizes="(max-width: 480px) 100vw, 50vw"
+                  maxHeight={'50vw'}
+                  loading={index < 2 ? 'eager' : 'lazy'}
                 />
               </NextLink>
             </Box>

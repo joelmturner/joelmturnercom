@@ -14,8 +14,6 @@ function GridImage({ id, url, index, onClick, size = 'md' }) {
   const styles = useMemo(
     () => ({
       cursor: 'pointer',
-      width: '100%',
-      height: 'auto',
       objectFit: 'cover',
     }),
     []
@@ -31,6 +29,7 @@ function GridImage({ id, url, index, onClick, size = 'md' }) {
         onClick={handleImageClick}
         placeholder="blur"
         style={styles}
+        sizes="33vw, 50vw, 100vw"
       />
     </GridItem>
   );

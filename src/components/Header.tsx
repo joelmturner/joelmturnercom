@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useMemo } from 'react';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import {
+  Box,
   Button,
   chakra,
   CloseButton,
@@ -11,14 +12,21 @@ import {
   useColorModeValue,
   useDisclosure,
   VStack,
+  Link,
+  Text,
 } from '@chakra-ui/react';
 import { useViewportScroll } from 'framer-motion';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { CldImage } from 'next-cloudinary';
+import { useRouter } from 'next/router';
 
 function NavLink({ slug, label }: { slug: string; label: string }) {
-  return <Link href={`/${slug}`}>{label}</Link>;
+  return (
+    <Link as={NextLink} href={`/${slug}`} _hover={{ textDecoration: 'none' }}>
+      {label}
+    </Link>
+  );
 }
 
 const MemoizedNavLink = memo(NavLink);
@@ -40,8 +48,13 @@ export function Header() {
   const [y, setY] = React.useState(0);
   const { height = 0 } = ref.current ? ref.current.getBoundingClientRect() : {};
   const { scrollY } = useViewportScroll();
-  const cl = useColorModeValue('gray.800', 'white');
   const mobileNav = useDisclosure();
+
+  const router = useRouter();
+
+  console.log('router', router);
+  const activeRootSlug = router.route.split('/')?.[1] ?? '';
+  console.log('activeRootSlug', activeRootSlug);
 
   React.useEffect(() => {
     return scrollY.onChange(() => setY(scrollY.get()));
@@ -53,8 +66,8 @@ export function Header() {
 
   const logo = useMemo(() => {
     return colorMode === 'light'
-      ? `https://res.cloudinary.com/joelmturner/image/upload/v1671288060/jmt-logo-light_pa8izj.svg`
-      : `https://res.cloudinary.com/joelmturner/image/upload/v1671288060/jmt-logo-dark_e6yn1w.svg`;
+      ? `https://res.cloudinary.com/joelmturner/image/upload/v1673573341/jmt-logo-light-500w_2_pmadzj.png`
+      : `https://res.cloudinary.com/joelmturner/image/upload/v1673573341/jmt-logo-dark-500w_2_pxay5e.png`;
   }, [colorMode]);
 
   const MobileNavContent = React.useMemo(
@@ -109,18 +122,16 @@ export function Header() {
           <Flex align="flex-start">
             <Link href="/">
               <HStack cursor="pointer">
-                <CldImage
-                  src={logo}
-                  alt="joelmturner pyramid logo"
-                  width={232}
-                  height={40}
-                  loading="eager"
-                  style={{
-                    maxWidth: '100%',
-                    height: 'auto',
-                    objectFit: 'cover',
-                  }}
-                />
+                <Box width={['40vw', '40vw', '14vw']}>
+                  <CldImage
+                    src={logo}
+                    alt="joelmturner pyramid logo"
+                    width={464}
+                    height={80}
+                    loading="eager"
+                    sizes="(max-width: 480px) 40vw, 14vw"
+                  />
+                </Box>
               </HStack>
             </Link>
           </Flex>
@@ -137,18 +148,24 @@ export function Header() {
             }}
           >
             {NAV_LINKS.map((link) => (
-              <Button
+              <Text
                 key={link.id}
                 bg={bg}
                 color={useColorModeValue('brand.light.300', 'brand.dark.100')}
                 display="inline-flex"
                 alignItems="center"
                 fontSize="md"
+                fontWeight="bold"
                 _hover={{ color: useColorModeValue('brand.light.200', 'brand.dark.200') }}
-                _focus={{ boxShadow: 'none' }}
+                transition="color 150ms"
+                px={3}
+                py={2}
+                textDecoration={activeRootSlug === link.id ? 'underline' : 'none'}
+                textUnderlineOffset="5px"
+                textDecorationThickness="3px"
               >
                 {link.component}
-              </Button>
+              </Text>
             ))}
             <IconButton
               size="md"

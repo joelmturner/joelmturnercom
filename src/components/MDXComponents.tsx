@@ -17,18 +17,7 @@ import { Note } from './Note';
 import { CldImage } from 'next-cloudinary';
 
 const CustomImage = (props: any) => {
-  return (
-    <CldImage
-      width={props.width}
-      height={props.height}
-      src={props.src}
-      alt={props.alt}
-      style={{
-        maxWidth: '100%',
-        height: 'auto',
-      }}
-    />
-  );
+  return <CldImage width={props.width} height={props.height} src={props.src} alt={props.alt} />;
 };
 
 const CustomLink = (props: any) => {
