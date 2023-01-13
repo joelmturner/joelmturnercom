@@ -94,6 +94,7 @@ function SEO({
         dateModified={dateModified || ''}
         canonicalUrl="https://joelmturner.com"
         author="@joelmturner"
+        authorUrl="https://joelmturner.com"
         defaultTitle={title}
       />
     </>

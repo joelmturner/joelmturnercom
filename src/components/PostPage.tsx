@@ -19,6 +19,7 @@ import { useMemo } from 'react';
 import { renderToString } from 'react-dom/server';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { FrontMatter } from '../lib/types';
+import { slugify } from '../utils/utils';
 import { MDXComponents } from './MDXComponents';
 import { PostTags } from './PostTags';
 import SEO from './SEO';
@@ -74,8 +75,8 @@ export function PostPage({
         image={cover}
         imageAlt={title}
         isBlogPost
-        datePublished={`${date}`}
-        dateModified={`${lastmod}`}
+        datePublished={new Date(date).toISOString()}
+        dateModified={new Date(lastmod).toISOString()}
         description={description ?? excerpt}
         keywords={tags}
       />
@@ -107,7 +108,7 @@ export function PostPage({
           <HStack spacing={2}>
             <Text fontSize="md">Category: </Text>
             <Tag size="sm" variant="subtle" colorScheme={colorMode === 'light' ? 'red' : 'blue'}>
-              <Link href={`/blog/category/${category.toLowerCase()}`}>{category}</Link>
+              <Link href={`/blog/category/${slugify(category)}`}>{category}</Link>
             </Tag>
           </HStack>
         ) : null}

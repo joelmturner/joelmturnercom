@@ -3,6 +3,7 @@ import React from 'react';
 
 type SchemaProps = {
   author: string;
+  authorUrl: string;
   canonicalUrl: string;
   datePublished: string;
   dateModified: string;
@@ -17,6 +18,7 @@ type SchemaProps = {
 export const Schema = React.memo(
   ({
     author,
+    authorUrl,
     canonicalUrl,
     datePublished,
     dateModified,
@@ -29,7 +31,7 @@ export const Schema = React.memo(
   }: SchemaProps) => {
     const baseSchema = [
       {
-        '@context': 'http://schema.org',
+        '@context': 'https://schema.org',
         '@type': 'WebSite',
         url,
         name: title,
@@ -41,7 +43,7 @@ export const Schema = React.memo(
       ? [
           ...baseSchema,
           {
-            '@context': 'http://schema.org',
+            '@context': 'https://schema.org',
             '@type': 'BreadcrumbList',
             itemListElement: [
               {
@@ -56,7 +58,7 @@ export const Schema = React.memo(
             ],
           },
           {
-            '@context': 'http://schema.org',
+            '@context': 'https://schema.org',
             '@type': 'BlogPosting',
             url,
             name: title,
@@ -70,6 +72,7 @@ export const Schema = React.memo(
             author: {
               '@type': 'Person',
               name: author,
+              url: authorUrl,
             },
             publisher: {
               '@type': 'Organization',

@@ -11,6 +11,7 @@ import rehypeMetaAttribute from './rehype-meta-attribute';
 import rehypeHighlightCode from './rehype-highlight-code';
 import remarkTableofContents from 'remark-toc';
 import rehypeSlug from 'rehype-slug';
+import { slugify } from '../utils/utils';
 
 const postsDirectory = path.join(process.cwd(), 'src/content/blog');
 const tilsDirectory = path.join(process.cwd(), 'src/content/til');
@@ -49,13 +50,15 @@ export function getAllCategories() {
     }
     return acc;
   }, []);
-  return categories.map((category) => ({ params: { slug: category } }));
+  return categories
+    .map((category) => [{ params: { slug: category } }, { params: { slug: slugify(category) } }])
+    .flat();
 }
 
 export function getAllTags() {
   const posts = getPosts();
   const resolvedTags = posts.reduce((acc, post) => {
-    const tags = post.tags.map((tag) => tag.toLowerCase());
+    const tags = post.tags.map((tag) => [tag, slugify(tag)]).flat();
     acc = Array.from(new Set([...acc, ...tags]));
     return acc;
   }, []);
@@ -170,14 +173,14 @@ export async function getLatestPost() {
 
 export function getPostsByCategory(slug: string) {
   const posts = getPosts();
-  return posts.filter((post) => post.category.toLowerCase() === slug.toLowerCase());
+  return posts.filter((post) => slugify(post.category) === slug);
 }
 
 export function getPostsByTag(slug: string) {
   const posts = getPosts();
 
   return posts.filter((post) => {
-    const tags = post.tags.map((tag) => tag.toLowerCase()) ?? [];
-    return tags.includes(slug.toLowerCase());
+    const tags = post.tags.map((tag) => slugify(tag)) ?? [];
+    return tags.includes(slug);
   });
 }

@@ -1,4 +1,5 @@
 import { HStack, Link, SpaceProps, Tag, TagProps, Text, useColorMode } from '@chakra-ui/react';
+import { slugify } from '../utils/utils';
 
 type PostTagsProps = {
   tags: Array<string>;
@@ -19,7 +20,7 @@ export function PostTags({ marginTop, tags, size = 'sm' }: PostTagsProps) {
             colorScheme={colorMode === 'light' ? 'red' : 'blue'}
             key={tag}
           >
-            <Link href={`/blog/tag/${tag.toLowerCase()}`}>{tag}</Link>
+            <Link href={`/blog/tag/${slugify(tag)}`}>{tag}</Link>
           </Tag>
         );
       })}

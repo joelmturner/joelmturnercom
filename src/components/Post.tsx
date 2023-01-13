@@ -7,10 +7,8 @@ import { PostTags } from './PostTags';
 export function PostTitle({ title, url }) {
   return (
     <Heading fontSize="xl" marginTop="2">
-      <NextLink href={url}>
-        <Link textDecoration="none" _hover={{ textDecoration: 'none' }}>
-          {title}
-        </Link>
+      <NextLink href={url} style={{ textDecoration: 'none' }}>
+        {title}
       </NextLink>
     </Heading>
   );
@@ -26,20 +24,18 @@ export function Post({ post, root = 'blog' }) {
         <Box w="100%">
           {post.cover ? (
             <Box borderRadius="lg" overflow="hidden">
-              <NextLink href={postUrl}>
-                <Link textDecoration="none" _hover={{ textDecoration: 'none' }}>
-                  <Image
-                    transform="scale(1.0)"
-                    src={post.cover}
-                    alt={post.title}
-                    objectFit="contain"
-                    width="100%"
-                    transition="0.3s ease-in-out"
-                    _hover={{
-                      transform: 'scale(1.05)',
-                    }}
-                  />
-                </Link>
+              <NextLink href={postUrl} style={{ textDecoration: 'none' }}>
+                <Image
+                  transform="scale(1.0)"
+                  src={post.cover}
+                  alt={post.title}
+                  objectFit="contain"
+                  width="100%"
+                  transition="0.3s ease-in-out"
+                  _hover={{
+                    transform: 'scale(1.05)',
+                  }}
+                />
               </NextLink>
             </Box>
           ) : null}

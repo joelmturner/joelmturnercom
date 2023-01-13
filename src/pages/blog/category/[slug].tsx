@@ -1,6 +1,7 @@
 import { getAllCategories, getPostsByCategory } from '../../../lib/posts';
 import { BlogArchive } from '../../../components/BlogArchive';
 import { InferGetStaticPropsType } from 'next';
+import { slugify } from '../../../utils/utils';
 
 export default function CategoryArchive({
   posts,
@@ -20,7 +21,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   let posts;
   try {
-    posts = await getPostsByCategory(params.slug);
+    posts = await getPostsByCategory(slugify(params.slug));
   } catch (e) {
     console.error(e);
     return {
