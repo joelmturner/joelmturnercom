@@ -58,7 +58,7 @@ export function getAllCategories() {
 export function getAllTags() {
   const posts = getPosts();
   const resolvedTags = posts.reduce((acc, post) => {
-    const tags = post.tags.map((tag) => [tag, slugify(tag)]).flat();
+    const tags = post.tags.map((tag) => [tag.toLowerCase(), slugify(tag)]).flat();
     acc = Array.from(new Set([...acc, ...tags]));
     return acc;
   }, []);

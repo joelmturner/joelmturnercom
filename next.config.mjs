@@ -2,6 +2,7 @@
 import remarkFrontmatter from 'remark-frontmatter';
 import rehypeExternalLinks from 'rehype-external-links';
 import { withSentryConfig } from '@sentry/nextjs';
+import withBundleAnalyzer from '@next/bundle-analyzer';
 
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
@@ -44,4 +45,8 @@ const nextConfig = {
   },
 };
 
-export default withSentryConfig(nextConfig, sentryWebpackPluginOptions);
+export default withSentryConfig(
+  nextConfig,
+  // withBundleAnalyzer(nextConfig),
+  sentryWebpackPluginOptions
+);

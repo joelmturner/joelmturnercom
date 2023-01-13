@@ -15,7 +15,6 @@ import {
   Link,
   Text,
 } from '@chakra-ui/react';
-import { useScroll } from 'framer-motion';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { CldImage } from 'next-cloudinary';

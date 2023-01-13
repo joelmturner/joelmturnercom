@@ -75,8 +75,8 @@ export function PostPage({
         image={cover}
         imageAlt={title}
         isBlogPost
-        datePublished={new Date(date).toISOString()}
-        dateModified={new Date(lastmod).toISOString()}
+        datePublished={`${date}`}
+        dateModified={`${lastmod}`}
         description={description ?? excerpt}
         keywords={tags}
       />

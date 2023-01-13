@@ -20,6 +20,7 @@
         "@fontsource/fira-sans": "^4.5.8",
         "@mdx-js/loader": "^2.1.1",
         "@mdx-js/react": "^2.0.0-rc.2",
+        "@next/bundle-analyzer": "^13.1.2",
         "@next/mdx": "^12.1.6",
         "@popmotion/popcorn": "^0.4.4",
         "@reach/dialog": "^0.17.0",
