@@ -3,7 +3,7 @@ import { CldImage } from 'next-cloudinary';
 import { memo, useCallback, useMemo } from 'react';
 import { useLightBoxContext } from '../../hooks/useLightBox';
 import { Dialog } from '../Dialog';
-import { COLUMNS_VS_SIZE, COLUMNS_VS_STYLES, SIZE_VS_PX } from './constants';
+import { COLUMNS_VS_SIZE, COLUMNS_VS_STYLES, SIZE_VS_PRIORITY, SIZE_VS_PX } from './constants';
 import { GalleryProps } from './types';
 
 function GridImage({ id, url, index, onClick, size = 'md' }) {
@@ -30,6 +30,7 @@ function GridImage({ id, url, index, onClick, size = 'md' }) {
         placeholder="blur"
         style={styles}
         sizes="33vw, 50vw, 100vw"
+        priority={index < SIZE_VS_PRIORITY[size]}
       />
     </GridItem>
   );

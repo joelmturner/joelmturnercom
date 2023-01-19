@@ -15,3 +15,9 @@ export const COLUMNS_VS_SIZE = {
   2: 'md',
   3: 'sm',
 };
+
+export const SIZE_VS_PRIORITY = {
+  sm: 9,
+  md: 6,
+  lg: 2,
+};
