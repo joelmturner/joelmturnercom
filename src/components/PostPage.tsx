@@ -56,6 +56,7 @@ export function PostPage({
   postType: 'blog' | 'til';
 } & FrontMatter) {
   const { colorMode } = useColorMode();
+  const linkColor = useColorModeValue('brand.light.400', 'brand.dark.200');
   const Post = useMemo(() => getMDXComponent(content), [content]);
 
   //   dynamic import because not ESM compatible
@@ -100,7 +101,7 @@ export function PostPage({
           target="_blank"
           title="Twitter discussion"
           alignSelf="flex-end"
-          color={useColorModeValue('brand.light.400', 'brand.dark.200')}
+          color={linkColor}
         >
           Discuss this article on Twitter
         </Link>
@@ -123,7 +124,7 @@ export function PostPage({
                 display: 'flex',
                 alignItems: 'center',
                 gap: 3,
-                color: useColorModeValue('brand.light.400', 'brand.dark.200'),
+                color: linkColor,
               }}
             >
               <FaChevronLeft />
@@ -139,7 +140,7 @@ export function PostPage({
                 display: 'flex',
                 alignItems: 'center',
                 gap: 3,
-                color: useColorModeValue('brand.light.400', 'brand.dark.200'),
+                color: linkColor,
               }}
             >
               {next.title}

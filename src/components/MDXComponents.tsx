@@ -2,7 +2,7 @@ import {
   Alert,
   Box,
   chakra,
-  Code,
+  Code as ChakraCode,
   Divider,
   Flex,
   Heading,
@@ -74,33 +74,37 @@ const Quote = (props: any) => {
   );
 };
 
-const CustomHeading = ({ id, ...props }: any) => (
-  <NextLink href={`#${id}`}>
-    <Heading
-      id={id}
-      lineHeight={'1em'}
-      mb="1em"
-      mt="2em"
-      sx={{
-        scrollMarginTop: '10px',
-        scrollSnapMargin: '10px', // Safari
-      }}
-      {...props}
-      _hover={{
-        color: useColorModeValue('brand.light.400', 'brand.dark.100'),
-        textDecoration: 'underline',
-        _before: {
-          content: '"#"',
-          position: 'relative',
-          marginLeft: '-1.4ch',
-          paddingRight: '0.5ch',
-          color: useColorModeValue('brand.light.400', 'brand.dark.100'),
-          textDecoration: 'none',
-        },
-      }}
-    />
-  </NextLink>
-);
+const CustomHeading = ({ id, ...props }: any) => {
+  const color = useColorModeValue('brand.light.400', 'brand.dark.100');
+
+  return (
+    <NextLink href={`#${id}`}>
+      <Heading
+        id={id}
+        lineHeight={'1em'}
+        mb="1em"
+        mt="2em"
+        sx={{
+          scrollMarginTop: '10px',
+          scrollSnapMargin: '10px', // Safari
+        }}
+        {...props}
+        _hover={{
+          color,
+          textDecoration: 'underline',
+          _before: {
+            content: '"#"',
+            position: 'relative',
+            marginLeft: '-1.4ch',
+            paddingRight: '0.5ch',
+            color,
+            textDecoration: 'none',
+          },
+        }}
+      />
+    </NextLink>
+  );
+};
 
 const Hr = () => {
   const { colorMode } = useColorMode();
@@ -111,6 +115,62 @@ const Hr = () => {
 
   return <Divider borderColor={borderColor[colorMode]} my={4} w="100%" />;
 };
+
+function Code(props) {
+  const colorScheme = useColorModeValue('orange', 'purple');
+  const borderColor = useColorModeValue('orange.100', 'gray.700');
+  const background = useColorModeValue('gray.200', 'gray.700');
+  const lineColor = useColorModeValue('gray.500', 'gray.600');
+
+  if (!props.className) {
+    // inline code
+    return <ChakraCode colorScheme={colorScheme} fontSize="0.84em" {...props} />;
+  }
+
+  const { filename, line, ...rest } = props;
+
+  return (
+    <chakra.code
+      data-filename={filename}
+      display="block"
+      border="1px solid"
+      borderColor={borderColor}
+      fontSize="0.84em"
+      w="100%"
+      overflowX="auto"
+      py={2}
+      my={4}
+      sx={{
+        '&[data-filename]::before': {
+          content: 'attr(data-filename)',
+          padding: 2,
+          background,
+          display: 'block',
+          fontSize: 'smaller',
+          marginBottom: '0.5rem',
+        },
+        '&[data-filename]': {
+          paddingTop: 0,
+        },
+        '.highlight-line': {
+          position: 'relative',
+          borderLeft: '5px solid transparent',
+          pl: 8,
+          pr: 2,
+
+          '&::before': {
+            content: 'attr(data-line)',
+            position: 'absolute',
+            top: 0,
+            left: 1,
+            color: lineColor,
+          },
+        },
+      }}
+      {...rest}
+    />
+  );
+}
 
 export const MDXComponents = {
   h1: (props: any) => <Heading as="h1" size="xl" my={4} {...props} />,
@@ -129,58 +189,7 @@ export const MDXComponents = {
   hr: Hr,
   a: CustomLink,
   Link: CustomLink,
-  code: (props: any) => {
-    if (!props.className) {
-      // inline code
-      return (
-        <Code colorScheme={useColorModeValue('orange', 'purple')} fontSize="0.84em" {...props} />
-      );
-    }
-
-    const { filename, line, ...rest } = props;
-
-    return (
-      <chakra.code
-        data-filename={filename}
-        display="block"
-        border="1px solid"
-        borderColor={useColorModeValue('orange.100', 'gray.700')}
-        fontSize="0.84em"
-        w="100%"
-        overflowX="auto"
-        py={2}
-        my={4}
-        sx={{
-          '&[data-filename]::before': {
-            content: 'attr(data-filename)',
-            padding: 2,
-            background: useColorModeValue('gray.200', 'gray.700'),
-            display: 'block',
-            fontSize: 'smaller',
-            marginBottom: '0.5rem',
-          },
-          '&[data-filename]': {
-            paddingTop: 0,
-          },
-          '.highlight-line': {
-            position: 'relative',
-            borderLeft: '5px solid transparent',
-            pl: 8,
-            pr: 2,
-
-            '&::before': {
-              content: 'attr(data-line)',
-              position: 'absolute',
-              top: 0,
-              left: 1,
-              color: useColorModeValue('gray.500', 'gray.600'),
-            },
-          },
-        }}
-        {...rest}
-      />
-    );
-  },
+  code: Code,
   Note,
   Flex,
 };

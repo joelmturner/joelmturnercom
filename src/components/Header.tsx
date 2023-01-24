@@ -45,6 +45,8 @@ export function Header() {
   const bg = useColorModeValue('white', 'gray.800');
   const ref = React.useRef<HTMLHeadElement>();
   const mobileNav = useDisclosure();
+  const navLinkColor = useColorModeValue('brand.light.300', 'brand.dark.100');
+  const navLinkHoverColor = useColorModeValue('brand.light.200', 'brand.dark.200');
 
   const router = useRouter();
   const activeRootSlug = router.route.split('/')?.[1] ?? '';
@@ -139,12 +141,12 @@ export function Header() {
               <Text
                 key={link.id}
                 bg={bg}
-                color={useColorModeValue('brand.light.300', 'brand.dark.100')}
+                color={navLinkColor}
                 display="inline-flex"
                 alignItems="center"
                 fontSize="md"
                 fontWeight="bold"
-                _hover={{ color: useColorModeValue('brand.light.200', 'brand.dark.200') }}
+                _hover={{ color: navLinkHoverColor }}
                 transition="color 150ms"
                 px={3}
                 py={2}
@@ -160,7 +162,7 @@ export function Header() {
               fontSize="lg"
               aria-label={`Switch to ${text} mode`}
               variant="ghost"
-              color={useColorModeValue('brand.light.300', 'brand.dark.100')}
+              color={navLinkColor}
               ml={{ base: '0', md: '3' }}
               onClick={toggleMode}
               icon={<SwitchIcon />}

@@ -64,6 +64,7 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
   const ref = useRef<HTMLDivElement>(null);
   const { setLightbox } = useLightBoxContext();
   const [[page, direction], setPage] = useState([offset, 0]);
+  const iconColor = useColorModeValue('gray.700', 'gray.300');
 
   const handleLightboxUpdate = useCallback((index: number) => {
     setLightbox((prevState) => ({ ...prevState, index: prevState.index + index }));
@@ -166,7 +167,7 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
             padding={'0'}
             width={'1.5rem'}
             height={'1.5rem'}
-            color={useColorModeValue('gray.700', 'gray.300')}
+            color={iconColor}
             cursor={'pointer'}
             borderRadius={'50%'}
             pointerEvents="auto"
@@ -182,7 +183,7 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
               width="1.9rem"
               height="1.9rem"
               fontSize=".75rem"
-              color={useColorModeValue('gray.700', 'gray.300')}
+              color={iconColor}
               cursor="pointer"
               top="50%"
               borderRadius="50%"
@@ -254,7 +255,7 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
               width="1.9rem"
               height="1.9rem"
               fontSize=".75rem"
-              color={useColorModeValue('gray.700', 'gray.300')}
+              color={iconColor}
               cursor="pointer"
               top="50%"
               borderRadius="50%"

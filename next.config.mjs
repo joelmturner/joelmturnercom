@@ -10,9 +10,8 @@ const sentryWebpackPluginOptions = {
   // recommended:
   //   release, url, org, project, authToken, configFile, stripPrefix,
   //   urlPrefix, include, ignore
-
+  authToken: process.env.SENTRY_AUTH_TOKEN,
   silent: true, // Suppresses all logs
-  hideSourceMaps: true,
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
 };
@@ -42,6 +41,9 @@ const nextConfig = {
   images: {
     domains: ['res.cloudinary.com'],
     deviceSizes: [640, 750, 828, 1080],
+  },
+  sentry: {
+    hideSourceMaps: true,
   },
 };
 
