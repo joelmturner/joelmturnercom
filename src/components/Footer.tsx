@@ -56,7 +56,7 @@ export function Footer() {
       w="full"
       py={8}
     >
-      <chakra.div mx="auto" maxW="4xl">
+      <chakra.div mx="auto" maxW="4xl" px={4}>
         <Flex justifyContent="space-between" w="100%" alignItems="center">
           <Flex justifyContent="flex-start" gap={2}>
             <Text>
@@ -70,7 +70,7 @@ export function Footer() {
               </Link>
             </Text>
           </Flex>
-          <Flex gap={2} justifyContent="flex-end">
+          <Flex gap={2} wrap="wrap" justifyContent="flex-end" maxW={['40vw', 'auto']}>
             <SocialButton href="https://www.instagram.com/joelmturner/" label="Instagram">
               <IoLogoInstagram />
             </SocialButton>

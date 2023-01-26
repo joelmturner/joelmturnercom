@@ -53,7 +53,7 @@ export function Header() {
 
   const handleMobileNavClick = useCallback(() => {
     mobileNav.onClose();
-  }, []);
+  }, [mobileNav]);
 
   const logo = useMemo(() => {
     return colorMode === 'light'
@@ -92,7 +92,7 @@ export function Header() {
         ))}
       </VStack>
     ),
-    [mobileNav.isOpen]
+    [bg, handleMobileNavClick, mobileNav.isOpen, mobileNav.onClose]
   );
 
   return (
@@ -108,7 +108,7 @@ export function Header() {
       borderBottomColor={useColorModeValue('gray.200', 'gray.900')}
     >
       <chakra.div h="4.5rem" mx="auto" maxW="4xl">
-        <Flex w="full" h="full" px="6" alignItems="center" justifyContent="space-between">
+        <Flex w="full" h="full" px={4} alignItems="center" justifyContent="space-between">
           <Flex align="flex-start">
             <Link href="/">
               <HStack cursor="pointer">
@@ -126,7 +126,7 @@ export function Header() {
             </Link>
           </Flex>
           <Flex>
-            <HStack spacing="5" display={{ base: 'none', md: 'flex' }}></HStack>
+            <HStack spacing={5} display={{ base: 'none', md: 'flex' }}></HStack>
           </Flex>
           <Flex
             justify="flex-end"
