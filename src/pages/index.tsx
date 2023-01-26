@@ -58,7 +58,7 @@ export default function Home({ post }: InferGetStaticPropsType<typeof getStaticP
 
   return (
     <>
-      <SEO />
+      <SEO title="Howdy 👋🏻" />
       <Container maxW={'5xl'}>
         <Stack spacing={{ base: 8, md: 10 }} py={{ base: 12, md: 20 }}>
           <Heading
