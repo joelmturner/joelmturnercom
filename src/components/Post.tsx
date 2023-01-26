@@ -1,7 +1,7 @@
-import { Box, chakra, Flex, Heading, Image, Text, Wrap, WrapItem } from '@chakra-ui/react';
-import { CldImage } from 'next-cloudinary';
+import { Box, Flex, Heading, Text, Wrap, WrapItem } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import { memo, useCallback, useState } from 'react';
+import { memo } from 'react';
+import { FrontMatter } from '../lib/types';
 import { getDateString } from '../utils/strings';
 import { PostImage } from './CCImage';
 import { PostTags } from './PostTags';
@@ -18,7 +18,15 @@ export function PostTitle({ title, url }) {
 
 const MemoizedPostTitle = memo(PostTitle);
 
-export function Post({ post, root = 'blog', index }) {
+export function Post({
+  post,
+  root = 'blog',
+  index,
+}: {
+  post: FrontMatter;
+  root?: 'blog' | 'til';
+  index?: number;
+}) {
   const postUrl = `/${root}/${post.slug}`;
   return (
     <Wrap key={post.slug} spacing="30px" marginTop="5" w="100%">
@@ -47,8 +55,13 @@ export function Post({ post, root = 'blog', index }) {
             </Box>
           ) : null}
           {!post.cover ? <MemoizedPostTitle title={post.title} url={postUrl} /> : null}
-          <Flex alignItems="center" justifyContent="space-between" marginTop="3">
-            {post.tags?.length ? <PostTags tags={post.tags} /> : null}
+          <Flex
+            alignItems="center"
+            justifyContent="space-between"
+            marginTop="3"
+            display={['none', 'flex']}
+          >
+            {post.tags?.length ? <PostTags tags={post.tags} postType={root} /> : null}
             <Text as="i" display={['none', 'block']}>
               {getDateString(post.date)}
             </Text>

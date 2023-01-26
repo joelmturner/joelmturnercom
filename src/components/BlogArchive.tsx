@@ -5,7 +5,15 @@ import { FrontMatter } from '../lib/types';
 import { PostList } from './PostList';
 import SEO from './SEO';
 
-export function BlogArchive({ posts, title }) {
+export function BlogArchive({
+  posts,
+  title,
+  postType = 'blog',
+}: {
+  posts: FrontMatter[];
+  title: string;
+  postType?: 'blog' | 'til';
+}) {
   const [search, setSearch] = useState<string>('');
   const handleSearch = useCallback(
     function (event) {
@@ -38,7 +46,7 @@ export function BlogArchive({ posts, title }) {
       </Flex>
 
       <Divider marginTop="5" />
-      <PostList posts={filteredPosts} />
+      <PostList posts={filteredPosts} root={postType} />
     </>
   );
 }

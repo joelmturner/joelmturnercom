@@ -23,10 +23,6 @@ export const getImageStep = (index: number, arr: any[], direction: 'prev' | 'nex
   }
 };
 
-// export function slugify(str: string, prefix?: string): string {
-//   return prefix ? `${prefix}/${slugifyFn(str)}/` : slugifyFn(str);
-// }
-
 // function to replace spaces with hyphens
 // and convert everything to lowercase
 export function slugify(string: string) {

@@ -41,8 +41,8 @@ export function getAllPostIds(type: PostType = 'post') {
     });
 }
 
-export function getAllCategories() {
-  const posts = getPosts();
+export function getAllCategories(postType: PostType = 'post') {
+  const posts = getPosts(postType);
   const categories = posts.reduce((acc, post) => {
     const category = post.category.toLowerCase();
     if (!acc.includes(category)) {
@@ -55,8 +55,8 @@ export function getAllCategories() {
     .flat();
 }
 
-export function getAllTags() {
-  const posts = getPosts();
+export function getAllTags(postType: PostType = 'post') {
+  const posts = getPosts(postType);
   const resolvedTags = posts.reduce((acc, post) => {
     const tags = post.tags.map((tag) => [tag.toLowerCase(), slugify(tag)]).flat();
     acc = Array.from(new Set([...acc, ...tags]));
@@ -171,16 +171,16 @@ export async function getLatestPost() {
   return posts[0];
 }
 
-export function getPostsByCategory(slug: string) {
-  const posts = getPosts();
+export function getPostsByCategory(slug: string, type: PostType = 'post') {
+  const posts = getPosts(type);
   return posts.filter((post) => slugify(post.category) === slug);
 }
 
-export function getPostsByTag(slug: string) {
-  const posts = getPosts();
+export function getPostsByTag(slug: string, type: PostType = 'post') {
+  const posts = getPosts(type);
 
   return posts.filter((post) => {
-    const tags = post.tags.map((tag) => slugify(tag)) ?? [];
+    const tags = post.tags.map((tag) => [slugify(tag), tag]).flat() ?? [];
     return tags.includes(slug);
   });
 }

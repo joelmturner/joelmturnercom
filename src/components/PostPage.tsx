@@ -106,14 +106,19 @@ export function PostPage({
           Discuss this article on Twitter
         </Link>
         {category ? (
-          <HStack spacing={2}>
+          <HStack gap={[1, 2]} wrap="wrap">
             <Text fontSize="md">Category: </Text>
-            <Tag size="sm" variant="subtle" colorScheme={colorMode === 'light' ? 'red' : 'blue'}>
-              <Link href={`/blog/category/${slugify(category)}`}>{category}</Link>
+            <Tag
+              size={['md', 'sm']}
+              p={[2, 0]}
+              variant="subtle"
+              colorScheme={colorMode === 'light' ? 'red' : 'blue'}
+            >
+              <Link href={`/${postType}/category/${slugify(category)}`}>{category}</Link>
             </Tag>
           </HStack>
         ) : null}
-        {tags?.length ? <PostTags tags={tags} /> : null}
+        {tags?.length ? <PostTags tags={tags} postType={postType} /> : null}
       </VStack>
       <Flex justifyContent={getJustification(next, prev)} py={4} gap={6}>
         {prev && (
