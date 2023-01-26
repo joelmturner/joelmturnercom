@@ -20,7 +20,6 @@ export function PostTags({ marginTop, tags, size = 'sm', postType = 'blog' }: Po
             variant="subtle"
             colorScheme={colorMode === 'light' ? 'red' : 'blue'}
             key={tag}
-            p={[2, 0]}
           >
             <Link href={`/${postType}/tag/${slugify(tag)}`}>{tag}</Link>
           </Tag>

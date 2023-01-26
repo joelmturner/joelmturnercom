@@ -110,7 +110,6 @@ export function PostPage({
             <Text fontSize="md">Category: </Text>
             <Tag
               size={['md', 'sm']}
-              p={[2, 0]}
               variant="subtle"
               colorScheme={colorMode === 'light' ? 'red' : 'blue'}
             >
