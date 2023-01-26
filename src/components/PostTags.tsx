@@ -5,7 +5,7 @@ type PostTagsProps = {
   tags: Array<string>;
   marginTop?: SpaceProps['marginTop'];
   size?: TagProps['size'];
-  postType: 'blog' | 'til';
+  postType?: 'blog' | 'til';
 };
 
 export function PostTags({ marginTop, tags, size = 'sm', postType = 'blog' }: PostTagsProps) {
