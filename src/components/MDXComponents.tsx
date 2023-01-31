@@ -15,9 +15,44 @@ import NextLink from 'next/link';
 import { InPostGallery } from './InPostGallery';
 import { Note } from './Note';
 import { CldImage } from 'next-cloudinary';
+import NextImage from 'next/image';
+import { useEffect, useState } from 'react';
+import { isCloudinaryUrl } from '../utils/strings';
 
-const CustomImage = (props: any) => {
-  return <CldImage width={props.width} height={props.height} src={props.src} alt={props.alt} />;
+const CustomImage = ({ src, alt = '', width, height }: any) => {
+  const [imageDetails, setImageDetails] = useState({ width: 0, height: 0 });
+
+  const srcSegments = src.split('/');
+  const uploadIndex = srcSegments.indexOf('upload');
+  // parameter to get image info
+  srcSegments.splice(uploadIndex + 1, 0, 'fl_getinfo');
+  const newSrc = srcSegments.join('/');
+
+  useEffect(() => {
+    async function getImageDetails() {
+      const url = new URL(newSrc);
+      const response = await fetch(url);
+      const json = await response.json();
+      setImageDetails(json.output);
+    }
+    if (isCloudinaryUrl(src)) {
+      getImageDetails();
+    }
+  }, [newSrc, src]);
+
+  if (isCloudinaryUrl(src)) {
+    return imageDetails.width && imageDetails.height ? (
+      <CldImage
+        width={Math.min(960, imageDetails.width)}
+        height={imageDetails.height}
+        src={src}
+        alt={alt}
+        style={{ aspectRatio: `${imageDetails.width} / ${imageDetails.height}` }}
+      />
+    ) : null;
+  } else {
+    return <NextImage width={width} height={height} fill src={src} alt={alt} />;
+  }
 };
 
 const CustomLink = (props: any) => {
@@ -185,7 +220,7 @@ export const MDXComponents = {
   ol: (props: any) => <Box as="ol" pt={2} pl={4} ml={2} {...props} />,
   li: (props: any) => <Box as="li" pb={1} {...props} />,
   blockquote: Quote,
-  image: CustomImage,
+  img: CustomImage,
   hr: Hr,
   a: CustomLink,
   Link: CustomLink,
