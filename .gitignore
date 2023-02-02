@@ -22,6 +22,7 @@
 # production
 /build
 public/rss
+public/sitemap*
 
 # misc
 .DS_Store
@@ -32,6 +33,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+analyze/
 
 # local env files
 .env*.local
@@ -41,15 +43,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-
-# Sentry
-.sentryclirc
-
-# Sentry
-.sentryclirc
-
-# Sentry
-.sentryclirc
 
 # Sentry
 .sentryclirc
