@@ -61,11 +61,12 @@ export function PostPage({
 
   //   dynamic import because not ESM compatible
   const embeds = dynamic(() => import('mdx-embed') as any, { ssr: false });
-  const { CodePen, CodeSandbox } = embeds as any;
+  const { CodePen, CodeSandbox, YouTube } = embeds as any;
 
   const components = {
     CodePen,
     CodeSandbox,
+    YouTube,
     ...MDXComponents,
   };
 

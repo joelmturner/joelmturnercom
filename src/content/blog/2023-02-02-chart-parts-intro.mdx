@@ -1,0 +1,75 @@
+---
+title: 'Chart Parts: Anatomy of a chart'
+description: Introduction to data visualization charts and the parts that make them up.
+date: 2023-02-02T07:27:30.128Z
+draft: true
+tags:
+  - Data Visualization
+  - charts
+  - data
+  - frontend
+  - ui
+category: dev
+lastmod: 2023-02-08T07:22:27.416Z
+excerpt: When building charts and chart libraries it's nice to know how all the pieces
+  work together. We take a quick look at how all the parts work together.
+series: Chart Parts
+cover: https://res.cloudinary.com/joelmturner/image/upload/v1675837886/Posts/anatomy_of_a_chart.jpg
+slug: chart-parts-anatomy-of-a-chart
+---
+
+import { YouTube, CodeSandbox } from 'mdx-embed';
+
+<YouTube youTubeId="jU5UbejrBhc" />
+
+## Intro
+
+When building charts and chart libraries it's nice to know how all the pieces work together. Today we're going to talk a little bit about how this all works and dive into a quick anatomy of charts and and how it can be used to tell the data story.
+
+## Data
+
+Before we get into the anatomy of a chart, let's take a look at the core part of any data visualization, the data. Most datasets will be an array of items that contain metrics and dimensions.
+
+### Single and Multi Dimension Dataset Examples
+
+<CodeSandbox codeSandboxId="react-single-and-stacked-bar-chart-with-visx-0ieqrf" />
+
+### What is a dimension?
+
+A dimension are an attribute that help categorize and add context to the data. For example, if you are analyzing social media data, the dimensions might be date, location, and user. Each dimension provides a different way of slicing and grouping the data, making it easier to understand.
+
+### What is a metric?
+
+A metric is a numerical value allow us to measurement different aspects of the data. For example, if you are analyzing social media data, the metrics might be total likes, average likes per day, and number of posts shared. Metrics provide the actual values that you can use to measure and compare your data.
+
+### How do dimensions and metrics work together?
+
+Dimensions and metrics work together to provide a complete picture of your data. The combination of these will allow us to organize, categorize, measure and compare our data which can give us better insights into the data.
+
+## Anatomy of a chart
+
+Let's take a quick look at the pieces that can make up a chart. Each chart varies in what it needs to tell the data story, but there are a few common pieces that are used in most charts. This diagram is a simplified version of something [Ryan Legler](https://www.linkedin.com/in/ryan-legler-b0807853) created when built initial data viz library for Sprinklr.
+
+![anatomy of a chart](https://res.cloudinary.com/joelmturner/image/upload/v1675838326/Posts/anatomy_of_a_chart_diagram.png 'Anatomy of a chart')
+
+### Field
+
+The field is the area where the data is represented and where the main insights are derived. This will be where the bars, bubbles, pies, maps, etc will be displayed.
+
+### Legend
+
+The legend is a key that explains what the different colors or symbols in the chart represent. The legend adds more context to the chart so we have a better understanding of the data being presented. An example usage is in a pie chart or a stacked bar/column chart to convey the meaning of the color segments.
+
+### Axes
+
+Axes help us determine the scale and the values of data being presented in the field. They will often display ticks and tick labels for quick context about the field.
+
+### Controls
+
+The controls are the UI elements that allow the user to interact with the chart, play through a timeline, zoom in/out, segment/filter the data, etc.
+
+## Conclusion and Resources
+
+For some chart inspiration and clarification, check out the [Data Viz Project](https://datavizproject.com/) which has some great examples of what we discussed here.
+
+When we use the right chart for the data and leverage the parts that make up a chart, we can tell a better story with our data.
