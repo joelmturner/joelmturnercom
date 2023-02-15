@@ -1,23 +1,40 @@
-export const SIZE_VS_PX = {
-  sm: 240,
-  md: 364,
-  lg: 736,
+export const SIZE_VS_DETAILS = {
+  lg: {
+    priority: 2,
+    px: 900,
+  },
+  md: {
+    priority: 6,
+    px: 600,
+  },
+  sm: {
+    priority: 9,
+    px: 400,
+  },
 };
 
-export const COLUMNS_VS_STYLES = {
-  1: 'repeat(1, minmax(200px, 1fr))',
-  2: 'repeat(2, 1fr)',
-  3: 'repeat(3, 1fr)',
+export const COLUMNS_VS_DETAILS = {
+  1: {
+    style: 'repeat(1, minmax(200px, 1fr))',
+    size: 'lg',
+    priority: 2,
+    px: 900,
+  },
+  2: {
+    style: 'repeat(2, 1fr)',
+    size: 'md',
+    priority: 6,
+    px: 600,
+  },
+  3: {
+    style: 'repeat(3, 1fr)',
+    size: 'sm',
+    priority: 9,
+    px: 400,
+  },
 };
 
-export const COLUMNS_VS_SIZE = {
-  1: 'lg',
-  2: 'md',
-  3: 'sm',
-};
-
-export const SIZE_VS_PRIORITY = {
-  sm: 9,
-  md: 6,
-  lg: 2,
+export const cldImageStyles = {
+  cursor: 'pointer',
+  objectFit: 'cover',
 };

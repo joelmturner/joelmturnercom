@@ -1,36 +1,28 @@
 import { Grid, GridItem } from '@chakra-ui/react';
 import { CldImage } from 'next-cloudinary';
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback } from 'react';
 import { useLightBoxContext } from '../../hooks/useLightBox';
 import { Dialog } from '../Dialog';
-import { COLUMNS_VS_SIZE, COLUMNS_VS_STYLES, SIZE_VS_PRIORITY, SIZE_VS_PX } from './constants';
+import { cldImageStyles, COLUMNS_VS_DETAILS, SIZE_VS_DETAILS } from './constants';
 import { GalleryProps } from './types';
 
 function GridImage({ id, url, index, onClick, size = 'md' }) {
   const handleImageClick = useCallback(() => {
     onClick(index);
-  }, [index]);
-
-  const styles = useMemo(
-    () => ({
-      cursor: 'pointer',
-      objectFit: 'cover',
-    }),
-    []
-  );
+  }, [index, onClick]);
 
   return (
     <GridItem w="100%" h="100%" key={url}>
       <CldImage
         src={url}
         alt={id}
-        width={SIZE_VS_PX[size]}
-        height={SIZE_VS_PX[size]}
+        width={SIZE_VS_DETAILS[size].px}
+        height={SIZE_VS_DETAILS[size].px}
         onClick={handleImageClick}
         placeholder="blur"
-        style={styles}
+        style={cldImageStyles}
         sizes="33vw, 50vw, 100vw"
-        priority={index < SIZE_VS_PRIORITY[size]}
+        priority={index < SIZE_VS_DETAILS[size]}
       />
     </GridItem>
   );
@@ -43,18 +35,21 @@ export function Gallery({ images, columns = 3 }: GalleryProps) {
 
   const handleCloseLightbox = useCallback(() => {
     setLightbox((prevState) => ({ ...prevState, index: -1 }));
-  }, []);
+  }, [setLightbox]);
 
-  const handleClickImage = useCallback((index: number) => {
-    setLightbox((prevState) => ({ ...prevState, index }));
-  }, []);
+  const handleClickImage = useCallback(
+    (index: number) => {
+      setLightbox((prevState) => ({ ...prevState, index }));
+    },
+    [setLightbox]
+  );
 
   return (
     <>
       <Grid
         gap={2}
         w="full"
-        templateColumns={COLUMNS_VS_STYLES[columns]}
+        templateColumns={COLUMNS_VS_DETAILS[columns].style}
         sx={{ containIntrinsicSize: '160px', contentVisibility: 'auto' }}
       >
         {images?.map(({ id, url }, index) => (
@@ -64,7 +59,7 @@ export function Gallery({ images, columns = 3 }: GalleryProps) {
             url={url}
             index={index}
             onClick={handleClickImage}
-            size={COLUMNS_VS_SIZE[columns]}
+            size={COLUMNS_VS_DETAILS[columns].size}
           />
         ))}
       </Grid>

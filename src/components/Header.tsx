@@ -116,8 +116,8 @@ export function Header() {
                   <CldImage
                     src={logo}
                     alt="joelmturner pyramid logo"
-                    width={464}
-                    height={80}
+                    width={600}
+                    height={200}
                     loading="eager"
                     sizes="(max-width: 480px) 40vw, 14vw"
                   />
