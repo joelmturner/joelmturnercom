@@ -1,5 +1,5 @@
 import cloudinary from 'cloudinary';
-import { Illustrations } from './types';
+import { CloudinaryResponse, Illustrations } from './types';
 
 cloudinary.v2.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -9,7 +9,7 @@ cloudinary.v2.config({
 });
 
 export async function getIllustrations(): Promise<Illustrations> {
-  let imageResults = {
+  const imageResults: Illustrations = {
     handletteredabcs_2016: [],
     inktober2017: [],
     inktober2018: [],
@@ -20,15 +20,15 @@ export async function getIllustrations(): Promise<Illustrations> {
     joelmturner_featured: [],
     letterclash: [],
   };
+
   await cloudinary.v2.search
     .expression('folder:illustration')
     .sort_by('public_id', 'desc')
-    .max_results(300)
+    .max_results(700)
     .with_field('tags')
     .execute()
-    .then((result) => {
-      imageResults = result.resources.reduce((acc, imageResult) => {
-        const tag = imageResult.tags[0];
+    .then((result: CloudinaryResponse) => {
+      result.resources.forEach((imageResult) => {
         const image = {
           id: imageResult.asset_id,
           url: imageResult.secure_url,
@@ -37,10 +37,10 @@ export async function getIllustrations(): Promise<Illustrations> {
           height: imageResult.height,
         };
 
-        const prev = acc[tag] || [];
-
-        acc[`${tag}`] = [...prev, image];
-        return acc;
+        for (const tag of imageResult.tags) {
+          const prev = imageResults[tag] || [];
+          imageResults[`${tag}`] = [...prev, image];
+        }
       }, {});
     });
 

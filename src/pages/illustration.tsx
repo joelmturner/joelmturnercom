@@ -18,14 +18,17 @@ function IllustrationPage({ images }: InferGetStaticPropsType<typeof getStaticPr
 
   const selectedImages = useMemo(() => {
     return images[lightbox.collection];
-  }, [lightbox.collection]);
+  }, [images, lightbox.collection]);
 
-  const handleChange = useCallback((selection: React.ChangeEvent<HTMLSelectElement>) => {
-    setLightbox((prevState) => ({
-      ...prevState,
-      collection: selection.target.value,
-    }));
-  }, []);
+  const handleChange = useCallback(
+    (selection: React.ChangeEvent<HTMLSelectElement>) => {
+      setLightbox((prevState) => ({
+        ...prevState,
+        collection: selection.target.value,
+      }));
+    },
+    [setLightbox]
+  );
 
   return (
     <>
