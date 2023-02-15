@@ -24,11 +24,11 @@ export async function getIllustrations(): Promise<Illustrations> {
   await cloudinary.v2.search
     .expression('folder:illustration')
     .sort_by('public_id', 'desc')
-    .max_results(700)
+    .max_results(800)
     .with_field('tags')
     .execute()
     .then((result: CloudinaryResponse) => {
-      result.resources.forEach((imageResult) => {
+      for (const imageResult of result.resources) {
         const image = {
           id: imageResult.asset_id,
           url: imageResult.secure_url,
@@ -41,7 +41,7 @@ export async function getIllustrations(): Promise<Illustrations> {
           const prev = imageResults[tag] || [];
           imageResults[`${tag}`] = [...prev, image];
         }
-      }, {});
+      }
     });
 
   return imageResults;
