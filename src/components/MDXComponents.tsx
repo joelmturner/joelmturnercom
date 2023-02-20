@@ -31,7 +31,7 @@ const CustomImage = ({
   height?: number;
 }) => {
   const [imageDetails, setImageDetails] = useState({ width: 0, height: 0 });
-
+  console.log('imageDetails', imageDetails);
   const srcSegments = src.split('/');
   const uploadIndex = srcSegments.indexOf('upload');
   // parameter to get image info
@@ -50,11 +50,13 @@ const CustomImage = ({
     }
   }, [newSrc, src]);
 
+  const resolvedWidth = imageDetails.width ? Math.min(960, imageDetails.width) : null;
+
   if (isCloudinaryUrl(src)) {
     return imageDetails.width && imageDetails.height ? (
       <PostImage
-        width={Math.min(960, imageDetails.width)}
-        height={imageDetails.height}
+        width={resolvedWidth}
+        height={(resolvedWidth / imageDetails.width) * imageDetails.height}
         src={src}
         alt={alt}
         style={{ aspectRatio: `${imageDetails.width} / ${imageDetails.height}` }}
