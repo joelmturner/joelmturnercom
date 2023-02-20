@@ -1,6 +1,6 @@
 import { InferGetStaticPropsType } from 'next';
 import { BlogArchive } from '../../../components/BlogArchive';
-import { getAllTags, getPostsByTag } from '../../../lib/posts';
+import { getAllPostsByTag, getAllTags } from '../../../lib/posts';
 import { slugify } from '../../../utils/utils';
 
 export default function TagArchive({ posts, tag }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   let posts;
   try {
-    posts = getPostsByTag(slugify(params.slug));
+    posts = getAllPostsByTag(slugify(params.slug));
   } catch (e) {
     console.error(e);
     return {

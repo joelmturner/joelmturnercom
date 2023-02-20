@@ -68,7 +68,7 @@ export function LightboxContextProvider({ children }: PropsWithChildren<Record<s
         return { ...prevState, ...newState };
       });
     },
-    []
+    [router]
   );
 
   return (

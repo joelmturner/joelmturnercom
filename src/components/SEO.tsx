@@ -45,13 +45,14 @@ function SEO({
   keywords,
 }: SEOProps) {
   const metaDescription = description ?? DESCRIPTION;
-  const metaImage = image ?? 'https://res.cloudinary.com/joelmturner/joel-turner.jpg';
+  const metaImage =
+    image ?? 'https://res.cloudinary.com/joelmturner/image/upload/v1532201643/joel-turner.jpg';
   const metaKeywords = keywords ?? KEYWORDS;
 
   const { pathname, asPath } = useRouter();
   const url = useMemo(() => {
     return `${BASE_URL}${asPath ?? pathname}`;
-  }, []);
+  }, [asPath, pathname]);
 
   return (
     <>

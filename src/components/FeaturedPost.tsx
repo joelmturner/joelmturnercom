@@ -1,9 +1,10 @@
 import { Box, Image, useColorModeValue, Heading, Text } from '@chakra-ui/react';
+import { Blog } from 'contentlayer/generated';
 import { CldImage } from 'next-cloudinary';
 import NextLink from 'next/link';
 import { PostTags } from './PostTags';
 
-export function FeaturedPost({ post }) {
+export function FeaturedPost({ post }: { post: Blog }) {
   return (
     <Box
       marginTop={{ base: '1', sm: '5' }}

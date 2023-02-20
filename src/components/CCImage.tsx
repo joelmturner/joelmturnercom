@@ -1,8 +1,11 @@
 import { chakra, ImageProps } from '@chakra-ui/react';
-import { CldImage } from 'next-cloudinary';
-import { ImageProps as NextImageProps } from 'next/image';
+import { CldImage, CldImageProps } from 'next-cloudinary';
 
-export const PostImage = chakra<'img', ImageProps & NextImageProps>(CldImage, {
-  shouldForwardProp: (prop) =>
-    ['width', 'height', 'src', 'alt', 'sizes', 'priority'].includes(prop),
-});
+// this helps us use the chakra styles on the CldImage component
+export const PostImage = chakra<React.ElementType<CldImageProps>, ImageProps & CldImageProps>(
+  CldImage,
+  {
+    shouldForwardProp: (prop) =>
+      ['width', 'height', 'src', 'alt', 'sizes', 'priority'].includes(prop),
+  }
+);

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { unified } from 'unified';
 import parse from 'rehype-parse';
 import { toHtml } from 'hast-util-to-html';
@@ -48,7 +49,7 @@ const wrapLines = function wrapLines(ast, linesToHighlight) {
   const highlightAll = linesToHighlight.length === 1 && linesToHighlight[0] === 0;
   const allLines = Array.from(new Set(ast.map((x) => x.lineNumber)));
   let i = 0;
-  const wrapped = allLines.reduce((nodes: any, marker) => {
+  const wrapped = allLines.reduce((nodes, marker) => {
     const line = marker;
     const children = [];
     for (; i < ast.length; i++) {
@@ -80,7 +81,7 @@ const wrapLines = function wrapLines(ast, linesToHighlight) {
     });
 
     return nodes;
-  }, [] as any[]);
+  }, []);
 
   return wrapped;
 };

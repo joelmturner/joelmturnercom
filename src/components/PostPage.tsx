@@ -3,7 +3,6 @@ import {
   chakra,
   Divider,
   Flex,
-  Heading,
   HStack,
   Link,
   Tag,
@@ -12,19 +11,17 @@ import {
   useColorModeValue,
   VStack,
 } from '@chakra-ui/react';
-import { getMDXComponent } from 'mdx-bundler/client';
+import { Blog } from 'contentlayer/generated';
+import { useLiveReload, useMDXComponent } from 'next-contentlayer/hooks';
 import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
-import { useMemo } from 'react';
-import { renderToString } from 'react-dom/server';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { FrontMatter } from '../lib/types';
 import { slugify } from '../utils/utils';
 import { MDXComponents } from './MDXComponents';
 import { PostTags } from './PostTags';
 import SEO from './SEO';
 
-function getJustification(next, prev) {
+function getJustification(next: Blog, prev: Blog) {
   if (next && prev) {
     return 'space-between';
   } else if (next && !prev) {
@@ -36,7 +33,6 @@ function getJustification(next, prev) {
 
 export function PostPage({
   title,
-  content,
   next,
   prev,
   tags,
@@ -47,17 +43,17 @@ export function PostPage({
   lastmod,
   excerpt,
   description,
+  body,
   slug,
 }: {
-  id: string;
-  content: string;
-  next: FrontMatter;
-  prev: FrontMatter;
+  next: Blog;
+  prev: Blog;
   postType: 'blog' | 'til';
-} & FrontMatter) {
+} & Blog) {
+  useLiveReload();
   const { colorMode } = useColorMode();
   const linkColor = useColorModeValue('brand.light.400', 'brand.dark.200');
-  const Post = useMemo(() => getMDXComponent(content), [content]);
+  const MDXContent = useMDXComponent(body.code);
 
   //   dynamic import because not ESM compatible
   const embeds = dynamic(() => import('mdx-embed') as any, { ssr: false });
@@ -91,7 +87,7 @@ export function PostPage({
           },
         }}
       >
-        <Post components={components} />
+        <MDXContent components={components} />
       </chakra.article>
       <VStack spacing={4} alignItems="flex-start">
         <Divider my={4} />

@@ -19,7 +19,6 @@ function GridImage({ id, url, index, onClick, size = 'md' }) {
         width={SIZE_VS_DETAILS[size].px}
         height={SIZE_VS_DETAILS[size].px}
         onClick={handleImageClick}
-        placeholder="blur"
         style={cldImageStyles}
         sizes="33vw, 50vw, 100vw"
         priority={index < SIZE_VS_DETAILS[size]}

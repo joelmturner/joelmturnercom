@@ -1,8 +1,7 @@
-import { Box, Flex, Heading, Text, Wrap, WrapItem } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text, Wrap, WrapItem, Image } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { memo } from 'react';
-import { FrontMatter } from '../lib/types';
-import { getDateString } from '../utils/strings';
+import { PostCard } from '../lib/types';
 import { PostImage } from './CCImage';
 import { PostTags } from './PostTags';
 
@@ -23,7 +22,7 @@ export function Post({
   root = 'blog',
   index,
 }: {
-  post: FrontMatter;
+  post: PostCard;
   root?: 'blog' | 'til';
   index?: number;
 }) {
@@ -35,22 +34,44 @@ export function Post({
           {post.cover ? (
             <Box borderRadius="lg" overflow="hidden">
               <NextLink href={postUrl} style={{ textDecoration: 'none' }}>
-                <PostImage
-                  transform="scale(1.0)"
-                  width={736}
-                  height={468}
-                  src={post.cover}
-                  alt={post.title}
-                  objectFit="cover"
-                  transition="0.3s ease-in-out"
-                  borderRadius="lg"
-                  _hover={{
-                    transform: 'scale(1.05)',
-                  }}
-                  sizes="(max-width: 480px) 100vw, 50vw"
-                  maxHeight={'50vw'}
-                  priority={index < 2}
-                />
+                {
+                  // CldImage is throwing a invalid cloudinary url error on pre transformed url
+                  // TODO JT check if this is still an issue
+                  post.cover.includes('blog_post_card_blank') ? (
+                    <Image
+                      transform="scale(1.0)"
+                      src={post.cover}
+                      alt={post.title}
+                      width={736}
+                      height={385}
+                      objectFit="cover"
+                      transition="0.3s ease-in-out"
+                      borderRadius="lg"
+                      _hover={{
+                        transform: 'scale(1.05)',
+                      }}
+                      sizes="(max-width: 480px) 100vw, 50vw"
+                      maxHeight={['50vw', '20vw']}
+                    />
+                  ) : (
+                    <PostImage
+                      transform="scale(1.0)"
+                      width={736}
+                      height={385}
+                      src={post.cover}
+                      alt={post.title}
+                      objectFit="cover"
+                      transition="0.3s ease-in-out"
+                      borderRadius="lg"
+                      _hover={{
+                        transform: 'scale(1.05)',
+                      }}
+                      sizes="(max-width: 480px) 100vw, 50vw"
+                      maxHeight={['50vw', '20vw']}
+                      priority={index < 2}
+                    />
+                  )
+                }
               </NextLink>
             </Box>
           ) : null}
@@ -62,9 +83,6 @@ export function Post({
             display={['none', 'flex']}
           >
             {post.tags?.length ? <PostTags tags={post.tags} postType={root} /> : null}
-            <Text as="i" display={['none', 'block']}>
-              {getDateString(post.date)}
-            </Text>
           </Flex>
           {post.cover ? <MemoizedPostTitle title={post.title} url={postUrl} /> : null}
           <Text as="p" fontSize="md" marginTop="2">

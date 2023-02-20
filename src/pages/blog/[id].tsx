@@ -1,4 +1,4 @@
-import { getAllPostIds, getPostData } from '../../lib/posts';
+import { getAllPostIds, getPostBySlug } from '../../lib/posts';
 import { PostPage } from '../../components/PostPage';
 
 export default PostPage;
@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   let postData;
   try {
-    postData = await getPostData(params.id);
+    postData = getPostBySlug(params.id);
   } catch (e) {
     console.error(e);
     return {

@@ -1,9 +1,8 @@
-import { useMemo } from 'react';
-import { getMDXComponent } from 'mdx-bundler/client';
 import { MDXComponents } from './MDXComponents';
+import { useMDXComponent } from 'next-contentlayer/hooks';
 
 export const MDXLayoutRenderer = ({ mdxSource, ...rest }: any): JSX.Element => {
-  const MDXLayout = useMemo(() => getMDXComponent(mdxSource), [mdxSource]);
+  const MDXContent = useMDXComponent(mdxSource.body.code);
 
-  return <MDXLayout components={MDXComponents} {...rest} />;
+  return <MDXContent components={MDXComponents} {...rest} />;
 };

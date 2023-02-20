@@ -14,7 +14,7 @@ import { FeaturedPost } from '../components/FeaturedPost';
 import { MDXComponents } from '../components/MDXComponents';
 import SEO from '../components/SEO';
 import { ACTIVITIES } from '../lib/constants';
-import { getLatestPost } from '../lib/posts';
+import { getAllPostsSorted } from '../lib/posts';
 
 const VARIANTS = {
   enter: (direction: number) => {
@@ -132,7 +132,7 @@ export default function Home({ post }: InferGetStaticPropsType<typeof getStaticP
 }
 
 export async function getStaticProps() {
-  const post = await getLatestPost();
+  const post = getAllPostsSorted()[0];
   return {
     props: {
       post,

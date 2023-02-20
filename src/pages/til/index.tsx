@@ -2,8 +2,9 @@ import Head from 'next/head';
 import { MDXComponents } from '../../components/MDXComponents';
 import { PostList } from '../../components/PostList';
 import { InferGetStaticPropsType } from 'next';
-import { getPosts } from '../../lib/posts';
+import { getAllPostsSorted } from '../../lib/posts';
 import SEO from '../../components/SEO';
+import _pick from 'lodash/pick';
 
 export default function TILIndex({ tils }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
@@ -19,11 +20,13 @@ export default function TILIndex({ tils }: InferGetStaticPropsType<typeof getSta
 }
 
 export async function getStaticProps() {
-  const tils = getPosts('til');
-
+  const tils = getAllPostsSorted('til');
+  const truncatedPosts = tils.map((post) =>
+    _pick(post, 'title', 'slug', 'cover', 'date', 'category', 'tags', 'excerpt')
+  );
   return {
     props: {
-      tils,
+      tils: truncatedPosts,
     },
   };
 }

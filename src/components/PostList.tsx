@@ -1,19 +1,15 @@
-import { VStack } from '@chakra-ui/react';
-import { FrontMatter } from '../lib/types';
+import { Grid, GridItem } from '@chakra-ui/react';
+import { PostCard } from '../lib/types';
 import { Post } from './Post';
 
-export function PostList({
-  posts,
-  root = 'blog',
-}: {
-  posts: FrontMatter[];
-  root?: 'blog' | 'til';
-}) {
+export function PostList({ posts, root = 'blog' }: { posts: PostCard[]; root?: 'blog' | 'til' }) {
   return (
-    <VStack paddingTop={['0', '20px']} spacing="50" alignItems="flex-start">
+    <Grid paddingTop={['0', '20px']} templateColumns={['1fr', 'repeat(2, 1fr)']} gap={6}>
       {posts?.map((post, index) => (
-        <Post key={post.slug} post={post} root={root} index={index} />
+        <GridItem w="100%" key={post.slug}>
+          <Post post={post} root={root} index={index} />
+        </GridItem>
       ))}
-    </VStack>
+    </Grid>
   );
 }
