@@ -51,7 +51,7 @@ export function Post({
                         transform: 'scale(1.05)',
                       }}
                       sizes="(max-width: 480px) 100vw, 50vw"
-                      maxHeight={['50vw', '20vw']}
+                      maxHeight={['200px', '210']}
                     />
                   ) : (
                     <PostImage
@@ -67,8 +67,9 @@ export function Post({
                         transform: 'scale(1.05)',
                       }}
                       sizes="(max-width: 480px) 100vw, 50vw"
-                      maxHeight={['50vw', '20vw']}
+                      maxHeight={['200px', '260px']}
                       priority={index < 2}
+                      style={{ aspectRatio: '731 / 464' }}
                     />
                   )
                 }
