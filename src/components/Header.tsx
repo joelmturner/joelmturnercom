@@ -31,11 +31,11 @@ function NavLink({ slug, label }: { slug: string; label: string }) {
 const MemoizedNavLink = memo(NavLink);
 
 const NAV_LINKS = [
-  { id: 'about', component: <MemoizedNavLink slug="about" label="About" /> },
-  { id: 'blog', component: <MemoizedNavLink slug="blog" label="Blog" /> },
-  { id: 'illustration', component: <MemoizedNavLink slug="illustration" label="Illustration" /> },
-  { id: 'til', component: <MemoizedNavLink slug="til" label="TIL" /> },
-  { id: 'uses', component: <MemoizedNavLink slug="uses" label="Uses" /> },
+  { id: 'about', label: 'About' },
+  { id: 'blog', label: 'Blog' },
+  { id: 'illustration', label: 'Illustration' },
+  { id: 'til', label: 'TIL' },
+  { id: 'uses', label: 'Uses' },
 ];
 
 export function Header() {
@@ -86,13 +86,24 @@ export function Header() {
           onClick={mobileNav.onClose}
         />
         {NAV_LINKS.map((link) => (
-          <Button key={link.id} w="full" variant="ghost" onClick={handleMobileNavClick}>
-            {link.component}
-          </Button>
+          <Text
+            key={link.id}
+            color={navLinkColor}
+            fontSize="md"
+            fontWeight="bold"
+            px={3}
+            py={2}
+            textDecoration={activeRootSlug === link.id ? 'underline' : 'none'}
+            textUnderlineOffset="5px"
+            textDecorationThickness="3px"
+            onClick={handleMobileNavClick}
+          >
+            <MemoizedNavLink slug={link.id} label={link.label} />
+          </Text>
         ))}
       </VStack>
     ),
-    [bg, handleMobileNavClick, mobileNav.isOpen, mobileNav.onClose]
+    [activeRootSlug, bg, handleMobileNavClick, mobileNav.isOpen, mobileNav.onClose, navLinkColor]
   );
 
   return (
@@ -154,7 +165,7 @@ export function Header() {
                 textUnderlineOffset="5px"
                 textDecorationThickness="3px"
               >
-                {link.component}
+                <MemoizedNavLink slug={link.id} label={link.label} />
               </Text>
             ))}
             <IconButton
