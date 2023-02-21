@@ -37,7 +37,7 @@ const nextConfig = {
     return config;
   },
   reactStrictMode: true,
-  experimental: { esmExternals: true, nextScriptWorkers: true },
+  experimental: { esmExternals: true },
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   images: {
     domains: ['res.cloudinary.com'],
