@@ -66,8 +66,8 @@ export function Post({
                       _hover={{
                         transform: 'scale(1.05)',
                       }}
-                      sizes="(max-width: 480px) 100vw, 50vw"
-                      maxHeight={['200px', '260px']}
+                      sizes="(max-width: 480px) 80vw, 50vw"
+                      maxHeight={['200px', '220px']}
                       priority={index < 2}
                       style={{ aspectRatio: '731 / 464' }}
                     />
