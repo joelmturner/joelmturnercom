@@ -5,7 +5,19 @@ export default class Document extends NextDocument {
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <script
+            data-partytown-config
+            dangerouslySetInnerHTML={{
+              __html: `
+                    partytown = {
+                        lib: "/_next/static/~partytown/",
+                        forward: ["gtag"]           
+                    };
+                `,
+            }}
+          />
+        </Head>
         <body>
           <ColorModeScript initialColorMode={'dark'} />
           <Main />

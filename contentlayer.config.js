@@ -122,7 +122,6 @@ export const Blog = defineDocumentType(() => ({
             },
           ],
         });
-        console.log('cloudinaryUrl', cloudinaryUrl);
         return post.cover || decodeURIComponent(cloudinaryUrl);
       },
     },
