@@ -18,6 +18,7 @@ import NextImage from 'next/image';
 import { useEffect, useState } from 'react';
 import { isCloudinaryUrl } from '../utils/strings';
 import { PostImage } from './CCImage';
+import { useMeasure } from 'react-use';
 
 const CustomImage = ({
   src,
@@ -30,8 +31,8 @@ const CustomImage = ({
   width?: number;
   height?: number;
 }) => {
+  const [ref, { width: wrapWidth = 0 }] = useMeasure();
   const [imageDetails, setImageDetails] = useState({ width: 0, height: 0 });
-  console.log('imageDetails', imageDetails);
   const srcSegments = src.split('/');
   const uploadIndex = srcSegments.indexOf('upload');
   // parameter to get image info
@@ -50,17 +51,19 @@ const CustomImage = ({
     }
   }, [newSrc, src]);
 
-  const resolvedWidth = imageDetails.width ? Math.min(960, imageDetails.width) : null;
+  const resolvedWidth = imageDetails.width ? Math.min(wrapWidth, imageDetails.width) : null;
 
   if (isCloudinaryUrl(src)) {
     return imageDetails.width && imageDetails.height ? (
-      <PostImage
-        width={resolvedWidth}
-        height={(resolvedWidth / imageDetails.width) * imageDetails.height}
-        src={src}
-        alt={alt}
-        style={{ aspectRatio: `${imageDetails.width} / ${imageDetails.height}` }}
-      />
+      <div ref={ref} style={{ width: '100%' }}>
+        <PostImage
+          width={resolvedWidth}
+          height={(resolvedWidth / imageDetails.width) * imageDetails.height}
+          src={src}
+          alt={alt}
+          style={{ aspectRatio: `${imageDetails.width} / ${imageDetails.height}` }}
+        />
+      </div>
     ) : (
       <NextImage width={width} height={height} src={src} alt={alt} />
     );
