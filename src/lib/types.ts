@@ -1,3 +1,5 @@
+import { Blog } from '.contentlayer/generated/types';
+
 export type FrontMatter = {
   title: string;
   date: number;
@@ -72,3 +74,8 @@ export type CreatedBy = {
 export type UploadedBy = {
   access_key: string;
 };
+
+export type PostCard = Pick<
+  Blog,
+  'title' | 'slug' | 'cover' | 'date' | 'category' | 'tags' | 'excerpt'
+>;

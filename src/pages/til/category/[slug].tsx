@@ -1,4 +1,4 @@
-import { getAllCategories, getPostsByCategory } from '../../../lib/posts';
+import { getAllCategories, getAllPostsByCategory } from '../../../lib/posts';
 import { BlogArchive } from '../../../components/BlogArchive';
 import { InferGetStaticPropsType } from 'next';
 import { slugify } from '../../../utils/utils';
@@ -21,7 +21,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   let posts;
   try {
-    posts = await getPostsByCategory(slugify(params.slug), 'til');
+    posts = getAllPostsByCategory(slugify(params.slug), 'til');
   } catch (e) {
     console.error(e);
     return {

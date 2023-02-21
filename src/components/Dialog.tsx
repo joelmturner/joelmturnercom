@@ -66,13 +66,16 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
   const [[page, direction], setPage] = useState([offset, 0]);
   const iconColor = useColorModeValue('gray.700', 'gray.300');
 
-  const handleLightboxUpdate = useCallback((index: number) => {
-    setLightbox((prevState) => ({ ...prevState, index: prevState.index + index }));
-  }, []);
+  const handleLightboxUpdate = useCallback(
+    (index: number) => {
+      setLightbox((prevState) => ({ ...prevState, index: prevState.index + index }));
+    },
+    [setLightbox]
+  );
 
   const handleClose = useCallback(() => {
     setLightbox((prevState) => ({ ...prevState, index: undefined }));
-  }, []);
+  }, [setLightbox]);
 
   const paginate = useCallback(
     (newDirection: number) => {
@@ -81,7 +84,7 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
         return [prevPage + newDirection, newDirection];
       });
     },
-    [setPage]
+    [handleLightboxUpdate]
   );
 
   const onNext = useCallback(() => {
@@ -92,15 +95,18 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
     paginate(-1);
   }, [paginate]);
 
-  const handleDragEnd = useCallback((e, { offset, velocity }) => {
-    const swipe = swipePower(offset.x, velocity.x);
+  const handleDragEnd = useCallback(
+    (e, { offset, velocity }) => {
+      const swipe = swipePower(offset.x, velocity.x);
 
-    if (swipe < -swipeConfidenceThreshold) {
-      paginate(1);
-    } else if (swipe > swipeConfidenceThreshold) {
-      paginate(-1);
-    }
-  }, []);
+      if (swipe < -swipeConfidenceThreshold) {
+        paginate(1);
+      } else if (swipe > swipeConfidenceThreshold) {
+        paginate(-1);
+      }
+    },
+    [paginate]
+  );
 
   // handle key presses
   useKeypressSimple('ArrowRight', onNext, [page]);
@@ -236,7 +242,6 @@ export function Dialog({ className, images, offset, onClose }: DialogProps) {
                   width={700}
                   height={700}
                   sizes="100vw"
-                  placeholder="blur"
                   style={{
                     cursor: 'pointer',
                     width: '100%',

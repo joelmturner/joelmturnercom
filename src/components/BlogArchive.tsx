@@ -1,7 +1,7 @@
 import { Divider, Flex, Heading, Input } from '@chakra-ui/react';
 import { matchSorter } from 'match-sorter';
 import { useCallback, useMemo, useState } from 'react';
-import { FrontMatter } from '../lib/types';
+import { PostCard } from '../lib/types';
 import { PostList } from './PostList';
 import SEO from './SEO';
 
@@ -10,18 +10,18 @@ export function BlogArchive({
   title,
   postType = 'blog',
 }: {
-  posts: FrontMatter[];
+  posts: PostCard[];
   title: string;
   postType?: 'blog' | 'til';
 }) {
   const [search, setSearch] = useState<string>('');
   const handleSearch = useCallback(
-    function (event) {
+    function (event: React.ChangeEvent<HTMLInputElement>) {
       setSearch(event.target.value);
     },
     [setSearch]
   );
-  const filteredPosts: FrontMatter[] = useMemo(
+  const filteredPosts: PostCard[] = useMemo(
     () =>
       search
         ? matchSorter(posts, search, {

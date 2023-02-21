@@ -8,6 +8,7 @@ function Avatar() {
   };
 
   return (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       style={styles}
       src="https://res.cloudinary.com/joelmturner/b_rgb:e7e5e5,q_auto/monster-01.png"

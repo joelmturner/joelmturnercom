@@ -14,14 +14,25 @@ import {
 import NextLink from 'next/link';
 import { InPostGallery } from './InPostGallery';
 import { Note } from './Note';
-import { CldImage } from 'next-cloudinary';
 import NextImage from 'next/image';
 import { useEffect, useState } from 'react';
 import { isCloudinaryUrl } from '../utils/strings';
+import { PostImage } from './CCImage';
+import { useMeasure } from 'react-use';
 
-const CustomImage = ({ src, alt = '', width, height }: any) => {
+const CustomImage = ({
+  src,
+  alt = '',
+  width = 630,
+  height = 400,
+}: {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+}) => {
+  const [ref, { width: wrapWidth = 0 }] = useMeasure();
   const [imageDetails, setImageDetails] = useState({ width: 0, height: 0 });
-
   const srcSegments = src.split('/');
   const uploadIndex = srcSegments.indexOf('upload');
   // parameter to get image info
@@ -40,16 +51,22 @@ const CustomImage = ({ src, alt = '', width, height }: any) => {
     }
   }, [newSrc, src]);
 
+  const resolvedWidth = imageDetails.width ? Math.min(wrapWidth, imageDetails.width) : null;
+
   if (isCloudinaryUrl(src)) {
     return imageDetails.width && imageDetails.height ? (
-      <CldImage
-        width={Math.min(960, imageDetails.width)}
-        height={imageDetails.height}
-        src={src}
-        alt={alt}
-        style={{ aspectRatio: `${imageDetails.width} / ${imageDetails.height}` }}
-      />
-    ) : null;
+      <div ref={ref} style={{ width: '100%' }}>
+        <PostImage
+          width={resolvedWidth}
+          height={(resolvedWidth / imageDetails.width) * imageDetails.height}
+          src={src}
+          alt={alt}
+          style={{ aspectRatio: `${imageDetails.width} / ${imageDetails.height}` }}
+        />
+      </div>
+    ) : (
+      <NextImage width={width} height={height} src={src} alt={alt} />
+    );
   } else {
     return <NextImage width={width} height={height} fill src={src} alt={alt} />;
   }
@@ -159,7 +176,7 @@ function Code(props) {
 
   if (!props.className) {
     // inline code
-    return <ChakraCode colorScheme={colorScheme} fontSize="0.84em" {...props} />;
+    return <ChakraCode colorScheme={colorScheme} fontStyle="italic" fontSize="0.84em" {...props} />;
   }
 
   const { filename, line, ...rest } = props;

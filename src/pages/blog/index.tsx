@@ -1,6 +1,7 @@
+import _pick from 'lodash/pick';
 import { InferGetStaticPropsType } from 'next';
 import { BlogArchive } from '../../components/BlogArchive';
-import { getPosts } from '../../lib/posts';
+import { getAllPostsSorted } from '../../lib/posts';
 import { generateRssFeed } from '../../lib/rss';
 
 export default function PostIndex({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -8,11 +9,14 @@ export default function PostIndex({ posts }: InferGetStaticPropsType<typeof getS
 }
 
 export async function getStaticProps() {
-  const posts = getPosts();
+  const posts = getAllPostsSorted();
+  const truncatedPosts = posts.map((post) =>
+    _pick(post, 'title', 'slug', 'cover', 'date', 'category', 'tags', 'excerpt')
+  );
   await generateRssFeed();
   return {
     props: {
-      posts,
+      posts: truncatedPosts,
     },
   };
 }

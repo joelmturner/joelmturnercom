@@ -1,14 +1,13 @@
 import * as ReactDOMServer from 'react-dom/server';
 import fs from 'fs';
 import { Feed } from 'feed';
-import { bundleContent, getPosts } from './posts';
+import { getAllPostsSorted } from './posts';
 import { MDXProvider } from '@mdx-js/react';
 import { MDXComponents } from '../components/MDXComponents';
 import { MDXLayoutRenderer } from '../components/MDXLayoutRenderer';
-import { bundleMDX } from 'mdx-bundler';
 
 export async function generateRssFeed() {
-  const posts = getPosts();
+  const posts = getAllPostsSorted();
   const siteURL = 'https://joelmturner.com';
   const date = new Date();
   const author = {
@@ -36,10 +35,10 @@ export async function generateRssFeed() {
   // loop over posts for async processing
   for (const post of posts) {
     const url = `${siteURL}/blog/${post.slug}`;
-    const content = await bundleContent(post);
+
     const mdx = (
       <MDXProvider components={MDXComponents}>
-        <MDXLayoutRenderer mdxSource={content.code} />
+        <MDXLayoutRenderer mdxSource={post} />
       </MDXProvider>
     );
     const html = ReactDOMServer.renderToStaticMarkup(mdx);

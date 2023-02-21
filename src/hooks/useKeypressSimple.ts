@@ -7,5 +7,6 @@ export default function useKeypress(key: string, action: any, deps: any[] = []) 
     }
     window.addEventListener('keyup', onKeyup);
     return () => window.removeEventListener('keyup', onKeyup);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 }

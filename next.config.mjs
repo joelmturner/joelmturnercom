@@ -3,6 +3,7 @@ import remarkFrontmatter from 'remark-frontmatter';
 import rehypeExternalLinks from 'rehype-external-links';
 import { withSentryConfig } from '@sentry/nextjs';
 import withBundleAnalyzer from '@next/bundle-analyzer';
+import { withContentlayer } from 'next-contentlayer';
 
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
@@ -48,7 +49,7 @@ const nextConfig = {
 };
 
 export default withSentryConfig(
-  nextConfig,
+  withContentlayer(nextConfig),
   // withBundleAnalyzer(nextConfig),
   sentryWebpackPluginOptions
 );

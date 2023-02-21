@@ -11,8 +11,7 @@ type PostTagsProps = {
 export function PostTags({ marginTop, tags, size = 'sm', postType = 'blog' }: PostTagsProps) {
   const { colorMode } = useColorMode();
   return (
-    <HStack marginTop={marginTop} gap={[1, 2]} wrap="wrap">
-      <Text fontSize="md">Tags: </Text>
+    <HStack marginTop={marginTop} gap={1} wrap="wrap">
       {tags.map((tag) => {
         return (
           <Tag

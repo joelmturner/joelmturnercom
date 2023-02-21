@@ -68,8 +68,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                 site_name: 'Joel M. Turner',
                 images: [
                   {
-                    url: 'https://res.cloudinary.com/joelmturner/joel-turner.jpg',
-                    secureUrl: 'https://res.cloudinary.com/joelmturner/joel-turner.jpg',
+                    url: 'https://res.cloudinary.com/joelmturner/image/upload/v1532201643/joel-turner.jpg',
+                    secureUrl:
+                      'https://res.cloudinary.com/joelmturner/image/upload/v1532201643/joel-turner.jpg',
                   },
                 ],
               }}

@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 export const SIZE_VS_DETAILS = {
   lg: {
     priority: 2,
@@ -34,7 +35,7 @@ export const COLUMNS_VS_DETAILS = {
   },
 };
 
-export const cldImageStyles = {
+export const cldImageStyles: CSSProperties = {
   cursor: 'pointer',
   objectFit: 'cover',
 };
