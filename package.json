@@ -3,8 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev",
-        "build": "next build",
+        "dev": "concurrently \"contentlayer dev\" \"next dev\"",
+        "build": "contentlayer build && next build",
         "start": "next start",
         "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
         "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx,json}'",
@@ -33,6 +33,7 @@
         "@typescript-eslint/eslint-plugin": "^5.61.0",
         "@typescript-eslint/parser": "^5.61.0",
         "cloudinary": "^1.37.3",
+        "concurrently": "^8.2.0",
         "contentlayer": "^0.3.4",
         "esbuild": "^0.18.11",
         "eslint-plugin-prettier": "^4.0.0",
