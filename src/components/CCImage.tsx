@@ -6,6 +6,16 @@ export const PostImage = chakra<React.ElementType<CldImageProps>, ImageProps & C
   CldImage,
   {
     shouldForwardProp: (prop) =>
-      ['width', 'height', 'src', 'alt', 'sizes', 'priority'].includes(prop),
+      [
+        'width',
+        'height',
+        'src',
+        'alt',
+        'sizes',
+        'priority',
+        'gravity',
+        'crop',
+        'aspectRatio',
+      ].includes(prop),
   }
 );

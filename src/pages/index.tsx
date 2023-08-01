@@ -15,6 +15,7 @@ import { MDXComponents } from '../components/MDXComponents';
 import SEO from '../components/SEO';
 import { ACTIVITIES } from '../lib/constants';
 import { getAllPostsSorted } from '../lib/posts';
+import { ProjectGrid } from '../components/projects/ProjectGrid';
 
 const VARIANTS = {
   enter: (direction: number) => {
@@ -125,6 +126,10 @@ export default function Home({ post }: InferGetStaticPropsType<typeof getStaticP
               <FeaturedPost post={post} />
             </>
           ) : null}
+          <Heading as="h3" colorScheme="orange">
+            Latest Explorations
+          </Heading>
+          <ProjectGrid />
         </Stack>
       </Container>
     </>
