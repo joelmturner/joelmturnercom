@@ -36,7 +36,7 @@ const PROJECTS: Project[] = [
 
 export function ProjectGrid() {
   return (
-    <Grid w="full" templateColumns="repeat(2, minmax(100px, 1fr))" gap="3">
+    <Grid w="full" templateColumns={['1fr', 'repeat(2, minmax(100px, 1fr))']} gap="3">
       {PROJECTS.map((project) => (
         <ProjectCard key={project.name} project={project} />
       ))}
