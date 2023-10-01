@@ -21,6 +21,7 @@ export type IllustrationTag =
   | 'inktober2019'
   | 'inktober2021'
   | 'inktober2022'
+  | 'inktober2023'
   | 'joelmturner_abcs2017'
   | 'joelmturner_featured'
   | 'letterclash';

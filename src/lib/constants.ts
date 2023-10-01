@@ -10,6 +10,7 @@ export const ILLUSTRATION_FILTER_OPTIONS: { value: IllustrationTag; label: strin
   { value: 'inktober2019', label: 'Inktober 2019' },
   { value: 'inktober2021', label: 'Inktober 2021' },
   { value: 'inktober2022', label: 'Inktober 2022' },
+  { value: 'inktober2023', label: 'Inktober 2023' },
 ];
 
 export const TIL_CATEGORY_VS_LABEL = {
@@ -46,9 +47,11 @@ export const ILLUSTRATION_QUERY_VS_FILTER: { [key: string]: IllustrationTag } = 
   inktober2019: 'inktober2019',
   inktober2021: 'inktober2021',
   inktober2022: 'inktober2022',
+  inktober2023: 'inktober2023',
   ink17: 'inktober2017',
   ink18: 'inktober2018',
   ink19: 'inktober2019',
   ink21: 'inktober2021',
   ink22: 'inktober2022',
+  ink23: 'inktober2023',
 };
