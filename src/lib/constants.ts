@@ -2,6 +2,7 @@ import { IllustrationTag } from './types';
 
 export const ILLUSTRATION_FILTER_OPTIONS: { value: IllustrationTag; label: string }[] = [
   { value: 'joelmturner_featured', label: 'Featured' },
+  { value: 'jmt_dorbs', label: 'Cuties' },
   { value: 'letterclash', label: 'LetterClash' },
   { value: 'handletteredabcs_2016', label: 'Handlettered ABCs 2016' },
   { value: 'joelmturner_abcs2017', label: 'Handlettered ABCs 2017' },
@@ -37,6 +38,7 @@ export const ACTIVITIES = [
 export const ILLUSTRATION_QUERY_VS_FILTER: { [key: string]: IllustrationTag } = {
   joelmturner_featured: 'joelmturner_featured',
   featured: 'joelmturner_featured',
+  jmt_dorbs: 'jmt_dorbs',
   letterclash: 'letterclash',
   handletteredabcs_2016: 'handletteredabcs_2016',
   abcs16: 'handletteredabcs_2016',

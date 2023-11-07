@@ -24,6 +24,7 @@ export type IllustrationTag =
   | 'inktober2023'
   | 'joelmturner_abcs2017'
   | 'joelmturner_featured'
+  | 'jmt_dorbs'
   | 'letterclash';
 
 export type IllustrationItem = {
