@@ -1,4 +1,4 @@
-import { Box, Image, useColorModeValue, Heading, Text } from '@chakra-ui/react';
+import { Box, useColorModeValue, Heading, Text } from '@chakra-ui/react';
 import { Blog } from 'contentlayer/generated';
 import { CldImage } from 'next-cloudinary';
 import NextLink from 'next/link';
@@ -13,24 +13,26 @@ export function FeaturedPost({ post }: { post: Blog }) {
       justifyContent="space-between"
     >
       <Box display="flex" flex="1" marginRight="3" position="relative" alignItems="center">
-        <Box
-          width={{ base: '100%', sm: '85%' }}
-          zIndex="2"
-          marginLeft={{ base: '0', sm: '5%' }}
-          marginTop="5%"
-        >
-          <NextLink href={`/blog/${post.slug}`}>
-            <Box borderRadius="lg" overflow="hidden">
-              <CldImage
-                width={300 * 1.5}
-                height={190 * 1.5}
-                src={post.cover}
-                alt="some good alt text"
-                sizes="(max-width: 480px) 100vw, 50vw"
-              />
-            </Box>
-          </NextLink>
-        </Box>
+        {post.cover ? (
+          <Box
+            width={{ base: '100%', sm: '85%' }}
+            zIndex="2"
+            marginLeft={{ base: '0', sm: '5%' }}
+            marginTop="5%"
+          >
+            <NextLink href={`/blog/${post.slug}`}>
+              <Box borderRadius="lg" overflow="hidden">
+                <CldImage
+                  width={300 * 1.5}
+                  height={190 * 1.5}
+                  src={post.cover}
+                  alt="some good alt text"
+                  sizes="(max-width: 480px) 100vw, 50vw"
+                />
+              </Box>
+            </NextLink>
+          </Box>
+        ) : null}
         <Box zIndex="1" width="100%" position="absolute" height="100%">
           <Box
             bgGradient={useColorModeValue(

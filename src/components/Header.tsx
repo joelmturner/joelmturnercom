@@ -43,7 +43,7 @@ export function Header() {
   const text = useColorModeValue('dark', 'light');
   const SwitchIcon = useColorModeValue(FaMoon, FaSun);
   const bg = useColorModeValue('white', 'gray.800');
-  const ref = React.useRef<HTMLHeadElement>();
+  const ref = React.useRef<HTMLHeadElement>(null);
   const mobileNav = useDisclosure();
   const navLinkColor = useColorModeValue('brand.light.300', 'brand.dark.100');
   const navLinkHoverColor = useColorModeValue('brand.light.200', 'brand.dark.200');

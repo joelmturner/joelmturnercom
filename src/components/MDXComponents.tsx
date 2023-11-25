@@ -15,7 +15,7 @@ import NextLink from 'next/link';
 import { InPostGallery } from './InPostGallery';
 import { Note } from './Note';
 import NextImage from 'next/image';
-import { useEffect, useState } from 'react';
+import { LegacyRef, useEffect, useState } from 'react';
 import { isCloudinaryUrl } from '../utils/strings';
 import { PostImage } from './CCImage';
 import { useMeasure } from 'react-use';
@@ -31,7 +31,7 @@ const CustomImage = ({
   width?: number;
   height?: number;
 }) => {
-  const [ref, { width: wrapWidth = 0 }] = useMeasure();
+  const [ref, { width: wrapWidth = 0 }] = useMeasure<HTMLDivElement>();
   const [imageDetails, setImageDetails] = useState({ width: 0, height: 0 });
   const srcSegments = src.split('/');
   const uploadIndex = srcSegments.indexOf('upload');
@@ -53,7 +53,7 @@ const CustomImage = ({
 
   const resolvedWidth = imageDetails.width ? Math.min(wrapWidth, imageDetails.width) : null;
 
-  if (isCloudinaryUrl(src)) {
+  if (isCloudinaryUrl(src) && resolvedWidth) {
     return imageDetails.width && imageDetails.height ? (
       <div ref={ref} style={{ width: '100%' }}>
         <PostImage

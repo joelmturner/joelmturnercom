@@ -24,7 +24,7 @@ export function Post({
 }: {
   post: PostCard;
   root?: 'blog' | 'til';
-  index?: number;
+  index: number;
 }) {
   const postUrl = `/${root}/${post.slug}`;
   return (

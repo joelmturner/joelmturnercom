@@ -1,10 +1,11 @@
-import { Grid, GridItem } from '@chakra-ui/react';
-import { CldImage } from 'next-cloudinary';
 import { memo, useCallback } from 'react';
+import { css } from 'styled-system/css';
+import { CldImage } from 'next-cloudinary';
 import { useLightBoxContext } from '../../hooks/useLightBox';
-import { Dialog } from '../Dialog';
+import { Lightbox } from '../Lightbox';
 import { cldImageStyles, COLUMNS_VS_DETAILS, SIZE_VS_DETAILS } from './constants';
 import { GalleryProps } from './types';
+import { galleryGrid } from './galleryGrid';
 
 function GridImage({ id, url, index, onClick, size = 'md' }) {
   const handleImageClick = useCallback(() => {
@@ -12,7 +13,7 @@ function GridImage({ id, url, index, onClick, size = 'md' }) {
   }, [index, onClick]);
 
   return (
-    <GridItem w="100%" h="100%" key={url}>
+    <div className={css({ w: 'full', h: 'full' })} key={url}>
       <CldImage
         src={url}
         alt={id}
@@ -23,18 +24,14 @@ function GridImage({ id, url, index, onClick, size = 'md' }) {
         sizes="33vw, 50vw, 100vw"
         priority={index < SIZE_VS_DETAILS[size]}
       />
-    </GridItem>
+    </div>
   );
 }
 
 const MemoizedGridImage = memo(GridImage);
 
-export function Gallery({ images, columns = 3 }: GalleryProps) {
+function Gallery({ images, columns = 3 }: GalleryProps) {
   const { lightbox, setLightbox } = useLightBoxContext();
-
-  const handleCloseLightbox = useCallback(() => {
-    setLightbox((prevState) => ({ ...prevState, index: -1 }));
-  }, [setLightbox]);
 
   const handleClickImage = useCallback(
     (index: number) => {
@@ -45,12 +42,7 @@ export function Gallery({ images, columns = 3 }: GalleryProps) {
 
   return (
     <>
-      <Grid
-        gap={2}
-        w="full"
-        templateColumns={COLUMNS_VS_DETAILS[columns].style}
-        sx={{ containIntrinsicSize: '160px', contentVisibility: 'auto' }}
-      >
+      <div className={galleryGrid({ cols: columns })}>
         {images?.map(({ id, url }, index) => (
           <MemoizedGridImage
             key={id}
@@ -61,16 +53,18 @@ export function Gallery({ images, columns = 3 }: GalleryProps) {
             size={COLUMNS_VS_DETAILS[columns].size}
           />
         ))}
-      </Grid>
+      </div>
 
       {lightbox.index > -1 && (
-        <Dialog
+        <Lightbox
           images={images}
           offset={lightbox.index}
-          onClose={handleCloseLightbox}
           aria-label="Gallery of my sketches on Instagram"
         />
       )}
     </>
   );
 }
+
+const MemoizedGallery = memo(Gallery);
+export { MemoizedGallery as Gallery };
