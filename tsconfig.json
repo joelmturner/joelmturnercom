@@ -16,8 +16,15 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "contentlayer/generated": ["./.contentlayer/generated"]
-    }
+      "contentlayer/generated": ["./.contentlayer/generated"],
+      "~/lib/*": ["./src/lib/*"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
@@ -27,7 +34,10 @@
     "src/lib/rehype-highlight-code.js",
     "src/lib/rehype-highlight-line.js",
     "contentlayer.config.js",
-    "src/lib/rehype-meta-attribute.js"
+    "src/lib/rehype-meta-attribute.js",
+    ".next/types/**/*.ts",
+    "src",
+    "styled-system"
   ],
   "exclude": ["node_modules"]
 }
