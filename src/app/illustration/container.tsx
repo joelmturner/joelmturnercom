@@ -44,12 +44,13 @@ function IllustrationPage({ images, collection = 'joelmturner_featured' }) {
             positioning={{ sameWidth: true }}
             width="full"
             onValueChange={handleChange}
+            value={[collection]}
           >
             <Select.Label>Collection</Select.Label>
             <Flex gap={2} alignItems="center" justify="space-between">
               <Select.Control w="full">
                 <Select.Trigger>
-                  <Select.ValueText placeholder="Select collection" defaultValue={collection} />
+                  <Select.ValueText placeholder="Select collection" />
                 </Select.Trigger>
               </Select.Control>
 
