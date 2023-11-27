@@ -1,3 +1,4 @@
+'use client';
 import { CldImage } from 'next-cloudinary';
 
 const AVATAR_SIZE = 220;

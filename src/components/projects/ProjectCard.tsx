@@ -1,18 +1,25 @@
-import {
-  Flex,
-  Circle,
-  Box,
-  Text,
-  Badge,
-  useColorModeValue,
-  Icon,
-  chakra,
-  Tooltip,
-} from '@chakra-ui/react';
+// import {
+//   Flex,
+//   Circle,
+//   Box,
+//   Text,
+//   Badge,
+//   useColorModeValue,
+//   Icon,
+//   chakra,
+//   Tooltip,
+// } from '@chakra-ui/react';
 import { BiLinkExternal, BiLogoGithub } from 'react-icons/bi';
 import { PostImage } from '../CCImage';
 import { TECH_VS_ICON } from './constants';
 import Link from 'next/link';
+import { Icon } from '../Icon';
+import { Github, Link2 } from 'lucide-react';
+import { Flex, styled } from 'styled-system/jsx';
+import { Badge } from '../Badge';
+import { Text } from '../Text';
+import { Heading } from '../Heading';
+import { ProjectIcon } from './ProjectIcon';
 
 export type Project = {
   name: string;
@@ -26,7 +33,11 @@ export type Project = {
 
 function ProjectLink({ url }: { url: string }) {
   const isInternalLink = url && (url.startsWith('/') || url.startsWith('#'));
-  const content = <Icon as={BiLinkExternal} h={4} w={4} alignSelf={'center'} />;
+  const content = (
+    <Icon h={4} w={4} alignSelf={'center'}>
+      <Link2 />
+    </Icon>
+  );
 
   if (isInternalLink) {
     return (
@@ -37,17 +48,17 @@ function ProjectLink({ url }: { url: string }) {
   }
 
   return (
-    <chakra.a href={url} target="_blank" display={'flex'}>
+    <styled.a href={url} target="_blank" display={'flex'}>
       {content}
-    </chakra.a>
+    </styled.a>
   );
 }
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
     <Flex w="full" alignItems="center" justifyContent="center">
-      <Box
-        bg={useColorModeValue('white', 'gray.800')}
+      <styled.div
+        bg="transparent"
         // maxW="md"
         borderWidth="1px"
         rounded="lg"
@@ -55,7 +66,14 @@ export function ProjectCard({ project }: { project: Project }) {
         position="relative"
       >
         {project.featured && (
-          <Circle size="10px" position="absolute" top={2} right={2} bg="red.200" />
+          <styled.div
+            borderRadius={'100%'}
+            // size="10px"
+            position="absolute"
+            top={2}
+            right={2}
+            bg="red.200"
+          />
         )}
 
         <PostImage
@@ -72,16 +90,16 @@ export function ProjectCard({ project }: { project: Project }) {
         />
 
         <Flex p="6" direction="column" gap={'3'}>
-          <Box display="flex" alignItems="baseline">
+          <styled.div display="flex" alignItems="baseline">
             {project.featured && (
               <Badge rounded="full" px="2" fontSize="0.8em" colorScheme="red">
                 New
               </Badge>
             )}
-          </Box>
+          </styled.div>
           <Flex mt="1" justifyContent="space-between" alignContent="center">
-            <Box
-              fontSize="2xl"
+            <Heading
+              textStyle="2xl"
               fontWeight="semibold"
               as="h4"
               lineHeight="tight"
@@ -89,11 +107,13 @@ export function ProjectCard({ project }: { project: Project }) {
               //   isTruncated
             >
               {project.name}
-            </Box>
+            </Heading>
             <Flex gap={'3'}>
-              <chakra.a href={project.github} target="_blank" display={'flex'}>
-                <Icon as={BiLogoGithub} h={4} w={4} alignSelf={'center'} />
-              </chakra.a>
+              <styled.a href={project.github} target="_blank" display={'flex'}>
+                <Icon h={4} w={4} alignSelf={'center'}>
+                  <Github />
+                </Icon>
+              </styled.a>
               {project.url ? <ProjectLink url={project.url} /> : null}
             </Flex>
           </Flex>
@@ -103,21 +123,12 @@ export function ProjectCard({ project }: { project: Project }) {
           </Text>
 
           <Flex alignItems="center" gap={'3'} fontSize="xl">
-            {project.tech.map((tech) => {
-              const Icon = TECH_VS_ICON[tech.toLowerCase()]
-                ? TECH_VS_ICON[tech.toLowerCase()]
-                : null;
-              return Icon ? (
-                <Tooltip label={tech} key={tech}>
-                  <span>
-                    <Icon />
-                  </span>
-                </Tooltip>
-              ) : null;
-            })}
+            {project.tech.map((tech) => (
+              <ProjectIcon tech={tech} key={tech} />
+            ))}
           </Flex>
         </Flex>
-      </Box>
+      </styled.div>
     </Flex>
   );
 }

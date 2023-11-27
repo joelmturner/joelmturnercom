@@ -4,6 +4,7 @@ import rehypeExternalLinks from 'rehype-external-links';
 import { withSentryConfig } from '@sentry/nextjs';
 import withBundleAnalyzer from '@next/bundle-analyzer';
 import { withContentlayer } from 'next-contentlayer';
+import createMDX from '@next/mdx';
 
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
@@ -17,25 +18,32 @@ const sentryWebpackPluginOptions = {
   // https://github.com/getsentry/sentry-webpack-plugin#options.
 };
 
-const nextConfig = {
-  webpack: (config, options) => {
-    config.module.rules.push({
-      test: /\.mdx?$/,
-      use: [
-        options.defaultLoaders.babel,
-        {
-          loader: '@mdx-js/loader',
-          options: {
-            providerImportSource: '@mdx-js/react',
-            rehypePlugins: [rehypeExternalLinks],
-            remarkPlugins: [remarkFrontmatter],
-          },
-        },
-      ],
-    });
-
-    return config;
+const withMDX = createMDX({
+  options: {
+    rehypePlugins: [rehypeExternalLinks],
+    remarkPlugins: [remarkFrontmatter],
   },
+});
+
+const nextConfig = {
+  //   webpack: (config, options) => {
+  //     config.module.rules.push({
+  //       test: /\.mdx?$/,
+  //       use: [
+  //         options.defaultLoaders.babel,
+  //         {
+  //           loader: '@mdx-js/loader',
+  //           options: {
+  //             providerImportSource: '@mdx-js/react',
+  //             rehypePlugins: [rehypeExternalLinks],
+  //             remarkPlugins: [remarkFrontmatter],
+  //           },
+  //         },
+  //       ],
+  //     });
+
+  //     return config;
+  //   },
   reactStrictMode: true,
   experimental: { esmExternals: true },
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
@@ -46,10 +54,11 @@ const nextConfig = {
   sentry: {
     hideSourceMaps: true,
   },
+  mdxRs: true,
 };
 
 export default withSentryConfig(
-  withContentlayer(nextConfig),
+  withMDX(withContentlayer(nextConfig)),
   // withBundleAnalyzer(nextConfig),
   sentryWebpackPluginOptions
 );

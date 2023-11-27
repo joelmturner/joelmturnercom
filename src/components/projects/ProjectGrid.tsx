@@ -1,4 +1,5 @@
-import { Grid } from '@chakra-ui/react';
+'use client';
+import { Grid } from 'styled-system/jsx';
 import { Project, ProjectCard } from './ProjectCard';
 
 const PROJECTS: Project[] = [
@@ -36,7 +37,7 @@ const PROJECTS: Project[] = [
 
 export function ProjectGrid() {
   return (
-    <Grid w="full" templateColumns={['1fr', 'repeat(2, minmax(100px, 1fr))']} gap="3">
+    <Grid w="full" gridTemplateColumns={['1fr', 'repeat(2, minmax(100px, 1fr))']} gap={4}>
       {PROJECTS.map((project) => (
         <ProjectCard key={project.name} project={project} />
       ))}

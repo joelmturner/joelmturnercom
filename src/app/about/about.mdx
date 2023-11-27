@@ -1,23 +1,13 @@
----
-title: About Me
-date: 2017-01-16
-draft: false
-lastmod: 2022-06-24T00:24:17.214Z
----
+import { Flex } from 'styled-system/jsx';
+import { Avatar } from '../../components/Avatar.tsx';
+import { ProjectGrid } from '../../components/projects/ProjectGrid.tsx';
 
-import { Box } from '@chakra-ui/react';
-import { Avatar } from '../components/Avatar.tsx';
-import { Meta } from '../components/Meta.tsx';
-import { ProjectGrid } from '../components/projects/ProjectGrid.tsx';
-
-<Meta title="About Joel M Turner" />
-
-<Box maxHeight={128} maxWidth={128} mx="auto">
+<Flex maxHeight={128} maxWidth={128} justify="center" w="full">
   <Avatar
     alt="Joel M Turner portrait"
     src="https://res.cloudinary.com/joelmturner/image/upload/v1532201643/joel-turner.jpg"
   />
-</Box>
+</Flex>
 
 ## I am Joel M Turner
 
