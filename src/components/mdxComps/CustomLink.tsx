@@ -23,10 +23,6 @@ export function CustomLink(props: any) {
   }
 
   return (
-    <Link
-      className={css({ color: { _light: 'brand.400', _dark: 'brand.600' } })}
-      isExternal
-      {...props}
-    />
+    <Link className={css({ color: { _light: 'brand.400', _dark: 'brand.600' } })} {...props} />
   );
 }

@@ -1,17 +1,4 @@
-// import {
-//   Flex,
-//   Circle,
-//   Box,
-//   Text,
-//   Badge,
-//   useColorModeValue,
-//   Icon,
-//   chakra,
-//   Tooltip,
-// } from '@chakra-ui/react';
-import { BiLinkExternal, BiLogoGithub } from 'react-icons/bi';
 import { PostImage } from '../CCImage';
-import { TECH_VS_ICON } from './constants';
 import Link from 'next/link';
 import { Icon } from '../Icon';
 import { Github, Link2 } from 'lucide-react';
@@ -86,7 +73,7 @@ export function ProjectCard({ project }: { project: Project }) {
           crop="thumb"
           objectFit="cover"
           transition="0.3s ease-in-out"
-          maxHeight={['140px', '160px']}
+          maxHeight={{ base: '140px', lg: '160px' }}
         />
 
         <Flex p="6" direction="column" gap={'3'}>

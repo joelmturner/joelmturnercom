@@ -54,6 +54,6 @@ export function CustomImage({
       <NextImage width={width} height={height} src={src} alt={alt} />
     );
   } else {
-    return <NextImage width={width} height={height} fill src={src} alt={alt} />;
+    return <NextImage width={width} height={height} src={src} alt={alt} />;
   }
 }

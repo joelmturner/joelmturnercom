@@ -1,5 +1,11 @@
-import { defineConfig, defineSemanticTokens } from '@pandacss/dev';
+import { defineConfig, defineGlobalStyles, defineSemanticTokens } from '@pandacss/dev';
 import { createPreset } from '@park-ui/panda-preset';
+import { nightOwlDark, nightOwlLight } from './src/lib/themes';
+
+const globalCss = defineGlobalStyles({
+  ...nightOwlLight,
+  ...nightOwlDark,
+});
 
 export default defineConfig({
   // Whether to use css reset
@@ -47,6 +53,8 @@ export default defineConfig({
       },
     },
   },
+
+  globalCss,
 
   jsxFramework: 'react',
 

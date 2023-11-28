@@ -43,7 +43,7 @@ export function AppHeader() {
               })}
               key={link.id}
             >
-              <Link href={link.id}>{link.label}</Link>
+              <Link href={`/${link.id}`}>{link.label}</Link>
             </Text>
           ))}
           <ThemeSwitch />

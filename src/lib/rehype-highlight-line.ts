@@ -45,20 +45,24 @@ const lineNumberify = function lineNumberify(ast, lineNum = 1) {
   );
 };
 
-const wrapLines = function wrapLines(ast, linesToHighlight) {
+const wrapLines = function wrapLines(ast: any[], linesToHighlight) {
   const highlightAll = linesToHighlight.length === 1 && linesToHighlight[0] === 0;
   const allLines = Array.from(new Set(ast.map((x) => x.lineNumber)));
   let i = 0;
-  const wrapped = allLines.reduce((nodes, marker) => {
+  const wrapped = allLines.reduce((nodes: any[], marker) => {
     const line = marker;
     const children = [];
     for (; i < ast.length; i++) {
+      if (i !== 0 && ast[i].lineNumber !== line) break;
+
       if (ast[i].lineNumber < line) {
         nodes.push(ast[i]);
         continue;
       }
 
       if (ast[i].lineNumber === line) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         children.push(ast[i]);
         continue;
       }

@@ -26,39 +26,25 @@ const withMDX = createMDX({
 });
 
 const nextConfig = {
-  //   webpack: (config, options) => {
-  //     config.module.rules.push({
-  //       test: /\.mdx?$/,
-  //       use: [
-  //         options.defaultLoaders.babel,
-  //         {
-  //           loader: '@mdx-js/loader',
-  //           options: {
-  //             providerImportSource: '@mdx-js/react',
-  //             rehypePlugins: [rehypeExternalLinks],
-  //             remarkPlugins: [remarkFrontmatter],
-  //           },
-  //         },
-  //       ],
-  //     });
-
-  //     return config;
-  //   },
   reactStrictMode: true,
-  experimental: { esmExternals: true },
+  experimental: { esmExternals: true, mdxRs: true },
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   images: {
-    domains: ['res.cloudinary.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
+    ],
     deviceSizes: [640, 750, 828, 1080],
   },
   sentry: {
     hideSourceMaps: true,
   },
-  mdxRs: true,
 };
 
 export default withSentryConfig(
-  withMDX(withContentlayer(nextConfig)),
+  withContentlayer(withMDX(nextConfig)),
   // withBundleAnalyzer(nextConfig),
   sentryWebpackPluginOptions
 );

@@ -18,7 +18,7 @@ export function PostTags({ marginTop, tags, size = 'sm', postType = 'blog' }: Po
           <Badge
             size={{ base: 'md', lg: 'sm' }}
             variant="subtle"
-            background={{ _light: 'bg.subtle', _dark: 'bg.muted' }}
+            background={{ _light: 'accent.2', _dark: 'iris.3' }}
             color={{ _light: 'brand.300', _dark: 'brand.500' }}
             key={tag}
           >

@@ -2,7 +2,7 @@
 import rangeParser from 'parse-numeric-range';
 import { visit } from 'unist-util-visit';
 import { toString } from 'hast-util-to-string';
-import { refractor } from 'refractor';
+import { RefractorRoot, refractor } from 'refractor';
 import highlightLine from './rehype-highlight-line';
 import _omit from 'lodash.omit';
 import jsx from 'refractor/lang/jsx.js';
@@ -29,7 +29,7 @@ export default function (options = {}) {
 
       // line highlight
       const linesToHighlight = rangeParser(node.properties.line || '0');
-      result = highlightLine(result, linesToHighlight);
+      result = highlightLine(result, linesToHighlight) as unknown as RefractorRoot;
 
       node.children = result;
     }

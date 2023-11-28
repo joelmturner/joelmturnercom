@@ -1,6 +1,5 @@
 import { styled } from 'styled-system/jsx';
 import { Blog } from 'contentlayer/generated';
-import { CldImage } from 'next-cloudinary';
 import Link from 'next/link';
 import { PostTags } from './PostTags';
 import { Heading } from './Heading';

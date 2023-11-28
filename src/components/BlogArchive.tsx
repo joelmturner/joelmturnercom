@@ -1,48 +1,44 @@
-import { Divider, Flex, Heading, Input } from '@chakra-ui/react';
 import { matchSorter } from 'match-sorter';
-import { useCallback, useMemo, useState } from 'react';
 import { PostCard } from '../lib/types';
 import { PostList } from './PostList';
-import SEO from './SEO';
+import { SearchParams } from 'next-usequerystate/parsers';
+import { Flex } from 'styled-system/jsx';
+import { Divider } from './Divider';
+import { Heading } from './Heading';
+import { SearchPosts } from './search/SearchPosts';
+
+function getFilteredPosts(search: string, posts: PostCard[]): PostCard[] {
+  return search
+    ? matchSorter(posts, search, {
+        keys: ['title', 'category', 'tags'],
+      })
+    : posts;
+}
 
 export function BlogArchive({
   posts,
   title,
   postType = 'blog',
+  searchParams,
 }: {
   posts: PostCard[];
   title: string;
   postType?: 'blog' | 'til';
+  searchParams: SearchParams;
 }) {
-  const [search, setSearch] = useState<string>('');
-  const handleSearch = useCallback(
-    function (event: React.ChangeEvent<HTMLInputElement>) {
-      setSearch(event.target.value);
-    },
-    [setSearch]
-  );
-  const filteredPosts: PostCard[] = useMemo(
-    () =>
-      search
-        ? matchSorter(posts, search, {
-            keys: ['title', 'category', 'tags'],
-          })
-        : posts,
-    [search, posts]
-  );
+  console.log('searchParams', searchParams);
+  const search = (searchParams?.[''] as string) ?? '';
+  console.log('search', search);
+  const filteredPosts = getFilteredPosts(search, posts);
 
   return (
     <>
-      <SEO title={title} />
+      {/* <SEO title={title} /> */}
       <Flex justify="space-between" alignItems="flex-end">
-        <Heading as="h1">{title}</Heading>
-        <Input
-          onChange={handleSearch}
-          placeholder="Search..."
-          value={search}
-          data-testid="blog-search"
-          w="30%"
-        />
+        <Heading as="h1" textStyle="3xl">
+          {title}
+        </Heading>
+        <SearchPosts />
       </Flex>
 
       <Divider marginTop="5" />
