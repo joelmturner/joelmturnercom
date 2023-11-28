@@ -10,17 +10,13 @@ export default async function CategoryArchive({ params, searchParams }) {
   );
 }
 
-export async function getPostData(slug: string): Promise<TIL[]> {
+async function getPostData(slug: string): Promise<TIL[]> {
   const posts = getAllPostsByCategory(slugify(slug), 'til') as TIL[];
   return posts;
 }
 
-export async function getStaticParams() {
-  const paths = getAllCategories('til');
-  return {
-    paths,
-    fallback: false,
-  };
+export async function generateStaticParams() {
+  return getAllCategories('til');
 }
 
 export async function generateMetadata({ params }) {

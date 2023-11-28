@@ -8,17 +8,13 @@ export default async function TagArchive({ params, searchParams }) {
   return <BlogArchive posts={posts} title={`Tag: ${params.slug}`} searchParams={searchParams} />;
 }
 
-export async function getPostData(slug: string): Promise<Blog[]> {
+async function getPostData(slug: string): Promise<Blog[]> {
   const posts = getAllPostsByTag(slugify(slug)) as Blog[];
   return posts;
 }
 
-export async function getStaticParams() {
-  const paths = getAllTags();
-  return {
-    paths,
-    fallback: false,
-  };
+export async function generateStaticParams() {
+  return getAllTags();
 }
 
 export async function generateMetadata({ params }) {

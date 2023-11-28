@@ -2,30 +2,16 @@ import { getPostBySlug, getAllPostIds } from '~/lib/posts';
 import { PostPage } from '@components/PostPage';
 
 export default async function PostPageRenderer({ params }) {
-  const postData = await getPostData(params);
+  const postData = await getPostData(params.id);
   return <PostPage {...postData} postType="blog" />;
 }
 
-export async function getPostData(params) {
-  let postData;
-  try {
-    postData = getPostBySlug(params.id);
-  } catch (e) {
-    console.error(e);
-    return {
-      notFound: true,
-    };
-  }
-
-  return postData;
+async function getPostData(id: string): Promise<ReturnType<typeof getPostBySlug>> {
+  return getPostBySlug(id);
 }
 
-export async function getStaticParams() {
-  const paths = getAllPostIds();
-  return {
-    paths,
-    fallback: false,
-  };
+export async function generateStaticParams() {
+  return getAllPostIds();
 }
 
 export async function generateMetadata({ params }) {

@@ -6,18 +6,12 @@ export default async function PostPageRenderer({ params }) {
   return <PostPage {...postData} postType="til" />;
 }
 
-export async function getPostData(id: string): Promise<ReturnType<typeof getPostBySlug>> {
-  const postData = getPostBySlug(id, 'til');
-
-  return postData;
+async function getPostData(id: string): Promise<ReturnType<typeof getPostBySlug>> {
+  return getPostBySlug(id, 'til');
 }
 
-export async function getStaticParams() {
-  const paths = getAllPostIds('til');
-  return {
-    paths,
-    fallback: false,
-  };
+export async function generateStaticParams() {
+  return getAllPostIds('til');
 }
 
 export async function generateMetadata({ params }) {
