@@ -4,6 +4,7 @@ import rehypeExternalLinks from 'rehype-external-links';
 import { withSentryConfig } from '@sentry/nextjs';
 import withBundleAnalyzer from '@next/bundle-analyzer';
 import { withContentlayer } from 'next-contentlayer';
+import createMDX from '@next/mdx';
 
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
@@ -17,30 +18,24 @@ const sentryWebpackPluginOptions = {
   // https://github.com/getsentry/sentry-webpack-plugin#options.
 };
 
-const nextConfig = {
-  webpack: (config, options) => {
-    config.module.rules.push({
-      test: /\.mdx?$/,
-      use: [
-        options.defaultLoaders.babel,
-        {
-          loader: '@mdx-js/loader',
-          options: {
-            providerImportSource: '@mdx-js/react',
-            rehypePlugins: [rehypeExternalLinks],
-            remarkPlugins: [remarkFrontmatter],
-          },
-        },
-      ],
-    });
-
-    return config;
+const withMDX = createMDX({
+  options: {
+    rehypePlugins: [rehypeExternalLinks],
+    remarkPlugins: [remarkFrontmatter],
   },
+});
+
+const nextConfig = {
   reactStrictMode: true,
-  experimental: { esmExternals: true },
+  experimental: { esmExternals: true, mdxRs: true },
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   images: {
-    domains: ['res.cloudinary.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
+    ],
     deviceSizes: [640, 750, 828, 1080],
   },
   sentry: {
@@ -49,7 +44,7 @@ const nextConfig = {
 };
 
 export default withSentryConfig(
-  withContentlayer(nextConfig),
+  withContentlayer(withMDX(nextConfig)),
   // withBundleAnalyzer(nextConfig),
   sentryWebpackPluginOptions
 );

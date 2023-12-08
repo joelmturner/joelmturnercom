@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -16,18 +16,30 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "contentlayer/generated": ["./.contentlayer/generated"]
-    }
+      "contentlayer/generated": ["./.contentlayer/generated"],
+      "~/lib/*": ["./src/lib/*"],
+      "@components/*": ["./src/components/*"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".contentlayer/generated",
-    "src/lib/rehype-highlight-code.js",
-    "src/lib/rehype-highlight-line.js",
-    "contentlayer.config.js",
-    "src/lib/rehype-meta-attribute.js"
+    "src/lib/rehype-highlight-code.ts",
+    "src/lib/rehype-highlight-line.ts",
+    "contentlayer.config.ts",
+    "src/lib/rehype-meta-attribute.ts",
+    ".next/types/**/*.ts",
+    "src",
+    "styled-system",
+    "next.config.mjs"
   ],
   "exclude": ["node_modules"]
 }

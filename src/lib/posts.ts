@@ -26,7 +26,7 @@ export function getAllCategories(postType: PostType = 'post') {
       acc.push(category);
     }
     return acc;
-  }, []);
+  }, [] as string[]);
   return categories
     .map((category) => [{ params: { slug: category } }, { params: { slug: slugify(category) } }])
     .flat();
@@ -38,7 +38,7 @@ export function getAllTags(postType: PostType = 'post') {
     const tags = post.tags.map((tag) => [tag.toLowerCase(), slugify(tag)]).flat();
     acc = Array.from(new Set([...acc, ...tags]));
     return acc;
-  }, []);
+  }, [] as string[]);
   return resolvedTags.map((tag) => ({ params: { slug: tag } }));
 }
 

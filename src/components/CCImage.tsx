@@ -1,9 +1,12 @@
-import { chakra, ImageProps } from '@chakra-ui/react';
-import { CldImage, CldImageProps } from 'next-cloudinary';
+'use client';
 
-// this helps us use the chakra styles on the CldImage component
-export const PostImage = chakra<React.ElementType<CldImageProps>, ImageProps & CldImageProps>(
+import { CldImage, CldImageProps } from 'next-cloudinary';
+import { css } from '../../styled-system/css';
+import { HTMLStyledProps, styled } from '../../styled-system/jsx';
+
+const StyledImage = styled(
   CldImage,
+  {},
   {
     shouldForwardProp: (prop) =>
       [
@@ -19,3 +22,25 @@ export const PostImage = chakra<React.ElementType<CldImageProps>, ImageProps & C
       ].includes(prop),
   }
 );
+
+// this helps us use the panda styles on the CldImage component
+export function PostImage({
+  width = 400,
+  height,
+  src,
+  alt,
+  sizes,
+  priority,
+  gravity,
+  crop,
+  style,
+  ...rest
+}: CldImageProps & HTMLStyledProps<'img'>) {
+  return (
+    <StyledImage
+      {...{ width, height, src, alt, sizes, priority, gravity, crop }}
+      className={css(rest as any)}
+      style={{ ...style }}
+    />
+  );
+}

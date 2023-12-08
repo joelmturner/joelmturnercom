@@ -1,25 +1,15 @@
-import {
-  Box,
-  chakra,
-  Divider,
-  Flex,
-  HStack,
-  Link,
-  Tag,
-  Text,
-  useColorMode,
-  useColorModeValue,
-  VStack,
-} from '@chakra-ui/react';
 import { Blog } from 'contentlayer/generated';
-import { useLiveReload, useMDXComponent } from 'next-contentlayer/hooks';
-import dynamic from 'next/dynamic';
-import NextLink from 'next/link';
+import Link from 'next/link';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { slugify } from '../utils/utils';
-import { MDXComponents } from './MDXComponents';
 import { PostTags } from './PostTags';
-import SEO from './SEO';
+import { css } from 'styled-system/css';
+import { Flex, styled } from 'styled-system/jsx';
+import { Divider } from './Divider';
+import { Text } from './Text';
+import { Badge } from './Badge';
+import { Article } from './Article';
+import { Heading } from './Heading';
 
 function getJustification(next: Blog, prev: Blog) {
   if (next && prev) {
@@ -38,11 +28,6 @@ export function PostPage({
   tags,
   category,
   postType = 'blog',
-  cover,
-  date,
-  lastmod,
-  excerpt,
-  description,
   body,
   slug,
 }: {
@@ -50,104 +35,94 @@ export function PostPage({
   prev: Blog;
   postType: 'blog' | 'til';
 } & Blog) {
-  useLiveReload();
-  const { colorMode } = useColorMode();
-  const linkColor = useColorModeValue('brand.light.400', 'brand.dark.200');
-  const MDXContent = useMDXComponent(body.code);
-
-  //   dynamic import because not ESM compatible
-  const embeds = dynamic(() => import('mdx-embed') as any, { ssr: false });
-  const { CodePen, CodeSandbox, YouTube } = embeds as any;
-
-  const components = {
-    CodePen,
-    CodeSandbox,
-    YouTube,
-    ...MDXComponents,
-  };
-
   return (
     <>
-      <SEO
-        title={title}
-        image={cover}
-        imageAlt={title}
-        isBlogPost
-        datePublished={`${date}`}
-        dateModified={`${lastmod}`}
-        description={description ?? excerpt}
-        keywords={tags}
-      />
-      <components.h1>{title}</components.h1>
-      <chakra.article
-        sx={{
-          "img[src*='#center']": {
+      <Heading as="h1" textStyle="3xl">
+        {title}
+      </Heading>
+      <styled.article
+        css={{
+          "& img[src*='#center']": {
             display: 'block',
             margin: 'auto',
           },
         }}
       >
-        <MDXContent components={components} />
-      </chakra.article>
-      <VStack spacing={4} alignItems="flex-start">
+        <Article body={body} />
+      </styled.article>
+
+      <Flex direction="column" gap={4} alignItems="flex-start">
         <Divider my={4} />
-        <Link
+        <styled.a
           href={`https://mobile.twitter.com/search?q=${encodeURI(
             'https://joelmturner.com/blog/' + slug
           )}`}
           target="_blank"
           title="Twitter discussion"
           alignSelf="flex-end"
-          color={linkColor}
+          className={css({
+            color: {
+              _light: 'brand.400',
+              _dark: 'brand.600',
+            },
+          })}
         >
           Discuss this article on Twitter
-        </Link>
+        </styled.a>
         {category ? (
-          <HStack gap={[1, 2]} wrap="wrap">
+          <Flex gap={[1, 2]} wrap="wrap">
             <Text fontSize="md">Category: </Text>
-            <Tag
-              size={['md', 'sm']}
+            <Badge
+              size={{ base: 'md', lg: 'sm' }}
               variant="subtle"
-              colorScheme={colorMode === 'light' ? 'red' : 'blue'}
+              background={{ _light: 'accent.2', _dark: 'iris.3' }}
+              color={{ _light: 'brand.300', _dark: 'brand.500' }}
             >
-              <Link href={`/${postType}/category/${slugify(category)}`}>{category}</Link>
-            </Tag>
-          </HStack>
+              <styled.a href={`/${postType}/category/${slugify(category)}`}>{category}</styled.a>
+            </Badge>
+          </Flex>
         ) : null}
         {tags?.length ? <PostTags tags={tags} postType={postType} /> : null}
-      </VStack>
+      </Flex>
+
       <Flex justifyContent={getJustification(next, prev)} py={4} gap={6}>
         {prev && (
-          <Box justifyContent="flex-start">
-            <NextLink
+          <Flex justifyContent="flex-start">
+            <Link
               href={`/${postType}/${prev.slug}`}
-              style={{
+              className={css({
                 display: 'flex',
                 alignItems: 'center',
                 gap: 3,
-                color: linkColor,
-              }}
+                color: {
+                  _light: 'brand.400',
+                  _dark: 'brand.600',
+                },
+              })}
             >
               <FaChevronLeft />
               {prev.title}
-            </NextLink>
-          </Box>
+            </Link>
+          </Flex>
         )}
         {next && (
-          <Box justifyContent="flex-end">
-            <NextLink
+          <Flex justifyContent="flex-end">
+            <Link
               href={`/${postType}/${next.slug}`}
-              style={{
+              className={css({
                 display: 'flex',
                 alignItems: 'center',
                 gap: 3,
-                color: linkColor,
-              }}
+                color: {
+                  _light: 'brand.400',
+                  _dark: 'brand.600',
+                },
+              })}
             >
               {next.title}
               <FaChevronRight />
-            </NextLink>
-          </Box>
+            </Link>
+          </Flex>
         )}
       </Flex>
     </>

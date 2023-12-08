@@ -1,9 +1,22 @@
-import { Divider, Flex, Heading, Input } from '@chakra-ui/react';
+'use client';
+
 import { matchSorter } from 'match-sorter';
-import { useCallback, useMemo, useState } from 'react';
 import { PostCard } from '../lib/types';
 import { PostList } from './PostList';
-import SEO from './SEO';
+import { Flex } from 'styled-system/jsx';
+import { Divider } from './Divider';
+import { Heading } from './Heading';
+import { useQueryState } from 'next-usequerystate';
+import { Input } from './Input';
+import { useCallback } from 'react';
+
+function getFilteredPosts(search: string, posts: PostCard[]): PostCard[] {
+  return search
+    ? matchSorter(posts, search, {
+        keys: ['title', 'category', 'tags'],
+      })
+    : posts;
+}
 
 export function BlogArchive({
   posts,
@@ -14,32 +27,26 @@ export function BlogArchive({
   title: string;
   postType?: 'blog' | 'til';
 }) {
-  const [search, setSearch] = useState<string>('');
+  const [search, setSearch] = useQueryState('');
+  const filteredPosts = getFilteredPosts(search as any, posts);
+
   const handleSearch = useCallback(
     function (event: React.ChangeEvent<HTMLInputElement>) {
       setSearch(event.target.value);
     },
     [setSearch]
   );
-  const filteredPosts: PostCard[] = useMemo(
-    () =>
-      search
-        ? matchSorter(posts, search, {
-            keys: ['title', 'category', 'tags'],
-          })
-        : posts,
-    [search, posts]
-  );
 
   return (
     <>
-      <SEO title={title} />
       <Flex justify="space-between" alignItems="flex-end">
-        <Heading as="h1">{title}</Heading>
+        <Heading as="h1" textStyle="3xl">
+          {title}
+        </Heading>
         <Input
           onChange={handleSearch}
           placeholder="Search..."
-          value={search}
+          value={search ?? ''}
           data-testid="blog-search"
           w="30%"
         />
