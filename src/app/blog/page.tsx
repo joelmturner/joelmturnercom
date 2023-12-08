@@ -3,10 +3,10 @@ import { BlogArchive } from '../../components/BlogArchive';
 import { getAllPostsSorted } from '../../lib/posts';
 import { Blog } from 'contentlayer/generated';
 
-export default async function PostIndex({ searchParams }) {
+export default async function PostIndex() {
   const posts = await getPostData();
 
-  return <BlogArchive posts={posts} title="Blog" searchParams={searchParams} />;
+  return <BlogArchive posts={posts} title="Blog" />;
 }
 
 async function getPostData(): Promise<Blog[]> {

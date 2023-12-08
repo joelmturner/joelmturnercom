@@ -1,11 +1,14 @@
+'use client';
+
 import { matchSorter } from 'match-sorter';
 import { PostCard } from '../lib/types';
 import { PostList } from './PostList';
-import { SearchParams } from 'next-usequerystate/parsers';
 import { Flex } from 'styled-system/jsx';
 import { Divider } from './Divider';
 import { Heading } from './Heading';
-import { SearchPosts } from './search/SearchPosts';
+import { useQueryState } from 'next-usequerystate';
+import { Input } from './Input';
+import { useCallback } from 'react';
 
 function getFilteredPosts(search: string, posts: PostCard[]): PostCard[] {
   return search
@@ -19,26 +22,34 @@ export function BlogArchive({
   posts,
   title,
   postType = 'blog',
-  searchParams,
 }: {
   posts: PostCard[];
   title: string;
   postType?: 'blog' | 'til';
-  searchParams: SearchParams;
 }) {
-  console.log('searchParams', searchParams);
-  const search = (searchParams?.[''] as string) ?? '';
-  console.log('search', search);
-  const filteredPosts = getFilteredPosts(search, posts);
+  const [search, setSearch] = useQueryState('');
+  const filteredPosts = getFilteredPosts(search as any, posts);
+
+  const handleSearch = useCallback(
+    function (event: React.ChangeEvent<HTMLInputElement>) {
+      setSearch(event.target.value);
+    },
+    [setSearch]
+  );
 
   return (
     <>
-      {/* <SEO title={title} /> */}
       <Flex justify="space-between" alignItems="flex-end">
         <Heading as="h1" textStyle="3xl">
           {title}
         </Heading>
-        <SearchPosts />
+        <Input
+          onChange={handleSearch}
+          placeholder="Search..."
+          value={search ?? ''}
+          data-testid="blog-search"
+          w="30%"
+        />
       </Flex>
 
       <Divider marginTop="5" />

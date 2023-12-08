@@ -13,8 +13,27 @@ import { Portal } from '@ark-ui/react';
 import { Flex } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 import { GalleryProps } from 'src/components/gallery/types';
+import { IconType } from 'react-icons/lib';
 
-function IllustrationPage({ images, collection = 'joelmturner_featured' }) {
+const COLUMNS_DETAILS: { label: string; columns: GalleryProps['columns']; icon: IconType }[] = [
+  {
+    label: 'Single Column',
+    columns: 1,
+    icon: FaSquare,
+  },
+  {
+    label: '2 Columns',
+    columns: 2,
+    icon: BsGridFill,
+  },
+  {
+    label: '3 Columns',
+    columns: 3,
+    icon: BsFillGrid3X3GapFill,
+  },
+];
+
+function IllustrationPage({ images }) {
   const { lightbox, setLightbox } = useLightBoxContext();
   const [columns, setColumns] = useState<GalleryProps['columns']>(3);
 
@@ -44,7 +63,7 @@ function IllustrationPage({ images, collection = 'joelmturner_featured' }) {
             positioning={{ sameWidth: true }}
             width="full"
             onValueChange={handleChange}
-            value={[collection]}
+            value={[lightbox.collection]}
           >
             <Select.Label>Collection</Select.Label>
             <Flex gap={2} alignItems="center" justify="space-between">
@@ -55,32 +74,24 @@ function IllustrationPage({ images, collection = 'joelmturner_featured' }) {
               </Select.Control>
 
               <Flex gap={2} alignItems="center" justify="flex-end">
-                <IconButton
-                  variant="ghost"
-                  size="xl"
-                  onClick={() => setColumns(1)}
-                  aria-label="Single Column"
-                  name="singleColumn"
-                  title="singleColumn"
-                >
-                  <FaSquare />
-                </IconButton>
-                <IconButton
-                  onClick={() => setColumns(2)}
-                  aria-label="2 Columns"
-                  variant="ghost"
-                  size="xl"
-                >
-                  <BsGridFill />
-                </IconButton>
-                <IconButton
-                  onClick={() => setColumns(3)}
-                  aria-label="3 Columns"
-                  variant="ghost"
-                  size="xl"
-                >
-                  <BsFillGrid3X3GapFill />
-                </IconButton>
+                {COLUMNS_DETAILS.map(({ label, columns: cols, icon: Icon }) => (
+                  <IconButton
+                    key={label}
+                    variant="ghost"
+                    size="xl"
+                    onClick={() => setColumns(cols)}
+                    aria-label={label}
+                    data-active={columns === cols}
+                    transition="bg 0.2s ease-in-out"
+                    css={{
+                      '&[data-active="true"]': {
+                        bg: 'bg.emphasized',
+                      },
+                    }}
+                  >
+                    <Icon />
+                  </IconButton>
+                ))}
               </Flex>
             </Flex>
 

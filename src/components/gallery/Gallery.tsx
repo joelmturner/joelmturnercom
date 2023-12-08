@@ -1,3 +1,5 @@
+'use client';
+
 import { memo, useCallback } from 'react';
 import { css } from 'styled-system/css';
 import { CldImage } from 'next-cloudinary';
@@ -8,9 +10,13 @@ import { GalleryProps } from './types';
 import { galleryGrid } from './galleryGrid';
 
 function GridImage({ id, url, index, onClick, size = 'md' }) {
-  const handleImageClick = useCallback(() => {
-    onClick(index);
-  }, [index, onClick]);
+  const handleImageClick = useCallback(
+    (event) => {
+      event.preventDefault();
+      onClick(index);
+    },
+    [index, onClick]
+  );
 
   return (
     <div className={css({ w: 'full', h: 'full' })} key={url}>
@@ -55,13 +61,11 @@ function Gallery({ images, columns = 3 }: GalleryProps) {
         ))}
       </div>
 
-      {lightbox.index > -1 && (
-        <Lightbox
-          images={images}
-          offset={lightbox.index}
-          aria-label="Gallery of my sketches on Instagram"
-        />
-      )}
+      <Lightbox
+        images={images}
+        offset={lightbox.index}
+        aria-label="Gallery of my sketches on Instagram"
+      />
     </>
   );
 }

@@ -3,9 +3,9 @@ import { getAllPostsByTag, getAllTags } from '~/lib/posts';
 import { slugify } from '../../../../utils/utils';
 import { TIL } from 'contentlayer/generated';
 
-export default async function TagArchive({ params, searchParams }) {
+export default async function TagArchive({ params }) {
   const posts = await getPostData(params.slug);
-  return <BlogArchive posts={posts} title={`Tag: ${params.slug}`} searchParams={searchParams} />;
+  return <BlogArchive posts={posts} title={`Tag: ${params.slug}`} />;
 }
 
 async function getPostData(slug: string): Promise<TIL[]> {

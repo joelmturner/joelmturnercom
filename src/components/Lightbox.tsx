@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useRef } from 'react';
 import { Portal } from '@ark-ui/react';
 import { wrap } from '@popmotion/popcorn';
@@ -6,7 +8,7 @@ import { ChevronLeft, ChevronRight, XIcon } from 'lucide-react';
 import { CldImage } from 'next-cloudinary';
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
-import { useKeypressSimple, useOnClickOutside } from '../hooks';
+import { useKeypressSimple } from '../hooks';
 import { useLightBoxContext } from '../hooks/useLightBox';
 import { IllustrationItem } from '../lib/types';
 import { handleEnterKeyPress } from '../utils/a11y';
@@ -51,13 +53,13 @@ const swipePower = (offset: number, velocity: number) => {
   return Math.abs(offset) * velocity;
 };
 
-export function Lightbox({ images, offset = -1 }: DialogProps) {
+export function Lightbox({ images }: DialogProps) {
   const ref = useRef<HTMLDivElement>(null);
   const { lightbox, setLightbox } = useLightBoxContext();
 
   const direction = lightbox.direction ?? 0;
-  const page = lightbox.index ?? offset;
-  const isOpen = offset > -1;
+  const page = lightbox.index;
+  const isOpen = lightbox.index != null && lightbox.index > -1;
 
   const handleLightboxUpdate = useCallback(
     (index: -1 | 0 | 1) => {
@@ -69,10 +71,6 @@ export function Lightbox({ images, offset = -1 }: DialogProps) {
     },
     [setLightbox]
   );
-
-  const handleClose = useCallback(() => {
-    setLightbox((prevState) => ({ ...prevState, index: -1, direction: 0 }));
-  }, [setLightbox]);
 
   const paginate = useCallback(
     (newDirection: -1 | 0 | 1) => {
@@ -102,21 +100,38 @@ export function Lightbox({ images, offset = -1 }: DialogProps) {
     [paginate]
   );
 
+  const handleClose = useCallback(
+    (event) => {
+      if (!event.open) setLightbox((prev) => ({ ...prev, direction: 0, index: -1 }));
+    },
+    [setLightbox]
+  );
+
   // handle key presses
   useKeypressSimple('ArrowRight', onNext, [page]);
   useKeypressSimple('ArrowLeft', onPrev, [page]);
 
   const imageIndex = wrap(0, images.length, page);
-  useOnClickOutside(ref, handleClose);
 
   return (
-    <Dialog.Root open={isOpen}>
+    <Dialog.Root
+      lazyMount
+      unmountOnExit
+      closeOnEscapeKeyDown
+      closeOnInteractOutside
+      open={isOpen}
+      onOpenChange={handleClose}
+    >
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner top={0} ref={ref}>
           <Dialog.Content
             className={css({
               position: 'relative',
+              background: 'transparent',
+              border: 'none',
+              outline: 0,
+              boxShadow: 'unset',
               '&:hover [data-dialog-nav]': {
                 opacity: 1,
               },

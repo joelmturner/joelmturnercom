@@ -5,7 +5,7 @@ import { useQueryState } from 'next-usequerystate';
 import { Input } from '../Input';
 
 export function SearchPosts() {
-  const [search, setSearch] = useQueryState('', { shallow: false });
+  const [search, setSearch] = useQueryState('');
 
   const handleSearch = useCallback(
     function (event: React.ChangeEvent<HTMLInputElement>) {

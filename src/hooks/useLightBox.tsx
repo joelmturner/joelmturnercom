@@ -1,9 +1,7 @@
 'use client';
-
-import { useRouter, useSearchParams } from 'next/navigation';
 import { createContext, PropsWithChildren, useCallback, useContext, useMemo } from 'react';
 import { ILLUSTRATION_QUERY_VS_FILTER } from '../lib/constants';
-import { IllustrationTag } from '../lib/types';
+import { parseAsInteger, useQueryState } from 'next-usequerystate';
 
 type LightBoxContextType = {
   collection: string;
@@ -32,46 +30,30 @@ const LightboxContext = createContext<LightBoxType>({
 });
 
 export function LightboxContextProvider({ children }: PropsWithChildren<Record<string, unknown>>) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const collection =
-    ILLUSTRATION_QUERY_VS_FILTER[
-      ((searchParams?.get('collection') as IllustrationTag) ?? 'featured').toLowerCase()
-    ];
-  const imageIndex = searchParams?.get('imageIndex')
-    ? (parseInt(searchParams?.get('imageIndex') as string) as number)
-    : -1;
-  const direction = searchParams?.get('direction')
-    ? (parseInt(searchParams?.get('direction') as string) as -1 | 0 | 1)
-    : 0;
+  const [collectionParam, setCollection] = useQueryState('collection');
+  const [index, setIndex] = useQueryState('index', parseAsInteger);
+  const [direction, setDirection] = useQueryState('direction', parseAsInteger);
+  const collection = ILLUSTRATION_QUERY_VS_FILTER[(collectionParam ?? 'featured').toLowerCase()];
 
   const lightbox = useMemo(() => {
     return {
       collection,
-      index: imageIndex,
+      index,
       direction,
-    };
-  }, [collection, direction, imageIndex]);
+    } as LightBoxContextType;
+  }, [collection, direction, index]);
 
   const setLightbox = useCallback(
     (value: LightBoxContextType | ((val: LightBoxContextType) => LightBoxContextType)) => {
       const newState = value instanceof Function ? value(lightbox) : value;
-      const imageIndex = newState.index > -1 ? newState.index : undefined;
-      const dir = newState.direction ?? 0;
-      const newQuery = {
-        collection: newState.collection,
-      };
+      const imageIndex = newState.index > -1 ? newState.index : null;
+      const dir = newState.direction || null;
 
-      if (imageIndex) {
-        newQuery['imageIndex'] = imageIndex;
-      }
-
-      const indexParam = imageIndex && !Number.isNaN(imageIndex) ? `&imageIndex=${imageIndex}` : '';
-      router.push(`/illustration?collection=${newQuery.collection}${indexParam}&direction=${dir}`, {
-        scroll: false,
-      });
+      setCollection(newState.collection);
+      setIndex(imageIndex);
+      setDirection(dir);
     },
-    [lightbox, router]
+    [lightbox, setCollection, setDirection, setIndex]
   );
 
   return (

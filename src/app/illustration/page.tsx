@@ -2,11 +2,10 @@ import { getIllustrations } from 'src/lib/illustrations';
 import IllustrationContainer from './container';
 import { Metadata } from 'next';
 
-export default async function IllustrationPage({ searchParams }) {
-  const collection = searchParams?.collection;
+export default async function IllustrationPage() {
   const images = await getIllustrations();
 
-  return <IllustrationContainer images={images} collection={collection} />;
+  return <IllustrationContainer images={images} />;
 }
 
 export const metadata: Metadata = {

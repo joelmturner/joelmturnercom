@@ -1,13 +1,11 @@
 import { getAllCategories, getAllPostsByCategory } from '~/lib/posts';
 import { BlogArchive } from '@components/BlogArchive';
 import { slugify } from '../../../../utils/utils';
-import { Blog, TIL } from 'contentlayer/generated';
+import { TIL } from 'contentlayer/generated';
 
-export default async function CategoryArchive({ params, searchParams }) {
+export default async function CategoryArchive({ params }) {
   const posts = await getPostData(params.slug);
-  return (
-    <BlogArchive posts={posts} title={`Category: ${params.slug}`} searchParams={searchParams} />
-  );
+  return <BlogArchive posts={posts} title={`Category: ${params.slug}`} />;
 }
 
 async function getPostData(slug: string): Promise<TIL[]> {
