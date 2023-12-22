@@ -6,7 +6,7 @@ import svelte from "@astrojs/svelte";
 import astroExpressiveCode from "astro-expressive-code";
 import sentry from "@sentry/astro";
 import { loadEnv } from "vite";
-const { SENTRY_AUTH_TOKEN } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
+const { SENTRY_AUTH_TOKEN, SENTRY_DSN } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 /** @type {import('astro-expressive-code').AstroExpressiveCodeOptions} */
 const astroExpressiveCodeOptions = {
@@ -23,7 +23,7 @@ export default defineConfig({
         pandacss(),
         svelte(),
         sentry({
-            dsn: "https://examplePublicKey@o0.ingest.sentry.io/0",
+            dsn: SENTRY_DSN,
             sourceMapsUploadOptions: {
                 project: "joelmturnercom",
                 org: "joelmturnercom",

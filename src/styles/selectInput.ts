@@ -1,10 +1,10 @@
 import { css, cx } from "styled-system/css";
 
 export const selectInput = css({
-  bgColor: "gray.50",
+  bgColor: { _light: "orange.100", _dark: "slate.700" },
   borderWidth: "1px",
-  borderColor: "gray.300",
-  color: "gray.900",
+  borderColor: { _light: "gray.300", _dark: "gray.600" },
+  color: { _light: "gray.900", _dark: "gray.100" },
   fontSize: "sm",
   lineHeight: "sm",
   rounded: "md",
@@ -15,11 +15,6 @@ export const selectInput = css({
   display: "block",
   w: "full",
   p: 2,
-  _dark: {
-    bgColor: "gray.700",
-    borderColor: "gray.600",
-    color: "white",
-  },
 });
 
 export const fadeIn = css({

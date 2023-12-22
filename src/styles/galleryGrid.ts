@@ -26,10 +26,10 @@ export const gridButtonStyles = css({
   cursor: "pointer",
   color: { _light: "gray.700", _dark: "gray.400" },
   _hover: {
-    color: { _light: "gray.900", _dark: "gray.100" },
+    color: "accent",
   },
   "&.active": {
-    color: "brand.200",
+    color: "accent",
   },
 });
 

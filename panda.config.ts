@@ -39,7 +39,7 @@ export default defineConfig({
       fontSize: "md",
       lineHeight: "normal",
       bg: {
-        _light: "white",
+        _light: "orange.50",
         _dark: "slate.900",
       },
     },
@@ -90,7 +90,7 @@ export default defineConfig({
       py: 1,
       px: 2,
       bg: {
-        _light: "gray.100",
+        _light: "rose.100",
         _dark: "gray.700",
       },
       borderRadius: "md",
@@ -128,7 +128,7 @@ export default defineConfig({
             value: { _light: "black", _dark: "white" },
           },
           accent: {
-            value: { _light: "#FFCBA5", _dark: "#97CDFF" },
+            value: { _light: "#f76942", _dark: "#97CDFF" },
           },
           brand: {
             100: {
