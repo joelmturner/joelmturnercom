@@ -1,0 +1,33 @@
+---
+import { css, cx } from 'styled-system/css';
+const { title, id } = Astro.props;
+---
+
+<p
+  class={cx(
+    'codepen',
+    css({
+      height: '300px',
+      boxSizing: 'border-box',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      border: '2px solid',
+      my: '4',
+      mx: 0,
+      padding: '4',
+    })
+  )}
+  data-height="300"
+  data-default-tab="html,result"
+  data-slug-hash={`"${id}"`}
+  data-user="joelmturner"
+>
+  <span
+    >See the Pen <a href={`https://codepen.io/joelmturner/pen/${id}`}> {`${title}`}</a> by Joel
+    Turner (<a href="https://codepen.io/joelmturner">@joelmturner</a>) on <a
+      href="https://codepen.io">CodePen</a
+    >.</span
+  >
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>

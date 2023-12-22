@@ -1,5 +1,6 @@
 ---
-title: 'Create an Avatar Component in Gatsby with TypeScript Part 3: Adding Types'
+title: "Create an Avatar Component in Gatsby with TypeScript Part 3: Adding Types"
+description: "Let's add some types to our Avatar component."
 date: 2019-09-08
 draft: false
 slug: avatar-component-gatsby-3
@@ -22,7 +23,7 @@ type AvatarProps = {
   url?: string;
   altText?: string;
   title?: string;
-  user?: 'monster1' | 'monster2';
+  user?: "monster1" | "monster2";
 };
 
 function Avatar(props: AvatarProps) {}
@@ -74,15 +75,15 @@ type Data = {
 Cool, now we should have something like this:
 
 ```typescript
-import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
-import Img, { FixedObject } from 'gatsby-image';
+import React from "react";
+import { useStaticQuery, graphql } from "gatsby";
+import Img, { FixedObject } from "gatsby-image";
 
 type AvatarProps = {
   url?: string;
   altText?: string;
   title?: string;
-  user?: 'monster1' | 'monster2';
+  user?: "monster1" | "monster2";
 };
 
 type ChildImage = {
@@ -118,9 +119,9 @@ function Avatar(props: AvatarProps) {
 
   const { url, altText, title, user } = props;
   const styles = {
-    width: '75px',
-    height: '75px',
-    borderRadius: '50%',
+    width: "75px",
+    height: "75px",
+    borderRadius: "50%",
   };
 
   if (url) {

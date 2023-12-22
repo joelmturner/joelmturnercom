@@ -1,6 +1,7 @@
 ---
 title: Working on a New Feature as a Senior Frontend Developer
-description: A Senior Frontend Engineer's guide for working through a new feature ticket
+description:
+  A Senior Frontend Engineer's guide for working through a new feature ticket
   and the thought process involved.
 date: 2022-07-06T04:28:59.027Z
 draft: false
@@ -11,7 +12,8 @@ tags:
 category: dev
 slug: working-feature-senior-frontend-developer
 lastmod: 2023-02-18T07:41:31.830Z
-excerpt: Some of the questions and thought processes I have as I work through a new
+excerpt:
+  Some of the questions and thought processes I have as I work through a new
   feature ticket.
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1657084434/Posts/new_feature_ticket
 ---
@@ -37,29 +39,40 @@ I usually start out by assessing the scope of the feature. The following questio
 
 Whew! That's a lot! Let's get into the code already.
 
-<Flex alignItems="center" flexDirection="column" maxWidth="350px" m="0 auto">
+import { flex } from "../../../styled-system/patterns";
+
+<div
+  class={flex({
+    alignItems: "center",
+    flexDirection: "column",
+    maxWidth: "350px",
+    m: "0 auto",
+  })}
+>
   <div
     style={{
-      width: '100%',
+      width: "100%",
       height: 0,
-      paddingBottom: '100%',
-      position: 'relative',
+      paddingBottom: "100%",
+      position: "relative",
     }}
   >
     <iframe
       src="https://giphy.com/embed/3krrjoL0vHRaWqwU3k"
       width="100%"
       height="100%"
-      style={{ position: 'absolute' }}
+      style={{ position: "absolute" }}
       frameBorder="0"
       class="giphy-embed"
       allowFullScreen
     ></iframe>
   </div>
   <p>
-    <a href="https://giphy.com/gifs/spotify-play-streaming-3krrjoL0vHRaWqwU3k">via GIPHY</a>
+    <a href="https://giphy.com/gifs/spotify-play-streaming-3krrjoL0vHRaWqwU3k">
+      via GIPHY
+    </a>
   </p>
-</Flex>
+</div>
 
 ## Diving Into Code
 
@@ -82,7 +95,13 @@ I almost always run some parts of my solution or my architecture by my manager, 
 
 Almost done!
 
-<Flex alignItems="center" flexDirection="column" m="0 auto">
+<div
+  class={flex({
+    alignItems: "center",
+    flexDirection: "column",
+    maxWidth: "350px",
+  })}
+>
   <img
     src="https://res.cloudinary.com/joelmturner/image/upload/w_512/v1657085654/gatsby-toasting-meme_kzslea"
     alt="Leo DiCaprio as Great Gatsby toasting the viewer"
@@ -90,7 +109,7 @@ Almost done!
     sizes="(min-width: 30em) 30em, 100vw"
     loading="lazy"
   />
-</Flex>
+</div>
 
 ## Wrapping Up
 

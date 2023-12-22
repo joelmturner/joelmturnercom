@@ -1,0 +1,179 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { css, cx } from '../../styled-system/css';
+import { prose } from '../../styled-system/recipes';
+import BaseBody from '../components/BaseBody.astro';
+import { flex } from '../../styled-system/patterns';
+import Badge from '../components/Badge.astro';
+import { slugify } from '../lib/posts';
+import { cloudinary } from '@lib/cloudinary';
+
+type Props = CollectionEntry<'blog'>['data'] & {
+  next?: CollectionEntry<'blog'>;
+  prev?: CollectionEntry<'blog'>;
+};
+
+const {
+  title,
+  description = '',
+  date,
+  lastmod,
+  cover,
+  excerpt,
+  tags,
+  category,
+  next,
+  prev,
+} = Astro.props;
+
+const coverImgUrl = cover
+  ? cloudinary.url(cover, {
+      secure: true,
+      transformation: [
+        {
+          width: 720,
+          height: 360,
+          crop: 'fill',
+          gravity: 'auto',
+        },
+      ],
+      format: 'auto',
+      quality: 'auto',
+    })
+  : null;
+---
+
+<html lang="en" data-color-mode="dark">
+  <head>
+    <BaseHead title={title} description={excerpt ?? description} image={cover} />
+  </head>
+
+  <BaseBody>
+    <div
+      class={css({
+        '& > img': {
+          display: 'block',
+          mx: 'auto',
+          borderRadius: 'lg',
+          boxShadow: 'lg',
+        },
+      })}
+    >
+      {
+        coverImgUrl && (
+          <img
+            width="1020"
+            height="510"
+            src={cover}
+            alt={title}
+            class={css({
+              aspectRatio: 1.75,
+              maxWidth: { base: '90vw', lg: '3xl' },
+            })}
+          />
+        )
+      }
+    </div>
+    <div
+      class={css({
+        padding: 3,
+        color: 'primary',
+      })}
+    >
+      <div
+        class={css({
+          py: 2,
+          textAlign: 'center',
+          lineHeight: 1,
+        })}
+      >
+        <div
+          class={css({
+            marginBottom: 2,
+            color: {
+              _light: 'gray.500',
+              _dark: 'gray.400',
+            },
+          })}
+        >
+          {!!date && <FormattedDate date={date} />}
+          {
+            lastmod && (
+              <div
+                class={css({
+                  color: {
+                    _light: 'gray.500',
+                    _dark: 'gray.400',
+                  },
+                  fontStyle: 'italic',
+                })}
+              >
+                Last updated on <FormattedDate date={lastmod} />
+              </div>
+            )
+          }
+        </div>
+        <h1
+          class={css({
+            color: 'primary',
+            fontSize: { base: '2xl', lg: '4xl' },
+          })}
+        >
+          {title}
+        </h1>
+        <hr class={css({ my: 4, borderColor: 'slate.700' })} />
+      </div>
+      <article class={prose({ size: 'lg' })}>
+        <slot />
+      </article>
+    </div>
+    <section class={flex({ direction: 'column', gap: 3 })}>
+      <div class={cx(prose({ size: 'lg' }))}>
+        <hr />
+      </div>
+      <div class={flex({ gap: 3, alignItems: 'center' })}>
+        Category: <Badge link={`/blog/category/${slugify(category)}`}>
+          {category}
+        </Badge>
+      </div>
+      <div class={flex({ gap: 3, alignItems: 'center', flexWrap: 'wrap' })}>
+        Tags: {tags.map((tag) => <Badge link={`/blog/tag/${slugify(tag)}`}>{tag}</Badge>)}
+      </div>
+      <div
+        class={css({
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: 3,
+          gap: 8,
+          color: 'brand.100',
+        })}
+      >
+        <a
+          href={`/blog/${prev?.slug}`}
+          class={flex({
+            gap: 2,
+            alignItems: 'center',
+            transition: 'color 0.2s ease',
+            '&:hover': {
+              color: 'brand.200',
+            },
+          })}><span>{`< `}</span> {prev?.data?.title}</a
+        >
+        <a
+          href={`/blog/${next?.slug}`}
+          class={flex({
+            gap: 2,
+            textAlign: 'right',
+            alignItems: 'center',
+            transition: 'color 0.2s ease',
+            '&:hover': {
+              color: 'brand.200',
+            },
+          })}>{next?.data?.title} <span>{` >`}</span></a
+        >
+      </div>
+    </section>
+  </BaseBody>
+</html>

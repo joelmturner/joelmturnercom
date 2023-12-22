@@ -1,31 +1,30 @@
-import { Blog } from '.contentlayer/generated/types';
+import type { ILLUSTRATION_QUERY_VS_FILTER } from "./queryParams";
 
-export type FrontMatter = {
-  title: string;
-  date: number;
-  draft: boolean;
-  slug: string;
-  category: string;
-  tags: string[];
-  lastmod: number;
-  featured?: boolean;
-  excerpt: string;
-  cover: string;
-  description?: string;
+export type Project = {
+  name: string;
+  description: string;
+  imageURL: string;
+  tech: Array<"react" | "typescript" | "chakra ui" | "next.js" | "panda css">;
+  github: string;
+  featured: boolean;
+  url?: string;
 };
 
 export type IllustrationTag =
-  | 'handletteredabcs_2016'
-  | 'inktober2017'
-  | 'inktober2018'
-  | 'inktober2019'
-  | 'inktober2021'
-  | 'inktober2022'
-  | 'inktober2023'
-  | 'joelmturner_abcs2017'
-  | 'joelmturner_featured'
-  | 'jmt_dorbs'
-  | 'letterclash';
+  | "handletteredabcs_2016"
+  | "inktober2017"
+  | "inktober2018"
+  | "inktober2019"
+  | "inktober2021"
+  | "inktober2022"
+  | "inktober2023"
+  | "joelmturner_abcs2017"
+  | "joelmturner_featured"
+  | "jmt_dorbs"
+  | "letterclash";
+
+export type IllustrationCollectionParam =
+  keyof typeof ILLUSTRATION_QUERY_VS_FILTER;
 
 export type IllustrationItem = {
   id: string;
@@ -38,7 +37,7 @@ export type Illustrations = {
   [key in IllustrationTag]: IllustrationItem[];
 };
 
-export type PostType = 'post' | 'til';
+export type PostType = "post" | "til";
 
 export type CloudinaryResponse = { resources: CloudinaryImageResult[] };
 export type CloudinaryImageResult = {
@@ -77,7 +76,10 @@ export type UploadedBy = {
   access_key: string;
 };
 
-export type PostCard = Pick<
-  Blog,
-  'title' | 'slug' | 'cover' | 'date' | 'category' | 'tags' | 'excerpt'
->;
+export type SocialIconLabel =
+  | "Instagram"
+  | "Twitter"
+  | "Linkedin"
+  | "Github"
+  | "DEV"
+  | "Mastodon";

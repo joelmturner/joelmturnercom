@@ -1,0 +1,29 @@
+---
+import { css } from '../../styled-system/css';
+import Footer from './Footer.astro';
+import Header from './Header.astro';
+
+const { title } = Astro.props;
+---
+
+<body
+  class={css({
+    display: 'grid',
+    gridTemplateRows: 'auto 1fr auto',
+    h: 'screen',
+  })}
+>
+  <Header title={title} />
+  <main
+    class={css({
+      w: 'full',
+      maxW: { base: '100vw', lg: '3xl' },
+      mx: 'auto',
+      px: { base: 4, md: 0 },
+      py: { base: 4, lg: 12 },
+    })}
+  >
+    <slot />
+  </main>
+  <Footer />
+</body>

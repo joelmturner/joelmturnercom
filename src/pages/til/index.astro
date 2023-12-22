@@ -1,0 +1,46 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import { getCollection } from 'astro:content';
+import { flex, grid } from '../../../styled-system/patterns';
+import BaseBody from '../../components/BaseBody.astro';
+import Badge from '../../components/Badge.astro';
+import { slugify } from '../../lib/posts';
+
+const tilPosts = (await getCollection('til')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<!doctype html>
+<html lang="en" data-color-mode="dark">
+  <head>
+    <BaseHead title={'Dev Tips'} description={"Some things I've learned along the way"} />
+  </head>
+  <BaseBody>
+    <section>
+      <div
+        class={grid({
+          columns: { base: 1, md: 2 },
+          gap: 8,
+          margin: 0,
+          padding: 0,
+        })}
+      >
+        {
+          tilPosts.map((post) => (
+            <div class={flex({ direction: 'column' })}>
+              <h3>
+                <a href={`/til/${post.slug}`}>{post.data.title}</a>
+              </h3>
+              <div class={flex({ gap: 3, alignItems: 'center' })}>
+                {post.data.tags.map((tag) => (
+                  <Badge link={`/til/tag/${slugify(tag)}`}>{tag}</Badge>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </BaseBody>
+</html>

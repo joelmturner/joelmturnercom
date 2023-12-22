@@ -11,7 +11,8 @@ tags:
   - TypeScript
   - Cloudinary
 lastmod: 2023-02-18T07:41:31.940Z
-excerpt: Setting up a GitHub Action to upload images to Cloudinary from Instagram. This
+excerpt:
+  Setting up a GitHub Action to upload images to Cloudinary from Instagram. This
   solves some of the issues that I was having with getting Instagram images into
   Gatsby.
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655159350/Posts/instagram_to_cloudinary
@@ -25,10 +26,13 @@ We're going to walk through setting up a Node.js project that will fetch Instagr
 
 Here's the [instagram-cloudinary](https://github.com/joelmturner/instagram-cloudinary) repo if you'd like to skip to the final code.
 
+import Note from "../../components/Note.astro";
+
 <Note>
-
-_Update: January 2023_ - Shortly after posting this article, I moved my site from [Gatsby](https://www.gatsbyjs.com/) to [Nextjs](https://nextjs.org/). You can see how I retrieve the images in the [Retrieving Cloudinary Images](#retrieving-cloudinary-images) section.
-
+  _Update: January 2023_ - Shortly after posting this article, I moved my site
+  from [Gatsby](https://www.gatsbyjs.com/) to [Nextjs](https://nextjs.org/). You
+  can see how I retrieve the images in the [Retrieving Cloudinary
+  Images](#retrieving-cloudinary-images) section.
 </Note>
 
 ## The Problem
@@ -71,7 +75,7 @@ yarn init
 
 This is what my package.json file looks like after initialization:
 
-```json filename=package.json
+```json title="package.json"
 {
   "name": "instagram-cloudinary",
   "version": "1.0.0",
@@ -96,7 +100,7 @@ yarn tsc --init
 
 This is how mine looks after cleanup.
 
-```json filename=tsconfig.json
+```json title="tsconfig.json"
 {
   "compilerOptions": {
     "target": "esnext",
@@ -127,7 +131,7 @@ touch src/index.ts
 
 In this file we can add some pseudo code to help us step through. Our `src/index.ts` can look like this:
 
-```typescript filename=src/index.ts
+```typescript title="src/index.ts"
 async function instagramToCloudinary() {
   // fetch the posts from Instagram
   // convert the posts by hashtags
@@ -153,21 +157,21 @@ Next, let's set up some environment variables for Instagram. For this, you'll ne
 
 Create a `.env` file at the root of your project and add your values like:
 
-```bash filename=.env
+```bash title=".env"
 INSTAGRAM_ACCESS_TOKEN=XXXXXX
 INSTAGRAM_ID=XXXXXX
 ```
 
 Now that we have these ready, we can start putting the script together. I'll put the Instagram fetching in its own function, so it's easier to reason about later.
 
-```typescript filename=src/index.ts line=1-10,13
-require('dotenv').config();
+```typescript title="src/index.ts" {1-10,13}
+require("dotenv").config();
 const MAX_POSTS = 500;
 
 async function fetchInstagramPosts() {
-  console.log('🚀 fetching Instagram posts');
+  console.log("🚀 fetching Instagram posts");
   const response = await axios.get(
-    `https://graph.facebook.com/v12.0/${process.env.INSTAGRAM_ID}/media?fields=media_url,caption,media_type,timestamp,children{media_url},comments.limit(3){text}&limit=${MAX_POSTS}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`
+    `https://graph.facebook.com/v12.0/${process.env.INSTAGRAM_ID}/media?fields=media_url,caption,media_type,timestamp,children{media_url},comments.limit(3){text}&limit=${MAX_POSTS}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`,
   );
   return response?.data?.data;
 }
@@ -193,16 +197,16 @@ We're using the environment variables declared above to place into these paramet
 
 We then use an `await` to make sure the posts resolve before moving on to the next step. We can also add a try-catch in case there is a failure.
 
-```typescript filename=src/index.ts line=2,8-10
+```typescript title="src/index.ts" {2,8-10}
 async function fetchInstagramPosts() {
   try {
-    console.log('🚀 fetching Instagram posts');
+    console.log("🚀 fetching Instagram posts");
     const response = await axios.get(
-      `https://graph.facebook.com/v12.0/${process.env.INSTAGRAM_ID}/media?fields=media_url,caption,media_type,timestamp,children{media_url},comments.limit(3){text}&limit=${MAX_POSTS}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`
+      `https://graph.facebook.com/v12.0/${process.env.INSTAGRAM_ID}/media?fields=media_url,caption,media_type,timestamp,children{media_url},comments.limit(3){text}&limit=${MAX_POSTS}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`,
     );
     return response?.data?.data;
   } catch (error) {
-    console.log('😿 Instagram fetch error', error);
+    console.log("😿 Instagram fetch error", error);
   }
 }
 ```
@@ -211,8 +215,8 @@ async function fetchInstagramPosts() {
 
 Let's do this section in its own function as well. We can add the invocation of it to `instagramToCloudinary()`. We'll add a type of `UploadPost` that we can define in `src/types.ts` and import into our script. The `UploadPost` array will store our data in a way that we can pass to Cloudinary more easily.
 
-```typescript filename=src/index.ts line=7-10,13
-import { UploadPost } from './types';
+```typescript title="src/index.ts" {7-10,13}
+import { UploadPost } from "./types";
 
 async function instagramToCloudinary() {
   // fetch the posts from Instagram
@@ -220,7 +224,8 @@ async function instagramToCloudinary() {
 
   if (posts?.length) {
     // convert the posts by hashtags
-    const cloudinaryCollection: UploadPost[] = convertInstagramPostToCloudinaryEntity(posts);
+    const cloudinaryCollection: UploadPost[] =
+      convertInstagramPostToCloudinaryEntity(posts);
 
     // upload to Cloudinary
     // trigger a build if posts are pulled successfully
@@ -228,7 +233,7 @@ async function instagramToCloudinary() {
 }
 ```
 
-```typescript filename=src/types.ts
+```typescript title="src/types.ts"
 export type UploadPost = {
   url: string;
   public_id: string;
@@ -241,25 +246,25 @@ export type UploadPost = {
 
 Now, let's create the `convertInstagramPostToCloudinaryEntity()` function. This one is fairly deep, so I'll try to walk through it in pieces, then put it all together. We can stub out the function and add a type of `Post` which is, roughly, the shape we get back from the Instagram API.
 
-```typescript filename=src/index.ts
-import { Post, UploadPost } from './types';
-require('dotenv').config();
+```typescript title="src/index.ts"
+import { Post, UploadPost } from "./types";
+require("dotenv").config();
 const MAX_POSTS = 500;
 
 async function fetchInstagramPosts() {}
 
 function convertInstagramPostToCloudinaryEntity(posts: Post[]): UploadPost[] {
-  console.log('🚀 converting posts to Cloudinary');
+  console.log("🚀 converting posts to Cloudinary");
 
   // check for hashtags in the posts and add to the collection
 }
 ```
 
-```typescript filename=src/types.ts
+```typescript title="src/types.ts"
 export type Post = {
   media_url: string;
   caption?: string;
-  media_type: 'IMAGE' | 'VIDEO' | 'AUDIO';
+  media_type: "IMAGE" | "VIDEO" | "AUDIO";
   timestamp: string;
   comments_count: number;
   id: string;
@@ -271,38 +276,38 @@ export type Post = {
 
 Now that we have a function ready to start with, we need to figure out how to filter the posts based on a hashtag. I opted to create a list of the hashtags I would like to showcase on my site. The list has an `id` and a `regex` because I messed up the hashtags a few times on Instagram and didn't want to go back through to fix them.
 
-```typescript filename=src/constants.ts
+```typescript title="src/constants.ts"
 export const HASHTAG_CONFIG = [
   {
-    id: 'joelmturner_abcs2017',
+    id: "joelmturner_abcs2017",
     regex: /#j.+?2017/gi,
   },
   {
-    id: 'joelmturner_featured',
+    id: "joelmturner_featured",
     regex: /#joelmturner_featured/gi,
   },
   {
-    id: 'letterclash',
+    id: "letterclash",
     regex: /#letterclash/gi,
   },
   {
-    id: 'inktober2017',
+    id: "inktober2017",
     regex: /#ink.+?2017/gi,
   },
   {
-    id: 'inktober2018',
+    id: "inktober2018",
     regex: /#ink.+?2018/gi,
   },
   {
-    id: 'inktober2019',
+    id: "inktober2019",
     regex: /#ink.+?2019/gi,
   },
   {
-    id: 'inktober2021',
+    id: "inktober2021",
     regex: /#ink.+?2021/gi,
   },
   {
-    id: 'handletteredabcs_2016',
+    id: "handletteredabcs_2016",
     regex: /#handletteredabcs_2016/gi,
   },
 ];
@@ -310,16 +315,16 @@ export const HASHTAG_CONFIG = [
 
 First, we'll loop over the hashtag config and filter down to the posts that have the hashtags that we want. Then, we'll be able to combine the hashtags, if a post has more than one and create an entity that will be easier for the upload step. We can store these in a variable outside of the loop that will be returned at the end of the function.
 
-```typescript filename=src/index.ts line=3-51
+```typescript title="src/index.ts" {3-51}
 function convertInstagramPostToCloudinaryEntity(posts: Post[]): UploadPost[] {
-  console.log('🚀 converting posts to Cloudinary');
+  console.log("🚀 converting posts to Cloudinary");
   const cloudinaryCollection: UploadPost[] = [];
 
   // check for hashtags in the posts and add to collection
   HASHTAG_CONFIG.forEach((config) => {
     const postGroup = posts?.filter((post) => {
       // making sure the post is an image instead of video
-      if (post.media_type !== 'IMAGE') {
+      if (post.media_type !== "IMAGE") {
         return false;
       }
       // combines the text from the first 3 comments
@@ -327,7 +332,7 @@ function convertInstagramPostToCloudinaryEntity(posts: Post[]): UploadPost[] {
         post?.comments?.data?.reduce((acc, comment) => {
           acc = `${acc} ${comment?.text}`;
           return acc;
-        }, '') ?? '';
+        }, "") ?? "";
 
       const content = `${post?.caption} ${comments}`;
       // check to see if our regex matches anything in the combined string
@@ -342,7 +347,7 @@ function convertInstagramPostToCloudinaryEntity(posts: Post[]): UploadPost[] {
         const combinedId = `${timestamp}_${post.id}`;
         // see if this post is already in our collection
         const found = cloudinaryCollection.find(
-          (uploadPost) => uploadPost.public_id === combinedId
+          (uploadPost) => uploadPost.public_id === combinedId,
         );
 
         if (found) {
@@ -353,7 +358,7 @@ function convertInstagramPostToCloudinaryEntity(posts: Post[]): UploadPost[] {
           cloudinaryCollection.push({
             url: post.media_url,
             public_id: combinedId,
-            folder: 'illustration',
+            folder: "illustration",
             overwrite: true,
             tags: [config.id],
             createdDate: timestamp,
@@ -385,7 +390,7 @@ Once finished, you should see all the details you'll need at the top of your Clo
 
 Let's get the Cloudinary client connected. We'll need to add some items to our `.env` file.
 
-```bash line=5-8 filename=.env
+```bash {5-8} title=".env"
 # Instagram
 INSTAGRAM_ACCESS_TOKEN=XXXXXX
 INSTAGRAM_ID=XXXXXX
@@ -398,7 +403,7 @@ CLOUDINARY_API_SECRET=XXXXXX
 
 We can now use these in our app to help us connect to Cloudinary. Here is the connection config. I placed this at the top of the index file, under the imports.
 
-```typescript filename=src/index.ts
+```typescript title="src/index.ts"
 cloudinary.v2.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -411,8 +416,8 @@ cloudinary.v2.config({
 
 We're now ready to start the upload process. We'll start by creating a new async function because we want to know if all of the uploads made it successfully.
 
-```typescript filename=src/index.ts line=12
-import { UploadPost } from './types';
+```typescript title="src/index.ts" {12}
+import { UploadPost } from "./types";
 
 async function instagramToCloudinary() {
   // fetch the posts from Instagram
@@ -420,7 +425,8 @@ async function instagramToCloudinary() {
 
   if (posts?.length) {
     // convert the posts by hashtags
-    const cloudinaryCollection: UploadPost[] = convertInstagramPostToCloudinaryEntity(posts);
+    const cloudinaryCollection: UploadPost[] =
+      convertInstagramPostToCloudinaryEntity(posts);
 
     // upload to Cloudinary
     const uploadStatus = await sendToCloudinary(cloudinaryCollection);
@@ -429,46 +435,50 @@ async function instagramToCloudinary() {
 }
 ```
 
-```typescript filename=src/index.ts
+```typescript title="src/index.ts"
 async function sendToCloudinary(postGroup: UploadPost[]) {
-  console.log('🚀 uploading to Cloudinary');
+  console.log("🚀 uploading to Cloudinary");
 }
 ```
 
 Cloudinary doesn't have a bulk upload script but their individual upload is very quick and can handle many uploads simultaneously so we can just loop over our entities and send them up. Here's the [upload API](https://cloudinary.com/documentation/image_upload_api_reference) we'll be using. There are a lot of options that can be adjusted based on the projects' needs. Here, we're just using the basic options.
 
-```typescript filename=src/index.ts line=3-31
+```typescript title="src/index.ts" {3-31}
 async function sendToCloudinary(postGroup: UploadPost[]) {
-  console.log('🚀 uploading to Cloudinary');
-  const resolves = postGroup.map(async ({ public_id, folder, overwrite, tags, url }) => {
-    try {
-      return new Promise((resolve, reject) => {
-        cloudinary.v2.uploader.upload(
-          url,
-          {
-            public_id,
-            folder,
-            overwrite,
-            tags,
-          },
-          function (error) {
-            if (error) {
-              reject(error);
-            } else {
-              resolve('SUCCESS');
-            }
-          }
-        );
-      });
-    } catch (error_1) {
-      console.log('😿 Cloudinary upload error', error_1);
-    }
-  });
+  console.log("🚀 uploading to Cloudinary");
+  const resolves = postGroup.map(
+    async ({ public_id, folder, overwrite, tags, url }) => {
+      try {
+        return new Promise((resolve, reject) => {
+          cloudinary.v2.uploader.upload(
+            url,
+            {
+              public_id,
+              folder,
+              overwrite,
+              tags,
+            },
+            function (error) {
+              if (error) {
+                reject(error);
+              } else {
+                resolve("SUCCESS");
+              }
+            },
+          );
+        });
+      } catch (error_1) {
+        console.log("😿 Cloudinary upload error", error_1);
+      }
+    },
+  );
 
   // make sure all were successful
-  const successfullyResolved = (await Promise.all(resolves)).every((resolve) => !!resolve);
+  const successfullyResolved = (await Promise.all(resolves)).every(
+    (resolve) => !!resolve,
+  );
 
-  return successfullyResolved ? 'SUCCESS' : 'ERROR';
+  return successfullyResolved ? "SUCCESS" : "ERROR";
 }
 ```
 
@@ -480,7 +490,7 @@ The last argument in the upload function is a callback that can help us determin
 
 If all the images were uploaded successfully, we'll trigger the build on Netlify. First, we'll need our Netlify webhook. You can set one up in the deploys settings `https://app.netlify.com/sites/<account>/settings/deploys` under the Build Hooks section. Once you have the hook, you can add that to your `.env` file.
 
-```bash filename=.env line=10-11
+```bash title=".env" {10-11}
 # Instagram
 INSTAGRAM_ACCESS_TOKEN=XXXXXX
 INSTAGRAM_ID=XXXXXX
@@ -496,28 +506,28 @@ NETLIFY_WEBHOOK=XXXXXX
 
 We'll now set up a conditional build script using `axios`.
 
-```typescript filename=src/index.ts
+```typescript title="src/index.ts"
 // trigger a build if posts are pulled successfully
-if (uploadStatus === 'SUCCESS') {
+if (uploadStatus === "SUCCESS") {
   axios
     .post(process.env.NETLIFY_WEBHOOK as string)
     .then(() => {
-      console.log('🚀 triggered Netlify build');
+      console.log("🚀 triggered Netlify build");
     })
     .catch((error) => {
-      console.log('😿 Netlify trigger error', error);
+      console.log("😿 Netlify trigger error", error);
     });
 }
 ```
 
 Our script should look something like this now:
 
-```typescript filename=src/index.ts
-import axios from 'axios';
-import cloudinary from 'cloudinary';
-import { HASHTAG_CONFIG, MAX_POSTS } from './constants';
-import { InstagramResponse, Post, UploadPost } from './types';
-require('dotenv').config();
+```typescript title="src/index.ts"
+import axios from "axios";
+import cloudinary from "cloudinary";
+import { HASHTAG_CONFIG, MAX_POSTS } from "./constants";
+import { InstagramResponse, Post, UploadPost } from "./types";
+require("dotenv").config();
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -527,60 +537,64 @@ cloudinary.v2.config({
 });
 
 async function sendToCloudinary(postGroup: UploadPost[]) {
-  console.log('🚀 uploading to Cloudinary');
-  const resolves = postGroup.map(async ({ public_id, folder, overwrite, tags, url }) => {
-    try {
-      return new Promise((resolve, reject) => {
-        cloudinary.v2.uploader.upload(
-          url,
-          {
-            public_id,
-            folder,
-            overwrite,
-            tags,
-          },
-          function (error) {
-            if (error) {
-              reject(error);
-            } else {
-              resolve('SUCCESS');
-            }
-          }
-        );
-      });
-    } catch (error_1) {
-      console.log('😿 Cloudinary upload error', error_1);
-    }
-  });
+  console.log("🚀 uploading to Cloudinary");
+  const resolves = postGroup.map(
+    async ({ public_id, folder, overwrite, tags, url }) => {
+      try {
+        return new Promise((resolve, reject) => {
+          cloudinary.v2.uploader.upload(
+            url,
+            {
+              public_id,
+              folder,
+              overwrite,
+              tags,
+            },
+            function (error) {
+              if (error) {
+                reject(error);
+              } else {
+                resolve("SUCCESS");
+              }
+            },
+          );
+        });
+      } catch (error_1) {
+        console.log("😿 Cloudinary upload error", error_1);
+      }
+    },
+  );
 
   // make sure all were successful
-  const successfullyResolved = (await Promise.all(resolves)).every((resolve) => !!resolve);
+  const successfullyResolved = (await Promise.all(resolves)).every(
+    (resolve) => !!resolve,
+  );
 
-  return successfullyResolved ? 'SUCCESS' : 'ERROR';
+  return successfullyResolved ? "SUCCESS" : "ERROR";
 }
 
 async function fetchInstagramPosts(postRequestError) {
   try {
-    console.log('🚀 fetching Instagram posts');
+    console.log("🚀 fetching Instagram posts");
     const response = await axios.get<InstagramResponse>(
-      `https://graph.facebook.com/v12.0/${process.env.INSTAGRAM_ID}/media?fields=media_url,caption,media_type,timestamp,username,children{media_url},permalink,comments.limit(3){text}&limit=${MAX_POSTS}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`
+      `https://graph.facebook.com/v12.0/${process.env.INSTAGRAM_ID}/media?fields=media_url,caption,media_type,timestamp,username,children{media_url},permalink,comments.limit(3){text}&limit=${MAX_POSTS}&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`,
     );
     return response?.data?.data;
   } catch (error) {
     postRequestError = error;
-    console.log('😿 Instagram fetch error', error);
+    console.log("😿 Instagram fetch error", error);
   }
 }
 
 function convertInstagramPostToCloudinaryEntity(posts: Post[]): UploadPost[] {
-  console.log('🚀 converting posts to Cloudinary');
+  console.log("🚀 converting posts to Cloudinary");
   const cloudinaryCollection: UploadPost[] = [];
 
   // check for hashtags in the posts and add to collection
   HASHTAG_CONFIG.forEach((config) => {
     const postGroup = posts?.filter((post) => {
       // making sure the post is an image instead of video
-      if (post.media_type !== 'IMAGE') {
+      if (post.media_type !== "IMAGE") {
         return false;
       }
       // combines the text from the first 3 comments
@@ -588,7 +602,7 @@ function convertInstagramPostToCloudinaryEntity(posts: Post[]): UploadPost[] {
         post?.comments?.data?.reduce((acc, comment) => {
           acc = `${acc} ${comment?.text}`;
           return acc;
-        }, '') ?? '';
+        }, "") ?? "";
 
       const content = `${post?.caption} ${comments}`;
       // check to see if our regex matches anything in the combined string
@@ -603,7 +617,7 @@ function convertInstagramPostToCloudinaryEntity(posts: Post[]): UploadPost[] {
         const combinedId = `${timestamp}_${post.id}`;
         // see if this post is already in our collection
         const found = cloudinaryCollection.find(
-          (uploadPost) => uploadPost.public_id === combinedId
+          (uploadPost) => uploadPost.public_id === combinedId,
         );
 
         if (found) {
@@ -614,7 +628,7 @@ function convertInstagramPostToCloudinaryEntity(posts: Post[]): UploadPost[] {
           cloudinaryCollection.push({
             url: post.media_url,
             public_id: combinedId,
-            folder: 'illustration',
+            folder: "illustration",
             overwrite: true,
             tags: [config.id],
             createdDate: timestamp,
@@ -635,20 +649,21 @@ async function instagramToCloudinary() {
 
   if (posts?.length) {
     // convert the posts by hashtags
-    const cloudinaryCollection: UploadPost[] = convertInstagramPostToCloudinaryEntity(posts);
+    const cloudinaryCollection: UploadPost[] =
+      convertInstagramPostToCloudinaryEntity(posts);
 
     // upload to Cloudinary
     const uploadStatus = await sendToCloudinary(cloudinaryCollection);
 
     // trigger a build if posts are pulled successfully
-    if (!postRequestError && uploadStatus === 'SUCCESS') {
+    if (!postRequestError && uploadStatus === "SUCCESS") {
       axios
         .post(process.env.NETLIFY_WEBHOOK as string)
         .then(() => {
-          console.log('🚀 triggered Netlify build');
+          console.log("🚀 triggered Netlify build");
         })
         .catch((error) => {
-          console.log('😿 Netlify trigger error', error);
+          console.log("😿 Netlify trigger error", error);
         });
     }
   }
@@ -679,7 +694,7 @@ name: Post Fetch and Deploy
 # Controls when the workflow will run
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:

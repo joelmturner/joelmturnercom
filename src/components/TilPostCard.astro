@@ -1,0 +1,20 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { flex } from '../../styled-system/patterns';
+import Badge from './Badge.astro';
+import { slugify } from '../lib/posts';
+
+type Props = {
+  post: CollectionEntry<'til'>;
+};
+const { post } = Astro.props;
+---
+
+<div class={flex({ direction: 'column' })}>
+  <h3>
+    <a href={`/til/${post.slug}`}>{post.data.title}</a>
+  </h3>
+  <div class={flex({ gap: 3, alignItems: 'center' })}>
+    {post.data.tags.map((tag) => <Badge link={`/til/tag/${slugify(tag)}`}>{tag}</Badge>)}
+  </div>
+</div>

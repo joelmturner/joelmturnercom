@@ -1,0 +1,60 @@
+---
+import { SOCIAL_LINKS } from '@lib/constants';
+import { css } from 'styled-system/css';
+import { flex } from 'styled-system/patterns';
+import SocialIcon from './SocialIcon.astro';
+const today = new Date();
+---
+
+<footer
+  class={css({
+    borderTopWidth: 1,
+    borderStyle: 'solid',
+    borderColor: {
+      _light: 'slate.100',
+      _dark: 'slate.700',
+    },
+    w: 'full',
+    py: 8,
+  })}
+>
+  <div
+    class={css({
+      mx: 'auto',
+      maxW: '4xl',
+      px: 4,
+    })}
+  >
+    <div
+      class={flex({
+        justifyContent: 'space-between',
+        w: '100%',
+        alignItems: 'center',
+      })}
+    >
+      <div>
+        &copy; 2012-{today.getFullYear()}, built with{' '}
+        <a href="https://astro.build/" title="Astro"> Astro</a>
+        {' and '}
+        <a href="https://panda-css.com/" title="Panda CSS"> Panda CSS</a>
+      </div>
+
+      <div
+        class={flex({
+          gap: 2,
+          wrap: 'wrap',
+          justify: 'flex-end',
+          maxW: { base: '40vw', md: 'auto' },
+        })}
+      >
+        {
+          SOCIAL_LINKS.map(({ href, label }) => (
+            <a href={href}>
+              <SocialIcon icon={label} />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</footer>

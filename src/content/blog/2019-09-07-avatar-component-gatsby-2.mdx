@@ -1,5 +1,6 @@
 ---
-title: 'Create an Avatar Component in Gatsby with TypeScript Part 2: Gatsby Image'
+title: "Create an Avatar Component in Gatsby with TypeScript Part 2: Gatsby Image"
+description: Optimizing the image with Gatsby Image
 date: 2019-09-07
 draft: false
 slug: avatar-component-gatsby-2
@@ -12,7 +13,7 @@ order: 1
 lastmod: 2022-06-18T02:22:32.745Z
 ---
 
-In <Link to='/blog/avatar-component-gatsby-1'>Part 1</Link> we put together a simple avatar component that can receive an image url and render it out as a round image.
+In <a href='/blog/avatar-component-gatsby-1'>Part 1</a> we put together a simple avatar component that can receive an image url and render it out as a round image.
 
 To get the full benefit of Gatsby Image we need to make sure our image is pulled into our graphql. We'll need to install a couple of plugins to help us here. [`gatsby-image`](https://www.gatsbyjs.org/packages/gatsby-image), [`gatsby-transformer-sharp`](https://www.gatsbyjs.org/packages/gatsby-transformer-sharp), [`gatsby-plugin-sharp`](https://www.gatsbyjs.org/packages/gatsby-plugin-sharp) will be needed.
 
@@ -90,9 +91,9 @@ function Avatar(props) {
 Now let's put it all together.
 
 ```jsx
-import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
+import React from "react";
+import { useStaticQuery, graphql } from "gatsby";
+import Img from "gatsby-image";
 
 function Avatar(props) {
   const data = useStaticQuery(graphql`
@@ -109,9 +110,9 @@ function Avatar(props) {
 
   const { url, altText, title } = props;
   const styles = {
-    width: '75px',
-    height: '75px',
-    borderRadius: '50%',
+    width: "75px",
+    height: "75px",
+    borderRadius: "50%",
   };
 
   return (
@@ -130,9 +131,9 @@ export default Avatar;
 We're still missing the ability to pass a url to our avatar component so let's add that back in. We can return a regular `img` element if we get a url. Using `fixed` will be better since we're not worried about fluid mode with this component.
 
 ```jsx
-import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
+import React from "react";
+import { useStaticQuery, graphql } from "gatsby";
+import Img from "gatsby-image";
 
 function Avatar(props) {
   const data = useStaticQuery(graphql`
@@ -149,9 +150,9 @@ function Avatar(props) {
 
   const { url, altText, title } = props;
   const styles = {
-    width: '75px',
-    height: '75px',
-    borderRadius: '50%',
+    width: "75px",
+    height: "75px",
+    borderRadius: "50%",
   };
 
   if (url) {
@@ -206,13 +207,21 @@ That way we can pass `monster1` or `monster2` in our `user` prop to have it rend
 {/* <AvatarPart user={"monster1"} /> */}
 
 ```jsx
-<Avatar alText="Monster P. Whittington portrait" title="Monster P. Whittington" user="monster1" />
+<Avatar
+  alText="Monster P. Whittington portrait"
+  title="Monster P. Whittington"
+  user="monster1"
+/>
 ```
 
 {/* <AvatarPart user={"monster2"} /> */}
 
 ```jsx
-<Avatar alText="Mons T. Cobblepot portrait" title="Mons T. Cobblepot" user="monster2" />
+<Avatar
+  alText="Mons T. Cobblepot portrait"
+  title="Mons T. Cobblepot"
+  user="monster2"
+/>
 ```
 
 {/* </Grid> */}

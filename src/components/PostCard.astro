@@ -1,0 +1,124 @@
+---
+import { cloudinary } from '@lib/cloudinary';
+import { css, cx } from '../../styled-system/css';
+import { prose } from '../../styled-system/recipes';
+import FormattedDate from './FormattedDate.astro';
+import { type CollectionEntry } from 'astro:content';
+
+export type Props = {
+  post: CollectionEntry<'blog'>;
+  featured?: boolean;
+};
+const { post, featured } = Astro.props;
+
+const featuredStyles = {
+  w: 'full',
+  mb: { base: 0, lg: 4 },
+  textAlign: 'center',
+  '& img': {
+    w: 'full',
+  },
+};
+
+// https://res.cloudinary.com/joelmturner/image/upload/h_360,w_720/c_fit,h_250,l_text:Helvetica_40_bold_line_spacing_10:Create%20an%20Avatar%20Component%20in%20Gatsby%20with%20TypeScript%20Part%203%3A%20Adding%20Types,w_450/fl_layer_apply,g_west,x_225,y_0/blog-post-card.png
+
+const coverImgUrl = post.data.cover
+  ? cloudinary.url(post.data.cover, {
+      secure: true,
+      transformation: [
+        {
+          width: 720,
+          height: 360,
+          crop: 'fill',
+          gravity: 'auto',
+        },
+      ],
+      format: 'auto',
+      quality: 'auto',
+    })
+  : cloudinary.url('blog-post-card', {
+      secure: true,
+      format: 'png',
+      transformation: [
+        {
+          width: 720,
+          height: 360,
+        },
+        {
+          overlay: {
+            text: post.data.title,
+            font_family: 'Helvetica',
+            font_size: 40,
+            font_weight: 'bold',
+            line_spacing: 10,
+          },
+          width: 450,
+          height: 250,
+          crop: 'fit',
+        },
+        {
+          flags: 'layer_apply',
+          gravity: 'west',
+          x: 225,
+          y: 0,
+        },
+      ],
+    });
+---
+
+<div
+  class={cx(
+    css({
+      w: { base: 'full', lg: 'calc(50% - 1rem)' },
+      textAlign: { base: 'center', lg: 'left' },
+      '& *': {
+        textDecoration: 'none',
+        transition: '0.2s ease',
+      },
+      '&:hover h4': {
+        color: 'accent',
+      },
+      '&:hover img': {
+        shadowColor: {
+          _light: 'slate.100',
+          _dark: 'slate.800',
+        },
+        shadow: '0 20px 25px -5px var(--shadow-color), 0 8px 10px -6px var(--shadow-color)',
+      },
+      ...(featured ? featuredStyles : {}),
+    })
+  )}
+>
+  <a href={`/blog/${post.slug}/`} class={prose({ size: '2xl' })}>
+    {
+      coverImgUrl ? (
+        <img
+          width={720}
+          height={360}
+          src={coverImgUrl}
+          alt={post.data.title}
+          class={cx(
+            'not-prose',
+            css({
+              mb: 1,
+              borderRadius: 'xl',
+            })
+          )}
+        />
+      ) : null
+    }
+    <h4
+      class={css({
+        mt: 3,
+        mb: 1,
+        lineHeight: 1.1,
+        fontSize: { base: '2xl', md: '3xl' },
+      })}
+    >
+      {post.data.title}
+    </h4>
+    <p class={css({ m: 0 })}>
+      <FormattedDate date={post.data.date} />
+    </p>
+  </a>
+</div>

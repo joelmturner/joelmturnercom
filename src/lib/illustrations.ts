@@ -1,12 +1,5 @@
-import cloudinary from 'cloudinary';
-import { CloudinaryResponse, Illustrations } from './types';
-
-cloudinary.v2.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-  secure: true,
-});
+import { type CloudinaryResponse, type Illustrations } from "./types";
+import { cloudinary } from "./cloudinary";
 
 export async function getIllustrations(): Promise<Illustrations> {
   const imageResults: Illustrations = {
@@ -23,25 +16,31 @@ export async function getIllustrations(): Promise<Illustrations> {
     letterclash: [],
   };
 
-  await cloudinary.v2.search
-    .expression('folder:illustration')
-    .sort_by('public_id', 'desc')
+  await cloudinary.search
+    .expression("folder:illustration")
+    .sort_by("public_id", "desc")
     .max_results(800)
-    .with_field('tags')
+    .with_field("tags")
     .execute()
     .then((result: CloudinaryResponse) => {
       for (const imageResult of result.resources) {
+        const imageUrl = cloudinary.url(imageResult.public_id, {
+          secure: true,
+          quality: "auto",
+          fetch_format: "auto",
+        });
+
         const image = {
           id: imageResult.asset_id,
-          url: imageResult.secure_url,
+          url: imageUrl,
           tags: imageResult.tags,
           width: imageResult.width,
           height: imageResult.height,
         };
 
         for (const tag of imageResult.tags) {
-          const prev = imageResults[tag] || [];
-          imageResults[`${tag}`] = [...prev, image];
+          const prev = imageResults[tag as keyof Illustrations] || [];
+          imageResults[`${tag}` as keyof Illustrations] = [...prev, image];
         }
       }
     });

@@ -10,9 +10,11 @@ tags:
   - quick tip
 lastmod: 2023-02-18T07:41:31.936Z
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655446459/Posts/gatsby-client-side-redirect
-excerpt: A client-side redirect for Gatsby when you don't have access to the CloudFront
+excerpt:
+  A client-side redirect for Gatsby when you don't have access to the CloudFront
   settings.
-description: A quick way to create a redirect from the client side of Gatsby. This is
+description:
+  A quick way to create a redirect from the client side of Gatsby. This is
   useful if we don't have access to deployed setup.
 ---
 
@@ -20,7 +22,7 @@ We had a case where we needed to set up a redirect on the client side of Gatsby 
 
 To set up a quick redirect on the client we can send a redirect link through page context and handle the window location in a `useEffect`.
 
-```javascript filename=gatsby-node.js
+```javascript title="gatsby-node.js"
  {
     path: "/path",
     component: resolve(__dirname, "../src/templates/EmptyPage.tsx"),
@@ -31,11 +33,11 @@ To set up a quick redirect on the client we can send a redirect link through pag
 },
 ```
 
-```tsx filename=templates/emptyPage.tsx
-import React, { useEffect } from 'react';
+```tsx title="templates/emptyPage.tsx"
+import React, { useEffect } from "react";
 
 function isClient() {
-  return typeof window === 'object';
+  return typeof window === "object";
 }
 
 export default function EmptyPage({ pageContext }) {

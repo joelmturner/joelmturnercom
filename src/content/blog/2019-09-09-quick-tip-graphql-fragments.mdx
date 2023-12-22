@@ -1,5 +1,6 @@
 ---
-title: 'Quick Tip: GraphQL Fragments in Gatsby'
+title: "Quick Tip: GraphQL Fragments in Gatsby"
+description: "A few quick tips about working with GraphQL fragments in Gatsby."
 date: 2019-09-09
 draft: false
 slug: quick-tip-graphql-fragments
@@ -44,7 +45,7 @@ fragment InstaNodes on InstagramContentEdge {
 
 Then we can use them in our components with a page query or static query.
 
-```jsx line=7
+```jsx {7}
 const data = useStaticQuery(graphql`
   query {
     allInstagramContent(
