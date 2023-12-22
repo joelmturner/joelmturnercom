@@ -51,8 +51,8 @@
     },
     "lint-staged": {
         "**/*.{js,jsx,ts,tsx,astro,svelte}": [
-            "npx prettier --write .",
-            "npx eslint --fix ."
+            "npx prettier --write",
+            "npx eslint --fix"
         ],
         "*.prettierrc.mjs": "prettier --write ."
     }
