@@ -1,5 +1,5 @@
 ---
-title: 'React Hooks: useDims'
+title: "React Hooks: useDims"
 date: 2019-09-13
 draft: false
 slug: react-hooks-usedims
@@ -7,7 +7,8 @@ category: dev
 tags:
   - React
   - React hooks
-excerpt: Here's another helpful React hook. This one returns the dimensions of an
+excerpt:
+  Here's another helpful React hook. This one returns the dimensions of an
   element that's passed to it.
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157939/Posts/useDims
 lastmod: 2023-02-18T07:41:31.990Z
@@ -16,7 +17,7 @@ lastmod: 2023-02-18T07:41:31.990Z
 Here's another helpful React hook. This one returns the dimensions of an element that's passed to it.
 
 ```js
-import { useState, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect } from "react";
 
 function useDims(ref, isSvg = false) {
   const [dim, setDim] = useState({
@@ -55,8 +56,8 @@ export default useDims;
 
 It can be used in a component like this.
 
-```jsx line=5
-import React from 'react';
+```jsx {5}
+import React from "react";
 
 function Chart() {
   const chartRef = React.useRef(null);
@@ -79,7 +80,7 @@ Let's break it down a bit. We start by receiving a ref and an optional boolean o
 
 Our hook is using a default dimension object in state with all values set to zero. We then return that `dim` if there aren't any changes.
 
-```js line=2-7
+```js {2-7}
 function useDims(ref, isSvg = false) {
   const [dim, setDim] = useState({
       height: 0,

@@ -1,0 +1,39 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { css } from '../../styled-system/css';
+
+type Props = HTMLAttributes<'a'>;
+
+const { href, class: className, ...props } = Astro.props;
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.slice(1);
+const isActive = currentPath.includes(href as string);
+---
+
+<a
+  href={`/${href}`}
+  class:list={[
+    css({
+      px: 2,
+      py: 1,
+      color: {
+        _light: 'black',
+        _dark: 'blue.300',
+      },
+      borderBottom: { base: 'none', lg: '4px solid transparent' },
+      borderLeft: { base: '4px solid transparent', lg: 'none' },
+      textDecoration: 'none',
+      transition: 'border 0.2s ease-in-out, color 0.2s ease-in-out',
+      '&.active': {
+        textDecoration: 'none',
+        borderColor: 'blue.300',
+      },
+      m: 0,
+      lineHeight: 1,
+    }),
+    { active: isActive },
+  ]}
+  {...props}
+>
+  <slot />
+</a>

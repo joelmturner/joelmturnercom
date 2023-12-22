@@ -1,0 +1,13 @@
+---
+import { Cloudinary, type CloudinaryProps } from 'astro-cloudinary-image';
+
+type Props = CloudinaryProps & {
+  src: string;
+  alt: string;
+  errorImage?: string;
+  class?: string;
+};
+const { src, alt, errorImage = 'NotFound.svg', ...props } = Astro.props;
+---
+
+<Cloudinary src={src} alt={alt} errorImage={errorImage} {...props} />

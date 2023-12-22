@@ -8,29 +8,33 @@ tags:
   - Data Visualization
   - React
   - TypeScript
-  - '@vx'
+  - "@vx"
 series: Data Visualization with React and @vx
 order: 0
 lastmod: 2023-02-18T07:41:31.981Z
-excerpt: Building a bar chart in React using the @vx library of charting primitives.
+excerpt:
+  Building a bar chart in React using the @vx library of charting primitives.
   This is one of the most widely used charts and gives a good base for building
   upon.
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157939/Posts/vx-bar-chart
 ---
 
-import { CodeSandbox } from 'mdx-embed';
+import Note from "../../components/Note.astro";
 
 <Note>
-
-_Update: October 2020_ - @vx is now [@visx](https://github.com/airbnb/visx) and is at 1.0. You can read about [the update from Airbnb Engineering](https://medium.com/airbnb-engineering/introducing-visx-from-airbnb-fd6155ac4658). As of this update, the api is all the same, and it has TypeScript support 👍.
-
+  _Update: October 2020_ - @vx is now [@visx](https://github.com/airbnb/visx)
+  and is at 1.0. You can read about [the update from Airbnb
+  Engineering](https://medium.com/airbnb-engineering/introducing-visx-from-airbnb-fd6155ac4658).
+  As of this update, the api is all the same, and it has TypeScript support 👍.
 </Note>
 
 ## Table of Contents
 
 ## What We're Building TL;DR
 
-<CodeSandbox codeSandboxId="react-bar-chart-with-vx-yi48e" />
+import CodeSandbox from "../../components/CodeSandbox.astro";
+
+<CodeSandbox title="React bar chart with @vx" id="yi48e" />
 
 Data visualization is steadily becoming more valuable to companies as they try to understand all the data they have coming in. There are a lot of different solutions for data visualization in javaScript, [d3](https://d3js.org/) being one of the most popular.
 
@@ -65,23 +69,23 @@ Now that we have our packages we can start stubbing out our data. We're going to
 ```js
 const defaultData1 = [
   {
-    label: 'Happy',
+    label: "Happy",
     value: 4000,
   },
   {
-    label: 'Sad',
+    label: "Sad",
     value: 2000,
   },
   {
-    label: 'Angry',
+    label: "Angry",
     value: 3000,
   },
   {
-    label: 'Joyful',
+    label: "Joyful",
     value: 4500,
   },
   {
-    label: 'Anxious',
+    label: "Anxious",
     value: 7000,
   },
 ];
@@ -132,11 +136,11 @@ const yScale = scaleLinear({
 Cool, let's build the component! We'll start by setting up the `svg` and `Group` to hold our chart. The `Group` helps us place the axes and the bars.
 
 ```jsx
-import React from 'react';
-import { Group } from '@vx/group';
-import { LinearGradient } from '@vx/gradient';
-import { scaleBand, scaleLinear } from '@vx/scale';
-import { AxisLeft, AxisBottom } from '@vx/axis';
+import React from "react";
+import { Group } from "@vx/group";
+import { LinearGradient } from "@vx/gradient";
+import { scaleBand, scaleLinear } from "@vx/scale";
+import { AxisLeft, AxisBottom } from "@vx/axis";
 
 // accessors return the label and value of that data item
 const x = (d) => d.label;
@@ -175,7 +179,7 @@ Looks good. The first thing we'll add is the y-axis. To do this we use [`AxisLef
 
 Then we'll add the [`AxisBottom`](https://vx-demo.now.sh/docs/axis#AxisBottom) that has similar props to `AxisLeft`. It should look like this:
 
-```jsx line=2-3
+```jsx {2-3}
 <Group top={25} left={55}>
   <AxisLeft left={10} scale={yScale} numTicks={4} label="Times Expressed" />
   <AxisBottom scale={xScale} label="Emotion" labelOffset={15} top={yMax} />
@@ -195,7 +199,15 @@ Now we can loop over the data and return the bar. The width, height, and x are a
     const barX = xScale(label);
     const barY = yMax - barHeight;
 
-    return <Bar key={`bar-${label}`} x={barX} y={barY} width={barWidth} height={barHeight} />;
+    return (
+      <Bar
+        key={`bar-${label}`}
+        x={barX}
+        y={barY}
+        width={barWidth}
+        height={barHeight}
+      />
+    );
   });
 }
 ```
@@ -207,11 +219,11 @@ Now we can loop over the data and return the bar. The width, height, and x are a
 Nice! It should be good to go. We're going to add in the `LinearGradient` for a background color as well. Here it is all together:
 
 ```jsx
-import React from 'react';
-import { Group } from '@vx/group';
-import { LinearGradient } from '@vx/gradient';
-import { scaleBand, scaleLinear } from '@vx/scale';
-import { AxisLeft, AxisBottom } from '@vx/axis';
+import React from "react";
+import { Group } from "@vx/group";
+import { LinearGradient } from "@vx/gradient";
+import { scaleBand, scaleLinear } from "@vx/scale";
+import { AxisLeft, AxisBottom } from "@vx/axis";
 
 // accessors return the label and value of that data item
 const x = (d) => d.label;
@@ -247,9 +259,22 @@ function BarChart({ data, width, height }) {
           const barX = xScale(label);
           const barY = yMax - barHeight;
 
-          return <Bar key={`bar-${label}`} x={barX} y={barY} width={barWidth} height={barHeight} />;
+          return (
+            <Bar
+              key={`bar-${label}`}
+              x={barX}
+              y={barY}
+              width={barWidth}
+              height={barHeight}
+            />
+          );
         })}
-        <AxisBottom scale={xScale} label="Emotion" labelOffset={15} top={yMax} />
+        <AxisBottom
+          scale={xScale}
+          label="Emotion"
+          labelOffset={15}
+          top={yMax}
+        />
       </Group>
     </svg>
   );
@@ -264,7 +289,9 @@ Add a little smoothness to your bars with a css transition like:
 
 ```css
 .vx-bar {
-  transition: height 150ms, y 150ms;
+  transition:
+    height 150ms,
+    y 150ms;
 }
 ```
 

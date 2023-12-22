@@ -1,0 +1,173 @@
+---
+import HeaderLink from './HeaderLink.astro';
+import ThemeSwitch from './ThemeSwitch.astro';
+import { Image } from 'astro:assets';
+import { css } from '../../styled-system/css';
+import { NAV_LINKS } from '@lib/constants';
+---
+
+<header
+  class={css({
+    m: 0,
+    p: 3,
+    bg: {
+      _light: 'white',
+      _dark: 'slate.900',
+    },
+    boxShadow: 'lg',
+    color: 'primary',
+    borderTop: '6px solid',
+    borderTopColor: 'brand.100',
+    borderBottomWidth: 2,
+    borderBottomColor: {
+      _light: 'slate.200',
+      _dark: 'slate.700',
+    },
+  })}
+>
+  <nav
+    class={css({
+      bgColor: 'white',
+      borderColor: 'slate.200',
+      _dark: { bgColor: 'slate.900' },
+    })}
+  >
+    <div
+      class={css({
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        mx: 'auto',
+        w: 'full',
+        maxW: '3xl',
+      })}
+    >
+      <a
+        href="/"
+        class={css({
+          display: 'flex',
+          alignItems: 'center',
+          width: { base: '40vw', lg: '14vw' },
+        })}
+      >
+        <Image
+          data-logo
+          width="600"
+          height="200"
+          src={`https://res.cloudinary.com/joelmturner/image/upload/v1673573341/jmt-logo-dark-500w_2_pxay5e.png`}
+          alt="joelmturner logo"
+        />
+      </a>
+      <button
+        data-collapse-toggle="navbar-default"
+        type="button"
+        class={css({
+          display: 'inline-flex',
+          alignItems: 'center',
+          p: '2',
+          w: '10',
+          h: '10',
+          justifyContent: 'center',
+          fontSize: 'sm',
+          lineHeight: 'sm',
+          color: 'slate.500',
+          rounded: 'lg',
+          md: { display: 'none' },
+          _hover: { bgColor: 'slate.100', _dark: { bgColor: 'slate.700' } },
+          _focus: { ring: 'none', ringOffset: 'none', shadow: '2' },
+          _dark: { color: 'slate.400' },
+        })}
+        aria-controls="navbar-default"
+        aria-expanded="false"
+      >
+        <span
+          class={css({
+            pos: 'absolute',
+            overflow: 'hidden',
+            clip: 'rect(0, 0, 0, 0)',
+            whiteSpace: 'nowrap',
+            borderWidth: '0',
+            srOnly: true,
+          })}
+        >
+          Open main menu
+        </span>
+        <svg
+          class={css({ w: '5', h: '5', color: 'brand.200' })}
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 17 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M1 1h15M1 7h15M1 13h15"></path>
+        </svg>
+      </button>
+      <div
+        class={css({
+          display: 'none',
+          w: 'full',
+          md: { display: 'block', w: 'auto' },
+        })}
+        id="navbar-default"
+      >
+        <ul
+          class={css({
+            fontWeight: 'medium',
+            display: 'flex',
+            flexDir: 'column',
+            p: '4',
+            md: {
+              p: '0',
+              flexDir: 'row',
+              m: '0',
+              borderWidth: '0px',
+              bgColor: 'white',
+              gap: '2',
+            },
+            mt: '4',
+            borderWidth: '1px',
+            borderColor: 'slate.100',
+            rounded: 'lg',
+            bgColor: 'slate.50',
+            _dark: {
+              bgColor: 'slate.800',
+              md: { bgColor: 'slate.900' },
+              borderColor: 'slate.700',
+            },
+          })}
+        >
+          {
+            NAV_LINKS.map((link) => (
+              <li>
+                <HeaderLink href={link.href} aria-current="page">
+                  {link.label}
+                </HeaderLink>
+              </li>
+            ))
+          }
+          <ThemeSwitch />
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  // toggle id="navbar-default" when the button data-collapse-toggle="navbar-default" is clicked
+  const toggle = document.querySelector('[data-collapse-toggle="navbar-default"]');
+  const target: HTMLDivElement | null = document.querySelector('#navbar-default');
+
+  if (toggle && target) {
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true' || false;
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      target.style.display = expanded ? 'none' : 'block';
+    });
+  }
+</script>

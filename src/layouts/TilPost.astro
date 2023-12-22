@@ -1,0 +1,96 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import { css } from '../../styled-system/css';
+import { prose } from '../../styled-system/recipes';
+import BaseBody from '../components/BaseBody.astro';
+import { flex } from '../../styled-system/patterns';
+import Badge from '../components/Badge.astro';
+
+type Props = CollectionEntry<'til'>['data'] & {
+  next?: CollectionEntry<'til'>;
+  prev?: CollectionEntry<'til'>;
+};
+
+const { title, next, prev, tags } = Astro.props;
+---
+
+<html lang="en" data-color-mode="dark">
+  <head>
+    <BaseHead title={title} description={tags.join(', ')} />
+  </head>
+
+  <BaseBody>
+    <article class={prose({ size: 'lg' })}>
+      <div
+        class={css({
+          width: '2xl',
+          maxWidth: '4xl',
+          mx: 'auto',
+          px: 3,
+          color: 'primary',
+        })}
+      >
+        <div
+          class={flex({
+            py: 2,
+            lineHeight: 1,
+            direction: 'column',
+            gap: 2,
+          })}
+        >
+          <h1
+            class={css({
+              color: 'primary',
+              fontSize: '4xl',
+              mb: 0,
+            })}
+          >
+            {title}
+          </h1>
+          <div class={flex({ gap: 3, alignItems: 'center' })}>
+            {tags.map((tag) => <Badge link={`/til/tag/${tag}`}>{tag}</Badge>)}
+          </div>
+          <hr class={css({ mt: 5, mb: 0 })} />
+        </div>
+        <slot />
+      </div>
+    </article>
+    <div
+      class={css({
+        display: 'flex',
+        justifyContent: 'space-between',
+        width: '2xl',
+        maxWidth: '4xl',
+        mx: 'auto',
+        padding: 3,
+        gap: 8,
+        color: 'brand.100',
+      })}
+    >
+      <a
+        href={`/til/${prev?.slug}`}
+        class={flex({
+          gap: 2,
+          alignItems: 'center',
+          transition: 'color 0.2s ease',
+          '&:hover': {
+            color: 'brand.200',
+          },
+        })}><span>{`< `}</span> {prev?.data?.title}</a
+      >
+      <a
+        href={`/til/${next?.slug}`}
+        class={flex({
+          gap: 2,
+          textAlign: 'right',
+          alignItems: 'center',
+          transition: 'color 0.2s ease',
+          '&:hover': {
+            color: 'brand.200',
+          },
+        })}>{next?.data?.title} <span>{` >`}</span></a
+      >
+    </div>
+  </BaseBody>
+</html>

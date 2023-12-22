@@ -1,7 +1,8 @@
 ---
 title: Static Nextjs Netlify 500 Errors Instead of 404 Errors
 slug: static-nextjs-netlify-500-errors-404-errors
-description: "The problem: getting 500 errors instead of 404 errors on dynamic pages that
+description:
+  "The problem: getting 500 errors instead of 404 errors on dynamic pages that
   don't exist. The solution is to return pageFound: false."
 date: 2022-07-03T04:19:41.807Z
 draft: false
@@ -9,11 +10,12 @@ tags:
   - nextjs
   - netlify
   - static
-  - '500'
-  - '404'
+  - "500"
+  - "404"
 category: dev
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1656824921/Posts/nextjs-netlify-500-errors
-excerpt: Digging into a bug with Netlify's Next plugin that causes 500 errors instead
+excerpt:
+  Digging into a bug with Netlify's Next plugin that causes 500 errors instead
   of 404 errors. There is a quick workaround that works for this specific case.
 lastmod: 2023-02-18T07:41:31.911Z
 ---
@@ -56,7 +58,7 @@ export async function getStaticProps({ params }) {
 
 We use try/catch:
 
-```ts line=2-10
+```ts {2-10}
 export async function getStaticProps({ params }) {
   let postData;
   try {

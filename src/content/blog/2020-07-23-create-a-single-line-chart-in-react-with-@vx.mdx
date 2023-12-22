@@ -5,33 +5,37 @@ date: 2020-07-23T00:00:00.000Z
 draft: false
 tags:
   - React
-  - '@vx'
+  - "@vx"
   - TypeScript
   - Data Visualization
 category: dev
 series: Data Visualization with React and @vx
 order: 1
 lastmod: 2023-02-18T07:41:31.960Z
-excerpt: This is a simple example of a single line chart built with the @vx charting
+excerpt:
+  This is a simple example of a single line chart built with the @vx charting
   primitives. We can use this to as a base to add multiple lines to our chart.
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157939/Posts/vx-line-chart
 ---
 
-import { CodeSandbox } from 'mdx-embed';
+import Note from "../../components/Note.astro";
 
 <Note>
-
-_Update: October 2020_ - @vx is now [@visx](https://github.com/airbnb/visx) and is at 1.0. You can read about [the update from Airbnb Engineering](https://medium.com/airbnb-engineering/introducing-visx-from-airbnb-fd6155ac4658). As of this update, the api is all the same, and it has TypeScript support 👍.
-
+  _Update: October 2020_ - @vx is now [@visx](https://github.com/airbnb/visx)
+  and is at 1.0. You can read about [the update from Airbnb
+  Engineering](https://medium.com/airbnb-engineering/introducing-visx-from-airbnb-fd6155ac4658).
+  As of this update, the api is all the same, and it has TypeScript support 👍.
 </Note>
 
 ## Table of Contents
 
-We've built a [bar chart](/blog/data-vis-react-bar-chart-vx/) in react using the data vis library [@vx](https://github.com/hshoff/vx). The next chart that we can build to help tell our data’s story is a line chart. Line charts are great for showing trends over time and that’s what we’ll build today.
+We've built a [bar chart](/blog/data-vis-react-bar-chart-vx/) in react using the data vis library [@vx](https://github.com/hshoff/vx). The next chart that we can build to help tell our data's story is a line chart. Line charts are great for showing trends over time and that's what we'll build today.
 
 ## What We're Building TL;DR
 
-<CodeSandbox codeSandboxId="single-line-chart-with-vx-322xd" />
+import CodeSandbox from "../../components/CodeSandbox.astro";
+
+<CodeSandbox title="single line chart with @vx" id="322xd" />
 
 ## Requirements
 
@@ -123,9 +127,9 @@ const yScale = scaleLinear({
 Now we can start building the component. Let's start by setting up the `svg` that will hold our line and axes.
 
 ```jsx
-import React from 'react';
-import { Group } from '@vx/group';
-import { scaleTime, scaleLinear } from '@vx/scale';
+import React from "react";
+import { Group } from "@vx/group";
+import { scaleTime, scaleLinear } from "@vx/scale";
 
 // dimensions
 const height = 500;
@@ -164,7 +168,7 @@ Looks good. The first thing we'll add is the y-axis. To do this we use [`AxisLef
 
 Then we'll add the [`AxisBottom`](https://vx-demo.now.sh/docs/axis#AxisBottom) that has similar props to `AxisLeft`. The `top` is where it should start vertically from the top, which is the chart height in this case. The `labelOffset` prop dictates how much space is in between the ticks and the axis label. It should look like this:
 
-```jsx line=4,9-10
+```jsx {4,9-10}
 import React from "react"
 import { Group } from "@vx/group"
 import { scaleTime, scaleLinear } from "@vx/scale"
@@ -183,7 +187,7 @@ import { AxisLeft, AxisBottom } from "@vx/axis"
 
 Now we can add the line to the chart using `LinePath` from `@vx/shapes` and we'll pass it `curveLinear` from `@vx/curve` to dictate its shape.
 
-```jsx line=5-6,13-20
+```jsx {5-6,13-20}
 import React from "react"
 import { Group } from "@vx/group"
 import { scaleTime, scaleLinear } from "@vx/scale"
@@ -209,10 +213,16 @@ import { curveLinear } from "@vx/curve"
 
 It's looking like a nice, one-line chart now. We might want to add some dots to represent the data points. To do that we'll map over the data items and use the `circle` element positioned using each item's points.
 
-```jsx line=4-14
+```jsx {4-14}
 <Group top={25} left={65}>
   <AxisLeft scale={yScale} numTicks={4} label="Miles" />
-  <AxisBottom scale={xScale} label="Day" labelOffset={15} numTicks={5} top={yMax} />
+  <AxisBottom
+    scale={xScale}
+    label="Day"
+    labelOffset={15}
+    numTicks={5}
+    top={yMax}
+  />
   {data.map((point, pointIndex) => (
     <circle
       key={pointIndex}
@@ -240,12 +250,12 @@ It's looking like a nice, one-line chart now. We might want to add some dots to 
 Awesome, we fulfilled all of our requirements for this one-line chart. Here is all the code together.
 
 ```jsx
-import React from 'react';
-import { Group } from '@vx/group';
-import { scaleTime, scaleLinear } from '@vx/scale';
-import { AxisLeft, AxisBottom } from '@vx/axis';
-import { LinePath } from '@vx/shape';
-import { curveLinear } from '@vx/curve';
+import React from "react";
+import { Group } from "@vx/group";
+import { scaleTime, scaleLinear } from "@vx/scale";
+import { AxisLeft, AxisBottom } from "@vx/axis";
+import { LinePath } from "@vx/shape";
+import { curveLinear } from "@vx/curve";
 
 // dimensions
 const height = 500;
@@ -274,7 +284,13 @@ const LineChart = ({ data = [] }) => {
     <svg width={width} height={height}>
       <Group top={25} left={65}>
         <AxisLeft scale={yScale} numTicks={4} label="Miles" />
-        <AxisBottom scale={xScale} label="Day" labelOffset={15} numTicks={5} top={yMax} />
+        <AxisBottom
+          scale={xScale}
+          label="Day"
+          labelOffset={15}
+          numTicks={5}
+          top={yMax}
+        />
         {data.map((point, pointIndex) => (
           <circle
             key={pointIndex}
@@ -306,14 +322,14 @@ export default LineChart;
 
 For better sizing/resizing we can use a resize observer hook in our component. I like to use the package `use-resize-observer` for this. Let's see how we can use it in our component.
 
-```jsx line=7,18,35,61
-import React from 'react';
-import { Group } from '@vx/group';
-import { scaleTime, scaleLinear } from '@vx/scale';
-import { AxisLeft, AxisBottom } from '@vx/axis';
-import { LinePath } from '@vx/shape';
-import { curveLinear } from '@vx/curve';
-import useResizeObserver from 'use-resize-observer';
+```jsx {7,18,35,61}
+import React from "react";
+import { Group } from "@vx/group";
+import { scaleTime, scaleLinear } from "@vx/scale";
+import { AxisLeft, AxisBottom } from "@vx/axis";
+import { LinePath } from "@vx/shape";
+import { curveLinear } from "@vx/curve";
+import useResizeObserver from "use-resize-observer";
 
 // dimensions
 const height = 500;
@@ -341,11 +357,17 @@ const LineChart = ({ data = [] }) => {
   });
 
   return (
-    <div style={{ width: '100%', height: '100%' }} ref={ref}>
+    <div style={{ width: "100%", height: "100%" }} ref={ref}>
       <svg width={width} height={height}>
         <Group top={25} left={65}>
           <AxisLeft scale={yScale} numTicks={4} label="Miles" />
-          <AxisBottom scale={xScale} label="Day" labelOffset={15} numTicks={5} top={yMax} />
+          <AxisBottom
+            scale={xScale}
+            label="Day"
+            labelOffset={15}
+            numTicks={5}
+            top={yMax}
+          />
           {data.map((point, pointIndex) => (
             <circle
               key={pointIndex}

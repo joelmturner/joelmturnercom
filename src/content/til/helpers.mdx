@@ -40,12 +40,12 @@ npm version prerelease --preid=alpha.1
 When working from a js template, it's helpful to make a deep copy, so the original template is preserved. I have run into some issues with this many times, and it still bites me.
 
 ```ts
-import clone from 'just-clone';
+import clone from "just-clone";
 
 const template = {
-  '1a': {
-    id: '1a',
-    name: 'template 1',
+  "1a": {
+    id: "1a",
+    name: "template 1",
     widgets: [],
   },
 };
@@ -84,35 +84,35 @@ When using a standard console log, `console.log('stars', stars)`, to the termina
 ```javascript
 const baseItems = {
   CHIPS_BLUE: {
-    id: 'CHIPS_BLUE',
-    type: 'chips',
-    label: 'Blue Corn Tortilla Chips',
-    variants: ['blue corn'],
-    attributes: ['organic', 'non-gmo', 'vegan', 'gluten-free'],
+    id: "CHIPS_BLUE",
+    type: "chips",
+    label: "Blue Corn Tortilla Chips",
+    variants: ["blue corn"],
+    attributes: ["organic", "non-gmo", "vegan", "gluten-free"],
   },
 };
 
 const toppingItems = {
   CHEEZE_BLEND_SHREDS: {
-    id: 'CHEEZE_BLEND_SHREDS',
-    type: 'cheese',
-    label: 'Cheeze Blend Shreds',
-    variants: ['cheddar', 'jack'],
-    attributes: ['organic', 'non-gmo', 'vegan'],
+    id: "CHEEZE_BLEND_SHREDS",
+    type: "cheese",
+    label: "Cheeze Blend Shreds",
+    variants: ["cheddar", "jack"],
+    attributes: ["organic", "non-gmo", "vegan"],
   },
   JALAPENOS: {
-    id: 'JALAPENOS',
-    type: 'vegetable',
-    label: 'Jalapenos',
-    variants: ['sliced'],
-    attributes: ['organic', 'non-gmo', 'vegan', 'gluten-free'],
+    id: "JALAPENOS",
+    type: "vegetable",
+    label: "Jalapenos",
+    variants: ["sliced"],
+    attributes: ["organic", "non-gmo", "vegan", "gluten-free"],
   },
 };
 
 const nachos = [
   {
-    base: [baseItems['CHIPS_BLUE']],
-    toppings: [toppingItems['CHEEZE_BLEND_SHREDS'], toppingItems['JALAPENOS']],
+    base: [baseItems["CHIPS_BLUE"]],
+    toppings: [toppingItems["CHEEZE_BLEND_SHREDS"], toppingItems["JALAPENOS"]],
   },
 ];
 ```
@@ -133,27 +133,27 @@ So `console.dir({ nachos }, { depth: null });` gives us:
     {
       base: [
         {
-          id: 'CHIPS_BLUE',
-          type: 'chips',
-          label: 'Blue Corn Tortilla Chips',
-          variants: ['blue corn'],
-          attributes: ['organic', 'non-gmo', 'vegan', 'gluten-free'],
+          id: "CHIPS_BLUE",
+          type: "chips",
+          label: "Blue Corn Tortilla Chips",
+          variants: ["blue corn"],
+          attributes: ["organic", "non-gmo", "vegan", "gluten-free"],
         },
       ],
       toppings: [
         {
-          id: 'CHEEZE_BLEND_SHREDS',
-          type: 'cheese',
-          label: 'Cheeze Blend Shreds',
-          variants: ['cheddar', 'jack'],
-          attributes: ['organic', 'non-gmo', 'vegan'],
+          id: "CHEEZE_BLEND_SHREDS",
+          type: "cheese",
+          label: "Cheeze Blend Shreds",
+          variants: ["cheddar", "jack"],
+          attributes: ["organic", "non-gmo", "vegan"],
         },
         {
-          id: 'JALAPENOS',
-          type: 'vegetable',
-          label: 'Jalapenos',
-          variants: ['sliced'],
-          attributes: ['organic', 'non-gmo', 'vegan', 'gluten-free'],
+          id: "JALAPENOS",
+          type: "vegetable",
+          label: "Jalapenos",
+          variants: ["sliced"],
+          attributes: ["organic", "non-gmo", "vegan", "gluten-free"],
         },
       ],
     },

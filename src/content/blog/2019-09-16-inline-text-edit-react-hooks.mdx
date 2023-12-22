@@ -8,13 +8,12 @@ tags:
   - React
   - React hooks
 lastmod: 2023-02-18T07:41:31.985Z
-excerpt: This is a simple example of how to build an inline edit text input with React
+excerpt:
+  This is a simple example of how to build an inline edit text input with React
   Hooks.
 featured: true
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157938/Posts/inline-edit-react-hooks
 ---
-
-import { CodeSandbox } from 'mdx-embed';
 
 ## Table of Contents
 
@@ -22,7 +21,9 @@ A nice feature in many apps is to edit a title or other text inline without leav
 
 Here's what we'll be building.
 
-<CodeSandbox codeSandboxId="inline-text-edit-react-hooks-6ql5m" />
+import CodeSandbox from "../../components/CodeSandbox.astro";
+
+<CodeSandbox title="Inline text edit react hooks" id="6ql5m" />
 
 Let's take a look at the requirements for this component.
 
@@ -35,7 +36,7 @@ Let's take a look at the requirements for this component.
 Cool let's start by creating the resting state. We're going to do some basic styling with CSS to help us.
 
 ```jsx
-import React from 'react';
+import React from "react";
 
 function InlineEdit(props) {
   return (
@@ -92,7 +93,7 @@ const [isInputActive, setIsInputActive] = useState(false);
 Cool, now we have some state to help us display/hide our text and input. We also need some state to track what is being typed in our input. Let's add another `useState` to hold that text.
 
 ```jsx
-const [inputValue, setInputValue] = useState('');
+const [inputValue, setInputValue] = useState("");
 ```
 
 Let's hook this state up to our elements.
@@ -100,17 +101,23 @@ Let's hook this state up to our elements.
 ```jsx
 function InlineEdit(props) {
   const [isInputActive, setIsInputActive] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   return (
     <span className="inline-text">
-      <span className={`inline-text_copy inline-text_copy--${!isInputActive ? 'active' : 'rest'}`}>
+      <span
+        className={`inline-text_copy inline-text_copy--${
+          !isInputActive ? "active" : "rest"
+        }`}
+      >
         {props.text}
       </span>
       <input
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        className={`inline-text_input inline-text_input--${isInputActive ? 'active' : 'rest'}`}
+        className={`inline-text_input inline-text_input--${
+          isInputActive ? "active" : "rest"
+        }`}
       />
     </span>
   );
@@ -121,7 +128,7 @@ function InlineEdit(props) {
 
 Alright, now we need to set up the saving and escaping of the text. We can do this with a `useEffect` and [`useKeypress` hook](https://usehooks.com/useKeypress/) that watch for a key click and take an action.
 
-```jsx line=5-6,8-21
+```jsx {5-6,8-21}
 function InlineEdit(props) {
   const [isInputActive, setIsInputActive] = useState(false);
   const [inputValue, setInputValue] = useState(props.text);
@@ -153,7 +160,7 @@ function InlineEdit(props) {
 
 Next we'll add a `useRef` on the wrapping span to help us tell if a click happened outside of the component. We're going to use the [`useOnClickOutside` hook](https://usehooks.com/useOnClickOutside/) from [useHooks.com](https://usehooks.com/).
 
-```jsx line=6,13-19
+```jsx {6,13-19}
 function InlineEdit(props) {
   const [isInputActive, setIsInputActive] = useState(false);
   const [inputValue, setInputValue] = useState(props.text);
@@ -220,9 +227,9 @@ We can help the user by focusing the input when they click on the text. To do th
 That was a lot of little parts. Let's put it together to see what we have. I've added a few helper functions as well.
 
 ```jsx
-import React, { useState, useEffect, useRef } from 'react';
-import useKeypress from '../hooks/useKeypress';
-import useOnClickOutside from '../hooks/useOnClickOutside';
+import React, { useState, useEffect, useRef } from "react";
+import useKeypress from "../hooks/useKeypress";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 
 function InlineEdit(props) {
   const [isInputActive, setIsInputActive] = useState(false);
@@ -232,8 +239,8 @@ function InlineEdit(props) {
   const textRef = useRef(null);
   const inputRef = useRef(null);
 
-  const enter = useKeypress('Enter');
-  const esc = useKeypress('Escape');
+  const enter = useKeypress("Enter");
+  const esc = useKeypress("Escape");
 
   // check to see if the user clicked outside of this component
   useOnClickOutside(wrapperRef, () => {
@@ -278,17 +285,22 @@ function InlineEdit(props) {
       // sanitize the input a little
       setInputValue(DOMPurify.sanitize(event.target.value));
     },
-    [setInputValue]
+    [setInputValue],
   );
 
-  const handleSpanClick = useCallback(() => setIsInputActive(true), [setIsInputActive]);
+  const handleSpanClick = useCallback(
+    () => setIsInputActive(true),
+    [setIsInputActive],
+  );
 
   return (
     <span className="inline-text" ref={wrapperRef}>
       <span
         ref={textRef}
         onClick={handleSpanClick}
-        className={`inline-text_copy inline-text_copy--${!isInputActive ? 'active' : 'hidden'}`}
+        className={`inline-text_copy inline-text_copy--${
+          !isInputActive ? "active" : "hidden"
+        }`}
       >
         {props.text}
       </span>
@@ -296,10 +308,12 @@ function InlineEdit(props) {
         ref={inputRef}
         // set the width to the input length multiplied by the x height
         // it's not quite right but gets it close
-        style={{ minWidth: Math.ceil(inputValue.length) + 'ch' }}
+        style={{ minWidth: Math.ceil(inputValue.length) + "ch" }}
         value={inputValue}
         onChange={handleInputChange}
-        className={`inline-text_input inline-text_input--${isInputActive ? 'active' : 'hidden'}`}
+        className={`inline-text_input inline-text_input--${
+          isInputActive ? "active" : "hidden"
+        }`}
       />
     </span>
   );

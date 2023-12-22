@@ -1,0 +1,14 @@
+---
+import { PROJECTS } from '@lib/constants';
+import { grid } from 'styled-system/patterns';
+import ProjectCard from './ProjectCard.astro';
+import { cx } from 'styled-system/css';
+---
+
+<div class={cx('not-prose', grid({ columns: { base: 1, md: 2 }, gap: 6 }))}>
+  {
+    PROJECTS.map((project) => {
+      return <ProjectCard project={project} />;
+    })
+  }
+</div>

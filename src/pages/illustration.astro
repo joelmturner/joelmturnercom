@@ -1,0 +1,21 @@
+---
+import BaseHead from '@components/BaseHead.astro';
+import BaseBody from '@components/BaseBody.astro';
+import { getIllustrations } from '@lib/illustrations';
+import GalleryContainer from '@components/svelte/GalleryContainer.svelte';
+
+const collections = await getIllustrations();
+---
+
+<!doctype html>
+<html lang="en" data-color-mode="dark">
+  <head>
+    <BaseHead
+      title={'Illustrations'}
+      description={'Some of my favorite hand-drawn illustrations'}
+    />
+  </head>
+  <BaseBody>
+    <GalleryContainer collections={collections} client:load />
+  </BaseBody>
+</html>

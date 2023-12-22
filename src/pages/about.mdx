@@ -1,23 +1,21 @@
 ---
-title: About Me
-date: 2017-01-16
-draft: false
-lastmod: 2022-06-24T00:24:17.214Z
+layout: "../layouts/Page.astro"
 ---
 
-import { Box } from '@chakra-ui/react';
-import { Avatar } from '../components/Avatar.tsx';
-import { Meta } from '../components/Meta.tsx';
-import { ProjectGrid } from '../components/projects/ProjectGrid.tsx';
+import { Cloudinary } from "astro-cloudinary-image";
 
-<Meta title="About Joel M Turner" />
-
-<Box maxHeight={128} maxWidth={128} mx="auto">
-  <Avatar
-    alt="Joel M Turner portrait"
-    src="https://res.cloudinary.com/joelmturner/image/upload/v1532201643/joel-turner.jpg"
-  />
-</Box>
+<Cloudinary
+  src="joel-turner"
+  alt="Joel M Turner portrait"
+  height="220"
+  width="220"
+  cornerRadius="max"
+  zoom="0.5"
+  gravity="face"
+  crop="fit"
+  resize="fill"
+  style={{ margin: "0 auto", marginBottom: "2rem" }}
+/>
 
 ## I am Joel M Turner
 
@@ -33,10 +31,12 @@ Overall, I've had a really fun and interesting journey so far, and I can't wait 
 
 ### Now
 
-I now live with my wife, [Suzanne Turner](https://inclinedcreative.com 'Suzanne Turner InclinedCreative'), our two children, and our two dogs in Portland, Oregon.
+I now live with my wife, [Suzanne Turner](https://inclinedcreative.com "Suzanne Turner InclinedCreative"), our two children, and our two dogs in Portland, Oregon.
 
 Feel free to connect with me on [Twitter](https://twitter.com/joelmturner), [Instagram](https://www.instagram.com/joelmturner/) or [LinkedIn](https://www.linkedin.com/in/joelmturner)
 
 ### Fun side projects
+
+import ProjectGrid from "../components/ProjectGrid.astro";
 
 <ProjectGrid />

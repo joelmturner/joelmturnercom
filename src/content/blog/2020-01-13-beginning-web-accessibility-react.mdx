@@ -9,7 +9,8 @@ tags:
   - TypeScript
   - a11y
   - accessibility
-excerpt: Exploring the beginning stages of making a website accessible and why we would
+excerpt:
+  Exploring the beginning stages of making a website accessible and why we would
   do so.
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157937/Posts/a11y
 lastmod: 2023-02-20T05:15:53.844Z
@@ -76,7 +77,12 @@ This is much like states in javascript. We may have a disabled input that will b
   <input name="fieldEmail" type="email" aria-required="true" />
 
   <label for="fieldSubscribe">Subscribe</label>
-  <input name="fieldSubscribe" type="checkbox" checked="false" aria-disabled="true" />
+  <input
+    name="fieldSubscribe"
+    type="checkbox"
+    checked="false"
+    aria-disabled="true"
+  />
 </form>
 ```
 
@@ -98,7 +104,7 @@ Here's a great snippet from [John Luke Garofalo's post about React accessibility
 // attach to a onKeyPress to handle Enter keyboard
 // presses in the same way as onClicks
 export const handleEnterKeyPress = (onClick) => (event) => {
-  if (event.key === 'Enter') {
+  if (event.key === "Enter") {
     onClick(event);
   }
 };
@@ -108,12 +114,12 @@ Here's that snippet in TypeScript:
 
 ```typescript
 type HandleKeyPress = (
-  onClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>
+  onClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>,
 ) => React.KeyboardEventHandler<HTMLElement | SVGElement>;
 
 // attach to a onKeyPress to handle Enter keyboard clicks in the same way as onClicks
 export const handleEnterKeyPress: HandleKeyPress = (onClick) => (event) => {
-  if (event.key === 'Enter') {
+  if (event.key === "Enter") {
     onClick(event);
   }
 };

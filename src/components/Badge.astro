@@ -1,0 +1,52 @@
+---
+import { css } from '../../styled-system/css';
+
+type Props = {
+  link?: string;
+};
+
+const { link } = Astro.props;
+---
+
+<div
+  role="button"
+  class={css({
+    py: 1,
+    px: 2,
+    bg: {
+      _light: 'gray.100',
+      _dark: 'gray.700',
+    },
+    color: 'brand.200',
+    transition: 'color 0.2s, background-color 0.2s',
+    borderRadius: 'md',
+    fontSize: 'sm',
+    ...(!!link
+      ? {
+          cursor: 'pointer',
+          '&:hover': {
+            color: 'brand.300',
+            bg: {
+              _light: 'gray.200',
+              _dark: 'gray.600',
+            },
+          },
+        }
+      : {}),
+  })}
+>
+  {
+    link ? (
+      <a
+        href={link}
+        class={css({
+          textDecoration: 'none',
+        })}
+      >
+        <slot />
+      </a>
+    ) : (
+      <slot />
+    )
+  }
+</div>

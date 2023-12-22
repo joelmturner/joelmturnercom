@@ -1,81 +1,89 @@
-import { allBlogs, allTILs, Blog, TIL } from 'contentlayer/generated';
-import { slugify } from '../utils/utils';
-import { PostType } from './types';
+import _isString from "lodash/isString";
+import _isEmpty from "lodash/isEmpty";
+import _get from "lodash/get";
+import type { CollectionEntry } from "astro:content";
 
-const TYPE_VS_POSTS = {
-  post: allBlogs,
-  til: allTILs,
-};
+// function to replace spaces with hyphens
+// and convert everything to lowercase
+export function slugify(string: string) {
+  if (!_isString(string) || _isEmpty(string)) {
+    return "";
+  }
 
-export function getAllPostIds(type: PostType = 'post') {
-  const posts = TYPE_VS_POSTS[type];
-  return posts.map((post: Blog | TIL) => {
-    return {
-      params: {
-        id: post.slug,
-      },
-    };
-  });
+  return _get(string, "toString", () => string)
+    .call(string)
+    .toLowerCase()
+    .replace(/\s+/g, "-") // Replace spaces with -
+    .replace(/[^\w-]+/g, "") // Remove all non-word chars
+    .replace(/--+/g, "-") // Replace multiple - with single -
+    .replace(/^-+/, "") // Trim - from start of text
+    .replace(/-+$/, ""); // Trim - from end of text
 }
 
-export function getAllCategories(postType: PostType = 'post') {
-  const posts = getAllPostsSorted(postType);
+function filterByCategory(
+  posts: (CollectionEntry<"blog"> | CollectionEntry<"til">)[],
+  category: string,
+) {
+  return posts
+    .filter((post) => post.data.category.toLowerCase() === category)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+}
+
+function filterByTag(
+  posts: (CollectionEntry<"blog"> | CollectionEntry<"til">)[],
+  tag: string,
+) {
+  return posts
+    .filter((post) =>
+      post.data.tags
+        .map((tag) => tag.toLowerCase())
+        .includes(tag.toLowerCase()),
+    )
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+}
+
+export function getAllCategories(
+  posts: (CollectionEntry<"blog"> | CollectionEntry<"til">)[],
+) {
   const categories = posts.reduce((acc, post) => {
-    const category = post.category.toLowerCase();
+    const category = post.data.category.toLowerCase();
     if (!acc.includes(category)) {
       acc.push(category);
     }
     return acc;
-  }, []);
+  }, [] as string[]);
   return categories
-    .map((category) => [{ params: { slug: category } }, { params: { slug: slugify(category) } }])
+    .map((category) => [
+      {
+        params: { slug: category },
+        props: {
+          posts: filterByCategory(posts, category.toLowerCase()),
+          category,
+        },
+      },
+      {
+        params: { slug: slugify(category) },
+        props: {
+          posts: filterByCategory(posts, category.toLowerCase()),
+          category,
+        },
+      },
+    ])
     .flat();
 }
 
-export function getAllTags(postType: PostType = 'post') {
-  const posts = getAllPostsSorted(postType);
+export function getAllTags(
+  posts: (CollectionEntry<"blog"> | CollectionEntry<"til">)[],
+) {
   const resolvedTags = posts.reduce((acc, post) => {
-    const tags = post.tags.map((tag) => [tag.toLowerCase(), slugify(tag)]).flat();
+    const tags = post.data.tags
+      .map((tag) => [tag.toLowerCase(), slugify(tag)])
+      .flat();
     acc = Array.from(new Set([...acc, ...tags]));
     return acc;
-  }, []);
-  return resolvedTags.map((tag) => ({ params: { slug: tag } }));
-}
-
-export function getAllPostsByCategory(slug: string, type: PostType = 'post'): Array<Blog | TIL> {
-  const posts = getAllPostsSorted(type);
-  return posts.filter((post) => slugify(post.category) === slug);
-}
-
-export function getAllPostsByTag(slug: string, type: PostType = 'post'): Array<Blog | TIL> {
-  return getAllPostsSorted(type).filter((post: Blog | TIL) => {
-    const tags = post.tags.map((tag) => [slugify(tag), tag]).flat() ?? [];
-    return tags.includes(slug);
-  });
-}
-
-export function getAllPostsSorted<T extends Blog | TIL = Blog>(type: PostType = 'post'): T[] {
-  return TYPE_VS_POSTS[type].sort((a: Blog | TIL, b: Blog | TIL) => {
-    if (a.date < b.date) {
-      return 1;
-    } else if (a.date > b.date) {
-      return -1;
-    } else {
-      return 0;
-    }
-  }) as T[];
-}
-
-export function getPostBySlug(
-  slug: string,
-  type: PostType = 'post'
-): Blog & { next: Blog; prev: Blog } {
-  const posts = getAllPostsSorted(type);
-  const blogIndex = posts.findIndex((post) => post.slug === slug);
-
-  return {
-    ...posts[blogIndex],
-    next: posts[blogIndex + 1] ?? null,
-    prev: posts[blogIndex - 1] ?? null,
-  };
+  }, [] as string[]);
+  return resolvedTags.map((tag) => ({
+    params: { slug: tag },
+    props: { posts: filterByTag(posts, tag), tag },
+  }));
 }

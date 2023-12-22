@@ -15,15 +15,15 @@ excerpt: React components for rapid layout and ease of use. These components are
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1655157939/Posts/layout-components
 ---
 
-import { CodeSandbox } from 'mdx-embed';
-
 ## Table of Contents
 
 There are a few components that I use almost every day in development. They are used for layouts and are made from flexbox and css grid. On this site I pass both of these down with the MdxProvider so all my pages and posts have access to them easily.
 
 ## What We're Using TL;DR
 
-<CodeSandbox codeSandboxId="react-layout-components-flexbox-grid-d9e1u" />
+import CodeSandbox from "../../components/CodeSandbox.astro";
+
+<CodeSandbox title="React layout components flexbox grid" id="d9e1u" />
 
 I had used a column component that accepted different span amounts, but I ended up not using it as much. I tend to add `span` to the children through the `sx` prop or extending with styled components.
 
@@ -46,7 +46,7 @@ type FlexboxProps = {
   noGrow?: boolean; // acts as no-grow and no-shrink
   grow?: number;
   shrink?: number;
-  basis?: number | 'auto';
+  basis?: number | "auto";
 
   top?: boolean;
   middle?: boolean;
@@ -69,8 +69,8 @@ Here is some example usage. See the [CodeSandbox](#example) down below for more.
   </Flexbox>
   <Flexbox bottom>
     <p>
-      This is some copy to show how the box will fill the whole area but the text will be aligned
-      bottom.
+      This is some copy to show how the box will fill the whole area but the
+      text will be aligned bottom.
     </p>
   </Flexbox>
 </Flexbox>

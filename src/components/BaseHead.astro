@@ -1,0 +1,74 @@
+---
+// Import the global.css file here so that it is included on
+// all pages through the use of the <BaseHead /> component.
+import '../styles/global.css';
+import '@fontsource/fira-code';
+import '@fontsource/fira-sans';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+import firaCode500 from '@fontsource/fira-code/files/fira-code-latin-500-normal.woff2';
+import firaSanst500 from '@fontsource/fira-sans/files/fira-sans-latin-700-normal.woff2';
+import { SITE_DESCRIPTION, SITE_TITLE } from 'src/consts';
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const {
+  title,
+  description = SITE_DESCRIPTION,
+  image = 'https://res.cloudinary.com/joelmturner/image/upload/h_630,w_1200/c_fit,h_400,l_text:Helvetica_80_bold_line_spacing_20:Digital%20Adventurer%20and%20Amateur%20Illustrator,w_700/fl_layer_apply,g_west,x_400,y_0/blog-post-card.png',
+} = Astro.props;
+
+const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type="image/png" href="/favicon-32x32.png" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Font preloads -->
+<link rel="preload" href={firaCode500} as="font" type="font/woff" crossorigin />
+<link rel="preload" href={firaSanst500} as="font" type="font/woff" crossorigin />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Primary Meta Tags -->
+<title>{resolvedTitle}</title>
+<meta name="title" content={resolvedTitle} />
+<meta name="description" content={description} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={resolvedTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(image, Astro.url)} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={resolvedTitle} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+<script
+  async
+  src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_TRACKING_ID}`}
+></script>
+<script is:inline id="google-analytics">
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', '${process.env.NEXT_PUBLIC_GA_TRACKING_ID}', {
+    page_path: window.location.pathname,
+  });
+</script>
