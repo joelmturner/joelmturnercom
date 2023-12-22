@@ -5,27 +5,31 @@ import pandacss from "@pandacss/astro";
 import svelte from "@astrojs/svelte";
 import astroExpressiveCode from "astro-expressive-code";
 import sentry from "@sentry/astro";
+import { loadEnv } from "vite";
+const { SENTRY_AUTH_TOKEN } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 /** @type {import('astro-expressive-code').AstroExpressiveCodeOptions} */
 const astroExpressiveCodeOptions = {
-  themes: ["dracula", "solarized-light"],
+    themes: ["dracula", "solarized-light"],
 };
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://joelmturner.com",
-  integrations: [
-    astroExpressiveCode(astroExpressiveCodeOptions),
-    mdx(),
-    sitemap(),
-    pandacss(),
-    svelte(),
-    sentry({
-      dsn: "https://examplePublicKey@o0.ingest.sentry.io/0",
-      sourceMapsUploadOptions: {
-        project: "joelmturnercom",
-        authToken: process.env.SENTRY_AUTH_TOKEN,
-      },
-    }),
-  ],
+    site: "https://joelmturner.com",
+    integrations: [
+        astroExpressiveCode(astroExpressiveCodeOptions),
+        mdx(),
+        sitemap(),
+        pandacss(),
+        svelte(),
+        sentry({
+            dsn: "https://examplePublicKey@o0.ingest.sentry.io/0",
+            sourceMapsUploadOptions: {
+                project: "joelmturnercom",
+                org: "joelmturnercom",
+                authToken: SENTRY_AUTH_TOKEN,
+            },
+        }),
+        sitemap()
+    ],
 });

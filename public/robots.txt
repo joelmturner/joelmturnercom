@@ -6,4 +6,4 @@ Allow: /
 Host: https://joelmturner.com
 
 # Sitemaps
-Sitemap: https://joelmturner.com/sitemap.xml
+Sitemap: https://joelmturner.com/sitemap-index.xml
