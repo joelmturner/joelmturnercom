@@ -25,7 +25,7 @@ function filterByCategory(
   category: string,
 ) {
   return posts
-    .filter((post) => post.data.category.toLowerCase() === category)
+    .filter((post) => post.data.categories.toLowerCase() === category)
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }
 
@@ -46,7 +46,7 @@ export function getAllCategories(
   posts: (CollectionEntry<"blog"> | CollectionEntry<"til">)[],
 ) {
   const categories = posts.reduce((acc, post) => {
-    const category = post.data.category.toLowerCase();
+    const category = post.data.categories.toLowerCase();
     if (!acc.includes(category)) {
       acc.push(category);
     }

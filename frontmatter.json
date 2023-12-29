@@ -1,0 +1,118 @@
+{
+  "$schema": "https://frontmatter.codes/frontmatter.schema.json",
+  "frontMatter.framework.id": "astro",
+  "frontMatter.preview.host": "http://localhost:4321",
+  "frontMatter.content.publicFolder": "public",
+  "frontMatter.content.pageFolders": [
+    {
+      "title": "blog",
+      "path": "[[workspace]]/src/content/blog"
+    },
+    {
+      "title": "til",
+      "path": "[[workspace]]/src/content/til"
+    }
+  ],
+  "frontMatter.taxonomy.contentTypes": [
+    {
+      "name": "blog",
+      "previewPath": "'blog'",
+      "pageBundle": false,
+      "clearEmpty": true,
+      "fields": [
+        {
+          "name": "title",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "single": true
+        },
+        {
+          "name": "date",
+          "type": "datetime",
+          "default": "{{now}}",
+          "required": true
+        },
+        {
+          "name": "lastmod",
+          "type": "datetime",
+          "default": "{{now}}"
+        },
+        {
+          "name": "cover",
+          "type": "string",
+          "single": true
+        },
+        {
+          "name": "draft",
+          "type": "boolean"
+        },
+        {
+          "name": "excerpt",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Category",
+          "name": "category",
+          "required": true,
+          "type": "categories",
+          "singleValueAsString": true,
+          "taxonomyLimit": 1
+        },
+        {
+          "name": "tags",
+          "type": "tags",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "til",
+      "previewPath": "'til'",
+      "pageBundle": false,
+      "clearEmpty": true,
+      "fields": [
+        {
+          "name": "title",
+          "type": "string",
+          "single": true,
+          "required": true
+        },
+        {
+          "name": "date",
+          "type": "datetime",
+          "default": "{{now}}",
+          "required": true
+        },
+        {
+          "name": "lastmod",
+          "type": "datetime",
+          "default": "{{now}}"
+        },
+        {
+          "name": "draft",
+          "type": "draft"
+        },
+        {
+          "title": "Category",
+          "name": "category",
+          "type": "categories",
+          "singleValueAsString": true,
+          "taxonomyLimit": 1,
+          "required": true
+        },
+        {
+          "name": "tags",
+          "type": "tags",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "frontMatter.framework.startCommand": "yarn dev"
+}

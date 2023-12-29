@@ -23,7 +23,7 @@ const {
   cover,
   excerpt,
   tags,
-  category,
+  categories,
   next,
   prev,
 } = Astro.props;
@@ -134,8 +134,8 @@ const coverImgUrl = cover
         <hr />
       </div>
       <div class={flex({ gap: 3, alignItems: 'center' })}>
-        Category: <Badge link={`/blog/category/${slugify(category)}`}>
-          {category}
+        Category: <Badge link={`/blog/category/${slugify(categories)}`}>
+          {categories}
         </Badge>
       </div>
       <div class={flex({ gap: 3, alignItems: 'center', flexWrap: 'wrap' })}>
