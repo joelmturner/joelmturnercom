@@ -53,6 +53,7 @@
         },
         "rules": {
             "@typescript-eslint/no-explicit-any": "off",
+            "prefer-rest-params": "off",
             "prettier/prettier": "off"
         }
       }

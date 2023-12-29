@@ -1,4 +1,5 @@
 ---
+import PostHog from './PostHog.astro';
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
@@ -74,3 +75,4 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
     page_path: window.location.pathname,
   });
 </script>
+<PostHog />
