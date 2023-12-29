@@ -140,6 +140,6 @@ const themeIconStyles = css({
     toggle.querySelectorAll('svg').forEach((svg) => {
       svg.classList.remove('active');
     });
-    updateTheme(selected.closest('[data-theme-value]')?.getAttribute('data-theme-value')!);
+    updateTheme(selected.closest('[data-theme-value]')?.getAttribute('data-theme-value') ?? 'dark');
   });
 </script>

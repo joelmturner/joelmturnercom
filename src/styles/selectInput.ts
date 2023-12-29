@@ -1,4 +1,4 @@
-import { css, cx } from "styled-system/css";
+import { css } from "styled-system/css";
 
 export const selectInput = css({
   bgColor: { _light: "orange.100", _dark: "slate.700" },

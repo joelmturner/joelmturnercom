@@ -66,6 +66,7 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
 <script is:inline id="google-analytics">
   window.dataLayer = window.dataLayer || [];
   function gtag() {
+    // eslint-disable-next-line prefer-rest-params
     window.dataLayer.push(arguments);
   }
   gtag('js', new Date());

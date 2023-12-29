@@ -3,4 +3,5 @@ package.json
 /styled-system/
 dist/
 svelte.config.js
-**.*svelte
+**.*.svelte
+**.*.ts

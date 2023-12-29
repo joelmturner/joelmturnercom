@@ -7,7 +7,7 @@ export default defineConfig({
 
   presets: [
     "animated-pandacss",
-    typographyPreset({ recipe: { notProse: true } }) as any,
+    typographyPreset({ recipe: { notProse: true } }),
     "@pandacss/dev/presets",
   ],
 
