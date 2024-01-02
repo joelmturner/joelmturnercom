@@ -1,0 +1,65 @@
+---
+title: From Nextjs to Astro
+date: 2023-12-29T20:13:34.472Z
+lastmod: 2023-12-29T20:13:34.470Z
+type: blog
+slug: nextjs-astro
+description: Converting my site from Next.js to Astro and Svelte, styled by Panda CSS
+excerpt: Converting my site from Next.js to Astro and Svelte, styled by Panda CSS
+tags:
+  - Astro
+  - panda css
+  - Svelte
+categories: dev
+cover: https://res.cloudinary.com/joelmturner/image/upload/v1704214028/Posts/Nextjs_to_Astro.png
+---
+
+Until recently, this site was built with Next (Next.js) 13 using the pages router. It was functioning well and was quite stable.
+
+I was getting itchy though and wanted to try out some newer tech so I tried to upgrade to Next 14 using the app router. The site ran but was incredibly slow and I wasn't able to get it to be a static build. Even the dev cycle was very slow which could have been a combination of Panda CSS, Contentlayer, and Next.
+
+After testing that site out on a branch build, and failing to get a solution to Next app router static builds, I decided to abandon that route and try out something else.
+
+## Enter Astro
+
+Astro has been on my list of tech to check out for a while. Since I've been building primarily with Next for the past few years my site has remained there. Now that I'm ready to explore more options, Astro came back into the picture.
+
+The things that attracted me to Astro for this site are:
+
+- static by default
+- minimal html, css, and js shipped
+- first party content layer (mdx, in my case)
+- strong documentation
+- islands of interaction as needed
+
+I found all of these to be very helpful in rebuilding the site with Astro.
+
+The [content collections](https://docs.astro.build/en/guides/content-collections/) are really nice for articles like in my blogs/til sections. The content follows a schema defined in a config file next to the collection and gives great types from there on. Using the mdx integration also makes it easy to process and display that content. This has completely replaced my need for Contentlayer in this project.
+
+To add interactivity to a Astro page, you can choose a script tag and some js or reach for another library as an island. There are a few components that needed a small amount of interaction, like the `ThemeSwitch` so I added a little script tag. I was a nice exercise to get closer to vanilla js when needed.
+
+When converting my site, I created a separate repo with a fresh Astro project and copied over the content. I was able to get the site up and running in a few minutes and then spent a few more hours tweaking the styles and adding some interactivity. There were some small bits of mdx that I needed to update to fit the new site but it was pretty minor. After I was happy with the new site, I moved it over to the main repo as a branch and created a PR.
+
+## Islands of Interactivity with Svelte
+
+I chose [Svelte](https://svelte.dev/) for the interactive islands because of the small footprint and the joy of writing in Svelte. The main interactions in this site are on the [Illustration page](/illustration) where the user can choose a collection as well as view each image in a lightbox.
+
+It was smooth getting Svelte to work inside of Astro and was able to complete the feature relatively quickly. I'm still learning about Astro's routing especially in conjunction with Svelte components but I was able to get some soft routing working with the collections. Each time a collection is chosen, the route will update without navigating the window. This allows the user to copy the link to that collection but not have to go through a full page load on every collection change.
+
+## Styling with Panda CSS
+
+[Panda CSS](https://panda-css.com/) (from the creator of Chakra UI) is a way to write type-safe styles in TypeScript. It works very well in the newish SSR world, including React Server Components. I have used it for a couple of explorations like [BoochTown](https://boochtown.com/) (SvelteKit) and [PDX Food Weeks](https://pdx-food-weeks.vercel.app/) (Next 13 app router).
+
+The ability to pull in reusable patterns in a nicely typed way really sold me on Panda. I was able to jump between `.astro` and `.svelte` styles seamlessly while maintaining my styles. There's a lot of capability in Panda and I've only scratched the surface. I highly recommend checking it out if you're into component libraries, typed styles, and/or reusable patterns.
+
+At the time of writing it is still a new library that is actively adding new features and refining current features. I'm excited to see where it goes and how it fits into the ecosystem going forward.
+
+## Conclusion
+
+Overall, the experience of converting to Astro was great and I wish I had done it sooner. The next few items on my list are:
+
+- view transitions
+- blog pagination
+- codifying some of the styles
+
+I'll post updates along to way. If you'd like to follow along, you can follow on [X/Twitter](https://twitter.com/joelmturner) or grab the [RSS feed](http://localhost:4321/rss.xml).
