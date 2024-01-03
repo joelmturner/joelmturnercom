@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { ViewTransitions } from 'astro:transitions';
 import BaseHead from '../components/BaseHead.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { css, cx } from '../../styled-system/css';
@@ -48,6 +49,7 @@ const coverImgUrl = cover
 <html lang="en" data-color-mode="dark">
   <head>
     <BaseHead title={title} description={excerpt ?? description} image={cover} />
+    <ViewTransitions />
   </head>
 
   <BaseBody>
@@ -68,6 +70,7 @@ const coverImgUrl = cover
             height="510"
             src={cover}
             alt={title}
+            transition:name={`${title}-image`}
             class={css({
               aspectRatio: 1.75,
               maxWidth: { base: '90vw', lg: '3xl' },

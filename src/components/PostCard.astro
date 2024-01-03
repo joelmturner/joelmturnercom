@@ -97,6 +97,7 @@ const coverImgUrl = post.data.cover
           height={360}
           src={coverImgUrl}
           alt={post.data.title}
+          transition:name={`${post.data.title}-image`}
           class={cx(
             'not-prose',
             css({
