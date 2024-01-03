@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
 import BaseHead from '../components/BaseHead.astro';
 import { SITE_TITLE } from '../consts';
 import BaseBody from '../components/BaseBody.astro';
@@ -19,6 +20,7 @@ const featuredPost = (await getCollection('blog')).sort(
 <html lang="en" data-color-mode="dark">
   <head>
     <BaseHead />
+    <ViewTransitions />
   </head>
   <BaseBody title={SITE_TITLE}>
     <section class={prose({ size: 'xl' })}>
@@ -103,12 +105,12 @@ const featuredPost = (await getCollection('blog')).sort(
         p: { base: 4, md: 0 },
       })}
     >
-      <div>
+      <div class={flex({ direction: 'column', gap: 4 })}>
         <h2>Featured Post</h2>
         <PostCard post={featuredPost} featured />
       </div>
 
-      <div>
+      <div class={flex({ direction: 'column', gap: 4 })}>
         <h2>What I'm Jamming On</h2>
         <ProjectGrid />
       </div>
