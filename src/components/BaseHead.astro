@@ -60,19 +60,5 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
-<script
-  async
-  src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_TRACKING_ID}`}
-></script>
-<script is:inline id="google-analytics">
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    // eslint-disable-next-line prefer-rest-params
-    window.dataLayer.push(arguments);
-  }
-  gtag('js', new Date());
-  gtag('config', '${process.env.NEXT_PUBLIC_GA_TRACKING_ID}', {
-    page_path: window.location.pathname,
-  });
-</script>
+<!-- analytics -->
 <PostHog />
