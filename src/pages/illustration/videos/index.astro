@@ -1,0 +1,52 @@
+---
+import BaseHead from '@components/BaseHead.astro';
+import { flex } from 'styled-system/patterns';
+import CldVideoPlayer from '@components/CldVideoPlayer.astro';
+import BaseBody from '@components/BaseBody.astro';
+import { css } from 'styled-system/css';
+---
+
+<!doctype html>
+<html lang="en" data-color-mode="dark">
+  <head>
+    <BaseHead
+      title={'Illustration videos'}
+      description={'Some of my favorite hand-drawn illustration videos'}
+    />
+  </head>
+  <BaseBody>
+    <div class={flex({ justify: 'space-between', alignItems: 'center', mb: 8 })}>
+      <h1>Illustration videos</h1>
+      <a
+        href="/illustration"
+        class={css({ textDecoration: 'underline', color: 'prose.link', textAlign: 'right' })}
+        >← Back to Illustrations</a
+      >
+    </div>
+    <div class={flex({ direction: 'column', gap: { base: 4, md: 8 } })}>
+      <CldVideoPlayer
+        publicId="illustration-videos/sketchbook-23-11-06.mp4"
+        title="Sketchbook November 6, 2023"
+        citation
+      />
+
+      <CldVideoPlayer
+        publicId="illustration-videos/sketchbook-21-10-11.mp4"
+        title="Sketchbook October 11, 2021"
+        citation
+      />
+
+      <CldVideoPlayer
+        publicId="illustration-videos/Hand_Type_Rumble_Time_Lapse.mp4"
+        title="LetterClash rumble"
+        citation
+      />
+
+      <CldVideoPlayer
+        publicId="illustration-videos/viral-card.mp4"
+        title="viral card"
+        options={{ loop: true }}
+      />
+    </div>
+  </BaseBody>
+</html>

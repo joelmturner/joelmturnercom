@@ -1,0 +1,64 @@
+---
+import { css } from 'styled-system/css';
+import { flex } from 'styled-system/patterns';
+
+type Props = {
+  publicId: string;
+  title: string;
+  options?: {
+    loop?: boolean;
+  };
+  citation?: boolean;
+};
+
+const { publicId, title, citation, options: { loop = false } = { loop: false } } = Astro.props;
+let params = `?cloud_name=joelmturner&public_id=${publicId}`;
+const additionalParams = loop ? 'loop=true' : '';
+
+if (additionalParams) {
+  params = `${params}&${additionalParams}`;
+}
+---
+
+<div
+  class={css({
+    borderRadius: 'lg',
+    overflow: 'hidden',
+  })}
+>
+  <iframe
+    title={title}
+    src={`https://player.cloudinary.com/embed/${params}`}
+    width="640"
+    height="360"
+    class={css({ width: '100%', height: 'auto', aspectRatio: '640 / 360' })}
+    allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+    allowfullscreen
+    frameborder="0"></iframe>
+  <div
+    class={flex({
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      p: 2,
+      bg: {
+        _light: 'white',
+        _dark: 'gray.800',
+      },
+    })}
+  >
+    <p
+      class={css({
+        mb: 0,
+      })}
+    >
+      {title}
+    </p>
+    {
+      citation && (
+        <cite class={css({ mt: 0, color: 'prose.caption', textAlign: 'right' })}>
+          music from <a href="https://bensound.com">bensound.com</a>
+        </cite>
+      )
+    }
+  </div>
+</div>

@@ -3,6 +3,8 @@ import BaseHead from '@components/BaseHead.astro';
 import BaseBody from '@components/BaseBody.astro';
 import { getIllustrations } from '@lib/illustrations';
 import GalleryContainer from '@components/svelte/GalleryContainer.svelte';
+import { flex } from 'styled-system/patterns';
+import { css } from 'styled-system/css';
 
 const collections = await getIllustrations();
 ---
@@ -16,6 +18,14 @@ const collections = await getIllustrations();
     />
   </head>
   <BaseBody>
+    <div class={flex({ justify: 'space-between', alignItems: 'center', mb: 8 })}>
+      <h1>Illustration Collections</h1>
+      <a
+        href="/illustration/videos"
+        class={css({ textDecoration: 'underline', color: 'prose.link', textAlign: 'right' })}
+        >videos</a
+      >
+    </div>
     <GalleryContainer collections={collections} client:load />
   </BaseBody>
 </html>
