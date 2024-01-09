@@ -4,6 +4,7 @@ import { Cloudinary } from 'astro-cloudinary-image';
 import { css, cx } from '../../styled-system/css';
 import { prose } from '../../styled-system/recipes';
 import BaseBody from '../components/BaseBody.astro';
+import Image from '@components/Image.astro';
 
 type Props = {
   frontmatter: { title: string; description?: string; heroImage?: string };
@@ -32,17 +33,7 @@ const {
           },
         })}
       >
-        {
-          heroImage && (
-            <Cloudinary
-              width={'1020'}
-              height={'510'}
-              src={heroImage}
-              alt=""
-              errorImage="NotFound.svg"
-            />
-          )
-        }
+        {heroImage && <Image width={'1020'} height={'510'} src={heroImage} alt="" />}
       </div>
       <div
         class={cx(
