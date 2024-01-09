@@ -10,6 +10,8 @@ import { flex } from '../../styled-system/patterns';
 import Badge from '../components/Badge.astro';
 import { slugify } from '../lib/posts';
 import { cloudinary } from '@lib/cloudinary';
+import { getAdjustedImageSize } from '@lib/utils';
+import { Image } from 'astro:assets';
 
 type Props = CollectionEntry<'blog'>['data'] & {
   next?: CollectionEntry<'blog'>;
@@ -34,13 +36,13 @@ const coverImgUrl = cover
       secure: true,
       transformation: [
         {
-          width: 720,
-          height: 360,
+          width: getAdjustedImageSize(770),
+          height: getAdjustedImageSize(488),
           crop: 'fill',
           gravity: 'auto',
         },
       ],
-      format: 'auto',
+      fetch_format: 'auto',
       quality: 'auto',
     })
   : null;
@@ -65,16 +67,17 @@ const coverImgUrl = cover
     >
       {
         coverImgUrl && (
-          <img
-            width="1020"
-            height="510"
-            src={cover}
+          <Image
+            width="770"
+            height="488"
+            src={coverImgUrl}
             alt={title}
             transition:name={`${title}-image`}
             class={css({
-              aspectRatio: 1.75,
               maxWidth: { base: '90vw', lg: '3xl' },
             })}
+            widths={[240, 540, 720, 770]}
+            sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px`}
           />
         )
       }

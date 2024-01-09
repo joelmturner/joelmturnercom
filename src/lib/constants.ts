@@ -7,8 +7,7 @@ export const PROJECTS: Project[] = [
   {
     name: "Emotional Recipes",
     description: "A tool to help navigate stormy waters back to calm seas.",
-    imageURL:
-      "https://res.cloudinary.com/joelmturner/image/upload/v1690867310/emotional-recipes/recipe_9.webp",
+    imageURL: "emotional-recipes/recipe_9.webp",
     tech: ["react", "typescript", "chakra ui", "next.js"],
     github: "https://github.com/joelmturner/emotional-recipes",
     featured: false,
@@ -17,8 +16,7 @@ export const PROJECTS: Project[] = [
   {
     name: "PDX Food Weeks",
     description: "Annual celebration of great food in Portland, Oregon.",
-    imageURL:
-      "https://res.cloudinary.com/joelmturner/image/upload/v1690867095/pdx-food-weeks-vercel-app-nacho-2023_xxfsgl.png",
+    imageURL: "pdx-food-weeks-vercel-app-nacho-2023_xxfsgl.png",
     tech: ["react", "typescript", "panda css", "next.js"],
     github: "https://github.com/joelmturner/pdx-food-weeks",
     featured: false,
@@ -27,8 +25,7 @@ export const PROJECTS: Project[] = [
   {
     name: "Instagram To Cloudinary",
     description: "Pulls posts from Instagram and sends them to Cloudinary",
-    imageURL:
-      "https://res.cloudinary.com/joelmturner/image/upload/v1690868332/Illustrations-Joel-M-Turner_ogu9k6.png",
+    imageURL: "Illustrations-Joel-M-Turner_ogu9k6.png",
     tech: ["typescript"],
     github: "https://github.com/joelmturner/instagram-cloudinary",
     featured: false,

@@ -562,7 +562,7 @@
   dependencies:
     "@cloudinary/url-gen" "^1.7.0"
 
-"@cloudinary/url-gen@^1.10.1", "@cloudinary/url-gen@^1.7.0", "@cloudinary/url-gen@^1.9.1":
+"@cloudinary/url-gen@^1.10.1", "@cloudinary/url-gen@^1.14.0", "@cloudinary/url-gen@^1.7.0", "@cloudinary/url-gen@^1.9.1":
   version "1.14.0"
   resolved "https://registry.yarnpkg.com/@cloudinary/url-gen/-/url-gen-1.14.0.tgz#87a31719858acd98b482ca331a0df2d5a8791f34"
   integrity sha512-XbG8QgD5fkTUO/YYUWftfz3sUpKzRZJkXhp6xLSxmK/36iyMy2wA4SF5FLCOnv6fLLUneQzXbc4OAwaDM0EWCQ==

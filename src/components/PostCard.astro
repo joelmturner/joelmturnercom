@@ -4,6 +4,7 @@ import { css, cx } from '../../styled-system/css';
 import { prose } from '../../styled-system/recipes';
 import FormattedDate from './FormattedDate.astro';
 import { type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 
 export type Props = {
   post: CollectionEntry<'blog'>;
@@ -20,25 +21,25 @@ const featuredStyles = {
   },
 };
 
-// https://res.cloudinary.com/joelmturner/image/upload/h_360,w_720/c_fit,h_250,l_text:Helvetica_40_bold_line_spacing_10:Create%20an%20Avatar%20Component%20in%20Gatsby%20with%20TypeScript%20Part%203%3A%20Adding%20Types,w_450/fl_layer_apply,g_west,x_225,y_0/blog-post-card.png
-
 const coverImgUrl = post.data.cover
   ? cloudinary.url(post.data.cover, {
       secure: true,
       transformation: [
         {
-          width: 720,
-          height: 360,
+          width: 770,
+          height: 385,
           crop: 'fill',
-          gravity: 'auto',
+          gravity: 'center',
         },
       ],
-      format: 'auto',
+      fetch_format: 'auto',
       quality: 'auto',
     })
   : cloudinary.url('blog-post-card', {
       secure: true,
       format: 'png',
+      fetch_format: 'auto',
+      quality: 'auto',
       transformation: [
         {
           width: 720,
@@ -92,9 +93,9 @@ const coverImgUrl = post.data.cover
   <a href={`/blog/${post.slug}/`} class={prose({ size: '2xl' })}>
     {
       coverImgUrl ? (
-        <img
-          width={720}
-          height={360}
+        <Image
+          width={770}
+          height={385}
           src={coverImgUrl}
           alt={post.data.title}
           transition:name={`${post.data.title}-image`}
@@ -105,6 +106,9 @@ const coverImgUrl = post.data.cover
               borderRadius: 'xl',
             })
           )}
+          widths={[240, 540, 720, 770]}
+          sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px`}
+          loading="lazy"
         />
       ) : null
     }

@@ -1,4 +1,5 @@
 ---
+import { getAdjustedImageSize } from '@lib/utils';
 import { css } from '../../styled-system/css';
 import { flex } from '../../styled-system/patterns';
 import type { Project } from '../lib/types';
@@ -36,9 +37,11 @@ const {
       })}
       src={imageURL}
       alt={name}
-      height="200px"
-      width="100%"
-      errorImage="NotFound.svg"
+      height={getAdjustedImageSize(150)}
+      width={getAdjustedImageSize(370)}
+      widths={[240, 540, 720, 770]}
+      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px`}
+      loading="lazy"
     />
   </a>
   <div class={flex({ p: 2, pt: 4, direction: 'column', gap: 2 })}>

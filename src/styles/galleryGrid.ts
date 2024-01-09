@@ -32,20 +32,3 @@ export const gridButtonStyles = css({
     color: "accent",
   },
 });
-
-export const galleryTombstoneStyles = css({
-  bg: {
-    _light: "gray.100",
-    _dark: "slate.800",
-  },
-  borderRadius: "md",
-  overflow: "hidden",
-  w: "full",
-  h: { base: "100px", md: "200px" },
-  animationName: "pulse",
-
-  // Optional attributes
-  animationRepeat: "infinite", // can also be a number
-  animationDuration: "2s",
-  animationDelay: "1s",
-});

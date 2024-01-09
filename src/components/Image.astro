@@ -1,13 +1,33 @@
 ---
-import { Cloudinary, type CloudinaryProps } from 'astro-cloudinary-image';
+// import { Cloudinary, type CloudinaryProps } from 'astro-cloudinary-image';
+import { Cloudinary } from '@cloudinary/url-gen';
+import { Image as AstroImage, type ImgAttributes, type RemoteImageProps } from 'astro:assets';
+// type Props = CloudinaryProps & {
+//   src: string;
+//   alt: string;
+//   errorImage?: string;
+//   class?: string;
+// };
+// const { src, alt, errorImage = 'NotFound.svg', ...props } = Astro.props;
+type Props = RemoteImageProps & ImgAttributes;
+const { src, ...props } = Astro.props;
 
-type Props = CloudinaryProps & {
-  src: string;
-  alt: string;
-  errorImage?: string;
-  class?: string;
-};
-const { src, alt, errorImage = 'NotFound.svg', ...props } = Astro.props;
+const cld = new Cloudinary({
+  cloud: {
+    cloudName: import.meta.env.PUBLIC_CLOUDINARY_CLOUD_NAME,
+  },
+  url: {
+    secure: true,
+  },
+});
+
+const cldSrc = cld
+  .image(src)
+  .format('auto')
+  .quality('auto')
+  .resize(`c_fill,h_${props.height},w_${props.width},g_north_west`);
+const resolvedSrc = cldSrc.toURL();
 ---
 
-<Cloudinary src={src} alt={alt} errorImage={errorImage} {...props} />
+<!-- <Cloudinary src={src} alt={alt} errorImage={errorImage} {...props} /> -->
+<AstroImage src={resolvedSrc} {...props as any} />
