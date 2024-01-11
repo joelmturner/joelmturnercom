@@ -2,7 +2,7 @@
 import { Cloudinary } from '@cloudinary/url-gen';
 import { Image as AstroImage, type ImgAttributes, type RemoteImageProps } from 'astro:assets';
 
-type Props = RemoteImageProps & ImgAttributes;
+type Props = RemoteImageProps & ImgAttributes & { gravity?: string };
 const { src, ...props } = Astro.props;
 
 const cld = new Cloudinary({
@@ -14,11 +14,13 @@ const cld = new Cloudinary({
   },
 });
 
+const gravity = props.gravity || 'north_west';
+
 const cldSrc = cld
   .image(src)
   .format('auto')
   .quality('auto')
-  .resize(`c_fill,h_${props.height},w_${props.width},g_north_west` as any);
+  .resize(`c_fill,h_${props.height},w_${props.width},g_${gravity}` as any);
 const resolvedSrc = cldSrc.toURL();
 ---
 

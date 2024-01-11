@@ -18,11 +18,9 @@ const {
   class={css({
     maxW: 'sm',
     bgColor: 'white',
-    borderWidth: '1px',
-    borderColor: 'gray.200',
     rounded: 'lg',
-    shadow: 'lg',
-    _dark: { bgColor: 'gray.800', borderColor: 'gray.700' },
+    shadow: 'sm',
+    _dark: { bgColor: 'gray.800' },
   })}
 >
   <a href={url} target="_blank">
@@ -44,7 +42,7 @@ const {
       loading="lazy"
     />
   </a>
-  <div class={flex({ p: 2, pt: 4, direction: 'column', gap: 2 })}>
+  <div class={flex({ px: 4, pt: 8, pb: 4, direction: 'column', gap: 2 })}>
     <div class={flex({ justifyContent: 'space-between', alignItems: 'center' })}>
       <a href={url} target="_blank">
         <h5
@@ -87,7 +85,7 @@ const {
     >
       {description}
     </p>
-    <div class={flex({ gap: 2, alignItems: 'center' })}>
+    <div class={flex({ gap: 2, alignItems: 'center', pt: 6 })}>
       {
         tech.map((techItem) => (
           <ProjectIcon icon={techItem.toLowerCase() as Project['tech'][number]} />
