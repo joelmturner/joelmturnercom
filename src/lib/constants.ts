@@ -1,7 +1,7 @@
 import type { Project, SocialIconLabel } from "./types";
 import { type IllustrationTag } from "./types";
 
-export const FUN_STUFF = ["hike", "camp", "draw", "letter", "code", "brew"];
+export const FUN_STUFF = [ 'brew', 'code', 'letter', 'draw', 'hike', 'camp' ];
 
 export const PROJECTS: Project[] = [
   {
