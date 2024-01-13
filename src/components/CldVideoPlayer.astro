@@ -1,6 +1,9 @@
 ---
-import { css } from 'styled-system/css';
+import { sanitizeId } from '@lib/utils';
+import { css, cx } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
+
+import 'cloudinary-video-player/cld-video-player.min.css';
 
 type Props = {
   publicId: string;
@@ -12,29 +15,54 @@ type Props = {
 };
 
 const { publicId, title, citation, options: { loop = false } = { loop: false } } = Astro.props;
-let params = `?cloud_name=joelmturner&public_id=${publicId}&player[colors][base]=%2397cdff&player[colors][accent]=%23CBF6FF`;
-const additionalParams = loop ? 'loop=true' : '';
-
-if (additionalParams) {
-  params = `${params}&${additionalParams}`;
-}
+const id = sanitizeId(publicId);
 ---
 
+<script
+  src="https://cdn.jsdelivr.net/npm/cloudinary-video-player/dist/cld-video-player.min.js"
+  type="text/javascript"></script>
+
+<script>
+  document.querySelectorAll('.cld-video-player').forEach((el) => {
+    console.log('(el as any).dataset.loop', (el as any).dataset.loop);
+    (window as any).cloudinary.videoPlayer(el.id, {
+      cloudName: 'joelmturner',
+      autoplay: false,
+      muted: false,
+      allowFullscreen: true,
+      width: 640,
+      height: 360,
+      colors: {
+        base: '#97cdff',
+        accent: '#CBF6FF',
+      },
+    });
+  });
+</script>
+
 <div
-  class={css({
-    borderRadius: 'lg',
-    overflow: 'hidden',
-  })}
+  class={cx(
+    'not-prose',
+    css({
+      borderRadius: 'lg',
+      overflow: 'hidden',
+      maxWidth: '640px',
+      width: '100%',
+      mx: 'auto',
+    })
+  )}
 >
-  <iframe
-    title={title}
-    src={`https://player.cloudinary.com/embed/${params}`}
-    width="640"
-    height="360"
-    class={css({ width: '100%', height: 'auto', aspectRatio: '640 / 360' })}
-    allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-    allowfullscreen
-    loading="lazy"></iframe>
+  <video
+    id={id}
+    controls
+    muted
+    data-cld-public-id={publicId}
+    loop={loop}
+    preload="none"
+    class={cx(
+      'cld-video-player',
+      css({ maxWidth: '100%', width: '100%', height: '100%', aspectRatio: '640 / 360' })
+    )}></video>
 
   <div
     class={flex({
