@@ -4,9 +4,18 @@ import { type IllustrationTag } from "./types";
 export const FUN_STUFF = [ 'brew', 'code', 'letter', 'draw', 'hike', 'camp' ];
 
 export const PROJECTS: Project[] = [
+    {
+      name: "Instagram To Cloudinary",
+      description: "Pulls posts from Instagram and sends them to Cloudinary with tags",
+      imageURL: "Illustrations-Joel-M-Turner_ogu9k6.png",
+      tech: ["typescript"],
+      github: "https://github.com/joelmturner/instagram-cloudinary",
+      featured: false,
+      url: "/blog/instagram-cloudinary",
+    },
   {
     name: "Emotional Recipes",
-    description: "A tool to help navigate stormy waters back to calm seas.",
+    description: "A tool to help navigate stormy waters and get back to calm seas.",
     imageURL: "emotional-recipes/recipe_9.webp",
     tech: ["react", "typescript", "chakra ui", "next.js"],
     github: "https://github.com/joelmturner/emotional-recipes",
@@ -23,13 +32,13 @@ export const PROJECTS: Project[] = [
     url: "https://pdx-food-weeks.vercel.app/",
   },
   {
-    name: "Instagram To Cloudinary",
-    description: "Pulls posts from Instagram and sends them to Cloudinary",
-    imageURL: "Illustrations-Joel-M-Turner_ogu9k6.png",
-    tech: ["typescript"],
-    github: "https://github.com/joelmturner/instagram-cloudinary",
+    name: "BoochTown",
+    description: "Kombucha reviews and ratings web app",
+    imageURL: "boochtown-product-view_gzd9mn",
+    tech: ["typescript", 'svelte', 'panda css'],
+    github: "https://github.com/joelmturner/boochtown",
     featured: false,
-    url: "/blog/instagram-cloudinary",
+    url: "https://boochtown.com/",
   },
 ];
 

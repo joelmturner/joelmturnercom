@@ -37,7 +37,7 @@ const coverImgUrl = cover
       transformation: [
         {
           width: getAdjustedImageSize(770),
-          height: getAdjustedImageSize(488),
+          height: getAdjustedImageSize(415),
           crop: 'fill',
           gravity: 'auto',
         },
@@ -69,7 +69,7 @@ const coverImgUrl = cover
         coverImgUrl && (
           <Image
             width="770"
-            height="488"
+            height="415"
             src={coverImgUrl}
             alt={title}
             transition:name={`${title}-image`}
@@ -78,6 +78,7 @@ const coverImgUrl = cover
             })}
             widths={[240, 540, 720, 770]}
             sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px`}
+            loading="lazy"
           />
         )
       }

@@ -1,10 +1,12 @@
 import type { ILLUSTRATION_QUERY_VS_FILTER } from "./queryParams";
 
+export type TechIcon = "react" | "typescript" | "chakra ui" | "next.js" | "panda css" | "svelte";
+
 export type Project = {
   name: string;
   description: string;
   imageURL: string;
-  tech: Array<"react" | "typescript" | "chakra ui" | "next.js" | "panda css">;
+  tech: TechIcon[];
   github: string;
   featured: boolean;
   url?: string;
