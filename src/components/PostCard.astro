@@ -5,6 +5,7 @@ import { prose } from 'styled-system/recipes';
 import FormattedDate from './FormattedDate.astro';
 import { type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
+import { getAdjustedImageSize } from '@lib/utils';
 
 export type Props = {
   post: CollectionEntry<'blog'>;
@@ -26,8 +27,8 @@ const coverImgUrl = post.data.cover
       secure: true,
       transformation: [
         {
-          width: 770,
-          height: 385,
+          width: featured ? getAdjustedImageSize(770) : 770,
+          height: featured ? getAdjustedImageSize(385) : 385,
           crop: 'fill',
           gravity: 'center',
         },
