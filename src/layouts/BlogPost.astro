@@ -1,17 +1,18 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { ViewTransitions } from 'astro:transitions';
-import BaseHead from '../components/BaseHead.astro';
-import FormattedDate from '../components/FormattedDate.astro';
-import { css, cx } from '../../styled-system/css';
-import { prose } from '../../styled-system/recipes';
-import BaseBody from '../components/BaseBody.astro';
-import { flex } from '../../styled-system/patterns';
-import Badge from '../components/Badge.astro';
-import { slugify } from '../lib/posts';
+import BaseHead from '@components/BaseHead.astro';
+import FormattedDate from '@components/FormattedDate.astro';
+import { css, cx } from 'styled-system/css';
+import { prose } from 'styled-system/recipes';
+import BaseBody from '@components/BaseBody.astro';
+import { flex } from 'styled-system/patterns';
+import Badge from '@components/Badge.astro';
+import { slugify } from '@lib/posts';
 import { cloudinary } from '@lib/cloudinary';
 import { getAdjustedImageSize } from '@lib/utils';
 import { Image } from 'astro:assets';
+import BaseLayout from './BaseLayout.astro';
 
 type Props = CollectionEntry<'blog'>['data'] & {
   next?: CollectionEntry<'blog'>;
@@ -48,139 +49,134 @@ const coverImgUrl = cover
   : null;
 ---
 
-<html lang="en" data-color-mode="dark">
-  <head>
-    <BaseHead title={title} description={excerpt ?? description} image={cover} />
-    <ViewTransitions />
-  </head>
+<BaseLayout title={title} description={excerpt ?? description} image={cover}>
+  <ViewTransitions slot="head" />
 
-  <BaseBody>
+  <div
+    class={css({
+      '& > img': {
+        display: 'block',
+        mx: 'auto',
+        borderRadius: 'lg',
+        boxShadow: 'lg',
+      },
+    })}
+  >
+    {
+      coverImgUrl && (
+        <Image
+          width="770"
+          height="415"
+          src={coverImgUrl}
+          alt={title}
+          transition:name={`${title}-image`}
+          class={css({
+            maxWidth: { base: '90vw', lg: '3xl' },
+          })}
+          widths={[240, 540, 720, 770]}
+          sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px`}
+          loading="lazy"
+        />
+      )
+    }
+  </div>
+  <div
+    class={css({
+      padding: 3,
+      color: 'primary',
+    })}
+  >
     <div
       class={css({
-        '& > img': {
-          display: 'block',
-          mx: 'auto',
-          borderRadius: 'lg',
-          boxShadow: 'lg',
-        },
+        py: 2,
+        textAlign: 'center',
+        lineHeight: 1,
       })}
     >
-      {
-        coverImgUrl && (
-          <Image
-            width="770"
-            height="415"
-            src={coverImgUrl}
-            alt={title}
-            transition:name={`${title}-image`}
-            class={css({
-              maxWidth: { base: '90vw', lg: '3xl' },
-            })}
-            widths={[240, 540, 720, 770]}
-            sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px`}
-            loading="lazy"
-          />
-        )
-      }
+      <div
+        class={css({
+          marginBottom: 2,
+          color: {
+            _light: 'gray.500',
+            _dark: 'gray.400',
+          },
+        })}
+      >
+        {!!date && <FormattedDate date={date} />}
+        {
+          lastmod && (
+            <div
+              class={css({
+                color: {
+                  _light: 'gray.500',
+                  _dark: 'gray.400',
+                },
+                fontStyle: 'italic',
+              })}
+            >
+              Last updated on <FormattedDate date={lastmod} />
+            </div>
+          )
+        }
+      </div>
+      <h1
+        class={css({
+          color: 'primary',
+          fontSize: { base: '2xl', lg: '4xl' },
+        })}
+      >
+        {title}
+      </h1>
+      <hr class={css({ my: 4, borderColor: 'slate.700' })} />
+    </div>
+    <article class={prose({ size: 'xl' })}>
+      <slot />
+    </article>
+  </div>
+  <section class={flex({ direction: 'column', gap: 3 })}>
+    <div class={cx(prose({ size: 'xl' }))}>
+      <hr />
+    </div>
+    <div class={flex({ gap: 3, alignItems: 'center' })}>
+      Category: <Badge link={`/blog/category/${slugify(categories)}`}>
+        {categories}
+      </Badge>
+    </div>
+    <div class={flex({ gap: 3, alignItems: 'center', flexWrap: 'wrap' })}>
+      Tags: {tags.map((tag) => <Badge link={`/blog/tag/${slugify(tag)}`}>{tag}</Badge>)}
     </div>
     <div
       class={css({
+        display: 'flex',
+        justifyContent: 'space-between',
         padding: 3,
-        color: 'primary',
+        gap: 8,
+        color: 'brand.100',
       })}
     >
-      <div
-        class={css({
-          py: 2,
-          textAlign: 'center',
-          lineHeight: 1,
-        })}
+      <a
+        href={`/blog/${prev?.slug}`}
+        class={flex({
+          gap: 2,
+          alignItems: 'center',
+          transition: 'color 0.2s ease',
+          '&:hover': {
+            color: 'brand.200',
+          },
+        })}><span>{`< `}</span> {prev?.data?.title}</a
       >
-        <div
-          class={css({
-            marginBottom: 2,
-            color: {
-              _light: 'gray.500',
-              _dark: 'gray.400',
-            },
-          })}
-        >
-          {!!date && <FormattedDate date={date} />}
-          {
-            lastmod && (
-              <div
-                class={css({
-                  color: {
-                    _light: 'gray.500',
-                    _dark: 'gray.400',
-                  },
-                  fontStyle: 'italic',
-                })}
-              >
-                Last updated on <FormattedDate date={lastmod} />
-              </div>
-            )
-          }
-        </div>
-        <h1
-          class={css({
-            color: 'primary',
-            fontSize: { base: '2xl', lg: '4xl' },
-          })}
-        >
-          {title}
-        </h1>
-        <hr class={css({ my: 4, borderColor: 'slate.700' })} />
-      </div>
-      <article class={prose({ size: 'xl' })}>
-        <slot />
-      </article>
+      <a
+        href={`/blog/${next?.slug}`}
+        class={flex({
+          gap: 2,
+          textAlign: 'right',
+          alignItems: 'center',
+          transition: 'color 0.2s ease',
+          '&:hover': {
+            color: 'brand.200',
+          },
+        })}>{next?.data?.title} <span>{` >`}</span></a
+      >
     </div>
-    <section class={flex({ direction: 'column', gap: 3 })}>
-      <div class={cx(prose({ size: 'xl' }))}>
-        <hr />
-      </div>
-      <div class={flex({ gap: 3, alignItems: 'center' })}>
-        Category: <Badge link={`/blog/category/${slugify(categories)}`}>
-          {categories}
-        </Badge>
-      </div>
-      <div class={flex({ gap: 3, alignItems: 'center', flexWrap: 'wrap' })}>
-        Tags: {tags.map((tag) => <Badge link={`/blog/tag/${slugify(tag)}`}>{tag}</Badge>)}
-      </div>
-      <div
-        class={css({
-          display: 'flex',
-          justifyContent: 'space-between',
-          padding: 3,
-          gap: 8,
-          color: 'brand.100',
-        })}
-      >
-        <a
-          href={`/blog/${prev?.slug}`}
-          class={flex({
-            gap: 2,
-            alignItems: 'center',
-            transition: 'color 0.2s ease',
-            '&:hover': {
-              color: 'brand.200',
-            },
-          })}><span>{`< `}</span> {prev?.data?.title}</a
-        >
-        <a
-          href={`/blog/${next?.slug}`}
-          class={flex({
-            gap: 2,
-            textAlign: 'right',
-            alignItems: 'center',
-            transition: 'color 0.2s ease',
-            '&:hover': {
-              color: 'brand.200',
-            },
-          })}>{next?.data?.title} <span>{` >`}</span></a
-        >
-      </div>
-    </section>
-  </BaseBody>
-</html>
+  </section>
+</BaseLayout>

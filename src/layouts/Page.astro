@@ -1,10 +1,8 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import { Cloudinary } from 'astro-cloudinary-image';
-import { css, cx } from '../../styled-system/css';
-import { prose } from '../../styled-system/recipes';
-import BaseBody from '../components/BaseBody.astro';
+import { css, cx } from 'styled-system/css';
+import { prose } from 'styled-system/recipes';
 import Image from '@components/Image.astro';
+import BaseLayout from './BaseLayout.astro';
 
 type Props = {
   frontmatter: { title: string; description?: string; heroImage?: string };
@@ -15,53 +13,47 @@ const {
 } = Astro.props;
 ---
 
-<html lang="en" data-color-mode="dark">
-  <head>
-    <BaseHead title={title} description={description} image={heroImage} />
-  </head>
+<BaseLayout title={title} description={description} image={heroImage}>
+  <article>
+    <div
+      class={css({
+        w: 'full',
+        '& > img': {
+          display: 'block',
+          mx: 'auto',
+          borderRadius: 'lg',
+          boxShadow: 'lg',
+        },
+      })}
+    >
+      {heroImage && <Image width={'1020'} height={'510'} src={heroImage} alt="" />}
+    </div>
+    <div
+      class={cx(
+        prose({ size: 'xl' }),
+        css({
+          margin: 'auto',
+          color: 'primary',
+        })
+      )}
+    >
+      {
+        title && (
+          <div
+            class={css({
+              marginBottom: 3,
+              py: 2,
+              textAlign: 'center',
+              lineHeight: 1,
+            })}
+          >
+            <h1>{title}</h1>
+            <hr />
+          </div>
+        )
+      }
 
-  <BaseBody>
-    <article>
-      <div
-        class={css({
-          w: 'full',
-          '& > img': {
-            display: 'block',
-            mx: 'auto',
-            borderRadius: 'lg',
-            boxShadow: 'lg',
-          },
-        })}
-      >
-        {heroImage && <Image width={'1020'} height={'510'} src={heroImage} alt="" />}
-      </div>
-      <div
-        class={cx(
-          prose({ size: 'xl' }),
-          css({
-            margin: 'auto',
-            color: 'primary',
-          })
-        )}
-      >
-        {
-          title && (
-            <div
-              class={css({
-                marginBottom: 3,
-                py: 2,
-                textAlign: 'center',
-                lineHeight: 1,
-              })}
-            >
-              <h1>{title}</h1>
-              <hr />
-            </div>
-          )
-        }
-
-        <slot />
-      </div>
-    </article>
-  </BaseBody>
-</html>
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

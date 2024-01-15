@@ -1,8 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { flex } from '../../styled-system/patterns';
+import { flex } from 'styled-system/patterns';
 import Badge from './Badge.astro';
-import { slugify } from '../lib/posts';
+import { slugify } from '@lib/posts';
 
 type Props = {
   post: CollectionEntry<'til'>;

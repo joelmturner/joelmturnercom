@@ -1,10 +1,9 @@
 ---
-import BaseHead from '../../../components/BaseHead.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { css } from '../../../../styled-system/css';
-import BaseBody from '../../../components/BaseBody.astro';
-import PostCard from '../../../components/PostCard.astro';
-import { getAllTags } from '../../../lib/posts';
+import { css } from 'styled-system/css';
+import PostCard from '@components/PostCard.astro';
+import { getAllTags } from '@lib/posts';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -19,25 +18,19 @@ type Props = {
 const { posts, tag } = Astro.props;
 ---
 
-<!doctype html>
-<html lang="en" data-color-mode="dark">
-  <head>
-    <BaseHead title={`Tag: ${tag}`} description={`Posts about ${tag}`} />
-  </head>
-  <BaseBody>
-    <section>
-      <h1 class={css({ mt: 0, mb: 4 })}>Tag: {tag}</h1>
-      <div
-        class={css({
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: { base: 2, lg: 8 },
-          margin: 0,
-          padding: 0,
-        })}
-      >
-        {posts.map((post) => <PostCard post={post} />)}
-      </div>
-    </section>
-  </BaseBody>
-</html>
+<BaseLayout title={`Tag: ${tag}`} description={`Posts about ${tag}`}>
+  <section>
+    <h1 class={css({ mt: 0, mb: 4 })}>Tag: {tag}</h1>
+    <div
+      class={css({
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: { base: 2, lg: 8 },
+        margin: 0,
+        padding: 0,
+      })}
+    >
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,35 +1,28 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
 import { getCollection } from 'astro:content';
 import { ViewTransitions } from 'astro:transitions';
-import { css } from '../../../styled-system/css';
-import BaseBody from '../../components/BaseBody.astro';
-import PostCard from '../../components/PostCard.astro';
+import { css } from 'styled-system/css';
+import PostCard from '@components/PostCard.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 ---
 
-<!doctype html>
-<html lang="en" data-color-mode="dark">
-  <head>
-    <BaseHead title={'Blog'} description={'Thoughts on dev and life.'} />
-    <ViewTransitions />
-  </head>
-  <BaseBody>
-    <section>
-      <div
-        class={css({
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: { base: 2, lg: 8 },
-          margin: 0,
-          padding: 0,
-        })}
-      >
-        {posts.map((post, index) => <PostCard post={post} featured={index === 0} />)}
-      </div>
-    </section>
-  </BaseBody>
-</html>
+<BaseLayout>
+  <ViewTransitions slot="head" />
+  <section>
+    <div
+      class={css({
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: { base: 2, lg: 8 },
+        margin: 0,
+        padding: 0,
+      })}
+    >
+      {posts.map((post, index) => <PostCard post={post} featured={index === 0} />)}
+    </div>
+  </section>
+</BaseLayout>

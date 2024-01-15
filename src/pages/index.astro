@@ -1,156 +1,148 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
-import BaseHead from '../components/BaseHead.astro';
 import { SITE_TITLE } from '../consts';
-import BaseBody from '../components/BaseBody.astro';
 import { prose } from 'styled-system/recipes';
 import { css, cx } from 'styled-system/css';
-import { FUN_STUFF } from '../lib/constants';
+import { FUN_STUFF } from '@lib/constants';
 import { getCollection } from 'astro:content';
-import PostCard from '../components/PostCard.astro';
+import PostCard from '@components/PostCard.astro';
 import { flex } from 'styled-system/patterns';
 import ProjectGrid from '@components/ProjectGrid.astro';
 import Image from '@components/Image.astro';
 import { getAdjustedImageSize } from '@lib/utils';
+import BaseLayout from '@layouts/BaseLayout.astro';
 
 const featuredPost = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 )[0];
 ---
 
-<!doctype html>
-<html lang="en" data-color-mode="dark">
-  <head>
-    <BaseHead />
-    <ViewTransitions />
-  </head>
-  <BaseBody title={SITE_TITLE}>
-    <div class={flex({ direction: 'column', gap: { base: 12, md: 24 } })}>
-      <section>
-        <div
-          class={flex({
-            gap: 8,
-            pt: { base: 12, md: 24 },
-            alignItems: 'center',
-            direction: { base: 'column', md: 'row' },
-          })}
-        >
-          <div class={css({ order: { base: 0, md: 1 } })}>
-            <Image
-              src="joel-turner_nobg"
-              alt="Joel Turner"
-              class={css({
-                borderRadius: 'full',
-                width: '200px',
-                height: '200px',
-                margin: '0 auto',
-                display: 'block',
-                boxShadow: {
-                  _dark: `3px 3px 0.85rem inset token(colors.brand.200), -3px -3px 0.85rem inset token(colors.brand.400)`,
-                  _light:
-                    '-10px -10px 2.75rem token(colors.brand.200), 10px 10px 2.75rem token(colors.brand.400)',
-                },
-              })}
-              width={getAdjustedImageSize(200)}
-              height={getAdjustedImageSize(200)}
-              gravity="faces"
-            />
-          </div>
+<BaseLayout title={SITE_TITLE}>
+  <ViewTransitions slot="head" />
+  <div class={flex({ direction: 'column', gap: { base: 12, md: 24 } })}>
+    <section>
+      <div
+        class={flex({
+          gap: 8,
+          pt: { base: 12, md: 24 },
+          alignItems: 'center',
+          direction: { base: 'column', md: 'row' },
+        })}
+      >
+        <div class={css({ order: { base: 0, md: 1 } })}>
+          <Image
+            src="joel-turner_nobg"
+            alt="Joel Turner"
+            class={css({
+              borderRadius: 'full',
+              width: '200px',
+              height: '200px',
+              margin: '0 auto',
+              display: 'block',
+              boxShadow: {
+                _dark: `3px 3px 0.85rem inset token(colors.brand.200), -3px -3px 0.85rem inset token(colors.brand.400)`,
+                _light:
+                  '-10px -10px 2.75rem token(colors.brand.200), 10px 10px 2.75rem token(colors.brand.400)',
+              },
+            })}
+            width={getAdjustedImageSize(200)}
+            height={getAdjustedImageSize(200)}
+            gravity="faces"
+          />
+        </div>
 
-          <div class={cx(prose(), css({ flex: '1 1 0' }))}>
-            <h1
+        <div class={cx(prose(), css({ flex: '1 1 0' }))}>
+          <h1
+            class={css({
+              display: 'flex',
+              justifyContent: { base: 'center', md: 'flex-start' },
+              fontSize: { base: '3xl', md: '4xl' },
+            })}
+          >
+            Howdy! I'm Joel 👋🏻
+          </h1>
+          <p
+            class={css({
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: { base: 'center', md: 'flex-start' },
+              gap: 2,
+              height: '1em',
+              lineHeight: '1',
+              p: 0,
+              m: 0,
+              width: 'full',
+              fontSize: '3xl',
+            })}
+          >
+            I like to
+            <span
+              id="fun-stuff"
               class={css({
-                display: 'flex',
-                justifyContent: { base: 'center', md: 'flex-start' },
-                fontSize: { base: '3xl', md: '4xl' },
-              })}
-            >
-              Howdy! I'm Joel 👋🏻
-            </h1>
-            <p
-              class={css({
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: { base: 'center', md: 'flex-start' },
-                gap: 2,
+                display: 'inline-block',
+                overflow: 'hidden',
                 height: '1em',
-                lineHeight: '1',
-                p: 0,
-                m: 0,
-                width: 'full',
+                position: 'relative',
+                minWidth: '75px',
                 fontSize: '3xl',
               })}
             >
-              I like to
               <span
-                id="fun-stuff"
                 class={css({
-                  display: 'inline-block',
-                  overflow: 'hidden',
-                  height: '1em',
-                  position: 'relative',
-                  minWidth: '75px',
-                  fontSize: '3xl',
+                  position: 'absolute',
+                  display: 'block',
+                  bottom: 0,
+                  transform: 'translateY(0)',
+                  transition: 'transform 0.5s ease-in-out',
+                  willChange: 'transform, opacity',
+                  color: 'brand.200',
                 })}
               >
-                <span
-                  class={css({
-                    position: 'absolute',
-                    display: 'block',
-                    bottom: 0,
-                    transform: 'translateY(0)',
-                    transition: 'transform 0.5s ease-in-out',
-                    willChange: 'transform, opacity',
-                    color: 'brand.200',
-                  })}
-                >
-                  {
-                    FUN_STUFF.map((text) => {
-                      return (
-                        <span
-                          class={css({
-                            display: 'block',
-                            m: 0,
-                            p: 0,
-                            lineHeight: '1',
-                          })}
-                        >
-                          {text}
-                        </span>
-                      );
-                    })
-                  }
-                </span>
+                {
+                  FUN_STUFF.map((text) => {
+                    return (
+                      <span
+                        class={css({
+                          display: 'block',
+                          m: 0,
+                          p: 0,
+                          lineHeight: '1',
+                        })}
+                      >
+                        {text}
+                      </span>
+                    );
+                  })
+                }
               </span>
-            </p>
+            </span>
+          </p>
 
-            <p>
-              Hi there! I'm a frontend engineer with a background in graphic design and web
-              development. By day, I'm a Senior Product Engineer at <a href="https://sprinklr.com"
-                >Sprinklr</a
-              >, but in my free time I love to let my artistic side shine by practicing hand
-              lettering and sketching. When I'm not busy creating, you can find me exploring the
-              great outdoors in Portland with my awesome family (including our furry canine
-              companions)!
-            </p>
-          </div>
+          <p>
+            Hi there! I'm a frontend engineer with a background in graphic design and web
+            development. By day, I'm a Senior Product Engineer at <a href="https://sprinklr.com"
+              >Sprinklr</a
+            >, but in my free time I love to let my artistic side shine by practicing hand lettering
+            and sketching. When I'm not busy creating, you can find me exploring the great outdoors
+            in Portland with my awesome family (including our furry canine companions)!
+          </p>
         </div>
-      </section>
-
-      <div class={flex({ direction: 'column', gap: 4 })}>
-        <h2>Featured Post</h2>
-        <PostCard post={featuredPost} featured />
       </div>
+    </section>
 
-      <div class={flex({ direction: 'column', gap: 4 })}>
-        <h2>What I'm Jamming On</h2>
-        <ProjectGrid />
-      </div>
+    <div class={flex({ direction: 'column', gap: 4 })}>
+      <h2>Featured Post</h2>
+      <PostCard post={featuredPost} featured />
     </div>
-  </BaseBody>
+
+    <div class={flex({ direction: 'column', gap: 4 })}>
+      <h2>What I'm Jamming On</h2>
+      <ProjectGrid />
+    </div>
+  </div>
 
   <script>
-    import { FUN_STUFF } from '../lib/constants';
+    import { FUN_STUFF } from '@lib/constants';
 
     const funStuff = document.getElementById('fun-stuff');
     if (funStuff) {
@@ -171,4 +163,4 @@ const featuredPost = (await getCollection('blog')).sort(
       }, 2500);
     }
   </script>
-</html>
+</BaseLayout>

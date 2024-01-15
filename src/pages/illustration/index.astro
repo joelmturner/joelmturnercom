@@ -1,31 +1,21 @@
 ---
-import BaseHead from '@components/BaseHead.astro';
-import BaseBody from '@components/BaseBody.astro';
-import { getIllustrations } from '@lib/illustrations';
 import GalleryContainer from '@components/svelte/GalleryContainer.svelte';
-import { flex } from 'styled-system/patterns';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getIllustrations } from '@lib/illustrations';
 import { css } from 'styled-system/css';
+import { flex } from 'styled-system/patterns';
 
 const collections = await getIllustrations();
 ---
 
-<!doctype html>
-<html lang="en" data-color-mode="dark">
-  <head>
-    <BaseHead
-      title={'Illustrations'}
-      description={'Some of my favorite hand-drawn illustrations'}
-    />
-  </head>
-  <BaseBody>
-    <div class={flex({ justify: 'space-between', alignItems: 'center', mb: 8 })}>
-      <h1>Illustration Collections</h1>
-      <a
-        href="/illustration/videos"
-        class={css({ textDecoration: 'underline', color: 'prose.link', textAlign: 'right' })}
-        >videos</a
-      >
-    </div>
-    <GalleryContainer collections={collections} client:load />
-  </BaseBody>
-</html>
+<BaseLayout title={'Illustrations'} description={'Some of my favorite hand-drawn illustrations'}>
+  <div class={flex({ justify: 'space-between', alignItems: 'center', mb: 8 })}>
+    <h1>Illustration Collections</h1>
+    <a
+      href="/illustration/videos"
+      class={css({ textDecoration: 'underline', color: 'prose.link', textAlign: 'right' })}
+      >videos</a
+    >
+  </div>
+  <GalleryContainer collections={collections} client:load />
+</BaseLayout>

@@ -1,0 +1,23 @@
+---
+import BaseBody from '@components/BaseBody.astro';
+import BaseHead from '@components/BaseHead.astro';
+
+type Props = {
+  title?: string;
+  description?: string;
+  image?: string;
+};
+
+const { title, description, image }: Props = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} image={image} />
+    <slot name="head" />
+  </head>
+  <BaseBody>
+    <slot />
+  </BaseBody>
+</html>

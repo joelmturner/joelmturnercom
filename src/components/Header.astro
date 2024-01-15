@@ -2,7 +2,7 @@
 import HeaderLink from './HeaderLink.astro';
 import ThemeSwitch from './ThemeSwitch.astro';
 import { Image } from 'astro:assets';
-import { css } from '../../styled-system/css';
+import { css } from 'styled-system/css';
 import { NAV_LINKS } from '@lib/constants';
 ---
 
@@ -27,9 +27,7 @@ import { NAV_LINKS } from '@lib/constants';
 >
   <nav
     class={css({
-      bg: 'orange.50',
       borderColor: 'slate.200',
-      _dark: { bg: 'slate.900' },
     })}
   >
     <div
@@ -159,9 +157,12 @@ import { NAV_LINKS } from '@lib/constants';
   // toggle id="navbar-default" when the button data-collapse-toggle="navbar-default" is clicked
   const toggle = document.querySelector('[data-collapse-toggle="navbar-default"]');
   const target: HTMLDivElement | null = document.querySelector('#navbar-default');
+  console.log('toggle', toggle);
+  console.log('target', target);
 
   if (toggle && target) {
     toggle.addEventListener('click', () => {
+      console.log('click');
       const expanded = toggle.getAttribute('aria-expanded') === 'true' || false;
       toggle.setAttribute('aria-expanded', String(!expanded));
       target.style.display = expanded ? 'none' : 'block';
