@@ -1,68 +1,64 @@
-# Astro Starter Kit: Blog
+# JoelMturner.com - Astro Powered Website 🌟
 
-```sh
-npm create astro@latest -- --template blog
+Welcome to the repository for [joelmturner.com](https://joelmturner.com), a modern, high-performance website built using [Astro](https://astro.build/) and [Panda CSS](https://panda-css.com). This site explores web development techniques and offers a smooth, user-friendly experience.
+
+## Features 🚀
+
+- **Astro Framework**: Leverage the power of Astro to deliver an exceptional site performance.
+- **Responsive Design**: Ensures a great experience across all device sizes.
+- **SEO Optimized**: Implemented best practices for search engine optimization.
+- **Modern UI/UX**: A clean and engaging user interface and user experience.
+- **Panda CSS**: A styling library for optimized styles
+- **Cloudinary**: Image and video optimization on the fly
+
+## Getting Started 🛠️
+
+To get started with this project, you'll need to have [Node.js](https://nodejs.org/) installed on your system.
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/joelmturner/joelmturnercom.git
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/blog)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/blog)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/blog/devcontainer.json)
+2. Navigate to the project directory:
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![blog](https://github.com/withastro/astro/assets/2244813/ff10799f-a816-4703-b967-c78997e8323d)
-
-Features:
-
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-├── public/
-├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+```bash
+cd joelmturnercom
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+3. Install dependencies:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```bash
+npm install
+```
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+## Running Locally
 
-Any static assets, like images, can be placed in the `public/` directory.
+To run the website locally:
 
-## 🧞 Commands
+```bash
+npm run dev
+```
 
-All commands are run from the root of the project, from a terminal:
+This will start a local server, typically at <http://localhost:4321>. You can view your site live by navigating to this URL in your web browser.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Contributing 🤝
 
-## 👀 Want to learn more?
+Contributions to improve JoelMturner.com are always welcome. Whether it's bug reports, feature requests, or code contributions, please feel free to make a pull request or open an issue.
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## License 📄
 
-## Credit
+This project is licensed under the MIT License - see the LICENSE.md file for details.
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+## Acknowledgements 💡
+
+- [Astro Community](https://community.astro.build/)
+- [Panda CSS docs and community](https://panda-css.com/docs/overview/getting-started)
+- [@colbyfayock](https://github.com/colbyfayock) and [Space Jelly](https://spacejelly.dev/tag/astro/) for awesome tutorials on Cloudinary integrations
+- [@rttnbrgr](https://github.com/rttnbrgr) for initial design help
+- [@ryanlegler](https://github.com/ryanlegler) for ongoing ideas, introspection, and advice
+
+Thank you for visiting the repository for JoelMturner.com. Enjoy exploring and contributing to this Astro-powered website!
