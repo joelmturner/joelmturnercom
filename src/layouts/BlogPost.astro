@@ -1,17 +1,14 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { ViewTransitions } from 'astro:transitions';
-import BaseHead from '@components/BaseHead.astro';
-import FormattedDate from '@components/FormattedDate.astro';
-import { css, cx } from 'styled-system/css';
-import { prose } from 'styled-system/recipes';
-import BaseBody from '@components/BaseBody.astro';
-import { flex } from 'styled-system/patterns';
 import Badge from '@components/Badge.astro';
-import { slugify } from '@lib/posts';
+import FormattedDate from '@components/FormattedDate.astro';
 import { cloudinary } from '@lib/cloudinary';
+import { slugify } from '@lib/posts';
 import { getAdjustedImageSize } from '@lib/utils';
 import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { css, cx } from 'styled-system/css';
+import { flex } from 'styled-system/patterns';
+import { prose } from 'styled-system/recipes';
 import BaseLayout from './BaseLayout.astro';
 
 type Props = CollectionEntry<'blog'>['data'] & {
@@ -50,8 +47,6 @@ const coverImgUrl = cover
 ---
 
 <BaseLayout title={title} description={excerpt ?? description} image={cover}>
-  <ViewTransitions slot="head" />
-
   <div
     class={css({
       '& > img': {

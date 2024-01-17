@@ -1,16 +1,15 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
-import { SITE_TITLE } from '../consts';
-import { prose } from 'styled-system/recipes';
-import { css, cx } from 'styled-system/css';
-import { FUN_STUFF } from '@lib/constants';
-import { getCollection } from 'astro:content';
-import PostCard from '@components/PostCard.astro';
-import { flex } from 'styled-system/patterns';
-import ProjectGrid from '@components/ProjectGrid.astro';
 import Image from '@components/Image.astro';
-import { getAdjustedImageSize } from '@lib/utils';
+import PostCard from '@components/PostCard.astro';
+import ProjectGrid from '@components/ProjectGrid.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { FUN_STUFF } from '@lib/constants';
+import { getAdjustedImageSize } from '@lib/utils';
+import { getCollection } from 'astro:content';
+import { css, cx } from 'styled-system/css';
+import { flex } from 'styled-system/patterns';
+import { prose } from 'styled-system/recipes';
+import { SITE_TITLE } from '../consts';
 
 const featuredPost = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -18,7 +17,6 @@ const featuredPost = (await getCollection('blog')).sort(
 ---
 
 <BaseLayout title={SITE_TITLE}>
-  <ViewTransitions slot="head" />
   <div class={flex({ direction: 'column', gap: { base: 12, md: 24 } })}>
     <section>
       <div

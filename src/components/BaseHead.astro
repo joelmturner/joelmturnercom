@@ -12,8 +12,8 @@ interface Props {
   image?: string;
 }
 
-import firaCode500 from '@fontsource/fira-code/files/fira-code-latin-500-normal.woff2';
-import firaSanst500 from '@fontsource/fira-sans/files/fira-sans-latin-700-normal.woff2';
+// import firaCode500 from '@fontsource/fira-code/files/fira-code-latin-500-normal.woff2';
+// import firaSanst500 from '@fontsource/fira-sans/files/fira-sans-latin-700-normal.woff2';
 import { SITE_DESCRIPTION, SITE_TITLE } from 'src/consts';
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -34,8 +34,8 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : SITE_TITLE;
 <meta name="generator" content={Astro.generator} />
 
 <!-- Font preloads -->
-<link rel="preload" href={firaCode500} as="font" type="font/woff" crossorigin />
-<link rel="preload" href={firaSanst500} as="font" type="font/woff" crossorigin />
+<!-- <link rel="preload" href={firaCode500} as="font" type="font/woff" crossorigin />
+<link rel="preload" href={firaSanst500} as="font" type="font/woff" crossorigin /> -->
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />

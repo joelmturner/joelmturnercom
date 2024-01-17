@@ -97,9 +97,8 @@ const themeIconStyles = css({
   }
 </style>
 
-<script>
-  const toggle = document.getElementById('themeSwitch');
-  let baseValue: string;
+<script is:inline>
+  let baseValue;
   const theme = localStorage.getItem('theme');
   const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
@@ -109,8 +108,8 @@ const themeIconStyles = css({
     baseValue = systemTheme;
   }
 
-  function updateTheme(value: string) {
-    const theme: 'dark' | 'light' = value === 'system' ? systemTheme : (value as 'dark' | 'light');
+  function updateTheme(value) {
+    const theme = value === 'system' ? systemTheme : value;
 
     // set the value on root
     document.documentElement.setAttribute(`data-color-mode`, theme);
@@ -130,16 +129,19 @@ const themeIconStyles = css({
 
   updateTheme(baseValue);
 
-  toggle?.addEventListener('click', (event: Event) => {
-    const selected = event.target as SVGElement;
+  document.getElementById('themeSwitch').addEventListener('click', (event) => {
+    const selected = event.target;
     if (
       !selected.closest('[data-theme-value]') ||
       selected.closest('[data-theme-value]') === undefined
     )
       return;
-    toggle.querySelectorAll('svg').forEach((svg) => {
-      svg.classList.remove('active');
-    });
+    document
+      .getElementById('themeSwitch')
+      .querySelectorAll('svg')
+      .forEach((svg) => {
+        svg.classList.remove('active');
+      });
     updateTheme(selected.closest('[data-theme-value]')?.getAttribute('data-theme-value') ?? 'dark');
   });
 </script>

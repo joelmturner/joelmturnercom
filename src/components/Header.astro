@@ -153,19 +153,14 @@ import { NAV_LINKS } from '@lib/constants';
   </nav>
 </header>
 
-<script>
+<script is:inline>
   // toggle id="navbar-default" when the button data-collapse-toggle="navbar-default" is clicked
-  const toggle = document.querySelector('[data-collapse-toggle="navbar-default"]');
-  const target: HTMLDivElement | null = document.querySelector('#navbar-default');
-  console.log('toggle', toggle);
-  console.log('target', target);
+  const navIcon = document.querySelector('[data-collapse-toggle="navbar-default"]');
+  const target = document.querySelector('#navbar-default');
 
-  if (toggle && target) {
-    toggle.addEventListener('click', () => {
-      console.log('click');
-      const expanded = toggle.getAttribute('aria-expanded') === 'true' || false;
-      toggle.setAttribute('aria-expanded', String(!expanded));
-      target.style.display = expanded ? 'none' : 'block';
-    });
-  }
+  navIcon.addEventListener('click', () => {
+    const expanded = navIcon.getAttribute('aria-expanded') === 'true' || false;
+    navIcon.setAttribute('aria-expanded', String(!expanded));
+    target.style.display = expanded ? 'none' : 'block';
+  });
 </script>
