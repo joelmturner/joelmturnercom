@@ -18,31 +18,12 @@ const {
   class={css({
     maxW: 'sm',
     bgColor: 'white',
-    rounded: 'lg',
-    shadow: 'sm',
+    rounded: '2xl',
+    shadow: 'round',
     _dark: { bgColor: 'gray.800' },
   })}
 >
-  <a href={url} target="_blank">
-    <Image
-      class={css({
-        roundedTopLeft: 'lg',
-        roundedTopRight: 'lg',
-        w: 'full',
-        height: '250px',
-        objectFit: 'cover',
-        objectPosition: 'left center',
-      })}
-      src={imageURL}
-      alt={name}
-      height={getAdjustedImageSize(250)}
-      width={getAdjustedImageSize(370)}
-      widths={[240, 540, 720, 770]}
-      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px`}
-      loading="lazy"
-    />
-  </a>
-  <div class={flex({ px: 4, pt: 8, pb: 4, direction: 'column', gap: 2 })}>
+  <div class={flex({ p: 3, direction: 'column', gap: 2 })}>
     <div class={flex({ justifyContent: 'space-between', alignItems: 'center' })}>
       <a href={url} target="_blank">
         <h5
@@ -85,7 +66,28 @@ const {
     >
       {description}
     </p>
-    <div class={flex({ gap: 2, alignItems: 'center', pt: 6 })}>
+  </div>
+  <div class={flex({ direction: 'column', gap: 2 })}>
+    <a href={url} target="_blank">
+      <Image
+        class={css({
+          w: 'full',
+          height: '250px',
+          objectFit: 'cover',
+          objectPosition: 'left center',
+          px: 1,
+        })}
+        src={imageURL}
+        alt={name}
+        height={getAdjustedImageSize(250)}
+        width={getAdjustedImageSize(370)}
+        widths={[240, 540, 720, 770]}
+        sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px`}
+        loading="lazy"
+      />
+    </a>
+
+    <div class={flex({ gap: 2, alignItems: 'center', p: 3, pt: 1 })}>
       {
         tech.map((techItem) => (
           <ProjectIcon icon={techItem.toLowerCase() as Project['tech'][number]} />

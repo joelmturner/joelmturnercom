@@ -24,7 +24,7 @@ export const PROJECTS: Project[] = [
   },
   {
     name: "PDX Food Weeks",
-    description: "Annual celebration of great food in Portland, Oregon.",
+    description: "Annual celebration of great food weeks in Portland, Oregon.",
     imageURL: "pdx-food-weeks-vercel-app-nacho-2023_xxfsgl.png",
     tech: ["react", "typescript", "panda css", "next.js"],
     github: "https://github.com/joelmturner/pdx-food-weeks",
@@ -33,7 +33,7 @@ export const PROJECTS: Project[] = [
   },
   {
     name: "BoochTown",
-    description: "Kombucha reviews and ratings web app",
+    description: "Kombucha reviews and ratings web app using SvelteKit and Panda CSS.",
     imageURL: "boochtown-product-view_gzd9mn",
     tech: ["typescript", 'svelte', 'panda css'],
     github: "https://github.com/joelmturner/boochtown",

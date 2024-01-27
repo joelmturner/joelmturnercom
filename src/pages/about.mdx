@@ -3,19 +3,24 @@ layout: "../layouts/Page.astro"
 ---
 
 import { Cloudinary } from "astro-cloudinary-image";
+import { flex } from "styled-system/patterns";
+import FunStuffCycler from "../components/FunStuffCycler.astro";
 
-<Cloudinary
-  src="joel-turner_nobg"
-  alt="Joel M Turner portrait"
-  height="220"
-  width="220"
-  cornerRadius="max"
-  zoom="0.5"
-  gravity="face"
-  crop="fit"
-  resize="fill"
-  style={{ margin: "0 auto", marginBottom: "2rem" }}
-/>
+<div class={flex({ direction: 'column', justifyContent: 'center'})}>
+    <Cloudinary
+        src="joel-turner_nobg"
+        alt="Joel M Turner portrait"
+        height="440"
+        width="440"
+        cornerRadius="max"
+        zoom="0.5"
+        gravity="face"
+        crop="fit"
+        resize="fill"
+        style={{ margin: "0 auto", marginBottom: "2rem", width: '220px', height: '220px' }}
+        />
+    <FunStuffCycler />
+</div>
 
 ## I am Joel M Turner
 

@@ -4,6 +4,7 @@ import typographyPreset from "pandacss-preset-typography";
 export default defineConfig({
   // Whether to use css reset
   preflight: true,
+  lightningcss: true,
 
   presets: [
     "animated-pandacss",
@@ -121,8 +122,28 @@ export default defineConfig({
           firaCode: { value: "var(--font-fira-code), Menlo, monospace" },
           firaSans: { value: "var(--font-fira-sans), Helvetica, sans-serif" },
         },
-      },
-      semanticTokens: {
+    },
+    semanticTokens: {
+          shadows:{
+              round: {
+                  value: {
+                      _light: `inset 0 0 0.5px 1px hsla(10, 60%, 100%, 0.075),
+                          /* shadow ring 👇 */
+                          0 0 0 1px hsla(10, 60%, 60%, 0.05),
+                          /* multiple soft shadows 👇 */
+                          0 0.3px 0.4px hsla(10, 60%, 60%, 0.02),
+                          0 0.9px 1.5px hsla(10, 60%, 60%, 0.045),
+                          0 3.5px 6px hsla(10, 60%, 60%, 0.09);`,
+                      _dark: `inset 0 0 0.5px 1px hsla(210, 70%, 100%, 0.15),
+                        /* shadow ring 👇 */
+                        0 0 0 1px hsla(210, 70%, 50%, 0.1),
+                        /* multiple soft shadows 👇 */
+                        0 0.3px 0.4px hsla(210, 70%, 50%, 0.04),
+                        0 0.9px 1.5px hsla(210, 70%, 50%, 0.09),
+                        0 3.5px 6px hsla(210, 70%, 50%, 0.18);`,
+                  },
+              },
+          },
         colors: {
           primary: {
             value: { _light: "black", _dark: "white" },
