@@ -21,7 +21,6 @@
         "@cloudinary/url-gen": "^1.16.0",
         "@fontsource/fira-code": "^5.0.16",
         "@fontsource/fira-sans": "^5.0.18",
-        "@pandacss/studio": "^0.28.0",
         "@sentry/astro": "^7.98.0",
         "astro": "^4.2.6",
         "astro-cloudinary-image": "^0.0.6",
