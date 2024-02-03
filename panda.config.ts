@@ -24,12 +24,8 @@ export default defineConfig({
   },
 
   globalCss: {
-    ":root": {
-      "--font-fira-sans": "'Fira Sans', sans-serif",
-      "--font-fira-code": "'Fira Code', monospace",
-    },
     body: {
-      fontFamily: "firaSans",
+      fontFamily: "var(--font-fira-sans)",
       margin: 0,
       padding: 0,
       textAlign: "left",
@@ -95,7 +91,7 @@ export default defineConfig({
         _dark: "gray.700",
       },
       borderRadius: "md",
-      fontFamily: "firaCode",
+      fontFamily: "var(--font-fira-code)",
     },
     pre: {
       padding: 5,
@@ -119,31 +115,31 @@ export default defineConfig({
     extend: {
       tokens: {
         fonts: {
-          firaCode: { value: "var(--font-fira-code), Menlo, monospace" },
-          firaSans: { value: "var(--font-fira-sans), Helvetica, sans-serif" },
+          firaCode: { value: "var(--font-fira-code)" },
+          firaSans: { value: "var(--font-fira-sans)" },
         },
-    },
-    semanticTokens: {
-          shadows:{
-              round: {
-                  value: {
-                      _light: `inset 0 0 0.5px 1px hsla(10, 60%, 100%, 0.075),
+      },
+      semanticTokens: {
+        shadows: {
+          round: {
+            value: {
+              _light: `inset 0 0 0.5px 1px hsla(10, 60%, 100%, 0.075),
                           /* shadow ring 👇 */
                           0 0 0 1px hsla(10, 60%, 60%, 0.05),
                           /* multiple soft shadows 👇 */
                           0 0.3px 0.4px hsla(10, 60%, 60%, 0.02),
                           0 0.9px 1.5px hsla(10, 60%, 60%, 0.045),
                           0 3.5px 6px hsla(10, 60%, 60%, 0.09);`,
-                      _dark: `inset 0 0 0.5px 1px hsla(210, 70%, 100%, 0.15),
+              _dark: `inset 0 0 0.5px 1px hsla(210, 70%, 100%, 0.15),
                         /* shadow ring 👇 */
                         0 0 0 1px hsla(210, 70%, 50%, 0.1),
                         /* multiple soft shadows 👇 */
                         0 0.3px 0.4px hsla(210, 70%, 50%, 0.04),
                         0 0.9px 1.5px hsla(210, 70%, 50%, 0.09),
                         0 3.5px 6px hsla(210, 70%, 50%, 0.18);`,
-                  },
-              },
+            },
           },
+        },
         colors: {
           primary: {
             value: { _light: "black", _dark: "white" },
