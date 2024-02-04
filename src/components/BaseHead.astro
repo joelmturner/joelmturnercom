@@ -44,7 +44,10 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={resolvedTitle} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta
+  property="og:image"
+  content={new URL(image, 'https://res.cloudinary.com/joelmturner/image/upload/f_auto/q_auto')}
+/>
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
