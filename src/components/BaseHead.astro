@@ -1,6 +1,9 @@
 ---
 import PostHog from './PostHog.astro';
 import { AstroFont } from 'astro-font';
+import { cloudinary } from '@lib/cloudinary';
+import { SITE_DESCRIPTION, SITE_TITLE } from 'src/consts';
+
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
@@ -11,15 +14,29 @@ interface Props {
   image?: string;
 }
 
-import { SITE_DESCRIPTION, SITE_TITLE } from 'src/consts';
-
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+function isValidURL(url: string) {
+  const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+  return urlPattern.test(url);
+}
 
 const {
   title,
   description = SITE_DESCRIPTION,
   image = 'https://res.cloudinary.com/joelmturner/image/upload/h_630,w_1200/c_fit,h_400,l_text:Helvetica_80_bold_line_spacing_20:Digital%20Adventurer%20and%20Amateur%20Illustrator,w_700/fl_layer_apply,g_west,x_400,y_0/blog-post-card.png',
 } = Astro.props;
+
+const ogImage = isValidURL(image)
+  ? image
+  : cloudinary.url(image, {
+      width: 1200,
+      height: 630,
+      crop: 'fill',
+      format: 'jpg',
+      quality: 'auto',
+      fetch_format: 'auto',
+    });
 
 const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web Development Blog`;
 ---
@@ -44,17 +61,14 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={resolvedTitle} />
 <meta property="og:description" content={description} />
-<meta
-  property="og:image"
-  content={new URL(image, 'https://res.cloudinary.com/joelmturner/image/upload/f_auto/q_auto')}
-/>
+<meta property="og:image" content={ogImage} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={resolvedTitle} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta property="twitter:image" content={ogImage} />
 
 <AstroFont
   config={[
