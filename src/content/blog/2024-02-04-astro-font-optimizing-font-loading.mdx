@@ -1,0 +1,48 @@
+---
+title: "Astro Font: Optimizing Font Loading"
+date: 2024-02-04T18:43:03.477Z
+lastmod: 2024-02-04T18:43:03.476Z
+type: blog
+slug: astro-font-optimization
+description: Using Astro Font to optimize font loading in Astro websites, preventing layout shift and long load times
+excerpt: Using Astro Font to optimize font loading in Astro websites, preventing layout shift and long load times
+tags:
+    - Astro
+    - optimization
+    - fonts
+categories: dev
+cover: Posts/astro_font_optimization
+---
+
+When I relaunched this site with Astro, there were some areas of improvement needed. My goal was to ship quickly and iterate on the site as I go. One of the areas that needed improvement was font loading.
+
+I wanted to optimize the font loading process to ensure that the site loads quickly and provides a smooth visual experience for users. This was still an open task in my list, and I was looking for a solution to optimize font loading in Astro.
+
+I received a pull request from [Rishi Raj Jain](https://github.com/rishi-raj-jain) that added support for [Astro Font](https://github.com/rishi-raj-jain/astro-font) and it tackled all of the issues I was facing. I was thrilled to see this pull request and immediately tested it out.
+
+This is a quick overview of Astro Font and how it optimizes font loading in Astro. Here is the [diff of the pull request](https://github.com/joelmturner/joelmturnercom/pull/6/files) that added Astro Font to my project.
+
+## What is Astro Font?
+Astro Font is a package, created by Rishi Raj Jain, that provides Astro sites with a powerful tool to optimize font loading. This optimization is helpful for maintaining fast load times and ensuring a smooth visual experience for users by preventing the common issue of layout shift caused by unoptimized font loading. The project is inspired by the [Next.js Font Optimization](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) and aims to provide similar functionality for Astro sites.
+
+## How Does Astro Font Optimize Font Loading?
+Astro Font optimizes font loading in several ways:
+
+- Preloading Fonts: It allows sites to preload their fonts, making them available as soon as the page begins to load. This preloading minimizes the time users wait to see text styled in the intended fonts, reducing perceived load times.
+- Font Display Strategy: Astro Font provides control over the font display strategy, such as swap, block, fallback, and optional. This control helps in managing how fonts are displayed before and after loading, significantly reducing layout shifts.
+- Handles CSS: Astro Font automatically handles the initial CSS for font loading, making it easy for developers to implement font optimization without needing to write custom CSS.
+- Fallback Fonts: Astro Font also handles fallback fonts, ensuring that text is displayed in a readable font while the intended font is loading. This prevents the page from displaying blank text or using a default font, improving the user experience.
+
+## Why is Font Optimization Important?
+
+Font optimization is an importand part of web development for several reasons:
+
+- Performance: Optimized font loading can significantly reduce page load times, contributing to a better overall performance score for your website.
+- User Experience: A smooth font loading process prevents layout shifts, enhancing the user experience by ensuring that users are not distracted or disoriented by sudden changes in the page layout.
+- SEO: Page speed and user experience are factors in search engine rankings. By optimizing font loading, you can improve your site's SEO, making it more likely to rank well in search results.
+
+## Conclusion
+
+Astro already made my site incredibly fast. The addition of Astro Font is icing on the cake. **Big thank you to Rishi Raj Jain** for the submitting the PR and creating the astro-font package. 
+
+Also, the [Astro discord](https://astro.build/chat) is full of optimization nuggets and cool solutions. I highly recommend joining the community if you are interested in Astro.
