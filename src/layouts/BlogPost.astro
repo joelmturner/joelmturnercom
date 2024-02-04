@@ -3,7 +3,6 @@ import Badge from '@components/Badge.astro';
 import FormattedDate from '@components/FormattedDate.astro';
 import { cloudinary } from '@lib/cloudinary';
 import { slugify } from '@lib/posts';
-import { getAdjustedImageSize } from '@lib/utils';
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { css, cx } from 'styled-system/css';
@@ -34,14 +33,15 @@ const coverImgUrl = cover
       secure: true,
       transformation: [
         {
-          width: getAdjustedImageSize(770),
-          height: getAdjustedImageSize(415),
+          width: 770,
+          height: 415,
           crop: 'fill',
           gravity: 'auto',
         },
       ],
       fetch_format: 'auto',
       quality: 'auto',
+      dpr: '3.0',
     })
   : null;
 ---

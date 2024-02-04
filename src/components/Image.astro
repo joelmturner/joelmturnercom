@@ -20,7 +20,7 @@ const cldSrc = cld
   .image(src)
   .format('auto')
   .quality('auto')
-  .resize(`c_fill,h_${props.height},w_${props.width},g_${gravity}` as any);
+  .resize(`c_fill,h_${props.height},w_${props.width},g_${gravity},dpr_3.0` as any);
 const resolvedSrc = cldSrc.toURL();
 ---
 
