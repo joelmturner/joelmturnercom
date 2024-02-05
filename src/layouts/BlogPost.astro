@@ -146,32 +146,44 @@ const coverImgUrl = cover
         justifyContent: 'space-between',
         padding: 3,
         gap: 8,
-        color: 'brand.100',
+        color: 'accent',
       })}
     >
-      <a
-        href={`/blog/${prev?.slug}`}
-        class={flex({
-          gap: 2,
-          alignItems: 'center',
-          transition: 'color 0.2s ease',
-          '&:hover': {
-            color: 'brand.200',
-          },
-        })}><span>{`< `}</span> {prev?.data?.title}</a
-      >
-      <a
-        href={`/blog/${next?.slug}`}
-        class={flex({
-          gap: 2,
-          textAlign: 'right',
-          alignItems: 'center',
-          transition: 'color 0.2s ease',
-          '&:hover': {
-            color: 'brand.200',
-          },
-        })}>{next?.data?.title} <span>{` >`}</span></a
-      >
+      {
+        prev?.slug && (
+          <a
+            href={`/blog/${prev?.slug}`}
+            class={flex({
+              gap: 2,
+              alignItems: 'center',
+              transition: 'color 0.2s ease',
+              '&:hover': {
+                color: { _dark: 'brand.300', _light: 'brand.400' },
+              },
+            })}
+          >
+            <span>{`< `}</span> {prev?.data?.title}
+          </a>
+        )
+      }
+      {
+        next?.slug && (
+          <a
+            href={`/blog/${next?.slug}`}
+            class={flex({
+              gap: 2,
+              textAlign: 'right',
+              alignItems: 'center',
+              transition: 'color 0.2s ease',
+              '&:hover': {
+                color: { _dark: 'brand.300', _light: 'brand.400' },
+              },
+            })}
+          >
+            {next?.data?.title} <span>{` >`}</span>
+          </a>
+        )
+      }
     </div>
   </section>
 </BaseLayout>
