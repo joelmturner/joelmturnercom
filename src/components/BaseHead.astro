@@ -61,14 +61,14 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={resolvedTitle} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={ogImage} />
+<meta property="og:image" content={`${ogImage}?v=1`} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={resolvedTitle} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={ogImage} />
+<meta property="twitter:image" content={`${ogImage}?v=1`} />
 
 <AstroFont
   config={[
