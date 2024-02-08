@@ -1,6 +1,6 @@
 import type { ILLUSTRATION_QUERY_VS_FILTER } from "./queryParams";
 
-export type TechIcon = "react" | "typescript" | "chakra ui" | "next.js" | "panda css" | "svelte";
+export type TechIcon = "react" | "typescript" | "chakra ui" | "next.js" | "panda css" | "svelte" | "cloudinary";
 
 export type Project = {
   name: string;
