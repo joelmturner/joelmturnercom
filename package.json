@@ -18,6 +18,8 @@
         "@astrojs/rss": "^4.0.4",
         "@astrojs/sitemap": "^3.0.5",
         "@astrojs/svelte": "^5.0.3",
+        "@cloudinary-util/url-loader": "^4.2.0",
+        "@cloudinary-util/util": "^3.0.0",
         "@cloudinary/url-gen": "^1.16.1",
         "@iconify-json/iconoir": "^1.1.40",
         "@iconify-json/logos": "^1.1.42",

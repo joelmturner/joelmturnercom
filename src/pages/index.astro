@@ -8,6 +8,7 @@ import { css, cx } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
 import { prose } from 'styled-system/recipes';
 import { SITE_TITLE } from '../consts';
+import CldImage from '@components/cld/CldImage.astro';
 
 const featuredPost = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -30,7 +31,27 @@ const featuredPost = (await getCollection('blog')).sort(
             order: { base: 0, md: 1 },
           })}
         >
-          <Image
+          <CldImage
+            src="joel-turner_nobg"
+            alt="Joel Turner"
+            width={200}
+            height={200}
+            options={{
+              gravity: 'faces',
+              crop: 'fill',
+              dpr: '3',
+            }}
+            class={css({
+              borderRadius: 'full',
+              width: '200px',
+              height: '200px',
+              margin: '0 auto',
+              display: 'block',
+              backgroundColor: { _dark: 'black', _light: 'white' },
+              shadow: 'round',
+            })}
+          />
+          <!-- <Image
             src="joel-turner_nobg"
             alt="Joel Turner"
             class={css({
@@ -45,7 +66,7 @@ const featuredPost = (await getCollection('blog')).sort(
             width={200}
             height={200}
             gravity="faces"
-          />
+          /> -->
         </div>
 
         <div class={cx(prose(), css({ flex: '1 1 0' }))}>

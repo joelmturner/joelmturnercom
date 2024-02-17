@@ -1,0 +1,114 @@
+---
+import { getTransformations } from '@cloudinary-util/util';
+import {
+  transformationPlugins,
+  type ImageOptions,
+  type ConfigOptions,
+} from '@cloudinary-util/url-loader';
+import { Image, type RemoteImageProps } from 'astro:assets';
+import { getCldImageUrl } from './getCldImageUrl';
+import { cloudinaryLoader } from './cloudinary-loader';
+
+type Props = RemoteImageProps & {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  options?: Omit<ImageOptions, 'src'>;
+  config?: ConfigOptions;
+  preserveTransformations?: boolean;
+  rawTransformations?: string[];
+  unoptimized?: boolean;
+  class?: string;
+};
+
+const { src, alt, preserveTransformations, rawTransformations, unoptimized, config, options } =
+  Astro.props;
+
+let CLD_OPTIONS = ['deliveryType', 'preserveTransformations', 'strictTransformations', 'assetType'];
+
+transformationPlugins.forEach(({ props }) => {
+  const pluginProps = Object.keys(props);
+  pluginProps?.forEach((prop) => {
+    // if (CLD_OPTIONS.includes(prop)) {
+    //   throw new Error(`Option ${prop} already exists!`);
+    // }
+    CLD_OPTIONS.push(prop);
+  });
+});
+
+CLD_OPTIONS = Array.from(new Set(CLD_OPTIONS));
+
+// Construct the base Image component props by filtering out Cloudinary-specific props
+
+const imageProps: Partial<Pick<Props, 'alt' | 'src' | 'width' | 'height'>> = {
+  alt,
+  src,
+};
+
+(Object.keys(Astro.props) as Array<keyof Props>)
+  .filter((key) => !CLD_OPTIONS.includes(key))
+  // @ts-expect-error
+  .forEach((key) => (imageProps[key] = Astro.props[key]));
+
+const cldOptions: Omit<ImageOptions, 'src'> = {};
+
+CLD_OPTIONS.forEach((key) => {
+  // @ts-expect-error
+  if (options?.[key]) {
+    // @ts-expect-error
+    cldOptions[key] = options[key] || undefined;
+  }
+});
+
+// Try to preserve the original transformations from the Cloudinary URL passed in
+// to the component. This only works if the URL has a version number on it and otherwise
+// will fail to load
+
+if (preserveTransformations) {
+  try {
+    const transformations = getTransformations(src).map((t) => t.join(','));
+    cldOptions.rawTransformations = [...transformations.flat(), ...(rawTransformations || [])];
+  } catch (e) {
+    console.warn(`Failed to preserve transformations: ${(e as Error).message}`);
+  }
+}
+
+imageProps.src = cloudinaryLoader({
+  loaderOptions: undefined as any,
+  imageProps,
+  cldOptions,
+  cldConfig: config,
+});
+
+// The unoptimized flag is intended to remove all optimizations including quality, format, and sizing
+// via responsive sizing. When passing this in, it also prevents the `loader` from running, thus
+// breaking this component. This rewrites the `src` to construct a fully formed Cloudinary URL
+// that also disables format and quality transformations, to deliver it as unoptimized
+// See about unoptimized not working with loader: https://github.com/vercel/next.js/issues/50764
+
+const IMAGE_OPTIONS: { unoptimized?: boolean } = (process.env.__NEXT_IMAGE_OPTS ||
+  {}) as unknown as object;
+
+if (unoptimized === true || IMAGE_OPTIONS?.unoptimized === true) {
+  imageProps.src = getCldImageUrl(
+    {
+      ...cldOptions,
+      width: imageProps.width,
+      height: imageProps.height,
+      src: imageProps.src as string,
+      format: 'default',
+      quality: 'default',
+    },
+    config
+  );
+}
+---
+
+<Image
+  src={imageProps.src}
+  alt={imageProps.alt!}
+  width={imageProps.width!}
+  height={imageProps.height!}
+  {...imageProps}
+/>

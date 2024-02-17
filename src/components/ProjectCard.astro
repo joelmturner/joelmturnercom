@@ -4,6 +4,7 @@ import { flex } from 'styled-system/patterns';
 import type { Project } from '@lib/types';
 import Image from './Image.astro';
 import ProjectIcon from './ProjectIcon.astro';
+import CldImage from './cld/CldImage.astro';
 import { Icon } from 'astro-icon/components';
 
 type Props = {
@@ -57,7 +58,7 @@ const {
   </div>
   <div class={flex({ direction: 'column', gap: 2 })}>
     <a href={url} target="_blank">
-      <Image
+      <CldImage
         class={css({
           w: 'full',
           height: '250px',
@@ -72,6 +73,7 @@ const {
         widths={[240, 540, 720, 770]}
         sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px`}
         loading="lazy"
+        options={{ gravity: 'north_west', crop: 'fill' }}
       />
     </a>
 

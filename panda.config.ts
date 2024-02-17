@@ -1,4 +1,4 @@
-import { defineConfig } from "@pandacss/dev";
+import { Preset, defineConfig } from "@pandacss/dev";
 import typographyPreset from "pandacss-preset-typography";
 
 export default defineConfig({
@@ -8,7 +8,7 @@ export default defineConfig({
 
   presets: [
     "animated-pandacss",
-    typographyPreset({ recipe: { notProse: true } }),
+    typographyPreset({ recipe: { notProse: true } }) as Preset,
     "@pandacss/dev/presets",
   ],
 
