@@ -49,7 +49,7 @@ const today = new Date();
       >
         {
           SOCIAL_LINKS.map(({ href, label }) => (
-            <a href={href}>
+            <a href={href} rel="me">
               <SocialIcon icon={label} />
             </a>
           ))
