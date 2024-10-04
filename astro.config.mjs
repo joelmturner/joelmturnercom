@@ -1,7 +1,6 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import pandacss from "@pandacss/astro";
 import svelte from "@astrojs/svelte";
 import astroExpressiveCode from "astro-expressive-code";
 import sentry from "@sentry/astro";
@@ -25,7 +24,6 @@ export default defineConfig({
     astroExpressiveCode(astroExpressiveCodeOptions),
     mdx(),
     sitemap(),
-    pandacss(),
     svelte(),
     sentry({
       dsn: SENTRY_DSN,

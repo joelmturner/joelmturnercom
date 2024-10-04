@@ -2,29 +2,36 @@
 layout: "../layouts/Page.astro"
 ---
 
-import { Cloudinary } from "astro-cloudinary-image";
+import { CldImage } from "astro-cloudinary";
 import { flex } from "styled-system/patterns";
 import FunStuffCycler from "../components/FunStuffCycler.astro";
 
-<div class={flex({ direction: 'column', justifyContent: 'center'})}>
-    <Cloudinary
-        src="joel-turner_nobg"
-        alt="Joel M Turner portrait"
-        height="440"
-        width="440"
-        cornerRadius="max"
-        zoom="0.5"
-        gravity="face"
-        crop="fit"
-        resize="fill"
-        style={{ margin: "0 auto", marginBottom: "2rem", width: '220px', height: '220px' }}
-        />
-    {/* <FunStuffCycler /> */}
+<div class={flex({ direction: "column", justifyContent: "center" })}>
+  <CldImage
+    src="joel-turner_nobg"
+    alt="Joel M Turner portrait"
+    height="440px"
+    width="440px"
+    rounded="max"
+    zoom="0.5"
+    gravity="face"
+    crop="fit"
+    resize="fill"
+    dpr="2.0"
+    style={{
+      margin: "0 auto",
+      marginBottom: "2rem",
+      width: "220px",
+      height: "220px",
+    }}
+    rawTransformations={["r_max"]}
+  />
+  {/* <FunStuffCycler /> */}
 </div>
 
 ## I am Joel M Turner
 
-My professional role is **Senior Product Engineer** (Frontend) at [Sprinklr](https://sprinklr.com), where I help support the visualization products. Through this avenue, I have been able to contribute to some great projects such as the World Health Organization Covid-19 Dashboard, the Covid HQ Africa Dashboard, and [Sprinklr.com](https://sprinklr.com).
+My professional role is **Lead Product Engineer** (Frontend) at [Sprinklr](https://sprinklr.com), where I help support the visualization products. Through this avenue, I have been able to contribute to some great projects such as the World Health Organization Covid-19 Dashboard, the Covid HQ Africa Dashboard, and [Sprinklr.com](https://sprinklr.com).
 
 ### How I Got Here
 
