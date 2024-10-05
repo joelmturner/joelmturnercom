@@ -1,0 +1,7 @@
+---
+import { CldImage } from 'astro-cloudinary';
+
+const { src, alt, width, height, ...props } = Astro.props;
+---
+
+<CldImage src={src} alt={alt} width={width} height={height} {...props} />

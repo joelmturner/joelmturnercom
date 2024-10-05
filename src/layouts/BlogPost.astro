@@ -1,7 +1,6 @@
 ---
 import Badge from '@components/Badge.astro';
 import FormattedDate from '@components/FormattedDate.astro';
-import { cloudinary } from '@lib/cloudinary';
 import { slugify } from '@lib/posts';
 import { CldImage } from 'astro-cloudinary';
 import type { CollectionEntry } from 'astro:content';
@@ -28,23 +27,6 @@ const {
   next,
   prev,
 } = Astro.props;
-
-const coverImgUrl = cover
-  ? cloudinary.url(cover, {
-      secure: true,
-      transformation: [
-        {
-          width: 770,
-          height: 415,
-          crop: 'fill',
-          gravity: 'auto',
-        },
-      ],
-      fetch_format: 'auto',
-      quality: 'auto',
-      dpr: '3.0',
-    })
-  : null;
 ---
 
 <BaseLayout title={title} description={excerpt ?? description} image={cover}>
@@ -60,11 +42,11 @@ const coverImgUrl = cover
     })}
   >
     {
-      coverImgUrl && (
+      cover && (
         <CldImage
           width={770}
           height={415}
-          src={coverImgUrl}
+          src={cover}
           alt={title}
           transition:name={`blog-image-${slugify(title)}`}
           class={css({
@@ -73,6 +55,9 @@ const coverImgUrl = cover
           sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px"
           loading="lazy"
           dpr="2.0"
+          crop="fill"
+          gravity="center"
+          quality="auto"
         />
       )
     }

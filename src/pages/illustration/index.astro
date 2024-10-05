@@ -1,5 +1,5 @@
 ---
-import GalleryContainer from '@components/svelte/GalleryContainer.svelte';
+import IllustrationGallery from '@components/IllustrationGallery.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getIllustrations } from '@lib/illustrations';
 import { css } from 'styled-system/css';
@@ -17,5 +17,5 @@ const collections = await getIllustrations();
       >videos</a
     >
   </div>
-  <GalleryContainer collections={collections} client:load />
+  <IllustrationGallery illustrations={collections} />
 </BaseLayout>

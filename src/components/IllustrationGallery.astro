@@ -1,0 +1,260 @@
+---
+import { type IllustrationItem } from '@lib/types';
+import { css } from 'styled-system/css';
+import { grid } from 'styled-system/patterns';
+import { CldImage } from 'astro-cloudinary';
+import { ILLUSTRATION_FILTER_OPTIONS } from '@lib/constants';
+
+// Add this function to get the Cloudinary public ID from the full URL
+function getPublicId(url: string) {
+  const parts = url.split('/');
+  return parts.slice(-2).join('/').split('.')[0];
+}
+
+interface Props {
+  illustrations: IllustrationItem[];
+}
+
+const { illustrations } = Astro.props;
+---
+
+<div>
+  <select
+    id="collection-select"
+    class={css({
+      mb: 4,
+      p: 2,
+      borderRadius: 'md',
+      border: '1px solid',
+      borderColor: 'gray.100',
+      bgColor: 'white',
+      _dark: { bgColor: 'gray.800', borderColor: 'gray.700' },
+    })}
+  >
+    {ILLUSTRATION_FILTER_OPTIONS.map(({ value, label }) => <option value={value}>{label}</option>)}
+  </select>
+
+  <div id="gallery" class={grid({ columns: [1, 1, 2, 3], gap: 4 })}>
+    {
+      illustrations.map((image, index) => (
+        <CldImage
+          src={image.url}
+          alt={image.id}
+          width={400}
+          height={400}
+          loading="lazy"
+          class={css({
+            w: 'full',
+            h: 'auto',
+            objectFit: 'cover',
+            borderRadius: 'md',
+            cursor: 'pointer',
+          })}
+          data-tags={image.tags.join(',')}
+          data-index={index}
+          data-public-id={getPublicId(image.url)}
+        />
+      ))
+    }
+  </div>
+</div>
+
+<dialog
+  id="lightbox"
+  class={css({
+    position: 'relative',
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    maxWidth: 'none',
+    maxHeight: 'none',
+    backgroundColor: 'transparent',
+    padding: 0,
+    margin: 0,
+    display: 'none',
+    alignItems: 'center',
+    justifyContent: 'center',
+  })}
+>
+  <div
+    id="lightbox-bg"
+    class={css({
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      backgroundColor: 'black',
+      opacity: 0.8,
+    })}
+  >
+  </div>
+  <div
+    id="lightbox-content"
+    class={css({
+      position: 'relative',
+      width: '90vw',
+      height: '90vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      pointerEvents: 'none',
+    })}
+  >
+    <img
+      src=""
+      alt=""
+      class={css({ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' })}
+      sizes="90vw"
+      data-id="lightbox-img"
+      class={css({ pointerEvents: 'auto' })}
+    />
+    <button
+      id="prev-btn"
+      class={css({
+        pointerEvents: 'auto',
+        position: 'absolute',
+        left: 2,
+        top: '50%',
+        transform: 'translateY(-50%)',
+        backgroundColor: 'white',
+        padding: 2,
+        borderRadius: 'full',
+      })}>←</button
+    >
+    <button
+      id="next-btn"
+      class={css({
+        pointerEvents: 'auto',
+        position: 'absolute',
+        right: 2,
+        top: '50%',
+        transform: 'translateY(-50%)',
+        backgroundColor: 'white',
+        padding: 2,
+        borderRadius: 'full',
+      })}>→</button
+    >
+    <button
+      id="close-btn"
+      class={css({
+        pointerEvents: 'auto',
+        position: 'absolute',
+        right: 2,
+        top: 2,
+        backgroundColor: 'white',
+        padding: 2,
+        borderRadius: 'full',
+      })}>×</button
+    >
+  </div>
+</dialog>
+
+<script>
+  import { getCldImageUrl } from 'astro-cloudinary/helpers';
+
+  // Get the initial collection from the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialCollection = urlParams.get('collection') || 'joelmturner_featured';
+
+  const select = document.getElementById('collection-select') as HTMLSelectElement;
+  const gallery = document.getElementById('gallery');
+
+  function filterImages(selectedValue: string) {
+    console.log('selectedValue', selectedValue);
+    const images = gallery?.getElementsByTagName('img');
+    const resolvedSelectedValue =
+      selectedValue === 'featured' ? 'joelmturner_featured' : selectedValue;
+    for (const img of images ?? []) {
+      if (img.dataset.tags?.includes(resolvedSelectedValue)) {
+        img.style.display = 'block';
+      } else {
+        img.style.display = 'none';
+      }
+    }
+  }
+
+  function updateSelectAndFilter(selectedValue: string) {
+    if (select) {
+      select.value = selectedValue;
+    }
+    filterImages(selectedValue);
+  }
+
+  select?.addEventListener('change', function (event) {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    updateSelectAndFilter(selectedValue);
+    // Update URL with the new collection
+    const url = new URL(window.location.href);
+    url.searchParams.set('collection', selectedValue);
+    window.history.pushState({}, '', url);
+  });
+
+  // initial update and filter based on the query parameter
+  document.addEventListener('DOMContentLoaded', () => {
+    updateSelectAndFilter(initialCollection);
+  });
+
+  const lightbox = document.getElementById('lightbox') as HTMLDialogElement;
+  const lightboxImg = document.querySelector('[data-id="lightbox-img"]') as HTMLImageElement;
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const closeBtn = document.getElementById('close-btn');
+  const lightboxBg = document.getElementById('lightbox-bg');
+
+  let currentIndex = 0;
+
+  function getFullSizeUrl(publicId: string) {
+    return decodeURIComponent(
+      getCldImageUrl({
+        src: publicId,
+        width: 800,
+        height: 800,
+        format: 'auto',
+        quality: 'auto',
+      })
+    );
+  }
+
+  gallery?.addEventListener('click', (event) => {
+    const target = event.target as HTMLImageElement;
+    if (target.tagName === 'IMG') {
+      currentIndex = parseInt(target.dataset.index || '0', 10);
+      const publicId = target.dataset.publicId || '';
+      lightboxImg.src = getFullSizeUrl(publicId);
+      lightboxImg.alt = target.alt;
+      lightbox.style.display = 'flex';
+      lightbox.showModal();
+    }
+  });
+
+  function navigateImage(direction: number) {
+    const images = Array.from(gallery?.getElementsByTagName('img') || []);
+    const visibleImages = images.filter((img) => img.style.display !== 'none');
+    currentIndex = (currentIndex + direction + visibleImages.length) % visibleImages.length;
+    const newImage = visibleImages[currentIndex];
+    const publicId = newImage.dataset.publicId ?? '';
+    lightboxImg.src = getFullSizeUrl(publicId);
+    lightboxImg.alt = newImage.alt;
+  }
+
+  prevBtn?.addEventListener('click', () => navigateImage(-1));
+  nextBtn?.addEventListener('click', () => navigateImage(1));
+  closeBtn?.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+    lightbox.close();
+  });
+  lightboxBg?.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+    lightbox.close();
+  });
+
+  lightbox.addEventListener('click', (event) => {
+    if (event.target === lightbox) {
+      console.log('closing lightbox');
+      lightbox.style.display = 'none';
+      lightbox.close();
+    }
+  });
+</script>
