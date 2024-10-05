@@ -1,4 +1,5 @@
 ---
+import { CldVideoPlayer } from 'astro-cloudinary';
 import { css } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
 
@@ -12,12 +13,6 @@ type Props = {
 };
 
 const { publicId, title, citation, options: { loop = false } = { loop: false } } = Astro.props;
-let params = `?cloud_name=joelmturner&public_id=${publicId}&player[colors][base]=%2397cdff&player[colors][accent]=%23CBF6FF`;
-const additionalParams = loop ? 'loop=true' : '';
-
-if (additionalParams) {
-  params = `${params}&${additionalParams}`;
-}
 ---
 
 <div
@@ -30,9 +25,8 @@ if (additionalParams) {
     },
   })}
 >
-  <iframe
-    title={title}
-    src={`https://player.cloudinary.com/embed/${params}`}
+  <CldVideoPlayer
+    src={publicId}
     width="640"
     height="360"
     class={css({
@@ -40,9 +34,8 @@ if (additionalParams) {
       height: 'auto',
       aspectRatio: '640 / 360',
     })}
-    allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-    allowfullscreen
-    loading="lazy"></iframe>
+    loop={loop}
+  />
 
   <div
     class={flex({

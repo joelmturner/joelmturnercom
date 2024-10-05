@@ -3,12 +3,13 @@ import Badge from '@components/Badge.astro';
 import FormattedDate from '@components/FormattedDate.astro';
 import { cloudinary } from '@lib/cloudinary';
 import { slugify } from '@lib/posts';
-import { Image } from 'astro:assets';
+import { CldImage } from 'astro-cloudinary';
 import type { CollectionEntry } from 'astro:content';
 import { css, cx } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
 import { prose } from 'styled-system/recipes';
 import BaseLayout from './BaseLayout.astro';
+import { ViewTransitions } from 'astro:transitions';
 
 type Props = CollectionEntry<'blog'>['data'] & {
   next?: CollectionEntry<'blog'>;
@@ -47,6 +48,7 @@ const coverImgUrl = cover
 ---
 
 <BaseLayout title={title} description={excerpt ?? description} image={cover}>
+  <ViewTransitions slot="head" />
   <div
     class={css({
       '& > img': {
@@ -59,18 +61,18 @@ const coverImgUrl = cover
   >
     {
       coverImgUrl && (
-        <Image
-          width="770"
-          height="415"
+        <CldImage
+          width={770}
+          height={415}
           src={coverImgUrl}
           alt={title}
-          transition:name={`${title}-image`}
+          transition:name={`blog-image-${slugify(title)}`}
           class={css({
             maxWidth: { base: '90vw', lg: '3xl' },
           })}
-          widths={[240, 540, 720, 770]}
-          sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px`}
+          sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px"
           loading="lazy"
+          dpr="2.0"
         />
       )
     }

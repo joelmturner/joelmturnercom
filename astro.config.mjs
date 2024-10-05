@@ -20,6 +20,9 @@ const astroExpressiveCodeOptions = {
 // https://astro.build/config
 export default defineConfig({
   site: "https://joelmturner.com",
+  experimental: {
+    contentLayer: true
+  },
   integrations: [
     astroExpressiveCode(astroExpressiveCodeOptions),
     mdx(),

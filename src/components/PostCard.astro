@@ -1,10 +1,10 @@
 ---
-import { cloudinary } from '@lib/cloudinary';
+import { CldImage } from 'astro-cloudinary';
 import { css, cx } from 'styled-system/css';
 import { prose } from 'styled-system/recipes';
 import FormattedDate from './FormattedDate.astro';
 import { type CollectionEntry } from 'astro:content';
-import { Image } from 'astro:assets';
+import { slugify } from '@lib/posts';
 
 export type Props = {
   post: CollectionEntry<'blog'>;
@@ -21,86 +21,37 @@ const featuredStyles = {
   },
 };
 
-const coverImgUrl = post.data.cover
-  ? cloudinary.url(post.data.cover, {
-      secure: true,
-      transformation: [
-        {
-          width: featured ? 770 : 370,
-          height: featured ? 385 : 185,
-          crop: 'fill',
-          gravity: 'center',
-        },
-      ],
-      fetch_format: 'auto',
-      quality: 'auto',
-      dpr: '3.0',
-    })
-  : cloudinary.url('blog-post-card', {
-      secure: true,
-      format: 'png',
-      fetch_format: 'auto',
-      quality: 'auto',
-      dpr: '2.0',
-      transformation: [
-        {
-          width: 770,
-          height: 385,
-        },
-        {
-          overlay: {
-            text: post.data.title,
-            font_family: 'Helvetica',
-            font_size: 40,
-            font_weight: 'bold',
-            line_spacing: 10,
-          },
-          width: 450,
-          height: 250,
-          crop: 'fit',
-        },
-        {
-          flags: 'layer_apply',
-          gravity: 'west',
-          x: 225,
-          y: 0,
-        },
-      ],
-    });
+const combinedStyles = css({
+  w: { base: 'full', lg: 'calc(50% - 1rem)' },
+  textAlign: { base: 'center', lg: 'left' },
+  '& *': {
+    textDecoration: 'none',
+    transition: '0.2s ease',
+  },
+  '&:hover h4': {
+    color: 'accent',
+  },
+  '&:hover img': {
+    shadowColor: {
+      _light: 'slate.100',
+      _dark: 'slate.800',
+    },
+    shadow: '0 20px 25px -5px var(--shadow-color), 0 8px 10px -6px var(--shadow-color)',
+  },
+  ...(featured ? featuredStyles : {}),
+});
 ---
 
-<div
-  class={cx(
-    css({
-      w: { base: 'full', lg: 'calc(50% - 1rem)' },
-      textAlign: { base: 'center', lg: 'left' },
-      '& *': {
-        textDecoration: 'none',
-        transition: '0.2s ease',
-      },
-      '&:hover h4': {
-        color: 'accent',
-      },
-      '&:hover img': {
-        shadowColor: {
-          _light: 'slate.100',
-          _dark: 'slate.800',
-        },
-        shadow: '0 20px 25px -5px var(--shadow-color), 0 8px 10px -6px var(--shadow-color)',
-      },
-      ...(featured ? featuredStyles : {}),
-    })
-  )}
->
+<div class={combinedStyles}>
   <a href={`/blog/${post.slug}/`} class={prose({ size: '2xl' })}>
     {
-      coverImgUrl ? (
-        <Image
-          width={770}
-          height={385}
-          src={coverImgUrl}
+      post.data.cover ? (
+        <CldImage
+          width={featured ? 770 : 370}
+          height={featured ? 385 : 185}
+          src={post.data.cover}
           alt={post.data.title}
-          transition:name={`${post.data.title}-image`}
+          transition:name={`blog-image-${slugify(post.data.title)}`}
           class={cx(
             'not-prose',
             css({
@@ -108,11 +59,51 @@ const coverImgUrl = post.data.cover
               borderRadius: 'xl',
             })
           )}
-          widths={[240, 540, 720, 770]}
+          crop="fill"
+          gravity="center"
           sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px`}
           loading="lazy"
+          dpr="2.0"
         />
-      ) : null
+      ) : (
+        <CldImage
+          width={770}
+          height={385}
+          src="blog-post-card"
+          alt={post.data.title}
+          transition:name={`blog-image-${slugify(post.data.title)}`}
+          class={cx(
+            'not-prose',
+            css({
+              mb: 1,
+              borderRadius: 'xl',
+            })
+          )}
+          overlays={[
+            {
+              width: 600,
+              height: 300,
+              crop: 'fit',
+              position: {
+                gravity: 'west',
+                x: 450,
+                y: 0,
+              },
+              text: {
+                text: post.data.title,
+                fontFamily: 'Helvetica',
+                fontSize: 80,
+                fontWeight: 'bold',
+                lineSpacing: 10,
+              },
+            },
+          ]}
+          format="auto"
+          quality="auto"
+          dpr="2.0"
+          loading="lazy"
+        />
+      )
     }
     <h4
       class={css({

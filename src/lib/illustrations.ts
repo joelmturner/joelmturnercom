@@ -1,8 +1,9 @@
-import { type CloudinaryResponse, type Illustrations } from "./types";
+import { type IllustrationItem, type Illustrations } from "./types";
 import { cloudinary } from "./cloudinary";
+import { getCollection } from "astro:content";
 
 export async function getIllustrations(): Promise<Illustrations> {
-  const imageResults: Illustrations = {
+  const initialImageResults: Illustrations = {
     handletteredabcs_2016: [],
     inktober2017: [],
     inktober2018: [],
@@ -16,34 +17,28 @@ export async function getIllustrations(): Promise<Illustrations> {
     letterclash: [],
   };
 
-  await cloudinary.search
-    .expression("folder:illustration")
-    .sort_by("public_id", "desc")
-    .max_results(800)
-    .with_field("tags")
-    .execute()
-    .then((result: CloudinaryResponse) => {
-      for (const imageResult of result.resources) {
-        const imageUrl = cloudinary.url(imageResult.public_id, {
-          secure: true,
-          quality: "auto",
-          fetch_format: "auto",
-        });
+  const illustrations = await getCollection("illustration");
 
-        const image = {
-          id: imageResult.asset_id,
-          url: imageUrl,
-          tags: imageResult.tags,
-          width: imageResult.width,
-          height: imageResult.height,
-        };
-
-        for (const tag of imageResult.tags) {
-          const prev = imageResults[tag as keyof Illustrations] || [];
-          imageResults[`${tag}` as keyof Illustrations] = [...prev, image];
-        }
-      }
+  return illustrations.reduce((imageResults, illustration) => {
+    const imageUrl = cloudinary.url(illustration.id, {
+      secure: true,
+      quality: "auto",
+      fetch_format: "auto",
     });
 
-  return imageResults;
+    const image: IllustrationItem = {
+      id: illustration.id,
+      url: imageUrl,
+      tags: illustration.data.tags || [],
+      width: illustration.data.width,
+      height: illustration.data.height,
+    };
+
+    illustration.data.tags?.forEach((tag) => {
+      const key = tag as keyof Illustrations;
+      imageResults[key] = [...(imageResults[key] || []), image];
+    });
+
+    return imageResults;
+  }, initialImageResults);
 }
