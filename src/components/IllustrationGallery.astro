@@ -28,35 +28,8 @@ const { illustrations } = Astro.props;
           <wa-menu-item value={value}>{label}</wa-menu-item>
         ))
       }
-      <!-- <wa-divider></wa-divider>
-      <wa-menu-item type="checkbox" checked>Checkbox</wa-menu-item>
-      <wa-menu-item disabled>Disabled</wa-menu-item>
-      <wa-divider></wa-divider>
-      <wa-menu-item>
-        Prefix
-        <wa-icon slot="prefix" name="gift" variant="solid"></wa-icon>
-      </wa-menu-item>
-      <wa-menu-item>
-        Suffix Icon
-        <wa-icon slot="suffix" name="heart" variant="solid"></wa-icon>
-      </wa-menu-item> -->
     </wa-menu>
   </wa-dropdown>
-
-  <!-- <select
-    id="collection-select"
-    class={css({
-      mb: 4,
-      p: 2,
-      borderRadius: 'md',
-      border: '1px solid',
-      borderColor: 'gray.100',
-      bgColor: 'white',
-      _dark: { bgColor: 'gray.800', borderColor: 'gray.700' },
-    })}
-  >
-    {ILLUSTRATION_FILTER_OPTIONS.map(({ value, label }) => <option value={value}>{label}</option>)}
-  </select> -->
 
   <div id="gallery" class={grid({ columns: [1, 1, 2, 3], gap: 4 })}>
     {
@@ -176,17 +149,18 @@ const { illustrations } = Astro.props;
 </dialog>
 
 <script>
+  import { ILLUSTRATION_FILTER_OPTIONS } from '@lib/constants';
   import { getCldImageUrl } from 'astro-cloudinary/helpers';
 
   // Get the initial collection from the URL
   const urlParams = new URLSearchParams(window.location.search);
   const initialCollection = urlParams.get('collection') || 'joelmturner_featured';
 
-  const select = document.getElementById('collection-select') as HTMLSelectElement;
+  const select = document.querySelector('wa-dropdown');
+  const dropdownButton = document.querySelector('wa-button');
   const gallery = document.getElementById('gallery');
 
   function filterImages(selectedValue: string) {
-    console.log('selectedValue', selectedValue);
     const images = gallery?.getElementsByTagName('img');
     const resolvedSelectedValue =
       selectedValue === 'featured' ? 'joelmturner_featured' : selectedValue;
@@ -200,14 +174,26 @@ const { illustrations } = Astro.props;
   }
 
   function updateSelectAndFilter(selectedValue: string) {
-    if (select) {
-      select.value = selectedValue;
+    if (dropdownButton) {
+      const selectedOption = ILLUSTRATION_FILTER_OPTIONS.find(
+        (option) => option.value === selectedValue
+      );
+      dropdownButton.textContent = selectedOption?.label || selectedValue;
     }
     filterImages(selectedValue);
   }
 
-  select?.addEventListener('change', function (event) {
-    const selectedValue = (event.target as HTMLSelectElement).value;
+  interface WaSelectEvent extends Event {
+    detail: {
+      item: {
+        value: string;
+      };
+    };
+  }
+
+  select?.addEventListener('wa-select', function (event) {
+    const customEvent = event as WaSelectEvent;
+    const selectedValue = customEvent.detail.item.value;
     updateSelectAndFilter(selectedValue);
     // Update URL with the new collection
     const url = new URL(window.location.href);
