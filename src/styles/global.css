@@ -5,6 +5,10 @@
  */
 @layer reset, base, tokens, recipes, utilities;
 
+:not(:defined) {
+  visibility: hidden;
+}
+
 [data-color-mode="dark"] {
   --wa-color-surface-default: var(--colors-slate-900);
   --wa-color-surface-raised: var(--colors-slate-800);
