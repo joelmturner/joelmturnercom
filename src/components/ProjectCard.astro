@@ -14,83 +14,45 @@ const {
 } = Astro.props;
 ---
 
-<div
-  class={css({
-    maxW: 'sm',
-    bgColor: 'white',
-    rounded: '2xl',
-    shadow: 'round',
-    _dark: { bgColor: 'gray.800' },
-  })}
->
-  <div class={flex({ p: 3, direction: 'column', gap: 2 })}>
-    <div class={flex({ justifyContent: 'space-between', alignItems: 'center' })}>
-      <a href={url} target="_blank">
-        <h5
-          class={css({
-            fontSize: '2xl',
-            lineHeight: '2xl',
-            fontWeight: 'bold',
-            letterSpacing: 'tight',
-            color: 'gray.900',
-            _dark: { color: 'white' },
-            m: 0,
-          })}
-        >
-          {name}
-        </h5>
-      </a>
-      <a href={github} title="Github" target="_blank">
-        <Icon name="lucide:github" title="Github" />
-      </a>
-    </div>
-    <p
+<wa-card with-image with-footer class="card-overview">
+  <a href={url} target="_blank" slot="image">
+    <Image
       class={css({
-        fontWeight: 'normal',
-        color: 'gray.700',
-        _dark: { color: 'gray.400' },
-        m: 0,
+        w: 'full',
+        objectFit: 'cover',
+        objectPosition: 'left center',
       })}
-    >
-      {description}
-    </p>
-  </div>
-  <div class={flex({ direction: 'column', gap: 2 })}>
-    <a href={url} target="_blank">
-      <Image
-        class={css({
-          w: 'full',
-          height: '250px',
-          objectFit: 'cover',
-          objectPosition: 'left center',
-          px: 1,
-        })}
-        src={imageURL}
-        alt={name}
-        height={250}
-        width={370}
-        widths={[240, 540, 720, 770]}
-        sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px`}
-        loading="lazy"
-      />
+      src={imageURL}
+      alt={name}
+      height={250}
+      width={370}
+      widths={[240, 540, 720, 770]}
+      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px`}
+      loading="lazy"
+    />
+  </a>
+  <div class={flex({ gap: 2, justifyContent: 'space-between' })}>
+    <p><strong>{name}</strong></p>
+    <a href={github} title="Github" target="_blank">
+      <wa-icon family="brands" name="github"></wa-icon>
     </a>
-
-    <div
-      class={flex({
-        gap: 2,
-        alignItems: 'center',
-        p: 3,
-        pt: 1,
-        filter: 'grayscale(100%)',
-        transition: 'filter 300ms',
-        _hover: { filter: 'grayscale(0%)' },
-      })}
-    >
-      {
-        tech.map((techItem) => (
-          <ProjectIcon icon={techItem.toLowerCase() as Project['tech'][number]} />
-        ))
-      }
-    </div>
   </div>
-</div>
+  <p>{description}</p>
+
+  <div
+    slot="footer"
+    class={flex({
+      gap: 2,
+      alignItems: 'center',
+      filter: 'grayscale(100%)',
+      transition: 'filter 300ms',
+      _hover: { filter: 'grayscale(0%)' },
+    })}
+  >
+    {
+      tech.map((techItem) => (
+        <ProjectIcon icon={techItem.toLowerCase() as Project['tech'][number]} />
+      ))
+    }
+  </div>
+</wa-card>

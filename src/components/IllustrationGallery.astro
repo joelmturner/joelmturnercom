@@ -4,6 +4,7 @@ import { css } from 'styled-system/css';
 import { grid } from 'styled-system/patterns';
 import { CldImage } from 'astro-cloudinary';
 import { ILLUSTRATION_FILTER_OPTIONS } from '@lib/constants';
+import { flex } from 'styled-system/patterns/flex';
 
 // Add this function to get the Cloudinary public ID from the full URL
 function getPublicId(url: string) {
@@ -18,8 +19,31 @@ interface Props {
 const { illustrations } = Astro.props;
 ---
 
-<div>
-  <select
+<div class={flex({ gap: 4, flexDirection: 'column' })}>
+  <wa-dropdown id="collection-select">
+    <wa-button slot="trigger" caret>Collections</wa-button>
+    <wa-menu>
+      {
+        ILLUSTRATION_FILTER_OPTIONS.map(({ value, label }) => (
+          <wa-menu-item value={value}>{label}</wa-menu-item>
+        ))
+      }
+      <!-- <wa-divider></wa-divider>
+      <wa-menu-item type="checkbox" checked>Checkbox</wa-menu-item>
+      <wa-menu-item disabled>Disabled</wa-menu-item>
+      <wa-divider></wa-divider>
+      <wa-menu-item>
+        Prefix
+        <wa-icon slot="prefix" name="gift" variant="solid"></wa-icon>
+      </wa-menu-item>
+      <wa-menu-item>
+        Suffix Icon
+        <wa-icon slot="suffix" name="heart" variant="solid"></wa-icon>
+      </wa-menu-item> -->
+    </wa-menu>
+  </wa-dropdown>
+
+  <!-- <select
     id="collection-select"
     class={css({
       mb: 4,
@@ -32,7 +56,7 @@ const { illustrations } = Astro.props;
     })}
   >
     {ILLUSTRATION_FILTER_OPTIONS.map(({ value, label }) => <option value={value}>{label}</option>)}
-  </select>
+  </select> -->
 
   <div id="gallery" class={grid({ columns: [1, 1, 2, 3], gap: 4 })}>
     {

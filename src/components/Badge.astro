@@ -8,7 +8,11 @@ type Props = {
 const { link } = Astro.props;
 ---
 
-<div
+<a href={link} target="_blank">
+  <wa-badge><slot /></wa-badge>
+</a>
+
+<!-- <div
   role="button"
   class={css({
     py: 1,
@@ -49,4 +53,4 @@ const { link } = Astro.props;
       <slot />
     )
   }
-</div>
+</div> -->
