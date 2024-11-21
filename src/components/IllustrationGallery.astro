@@ -56,97 +56,16 @@ const { illustrations } = Astro.props;
   </div>
 </div>
 
-<dialog
-  id="lightbox"
+<wa-dialog
+  label="Dialog"
+  light-dismiss
+  class="dialog-light-dismiss"
   class={css({
-    position: 'relative',
-    top: 0,
-    left: 0,
-    width: '100vw',
-    height: '100vh',
-    maxWidth: 'none',
-    maxHeight: 'none',
-    backgroundColor: 'transparent',
-    padding: 0,
-    margin: 0,
-    display: 'none',
-    alignItems: 'center',
-    justifyContent: 'center',
+    '--width': '70vw',
   })}
 >
-  <div
-    id="lightbox-bg"
-    class={css({
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      backgroundColor: 'black',
-      opacity: 0.8,
-    })}
-  >
-  </div>
-  <div
-    id="lightbox-content"
-    class={css({
-      position: 'relative',
-      width: '90vw',
-      height: '90vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      pointerEvents: 'none',
-    })}
-  >
-    <img
-      src=""
-      alt=""
-      class={css({ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' })}
-      sizes="90vw"
-      data-id="lightbox-img"
-      class={css({ pointerEvents: 'auto' })}
-    />
-    <button
-      id="prev-btn"
-      class={css({
-        pointerEvents: 'auto',
-        position: 'absolute',
-        left: 2,
-        top: '50%',
-        transform: 'translateY(-50%)',
-        backgroundColor: 'white',
-        padding: 2,
-        borderRadius: 'full',
-      })}>←</button
-    >
-    <button
-      id="next-btn"
-      class={css({
-        pointerEvents: 'auto',
-        position: 'absolute',
-        right: 2,
-        top: '50%',
-        transform: 'translateY(-50%)',
-        backgroundColor: 'white',
-        padding: 2,
-        borderRadius: 'full',
-      })}>→</button
-    >
-    <button
-      id="close-btn"
-      class={css({
-        pointerEvents: 'auto',
-        position: 'absolute',
-        right: 2,
-        top: 2,
-        backgroundColor: 'white',
-        padding: 2,
-        borderRadius: 'full',
-      })}>×</button
-    >
-  </div>
-</dialog>
+  <wa-carousel navigation style={{ '--aspect-ratio': '1/1' }}> </wa-carousel>
+</wa-dialog>
 
 <script>
   import { ILLUSTRATION_FILTER_OPTIONS } from '@lib/constants';
@@ -159,6 +78,8 @@ const { illustrations } = Astro.props;
   const select = document.querySelector('wa-dropdown');
   const dropdownButton = document.querySelector('wa-button');
   const gallery = document.getElementById('gallery');
+  const carousel = document.querySelector('wa-carousel') as WaCarousel;
+  const lightbox = document.querySelector('wa-dialog') as HTMLDialogElement;
 
   function filterImages(selectedValue: string) {
     const images = gallery?.getElementsByTagName('img');
@@ -171,14 +92,47 @@ const { illustrations } = Astro.props;
         img.style.display = 'none';
       }
     }
+
+    function getFullSizeUrl(publicId: string) {
+      return decodeURIComponent(
+        getCldImageUrl({
+          src: publicId,
+          width: 800,
+          height: 800,
+          format: 'auto',
+          quality: 'auto',
+        })
+      );
+    }
+
+    // update the wa-carousel list based on the selected collection value
+    carousel.innerHTML = '';
+    Array.from(images ?? [])
+      ?.filter((imageNode) => imageNode.dataset.tags?.includes(resolvedSelectedValue))
+      ?.forEach((image) => {
+        const slide = document.createElement('wa-carousel-item');
+        slide.dataset.index = image.dataset.index;
+        slide.dataset.publicId = image.dataset.publicId;
+        slide.dataset.tags = image.dataset.tags;
+        slide.innerHTML = `
+        <img
+          src="${getFullSizeUrl(image.dataset.publicId ?? '')}"
+          alt="${image.id}"
+          width="900"
+          height="1200"
+          sizes="70vw"
+          data-index="${image.dataset.index}"
+          data-public-id="${image.dataset.publicId}"
+          data-tags="${image.dataset.tags}"
+        />
+    `;
+        carousel.appendChild(slide);
+      });
   }
 
-  function updateSelectAndFilter(selectedValue: string) {
+  function updateSelectAndFilter(selectedValue: string, selectedLabel: string) {
     if (dropdownButton) {
-      const selectedOption = ILLUSTRATION_FILTER_OPTIONS.find(
-        (option) => option.value === selectedValue
-      );
-      dropdownButton.textContent = selectedOption?.label || selectedValue;
+      dropdownButton.textContent = selectedLabel;
     }
     filterImages(selectedValue);
   }
@@ -187,14 +141,20 @@ const { illustrations } = Astro.props;
     detail: {
       item: {
         value: string;
+        textContent: string;
       };
     };
+  }
+  interface WaCarousel extends HTMLElement {
+    goToSlide: (index: number) => void;
   }
 
   select?.addEventListener('wa-select', function (event) {
     const customEvent = event as WaSelectEvent;
     const selectedValue = customEvent.detail.item.value;
-    updateSelectAndFilter(selectedValue);
+    const selectedLabel = customEvent.detail.item.textContent;
+
+    updateSelectAndFilter(selectedValue, selectedLabel);
     // Update URL with the new collection
     const url = new URL(window.location.href);
     url.searchParams.set('collection', selectedValue);
@@ -203,68 +163,43 @@ const { illustrations } = Astro.props;
 
   // initial update and filter based on the query parameter
   document.addEventListener('DOMContentLoaded', () => {
-    updateSelectAndFilter(initialCollection);
+    const initialLabel =
+      ILLUSTRATION_FILTER_OPTIONS.find((option) => option.value === initialCollection)?.label ??
+      initialCollection;
+    updateSelectAndFilter(initialCollection, initialLabel);
   });
 
-  const lightbox = document.getElementById('lightbox') as HTMLDialogElement;
-  const lightboxImg = document.querySelector('[data-id="lightbox-img"]') as HTMLImageElement;
-  const prevBtn = document.getElementById('prev-btn');
-  const nextBtn = document.getElementById('next-btn');
-  const closeBtn = document.getElementById('close-btn');
-  const lightboxBg = document.getElementById('lightbox-bg');
-
-  let currentIndex = 0;
-
-  function getFullSizeUrl(publicId: string) {
-    return decodeURIComponent(
-      getCldImageUrl({
-        src: publicId,
-        width: 800,
-        height: 800,
-        format: 'auto',
-        quality: 'auto',
-      })
-    );
-  }
+  let carouselTimeout: NodeJS.Timeout;
 
   gallery?.addEventListener('click', (event) => {
     const target = event.target as HTMLImageElement;
-    if (target.tagName === 'IMG') {
-      currentIndex = parseInt(target.dataset.index || '0', 10);
-      const publicId = target.dataset.publicId || '';
-      lightboxImg.src = getFullSizeUrl(publicId);
-      lightboxImg.alt = target.alt;
-      lightbox.style.display = 'flex';
-      lightbox.showModal();
+    if (target.tagName === 'IMG' && window.innerWidth >= 768) {
+      lightbox.open = true;
+
+      const carouselIndex = Array.from(carousel?.querySelectorAll(`wa-carousel-item`)).findIndex(
+        (item) => (item as HTMLElement).dataset.publicId === target.dataset.publicId
+      );
+
+      (lightbox as HTMLDialogElement & { updateComplete: Promise<void> }).updateComplete.then(
+        () => {
+          if (carousel) {
+            if (carouselTimeout) {
+              clearTimeout(carouselTimeout);
+            }
+
+            carouselTimeout = setTimeout(() => {
+              console.log('called');
+              carousel.goToSlide(carouselIndex);
+            }, 100);
+          }
+        }
+      );
     }
-  });
-
-  function navigateImage(direction: number) {
-    const images = Array.from(gallery?.getElementsByTagName('img') || []);
-    const visibleImages = images.filter((img) => img.style.display !== 'none');
-    currentIndex = (currentIndex + direction + visibleImages.length) % visibleImages.length;
-    const newImage = visibleImages[currentIndex];
-    const publicId = newImage.dataset.publicId ?? '';
-    lightboxImg.src = getFullSizeUrl(publicId);
-    lightboxImg.alt = newImage.alt;
-  }
-
-  prevBtn?.addEventListener('click', () => navigateImage(-1));
-  nextBtn?.addEventListener('click', () => navigateImage(1));
-  closeBtn?.addEventListener('click', () => {
-    lightbox.style.display = 'none';
-    lightbox.close();
-  });
-  lightboxBg?.addEventListener('click', () => {
-    lightbox.style.display = 'none';
-    lightbox.close();
   });
 
   lightbox.addEventListener('click', (event) => {
     if (event.target === lightbox) {
-      console.log('closing lightbox');
-      lightbox.style.display = 'none';
-      lightbox.close();
+      lightbox.open = false;
     }
   });
 </script>
