@@ -21,7 +21,7 @@ const astroExpressiveCodeOptions = {
 export default defineConfig({
   site: "https://joelmturner.com",
   experimental: {
-    contentLayer: true
+    contentLayer: true,
   },
   integrations: [
     astroExpressiveCode(astroExpressiveCodeOptions),
@@ -38,14 +38,22 @@ export default defineConfig({
     }),
     sitemap(),
     icon({
-        include: {
-            logos: ['typescript-icon', 'react', 'nextjs-icon', 'pandacss-icon', 'svelte-icon', 'cloudinary-icon'],
-            'simple-icons': ['chakraui', 'devdotto'],
-            iconoir: ['mastodon'],
-            'material-symbols-light': ['logo-dev-outline'],
-            lucide: ['github', 'twitter', 'linkedin', 'instagram'],
-            ph: ['dev-to-logo']
-        }
+      include: {
+        logos: [
+          "typescript-icon",
+          "react",
+          "nextjs-icon",
+          "pandacss-icon",
+          "svelte-icon",
+          "cloudinary-icon",
+        ],
+        "simple-icons": ["chakraui", "devdotto"],
+        iconoir: ["mastodon"],
+        "material-symbols-light": ["logo-dev-outline"],
+        lucide: ["github", "twitter", "linkedin", "instagram"],
+        ph: ["dev-to-logo"],
+        local: ["bluesky"],
+      },
     }),
   ],
 });

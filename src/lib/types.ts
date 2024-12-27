@@ -62,4 +62,5 @@ export type SocialIconLabel =
   | "Linkedin"
   | "Github"
   | "DEV"
-  | "Mastodon";
+  | "Mastodon"
+  | "Bluesky";

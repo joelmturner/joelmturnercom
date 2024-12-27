@@ -10,5 +10,10 @@
       "@lib/*": ["src/lib/*"]
     }
   },
-  "include": ["src", "styled-system", "styled-system/recipes"]
+  "include": [
+    "src/**/*",
+    "styled-system/**/*",
+    ".astro/**/*",
+    "panda.config.ts"
+  ]
 }

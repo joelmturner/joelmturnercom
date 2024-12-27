@@ -1,23 +1,25 @@
 import type { Project, SocialIconLabel } from "./types";
 import { type IllustrationTag } from "./types";
 
-export const FUN_STUFF = [ 'brew', 'code', 'letter', 'draw', 'hike', 'camp' ];
+export const FUN_STUFF = ["brew", "code", "letter", "draw", "hike", "camp"];
 
 export const PROJECTS: Project[] = [
-    {
-      name: "Instagram To Cloudinary",
-      description: "Pulls posts from Instagram and sends them to Cloudinary with tags",
-      imageURL: "Illustrations-Joel-M-Turner_ogu9k6.png",
-      tech: ["typescript", 'cloudinary'],
-      github: "https://github.com/joelmturner/instagram-cloudinary",
-      featured: false,
-      url: "/blog/instagram-cloudinary",
-    },
+  {
+    name: "Instagram To Cloudinary",
+    description:
+      "Pulls posts from Instagram and sends them to Cloudinary with tags",
+    imageURL: "Illustrations-Joel-M-Turner_ogu9k6.png",
+    tech: ["typescript", "cloudinary"],
+    github: "https://github.com/joelmturner/instagram-cloudinary",
+    featured: false,
+    url: "/blog/instagram-cloudinary",
+  },
   {
     name: "Emotional Recipes",
-    description: "A tool to help navigate stormy waters and get back to calm seas.",
+    description:
+      "A tool to help navigate stormy waters and get back to calm seas.",
     imageURL: "emotional-recipes/recipe_9.webp",
-    tech: ["react", "typescript", "chakra ui", "next.js", 'cloudinary'],
+    tech: ["react", "typescript", "chakra ui", "next.js", "cloudinary"],
     github: "https://github.com/joelmturner/emotional-recipes",
     featured: false,
     url: "https://emotional-recipes.com",
@@ -33,9 +35,10 @@ export const PROJECTS: Project[] = [
   },
   {
     name: "BoochTown",
-    description: "Kombucha reviews and ratings web app using SvelteKit and Panda CSS.",
+    description:
+      "Kombucha reviews and ratings web app using SvelteKit and Panda CSS.",
     imageURL: "boochtown-product-view_gzd9mn",
-    tech: ["typescript", 'svelte', 'panda css', 'cloudinary'],
+    tech: ["typescript", "svelte", "panda css", "cloudinary"],
     github: "https://github.com/joelmturner/boochtown",
     featured: false,
     url: "https://boochtown.com/",
@@ -69,6 +72,10 @@ export const NAV_LINKS = [
 
 export const SOCIAL_LINKS: { href: string; label: SocialIconLabel }[] = [
   {
+    href: "https://bsky.app/profile/joelmturner.com",
+    label: "Bluesky",
+  },
+  {
     href: "https://www.instagram.com/joelmturner/",
     label: "Instagram",
   },
@@ -87,10 +94,6 @@ export const SOCIAL_LINKS: { href: string; label: SocialIconLabel }[] = [
   {
     href: "https://dev.to/joelmturner",
     label: "DEV",
-  },
-  {
-    href: "https://mas.to/@joelmturner",
-    label: "Mastodon",
   },
 ] as const;
 
