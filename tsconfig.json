@@ -15,5 +15,6 @@
     "styled-system/**/*",
     ".astro/**/*",
     "panda.config.ts"
-  ]
+  ],
+  "exclude": ["dist"]
 }

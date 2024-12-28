@@ -2,7 +2,7 @@
 import PostCard from '@components/PostCard.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import { css } from 'styled-system/css';
 
 const posts = (await getCollection('blog')).sort(
@@ -11,7 +11,7 @@ const posts = (await getCollection('blog')).sort(
 ---
 
 <BaseLayout>
-  <ViewTransitions slot="head" />
+  <ClientRouter slot="head" />
   <section>
     <div
       class={css({

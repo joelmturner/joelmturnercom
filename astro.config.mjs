@@ -1,7 +1,6 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import svelte from "@astrojs/svelte";
 import astroExpressiveCode from "astro-expressive-code";
 import sentry from "@sentry/astro";
 import { loadEnv } from "vite";
@@ -20,14 +19,10 @@ const astroExpressiveCodeOptions = {
 // https://astro.build/config
 export default defineConfig({
   site: "https://joelmturner.com",
-  experimental: {
-    contentLayer: true,
-  },
   integrations: [
     astroExpressiveCode(astroExpressiveCodeOptions),
     mdx(),
     sitemap(),
-    svelte(),
     sentry({
       dsn: SENTRY_DSN,
       sourceMapsUploadOptions: {
@@ -36,7 +31,6 @@ export default defineConfig({
         authToken: SENTRY_AUTH_TOKEN,
       },
     }),
-    sitemap(),
     icon({
       include: {
         logos: [

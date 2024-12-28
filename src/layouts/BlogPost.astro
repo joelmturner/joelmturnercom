@@ -8,7 +8,7 @@ import { css, cx } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
 import { prose } from 'styled-system/recipes';
 import BaseLayout from './BaseLayout.astro';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 
 type Props = CollectionEntry<'blog'>['data'] & {
   next?: CollectionEntry<'blog'>;
@@ -30,7 +30,7 @@ const {
 ---
 
 <BaseLayout title={title} description={excerpt ?? description} image={cover}>
-  <ViewTransitions slot="head" />
+  <ClientRouter slot="head" />
   <div
     class={css({
       '& > img': {
