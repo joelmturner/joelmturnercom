@@ -14,5 +14,3 @@
 /unblocksentry                                                      https://e8805cde5cbc48d48ac803e180e6c90e@o556640.ingest.sentry.io/api/5687911/envelope/ 200
 /wp-content/uploads/2014/12/Robyn-Eviction-Tour-Promo-Poster.jpg    /blog/pmj-artwork
 /2014/01/17/creating-daily-routine-freedom                          /blog/creating-daily-routine-freedom
-# For URLs without trailing slash
-/* /$1/ 301
