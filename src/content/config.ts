@@ -32,7 +32,7 @@ const til = defineCollection({
 
 const illustration = defineCollection({
   loader: cldAssetsLoader({
-    limit: 800,
+    limit: 3000,
     folder: "illustration",
     context: true,
     metadata: true,

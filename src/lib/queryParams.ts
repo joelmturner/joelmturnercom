@@ -27,6 +27,7 @@ export const ILLUSTRATION_QUERY_VS_FILTER: { [key: string]: IllustrationTag } =
     inktober2021: "inktober2021",
     inktober2022: "inktober2022",
     inktober2023: "inktober2023",
+    inktober2024: "inktober2024",
     ink17: "inktober2017",
     ink18: "inktober2018",
     ink19: "inktober2019",
