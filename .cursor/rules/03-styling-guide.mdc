@@ -1,0 +1,25 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Styling Guide
+
+This project uses Panda CSS for styling, configured in [panda.config.ts](mdc:panda.config.ts).
+
+## Key Styling Principles
+1. Use Panda CSS's utility classes and recipes for consistent styling
+2. Custom styles should be defined in the Panda config
+3. Global styles are managed in `src/styles/`
+4. Component-specific styles should use Panda's pattern APIs
+
+## Configuration
+- Styling tokens and theme configuration are defined in [panda.config.ts](mdc:panda.config.ts)
+- PostCSS configuration in [postcss.config.cjs](mdc:postcss.config.cjs)
+- Generated styles are in the `styled-system/` directory
+
+## Best Practices
+1. Use Panda's built-in tokens for colors, spacing, and typography
+2. Leverage the pattern API for reusable component styles
+3. Avoid direct CSS unless absolutely necessary
+4. Use semantic class names and follow the project's naming conventions

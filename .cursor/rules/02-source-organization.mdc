@@ -1,0 +1,23 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Source Code Organization
+
+The `src/` directory contains the following structure:
+- `pages/` - Astro pages and routes
+- `layouts/` - Layout components and templates
+- `components/` - Reusable UI components
+- `lib/` - Utility functions and shared logic
+- `icons/` - SVG icons and icon components
+- `styles/` - Global styles and style utilities
+- `content/` - Content collections and data
+- [consts.ts](mdc:src/consts.ts) - Global constants
+- [env.d.ts](mdc:src/env.d.ts) - TypeScript environment declarations
+
+## Development Guidelines
+1. New pages should be added to the `pages/` directory following Astro's file-based routing
+2. Reusable components should be placed in `components/` with appropriate subdirectories for organization
+3. Shared utilities should go in `lib/`
+4. Content types and collections should be defined in `content/`
