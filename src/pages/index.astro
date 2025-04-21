@@ -54,9 +54,15 @@ const featuredPost = (await getCollection('blog')).sort(
               display: 'flex',
               justifyContent: { base: 'center', md: 'flex-start' },
               fontSize: { base: '3xl', md: '4xl' },
+              gap: 2,
             })}
           >
-            Howdy! I'm Joel 👋🏻
+            Howdy! I'm Joel
+            <div class="animation-keyframes">
+              <wa-animation easing="ease-in-out" duration="2000" play>
+                <div class="box">👋🏻</div>
+              </wa-animation>
+            </div>
           </h1>
 
           <p>
@@ -83,3 +89,42 @@ const featuredPost = (await getCollection('blog')).sort(
     </div>
   </div>
 </BaseLayout>
+
+<script>
+  interface WAAnimation extends HTMLElement {
+    keyframes: Array<{
+      offset: number;
+      easing: string;
+      fillMode: string;
+      transformOrigin: string;
+      transform: string;
+    }>;
+  }
+
+  const animation = document.querySelector('.animation-keyframes wa-animation') as WAAnimation;
+  if (animation) {
+    animation.keyframes = [
+      {
+        offset: 0,
+        easing: 'ease-in-out',
+        fillMode: 'both',
+        transformOrigin: 'center center',
+        transform: 'rotate(0deg)',
+      },
+      {
+        offset: 0.5,
+        easing: 'ease-in-out',
+        fillMode: 'both',
+        transformOrigin: 'center center',
+        transform: 'rotate(45deg)',
+      },
+      {
+        offset: 1,
+        easing: 'ease-in-out',
+        fillMode: 'both',
+        transformOrigin: 'center center',
+        transform: 'rotate(0deg)',
+      },
+    ];
+  }
+</script>
