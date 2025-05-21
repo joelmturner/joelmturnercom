@@ -19,7 +19,7 @@ const astroExpressiveCodeOptions = {
 // https://astro.build/config
 export default defineConfig({
   site: "https://joelmturner.com",
-  trailingSlash: "never",
+  trailingSlash: "always",
   integrations: [
     astroExpressiveCode(astroExpressiveCodeOptions),
     mdx(),
