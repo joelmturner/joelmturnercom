@@ -1,3 +1,9 @@
+# force https and non-www
+http://www.joelmturner.com/*    https://joelmturner.com/:splat    301!
+https://www.joelmturner.com/*   https://joelmturner.com/:splat    301!
+http://joelmturner.com/*        https://joelmturner.com/:splat    301!
+
+# redirects
 /blog/font-end-ticket-checklist                                     /blog/front-end-ticket-checklist
 /2014/12/12/post-modern-jukebox-art                                 /blog/pmj-artwork
 /2014/12/12/post-modern-jukebox-art/                                /blog/pmj-artwork
@@ -6,7 +12,7 @@
 /notes/ui-library/storybook                                         /til/storybook
 /wp-content/uploads/2014/12/PMJ-Promotional-Poster-678x1024.jpg     /blog/pmj-artwork
 /blog/react-hooks-use-slider                                        /blog/react-hooks-useslider
-/blog/create-a-single-line-chart-in-react-with-vx                   /blog/create-a-single-line-chart-in-react-with-@vx
+/blog/create-a-single-line-chart-in-react-with-vx                   "/blog/create-a-single-line-chart-in-react-with-@vx"
 /blog/instagram-to-cloudinary/                                      /blog/instagram-cloudinary
 /blog/getting-sassy-with-sass-nesting/                              /blog/sassy-with-sass
 /blog/react-hooks-use-dims                                          /blog/react-hooks-usedims
