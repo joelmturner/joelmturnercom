@@ -32,5 +32,8 @@ http://joelmturner.com/*        https://joelmturner.com/:splat    301!
 /api/*                 /api/:splat            200
 /*.*                   /:splat                200
 
-# --- enforce trailing slashes for everything else ---
-/:path                 /:path/                301!
+# --- guard: if it already ends with a slash, do nothing ---
+/:path/                  /:path/                 200
+
+# --- enforce trailing slash for everything else ---
+/:path                   /:path/                 301!
