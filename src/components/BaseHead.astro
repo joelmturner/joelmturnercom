@@ -14,7 +14,14 @@ interface Props {
   image?: string;
 }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+// ensure canonical URL has trailing slash (except root) to match trailingSlash: "always" config
+const pathname =
+  Astro.url.pathname === '/'
+    ? '/'
+    : Astro.url.pathname.endsWith('/')
+      ? Astro.url.pathname
+      : `${Astro.url.pathname}/`;
+const canonicalURL = new URL(pathname, Astro.site);
 
 function isValidURL(url: string) {
   const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
@@ -59,14 +66,14 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
+<meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={resolvedTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={`${ogImage}?v=1`} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:url" content={canonicalURL} />
 <meta property="twitter:title" content={resolvedTitle} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={`${ogImage}?v=1`} />

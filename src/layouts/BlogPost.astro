@@ -9,10 +9,12 @@ import { flex } from 'styled-system/patterns';
 import { prose } from 'styled-system/recipes';
 import BaseLayout from './BaseLayout.astro';
 import { ClientRouter } from 'astro:transitions';
+import { SITE_TITLE } from 'src/consts';
 
 type Props = CollectionEntry<'blog'>['data'] & {
   next?: CollectionEntry<'blog'>;
   prev?: CollectionEntry<'blog'>;
+  slug?: string;
 };
 
 const {
@@ -26,11 +28,61 @@ const {
   categories,
   next,
   prev,
+  slug,
 } = Astro.props;
+
+// generate structured data for SEO
+const canonicalUrl = new URL(`/blog/${slug}/`, Astro.site);
+const imageUrl = cover
+  ? cover.startsWith('http')
+    ? cover
+    : `https://res.cloudinary.com/joelmturner/image/upload/${cover}`
+  : `${Astro.site}/favicon-32x32.png`;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description: excerpt || description,
+  datePublished: date?.toISOString(),
+  dateModified: lastmod?.toISOString() || date?.toISOString(),
+  author: {
+    '@type': 'Person',
+    name: SITE_TITLE,
+    url: Astro.site,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: SITE_TITLE,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${Astro.site}/favicon-32x32.png`,
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalUrl.toString(),
+  },
+  keywords: tags?.join(', ') || '',
+  articleSection: categories,
+  ...(cover
+    ? {
+        image: {
+          '@type': 'ImageObject',
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+        },
+      }
+    : {
+        image: imageUrl,
+      }),
+};
 ---
 
 <BaseLayout title={title} description={excerpt ?? description} image={cover}>
   <ClientRouter slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   <div
     class={css({
       '& > img': {
@@ -120,12 +172,12 @@ const {
       <hr />
     </div>
     <div class={flex({ gap: 3, alignItems: 'center' })}>
-      Category: <Badge link={`/blog/category/${slugify(categories)}`}>
+      Category: <Badge link={`/blog/category/${slugify(categories)}/`}>
         {categories}
       </Badge>
     </div>
     <div class={flex({ gap: 3, alignItems: 'center', flexWrap: 'wrap' })}>
-      Tags: {tags.map((tag) => <Badge link={`/blog/tag/${slugify(tag)}`}>{tag}</Badge>)}
+      Tags: {tags.map((tag) => <Badge link={`/blog/tag/${slugify(tag)}/`}>{tag}</Badge>)}
     </div>
     <div
       class={css({
@@ -139,7 +191,7 @@ const {
       {
         prev?.slug && (
           <a
-            href={`/blog/${prev?.slug}`}
+            href={`/blog/${prev?.slug}/`}
             class={flex({
               gap: 2,
               alignItems: 'center',
@@ -156,7 +208,7 @@ const {
       {
         next?.slug && (
           <a
-            href={`/blog/${next?.slug}`}
+            href={`/blog/${next?.slug}/`}
             class={flex({
               gap: 2,
               textAlign: 'right',

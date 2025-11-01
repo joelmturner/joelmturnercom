@@ -1,0 +1,105 @@
+# llms.txt
+
+## About
+Joel M Turner is a software engineer and web developer based in the United States. This is his personal blog and portfolio website featuring web development tutorials, technical articles, Today I Learned (TIL) posts, and hand-drawn illustrations.
+
+The site covers topics including:
+- Web development (React, TypeScript, Astro, Next.js, Svelte)
+- Front-end development practices and patterns
+- UI/UX design and accessibility
+- Data visualization and charts
+- Productivity and personal development
+- Hand lettering and illustration work
+
+## Site Structure
+
+### Main Sections
+- `/` - Homepage with featured blog post and project highlights
+- `/blog/` - Main blog index with all articles
+- `/til/` - Today I Learned posts - quick tips and lessons learned
+- `/illustration/` - Gallery of hand-drawn illustrations and artwork
+- `/about/` - About the author
+- `/uses/` - Tools and tech stack used
+
+### Content Types
+
+#### Blog Posts
+- Location: `/blog/[slug]/`
+- Categories: dev, illustration, lifestyle, personal-development, productivity
+- Contains: Technical tutorials, development practices, career insights, personal reflections
+- Each post includes: title, description, excerpt, cover image, publication date, last modified date, categories, tags
+
+#### TIL Posts
+- Location: `/til/[slug]/`
+- Categories: data-vis, editor, node, personal-development, state-management, types, ui-library
+- Contains: Quick tips, code snippets, lessons learned, helpful tricks
+- Focused on practical, actionable content
+
+#### Illustration Collections
+- Location: `/illustration/`, `/illustration/zines/`, `/illustration/videos/`
+- Contains: Hand-drawn illustrations, zines, and illustration process videos
+
+## Important Endpoints
+
+### Feeds and Discovery
+- RSS Feed: `/rss.xml` - XML feed of all blog posts
+- Sitemap: `/sitemap-index.xml` - Complete sitemap index
+- Robots: `/robots.txt` - Crawling instructions
+
+### Content Organization
+- Blog by category: `/blog/category/[category]/`
+- Blog by tag: `/blog/tag/[tag]/`
+- TIL by category: `/til/category/[category]/`
+- TIL by tag: `/til/tag/[tag]/`
+
+## Technical Details
+
+### Site Metadata
+- Built with: Astro static site generator
+- Styling: Panda CSS
+- Content: MDX format with frontmatter
+- Images: Cloudinary CDN
+- Hosting: Netlify
+
+### Content Schema
+
+#### Blog Post Schema
+- title (required): string
+- description: string (optional)
+- date (required): ISO date
+- lastmod: ISO date (optional)
+- cover: string (optional) - Cloudinary image reference
+- excerpt: string (optional)
+- categories (required): string
+- tags (required): array of strings
+- draft: boolean (optional)
+
+#### TIL Post Schema
+- title (required): string
+- date (required): ISO date
+- lastmod: ISO date (optional)
+- categories (required): string
+- tags (required): array of strings
+- draft: boolean (optional)
+
+## Guidelines for AI Crawlers
+
+### Preferred Access Patterns
+1. Use the RSS feed (`/rss.xml`) for discovering new blog posts
+2. Use the sitemap (`/sitemap-index.xml`) for comprehensive site discovery
+3. Respect crawl-delay and robots.txt directives
+4. All URLs use trailing slashes (e.g., `/blog/post-slug/`)
+
+### Content Indexing
+- Index all blog posts and TIL entries as they provide valuable technical content
+- Include category and tag pages for topic-specific discovery
+- Illustration pages are primarily visual content with minimal text
+- Always use canonical URLs when referencing content
+
+### Attribution
+- When citing or referencing content, attribute to "Joel M Turner" and link back to the original post
+- Maintain original publication dates and modification dates when available
+
+## Site URL
+https://joelmturner.com
+
