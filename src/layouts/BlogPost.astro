@@ -32,6 +32,10 @@ const {
 } = Astro.props;
 
 // generate structured data for SEO
+// ensure slug exists to prevent errors
+if (!slug) {
+  throw new Error('BlogPost component requires a slug prop');
+}
 const canonicalUrl = new URL(`/blog/${slug}/`, Astro.site);
 const imageUrl = cover
   ? cover.startsWith('http')
@@ -39,17 +43,18 @@ const imageUrl = cover
     : `https://res.cloudinary.com/joelmturner/image/upload/${cover}`
   : `${Astro.site}/favicon-32x32.png`;
 
+// generate structured data with safe defaults to prevent errors
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
-  headline: title,
-  description: excerpt || description,
-  datePublished: date?.toISOString(),
-  dateModified: lastmod?.toISOString() || date?.toISOString(),
+  headline: title || '',
+  description: (excerpt || description || '').substring(0, 500),
+  ...(date && { datePublished: date.toISOString() }),
+  ...(lastmod || date ? { dateModified: (lastmod || date).toISOString() } : {}),
   author: {
     '@type': 'Person',
     name: SITE_TITLE,
-    url: Astro.site,
+    url: Astro.site?.toString() || '',
   },
   publisher: {
     '@type': 'Organization',
@@ -63,8 +68,8 @@ const structuredData = {
     '@type': 'WebPage',
     '@id': canonicalUrl.toString(),
   },
-  keywords: tags?.join(', ') || '',
-  articleSection: categories,
+  ...(tags && tags.length > 0 && { keywords: tags.join(', ') }),
+  ...(categories && { articleSection: categories }),
   ...(cover
     ? {
         image: {
@@ -82,7 +87,7 @@ const structuredData = {
 
 <BaseLayout title={title} description={excerpt ?? description} image={cover}>
   <ClientRouter slot="head" />
-  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData, null, 0)} />
   <div
     class={css({
       '& > img': {
