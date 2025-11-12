@@ -1,4 +1,9 @@
-# force https and non-www
+# force https and non-www (must come first, before trailing slash rules)
+# Handle root path explicitly
+http://www.joelmturner.com/     https://joelmturner.com/           301!
+https://www.joelmturner.com/    https://joelmturner.com/           301!
+http://joelmturner.com/         https://joelmturner.com/           301!
+# Handle all other paths
 http://www.joelmturner.com/*    https://joelmturner.com/:splat    301!
 https://www.joelmturner.com/*   https://joelmturner.com/:splat    301!
 http://joelmturner.com/*        https://joelmturner.com/:splat    301!
