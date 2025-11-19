@@ -1,6 +1,4 @@
 ---
-import { css } from 'styled-system/css';
-
 type Props = {
   link?: string;
 };
@@ -8,7 +6,7 @@ type Props = {
 const { link } = Astro.props;
 ---
 
-<a href={link} target="_blank">
+<a href={link}>
   <wa-badge><slot /></wa-badge>
 </a>
 

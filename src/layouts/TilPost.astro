@@ -43,7 +43,7 @@ const { title, next, prev, tags } = Astro.props;
           {title}
         </h1>
         <div class={flex({ gap: 3, alignItems: 'center' })}>
-          {tags.map((tag) => <Badge link={`/til/tag/${tag}`}>{tag}</Badge>)}
+          {tags.map((tag) => <Badge link={`/til/tag/${tag}/`}>{tag}</Badge>)}
         </div>
         <hr class={css({ mt: 5, mb: 0 })} />
       </div>
@@ -63,7 +63,7 @@ const { title, next, prev, tags } = Astro.props;
     })}
   >
     <a
-      href={`/til/${prev?.slug}`}
+      href={`/til/${prev?.data?.slug}/`}
       class={flex({
         gap: 2,
         alignItems: 'center',
@@ -74,7 +74,7 @@ const { title, next, prev, tags } = Astro.props;
       })}><span>{`< `}</span> {prev?.data?.title}</a
     >
     <a
-      href={`/til/${next?.slug}`}
+      href={`/til/${next?.data?.slug}/`}
       class={flex({
         gap: 2,
         textAlign: 'right',

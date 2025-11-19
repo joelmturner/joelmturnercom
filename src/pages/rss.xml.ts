@@ -11,7 +11,7 @@ export async function GET(context: Record<string, any>) {
     items: posts.reverse().map((post) => ({
       title: post.data.title,
       description: post.data.excerpt || post.data.description,
-      link: `/blog/${post.slug}/`,
+      link: `/blog/${post.data.slug || post.id}/`,
       pubDate: post.data.date,
     })),
   });

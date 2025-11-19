@@ -194,9 +194,9 @@ const structuredData = {
       })}
     >
       {
-        prev?.slug && (
+        prev?.data?.slug && (
           <a
-            href={`/blog/${prev?.slug}/`}
+            href={`/blog/${prev?.data?.slug}/`}
             class={flex({
               gap: 2,
               alignItems: 'center',
@@ -211,9 +211,9 @@ const structuredData = {
         )
       }
       {
-        next?.slug && (
+        next?.data?.slug && (
           <a
-            href={`/blog/${next?.slug}/`}
+            href={`/blog/${next?.data?.slug}/`}
             class={flex({
               gap: 2,
               textAlign: 'right',

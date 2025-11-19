@@ -1,0 +1,30 @@
+---
+import { flex } from 'styled-system/patterns';
+
+const variant = Astro.props.variant;
+const height = Astro.props.height || '500px';
+const width = Astro.props.width || '500px';
+---
+
+<div class={flex({ direction: 'column', gap: 4, mb: 4, height: height, width: width })}>
+  <zine-viewer id={variant} data-variant={variant}>
+    <slot />
+  </zine-viewer>
+</div>
+
+<script
+  is:inline
+  type="module"
+  src="https://unpkg.com/@joelmturner/zine-viewer-web-component?module"></script>
+
+<style>
+  zine-viewer {
+    --canvas-bg-color: rgba(81, 77, 86, 0.5);
+    /* min-height: 500px; */
+  }
+  @media (max-width: 768px) {
+    zine-viewer {
+      /* min-height: 300px; */
+    }
+  }
+</style>

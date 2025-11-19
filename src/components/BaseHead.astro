@@ -112,4 +112,4 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
 />
 
 <!-- analytics -->
-<PostHog />
+{import.meta.env.MODE !== 'development' && <PostHog />}

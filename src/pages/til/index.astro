@@ -24,11 +24,11 @@ const tilPosts = (await getCollection('til')).sort(
         tilPosts.map((post) => (
           <div class={flex({ direction: 'column' })}>
             <h3>
-              <a href={`/til/${post.slug}`}>{post.data.title}</a>
+              <a href={`/til/${post.data.slug}/`}>{post.data.title}</a>
             </h3>
             <div class={flex({ gap: 3, alignItems: 'center' })}>
               {post.data.tags.map((tag) => (
-                <Badge link={`/til/tag/${slugify(tag)}`}>{tag}</Badge>
+                <Badge link={`/til/tag/${slugify(tag)}/`}>{tag}</Badge>
               ))}
             </div>
           </div>

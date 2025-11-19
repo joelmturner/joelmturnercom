@@ -1,8 +1,10 @@
 import { defineCollection, z } from "astro:content";
 import { cldAssetsLoader } from "astro-cloudinary/loaders";
+import { glob } from "astro/loaders";
 
 const blog = defineCollection({
   // Type-check frontmatter using a schema
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
@@ -14,11 +16,13 @@ const blog = defineCollection({
     excerpt: z.string().optional(),
     categories: z.string(),
     tags: z.array(z.string()),
+    slug: z.string().optional(),
   }),
 });
 
 const til = defineCollection({
   // Type-check frontmatter using a schema
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/til" }),
   schema: z.object({
     title: z.string(),
     // Transform string to Date object
@@ -27,6 +31,7 @@ const til = defineCollection({
     draft: z.boolean().optional(),
     categories: z.string(),
     tags: z.array(z.string()),
+    slug: z.string().optional(),
   }),
 });
 

@@ -43,7 +43,7 @@ const combinedStyles = css({
 ---
 
 <div class={combinedStyles}>
-  <a href={`/blog/${post.slug}/`} class={prose({ size: '2xl' })}>
+  <a href={`/blog/${post.data.slug || post.id}/`} class={prose({ size: '2xl' })}>
     {
       post.data.cover ? (
         <CldImage

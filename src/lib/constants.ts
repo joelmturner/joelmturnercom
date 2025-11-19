@@ -43,6 +43,15 @@ export const PROJECTS: Project[] = [
     featured: false,
     url: "https://boochtown.com/",
   },
+  {
+    name: "Zine Viewer",
+    description: "A web component for viewing zines.",
+    imageURL: "zine-viewer_sx9kgh",
+    tech: ["typescript"],
+    github: "https://github.com/joelmturner/zine-viewer-web-component",
+    featured: false,
+    url: "https://joelmturner.com/illustration/zines/",
+  },
 ];
 
 export const ILLUSTRATION_FILTER_OPTIONS: {
@@ -64,11 +73,11 @@ export const ILLUSTRATION_FILTER_OPTIONS: {
 ];
 
 export const NAV_LINKS = [
-  { href: "about", label: "About" },
-  { href: "blog", label: "Blog" },
-  { href: "illustration", label: "Illustration" },
-  { href: "til", label: "TIL" },
-  { href: "uses", label: "Uses" },
+  { href: "about/", label: "About" },
+  { href: "blog/", label: "Blog" },
+  { href: "illustration/", label: "Illustration" },
+  { href: "til/", label: "TIL" },
+  { href: "uses/", label: "Uses" },
 ];
 
 export const SOCIAL_LINKS: { href: string; label: SocialIconLabel }[] = [

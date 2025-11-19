@@ -1,11 +1,17 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
+import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '@layouts/BlogPost.astro';
+
+// helper to extract slug from entry id (filename without extension)
+function getSlugFromId(id: string): string {
+  // id is the filename without extension, e.g., "2025-11-17-zine-viewer-web-component"
+  return id;
+}
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   return posts.map((post, index) => ({
-    params: { slug: post.slug },
+    params: { slug: post.data.slug || getSlugFromId(post.id) },
     props: { post, next: posts[index + 1], prev: posts[index - 1] },
   }));
 }
@@ -16,9 +22,10 @@ type Props = {
 };
 
 const { post, next, prev } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
+const slug = post.data.slug || getSlugFromId(post.id);
 ---
 
-<BlogPost {...post.data} slug={post.slug} next={next} prev={prev}>
+<BlogPost {...post.data} slug={slug} next={next} prev={prev}>
   <Content />
 </BlogPost>

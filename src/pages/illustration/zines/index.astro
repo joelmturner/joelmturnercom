@@ -25,31 +25,10 @@ import { flex, grid } from 'styled-system/patterns';
     })}
   >
     <h2>Pick Me Ups</h2>
-    <zine-viewer>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/FRONT.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/1.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/2.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/3.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/4.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/5.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/6.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/BACK.jpg"
-      >
-      </div>
-    </zine-viewer>
+    <zine-viewer id="pick-me-ups"></zine-viewer>
 
     <h2>Unicorns</h2>
-    <zine-viewer>
+    <zine-viewer id="unicorns">
       <div
         img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579528/zines/unicorn%20zine/unicorn_1.jpg"
         back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579528/zines/unicorn%20zine/unicorn_2.jpg"
@@ -73,7 +52,7 @@ import { flex, grid } from 'styled-system/patterns';
     </zine-viewer>
 
     <h2>Tea Friends</h2>
-    <zine-viewer>
+    <zine-viewer id="tea-friends">
       <div
         img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579525/zines/tea%20zine/tea_zine_1.jpg"
         back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579525/zines/tea%20zine/tea_zine_2.jpg"
@@ -97,7 +76,7 @@ import { flex, grid } from 'styled-system/patterns';
     </zine-viewer>
 
     <h2>Robot</h2>
-    <zine-viewer>
+    <zine-viewer id="robot">
       <div
         img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579523/zines/robots%20zine/robots__1.jpg"
         back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579523/zines/robots%20zine/robots__2.jpg"
@@ -121,7 +100,7 @@ import { flex, grid } from 'styled-system/patterns';
     </zine-viewer>
 
     <h2>Creatures</h2>
-    <zine-viewer>
+    <zine-viewer id="creatures">
       <div
         img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744580263/zines/creatures%20zine/creatures_1.jpg"
         back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744580263/zines/creatures%20zine/creatures_2.jpg"
@@ -145,7 +124,7 @@ import { flex, grid } from 'styled-system/patterns';
     </zine-viewer>
 
     <h2>Page Fillers</h2>
-    <zine-viewer>
+    <zine-viewer id="page-fillers">
       <div
         img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579520/zines/party%20zine/party_1.jpg"
         back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579520/zines/party%20zine/party_2.jpg"
@@ -173,6 +152,31 @@ import { flex, grid } from 'styled-system/patterns';
 <script type="module" src="https://unpkg.com/@joelmturner/zine-viewer-web-component?module"
 ></script>
 
+<script>
+  const pickMeUpsPages = [
+    {
+      img: 'https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/FRONT.jpg',
+      backImg:
+        'https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/1.jpg',
+    },
+    {
+      img: 'https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/2.jpg',
+      backImg:
+        'https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/3.jpg',
+    },
+    {
+      img: 'https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/4.jpg',
+      backImg:
+        'https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/5.jpg',
+    },
+    {
+      img: 'https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/6.jpg',
+      backImg:
+        'https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/BACK.jpg',
+    },
+  ];
+  document.getElementById('pick-me-ups')?.setAttribute('pages', JSON.stringify(pickMeUpsPages));
+</script>
 <style>
   zine-viewer {
     --canvas-bg-color: rgba(81, 77, 86, 0.5);

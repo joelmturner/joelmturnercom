@@ -24,14 +24,18 @@ export default defineConfig({
     astroExpressiveCode(astroExpressiveCodeOptions),
     mdx(),
     sitemap(),
-    sentry({
-      dsn: SENTRY_DSN,
-      sourceMapsUploadOptions: {
-        project: "joelmturnercom",
-        org: "joelmturnercom",
-        authToken: SENTRY_AUTH_TOKEN,
-      },
-    }),
+    ...(process.env.NODE_ENV !== "development"
+      ? [
+          sentry({
+            dsn: SENTRY_DSN,
+            sourceMapsUploadOptions: {
+              project: "joelmturnercom",
+              org: "joelmturnercom",
+              authToken: SENTRY_AUTH_TOKEN,
+            },
+          }),
+        ]
+      : []),
     icon({
       include: {
         logos: [
