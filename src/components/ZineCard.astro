@@ -1,0 +1,67 @@
+---
+import { CldImage } from 'astro-cloudinary';
+import { css, cx } from 'styled-system/css';
+import { prose } from 'styled-system/recipes';
+import FormattedDate from './FormattedDate.astro';
+import { type CollectionEntry } from 'astro:content';
+import { slugify } from '@lib/posts';
+import ZineViewer from './ZineViewer.astro';
+
+export type Props = {
+  zine: CollectionEntry<'zines'>;
+  featured?: boolean;
+};
+const { zine, featured } = Astro.props;
+
+const featuredStyles = {
+  w: 'full',
+  mb: { base: 0, lg: 4 },
+  textAlign: 'center',
+  '& img': {
+    w: 'full',
+  },
+};
+
+const combinedStyles = css({
+  w: { base: 'full' },
+  textAlign: { base: 'center', lg: 'left' },
+  '& *': {
+    textDecoration: 'none',
+    transition: '0.2s ease',
+  },
+  '&:hover h4': {
+    color: 'accent',
+  },
+});
+
+const imageUrlsInSetsOfTwo = zine?.data.imgUrls.reduce(
+  (acc, imgUrl, index) => {
+    if (index % 2 === 0) {
+      acc.push([imgUrl, zine?.data.imgUrls[index + 1] || null]);
+    }
+    return acc;
+  },
+  [] as [string, string | null][]
+);
+---
+
+<div class={combinedStyles}>
+  <ZineViewer height="300px" width="100%" variant="card">
+    {imageUrlsInSetsOfTwo.map((imgUrl) => <div img-src={imgUrl[0]} back-img-src={imgUrl[1]} />)}
+  </ZineViewer>
+  <a href={`/illustration/zines/${zine.data.slug || zine.id}/`} class={prose({ size: '2xl' })}>
+    <h4
+      class={css({
+        mt: 3,
+        mb: 1,
+        lineHeight: 1.1,
+        fontSize: { base: '2xl', md: '3xl' },
+      })}
+    >
+      {zine.data.title}
+    </h4>
+    <p class={css({ m: 0 })}>
+      <FormattedDate date={zine.data.date} />
+    </p>
+  </a>
+</div>

@@ -1,0 +1,94 @@
+---
+import ZineViewer from '@components/ZineViewer.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { css } from 'styled-system/css';
+import { flex } from 'styled-system/patterns';
+
+export async function getStaticPaths() {
+  const zines = await getCollection('zines');
+  return zines.map((zine, index) => ({
+    params: { slug: zine.data.slug },
+    props: { zine, next: zines[index + 1], prev: zines[index - 1] },
+  }));
+}
+
+const { zine, next, prev } = Astro.props;
+const { Content } = await render(zine);
+
+const imageUrlsInSetsOfTwo = zine?.data.imgUrls.reduce(
+  (acc, imgUrl, index) => {
+    if (index % 2 === 0) {
+      acc.push([imgUrl, zine?.data.imgUrls[index + 1] || null]);
+    }
+    return acc;
+  },
+  [] as [string, string | null][]
+);
+---
+
+<BaseLayout title={zine?.data.title}>
+  <h1>{zine?.data.title}</h1>
+  <ZineViewer variant="rubber-hose" height="500px" width="100%">
+    {
+      imageUrlsInSetsOfTwo.map(([imgUrl, backImgUrl]) => (
+        <div img-src={imgUrl} back-img-src={backImgUrl} />
+      ))
+    }
+  </ZineViewer>
+
+  <Content />
+
+  <div
+    class={css({
+      display: 'flex',
+      justifyContent: 'space-between',
+      padding: 3,
+      gap: 8,
+      color: 'accent',
+    })}
+  >
+    {
+      prev?.data?.slug ? (
+        <a
+          href={`/illustration/zines/${prev?.data?.slug}/`}
+          class={flex({
+            gap: 2,
+            alignItems: 'center',
+            transition: 'color 0.2s ease',
+            '&:hover': {
+              color: { _dark: 'brand.300', _light: 'brand.400' },
+            },
+          })}
+        >
+          <span>{`< `}</span> {prev?.data?.title}
+        </a>
+      ) : (
+        <div />
+      )
+    }
+    {
+      next?.data?.slug && (
+        <a
+          href={`/illustration/zines/${next?.data?.slug}/`}
+          class={flex({
+            gap: 2,
+            textAlign: 'right',
+            alignItems: 'center',
+            transition: 'color 0.2s ease',
+            '&:hover': {
+              color: { _dark: 'brand.300', _light: 'brand.400' },
+            },
+          })}
+        >
+          {next?.data?.title} <span>{` >`}</span>
+        </a>
+      )
+    }
+  </div>
+  <a
+    href="/illustration/zines/"
+    class={css({ textDecoration: 'underline', color: 'prose.link', textAlign: 'right' })}
+    >Back to zines</a
+  >
+</BaseLayout>

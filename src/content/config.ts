@@ -56,4 +56,16 @@ const video = defineCollection({
   }),
 });
 
-export const collections = { blog, til, illustration, video };
+const zines = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/zines" }),
+  schema: z.object({
+    title: z.string(),
+    // Transform string to Date object
+    date: z.coerce.date(),
+    lastmod: z.coerce.date().optional(),
+    slug: z.string().optional(),
+    imgUrls: z.array(z.string()),
+  }),
+});
+
+export const collections = { blog, til, illustration, video, zines };

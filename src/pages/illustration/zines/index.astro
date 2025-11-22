@@ -1,7 +1,11 @@
 ---
+import ZineCard from '@components/ZineCard.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
 import { css } from 'styled-system/css';
 import { flex, grid } from 'styled-system/patterns';
+
+const zines = await getCollection('zines');
 ---
 
 <BaseLayout title={'Zines'} description={'Some illustrative zines'}>
@@ -18,195 +22,12 @@ import { flex, grid } from 'styled-system/patterns';
       alignItems: 'center',
       maxWidth: '100%',
       direction: 'column',
-      gap: 4,
-      gridTemplateColumns: '1fr',
+      gap: 8,
+      gridTemplateColumns: { sm: '1fr', lg: '1fr 1fr' },
       height: '100%',
       paddingBottom: 120,
     })}
   >
-    <h2>Rubber Hose Primer</h2>
-    <zine-viewer id="page-fillers">
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1763835454/zines/rubber%20hose/Rubber_hose_zine_1.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1763835454/zines/rubber%20hose/Rubber_hose_zine_2.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1763835454/zines/rubber%20hose/Rubber_hose_zine_3.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1763835454/zines/rubber%20hose/Rubber_hose_zine_4.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1763835454/zines/rubber%20hose/Rubber_hose_zine_5.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1763835454/zines/rubber%20hose/Rubber_hose_zine_6.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1763835454/zines/rubber%20hose/Rubber_hose_zine_7.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1763835454/zines/rubber%20hose/Rubber_hose_zine_8.jpg"
-      >
-      </div>
-    </zine-viewer>
-
-    <h2>Pick Me Ups</h2>
-    <zine-viewer id="pick-me-ups"></zine-viewer>
-
-    <h2>Unicorns</h2>
-    <zine-viewer id="unicorns">
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579528/zines/unicorn%20zine/unicorn_1.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579528/zines/unicorn%20zine/unicorn_2.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579528/zines/unicorn%20zine/unicorn_3.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579528/zines/unicorn%20zine/unicorn_4.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579528/zines/unicorn%20zine/unicorn_5.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579528/zines/unicorn%20zine/unicorn_6.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579528/zines/unicorn%20zine/unicorn_7.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579528/zines/unicorn%20zine/unicorn_8.jpg"
-      >
-      </div>
-    </zine-viewer>
-
-    <h2>Tea Friends</h2>
-    <zine-viewer id="tea-friends">
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579525/zines/tea%20zine/tea_zine_1.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579525/zines/tea%20zine/tea_zine_2.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579525/zines/tea%20zine/tea_zine_3.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579525/zines/tea%20zine/tea_zine_4.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579525/zines/tea%20zine/tea_zine_5.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579525/zines/tea%20zine/tea_zine_6.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579525/zines/tea%20zine/tea_zine_7.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579525/zines/tea%20zine/tea_zine_8.jpg"
-      >
-      </div>
-    </zine-viewer>
-
-    <h2>Robot</h2>
-    <zine-viewer id="robot">
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579523/zines/robots%20zine/robots__1.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579523/zines/robots%20zine/robots__2.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579523/zines/robots%20zine/robots__3.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579523/zines/robots%20zine/robots__4.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579523/zines/robots%20zine/robots__5.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579523/zines/robots%20zine/robots__6.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579523/zines/robots%20zine/robots__7.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579523/zines/robots%20zine/robots__8.jpg"
-      >
-      </div>
-    </zine-viewer>
-
-    <h2>Creatures</h2>
-    <zine-viewer id="creatures">
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744580263/zines/creatures%20zine/creatures_1.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744580263/zines/creatures%20zine/creatures_2.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744580263/zines/creatures%20zine/creatures_3.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744580263/zines/creatures%20zine/creatures_4.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744580263/zines/creatures%20zine/creatures_5.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744580263/zines/creatures%20zine/creatures_6.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744580263/zines/creatures%20zine/creatures_7.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744580263/zines/creatures%20zine/creatures_8.jpg"
-      >
-      </div>
-    </zine-viewer>
-
-    <h2>Page Fillers</h2>
-    <zine-viewer id="page-fillers">
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579520/zines/party%20zine/party_1.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579520/zines/party%20zine/party_2.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579520/zines/party%20zine/party_3.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579520/zines/party%20zine/party_4.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579520/zines/party%20zine/party_5.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579520/zines/party%20zine/party_6.jpg"
-      >
-      </div>
-      <div
-        img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579520/zines/party%20zine/party_7.jpg"
-        back-img-src="https://res.cloudinary.com/joelmturner/image/upload/v1744579520/zines/party%20zine/party_8.jpg"
-      >
-      </div>
-    </zine-viewer>
+    {zines.map((zine) => <ZineCard zine={zine} />)}
   </div>
 </BaseLayout>
-
-<script type="module" src="https://unpkg.com/@joelmturner/zine-viewer-web-component?module"
-></script>
-
-<script>
-  const pickMeUpsPages = [
-    {
-      img: 'https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/FRONT.jpg',
-      backImg:
-        'https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/1.jpg',
-    },
-    {
-      img: 'https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/2.jpg',
-      backImg:
-        'https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/3.jpg',
-    },
-    {
-      img: 'https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/4.jpg',
-      backImg:
-        'https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/5.jpg',
-    },
-    {
-      img: 'https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/6.jpg',
-      backImg:
-        'https://res.cloudinary.com/joelmturner/image/upload/v1736665494/zines/pick%20me%20ups/BACK.jpg',
-    },
-  ];
-  document.getElementById('pick-me-ups')?.setAttribute('pages', JSON.stringify(pickMeUpsPages));
-</script>
-<style>
-  zine-viewer {
-    --canvas-bg-color: rgba(81, 77, 86, 0.5);
-    min-height: 500px;
-    @media (max-width: 768px) {
-      min-height: 300px;
-    }
-  }
-</style>
