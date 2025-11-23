@@ -4,6 +4,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 import { css } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
+import Badge from '@components/Badge.astro';
 
 export async function getStaticPaths() {
   const zines = await getCollection('zines');
@@ -25,6 +26,9 @@ const imageUrlsInSetsOfTwo = zine?.data.imgUrls.reduce(
   },
   [] as [string, string | null][]
 );
+
+const author = zine?.data.author;
+const isGuestAuthor = author !== 'Joel M Turner';
 ---
 
 <BaseLayout title={zine?.data.title}>
@@ -36,6 +40,17 @@ const imageUrlsInSetsOfTwo = zine?.data.imgUrls.reduce(
       ))
     }
   </ZineViewer>
+
+  {
+    isGuestAuthor && (
+      <p>
+        <Badge link={zine?.data.authorUrl}>Guest Author</Badge>
+        <a href={zine?.data.authorUrl} target="_blank" rel="noopener noreferrer">
+          {zine?.data.author}
+        </a>
+      </p>
+    )
+  }
 
   <Content />
 

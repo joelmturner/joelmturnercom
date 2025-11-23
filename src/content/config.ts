@@ -65,6 +65,8 @@ const zines = defineCollection({
     lastmod: z.coerce.date().optional(),
     slug: z.string().optional(),
     imgUrls: z.array(z.string()),
+    author: z.string().default("Joel M Turner"),
+    authorUrl: z.string().default("https://joelmturner.com"),
   }),
 });
 
