@@ -61,13 +61,22 @@ const zines = await getCollection('zines');
         console.log('Fetching zip file from API...');
         // try with trailing slash first (Astro default)
         let apiPath = '/api/zines/download-all/';
-        let response = await fetch(apiPath);
+        let response = await fetch(apiPath, {
+          cache: 'no-store',
+        });
 
         // if that fails, try without trailing slash
         if (!response.ok && response.status === 404) {
           console.log('Trying without trailing slash...');
           apiPath = '/api/zines/download-all';
-          response = await fetch(apiPath);
+          response = await fetch(apiPath, {
+            cache: 'no-store',
+          });
+        }
+
+        // handle 304 Not Modified (shouldn't happen with no-store, but just in case)
+        if (response.status === 304) {
+          throw new Error('Server returned cached response (304). Please try again.');
         }
 
         if (!response.ok) {

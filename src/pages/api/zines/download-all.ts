@@ -15,7 +15,10 @@ export async function GET() {
     if (zinesWithPdfs.length === 0) {
       return new Response(JSON.stringify({ error: "No PDFs found" }), {
         status: 404,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+        },
       });
     }
 
@@ -61,7 +64,10 @@ export async function GET() {
         }),
         {
           status: 500,
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+          },
         },
       );
     }
@@ -69,11 +75,14 @@ export async function GET() {
     // generate zip file
     const zipBlob = await zip.generateAsync({ type: "nodebuffer" });
 
-    return new Response(zipBlob, {
+    return new Response(Buffer.from(zipBlob.buffer as ArrayBuffer), {
       status: 200,
       headers: {
         "Content-Type": "application/zip",
         "Content-Disposition": 'attachment; filename="zines.zip"',
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
       },
     });
   } catch (error) {
@@ -85,7 +94,10 @@ export async function GET() {
       }),
       {
         status: 500,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+        },
       },
     );
   }
