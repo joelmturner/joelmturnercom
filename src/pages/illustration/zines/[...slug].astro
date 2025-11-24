@@ -5,6 +5,7 @@ import { getCollection, render } from 'astro:content';
 import { css } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
 import Badge from '@components/Badge.astro';
+import ZineFoldInstructions from '@components/ZineFoldInstructions.astro';
 
 export async function getStaticPaths() {
   const zines = await getCollection('zines');
@@ -49,6 +50,17 @@ const isGuestAuthor = author !== 'Joel M Turner';
           {zine?.data.author}
         </a>
       </p>
+    )
+  }
+
+  {
+    zine?.data.pdfUrl && (
+      <div class={flex({ gap: 2 })}>
+        <a href={zine?.data.pdfUrl} target="_blank" rel="noopener noreferrer">
+          <wa-button size="small">Download PDF</wa-button>
+        </a>
+        <ZineFoldInstructions />
+      </div>
     )
   }
 

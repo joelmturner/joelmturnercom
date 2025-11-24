@@ -1,0 +1,37 @@
+---
+
+---
+
+<wa-dialog label="Dialog" light-dismiss class="dialog-light-dismiss">
+  <iframe
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/llhMYmG0PCg?si=xfim2gsSCW7EQbXO&start=130"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen></iframe>
+  <wa-button slot="footer" variant="brand" data-dialog="close"> Close </wa-button>
+</wa-dialog>
+
+<wa-button size="small">
+  <wa-icon name="info-circle" label="How to fold the zine"></wa-icon>
+  How to fold the zine
+</wa-button>
+
+<script>
+  const dialog = document.querySelector('wa-dialog') as HTMLDialogElement & {
+    open?: boolean;
+  };
+  const openButton = dialog?.nextElementSibling;
+
+  openButton?.addEventListener('click', () => (dialog.open = true));
+</script>
+
+<style>
+  wa-dialog {
+    --spacing: 0;
+    --width: 560px;
+  }
+</style>
