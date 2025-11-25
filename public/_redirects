@@ -28,5 +28,8 @@
 /_next/*               /_next/:splat          200
 /api/*                 /api/:splat            200
 
+# --- guard: if it already ends with a slash, do nothing ---
+/:path/                  /:path/                 200
+
 # --- enforce trailing slash (Astro has trailingSlash: "always", but this is a fallback) ---
 /:path                   /:path/                 301!
