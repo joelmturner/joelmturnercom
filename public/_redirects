@@ -1,15 +1,4 @@
-# force https and non-www (must come first, before trailing slash rules)
-# Handle root path explicitly
-http://www.joelmturner.com/     https://joelmturner.com/            301!
-https://www.joelmturner.com/    https://joelmturner.com/            301!
-http://joelmturner.com/         https://joelmturner.com/            301!
-http://joelmturner.com          https://joelmturner.com/            301!
-# Handle all other paths
-http://www.joelmturner.com/*    https://joelmturner.com/:splat      301!
-https://www.joelmturner.com/*   https://joelmturner.com/:splat      301!
-http://joelmturner.com/*        https://joelmturner.com/:splat      301!
-
-# --- specific legacy redirects ---
+# --- legacy redirects ---
 /index.html                     /                                   301!
 /blog/font-end-ticket-checklist                                     /blog/front-end-ticket-checklist/
 /2014/12/12/post-modern-jukebox-art                                 /blog/pmj-artwork/
@@ -27,20 +16,17 @@ http://joelmturner.com/*        https://joelmturner.com/:splat      301!
 /wp-content/uploads/2014/12/Robyn-Eviction-Tour-Promo-Poster.jpg    /blog/pmj-artwork/
 /2014/01/17/creating-daily-routine-freedom                          /blog/creating-daily-routine-freedom/
 
-# --- exclusions that should never be redirected by the catch-all ---
+# --- static asset exclusions (prevent redirects on files) ---
 /favicon.ico           /favicon.ico           200
 /robots.txt            /robots.txt            200
 /sitemap-index.xml     /sitemap-index.xml     200
 /sitemap-:name.xml     /sitemap-:name.xml     200
 /rss.xml               /rss.xml               200
 /llms.txt              /llms.txt              200
+/*.*                   /:splat                200
 /_astro/*              /_astro/:splat         200
 /_next/*               /_next/:splat          200
 /api/*                 /api/:splat            200
-/*.*                   /:splat                200
 
-# --- guard: if it already ends with a slash, do nothing ---
-/:path/                  /:path/                 200
-
-# --- enforce trailing slash for everything else ---
+# --- enforce trailing slash (Astro has trailingSlash: "always", but this is a fallback) ---
 /:path                   /:path/                 301!

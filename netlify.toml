@@ -1,0 +1,21 @@
+[build]
+  publish = "dist"
+
+# force HTTPS and non-www redirects
+[[redirects]]
+  from = "http://www.joelmturner.com/*"
+  to = "https://joelmturner.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.joelmturner.com/*"
+  to = "https://joelmturner.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://joelmturner.com/*"
+  to = "https://joelmturner.com/:splat"
+  status = 301
+  force = true
