@@ -147,6 +147,39 @@ const { illustrations } = Astro.props;
   }
   interface WaCarousel extends HTMLElement {
     goToSlide: (index: number) => void;
+    currentIndex?: number;
+  }
+
+  // function to update URL parameter based on currently visible slide
+  function updateUrlFromActiveSlide(publicId: string) {
+    if (!publicId) return;
+
+    const url = new URL(window.location.href);
+    url.searchParams.set('image', publicId);
+    window.history.pushState({}, '', url);
+  }
+
+  // handle carousel slide changes
+  function handleCarouselSlideChange(event: Event) {
+    if (!lightbox.open || !carousel) return;
+
+    // get the current slide index from the event
+    const slideChangeEvent = event as CustomEvent;
+    const currentIndex = (slideChangeEvent.detail?.index ?? slideChangeEvent.detail ?? 0) as number;
+
+    // find the carousel item at this index
+    const carouselItems = Array.from(
+      carousel.querySelectorAll('wa-carousel-item')
+    ) as HTMLElement[];
+    const currentItem = carouselItems[currentIndex];
+
+    if (currentItem?.dataset.publicId) {
+      const currentImageParam = new URLSearchParams(window.location.search).get('image');
+      // only update if it's different from the current URL parameter
+      if (currentImageParam !== currentItem.dataset.publicId) {
+        updateUrlFromActiveSlide(currentItem.dataset.publicId);
+      }
+    }
   }
 
   select?.addEventListener('wa-select', function (event) {
@@ -161,12 +194,54 @@ const { illustrations } = Astro.props;
     window.history.pushState({}, '', url);
   });
 
+  // function to open lightbox for a specific image by publicId
+  function openLightboxForImage(publicId: string) {
+    if (!publicId || window.innerWidth < 768) return;
+
+    const images = gallery?.getElementsByTagName('img');
+    const targetImage = Array.from(images ?? []).find((img) => img.dataset.publicId === publicId);
+
+    if (targetImage) {
+      lightbox.open = true;
+
+      const carouselIndex = Array.from(carousel?.querySelectorAll(`wa-carousel-item`)).findIndex(
+        (item) => (item as HTMLElement).dataset.publicId === publicId
+      );
+
+      (lightbox as HTMLDialogElement & { updateComplete: Promise<void> }).updateComplete.then(
+        () => {
+          if (carousel && carouselIndex !== -1) {
+            if (carouselTimeout) {
+              clearTimeout(carouselTimeout);
+            }
+
+            carouselTimeout = setTimeout(() => {
+              carousel.goToSlide(carouselIndex);
+            }, 100);
+          }
+        }
+      );
+    }
+  }
+
   // initial update and filter based on the query parameter
   document.addEventListener('DOMContentLoaded', () => {
     const initialLabel =
       ILLUSTRATION_FILTER_OPTIONS.find((option) => option.value === initialCollection)?.label ??
       initialCollection;
     updateSelectAndFilter(initialCollection, initialLabel);
+
+    // check if there's an image parameter in the URL and open lightbox
+    const initialImage = urlParams.get('image');
+    if (initialImage) {
+      // wait for the carousel to be populated after filtering
+      setTimeout(() => {
+        openLightboxForImage(initialImage);
+      }, 100);
+    }
+
+    // listen for carousel slide changes to update URL parameter
+    carousel?.addEventListener('wa-slide-change', handleCarouselSlideChange);
   });
 
   let carouselTimeout: NodeJS.Timeout;
@@ -174,6 +249,14 @@ const { illustrations } = Astro.props;
   gallery?.addEventListener('click', (event) => {
     const target = event.target as HTMLImageElement;
     if (target.tagName === 'IMG' && window.innerWidth >= 768) {
+      const publicId = target.dataset.publicId;
+      if (publicId) {
+        // update URL with the image parameter
+        const url = new URL(window.location.href);
+        url.searchParams.set('image', publicId);
+        window.history.pushState({}, '', url);
+      }
+
       lightbox.open = true;
 
       const carouselIndex = Array.from(carousel?.querySelectorAll(`wa-carousel-item`)).findIndex(
@@ -199,6 +282,28 @@ const { illustrations } = Astro.props;
   lightbox.addEventListener('click', (event) => {
     if (event.target === lightbox) {
       lightbox.open = false;
+      // remove image parameter from URL when closing lightbox
+      const url = new URL(window.location.href);
+      url.searchParams.delete('image');
+      window.history.pushState({}, '', url);
+    }
+  });
+
+  // handle browser back/forward navigation
+  window.addEventListener('popstate', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const imageParam = urlParams.get('image');
+
+    if (imageParam) {
+      // if image parameter exists, open lightbox
+      setTimeout(() => {
+        openLightboxForImage(imageParam);
+      }, 100);
+    } else {
+      // if image parameter is removed, close lightbox
+      if (lightbox.open) {
+        lightbox.open = false;
+      }
     }
   });
 </script>
