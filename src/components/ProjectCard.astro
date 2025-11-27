@@ -1,10 +1,9 @@
 ---
+import type { Project } from '@lib/types';
 import { css } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
-import type { Project } from '@lib/types';
 import Image from './Image.astro';
 import ProjectIcon from './ProjectIcon.astro';
-import { Icon } from 'astro-icon/components';
 
 type Props = {
   project: Project;
@@ -15,7 +14,7 @@ const {
 ---
 
 <wa-card with-image with-footer class="card-overview">
-  <a href={url} target="_blank" slot="image">
+  <a href={url} target="_blank" slot="media">
     <Image
       class={css({
         w: 'full',

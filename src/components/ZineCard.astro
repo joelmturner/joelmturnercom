@@ -42,27 +42,19 @@ const isGuestAuthor = zine.data.author !== 'Joel M Turner';
   <ZineViewer height="300px" width="100%" variant="card">
     {imageUrlsInSetsOfTwo.map((imgUrl) => <div img-src={imgUrl[0]} back-img-src={imgUrl[1]} />)}
   </ZineViewer>
-  <a href={`/illustration/zines/${zine.data.slug || zine.id}/`} class={prose({ size: '2xl' })}>
-    <h4
-      class={css({
-        mt: 3,
-        mb: 1,
-        lineHeight: 1.1,
-        fontSize: { base: '2xl', md: '3xl' },
-      })}
-    >
-      {zine.data.title}
-    </h4>
-    <div
-      class={flex({
-        alignItems: 'center',
-        gap: 2,
-        m: 0,
-        w: 'full',
-      })}
-    >
-      <FormattedDate date={zine.data.date} />
-      {isGuestAuthor && <Badge>Guest: {zine.data.author}</Badge>}
-    </div>
-  </a>
+  <div class={flex({ gap: 2, alignItems: 'center', justifyContent: 'space-between' })}>
+    <a href={`/illustration/zines/${zine.data.slug || zine.id}/`} class={prose({ size: '2xl' })}>
+      <h4
+        class={css({
+          my: 0,
+          lineHeight: 1.1,
+          fontSize: { base: '2xl', md: '3xl' },
+        })}
+      >
+        {zine.data.title}
+      </h4>
+    </a>
+
+    {isGuestAuthor && <Badge>Guest: {zine.data.author}</Badge>}
+  </div>
 </div>

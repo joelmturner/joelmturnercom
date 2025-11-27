@@ -51,7 +51,6 @@ const combinedStyles = css({
           height={featured ? 385 : 185}
           src={post.data.cover}
           alt={post.data.title}
-          transition:name={`blog-image-${slugify(post.data.title)}`}
           class={cx(
             'not-prose',
             css({
@@ -71,7 +70,6 @@ const combinedStyles = css({
           height={385}
           src="blog-post-card"
           alt={post.data.title}
-          transition:name={`blog-image-${slugify(post.data.title)}`}
           class={cx(
             'not-prose',
             css({

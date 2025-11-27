@@ -34,7 +34,7 @@ const isGuestAuthor = author !== 'Joel M Turner';
 
 <BaseLayout title={zine?.data.title}>
   <h1>{zine?.data.title}</h1>
-  <ZineViewer variant="rubber-hose" height="500px" width="100%">
+  <ZineViewer variant="rubber-hose" height="500px" width="100%" autoplay autoplay-interval="3000">
     {
       imageUrlsInSetsOfTwo.map(([imgUrl, backImgUrl]) => (
         <div img-src={imgUrl} back-img-src={backImgUrl} />

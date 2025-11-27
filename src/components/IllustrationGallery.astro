@@ -20,16 +20,17 @@ const { illustrations } = Astro.props;
 ---
 
 <div class={flex({ gap: 4, flexDirection: 'column' })}>
-  <wa-dropdown id="collection-select">
-    <wa-button slot="trigger" caret>Collections</wa-button>
-    <wa-menu>
+  <div class={flex({ gap: 2, alignItems: 'center' })}>
+    <wa-dropdown id="collection-select">
+      <wa-button slot="trigger" with-caret>Collections</wa-button>
+
       {
         ILLUSTRATION_FILTER_OPTIONS.map(({ value, label }) => (
-          <wa-menu-item value={value}>{label}</wa-menu-item>
+          <wa-dropdown-item value={value}>{label}</wa-dropdown-item>
         ))
       }
-    </wa-menu>
-  </wa-dropdown>
+    </wa-dropdown>
+  </div>
 
   <div id="gallery" class={grid({ columns: [1, 1, 2, 3], gap: 4 })}>
     {

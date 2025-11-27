@@ -49,11 +49,35 @@ const ogImage = isValidURL(image)
 const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web Development Blog`;
 ---
 
+<!-- Theme initialization - must run before page renders to prevent flash -->
+<script is:inline>
+  (function () {
+    try {
+      const theme = localStorage.getItem('theme');
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
+      const colorMode = theme === 'system' || !theme ? systemTheme : theme;
+      document.documentElement.setAttribute('data-color-mode', colorMode);
+    } catch (e) {
+      // fallback to system theme if localStorage is not available
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
+      document.documentElement.setAttribute('data-color-mode', systemTheme);
+    }
+  })();
+</script>
+
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/png" href="/favicon-32x32.png" />
 <meta name="generator" content={Astro.generator} />
+
+<!-- Web Awesome -->
+<script is:inline src="https://kit.webawesome.com/2dafcc2cf8fd4a26.js" crossorigin="anonymous"
+></script>
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
@@ -79,14 +103,6 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
 <meta property="twitter:image" content={`${ogImage}?v=1`} />
 
 <link rel="webmention" href="https://webmention.io/joelmturner.com/webmention" />
-
-<link
-  rel="stylesheet"
-  href="https://early.webawesome.com/webawesome@3.0.0-alpha.4/dist/themes/default.css"
-/>
-<script
-  type="module"
-  src="https://early.webawesome.com/webawesome@3.0.0-alpha.4/dist/webawesome.loader.js"></script>
 
 <AstroFont
   config={[

@@ -9,6 +9,13 @@
   visibility: hidden;
 }
 
+/* exclude Web Awesome components from CSS reset */
+@layer reset {
+  :state(wa-defined) {
+    all: revert-layer;
+  }
+}
+
 [data-color-mode="dark"] {
   --wa-color-surface-default: var(--colors-slate-900);
   --wa-color-surface-raised: var(--colors-slate-800);
@@ -25,10 +32,6 @@
     &:hover {
       --content-color: var(--colors-brand-300);
     }
-  }
-
-  wa-menu {
-    --background-color: var(--colors-gray-700);
   }
 }
 

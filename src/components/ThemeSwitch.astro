@@ -98,17 +98,12 @@ const themeIconStyles = css({
 </style>
 
 <script is:inline>
-  let baseValue;
-  const theme = localStorage.getItem('theme');
-  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-
-  if (theme !== null) {
-    baseValue = theme;
-  } else {
-    baseValue = systemTheme;
+  function getSystemTheme() {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
 
   function updateTheme(value) {
+    const systemTheme = getSystemTheme();
     const theme = value === 'system' ? systemTheme : value;
 
     // set the value on root
@@ -127,21 +122,56 @@ const themeIconStyles = css({
     localStorage.setItem('theme', value);
   }
 
-  updateTheme(baseValue);
+  function initializeTheme() {
+    // clear all active classes first
+    document.querySelectorAll('[data-theme-value]').forEach((el) => {
+      el.classList.remove('active');
+    });
 
-  document.getElementById('themeSwitch').addEventListener('click', (event) => {
-    const selected = event.target;
-    if (
-      !selected.closest('[data-theme-value]') ||
-      selected.closest('[data-theme-value]') === undefined
-    )
-      return;
-    document
-      .getElementById('themeSwitch')
-      .querySelectorAll('svg')
-      .forEach((svg) => {
+    const theme = localStorage.getItem('theme');
+    const systemTheme = getSystemTheme();
+    const baseValue = theme !== null ? theme : systemTheme;
+
+    updateTheme(baseValue);
+  }
+
+  function attachClickHandler() {
+    const themeSwitch = document.getElementById('themeSwitch');
+    if (!themeSwitch || themeSwitch.dataset.handlerAttached === 'true') return;
+
+    // mark as attached to prevent duplicates
+    themeSwitch.dataset.handlerAttached = 'true';
+
+    // use event delegation to handle clicks (works even if element is replaced)
+    themeSwitch.addEventListener('click', (event) => {
+      const selected = event.target;
+      const themeValue = selected.closest('[data-theme-value]');
+      if (!themeValue) return;
+
+      // clear all active classes
+      themeSwitch.querySelectorAll('svg').forEach((svg) => {
         svg.classList.remove('active');
       });
-    updateTheme(selected.closest('[data-theme-value]')?.getAttribute('data-theme-value') ?? 'dark');
-  });
+
+      // update theme with the selected value
+      const value = themeValue.getAttribute('data-theme-value') ?? 'dark';
+      updateTheme(value);
+    });
+  }
+
+  function initializeThemeAndHandlers() {
+    initializeTheme();
+    // use a small delay to ensure the element exists after view transitions
+    setTimeout(attachClickHandler, 0);
+  }
+
+  // initialize theme and handlers on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeThemeAndHandlers);
+  } else {
+    initializeThemeAndHandlers();
+  }
+
+  // re-initialize theme and handlers after Astro view transitions (this fixes the color mode issue)
+  document.addEventListener('astro:page-load', initializeThemeAndHandlers);
 </script>

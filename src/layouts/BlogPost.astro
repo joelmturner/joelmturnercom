@@ -8,7 +8,6 @@ import { css, cx } from 'styled-system/css';
 import { flex } from 'styled-system/patterns';
 import { prose } from 'styled-system/recipes';
 import BaseLayout from './BaseLayout.astro';
-import { ClientRouter } from 'astro:transitions';
 import { SITE_TITLE } from 'src/consts';
 
 type Props = CollectionEntry<'blog'>['data'] & {
@@ -86,8 +85,7 @@ const structuredData = {
 ---
 
 <BaseLayout title={title} description={excerpt ?? description} image={cover}>
-  <ClientRouter slot="head" />
-  <script type="application/ld+json" set:html={JSON.stringify(structuredData, null, 0)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData, null, 0)} />
   <div
     class={css({
       '& > img': {
@@ -105,7 +103,6 @@ const structuredData = {
           height={415}
           src={cover}
           alt={title}
-          transition:name={`blog-image-${slugify(title)}`}
           class={css({
             maxWidth: { base: '90vw', lg: '3xl' },
           })}
