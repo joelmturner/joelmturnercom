@@ -59,12 +59,22 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
         : 'light';
       const colorMode = theme === 'system' || !theme ? systemTheme : theme;
       document.documentElement.setAttribute('data-color-mode', colorMode);
+      if (colorMode === 'dark') {
+        document.documentElement.classList.add('wa-dark');
+      } else {
+        document.documentElement.classList.remove('wa-dark');
+      }
     } catch (e) {
       // fallback to system theme if localStorage is not available
       const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
         ? 'dark'
         : 'light';
       document.documentElement.setAttribute('data-color-mode', systemTheme);
+      if (systemTheme === 'dark') {
+        document.documentElement.classList.add('wa-dark');
+      } else {
+        document.documentElement.classList.remove('wa-dark');
+      }
     }
   })();
 </script>

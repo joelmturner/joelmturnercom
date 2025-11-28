@@ -109,6 +109,13 @@ const themeIconStyles = css({
     // set the value on root
     document.documentElement.setAttribute(`data-color-mode`, theme);
 
+    // set or remove wa-dark class based on theme
+    if (theme === 'dark') {
+      document.documentElement.classList.add('wa-dark');
+    } else {
+      document.documentElement.classList.remove('wa-dark');
+    }
+
     // set the active class on the active mode icon
     document.querySelector(`[data-theme-value="${value}"]`)?.classList.add('active');
 

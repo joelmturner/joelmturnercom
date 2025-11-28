@@ -42,29 +42,24 @@ const isGuestAuthor = author !== 'Joel M Turner';
     }
   </ZineViewer>
 
-  {
-    isGuestAuthor && (
-      <p>
-        <Badge link={zine?.data.authorUrl}>Guest Author</Badge>
-        <a href={zine?.data.authorUrl} target="_blank" rel="noopener noreferrer">
-          {zine?.data.author}
-        </a>
-      </p>
-    )
-  }
+  <div class={flex({ gap: 2, justifyContent: 'space-between', alignItems: 'center' })}>
+    {
+      zine?.data.pdfUrl && (
+        <div class={flex({ gap: 2 })}>
+          <a href={zine?.data.pdfUrl} target="_blank" rel="noopener noreferrer">
+            <wa-button size="small">Download PDF</wa-button>
+          </a>
+          <ZineFoldInstructions />
+        </div>
+      )
+    }
 
-  {
-    zine?.data.pdfUrl && (
-      <div class={flex({ gap: 2 })}>
-        <a href={zine?.data.pdfUrl} target="_blank" rel="noopener noreferrer">
-          <wa-button size="small">Download PDF</wa-button>
-        </a>
-        <ZineFoldInstructions />
-      </div>
-    )
-  }
+    {isGuestAuthor && <Badge link={zine?.data.authorUrl}>Guest: {zine.data.author}</Badge>}
+  </div>
 
   <Content />
+
+  <wa-divider></wa-divider>
 
   <div
     class={css({
