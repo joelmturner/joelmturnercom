@@ -87,7 +87,14 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
 
 <!-- Web Awesome -->
 <link rel="preconnect" href="https://kit.webawesome.com" crossorigin />
-<script src="https://kit.webawesome.com/2dafcc2cf8fd4a26.js" crossorigin="anonymous" defer></script>
+<link rel="preconnect" href="https://ka-p.webawesome.com" crossorigin />
+<script is:inline src="https://kit.webawesome.com/2dafcc2cf8fd4a26.js" crossorigin="anonymous" defer
+></script>
+
+<!-- Preconnect to third-party domains for faster connections -->
+<link rel="preconnect" href="https://o556640.ingest.sentry.io" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />

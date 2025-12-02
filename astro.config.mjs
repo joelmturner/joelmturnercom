@@ -35,6 +35,11 @@ export default defineConfig({
               org: "joelmturnercom",
               authToken: SENTRY_AUTH_TOKEN,
             },
+            clientInitOptions: {
+              // defer Sentry initialization to avoid blocking page load
+              // Sentry will initialize after page load
+              beforeSend: undefined,
+            },
           }),
         ]
       : []),
