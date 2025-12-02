@@ -70,6 +70,7 @@ export const ILLUSTRATION_FILTER_OPTIONS: {
   { value: "inktober2022", label: "Inktober 2022" },
   { value: "inktober2023", label: "Inktober 2023" },
   { value: "inktober2024", label: "Inktober 2024" },
+  { value: "inktober2025", label: "Inktober 2025" },
 ];
 
 export const NAV_LINKS = [
