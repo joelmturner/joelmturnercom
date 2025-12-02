@@ -1,8 +1,8 @@
 ---
+import GridLayout from '@components/GridLayout.astro';
 import PostCard from '@components/PostCard.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { css } from 'styled-system/css';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -11,16 +11,8 @@ const posts = (await getCollection('blog')).sort(
 
 <BaseLayout>
   <section>
-    <div
-      class={css({
-        display: 'flex',
-        flexWrap: 'wrap',
-        gap: { base: 2, lg: 8 },
-        margin: 0,
-        padding: 0,
-      })}
-    >
+    <GridLayout>
       {posts.map((post, index) => <PostCard post={post} featured={index === 0} />)}
-    </div>
+    </GridLayout>
   </section>
 </BaseLayout>

@@ -3,53 +3,196 @@
   https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
-@layer reset, base, tokens, recipes, utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where([data-color-mode=dark], [data-color-mode=dark] *));
+
+:root {
+  --tw-prose-invert-links: var(--color-accent);
+  --font-fira-code: "Fira Code", monospace;
+  --font-fira-sans: "Fira Sans", sans-serif;
+}
+
+/* Custom theme tokens */
+@theme {
+  /* Custom fonts */
+  --font-family-fira-code: "var(--font-fira-code)";
+  --font-family-fira-sans: var(--font-fira-sans);
+
+  /* Custom colors - will be overridden by dark mode */
+  --color-primary: black;
+  --color-accent: #f76942;
+  --color-brand-100: #ffe5a3;
+  --color-brand-200: #ffcba5;
+  --color-brand-300: #ffa8a3;
+  --color-brand-400: #f76942;
+
+  /* Custom shadow */
+  --shadow-round:
+    inset 0 0 0.5px 1px hsla(10, 60%, 100%, 0.075),
+    0 0 0 1px hsla(10, 60%, 60%, 0.05), 0 0.3px 0.4px hsla(10, 60%, 60%, 0.02),
+    0 0.9px 1.5px hsla(10, 60%, 60%, 0.045),
+    0 3.5px 6px hsla(10, 60%, 60%, 0.09);
+}
+
 
 :not(:defined) {
   visibility: hidden;
 }
 
 /* exclude Web Awesome components from CSS reset */
-@layer reset {
+
+
+/* Light mode (default) */
+[data-color-mode="light"] {
+  --color-primary: black;
+  --color-accent: #f76942;
+  --color-brand-100: #ffe5a3;
+  --color-brand-200: #ffcba5;
+  --color-brand-300: #ffa8a3;
+  --color-brand-400: #f76942;
+  --shadow-round:
+    inset 0 0 0.5px 1px hsla(10, 60%, 100%, 0.075),
+    0 0 0 1px hsla(10, 60%, 60%, 0.05), 0 0.3px 0.4px hsla(10, 60%, 60%, 0.02),
+    0 0.9px 1.5px hsla(10, 60%, 60%, 0.045),
+    0 3.5px 6px hsla(10, 60%, 60%, 0.09);
+
+  --wa-color-surface-default: rgb(255 247 237); /* orange-50 */
+  --wa-color-surface-raised: rgb(255 237 213); /* orange-100 */
+  --wa-color-neutral-fill-normal: rgb(254 215 170); /* orange-200 */
+  --wa-color-text-normal: black;
+  --wa-color-neutral-on-normal: rgb(15 23 42); /* slate-900 */
+  --wa-color-surface-border: rgb(254 215 170); /* orange-200 */
+  --wa-color-neutral-fill-loud: rgb(255 228 230); /* rose-100 */
+  --wa-color-neutral-on-loud: var(--color-accent);
+}
+
+/* Dark mode */
+[data-color-mode="dark"] {
+  --color-primary: white;
+  --color-accent: #97cdff;
+  --color-brand-100: #cbf6ff;
+  --color-brand-200: #97cdff;
+  --color-brand-300: #b7a5ff;
+  --color-brand-400: #f76942;
+  --shadow-round:
+    inset 0 0 0.5px 1px hsla(210, 70%, 100%, 0.15),
+    0 0 0 1px hsla(210, 70%, 50%, 0.1), 0 0.3px 0.4px hsla(210, 70%, 50%, 0.04),
+    0 0.9px 1.5px hsla(210, 70%, 50%, 0.09),
+    0 3.5px 6px hsla(210, 70%, 50%, 0.18);
+
+  --wa-color-surface-default: rgb(15 23 42); /* slate-900 */
+  --wa-color-surface-raised: rgb(30 41 59); /* slate-800 */
+  --wa-color-neutral-fill-normal: rgb(51 65 85); /* slate-700 */
+  --wa-color-text-normal: white;
+  --wa-color-neutral-on-normal: rgb(226 232 240); /* slate-200 */
+  --wa-color-surface-border: rgb(51 65 85); /* slate-700 */
+  --wa-color-neutral-fill-loud: rgb(51 65 85); /* slate-700 */
+  --wa-color-neutral-on-loud: var(--color-accent);
+}
+
+/* Global base styles */
+@layer base {
   :state(wa-defined) {
     all: revert-layer;
   }
+  
+  body {
+    font-family: var(--font-fira-sans);
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    background-size: 100% 600px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    color: var(--color-primary);
+    font-size: 1rem;
+    line-height: normal;
+    background-color: rgb(255 247 237); /* orange-50 */
+  }
+
+  [data-color-mode="dark"] body {
+    background-color: rgb(15 23 42); /* slate-900 */
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0 0 0.5rem 0;
+    line-height: 1.2;
+  }
+
+  h1 {
+    font-size: 2.25rem; /* 4xl */
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: 1.875rem; /* 3xl */
+    font-weight: 700;
+  }
+
+  h3 {
+    font-size: 1.5rem; /* 2xl */
+    font-weight: 700;
+  }
+
+  h4 {
+    font-size: 1.25rem; /* xl */
+    font-weight: 700;
+  }
+
+  h5 {
+    font-size: 1.125rem; /* lg */
+    font-weight: 700;
+  }
+
+  h6 {
+    font-size: 1rem; /* md */
+    font-weight: 700;
+  }
+
+  strong,
+  b {
+    font-weight: 700;
+  }
+
+  code {
+    padding: 0.25rem 0.5rem; /* py-1 px-2 */
+    background-color: rgb(254 226 226); /* rose-100 */
+    border-radius: 0.375rem; /* md */
+    font-family: var(--font-fira-code)!important;
+  }
+
+  [data-color-mode="dark"] code {
+    background-color: rgb(55 65 81); /* gray-700 */
+  }
+
+  code.not-prose {
+    font-size: 1rem;
+  }
+
+  pre {
+    padding: 1.25rem; /* 5 */
+    border-radius: 0.375rem; /* md */
+  }
+
+  pre > code {
+    all: unset;
+  }
+
+  .expressive-code + .expressive-code {
+    margin-top: 2rem; /* 8 */
+  }
+
+  /* base anchor styles - allow utility classes to override */
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
 }
 
-[data-color-mode="dark"] {
-  --wa-color-surface-default: var(--colors-slate-900);
-  --wa-color-surface-raised: var(--colors-slate-800);
-  --wa-color-neutral-fill-normal: var(--colors-slate-700);
-  --wa-color-text-normal: white;
-  --wa-color-neutral-on-normal: var(--colors-slate-200);
-  --wa-color-surface-border: var(--colors-slate-700);
-  --wa-color-neutral-fill-loud: var(--colors-slate-700);
-  --wa-color-neutral-on-loud: var(--colors-accent);
-
-  /* wa-badge {
-    --background-color: var(--colors-gray-700);
-    --content-color: var(--colors-accent);
-    &:hover {
-      --content-color: var(--colors-brand-300);
-    }
-  } */
-}
-
-[data-color-mode="light"] {
-  --wa-color-surface-default: var(--colors-orange-50);
-  --wa-color-surface-raised: var(--colors-orange-100);
-  --wa-color-neutral-fill-normal: var(--colors-orange-200);
-  --wa-color-text-normal: black;
-  --wa-color-neutral-on-normal: var(--colors-slate-900);
-  --wa-color-surface-border: var(--colors-orange-200);
-  --wa-color-neutral-fill-loud: var(--colors-rose-100);
-  --wa-color-neutral-on-loud: var(--colors-accent);
-
-  /* wa-badge {
-    --background-color: var(--colors-rose-100);
-    --content-color: var(--colors-accent);
-    &:hover {
-      --content-color: var(--colors-brand-300);
-    }
-  } */
-}

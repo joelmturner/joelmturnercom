@@ -1,6 +1,5 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { css } from 'styled-system/css';
 import type { SocialIconLabel } from '@lib/types';
 
 type Props = {
@@ -10,25 +9,12 @@ type Props = {
 const { icon } = Astro.props;
 ---
 
-<div
-  class={css({
-    color: {
-      _light: 'gray.700',
-      _dark: 'gray.300',
-    },
-    _hover: {
-      color: {
-        _light: 'gray.900',
-        _dark: 'gray.100',
-      },
-    },
-  })}
->
+<div class="color-gray-700 dark:color-gray-300 hover:color-gray-900 dark:hover:color-gray-100">
   {icon === 'Github' && <Icon name="lucide:github" title={icon} />}
   {icon === 'Instagram' && <Icon name="lucide:instagram" title={icon} />}
   {icon === 'Linkedin' && <Icon name="lucide:linkedin" title={icon} />}
   {icon === 'Twitter' && <Icon name="lucide:twitter" title={icon} />}
   {icon === 'DEV' && <Icon name="ph:dev-to-logo" title={icon} />}
   {icon === 'Mastodon' && <Icon name="iconoir:mastodon" title={icon} />}
-  {icon === 'Bluesky' && <Icon name="bluesky" filter={'grayscale(1)'} title={icon} />}
+  {icon === 'Bluesky' && <Icon name="bluesky" style="fill: currentColor;" title={icon} />}
 </div>

@@ -38,15 +38,9 @@ I usually start out by assessing the scope of the feature. The following questio
 
 Whew! That's a lot! Let's get into the code already.
 
-import { flex } from "../../../styled-system/patterns";
 
 <div
-  class={flex({
-    alignItems: "center",
-    flexDirection: "column",
-    maxWidth: "350px",
-    m: "0 auto",
-  })}
+  class="flex items-center flex-col max-w-350px m-0 auto"
 >
   <div
     style={{
@@ -95,11 +89,7 @@ I almost always run some parts of my solution or my architecture by my manager, 
 Almost done!
 
 <div
-  class={flex({
-    alignItems: "center",
-    flexDirection: "column",
-    maxWidth: "350px",
-  })}
+  class="flex items-center flex-col max-w-350px m-0 auto"
 >
   <img
     src="https://res.cloudinary.com/joelmturner/image/upload/w_512/v1657085654/gatsby-toasting-meme_kzslea"

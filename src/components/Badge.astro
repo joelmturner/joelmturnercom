@@ -8,13 +8,11 @@ const { link } = Astro.props;
 
 {
   link ? (
-    <a href={link} style="text-decoration: none;">
-      <wa-badge appearance="filled-outlined" variant="neutral">
-        <slot />
-      </wa-badge>
-    </a>
+    <wa-button href={link} appearance="filled-outlined" variant="brand">
+      <slot />
+    </wa-button>
   ) : (
-    <wa-badge appearance="filled-outlined" variant="neutral">
+    <wa-badge appearance="filled-outlined">
       <slot />
     </wa-badge>
   )

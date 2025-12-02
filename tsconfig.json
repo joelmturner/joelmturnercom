@@ -1,20 +1,14 @@
 {
-  "extends": "astro/tsconfigs/strict",
+  "extends": "astro/tsconfigs/base",
   "compilerOptions": {
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
-      "styled-system/*": ["styled-system/*"],
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
       "@lib/*": ["src/lib/*"]
     }
   },
-  "include": [
-    "src/**/*",
-    "styled-system/**/*",
-    ".astro/**/*",
-    "panda.config.ts"
-  ],
+  "include": ["src/**/*", ".astro/**/*"],
   "exclude": ["dist"]
 }

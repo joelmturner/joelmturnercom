@@ -56,7 +56,7 @@ The site covers topics including:
 
 ### Site Metadata
 - Built with: Astro static site generator
-- Styling: Panda CSS
+- Styling: Tailwind CSS
 - Content: MDX format with frontmatter
 - Images: Cloudinary CDN
 - Hosting: Netlify

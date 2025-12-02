@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { css } from 'styled-system/css';
 import TilPostCard from '@components/TilPostCard.astro';
 import { getAllCategories } from '@lib/posts';
+import GridLayout from '@components/GridLayout.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('til');
@@ -20,17 +20,8 @@ const { posts, category } = Astro.props;
 
 <BaseLayout title={`Category: ${category}`} description={`Posts about ${category}`}>
   <section>
-    <h1 class={css({ mt: 0, mb: 4 })}>Category: {category}</h1>
-    <div
-      class={css({
-        display: 'flex',
-        flexWrap: 'wrap',
-        gap: { base: 2, lg: 8 },
-        margin: 0,
-        padding: 0,
-      })}
-    >
+    <GridLayout title={`Category: ${category}`}>
       {posts.map((post) => <TilPostCard post={post} />)}
-    </div>
+    </GridLayout>
   </section>
 </BaseLayout>

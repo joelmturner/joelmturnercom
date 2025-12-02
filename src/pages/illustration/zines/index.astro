@@ -1,39 +1,24 @@
 ---
+import LinkButton from '@components/LinkButton.astro';
 import ZineCard from '@components/ZineCard.astro';
 import ZineFoldInstructions from '@components/ZineFoldInstructions.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { css } from 'styled-system/css';
-import { flex, grid } from 'styled-system/patterns';
 
 const zines = await getCollection('zines');
 ---
 
 <BaseLayout title={'Zines'} description={'Some illustrative zines'}>
-  <div class={flex({ justify: 'space-between', alignItems: 'center', mb: 8 })}>
+  <div class="flex justify-between items-center mb-8">
     <h1>Illustrated zines</h1>
-    <a
-      href="/illustration/"
-      class={css({ textDecoration: 'underline', color: 'prose.link', textAlign: 'right' })}
-      >← Back to Illustrations</a
-    >
+    <LinkButton href="/illustration/">← Back to Illustrations</LinkButton>
   </div>
 
-  <div class={flex({ gap: 2 })}>
+  <div class="flex gap-2">
     <ZineFoldInstructions />
   </div>
 
-  <div
-    class={grid({
-      alignItems: 'center',
-      maxWidth: '100%',
-      direction: 'column',
-      gap: 8,
-      gridTemplateColumns: { sm: '1fr', lg: '1fr 1fr' },
-      height: '100%',
-      paddingBottom: 120,
-    })}
-  >
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 h-full p-bottom-120">
     {zines.map((zine) => <ZineCard zine={zine} />)}
   </div>
 </BaseLayout>

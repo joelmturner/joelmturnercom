@@ -1,25 +1,34 @@
 ---
-description: 
-globs: 
+description:
+globs:
 alwaysApply: true
 ---
+
 # Styling Guide
 
-This project uses Panda CSS for styling, configured in [panda.config.ts](mdc:panda.config.ts).
+This project uses Tailwind CSS for styling, configured in [global.css](../../src/styles/global.css).
 
 ## Key Styling Principles
-1. Use Panda CSS's utility classes and recipes for consistent styling
-2. Custom styles should be defined in the Panda config
-3. Global styles are managed in `src/styles/`
-4. Component-specific styles should use Panda's pattern APIs
+
+1. Use Tailwind's utility classes for consistent, maintainable styling
+2. Custom theme tokens are defined in the `@theme` directive in [global.css](../../src/styles/global.css)
+3. Global styles are managed in `src/styles/` using Tailwind's `@layer` directives
+4. Component-specific styles should use utility classes or the `@layer components` directive when needed
 
 ## Configuration
-- Styling tokens and theme configuration are defined in [panda.config.ts](mdc:panda.config.ts)
-- PostCSS configuration in [postcss.config.cjs](mdc:postcss.config.cjs)
-- Generated styles are in the `styled-system/` directory
+
+- Theme configuration is CSS-first using the `@theme` directive in [global.css](../../src/styles/global.css)
+- Tailwind is integrated via the `@tailwindcss/vite` plugin in [astro.config.mjs](mdc:astro.config.mjs)
+- Custom CSS variables and properties are defined in the `@theme` block
+- Dark mode is handled using `data-color-mode` attribute with custom variants
 
 ## Best Practices
-1. Use Panda's built-in tokens for colors, spacing, and typography
-2. Leverage the pattern API for reusable component styles
-3. Avoid direct CSS unless absolutely necessary
-4. Use semantic class names and follow the project's naming conventions
+
+1. Prefer utility classes over custom CSS - use Tailwind's built-in utilities first
+2. Define custom design tokens in the `@theme` directive using CSS custom properties
+3. Use `@layer base` for global resets and base element styles
+4. Use `@layer components` for reusable component patterns that can't be achieved with utilities alone
+5. Use `@layer utilities` for custom utility classes when needed
+6. Leverage Tailwind's responsive and state variants (hover, focus, dark, etc.)
+7. Use semantic class names with utilities (e.g., `text-primary`, `bg-accent`) that reference theme tokens
+8. Keep component styles co-located with components when using `@layer components`

@@ -1,5 +1,4 @@
 ---
-import { css, cx } from 'styled-system/css';
 type Props = {
   embedId: string;
 };
@@ -9,23 +8,7 @@ const { embedId } = Astro.props;
 <blockquote
   data-instgrm-permalink={`https://www.instagram.com/p/${embedId}/?utm_source=ig_embed&utm_campaign=loading`}
   data-instgrm-version="14"
-  class={cx(
-    'instagram-media',
-    css({
-      bg: {
-        _light: 'orange.50',
-        _dark: 'slate.900',
-      },
-      border: '0',
-      borderRadius: '3px',
-      boxShadow: '0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15)',
-      margin: '1px',
-      maxWidth: '540px',
-      minWidth: '326px',
-      padding: '0',
-      width: 'calc(100% - 2px)',
-    })
-  )}
+  class="instagram-media bg-orange-50 dark:bg-slate-900 border-0 rounded-3px box-shadow-0-0-1px-0-rgba-0-0-0-0-5-0-1px-10px-0-rgba-0-0-0-0-15 margin-1px max-w-540px min-w-326px padding-0 width-calc-100-2px"
 >
   <div style="padding:16px;">
     <a

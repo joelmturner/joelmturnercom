@@ -2,53 +2,29 @@
 import HeaderLink from './HeaderLink.astro';
 import ThemeSwitch from './ThemeSwitch.astro';
 import { Image } from 'astro:assets';
-import { css } from 'styled-system/css';
 import { NAV_LINKS } from '@lib/constants';
+import { cn } from '@lib/utils';
 ---
 
 <header
-  class={css({
-    m: 0,
-    p: 3,
-    bg: {
-      _light: 'orange.50',
-      _dark: 'slate.900',
-    },
-    boxShadow: 'md',
-    color: 'primary',
-    borderTop: '6px solid',
-    borderTopColor: 'brand.100',
-    borderBottomWidth: 2,
-    borderBottomColor: {
-      _light: 'slate.200',
-      _dark: 'slate.700',
-    },
-  })}
+  class={cn(
+    // spacing
+    'm-0 p-3',
+    // background
+    'bg-orange-50 dark:bg-slate-900',
+    // text
+    'text-black dark:text-white',
+    // shadow
+    'shadow-md',
+    // border top
+    'border-t-[6px] border-t-[#FFE5A3] dark:border-t-[#CBF6FF]',
+    // border bottom
+    'border-b-2 border-b-slate-200 dark:border-b-slate-700'
+  )}
 >
-  <nav
-    class={css({
-      borderColor: 'slate.200',
-    })}
-  >
-    <div
-      class={css({
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        mx: 'auto',
-        w: 'full',
-        maxW: '3xl',
-      })}
-    >
-      <a
-        href="/"
-        class={css({
-          display: 'flex',
-          alignItems: 'center',
-          width: { base: '40vw', lg: '14vw' },
-        })}
-      >
+  <nav>
+    <div class="flex flex-wrap items-center justify-between mx-auto w-full max-w-3xl">
+      <a href="/" class="flex items-center w-[40vw] lg:w-[14vw]">
         <Image
           data-logo
           width="600"
@@ -57,85 +33,12 @@ import { NAV_LINKS } from '@lib/constants';
           alt="joelmturner logo"
         />
       </a>
-      <button
-        data-collapse-toggle="navbar-default"
-        type="button"
-        class={css({
-          display: 'inline-flex',
-          alignItems: 'center',
-          p: '2',
-          w: '10',
-          h: '10',
-          justifyContent: 'center',
-          fontSize: 'sm',
-          lineHeight: 'sm',
-          color: 'slate.500',
-          rounded: 'lg',
-          md: { display: 'none' },
-          _hover: { bg: 'slate.100', _dark: { bg: 'slate.700' } },
-          _focus: { ring: 'none', ringOffset: 'none', shadow: '2' },
-          _dark: { color: 'slate.400' },
-        })}
-        aria-controls="navbar-default"
-        aria-expanded="false"
-      >
-        <span
-          class={css({
-            pos: 'absolute',
-            overflow: 'hidden',
-            clip: 'rect(0, 0, 0, 0)',
-            whiteSpace: 'nowrap',
-            borderWidth: '0',
-            srOnly: true,
-          })}
-        >
-          Open main menu
-        </span>
-        <svg
-          class={css({ w: '5', h: '5', color: 'brand.200' })}
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 17 14"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M1 1h15M1 7h15M1 13h15"></path>
-        </svg>
-      </button>
-      <div
-        class={css({
-          display: 'none',
-          w: 'full',
-          md: { display: 'block', w: 'auto' },
-        })}
-        id="navbar-default"
-      >
+      <wa-button variant="brand" appearance="plain" data-nav-drawer-trigger class="md:hidden">
+        <wa-icon name="bars"></wa-icon>
+      </wa-button>
+      <div class="hidden w-full md:block md:w-auto" id="navbar-default">
         <ul
-          class={css({
-            fontWeight: 'medium',
-            display: 'flex',
-            flexDir: 'column',
-            p: '4',
-            md: {
-              p: '0',
-              flexDir: 'row',
-              m: '0',
-              borderWidth: '0px',
-              gap: '2',
-            },
-            mt: '4',
-            borderWidth: '1px',
-            borderColor: 'slate.100',
-            rounded: 'lg',
-            bgColor: 'transparent',
-            _dark: {
-              borderColor: 'slate.700',
-            },
-          })}
+          class="font-medium flex flex-col p-4 md:p-0 md:flex-row md:m-0 md:border-0 md:gap-2 mt-4 border border-slate-100 dark:border-slate-700 rounded-lg bg-transparent"
         >
           {
             NAV_LINKS.map((link) => (
@@ -153,14 +56,29 @@ import { NAV_LINKS } from '@lib/constants';
   </nav>
 </header>
 
-<script is:inline>
-  // toggle id="navbar-default" when the button data-collapse-toggle="navbar-default" is clicked
-  const navIcon = document.querySelector('[data-collapse-toggle="navbar-default"]');
-  const target = document.querySelector('#navbar-default');
+<wa-drawer data-nav-drawer-content class="drawer-without-header">
+  <wa-icon slot="header" name="close" data-drawer="close">Close</wa-icon>
+  <div class="flex flex-col gap-2">
+    <ul class="font-medium text-xl flex flex-col gap-2">
+      {
+        NAV_LINKS.map((link) => (
+          <li>
+            <HeaderLink href={link.href} aria-current="page">
+              {link.label}
+            </HeaderLink>
+          </li>
+        ))
+      }
+      <div class="flex mx-auto w-3/4">
+        <ThemeSwitch />
+      </div>
+    </ul>
+  </div>
+</wa-drawer>
 
-  navIcon.addEventListener('click', () => {
-    const expanded = navIcon.getAttribute('aria-expanded') === 'true' || false;
-    navIcon.setAttribute('aria-expanded', String(!expanded));
-    target.style.display = expanded ? 'none' : 'block';
-  });
+<script is:inline>
+  const drawer = document.querySelector('[data-nav-drawer-content]');
+  const openButton = document.querySelector('[data-nav-drawer-trigger]');
+
+  openButton.addEventListener('click', () => (drawer.open = true));
 </script>

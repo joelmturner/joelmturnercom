@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '@layouts/BlogPost.astro';
+import { components } from '@components/mdxComponents';
 
 // helper to extract slug from entry id (filename without extension)
 function getSlugFromId(id: string): string {
@@ -27,5 +28,5 @@ const slug = post.data.slug || getSlugFromId(post.id);
 ---
 
 <BlogPost {...post.data} slug={slug} next={next} prev={prev}>
-  <Content />
+  <Content components={components} />
 </BlogPost>

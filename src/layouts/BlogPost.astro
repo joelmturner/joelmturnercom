@@ -4,11 +4,9 @@ import FormattedDate from '@components/FormattedDate.astro';
 import { slugify } from '@lib/posts';
 import { CldImage } from 'astro-cloudinary';
 import type { CollectionEntry } from 'astro:content';
-import { css, cx } from 'styled-system/css';
-import { flex } from 'styled-system/patterns';
-import { prose } from 'styled-system/recipes';
 import BaseLayout from './BaseLayout.astro';
 import { SITE_TITLE } from 'src/consts';
+import { cn } from '@lib/utils';
 
 type Props = CollectionEntry<'blog'>['data'] & {
   next?: CollectionEntry<'blog'>;
@@ -86,16 +84,7 @@ const structuredData = {
 
 <BaseLayout title={title} description={excerpt ?? description} image={cover}>
   <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData, null, 0)} />
-  <div
-    class={css({
-      '& > img': {
-        display: 'block',
-        mx: 'auto',
-        borderRadius: 'lg',
-        boxShadow: 'lg',
-      },
-    })}
-  >
+  <div class="& > img:block mx-auto border-radius-lg box-shadow-lg">
     {
       cover && (
         <CldImage
@@ -103,9 +92,7 @@ const structuredData = {
           height={415}
           src={cover}
           alt={title}
-          class={css({
-            maxWidth: { base: '90vw', lg: '3xl' },
-          })}
+          class={cn('max-w-[90vw] lg:max-w-[3xl]')}
           sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px"
           loading="lazy"
           dpr="2.0"
@@ -116,92 +103,48 @@ const structuredData = {
       )
     }
   </div>
-  <div
-    class={css({
-      padding: 3,
-      color: 'primary',
-    })}
-  >
-    <div
-      class={css({
-        py: 2,
-        textAlign: 'center',
-        lineHeight: 1,
-      })}
-    >
-      <div
-        class={css({
-          marginBottom: 2,
-          color: {
-            _light: 'gray.500',
-            _dark: 'gray.400',
-          },
-        })}
-      >
+  <div class="p-3">
+    <div class="py-2 text-center line-height-1">
+      <div class="mb-2 text-slate-500 dark:text-slate-400">
         {!!date && <FormattedDate date={date} />}
         {
           lastmod && (
-            <div
-              class={css({
-                color: {
-                  _light: 'gray.500',
-                  _dark: 'gray.400',
-                },
-                fontStyle: 'italic',
-              })}
-            >
+            <div class="text-slate-500 dark:text-slate-400 font-italic">
               Last updated on <FormattedDate date={lastmod} />
             </div>
           )
         }
       </div>
-      <h1
-        class={css({
-          color: 'primary',
-          fontSize: { base: '2xl', lg: '4xl' },
-        })}
-      >
+      <h1 class="text-2xl lg:text-4xl">
         {title}
       </h1>
-      <hr class={css({ my: 4, borderColor: 'slate.700' })} />
+      <hr class="my-4 border-slate-700" />
     </div>
-    <article class={prose({ size: 'xl' })}>
+    <article class="prose dark:prose-invert text-xl">
       <slot />
     </article>
   </div>
-  <section class={flex({ direction: 'column', gap: 3 })}>
-    <div class={cx(prose({ size: 'xl' }))}>
-      <hr />
-    </div>
-    <div class={flex({ gap: 3, alignItems: 'center' })}>
+
+  <wa-divider style="--spacing: 2rem;"></wa-divider>
+
+  <section class="flex flex-col gap-3">
+    <div class="flex gap-3 items-center">
       Category: <Badge link={`/blog/category/${slugify(categories)}/`}>
         {categories}
       </Badge>
     </div>
-    <div class={flex({ gap: 3, alignItems: 'center', flexWrap: 'wrap' })}>
+    <div class="flex gap-3 items-center flex-wrap">
       Tags: {tags.map((tag) => <Badge link={`/blog/tag/${slugify(tag)}/`}>{tag}</Badge>)}
     </div>
-    <div
-      class={css({
-        display: 'flex',
-        justifyContent: 'space-between',
-        padding: 3,
-        gap: 8,
-        color: 'accent',
-      })}
-    >
+
+    <wa-divider style="--spacing: 2rem;"></wa-divider>
+
+    <div class="flex justify-between p-3 gap-8 text-accent">
       {
         prev?.data?.slug && (
           <a
             href={`/blog/${prev?.data?.slug}/`}
-            class={flex({
-              gap: 2,
-              alignItems: 'center',
-              transition: 'color 0.2s ease',
-              '&:hover': {
-                color: { _dark: 'brand.300', _light: 'brand.400' },
-              },
-            })}
+            class="flex gap-2 items-center transition-color duration-200 hover:text-brand-300 dark:hover:text-brand-400"
           >
             <span>{`< `}</span> {prev?.data?.title}
           </a>
@@ -211,15 +154,7 @@ const structuredData = {
         next?.data?.slug && (
           <a
             href={`/blog/${next?.data?.slug}/`}
-            class={flex({
-              gap: 2,
-              textAlign: 'right',
-              alignItems: 'center',
-              transition: 'color 0.2s ease',
-              '&:hover': {
-                color: { _dark: 'brand.300', _light: 'brand.400' },
-              },
-            })}
+            class="flex gap-2 items-center transition-color duration-200 hover:text-brand-300 dark:hover:text-brand-400"
           >
             {next?.data?.title} <span>{` >`}</span>
           </a>

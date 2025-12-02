@@ -1,46 +1,20 @@
 ---
-import { css } from 'styled-system/css';
+import { cn } from '@lib/utils';
 
-const themeIconStyles = css({
-  w: 6,
-  h: 6,
-  py: 1,
-  px: 1,
-  color: 'accent',
-  cursor: 'pointer',
-  '&:hover': {
-    color: { _light: 'gray.700', _dark: 'gray.300' },
-  },
-  '&.active': {
-    color: { _light: 'gray.800', _dark: 'gray.700' },
-  },
-});
+const themeIconStyles = cn(
+  'w-6 h-6 py-1 px-1 text-accent cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 active:text-gray-800 dark:active:text-gray-700'
+);
 ---
 
 <div
-  class={css({
-    display: 'flex',
-    gap: 1,
-    alignItems: 'center',
-    rounded: 'md',
-    bg: { _light: 'orange.100', _dark: 'slate.700' },
-    h: 6,
-    overflow: 'hidden',
-    '& > [data-theme-value]': {
-      bg: 'transparent',
-      transition: 'background-color 0.2s ease-in-out',
-    },
-    '& > [data-theme-value="light"].active': {
-      bg: 'brand.200',
-    },
-    '& > [data-theme-value="system"].active': {
-      bg: 'brand.200',
-    },
-    '& > [data-theme-value="dark"].active': {
-      bg: 'brand.200',
-    },
-  })}
-  id="themeSwitch"
+  class={cn(
+    'flex gap-1 items-center rounded-md bg-orange-100 dark:bg-slate-700 h-6 overflow-hidden',
+    '*:data-theme-value:bg-transparent *:data-theme-value:transition-colors *:data-theme-value:duration-200',
+    '[&>[data-theme-value="light"].active]:bg-brand-200',
+    '[&>[data-theme-value="system"].active]:bg-brand-200',
+    '[&>[data-theme-value="dark"].active]:bg-brand-200 [&>[data-theme-value="dark"].active]:text-blue-900',
+    'theme-switch'
+  )}
 >
   <svg
     data-theme-value="light"
@@ -116,8 +90,10 @@ const themeIconStyles = css({
       document.documentElement.classList.remove('wa-dark');
     }
 
-    // set the active class on the active mode icon
-    document.querySelector(`[data-theme-value="${value}"]`)?.classList.add('active');
+    // set the active class on the active mode icon in all theme switches
+    document.querySelectorAll(`[data-theme-value="${value}"]`).forEach((el) => {
+      el.classList.add('active');
+    });
 
     // update the logo based on mode
     const logosByTheme = {
@@ -143,26 +119,30 @@ const themeIconStyles = css({
   }
 
   function attachClickHandler() {
-    const themeSwitch = document.getElementById('themeSwitch');
-    if (!themeSwitch || themeSwitch.dataset.handlerAttached === 'true') return;
+    // find all theme switches and attach handlers to each
+    const themeSwitches = document.querySelectorAll('.theme-switch');
+    themeSwitches.forEach((themeSwitch) => {
+      // skip if handler already attached
+      if (themeSwitch.dataset.handlerAttached === 'true') return;
 
-    // mark as attached to prevent duplicates
-    themeSwitch.dataset.handlerAttached = 'true';
+      // mark as attached to prevent duplicates
+      themeSwitch.dataset.handlerAttached = 'true';
 
-    // use event delegation to handle clicks (works even if element is replaced)
-    themeSwitch.addEventListener('click', (event) => {
-      const selected = event.target;
-      const themeValue = selected.closest('[data-theme-value]');
-      if (!themeValue) return;
+      // use event delegation to handle clicks (works even if element is replaced)
+      themeSwitch.addEventListener('click', (event) => {
+        const selected = event.target;
+        const themeValue = selected.closest('[data-theme-value]');
+        if (!themeValue) return;
 
-      // clear all active classes
-      themeSwitch.querySelectorAll('svg').forEach((svg) => {
-        svg.classList.remove('active');
+        // clear all active classes in all theme switches
+        document.querySelectorAll('.theme-switch svg').forEach((svg) => {
+          svg.classList.remove('active');
+        });
+
+        // update theme with the selected value
+        const value = themeValue.getAttribute('data-theme-value') ?? 'dark';
+        updateTheme(value);
       });
-
-      // update theme with the selected value
-      const value = themeValue.getAttribute('data-theme-value') ?? 'dark';
-      updateTheme(value);
     });
   }
 

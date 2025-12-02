@@ -1,6 +1,6 @@
 # JoelMturner.com - Astro Powered Website 🌟
 
-Welcome to the repository for [joelmturner.com](https://joelmturner.com), a modern, high-performance website built using [Astro](https://astro.build/) and [Panda CSS](https://panda-css.com). This site explores web development techniques and offers a smooth, user-friendly experience.
+Welcome to the repository for [joelmturner.com](https://joelmturner.com), a modern, high-performance website built using [Astro](https://astro.build/) and [Tailwind](https://tailwindcss.com). This site explores web development techniques and offers a smooth, user-friendly experience.
 
 ## Features 🚀
 
@@ -8,7 +8,7 @@ Welcome to the repository for [joelmturner.com](https://joelmturner.com), a mode
 - **Responsive Design**: Ensures a great experience across all device sizes.
 - **SEO Optimized**: Implemented best practices for search engine optimization.
 - **Modern UI/UX**: A clean and engaging user interface and user experience.
-- **Panda CSS**: A styling library for optimized styles
+- **Tailwind**: A styling library for optimized styles
 - **Cloudinary**: Image and video optimization on the fly
 
 ## Getting Started 🛠️

@@ -1,28 +1,19 @@
 ---
 import IllustrationGallery from '@components/IllustrationGallery.astro';
+import LinkButton from '@components/LinkButton.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getIllustrations } from '@lib/illustrations';
-import { css } from 'styled-system/css';
-import { flex } from 'styled-system/patterns';
 
 const collections = await getIllustrations();
 ---
 
 <BaseLayout title={'Illustrations'} description={'Some of my favorite hand-drawn illustrations'}>
-  <div class={flex({ justify: 'space-between', alignItems: 'center', mb: 8 })}>
+  <div class="flex justify-between items-center mb-8">
     <h1>Illustration Collections</h1>
 
-    <div class={flex({ gap: 4 })}>
-      <a
-        href="/illustration/zines/"
-        class={css({ textDecoration: 'underline', color: 'prose.link', textAlign: 'right' })}
-        >zines</a
-      >
-      <a
-        href="/illustration/videos/"
-        class={css({ textDecoration: 'underline', color: 'prose.link', textAlign: 'right' })}
-        >videos</a
-      >
+    <div class="flex gap-4">
+      <LinkButton href="/illustration/zines/">zines</LinkButton>
+      <LinkButton href="/illustration/videos/">videos</LinkButton>
     </div>
   </div>
   <IllustrationGallery illustrations={collections} />

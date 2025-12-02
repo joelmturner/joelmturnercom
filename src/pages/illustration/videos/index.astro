@@ -1,9 +1,8 @@
 ---
+import LinkButton from '@components/LinkButton.astro';
 import Video from '@components/Video.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { css } from 'styled-system/css';
-import { flex } from 'styled-system/patterns';
 
 const videos = await getCollection('video');
 ---
@@ -12,15 +11,11 @@ const videos = await getCollection('video');
   title={'Illustration videos'}
   description={'Some of my favorite hand-drawn illustration videos'}
 >
-  <div class={flex({ justify: 'space-between', alignItems: 'center', mb: 8 })}>
+  <div class="flex justify-between items-center mb-8">
     <h1>Illustration videos</h1>
-    <a
-      href="/illustration/"
-      class={css({ textDecoration: 'underline', color: 'prose.link', textAlign: 'right' })}
-      >← Back to Illustrations</a
-    >
+    <LinkButton href="/illustration/">← Back to Illustrations</LinkButton>
   </div>
-  <div class={flex({ direction: 'column', gap: { base: 4, md: 16 } })}>
+  <div class="flex flex-col gap-4 md:gap-16">
     {
       videos.map((video) => (
         <Video

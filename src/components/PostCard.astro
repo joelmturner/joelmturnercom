@@ -1,10 +1,8 @@
 ---
 import { CldImage } from 'astro-cloudinary';
-import { css, cx } from 'styled-system/css';
-import { prose } from 'styled-system/recipes';
 import FormattedDate from './FormattedDate.astro';
 import { type CollectionEntry } from 'astro:content';
-import { slugify } from '@lib/posts';
+import { cn } from '@lib/utils';
 
 export type Props = {
   post: CollectionEntry<'blog'>;
@@ -12,38 +10,28 @@ export type Props = {
 };
 const { post, featured } = Astro.props;
 
-const featuredStyles = {
-  w: 'full',
-  mb: { base: 0, lg: 4 },
-  textAlign: 'center',
-  '& img': {
-    w: 'full',
-  },
-};
-
-const combinedStyles = css({
-  w: { base: 'full', lg: 'calc(50% - 1rem)' },
-  textAlign: { base: 'center', lg: 'left' },
-  '& *': {
-    textDecoration: 'none',
-    transition: '0.2s ease',
-  },
-  '&:hover h4': {
-    color: 'accent',
-  },
-  '&:hover img': {
-    shadowColor: {
-      _light: 'slate.100',
-      _dark: 'slate.800',
-    },
-    shadow: '0 20px 25px -5px var(--shadow-color), 0 8px 10px -6px var(--shadow-color)',
-  },
-  ...(featured ? featuredStyles : {}),
-});
+const combinedStyles = cn(
+  // layout
+  'w-full',
+  // text alignment
+  'text-center',
+  'lg:text-left',
+  // remove text decoration from all children
+  '[&_*]:no-underline',
+  // transitions
+  'transition-all',
+  'duration-200',
+  // hover states
+  'hover:[&_h4]:text-accent',
+  'hover:[&_img]:shadow-lg',
+  'hover:[&_img]:shadow-slate-100',
+  'dark:hover:[&_img]:shadow-slate-800',
+  featured ? 'col-span-1 md:col-span-2' : 'col-span-1'
+);
 ---
 
 <div class={combinedStyles}>
-  <a href={`/blog/${post.data.slug || post.id}/`} class={prose({ size: '2xl' })}>
+  <a href={`/blog/${post.data.slug || post.id}/`} class="prose dark:prose-invert text-2xl">
     {
       post.data.cover ? (
         <CldImage
@@ -51,13 +39,7 @@ const combinedStyles = css({
           height={featured ? 385 : 185}
           src={post.data.cover}
           alt={post.data.title}
-          class={cx(
-            'not-prose',
-            css({
-              mb: 1,
-              borderRadius: 'xl',
-            })
-          )}
+          class="not-prose mb-1 rounded-xl"
           crop="fill"
           gravity="center"
           sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px`}
@@ -70,13 +52,7 @@ const combinedStyles = css({
           height={385}
           src="blog-post-card"
           alt={post.data.title}
-          class={cx(
-            'not-prose',
-            css({
-              mb: 1,
-              borderRadius: 'xl',
-            })
-          )}
+          class="not-prose mb-1 rounded-xl"
           overlays={[
             {
               width: 600,
@@ -104,17 +80,9 @@ const combinedStyles = css({
       )
     }
     <h4
-      class={css({
-        mt: 3,
-        mb: 1,
-        lineHeight: 1.1,
-        fontSize: { base: '2xl', md: '3xl' },
-      })}
+      class={cn('mt-3 mb-1 text-2xl leading-1.1', featured ? 'text-3xl text-center' : 'text-2xl')}
     >
       {post.data.title}
     </h4>
-    <p class={css({ m: 0 })}>
-      <FormattedDate date={post.data.date} />
-    </p>
   </a>
 </div>

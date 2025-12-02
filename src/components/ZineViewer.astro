@@ -1,11 +1,14 @@
 ---
-import { flex } from 'styled-system/patterns';
+import { cn } from '@lib/utils';
 
 const { variant, height = '500px', width = '100%', ...rest } = Astro.props;
 const style = variant === 'card' ? '--canvas-padding: 0;' : '';
 ---
 
-<div class={flex({ direction: 'column', gap: 4, mb: 4, height: height, width: width })}>
+<div
+  class={cn('flex flex-col gap-4 mb-4 h-[500px] w-full')}
+  style={`height: ${height}; width: ${width};`}
+>
   <zine-viewer id={variant} style={style} {...rest}>
     <slot />
   </zine-viewer>

@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import TilPost from '@layouts/TilPost.astro';
+import { components } from '@components/mdxComponents';
 
 // helper to extract slug from entry id (filename without extension)
 function getSlugFromId(id: string): string {
@@ -25,5 +26,5 @@ const { Content } = await render(post);
 ---
 
 <TilPost {...post.data} next={next} prev={prev}>
-  <Content />
+  <Content components={components} />
 </TilPost>

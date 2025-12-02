@@ -1,23 +1,11 @@
 ---
-import { css, cx } from 'styled-system/css';
+import LinkButton from './LinkButton.astro';
+
 const { title, id } = Astro.props;
 ---
 
 <p
-  class={cx(
-    'codepen',
-    css({
-      height: '300px',
-      boxSizing: 'border-box',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      border: '2px solid',
-      my: '4',
-      mx: 0,
-      padding: '4',
-    })
-  )}
+  class="codepen h-[300px] box-border flex items-center justify-center border-2 my-4 mx-0 p-4"
   data-height="300"
   data-default-tab="html,result"
   data-slug-hash={id}
@@ -25,10 +13,10 @@ const { title, id } = Astro.props;
   data-pen-title={`${title}`}
 >
   <span
-    >See the Pen <a href={`https://codepen.io/joelmturner/pen/${id}`}> {`${title}`}</a> by Joel Turner
-    (<a href="https://codepen.io/joelmturner">@joelmturner</a>) on <a href="https://codepen.io"
-      >CodePen</a
-    >.</span
+    >See the Pen <LinkButton href={`https://codepen.io/joelmturner/pen/${id}`}>
+      {`${title}`}</LinkButton
+    > by Joel Turner (<LinkButton href="https://codepen.io/joelmturner">@joelmturner</LinkButton>)
+    on <LinkButton href="https://codepen.io">CodePen</LinkButton>.</span
   >
 </p>
 <script is:inline async src="https://public.codepenassets.com/embed/index.js"></script>

@@ -1,6 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { css } from 'styled-system/css';
+import { cn } from '@lib/utils';
 
 type Props = HTMLAttributes<'a'>;
 
@@ -12,27 +12,17 @@ const isActive = currentPath.includes(href as string);
 
 <a
   href={`/${href}`}
-  class:list={[
-    css({
-      px: 2,
-      py: 1,
-      color: {
-        _light: 'orange.800',
-        _dark: 'blue.300',
-      },
-      borderBottom: { base: 'none', md: '4px solid transparent', lg: '4px solid transparent' },
-      borderLeft: { base: '4px solid transparent', md: 'none', lg: 'none' },
-      textDecoration: 'none',
-      transition: 'border 0.2s ease-in-out, color 0.2s ease-in-out',
-      '&.active': {
-        textDecoration: 'none',
-        borderColor: 'brand.200',
-      },
-      m: 0,
-      lineHeight: 1,
-    }),
-    { active: isActive },
-  ]}
+  class={cn(
+    'px-2 py-1 text-orange-800 dark:text-blue-300 border-b-none border-b-4',
+    'transition-border duration-200 ease-in-out',
+    'm-0 line-height-1',
+    'hover:text-brand-300',
+    'transition-colors duration-200',
+    className,
+    !isActive && 'border-b-transparent',
+    isActive &&
+      'border-b-transparent dark:text-blue-900 md:dark:text-blue-300 bg-brand-100 md:bg-transparent block md:inline md:border-b-brand-200'
+  )}
   {...props}
 >
   <slot />

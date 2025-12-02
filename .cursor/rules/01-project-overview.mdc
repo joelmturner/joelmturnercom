@@ -1,20 +1,22 @@
 ---
-description: 
-globs: 
+description:
+globs:
 alwaysApply: true
 ---
+
 # Project Overview
 
 This is an Astro-based web application using modern web technologies. The project uses:
+
 - [astro.config.mjs](mdc:astro.config.mjs) as the main Astro configuration
 - [package.json](mdc:package.json) for dependencies and scripts
 - TypeScript with [tsconfig.json](mdc:tsconfig.json) configuration
-- Panda CSS for styling with [panda.config.ts](mdc:panda.config.ts)
+- Tailwind CSS for styling
 - ESLint for code quality with [eslint.config.js](mdc:eslint.config.js)
 
 ## Project Structure
+
 - `src/` - Main source code directory
 - `public/` - Static assets
-- `styled-system/` - Generated Panda CSS styles
 - `.astro/` - Astro build artifacts
 - `dist/` - Production build output

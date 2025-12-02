@@ -1,9 +1,6 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { css } from 'styled-system/css';
-import { prose } from 'styled-system/recipes';
-import { flex } from 'styled-system/patterns';
 import Badge from '@components/Badge.astro';
+import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 
 type Props = CollectionEntry<'til'>['data'] & {
@@ -15,75 +12,33 @@ const { title, next, prev, tags } = Astro.props;
 ---
 
 <BaseLayout title={title} description={tags?.join(', ')}>
-  <article class={prose({ size: 'xl' })}>
-    <div
-      class={css({
-        width: '100%',
-        maxWidth: '4xl',
-        mx: 'auto',
-        px: 3,
-        color: 'primary',
-      })}
-    >
-      <div
-        class={flex({
-          py: 2,
-          lineHeight: 1,
-          direction: 'column',
-          gap: 2,
-        })}
-      >
-        <h1
-          class={css({
-            color: 'primary',
-            fontSize: '4xl',
-            mb: 0,
-          })}
-        >
+  <article class="prose text-xl dark:prose-invert">
+    <div class="w-full max-w-4xl mx-auto px-3 text-primary">
+      <div class="py-2 line-height-1 flex flex-col gap-2">
+        <h1 class="text-primary text-4xl mb-0">
           {title}
         </h1>
-        <div class={flex({ gap: 3, alignItems: 'center' })}>
-          {tags.map((tag) => <Badge link={`/til/tag/${tag}/`}>{tag}</Badge>)}
+        <div class="flex gap-3 items-center">
+          {tags.map((tag) => <Badge link={`/til/tag/${tag.toLowerCase()}/`}>{tag}</Badge>)}
         </div>
-        <hr class={css({ mt: 5, mb: 0 })} />
+        <hr class="mt-5 mb-0" />
       </div>
       <slot />
     </div>
   </article>
-  <div
-    class={css({
-      display: 'flex',
-      justifyContent: 'space-between',
-      width: '2xl',
-      maxWidth: '4xl',
-      mx: 'auto',
-      padding: 3,
-      gap: 8,
-      color: 'brand.100',
-    })}
-  >
+
+  <wa-divider style="--spacing: 2rem;"></wa-divider>
+
+  <div class="flex justify-between w-2xl max-w-4xl mx-auto p-3 gap-8 text-brand-100">
     <a
       href={`/til/${prev?.data?.slug}/`}
-      class={flex({
-        gap: 2,
-        alignItems: 'center',
-        transition: 'color 0.2s ease',
-        '&:hover': {
-          color: 'brand.200',
-        },
-      })}><span>{`< `}</span> {prev?.data?.title}</a
+      class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
+      ><span>{`< `}</span> {prev?.data?.title}</a
     >
     <a
       href={`/til/${next?.data?.slug}/`}
-      class={flex({
-        gap: 2,
-        textAlign: 'right',
-        alignItems: 'center',
-        transition: 'color 0.2s ease',
-        '&:hover': {
-          color: 'brand.200',
-        },
-      })}>{next?.data?.title} <span>{` >`}</span></a
+      class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
+      >{next?.data?.title} <span>{` >`}</span></a
     >
   </div>
 </BaseLayout>

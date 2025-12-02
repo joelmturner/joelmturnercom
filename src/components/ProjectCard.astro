@@ -1,9 +1,8 @@
 ---
 import type { Project } from '@lib/types';
-import { css } from 'styled-system/css';
-import { flex } from 'styled-system/patterns';
 import Image from './Image.astro';
 import ProjectIcon from './ProjectIcon.astro';
+import LinkButton from './LinkButton.astro';
 
 type Props = {
   project: Project;
@@ -16,11 +15,7 @@ const {
 <wa-card with-image with-footer class="card-overview">
   <a href={url} target="_blank" slot="media">
     <Image
-      class={css({
-        w: 'full',
-        objectFit: 'cover',
-        objectPosition: 'left center',
-      })}
+      class="w-full object-cover object-left-center"
       src={imageURL}
       alt={name}
       height={250}
@@ -30,24 +25,16 @@ const {
       loading="lazy"
     />
   </a>
-  <div class={flex({ gap: 2, justifyContent: 'space-between' })}>
-    <p><strong>{name}</strong></p>
-    <a href={github} title="Github" target="_blank">
-      <wa-icon family="brands" name="github"></wa-icon>
-    </a>
+  <div class="prose prose-lg dark:prose-invert">
+    <div class="flex gap-2 justify-between">
+      <p><strong>{name}</strong></p>
+      <LinkButton href={github} title="Github" target="_blank">
+        <wa-icon family="brands" name="github"></wa-icon>
+      </LinkButton>
+    </div>
+    <p>{description}</p>
   </div>
-  <p>{description}</p>
-
-  <div
-    slot="footer"
-    class={flex({
-      gap: 2,
-      alignItems: 'center',
-      filter: 'grayscale(100%)',
-      transition: 'filter 300ms',
-      _hover: { filter: 'grayscale(0%)' },
-    })}
-  >
+  <div slot="footer" class="flex gap-1 items-center filter grayscale transition hover:grayscale-0">
     {
       tech.map((techItem) => (
         <ProjectIcon icon={techItem.toLowerCase() as Project['tech'][number]} />

@@ -5,6 +5,7 @@ import astroExpressiveCode from "astro-expressive-code";
 import sentry from "@sentry/astro";
 import { loadEnv } from "vite";
 import icon from "astro-icon";
+import tailwindcss from "@tailwindcss/vite";
 const { SENTRY_AUTH_TOKEN, SENTRY_DSN } = loadEnv(
   process.env.NODE_ENV,
   process.cwd(),
@@ -20,6 +21,7 @@ const astroExpressiveCodeOptions = {
 export default defineConfig({
   site: "https://joelmturner.com",
   trailingSlash: "always",
+
   integrations: [
     astroExpressiveCode(astroExpressiveCodeOptions),
     mdx(),
@@ -55,4 +57,8 @@ export default defineConfig({
       },
     }),
   ],
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

@@ -1,0 +1,12 @@
+---
+type Props = {
+  title?: string;
+};
+
+const { title } = Astro.props;
+---
+
+{title && <h1 class="mt-0 mb-4">{title}</h1>}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10 m-0 p-0">
+  <slot />
+</div>

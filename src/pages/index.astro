@@ -4,10 +4,8 @@ import PostCard from '@components/PostCard.astro';
 import ProjectGrid from '@components/ProjectGrid.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { css, cx } from 'styled-system/css';
-import { flex } from 'styled-system/patterns';
-import { prose } from 'styled-system/recipes';
 import { SITE_TITLE } from '../consts';
+import LinkButton from '@components/LinkButton.astro';
 
 const featuredPost = (await getCollection('blog')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -15,48 +13,22 @@ const featuredPost = (await getCollection('blog')).sort(
 ---
 
 <BaseLayout title={SITE_TITLE}>
-  <div class={flex({ direction: 'column', gap: { base: 12, md: 24 } })}>
+  <div class="flex flex-col gap-9 md:gap-20">
     <section>
-      <div
-        class={flex({
-          gap: 8,
-          pt: { base: 12, md: 24 },
-          alignItems: 'center',
-          direction: { base: 'column', md: 'row' },
-        })}
-      >
-        <div
-          class={css({
-            order: { base: 0, md: 1 },
-          })}
-        >
+      <div class="flex gap-8 pt-12 md:pt-24 items-center flex-col md:flex-row">
+        <div class="order-0 md:order-1">
           <Image
             src="joel-turner_nobg"
             alt="Joel Turner"
-            class={css({
-              borderRadius: 'full',
-              width: '200px',
-              height: '200px',
-              margin: '0 auto',
-              display: 'block',
-              backgroundColor: { _dark: 'black', _light: 'white' },
-              shadow: 'round',
-            })}
+            class="rounded-full w-[200px] h-[200px] mx-auto block bg-white dark:bg-black shadow-xl"
             width={200}
             height={200}
             gravity="faces"
           />
         </div>
 
-        <div class={cx(prose(), css({ flex: '1 1 0' }))}>
-          <h1
-            class={css({
-              display: 'flex',
-              justifyContent: { base: 'center', md: 'flex-start' },
-              fontSize: { base: '3xl', md: '4xl' },
-              gap: 2,
-            })}
-          >
+        <div class="prose prose-lg dark:prose-invert flex-1">
+          <h1 class="flex justify-center md:justify-start text-3xl md:text-4xl gap-2">
             Howdy! I'm Joel
             <div class="animation-keyframes">
               <wa-animation easing="ease-in-out" duration="2000" play>
@@ -66,11 +38,11 @@ const featuredPost = (await getCollection('blog')).sort(
           </h1>
 
           <p>
-            Hi there! I'm a <strong>web developer & digital adventurer</strong> with a background in
-            graphic design and web development. By day, I'm a Senior Product Engineer at <a
-              href="https://copilotcrm.com">Copilot CRM</a
-            >, but in my free time I love to let my artistic side shine by practicing <a
-              href="/illustration/">hand lettering and sketching</a
+            Hi there! I'm a <strong>web developer & digital adventurer</strong> with a background in graphic
+            design and web development. By day, I'm a Senior Product Engineer at <LinkButton
+              href="https://copilotcrm.com">Copilot CRM</LinkButton
+            >, but in my free time I love to let my artistic side shine by practicing <LinkButton
+              href="/illustration/">hand lettering and sketching</LinkButton
             >. When I'm not busy creating, you can find me exploring the great outdoors in Portland
             with my awesome family (including our furry canine companions)!
           </p>
@@ -78,13 +50,13 @@ const featuredPost = (await getCollection('blog')).sort(
       </div>
     </section>
 
-    <div class={flex({ direction: 'column', gap: 4 })}>
-      <h2>Latest Blog Post</h2>
+    <div class="flex flex-col gap-4">
+      <h2 class="text-2xl font-bold">Latest Blog Post</h2>
       <PostCard post={featuredPost} featured />
     </div>
 
-    <div class={flex({ direction: 'column', gap: 4 })}>
-      <h2>Projects I'm Working On</h2>
+    <div class="flex flex-col gap-4">
+      <h2 class="text-2xl font-bold">Projects I'm Working On</h2>
       <ProjectGrid />
     </div>
   </div>

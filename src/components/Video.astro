@@ -1,7 +1,7 @@
 ---
+import { cn } from '@lib/utils';
 import { CldVideoPlayer } from 'astro-cloudinary';
-import { css } from 'styled-system/css';
-import { flex } from 'styled-system/patterns';
+import LinkButton from './LinkButton.astro';
 
 type Props = {
   publicId: string;
@@ -15,50 +15,26 @@ type Props = {
 const { publicId, title, citation, options: { loop = false } = { loop: false } } = Astro.props;
 ---
 
-<div
-  class={css({
-    borderRadius: '2xl',
-    overflow: 'hidden',
-    boxShadow: {
-      _dark: `0 0 0.5rem token(colors.brand.200)`,
-      _light: '0 0 1rem token(colors.brand.400)',
-    },
-  })}
->
+<div class={cn('rounded-2xl overflow-hidden shadow-brand-200 dark:shadow-brand-400')}>
   <CldVideoPlayer
     src={publicId}
     width="640"
     height="360"
-    class={css({
-      width: '100%',
-      height: 'auto',
-      aspectRatio: '640 / 360',
-    })}
+    class={cn('w-full h-auto aspect-640/360', citation && 'rounded-b-none')}
     loop={loop}
   />
 
-  <div
-    class={flex({
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      p: 2,
-      bg: {
-        _light: 'white',
-        _dark: 'gray.800',
-      },
-    })}
-  >
-    <p
-      class={css({
-        mb: 0,
-      })}
-    >
+  <div class="flex justify-between items-center p-2 bg-white dark:bg-gray-800">
+    <p class="mt-0 text-prose-caption text-right mb-0">
       {title}
     </p>
     {
       citation && (
-        <cite class={css({ mt: 0, color: 'prose.caption', textAlign: 'right' })}>
-          music from <a href="https://bensound.com">bensound.com</a>
+        <cite class="mt-0 text-prose-caption text-right">
+          music from{' '}
+          <LinkButton href="https://bensound.com" target="_blank" rel="noopener noreferrer">
+            bensound.com
+          </LinkButton>
         </cite>
       )
     }

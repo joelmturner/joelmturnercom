@@ -1,28 +1,33 @@
 ---
 import { type CollectionEntry } from 'astro:content';
-import { css } from 'styled-system/css';
-import { prose } from 'styled-system/recipes';
 import ZineViewer from './ZineViewer.astro';
-import { flex } from 'styled-system/patterns';
 import Badge from './Badge.astro';
+import { cn } from '@lib/utils';
 
 export type Props = {
   zine: CollectionEntry<'zines'>;
   featured?: boolean;
 };
-const { zine } = Astro.props;
+const { zine, featured = false } = Astro.props;
 
-const combinedStyles = css({
-  w: { base: 'full' },
-  textAlign: { base: 'center', lg: 'left' },
-  '& *': {
-    textDecoration: 'none',
-    transition: '0.2s ease',
-  },
-  '&:hover h4': {
-    color: 'accent',
-  },
-});
+const combinedStyles = cn(
+  // layout
+  'w-full',
+  // text alignment
+  'text-center',
+  'lg:text-left',
+  // remove text decoration from all children
+  '[&_*]:no-underline',
+  // transitions
+  'transition-all',
+  'duration-200',
+  // hover states
+  'hover:[&_h4]:text-accent',
+  'hover:[&_img]:shadow-lg',
+  'hover:[&_img]:shadow-slate-100',
+  'dark:hover:[&_img]:shadow-slate-800',
+  featured ? 'col-span-1 md:col-span-2' : 'col-span-1'
+);
 
 const imageUrlsInSetsOfTwo = zine?.data.imgUrls.reduce(
   (acc, imgUrl, index) => {
@@ -41,15 +46,12 @@ const isGuestAuthor = zine.data.author !== 'Joel M Turner';
   <ZineViewer height="300px" width="100%" variant="card">
     {imageUrlsInSetsOfTwo.map((imgUrl) => <div img-src={imgUrl[0]} back-img-src={imgUrl[1]} />)}
   </ZineViewer>
-  <div class={flex({ gap: 2, alignItems: 'center', justifyContent: 'space-between' })}>
-    <a href={`/illustration/zines/${zine.data.slug || zine.id}/`} class={prose({ size: '2xl' })}>
-      <h4
-        class={css({
-          my: 0,
-          lineHeight: 1.1,
-          fontSize: { base: '2xl', md: '3xl' },
-        })}
-      >
+  <div class="flex gap-2 items-center justify-between">
+    <a
+      href={`/illustration/zines/${zine.data.slug || zine.id}/`}
+      class="prose dark:prose-invert text-2xl"
+    >
+      <h4 class="my-0 line-height-1.1 text-2xl md:text-3xl">
         {zine.data.title}
       </h4>
     </a>
