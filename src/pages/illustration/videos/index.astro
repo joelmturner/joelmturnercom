@@ -1,5 +1,6 @@
 ---
 import LinkButton from '@components/LinkButton.astro';
+import PageTitle from '@components/PageTitle.astro';
 import Video from '@components/Video.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
@@ -12,7 +13,7 @@ const videos = await getCollection('video');
   description={'Some of my favorite hand-drawn illustration videos'}
 >
   <div class="flex justify-between items-center mb-8">
-    <h1>Illustration videos</h1>
+    <PageTitle title="Illustration videos" />
     <LinkButton href="/illustration/">← Back to Illustrations</LinkButton>
   </div>
   <div class="flex flex-col gap-4 md:gap-16">

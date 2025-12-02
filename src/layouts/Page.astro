@@ -1,6 +1,7 @@
 ---
 import Image from '@components/Image.astro';
 import BaseLayout from './BaseLayout.astro';
+import PageTitle from '@components/PageTitle.astro';
 
 type Props = {
   frontmatter: { title: string; description?: string; heroImage?: string };
@@ -27,14 +28,7 @@ const {
       }
     </div>
     <div class="prose prose-xl dark:prose-invert m-auto">
-      {
-        title && (
-          <div class="mb-3 py-2 text-center line-height-1">
-            <h1>{title}</h1>
-            <hr />
-          </div>
-        )
-      }
+      {title && <PageTitle title={title} />}
 
       <slot />
     </div>

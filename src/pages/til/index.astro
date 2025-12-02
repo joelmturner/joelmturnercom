@@ -13,7 +13,7 @@ const tilPosts = (await getCollection('til')).sort(
 
 <BaseLayout title={'Dev Tips'} description={"Some things I've learned along the way"}>
   <section>
-    <GridLayout>
+    <GridLayout title="Dev Tips">
       {
         tilPosts.map((post) => (
           <div class="flex flex-col">

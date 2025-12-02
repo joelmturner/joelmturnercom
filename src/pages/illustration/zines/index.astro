@@ -1,5 +1,6 @@
 ---
 import LinkButton from '@components/LinkButton.astro';
+import PageTitle from '@components/PageTitle.astro';
 import ZineCard from '@components/ZineCard.astro';
 import ZineFoldInstructions from '@components/ZineFoldInstructions.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
@@ -10,7 +11,7 @@ const zines = await getCollection('zines');
 
 <BaseLayout title={'Zines'} description={'Some illustrative zines'}>
   <div class="flex justify-between items-center mb-8">
-    <h1>Illustrated zines</h1>
+    <PageTitle title="Illustrated zines" />
     <LinkButton href="/illustration/">← Back to Illustrations</LinkButton>
   </div>
 

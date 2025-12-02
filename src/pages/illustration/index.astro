@@ -1,6 +1,7 @@
 ---
 import IllustrationGallery from '@components/IllustrationGallery.astro';
 import LinkButton from '@components/LinkButton.astro';
+import PageTitle from '@components/PageTitle.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getIllustrations } from '@lib/illustrations';
 
@@ -9,7 +10,7 @@ const collections = await getIllustrations();
 
 <BaseLayout title={'Illustrations'} description={'Some of my favorite hand-drawn illustrations'}>
   <div class="flex justify-between items-center mb-8">
-    <h1>Illustration Collections</h1>
+    <PageTitle title="Illustration Collections" />
 
     <div class="flex gap-4">
       <LinkButton href="/illustration/zines/">zines</LinkButton>

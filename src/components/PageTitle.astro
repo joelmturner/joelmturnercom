@@ -1,0 +1,11 @@
+---
+type Props = {
+  title: string;
+};
+
+const { title } = Astro.props;
+---
+
+<div class="prose prose-xl dark:prose-invert line-height-1">
+  <h1 class="text-3xl">{title}</h1>
+</div>

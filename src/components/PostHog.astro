@@ -60,11 +60,16 @@
     posthog.init('phc_rw4uuoOb20piH4Ze3ATBBnoqxQpadrV5AEwjfnw7lup', {
       api_host: 'https://us.i.posthog.com',
       person_profiles: 'identified_only',
+      // disable unused features (reduces runtime overhead, but bundle still downloads)
       session_recording: false,
       disable_surveys: true,
       disable_session_recording: true,
+      // basic pageview tracking only - minimal autocapture
       capture_pageview: true,
       capture_pageleave: false,
+      autocapture: false,
+      // note: PostHog's CDN bundle includes all features regardless of config
+      // to truly reduce bundle size, would need to use npm package with tree-shaking
     });
   }
 </script>

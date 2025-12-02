@@ -37,7 +37,7 @@ const combinedStyles = cn(
           width={featured ? 770 : 370}
           height={featured ? 385 : 185}
           src={post.data.cover}
-          alt={post.data.title}
+          alt={`blog post cover image for ${post.data.title}`}
           class="not-prose mb-1 rounded-xl"
           crop="fill"
           gravity="center"
@@ -50,7 +50,7 @@ const combinedStyles = cn(
           width={770}
           height={385}
           src="blog-post-card"
-          alt={post.data.title}
+          alt={`blog post cover image for ${post.data.title}`}
           class="not-prose mb-1 rounded-xl"
           overlays={[
             {
@@ -78,10 +78,10 @@ const combinedStyles = cn(
         />
       )
     }
-    <h4
+    <h3
       class={cn('mt-3 mb-1 text-2xl leading-1.1', featured ? 'text-3xl text-center' : 'text-2xl')}
     >
       {post.data.title}
-    </h4>
+    </h3>
   </a>
 </div>

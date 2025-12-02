@@ -5,6 +5,7 @@ import { getCollection, render } from 'astro:content';
 import Badge from '@components/Badge.astro';
 import ZineFoldInstructions from '@components/ZineFoldInstructions.astro';
 import { components } from '@components/mdxComponents';
+import PageTitle from '@components/PageTitle.astro';
 
 export async function getStaticPaths() {
   const zines = await getCollection('zines');
@@ -32,7 +33,7 @@ const isGuestAuthor = author !== 'Joel M Turner';
 ---
 
 <BaseLayout title={zine?.data.title}>
-  <h1>{zine?.data.title}</h1>
+  <PageTitle title={zine?.data.title} />
   <ZineViewer variant="rubber-hose" height="500px" width="100%" autoplay autoplay-interval="3000">
     {
       imageUrlsInSetsOfTwo.map(([imgUrl, backImgUrl]) => (
