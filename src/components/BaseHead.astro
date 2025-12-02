@@ -86,8 +86,8 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
 <meta name="generator" content={Astro.generator} />
 
 <!-- Web Awesome -->
-<script is:inline src="https://kit.webawesome.com/2dafcc2cf8fd4a26.js" crossorigin="anonymous"
-></script>
+<link rel="preconnect" href="https://kit.webawesome.com" crossorigin />
+<script src="https://kit.webawesome.com/2dafcc2cf8fd4a26.js" crossorigin="anonymous" defer></script>
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
