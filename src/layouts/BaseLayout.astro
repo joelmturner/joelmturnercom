@@ -15,7 +15,6 @@ const { title, description, image }: Props = Astro.props;
 <!doctype html>
 <html lang="en" class="bg-surface-default" data-color-mode="dark">
   <BaseHead title={title} description={description} image={image} />
-  <slot name="head" />
 
   <BaseBody>
     <slot />

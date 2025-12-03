@@ -1,9 +1,9 @@
 ---
+import BaseLayout from '@layouts/BaseLayout.astro';
 import LinkButton from '@components/LinkButton.astro';
 import PageTitle from '@components/PageTitle.astro';
 import ZineCard from '@components/ZineCard.astro';
 import ZineFoldInstructions from '@components/ZineFoldInstructions.astro';
-import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 const zines = await getCollection('zines');

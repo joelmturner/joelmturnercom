@@ -1,8 +1,8 @@
 ---
+import BaseLayout from '@layouts/BaseLayout.astro';
 import IllustrationGallery from '@components/IllustrationGallery.astro';
 import LinkButton from '@components/LinkButton.astro';
 import PageTitle from '@components/PageTitle.astro';
-import BaseLayout from '@layouts/BaseLayout.astro';
 import { getIllustrations } from '@lib/illustrations';
 
 const collections = await getIllustrations();
