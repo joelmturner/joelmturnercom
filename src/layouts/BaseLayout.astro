@@ -1,4 +1,5 @@
 ---
+import '../styles/global.css';
 import BaseBody from '@components/BaseBody.astro';
 import BaseHead from '@components/BaseHead.astro';
 
@@ -12,7 +13,7 @@ const { title, description, image }: Props = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="wa-cloak bg-dark" data-color-mode="dark">
+<html lang="en" class="bg-surface-default" data-color-mode="dark">
   <BaseHead title={title} description={description} image={image} />
   <slot name="head" />
 
