@@ -134,16 +134,37 @@ const themeIconStyles = cn(
   }
 
   function initializeTheme() {
-    // clear all active classes first
-    document.querySelectorAll('[data-theme-value]').forEach((el) => {
-      el.classList.remove('active');
-    });
-
     const theme = localStorage.getItem('theme');
     const systemTheme = getSystemTheme();
     const baseValue = theme !== null ? theme : systemTheme;
 
-    updateTheme(baseValue);
+    // resolve the actual theme value
+    const resolvedTheme = baseValue === 'system' ? systemTheme : baseValue;
+    const currentMode = document.documentElement.getAttribute('data-color-mode');
+    const currentWaDark = document.documentElement.classList.contains('wa-dark');
+
+    // only update theme attributes/classes if they've changed to prevent flashes
+    if (currentMode !== resolvedTheme || (resolvedTheme === 'dark') !== currentWaDark) {
+      updateTheme(baseValue);
+    } else {
+      // theme is already correct, just update UI elements without touching html classes
+      // clear all active classes first
+      document.querySelectorAll('[data-theme-value]').forEach((el) => {
+        el.classList.remove('active');
+      });
+
+      // set active classes
+      document.querySelectorAll(`[data-theme-value="${baseValue}"]`).forEach((el) => {
+        el.classList.add('active');
+      });
+
+      // update the logo based on current mode
+      const logosByTheme = {
+        light: `https://res.cloudinary.com/joelmturner/image/upload/f_auto,q_auto/v1673573341/jmt-logo-light-500w_2_pmadzj.png`,
+        dark: `https://res.cloudinary.com/joelmturner/image/upload/f_auto,q_auto/v1673573341/jmt-logo-dark-500w_2_pxay5e.png`,
+      };
+      document.querySelector(`[data-logo]`)?.setAttribute('src', logosByTheme[resolvedTheme]);
+    }
   }
 
   function attachClickHandler() {
@@ -174,19 +195,14 @@ const themeIconStyles = cn(
     });
   }
 
-  function initializeThemeAndHandlers() {
-    initializeTheme();
-    // use a small delay to ensure the element exists after view transitions
-    setTimeout(attachClickHandler, 0);
-  }
-
-  // initialize theme and handlers on load
+  // initialize theme and handlers on page load
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeThemeAndHandlers);
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeTheme();
+      attachClickHandler();
+    });
   } else {
-    initializeThemeAndHandlers();
+    initializeTheme();
+    attachClickHandler();
   }
-
-  // re-initialize theme and handlers after Astro view transitions (this fixes the color mode issue)
-  document.addEventListener('astro:page-load', initializeThemeAndHandlers);
 </script>

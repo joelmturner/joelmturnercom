@@ -86,5 +86,7 @@ import { cn } from '@lib/utils';
   const drawer = document.querySelector('[data-nav-drawer-content]');
   const openButton = document.querySelector('[data-nav-drawer-trigger]');
 
-  openButton.addEventListener('click', () => (drawer.open = true));
+  if (openButton && drawer) {
+    openButton.addEventListener('click', () => (drawer.open = true));
+  }
 </script>
