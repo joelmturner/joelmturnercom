@@ -13,8 +13,9 @@ const themeIconStyles = cn(
     '[&>[data-theme-value="light"].active]:bg-brand-200',
     '[&>[data-theme-value="system"].active]:bg-brand-200',
     '[&>[data-theme-value="dark"].active]:bg-brand-200 [&>[data-theme-value="dark"].active]:text-blue-900',
-    'theme-switch'
+    'theme-switch max-h-[120px]'
   )}
+  style="display: flex; gap: 0.25rem; align-items: center; height: 1.5rem; overflow: hidden;"
 >
   <svg
     data-theme-value="light"
@@ -23,7 +24,10 @@ const themeIconStyles = cn(
     viewBox="0 0 24 24"
     stroke-width="1.5"
     stroke="currentColor"
+    width="24"
+    height="24"
     class={themeIconStyles}
+    style="width: 1.5rem; height: 1.5rem; padding: 0.25rem; cursor: pointer;"
   >
     <path
       stroke-linecap="round"
@@ -39,7 +43,10 @@ const themeIconStyles = cn(
     viewBox="0 0 24 24"
     stroke-width="1.5"
     stroke="currentColor"
+    width="24"
+    height="24"
     class={themeIconStyles}
+    style="width: 1.5rem; height: 1.5rem; padding: 0.25rem; cursor: pointer;"
   >
     <path
       stroke-linecap="round"
@@ -55,7 +62,10 @@ const themeIconStyles = cn(
     viewBox="0 0 24 24"
     stroke-width="1.5"
     stroke="currentColor"
+    width="24"
+    height="24"
     class={themeIconStyles}
+    style="width: 1.5rem; height: 1.5rem; padding: 0.25rem; cursor: pointer;"
   >
     <path
       stroke-linecap="round"
@@ -68,6 +78,24 @@ const themeIconStyles = cn(
 <style>
   :global(.dark) {
     data-color-mode: dark;
+  }
+
+  /* prevent FOUC by ensuring component is styled before Tailwind loads */
+  .theme-switch {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    height: 1.5rem;
+    overflow: hidden;
+    border-radius: 0.375rem;
+  }
+
+  .theme-switch svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0.25rem;
+    cursor: pointer;
+    flex-shrink: 0;
   }
 </style>
 
