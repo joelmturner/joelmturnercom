@@ -15,12 +15,21 @@ const { SENTRY_AUTH_TOKEN, SENTRY_DSN } = loadEnv(
 /** @type {import('astro-expressive-code').AstroExpressiveCodeOptions} */
 const astroExpressiveCodeOptions = {
   themes: ["dracula", "solarized-light"],
+  // reduce bundle size by disabling unused features
+  useStrictExperimentalApi: false,
 };
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://joelmturner.com",
   trailingSlash: "always",
+  // optimize build output
+  build: {
+    inlineStylesheets: "auto",
+    assets: "_assets",
+  },
+  // optimize compression
+  compressHTML: true,
 
   integrations: [
     astroExpressiveCode(astroExpressiveCodeOptions),
@@ -65,5 +74,39 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      // optimize chunk size
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            // separate vendor chunks for better caching
+            if (id.includes("node_modules")) {
+              if (id.includes("astro-expressive-code")) {
+                return "expressive-code";
+              }
+              if (
+                id.includes("astro-cloudinary") ||
+                id.includes("@cloudinary")
+              ) {
+                return "cloudinary";
+              }
+              if (id.includes("sentry")) {
+                return "sentry";
+              }
+              return "vendor";
+            }
+          },
+        },
+      },
+      // enable minification
+      minify: "esbuild",
+      // optimize chunk size
+      chunkSizeWarningLimit: 1000,
+      cssMinify: true,
+    },
+    // optimize dependencies
+    optimizeDeps: {
+      include: [],
+    },
   },
 });
