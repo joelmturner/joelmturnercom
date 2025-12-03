@@ -23,6 +23,13 @@ const astroExpressiveCodeOptions = {
 export default defineConfig({
   site: "https://joelmturner.com",
   trailingSlash: "always",
+  // ensure stylesheets are hoisted to head, not injected into body
+  build: {
+    inlineStylesheets: "never", // always use external stylesheets in head
+    assets: "_assets",
+  },
+  // compress HTML output
+  compressHTML: true,
 
   integrations: [
     astroExpressiveCode(astroExpressiveCodeOptions),
