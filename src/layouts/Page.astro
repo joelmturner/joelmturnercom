@@ -2,6 +2,7 @@
 import Image from '@components/Image.astro';
 import BaseLayout from './BaseLayout.astro';
 import PageTitle from '@components/PageTitle.astro';
+import Prose from '@components/Prose.astro';
 
 type Props = {
   frontmatter: { title: string; description?: string; heroImage?: string };
@@ -27,10 +28,10 @@ const {
         )
       }
     </div>
-    <div class="prose prose-xl dark:prose-invert m-auto">
+    <Prose>
       {title && <PageTitle title={title} />}
 
       <slot />
-    </div>
+    </Prose>
   </article>
 </BaseLayout>

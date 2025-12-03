@@ -29,13 +29,13 @@
     0 0 0 1px hsla(10, 60%, 60%, 0.05), 0 0.3px 0.4px hsla(10, 60%, 60%, 0.02),
     0 0.9px 1.5px hsla(10, 60%, 60%, 0.045),
     0 3.5px 6px hsla(10, 60%, 60%, 0.09);
+
+  --surface-default: rgb(15 23 42); /* slate-900 */
 }
 
 :not(:defined) {
   visibility: hidden;
 }
-
-/* exclude Web Awesome components from CSS reset */
 
 /* Light mode (default) */
 [data-color-mode="light"] {
@@ -59,6 +59,7 @@
   --wa-color-surface-border: rgb(254 215 170); /* orange-200 */
   --wa-color-neutral-fill-loud: rgb(255 228 230); /* rose-100 */
   --wa-color-neutral-on-loud: var(--color-accent);
+  --surface-default: var(--wa-color-surface-default);
 }
 
 /* Dark mode */
@@ -83,6 +84,7 @@
   --wa-color-surface-border: rgb(51 65 85); /* slate-700 */
   --wa-color-neutral-fill-loud: rgb(51 65 85); /* slate-700 */
   --wa-color-neutral-on-loud: var(--color-accent);
+  --surface-default: var(--wa-color-surface-default);
 }
 
 /* Global base styles */
@@ -90,101 +92,7 @@
   :state(wa-defined) {
     all: revert-layer;
   }
-
-  body {
-    font-family: var(--font-fira-sans);
-    margin: 0;
-    padding: 0;
-    text-align: left;
-    background-size: 100% 600px;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    color: var(--color-primary);
-    font-size: 1rem;
-    line-height: normal;
-    background-color: rgb(255 247 237); /* orange-50 */
-  }
-
-  [data-color-mode="dark"] body {
-    background-color: rgb(15 23 42); /* slate-900 */
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 0 0 0.5rem 0;
-    line-height: 1.2;
-  }
-
-  h1 {
-    font-size: 2.25rem; /* 4xl */
-    font-weight: 700;
-  }
-
-  h2 {
-    font-size: 1.875rem; /* 3xl */
-    font-weight: 700;
-  }
-
-  h3 {
-    font-size: 1.5rem; /* 2xl */
-    font-weight: 700;
-  }
-
-  h4 {
-    font-size: 1.25rem; /* xl */
-    font-weight: 700;
-  }
-
-  h5 {
-    font-size: 1.125rem; /* lg */
-    font-weight: 700;
-  }
-
-  h6 {
-    font-size: 1rem; /* md */
-    font-weight: 700;
-  }
-
-  strong,
-  b {
-    font-weight: 700;
-  }
-
-  code {
-    padding: 0.25rem 0.5rem; /* py-1 px-2 */
-    background-color: rgb(254 226 226); /* rose-100 */
-    border-radius: 0.375rem; /* md */
-    font-family: var(--font-fira-code) !important;
-  }
-
-  [data-color-mode="dark"] code {
-    background-color: rgb(55 65 81); /* gray-700 */
-  }
-
-  code.not-prose {
-    font-size: 1rem;
-  }
-
-  pre {
-    padding: 1.25rem; /* 5 */
-    border-radius: 0.375rem; /* md */
-  }
-
-  pre > code {
-    all: unset;
-  }
-
-  .expressive-code + .expressive-code {
-    margin-top: 2rem; /* 8 */
-  }
-
-  /* base anchor styles - allow utility classes to override */
-  a {
-    color: var(--color-accent);
-    text-decoration: none;
+  html {
+    background-color: var(--wa-color-surface-default);
   }
 }
