@@ -49,6 +49,10 @@ const ogImage = isValidURL(image)
 const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web Development Blog`;
 ---
 
+<!-- Global Metadata - placed early to ensure CSS loads first -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+
 <!-- Theme initialization - must run before page renders to prevent flash -->
 <script is:inline>
   (function () {
@@ -78,10 +82,6 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
     }
   })();
 </script>
-
-<!-- Global Metadata -->
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/png" href="/favicon-32x32.png" />
 <meta name="generator" content={Astro.generator} />
 

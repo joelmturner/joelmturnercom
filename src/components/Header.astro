@@ -9,7 +9,7 @@ import { cn } from '@lib/utils';
 <header
   class={cn(
     // spacing
-    'm-0 p-3',
+    'm-0 p-3 max-h-[70px] md:max-h-[90px]',
     // background
     'bg-orange-50 dark:bg-slate-900',
     // text
@@ -62,7 +62,7 @@ import { cn } from '@lib/utils';
   </nav>
 </header>
 
-<wa-drawer data-nav-drawer-content class="drawer-without-header">
+<wa-drawer data-nav-drawer-content class="drawer-without-header md:hidden">
   <wa-icon slot="header" name="close" data-drawer="close">Close</wa-icon>
   <div class="flex flex-col gap-2">
     <ul class="font-medium text-xl flex flex-col gap-2">
