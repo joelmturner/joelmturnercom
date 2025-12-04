@@ -62,7 +62,7 @@ import { cn } from '@lib/utils';
   </nav>
 </header>
 
-<wa-drawer data-nav-drawer-content class="drawer-without-header md:hidden">
+<wa-drawer data-nav-drawer-content class="md:hidden">
   <wa-icon slot="header" name="close" data-drawer="close">Close</wa-icon>
   <div class="flex flex-col gap-2 md:hidden">
     <ul class="font-medium text-xl flex flex-col gap-2">
@@ -83,10 +83,18 @@ import { cn } from '@lib/utils';
 </wa-drawer>
 
 <script is:inline>
-  const drawer = document.querySelector('[data-nav-drawer-content]');
-  const openButton = document.querySelector('[data-nav-drawer-trigger]');
+  // set up drawer event listener on each page load
+  // using is:inline ensures this runs immediately when the page loads
+  (function () {
+    const drawer = document.querySelector('[data-nav-drawer-content]');
+    const openButton = document.querySelector('[data-nav-drawer-trigger]');
 
-  if (openButton && drawer) {
-    openButton.addEventListener('click', () => (drawer.open = true));
-  }
+    if (openButton && drawer) {
+      openButton.addEventListener('click', () => {
+        if (drawer && 'open' in drawer) {
+          drawer.open = true;
+        }
+      });
+    }
+  })();
 </script>

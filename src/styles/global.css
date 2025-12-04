@@ -37,6 +37,10 @@
   visibility: hidden;
 }
 
+:root {
+  font-family: var(--font-fira-sans);
+}
+
 /* Light mode (default) */
 [data-color-mode="light"] {
   --color-primary: black;

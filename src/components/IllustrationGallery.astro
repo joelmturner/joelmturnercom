@@ -53,6 +53,7 @@ const { illustrations } = Astro.props;
   label="Dialog"
   without-header
   light-dismiss
+  data-lightbox
   class="dialog-light-dismiss"
   style="--width: 70vw;--spacing: 0;"
 >
@@ -67,11 +68,11 @@ const { illustrations } = Astro.props;
   const urlParams = new URLSearchParams(window.location.search);
   const initialCollection = urlParams.get('collection') || 'joelmturner_featured';
 
-  const select = document.querySelector('wa-dropdown');
+  const select = document.querySelector('#collection-select');
   const dropdownButton = document.querySelector('[data-illustration-gallery-trigger]');
   const gallery = document.getElementById('gallery');
   const carousel = document.querySelector('wa-carousel') as WaCarousel;
-  const lightbox = document.querySelector('wa-dialog') as HTMLDialogElement;
+  const lightbox = document.querySelector('[data-lightbox]') as HTMLDialogElement;
 
   function filterImages(selectedValue: string) {
     const images = gallery?.getElementsByTagName('img');
