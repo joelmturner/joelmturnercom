@@ -41,6 +41,24 @@
   font-family: var(--font-fira-sans);
 }
 
+/* prevent layout shifts from font loading */
+body {
+  text-rendering: optimizeSpeed;
+}
+
+/* reserve space for web awesome components before they're defined */
+wa-animation {
+  display: inline-block;
+  min-width: 1em;
+  min-height: 1em;
+}
+
+/* drawers should be out of normal flow to prevent layout shifts */
+wa-drawer {
+  position: fixed !important;
+  contain: layout style paint;
+}
+
 /* Light mode (default) */
 [data-color-mode="light"] {
   --color-primary: black;

@@ -16,12 +16,21 @@ const cld = new Cloudinary({
 
 const gravity = props.gravity || 'north_west';
 
+// use dpr 2.0 max to avoid oversized images (3x is excessive for most displays)
 const cldSrc = cld
   .image(src)
   .format('auto')
   .quality('auto')
-  .resize(`c_fill,h_${props.height},w_${props.width},g_${gravity},dpr_3.0` as any);
+  .resize(`c_fill,h_${props.height},w_${props.width},g_${gravity},dpr_2.0` as any);
 const resolvedSrc = cldSrc.toURL();
+
+// calculate aspect ratio for layout stability
+const aspectRatio = props.width && props.height ? `${props.width}/${props.height}` : undefined;
 ---
 
-<AstroImage src={resolvedSrc} {...props as any} />
+<AstroImage
+  src={resolvedSrc}
+  {...props as any}
+  style={aspectRatio ? { aspectRatio } : undefined}
+  decoding="async"
+/>

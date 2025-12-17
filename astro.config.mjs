@@ -23,9 +23,9 @@ const astroExpressiveCodeOptions = {
 export default defineConfig({
   site: "https://joelmturner.com",
   trailingSlash: "always",
-  // ensure stylesheets are hoisted to head, not injected into body
+  // inline all stylesheets to eliminate render-blocking CSS requests
   build: {
-    inlineStylesheets: "never", // always use external stylesheets in head
+    inlineStylesheets: "always", // inline all CSS to avoid render-blocking
     assets: "_assets",
   },
   // compress HTML output
@@ -74,5 +74,9 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      target: "es2020", // target modern browsers to reduce legacy JavaScript
+      cssMinify: true,
+    },
   },
 });

@@ -48,10 +48,11 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
 <!-- Global Metadata - placed early to ensure CSS loads first -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<!-- DNS prefetch for faster connections -->
-<link rel="dns-prefetch" href="https://kit.webawesome.com" />
-<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+<!-- DNS prefetch for faster connections (lightweight hints for less critical origins) -->
 <link rel="dns-prefetch" href="https://us.i.posthog.com" />
+<link rel="dns-prefetch" href="https://us-assets.i.posthog.com" />
+<link rel="dns-prefetch" href="https://gc.zgo.at" />
+<link rel="dns-prefetch" href="https://o556640.ingest.sentry.io" />
 
 <!-- Theme initialization - must run before page renders to prevent flash -->
 <script is:inline>
@@ -85,16 +86,15 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
 <link rel="icon" type="image/png" href="/favicon-32x32.png" />
 <meta name="generator" content={Astro.generator} />
 
-<!-- Web Awesome -->
-<link rel="preconnect" href="https://kit.webawesome.com" crossorigin />
-<link rel="preconnect" href="https://ka-p.webawesome.com" crossorigin />
-<script is:inline src="https://kit.webawesome.com/2dafcc2cf8fd4a26.js" crossorigin="anonymous" defer
-></script>
-
-<!-- Preconnect to third-party domains for faster connections -->
-<link rel="preconnect" href="https://o556640.ingest.sentry.io" crossorigin />
+<!-- Preconnect to critical third-party domains (max 4 for best performance) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://ka-p.webawesome.com" crossorigin />
+<link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+
+<!-- Web Awesome - defer loading to avoid blocking render -->
+<script is:inline src="https://kit.webawesome.com/2dafcc2cf8fd4a26.js" crossorigin="anonymous" defer
+></script>
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
@@ -123,6 +123,7 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
 <link rel="pingback" href="https://webmention.io/joelmturner.com/xmlrpc" />
 
 <script
+  is:inline
   data-goatcounter="https://joelmturner.goatcounter.com/count"
   async
   src="//gc.zgo.at/count.js"></script>

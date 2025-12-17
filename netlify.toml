@@ -11,8 +11,14 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
 
 # cache static assets aggressively
-# note: Astro automatically hashes filenames (e.g., _astro/abc123.js)
+# note: Astro automatically hashes filenames (e.g., _assets/abc123.js)
 # so cache busting happens automatically when content changes
+[[headers]]
+  for = "/_assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# also cache legacy _astro path for backwards compatibility
 [[headers]]
   for = "/_astro/*"
   [headers.values]

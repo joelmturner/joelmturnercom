@@ -21,10 +21,10 @@ function updateTheme(value) {
     el.classList.add('active');
   });
 
-  // update the logo based on mode
+  // update the logo based on mode (optimized size to prevent layout shift)
   const logosByTheme = {
-    light: `https://res.cloudinary.com/joelmturner/image/upload/f_auto,q_auto/v1673573341/jmt-logo-light-500w_2_pmadzj.png`,
-    dark: `https://res.cloudinary.com/joelmturner/image/upload/f_auto,q_auto/v1673573341/jmt-logo-dark-500w_2_pxay5e.png`,
+    light: `https://res.cloudinary.com/joelmturner/image/upload/c_scale,w_360,f_auto,q_auto/v1673573341/jmt-logo-light-500w_2_pmadzj.png`,
+    dark: `https://res.cloudinary.com/joelmturner/image/upload/c_scale,w_360,f_auto,q_auto/v1673573341/jmt-logo-dark-500w_2_pxay5e.png`,
   };
   document.querySelector(`[data-logo]`)?.setAttribute('src', logosByTheme[theme]);
 
@@ -50,10 +50,10 @@ function syncThemeUI() {
     el.classList.add('active');
   });
 
-  // update the logo based on current resolved theme
+  // update the logo based on current resolved theme (optimized size to prevent layout shift)
   const logosByTheme = {
-    light: `https://res.cloudinary.com/joelmturner/image/upload/f_auto,q_auto/v1673573341/jmt-logo-light-500w_2_pmadzj.png`,
-    dark: `https://res.cloudinary.com/joelmturner/image/upload/f_auto,q_auto/v1673573341/jmt-logo-dark-500w_2_pxay5e.png`,
+    light: `https://res.cloudinary.com/joelmturner/image/upload/c_scale,w_360,f_auto,q_auto/v1673573341/jmt-logo-light-500w_2_pmadzj.png`,
+    dark: `https://res.cloudinary.com/joelmturner/image/upload/c_scale,w_360,f_auto,q_auto/v1673573341/jmt-logo-dark-500w_2_pxay5e.png`,
   };
   document.querySelector(`[data-logo]`)?.setAttribute('src', logosByTheme[resolvedTheme]);
 }
