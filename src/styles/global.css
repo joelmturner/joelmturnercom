@@ -3,17 +3,13 @@
 
 @custom-variant dark (&:where([data-color-mode=dark], [data-color-mode=dark] *));
 
-:root {
-  --tw-prose-invert-links: var(--color-accent);
-  --font-fira-code: "Fira Code", monospace;
-  --font-fira-sans: "Fira Sans", sans-serif;
-}
-
 /* Custom theme tokens */
 @theme {
   /* Custom fonts */
-  --font-family-fira-code: "var(--font-fira-code)";
-  --font-family-fira-sans: var(--font-fira-sans);
+  --font-family-fira-code: "Fira Code", monospace;
+  --font-family-fira-sans: "Fira Sans", sans-serif;
+
+  --tw-prose-invert-links: var(--color-accent);
 
   /* Custom colors - will be overridden by dark mode */
   --color-primary: black;
@@ -31,14 +27,6 @@
     0 3.5px 6px hsla(10, 60%, 60%, 0.09);
 
   --surface-default: rgb(15 23 42); /* slate-900 */
-}
-
-:not(:defined) {
-  visibility: hidden;
-}
-
-:root {
-  font-family: var(--font-fira-sans);
 }
 
 /* prevent layout shifts from font loading */
@@ -111,6 +99,11 @@ wa-drawer {
 
 /* Global base styles */
 @layer base {
+  :root {
+    --font-fira-code: "Fira Code", monospace;
+    --font-fira-sans: "Fira Sans", sans-serif;
+    font-family: var(--font-fira-sans);
+  }
   :state(wa-defined) {
     all: revert-layer;
   }
