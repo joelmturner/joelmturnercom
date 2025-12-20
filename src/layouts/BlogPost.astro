@@ -95,8 +95,9 @@ const structuredData = {
     }
 
     function shareOnBluesky() {
+      const text = encodeURIComponent(pageTitle + ' ' + pageUrl);
       window.open(
-        'https://bsky.app/profile/joelmturner.com/post/' + encodeURIComponent(pageUrl),
+        'https://bsky.app/intent/compose?text=' + text,
         'bluesky-share-dialog',
         'width=626,height=436'
       );
