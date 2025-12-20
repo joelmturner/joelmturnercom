@@ -26,7 +26,7 @@
     0 0.9px 1.5px hsla(10, 60%, 60%, 0.045),
     0 3.5px 6px hsla(10, 60%, 60%, 0.09);
 
-  --surface-default: rgb(15 23 42); /* slate-900 */
+  --color-surface-default: rgb(15 23 42); /* slate-900 */
 }
 
 /* prevent layout shifts from font loading */
@@ -69,7 +69,7 @@ wa-drawer {
   --wa-color-surface-border: rgb(254 215 170); /* orange-200 */
   --wa-color-neutral-fill-loud: rgb(255 228 230); /* rose-100 */
   --wa-color-neutral-on-loud: var(--color-accent);
-  --surface-default: var(--wa-color-surface-default);
+  --color-surface-default: var(--wa-color-surface-default);
 }
 
 /* Dark mode */
@@ -94,7 +94,7 @@ wa-drawer {
   --wa-color-surface-border: rgb(51 65 85); /* slate-700 */
   --wa-color-neutral-fill-loud: rgb(51 65 85); /* slate-700 */
   --wa-color-neutral-on-loud: var(--color-accent);
-  --surface-default: var(--wa-color-surface-default);
+  --color-surface-default: var(--wa-color-surface-default);
 }
 
 /* Global base styles */
@@ -106,8 +106,5 @@ wa-drawer {
   }
   :state(wa-defined) {
     all: revert-layer;
-  }
-  html {
-    background-color: var(--wa-color-surface-default);
   }
 }
