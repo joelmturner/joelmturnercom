@@ -2,6 +2,7 @@
 import { AstroFont } from 'astro-font';
 import { SITE_DESCRIPTION, SITE_TITLE } from 'src/consts';
 import { getCldOgImageUrl } from 'astro-cloudinary/helpers';
+import PostHog from '@components/PostHog.astro';
 
 interface Props {
   title?: string;
@@ -48,6 +49,8 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <!-- DNS prefetch for faster connections (lightweight hints for less critical origins) -->
+<link rel="dns-prefetch" href="https://us.i.posthog.com" />
+<link rel="dns-prefetch" href="https://us-assets.i.posthog.com" />
 <link rel="dns-prefetch" href="https://gc.zgo.at" />
 <link rel="dns-prefetch" href="https://o556640.ingest.sentry.io" />
 
@@ -147,3 +150,6 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
     },
   ]}
 />
+
+<!-- analytics -->
+{import.meta.env.MODE !== 'development' && <PostHog />}
