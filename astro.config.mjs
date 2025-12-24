@@ -6,6 +6,8 @@ import sentry from "@sentry/astro";
 import { loadEnv } from "vite";
 import icon from "astro-icon";
 import tailwindcss from "@tailwindcss/vite";
+import posthog from "astro-posthog";
+
 const { SENTRY_AUTH_TOKEN, SENTRY_DSN } = loadEnv(
   process.env.NODE_ENV,
   process.cwd(),
@@ -69,6 +71,12 @@ export default defineConfig({
         ph: ["dev-to-logo"],
         local: ["bluesky"],
       },
+    }),
+    posthog({
+      posthogKey: "phc_rw4uuoOb20piH4Ze3ATBBnoqxQpadrV5AEwjfnw7lup",
+      api_host: "https://us.i.posthog.com",
+      defaults: "2025-05-24",
+      person_profiles: "identified_only",
     }),
   ],
 
