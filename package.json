@@ -33,7 +33,6 @@
     "astro-icon": "^1.1.2",
     "astro-posthog": "^1.0.2",
     "cloudinary": "^2.8.0",
-    "posthog-js": "^1.310.1",
     "clsx": "^2.1.1",
     "lodash": "^4.17.21",
     "lucide-astro": "^0.555.0",
