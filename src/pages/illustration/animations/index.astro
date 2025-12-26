@@ -8,9 +8,37 @@ import PageTitle from '@components/PageTitle.astro';
 import LinkButton from '@components/LinkButton.astro';
 
 const animations = await getCollection('animations');
+
+// generate structured data for video gallery
+const canonicalUrl = new URL('/illustration/animations/', Astro.site);
+
+const videoStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Animations',
+  description: 'Some of my favorite animations',
+  url: canonicalUrl.toString(),
+  itemListElement: animations.map((animation, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    item: {
+      '@type': 'VideoObject',
+      name: animation.data.title,
+      thumbnailUrl: `https://img.youtube.com/vi/${animation.data.embedId}/maxresdefault.jpg`,
+      embedUrl: `https://www.youtube.com/embed/${animation.data.embedId}`,
+      contentUrl: `https://www.youtube.com/watch?v=${animation.data.embedId}`,
+      ...(animation.data.date && { uploadDate: animation.data.date.toISOString() }),
+    },
+  })),
+};
 ---
 
 <BaseLayout title={'Animations'} description={'Some of my favorite animations'}>
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(videoStructuredData, null, 0)}
+  />
   <div class="flex justify-between items-center mb-8">
     <PageTitle title="Animations" />
     <LinkButton href="/illustration/">← Back to Illustrations</LinkButton>

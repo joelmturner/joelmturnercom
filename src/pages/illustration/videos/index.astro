@@ -6,12 +6,53 @@ import Video from '@components/Video.astro';
 import { getCollection } from 'astro:content';
 
 const videos = await getCollection('video');
+
+// generate structured data for video gallery
+const canonicalUrl = new URL('/illustration/videos/', Astro.site);
+
+const videoStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Illustration videos',
+  description: 'Some of my favorite hand-drawn illustration videos',
+  url: canonicalUrl.toString(),
+  itemListElement: videos.map((video, index) => {
+    const publicId = video.data.public_id;
+    const title = (video.data.context?.custom?.caption as string) || 'Illustration video';
+    const thumbnailUrl = `https://res.cloudinary.com/joelmturner/video/upload/so_0/${publicId}.jpg`;
+    const contentUrl = `https://res.cloudinary.com/joelmturner/video/upload/${publicId}.mp4`;
+    const embedUrl = canonicalUrl.toString();
+
+    return {
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'VideoObject',
+        name: title,
+        thumbnailUrl,
+        embedUrl,
+        contentUrl,
+        ...(video.data.created_at && { uploadDate: new Date(video.data.created_at).toISOString() }),
+        ...(video.data.width &&
+          video.data.height && {
+            width: video.data.width,
+            height: video.data.height,
+          }),
+      },
+    };
+  }),
+};
 ---
 
 <BaseLayout
   title={'Illustration videos'}
   description={'Some of my favorite hand-drawn illustration videos'}
 >
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(videoStructuredData, null, 0)}
+  />
   <div class="flex justify-between items-center mb-8">
     <PageTitle title="Illustration videos" />
     <LinkButton href="/illustration/">← Back to Illustrations</LinkButton>
