@@ -27,6 +27,7 @@ const {
   next,
   prev,
   slug,
+  video,
 } = Astro.props;
 
 // generate structured data for SEO
@@ -81,10 +82,34 @@ const structuredData = {
         image: imageUrl,
       }),
 };
+
+// generate VideoObject structured data when video is present
+const videoStructuredData = video
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'VideoObject',
+      name: title || '',
+      description: (excerpt || description || '').substring(0, 500),
+      thumbnailUrl: `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`,
+      ...(video.uploadDate || date ? { uploadDate: (video.uploadDate || date).toISOString() } : {}),
+      ...(video.duration ? { duration: video.duration } : {}),
+      embedUrl: `https://www.youtube.com/embed/${video.youtubeId}`,
+      contentUrl: `https://www.youtube.com/watch?v=${video.youtubeId}`,
+    }
+  : null;
 ---
 
 <BaseLayout title={title} description={excerpt ?? description} image={cover}>
   <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData, null, 0)} />
+  {
+    videoStructuredData && (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify(videoStructuredData, null, 0)}
+      />
+    )
+  }
   <script define:vars={{ pageTitle: title, pageUrl: Astro.url.href }}>
     function shareOnFacebook() {
       window.open(

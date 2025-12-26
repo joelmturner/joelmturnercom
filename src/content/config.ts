@@ -17,6 +17,13 @@ const blog = defineCollection({
     categories: z.string(),
     tags: z.array(z.string()),
     slug: z.string().optional(),
+    video: z
+      .object({
+        youtubeId: z.string(),
+        duration: z.string().optional(),
+        uploadDate: z.coerce.date().optional(),
+      })
+      .optional(),
   }),
 });
 
