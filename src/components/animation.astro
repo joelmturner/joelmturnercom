@@ -1,0 +1,13 @@
+---
+import { YouTube } from 'astro-embed';
+const { embedId } = Astro.props;
+---
+
+<div class="rounded-xl overflow-hidden aspect-9/16">
+  <YouTube
+    id={embedId}
+    params="mute=1&loop=1&modestbranding=1&rel=0"
+    class="w-full h-full"
+    posterQuality="high"
+  />
+</div>

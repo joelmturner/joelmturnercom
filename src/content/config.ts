@@ -45,6 +45,17 @@ const illustration = defineCollection({
   }),
 });
 
+const animations = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/animations" }),
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    lastmod: z.coerce.date().optional(),
+    slug: z.string().optional(),
+    embedId: z.string(),
+  }),
+});
+
 const video = defineCollection({
   loader: cldAssetsLoader({
     limit: 10,
@@ -71,4 +82,11 @@ const zines = defineCollection({
   }),
 });
 
-export const collections = { blog, til, illustration, video, zines };
+export const collections = {
+  blog,
+  til,
+  illustration,
+  video,
+  zines,
+  animations,
+};
