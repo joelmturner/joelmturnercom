@@ -4,11 +4,61 @@ import IllustrationGallery from '@components/IllustrationGallery.astro';
 import LinkButton from '@components/LinkButton.astro';
 import PageTitle from '@components/PageTitle.astro';
 import { getIllustrations } from '@lib/illustrations';
+import { getCldImageUrl } from 'astro-cloudinary/helpers';
 
 const collections = await getIllustrations();
+
+// generate structured data for image gallery
+const canonicalUrl = new URL('/illustration/', Astro.site);
+
+const imageGalleryStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Illustrations',
+  description: 'Some of my favorite hand-drawn illustrations',
+  url: canonicalUrl.toString(),
+  itemListElement: collections.map((illustration, index) => {
+    // generate full-size image URL for schema
+    const contentUrl = getCldImageUrl({
+      src: illustration.id,
+      width: illustration.width,
+      height: illustration.height,
+      format: 'auto',
+    });
+
+    // use a smaller version for thumbnail (400x400 is what the gallery displays)
+    const thumbnailUrl = getCldImageUrl({
+      src: illustration.id,
+      width: 400,
+      height: 400,
+      format: 'auto',
+    });
+
+    return {
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'ImageObject',
+        name: illustration.id,
+        contentUrl,
+        thumbnailUrl,
+        ...(illustration.width &&
+          illustration.height && {
+            width: illustration.width,
+            height: illustration.height,
+          }),
+      },
+    };
+  }),
+};
 ---
 
 <BaseLayout title={'Illustrations'} description={'Some of my favorite hand-drawn illustrations'}>
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(imageGalleryStructuredData, null, 0)}
+  />
   <div class="flex justify-between items-center mb-8">
     <PageTitle title="Illustration Collections" />
 
