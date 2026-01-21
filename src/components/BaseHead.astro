@@ -92,6 +92,22 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
 <link rel="preconnect" href="https://ka-p.webawesome.com" crossorigin />
 <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
 
+<!-- Prefetch non-critical resources for faster subsequent loads -->
+<link rel="dns-prefetch" href="https://www.youtube.com" />
+<link rel="dns-prefetch" href="https://i.ytimg.com" />
+
+<!-- preload critical hero image on home page -->
+{
+  import.meta.env.PROD && Astro.url.pathname === '/' && (
+    <link
+      rel="preload"
+      as="image"
+      href="https://res.cloudinary.com/joelmturner/image/upload/c_fill,h_200,w_200,g_faces,dpr_2.0/joel-turner_nobg"
+      fetchpriority="high"
+    />
+  )
+}
+
 <!-- Web Awesome - defer loading to avoid blocking render -->
 <script is:inline src="https://kit.webawesome.com/2dafcc2cf8fd4a26.js" crossorigin="anonymous" defer
 ></script>
@@ -125,28 +141,30 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
 <script
   is:inline
   data-goatcounter="https://joelmturner.goatcounter.com/count"
-  async
+  defer
   src="//gc.zgo.at/count.js"></script>
 
+<!-- optimize font loading: preload only the primary font, defer secondary -->
 <AstroFont
   config={[
     {
       src: [],
-      preload: false,
+      preload: false, // Fira Code is secondary, don't preload
       display: 'swap',
       name: 'Fira Code',
       fallback: 'sans-serif',
       cssVariable: 'font-fira-code',
-      googleFontsURL: 'https://fonts.googleapis.com/css2?family=Fira+Code',
+      googleFontsURL: 'https://fonts.googleapis.com/css2?family=Fira+Code&display=swap',
     },
     {
       src: [],
-      preload: false,
-      display: 'swap',
+      preload: false, // don't preload to avoid blocking render
+      display: 'swap', // swap ensures text is visible immediately
       name: 'Fira Sans',
       fallback: 'sans-serif',
       cssVariable: 'font-fira-sans',
-      googleFontsURL: 'https://fonts.googleapis.com/css2?family=Fira+Sans',
+      googleFontsURL:
+        'https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&display=swap',
     },
   ]}
 />

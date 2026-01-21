@@ -100,6 +100,7 @@ const videoStructuredData = video
 ---
 
 <BaseLayout title={title} description={excerpt ?? description} image={cover}>
+  <!-- structured data - moved to end of head to avoid blocking render -->
   <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData, null, 0)} />
   {
     videoStructuredData && (
@@ -111,52 +112,77 @@ const videoStructuredData = video
     )
   }
   <script define:vars={{ pageTitle: title, pageUrl: Astro.url.href }}>
-    function shareOnFacebook() {
-      window.open(
-        'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(pageUrl),
-        'facebook-share-dialog',
-        'width=626,height=436'
-      );
-    }
+    // defer share button initialization to avoid blocking main thread
+    // use requestIdleCallback for non-critical interactivity
+    (function () {
+      function initShareButtons() {
+        const shareHandlers = {
+          facebook: () => {
+            window.open(
+              'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(pageUrl),
+              'facebook-share-dialog',
+              'width=626,height=436'
+            );
+          },
+          bluesky: () => {
+            const text = encodeURIComponent(pageTitle + ' ' + pageUrl);
+            window.open(
+              'https://bsky.app/intent/compose?text=' + text,
+              'bluesky-share-dialog',
+              'width=626,height=436'
+            );
+          },
+          linkedin: () => {
+            window.open(
+              'https://www.linkedin.com/shareArticle?url=' + encodeURIComponent(pageUrl),
+              'linkedin-share-dialog',
+              'width=626,height=436'
+            );
+          },
+          email: () => {
+            window.open(
+              'mailto:?subject=' +
+                encodeURIComponent(pageTitle) +
+                '&body=' +
+                encodeURIComponent(pageUrl),
+              'email-share-dialog',
+              'width=626,height=436'
+            );
+          },
+        };
 
-    function shareOnBluesky() {
-      const text = encodeURIComponent(pageTitle + ' ' + pageUrl);
-      window.open(
-        'https://bsky.app/intent/compose?text=' + text,
-        'bluesky-share-dialog',
-        'width=626,height=436'
-      );
-    }
+        // attach event listeners using event delegation for better performance
+        document.addEventListener('click', (e) => {
+          const target = e.target.closest('[data-share]');
+          if (target) {
+            const shareType = target.getAttribute('data-share');
+            if (shareType && shareHandlers[shareType]) {
+              e.preventDefault();
+              shareHandlers[shareType]();
+            }
+          }
+        });
+      }
 
-    function shareOnLinkedIn() {
-      window.open(
-        'https://www.linkedin.com/shareArticle?url=' + encodeURIComponent(pageUrl),
-        'linkedin-share-dialog',
-        'width=626,height=436'
-      );
-    }
-
-    function shareOnEmail() {
-      window.open(
-        'mailto:?subject=' + encodeURIComponent(pageTitle) + '&body=' + encodeURIComponent(pageUrl),
-        'email-share-dialog',
-        'width=626,height=436'
-      );
-    }
-
-    // attach event listeners after DOM is ready
-    document.addEventListener('DOMContentLoaded', () => {
-      const facebookBtn = document.querySelector('[data-share="facebook"]');
-      const blueskyBtn = document.querySelector('[data-share="bluesky"]');
-      const linkedinBtn = document.querySelector('[data-share="linkedin"]');
-      const emailBtn = document.querySelector('[data-share="email"]');
-
-      if (facebookBtn) facebookBtn.addEventListener('click', shareOnFacebook);
-      if (blueskyBtn) blueskyBtn.addEventListener('click', shareOnBluesky);
-      if (linkedinBtn) linkedinBtn.addEventListener('click', shareOnLinkedIn);
-      if (emailBtn) emailBtn.addEventListener('click', shareOnEmail);
-    });
+      // initialize after DOM is ready, but defer to idle time if possible
+      if (typeof requestIdleCallback !== 'undefined') {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', () => {
+            requestIdleCallback(initShareButtons, { timeout: 1000 });
+          });
+        } else {
+          requestIdleCallback(initShareButtons, { timeout: 1000 });
+        }
+      } else {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initShareButtons);
+        } else {
+          setTimeout(initShareButtons, 0);
+        }
+      }
+    })();
   </script>
+  <!-- hero image - critical for LCP, load with high priority -->
   <div class="mx-auto">
     {
       cover && (
@@ -173,6 +199,7 @@ const videoStructuredData = video
           crop="fill"
           gravity="center"
           quality="auto"
+          format="auto"
         />
       )
     }

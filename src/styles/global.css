@@ -39,6 +39,9 @@ wa-animation {
   display: inline-block;
   min-width: 1em;
   min-height: 1em;
+  /* ensure animations use composited properties */
+  will-change: transform;
+  transform: translateZ(0); /* force GPU acceleration */
 }
 
 /* drawers should be out of normal flow to prevent layout shifts */

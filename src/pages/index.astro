@@ -7,9 +7,8 @@ import { getCollection } from 'astro:content';
 import { SITE_TITLE } from '../consts';
 import LinkButton from '@components/LinkButton.astro';
 
-const featuredPost = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-)[0];
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const featuredPost = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())[0];
 ---
 
 <BaseLayout title={SITE_TITLE}>
@@ -25,13 +24,14 @@ const featuredPost = (await getCollection('blog')).sort(
             height={200}
             gravity="faces"
             loading="eager"
+            fetchpriority="high"
           />
         </div>
 
         <div class="prose prose-lg dark:prose-invert flex-1">
           <h1 class="flex justify-center md:justify-start text-3xl md:text-4xl gap-2">
             Howdy! I'm Joel
-            <div class="animation-keyframes w-4 h-4 inline-flex items-center justify-center">
+            <div class="animation-keyframes w-8 h-8 inline-flex items-center justify-center">
               <wa-animation easing="ease-in-out" duration="2000" play>
                 <div class="box">👋🏻</div>
               </wa-animation>
@@ -53,7 +53,7 @@ const featuredPost = (await getCollection('blog')).sort(
 
     <div class="flex flex-col gap-4">
       <h2 class="text-2xl font-bold">Latest Blog Post</h2>
-      <PostCard post={featuredPost} featured />
+      {featuredPost && <PostCard post={featuredPost} featured />}
     </div>
 
     <div class="flex flex-col gap-4">
@@ -64,40 +64,60 @@ const featuredPost = (await getCollection('blog')).sort(
 </BaseLayout>
 
 <script>
-  interface WAAnimation extends HTMLElement {
-    keyframes: Array<{
-      offset: number;
-      easing: string;
-      fillMode: string;
-      transformOrigin: string;
-      transform: string;
-    }>;
-  }
+  // optimize animation initialization to avoid blocking main thread
+  (function () {
+    interface WAAnimation extends HTMLElement {
+      keyframes: Array<{
+        offset: number;
+        easing: string;
+        fillMode: string;
+        transformOrigin: string;
+        transform: string;
+      }>;
+    }
 
-  const animation = document.querySelector('.animation-keyframes wa-animation') as WAAnimation;
-  if (animation) {
-    animation.keyframes = [
-      {
-        offset: 0,
-        easing: 'ease-in-out',
-        fillMode: 'both',
-        transformOrigin: 'center center',
-        transform: 'rotate(0deg)',
-      },
-      {
-        offset: 0.5,
-        easing: 'ease-in-out',
-        fillMode: 'both',
-        transformOrigin: 'center center',
-        transform: 'rotate(45deg)',
-      },
-      {
-        offset: 1,
-        easing: 'ease-in-out',
-        fillMode: 'both',
-        transformOrigin: 'center center',
-        transform: 'rotate(0deg)',
-      },
-    ];
-  }
+    function initAnimation() {
+      const animation = document.querySelector('.animation-keyframes wa-animation') as WAAnimation;
+      if (animation) {
+        // ensure animation uses composited properties (transform)
+        animation.keyframes = [
+          {
+            offset: 0,
+            easing: 'ease-in-out',
+            fillMode: 'both',
+            transformOrigin: 'center center',
+            transform: 'rotate(0deg)',
+          },
+          {
+            offset: 0.1,
+            easing: 'ease-in-out',
+            fillMode: 'both',
+            transformOrigin: 'center center',
+            transform: 'rotate(-10deg)',
+          },
+          {
+            offset: 0.5,
+            easing: 'ease-in-out',
+            fillMode: 'both',
+            transformOrigin: 'center center',
+            transform: 'rotate(45deg)',
+          },
+          {
+            offset: 1,
+            easing: 'ease-in-out',
+            fillMode: 'both',
+            transformOrigin: 'center center',
+            transform: 'rotate(0deg)',
+          },
+        ];
+      }
+    }
+
+    // defer initialization to avoid blocking initial render
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAnimation);
+    } else {
+      setTimeout(initAnimation, 0);
+    }
+  })();
 </script>

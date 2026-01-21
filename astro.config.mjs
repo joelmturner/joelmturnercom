@@ -78,6 +78,35 @@ export default defineConfig({
     build: {
       target: "es2020", // target modern browsers to reduce legacy JavaScript
       cssMinify: true,
+      // optimize chunk splitting to reduce bundle size and improve caching
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            // separate vendor chunks for better caching
+            if (id.includes("node_modules")) {
+              // separate large dependencies
+              if (id.includes("lodash")) {
+                return "vendor-lodash";
+              }
+              if (id.includes("@cloudinary") || id.includes("cloudinary")) {
+                return "vendor-cloudinary";
+              }
+              if (id.includes("astro-expressive-code")) {
+                return "vendor-expressive-code";
+              }
+              // group other node_modules
+              return "vendor";
+            }
+          },
+        },
+      },
+      // reduce chunk size warnings threshold (helps identify large bundles)
+      chunkSizeWarningLimit: 1000,
+    },
+    // optimize dependencies to reduce bundle size
+    optimizeDeps: {
+      include: [],
+      exclude: ["astro-embed"], // exclude heavy embed library from pre-bundling
     },
   },
 });

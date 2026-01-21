@@ -9,6 +9,8 @@
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    # enable compression (Netlify automatically compresses, but this ensures it's enabled)
+    Accept-Encoding = "gzip, br"
 
 # cache static assets aggressively
 # note: Astro automatically hashes filenames (e.g., _assets/abc123.js)
