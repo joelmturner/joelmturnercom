@@ -62,3 +62,5 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 - [@ryanlegler](https://github.com/ryanlegler) for ongoing ideas, introspection, and advice
 
 Thank you for visiting the repository for JoelMturner.com. Enjoy exploring and contributing to this Astro-powered website!
+
+Looking at running on CloudFlare
