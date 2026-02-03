@@ -18,7 +18,7 @@ type Props = {
 const { posts, tag } = Astro.props;
 ---
 
-<BaseLayout title={`Tag: ${tag}`} description={`Posts about ${tag}`}>
+<BaseLayout title={`Tag: ${tag}`} description={`Posts about ${tag}`} robots="noindex, follow">
   <section>
     <GridLayout title={`Tag: ${tag}`}>
       {posts.map((post) => <TilPostCard post={post} />)}

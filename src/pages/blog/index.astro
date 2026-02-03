@@ -10,7 +10,10 @@ const posts = (await getCollection('blog')).sort(
 );
 ---
 
-<BaseLayout>
+<BaseLayout
+  title="Blog"
+  description="Posts on web development: Astro, React, TypeScript, performance, Cloudinary, accessibility, and front-end practices."
+>
   <div class="flex flex-col gap-8">
     <PageTitle title="Blog" />
     <section>

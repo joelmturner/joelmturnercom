@@ -8,6 +8,8 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  /** e.g. "noindex, follow" for tag archives; omit for default index,follow */
+  robots?: string;
 }
 
 // ensure canonical URL has trailing slash (except root) to match trailingSlash: "always" config
@@ -28,6 +30,7 @@ const {
   title,
   description = SITE_DESCRIPTION,
   image = 'https://res.cloudinary.com/joelmturner/image/upload/h_630,w_1200/c_fit,h_400,l_text:Helvetica_80_bold_line_spacing_20:Digital%20Adventurer%20and%20Illustrator,w_700/fl_layer_apply,g_west,x_400,y_0/blog-post-card.png',
+  robots,
 } = Astro.props;
 
 const ogImage = isValidURL(image)
@@ -115,6 +118,7 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 <link rel="sitemap" href="/sitemap-index.xml" />
+{robots && <meta name="robots" content={robots} />}
 
 <!-- Primary Meta Tags -->
 <title>{resolvedTitle}</title>

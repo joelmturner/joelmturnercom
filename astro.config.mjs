@@ -36,7 +36,11 @@ export default defineConfig({
     astroExpressiveCode(astroExpressiveCodeOptions),
     mdx(),
     // lastmod set to build time so sitemap entries have a date (helps Google prioritize recrawls)
-    sitemap({ lastmod: new Date() }),
+    // exclude tag archives (noindex) so sitemap only includes preferred URLs
+    sitemap({
+      lastmod: new Date(),
+      filter: (url) => !url.includes("/blog/tag/") && !url.includes("/til/tag/"),
+    }),
     ...(process.env.NODE_ENV !== "development"
       ? [
           sentry({

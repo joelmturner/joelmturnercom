@@ -12,7 +12,10 @@ const tilPosts = (await getCollection('til')).sort(
 );
 ---
 
-<BaseLayout title={'Dev Tips'} description={"Some things I've learned along the way"}>
+<BaseLayout
+  title={'Dev Tips'}
+  description="Things I've learned: Astro, React, TypeScript, tooling, and front-end development tips."
+>
   <section>
     <GridLayout title="Dev Tips">
       {
