@@ -52,24 +52,14 @@ export function getAllCategories(
     }
     return acc;
   }, [] as string[]);
-  return categories
-    .map((category) => [
-      {
-        params: { slug: category },
-        props: {
-          posts: filterByCategory(posts, category.toLowerCase()),
-          category,
-        },
-      },
-      {
-        params: { slug: slugify(category) },
-        props: {
-          posts: filterByCategory(posts, category.toLowerCase()),
-          category,
-        },
-      },
-    ])
-    .flat();
+  // only emit kebab-case slugs so we have one canonical URL per category (no duplicate /category/personal%20development/)
+  return categories.map((category) => ({
+    params: { slug: slugify(category) },
+    props: {
+      posts: filterByCategory(posts, category.toLowerCase()),
+      category,
+    },
+  }));
 }
 
 export function getAllTags(

@@ -1,3 +1,31 @@
+# --- SEO: enforce trailing slash and sitemap canonical ---
+/blog                            /blog/                             301!
+/illustration                    /illustration/                     301!
+/uses                            /uses/                             301!
+/til                             /til/                              301!
+/about                           /about/                            301!
+/sitemap.xml                     /sitemap-index.xml                 301!
+
+# --- SEO: category/tag space-encoded URLs → kebab-case canonical (auto-generated) ---
+/blog/category/personal%20development/        /blog/category/personal-development/      301!
+/til/category/personal%20development/         /til/category/personal-development/       301!
+/blog/tag/productivity/                       /blog/tag/productivity/                   301!
+/til/tag/productivity/                        /til/tag/productivity/                    301!
+/blog/tag/doctor%20who/                       /blog/tag/doctor-who/                     301!
+/til/tag/doctor%20who/                        /til/tag/doctor-who/                      301!
+/blog/tag/quick%20tip/                        /blog/tag/quick-tip/                      301!
+/til/tag/quick%20tip/                         /til/tag/quick-tip/                       301!
+/blog/tag/React%20hooks/                      /blog/tag/react-hooks/                    301!
+/til/tag/React%20hooks/                       /til/tag/react-hooks/                     301!
+/blog/tag/Data%20Visualization/               /blog/tag/data-visualization/             301!
+/til/tag/Data%20Visualization/                /til/tag/data-visualization/              301!
+/blog/tag/project%20management/               /blog/tag/project-management/             301!
+/til/tag/project%20management/                /til/tag/project-management/              301!
+/blog/tag/panda%20css/                        /blog/tag/panda-css/                      301!
+/til/tag/panda%20css/                         /til/tag/panda-css/                       301!
+/blog/tag/web%20components/                   /blog/tag/web-components/                 301!
+/til/tag/web%20components/                    /til/tag/web-components/                  301!
+
 # --- legacy redirects ---
 /index.html                     /                                   301!
 /blog/font-end-ticket-checklist                                     /blog/front-end-ticket-checklist/

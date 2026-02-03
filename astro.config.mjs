@@ -35,7 +35,8 @@ export default defineConfig({
   integrations: [
     astroExpressiveCode(astroExpressiveCodeOptions),
     mdx(),
-    sitemap(),
+    // lastmod set to build time so sitemap entries have a date (helps Google prioritize recrawls)
+    sitemap({ lastmod: new Date() }),
     ...(process.env.NODE_ENV !== "development"
       ? [
           sentry({
