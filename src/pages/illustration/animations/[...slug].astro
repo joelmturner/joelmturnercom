@@ -1,0 +1,71 @@
+---
+import PageTitle from '@components/PageTitle.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import Animation from '@components/animation.astro';
+
+export async function getStaticPaths() {
+  const animations = await getCollection('animations');
+  return animations.map((animation, index) => ({
+    params: { slug: animation.data.slug },
+    props: { animation, next: animations[index + 1], prev: animations[index - 1] },
+  }));
+}
+
+const { animation, next, prev } = Astro.props;
+
+const videoStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: animation.data.title,
+  thumbnailUrl: `https://img.youtube.com/vi/${animation.data.embedId}/maxresdefault.jpg`,
+  embedUrl: `https://www.youtube.com/embed/${animation.data.embedId}`,
+  contentUrl: `https://www.youtube.com/watch?v=${animation.data.embedId}`,
+  ...(animation.data.date && { uploadDate: animation.data.date.toISOString() }),
+};
+---
+
+<BaseLayout title={animation?.data.title}>
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(videoStructuredData, null, 0)}
+  />
+  <PageTitle title={animation?.data.title} />
+
+  <div class="flex flex-col gap-4 py-4">
+    <Animation embedId={animation.data.embedId} title={animation.data.title} />
+  </div>
+
+  <wa-divider></wa-divider>
+
+  <div class="flex justify-between p-3 gap-8 text-accent">
+    {
+      prev?.data?.slug ? (
+        <a
+          href={`/illustration/animations/${prev?.data?.slug}/`}
+          class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
+        >
+          <span>{`< `}</span> {prev?.data?.title}
+        </a>
+      ) : (
+        <div />
+      )
+    }
+    {
+      next?.data?.slug && (
+        <a
+          href={`/illustration/animations/${next?.data?.slug}/`}
+          class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
+        >
+          {next?.data?.title} <span>{` >`}</span>
+        </a>
+      )
+    }
+  </div>
+  <a
+    href="/illustration/animations/"
+    class="prose dark:prose-invert text-decoration-underline text-prose-link text-right"
+    >Back to animations</a
+  >
+</BaseLayout>

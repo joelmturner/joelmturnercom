@@ -2,7 +2,6 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Animation from '@components/animation.astro';
 import { getCollection } from 'astro:content';
-import { cn } from '@lib/utils';
 import GridLayout from '@components/GridLayout.astro';
 import PageTitle from '@components/PageTitle.astro';
 import LinkButton from '@components/LinkButton.astro';
@@ -49,7 +48,11 @@ const videoStructuredData = {
         animations.map((animation) => (
           <div class="flex flex-col gap-4">
             <Animation embedId={animation.data.embedId} />
-            <h3 class={cn('mt-3 mb-1 text-2xl leading-1.1')}>{animation.data.title}</h3>
+            <h3 class="mt-3 mb-1 text-2xl leading-1.1">
+              <LinkButton href={`/illustration/animations/${animation.data.slug}/`}>
+                {animation.data.title}
+              </LinkButton>
+            </h3>
           </div>
         ))
       }
