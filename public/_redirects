@@ -1,9 +1,4 @@
-# --- SEO: enforce trailing slash and sitemap canonical ---
-/blog                            /blog/                             301!
-/illustration                    /illustration/                     301!
-/uses                            /uses/                             301!
-/til                             /til/                              301!
-/about                           /about/                            301!
+# --- SEO: sitemap canonical only (trailing slash handled by catch-all below to avoid loop) ---
 /sitemap.xml                     /sitemap-index.xml                 301!
 
 # --- SEO: category/tag space-encoded URLs → kebab-case canonical (auto-generated) ---
