@@ -21,6 +21,7 @@ const videoStructuredData = {
   thumbnailUrl: `https://img.youtube.com/vi/${animation.data.embedId}/maxresdefault.jpg`,
   embedUrl: `https://www.youtube.com/embed/${animation.data.embedId}`,
   contentUrl: `https://www.youtube.com/watch?v=${animation.data.embedId}`,
+  description: animation.data.description,
   ...(animation.data.date && { uploadDate: animation.data.date.toISOString() }),
 };
 ---

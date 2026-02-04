@@ -60,6 +60,7 @@ const animations = defineCollection({
     lastmod: z.coerce.date().optional(),
     slug: z.string().optional(),
     embedId: z.string(),
+    description: z.string().optional(),
   }),
 });
 
