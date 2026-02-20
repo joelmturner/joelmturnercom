@@ -9,8 +9,6 @@
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    # enable compression (Netlify automatically compresses, but this ensures it's enabled)
-    Accept-Encoding = "gzip, br"
 
 # cache static assets aggressively
 # note: Astro automatically hashes filenames (e.g., _assets/abc123.js)
@@ -47,13 +45,6 @@
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
-
-# SEO: legacy sitemap URL → sitemap index
-[[redirects]]
-  from = "/sitemap.xml"
-  to = "/sitemap-index.xml"
-  status = 301
-  force = true
 
 # force HTTPS and non-www redirects
 [[redirects]]

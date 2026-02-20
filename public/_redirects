@@ -1,11 +1,13 @@
 # --- SEO: sitemap canonical only (trailing slash handled by catch-all below to avoid loop) ---
 /sitemap.xml                     /sitemap-index.xml                 301!
 
+# --- canonicalize nested blog URLs to trailing slash ---
+/blog/:slug                                      /blog/:slug/                              301!
+/blog/:taxonomy/:slug                            /blog/:taxonomy/:slug/                    301!
+
 # --- SEO: category/tag space-encoded URLs → kebab-case canonical (auto-generated) ---
 /blog/category/personal%20development/        /blog/category/personal-development/      301!
 /til/category/personal%20development/         /til/category/personal-development/       301!
-/blog/tag/productivity/                       /blog/tag/productivity/                   301!
-/til/tag/productivity/                        /til/tag/productivity/                    301!
 /blog/tag/doctor%20who/                       /blog/tag/doctor-who/                     301!
 /til/tag/doctor%20who/                        /til/tag/doctor-who/                      301!
 /blog/tag/quick%20tip/                        /blog/tag/quick-tip/                      301!
