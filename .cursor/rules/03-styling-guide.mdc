@@ -1,34 +1,32 @@
 ---
-description:
+description: Tailwind styling system and CSS layer usage
 globs:
 alwaysApply: true
 ---
 
 # Styling Guide
 
-This project uses Tailwind CSS for styling, configured in [global.css](../../src/styles/global.css).
+This project uses Tailwind CSS and a CSS-first theme defined in [global.css](mdc:src/styles/global.css).
 
 ## Key Styling Principles
 
-1. Use Tailwind's utility classes for consistent, maintainable styling
-2. Custom theme tokens are defined in the `@theme` directive in [global.css](../../src/styles/global.css)
-3. Global styles are managed in `src/styles/` using Tailwind's `@layer` directives
-4. Component-specific styles should use utility classes or the `@layer components` directive when needed
+1. Prefer Tailwind utility classes for most component styling.
+2. Define and reuse design tokens in the `@theme` block.
+3. Keep global and shared CSS in `src/styles/` using `@layer` directives.
+4. Add component-level CSS only when utilities cannot express the style cleanly.
 
 ## Configuration
 
-- Theme configuration is CSS-first using the `@theme` directive in [global.css](../../src/styles/global.css)
-- Tailwind is integrated via the `@tailwindcss/vite` plugin in [astro.config.mjs](mdc:astro.config.mjs)
-- Custom CSS variables and properties are defined in the `@theme` block
-- Dark mode is handled using `data-color-mode` attribute with custom variants
+- Theme tokens are defined in [global.css](mdc:src/styles/global.css) via `@theme`.
+- Tailwind is integrated with the `@tailwindcss/vite` plugin in [astro.config.mjs](mdc:astro.config.mjs).
+- Dark mode behavior is driven by the `data-color-mode` attribute and related variants.
 
 ## Best Practices
 
-1. Prefer utility classes over custom CSS - use Tailwind's built-in utilities first
-2. Define custom design tokens in the `@theme` directive using CSS custom properties
-3. Use `@layer base` for global resets and base element styles
-4. Use `@layer components` for reusable component patterns that can't be achieved with utilities alone
-5. Use `@layer utilities` for custom utility classes when needed
-6. Leverage Tailwind's responsive and state variants (hover, focus, dark, etc.)
-7. Use semantic class names with utilities (e.g., `text-primary`, `bg-accent`) that reference theme tokens
-8. Keep component styles co-located with components when using `@layer components`
+1. Use `@layer base` for resets and element defaults.
+2. Use `@layer components` for reusable style patterns that appear across files.
+3. Use `@layer utilities` for targeted custom utilities.
+4. Prefer responsive and state variants (`md:`, `hover:`, `focus:`, dark variants) over ad hoc CSS.
+5. Use token-backed semantic utilities (for example `text-primary`, `bg-accent`) when available.
+
+Implementation guidance for Astro/TypeScript/Tailwind coding patterns lives in [05-astro-typescript-tailwind-conventions.mdc](mdc:.cursor/rules/05-astro-typescript-tailwind-conventions.mdc).

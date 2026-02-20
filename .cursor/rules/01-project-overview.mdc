@@ -1,22 +1,30 @@
 ---
-description:
+description: High-level project context and key entry points
 globs:
 alwaysApply: true
 ---
 
 # Project Overview
 
-This is an Astro-based web application using modern web technologies. The project uses:
+This repository is an Astro web application with TypeScript and Tailwind CSS.
 
-- [astro.config.mjs](mdc:astro.config.mjs) as the main Astro configuration
-- [package.json](mdc:package.json) for dependencies and scripts
-- TypeScript with [tsconfig.json](mdc:tsconfig.json) configuration
-- Tailwind CSS for styling
-- ESLint for code quality with [eslint.config.js](mdc:eslint.config.js)
+## Key Files
+
+- [astro.config.mjs](mdc:astro.config.mjs) defines Astro and integration setup
+- [package.json](mdc:package.json) contains scripts and dependencies
+- [tsconfig.json](mdc:tsconfig.json) controls TypeScript compiler behavior
+- [eslint.config.js](mdc:eslint.config.js) defines linting rules
+- [src/styles/global.css](mdc:src/styles/global.css) contains theme tokens and global styles
 
 ## Project Structure
 
-- `src/` - Main source code directory
-- `public/` - Static assets
-- `.astro/` - Astro build artifacts
-- `dist/` - Production build output
+- `src/` application source code
+- `public/` static assets served as-is
+- `.astro/` local Astro build artifacts
+- `dist/` production build output
+
+For implementation behavior, follow the focused conventions in:
+- [02-source-organization.mdc](mdc:.cursor/rules/02-source-organization.mdc)
+- [03-styling-guide.mdc](mdc:.cursor/rules/03-styling-guide.mdc)
+- [04-development-workflow.mdc](mdc:.cursor/rules/04-development-workflow.mdc)
+- [05-astro-typescript-tailwind-conventions.mdc](mdc:.cursor/rules/05-astro-typescript-tailwind-conventions.mdc)

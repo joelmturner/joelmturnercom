@@ -1,0 +1,33 @@
+---
+description: Astro, TypeScript, and Tailwind implementation conventions
+globs:
+alwaysApply: true
+---
+
+# Astro TypeScript Tailwind Conventions
+
+Use these conventions when implementing or updating frontend code in this repository.
+
+## Astro and Component Design
+
+1. Keep Astro components modular, reusable, and focused on a single responsibility.
+2. Favor composition through `layouts/` and `components/` over large monolithic pages.
+3. Preserve clear separation of concerns between markup, behavior, and shared utilities in `src/lib/`.
+
+## TypeScript Standards
+
+1. Follow strict TypeScript settings from [tsconfig.json](mdc:tsconfig.json) and avoid `any` unless justified.
+2. Prefer explicit, narrow types for props, function arguments, and return values.
+3. Keep shared types close to their domain and promote reusable types when patterns repeat.
+
+## Tailwind and Styling
+
+1. Prefer Tailwind utility classes first for component styling.
+2. Use shared design tokens and theme variables defined in [global.css](mdc:src/styles/global.css).
+3. Add custom CSS in `src/styles/` only when utilities are insufficient, using `@layer` conventions.
+
+## Code Quality and Comments
+
+1. Keep code changes readable, testable, and consistent with existing lint and format rules.
+2. Comments should explain intent (why), not mechanics (what).
+3. When adding comments, start them with a lower-case letter.

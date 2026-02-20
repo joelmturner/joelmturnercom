@@ -1,24 +1,27 @@
 ---
-description: 
+description: Tooling, scripts, and delivery workflow expectations
 globs: 
 alwaysApply: true
 ---
 # Development Workflow
 
 ## Tools and Configuration
-- Node.js version is specified in [.nvmrc](mdc:.nvmrc)
-- Package management with pnpm ([pnpm-lock.yaml](mdc:pnpm-lock.yaml))
-- ESLint configuration in [eslint.config.js](mdc:eslint.config.js)
-- Prettier configuration in [.prettierrc.json](mdc:.prettierrc.json)
-- Git hooks managed by Husky in `.husky/` directory
-- VS Code settings in `.vscode/` directory
+
+- Node.js version is defined in [.nvmrc](mdc:.nvmrc)
+- Package management uses pnpm and [pnpm-lock.yaml](mdc:pnpm-lock.yaml)
+- Linting uses [eslint.config.js](mdc:eslint.config.js)
+- Formatting uses [.prettierrc.json](mdc:.prettierrc.json)
+- Git hooks are managed in `.husky/`
+- Editor defaults are tracked in `.vscode/`
 
 ## Quality Standards
-1. All TypeScript files must follow the configuration in [tsconfig.json](mdc:tsconfig.json)
-2. Code formatting is enforced by Prettier
-3. Code quality is enforced by ESLint
-4. Git commits should follow conventional commit format
+
+1. Run lint and format checks before finalizing changes.
+2. Keep TypeScript code aligned with [tsconfig.json](mdc:tsconfig.json).
+3. Use conventional commit messages when creating commits.
+4. Let configured git hooks run; do not bypass them unless explicitly required.
 
 ## CI/CD
-- GitLab CI configuration in [.gitlab-ci.yml](mdc:.gitlab-ci.yml)
-- Build artifacts are generated in the `dist/` directory
+
+- CI pipeline definition lives in [.gitlab-ci.yml](mdc:.gitlab-ci.yml)
+- Production build output is generated in `dist/`
