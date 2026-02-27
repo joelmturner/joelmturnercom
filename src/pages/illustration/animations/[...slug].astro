@@ -14,19 +14,26 @@ export async function getStaticPaths() {
 
 const { animation, next, prev } = Astro.props;
 
+// canonical URL for this watch page (signals to Google that the video is the main content)
+const canonicalUrl = new URL(`/illustration/animations/${animation.data.slug}/`, Astro.site);
+
 const videoStructuredData = {
   '@context': 'https://schema.org',
   '@type': 'VideoObject',
   name: animation.data.title,
+  description: animation.data.description,
   thumbnailUrl: `https://img.youtube.com/vi/${animation.data.embedId}/maxresdefault.jpg`,
   embedUrl: `https://www.youtube.com/embed/${animation.data.embedId}`,
   contentUrl: `https://www.youtube.com/watch?v=${animation.data.embedId}`,
-  description: animation.data.description,
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalUrl.toString(),
+  },
   ...(animation.data.date && { uploadDate: animation.data.date.toISOString() }),
 };
 ---
 
-<BaseLayout title={animation?.data.title}>
+<BaseLayout title={animation?.data.title} description={animation?.data?.description}>
   <script
     is:inline
     type="application/ld+json"
@@ -34,13 +41,13 @@ const videoStructuredData = {
   />
   <PageTitle title={animation?.data.title} />
 
-  <div class="flex flex-col gap-4 py-4">
-    <Animation embedId={animation.data.embedId} title={animation.data.title} />
-  </div>
+  <main class="flex flex-col gap-4 py-4">
+    <Animation embedId={animation.data.embedId} title={animation.data.title} watchMode />
+  </main>
 
   <wa-divider></wa-divider>
 
-  <div class="flex justify-between p-3 gap-8 text-accent">
+  <nav class="flex justify-between p-3 gap-8 text-accent" aria-label="Animation navigation">
     {
       prev?.data?.slug ? (
         <a
@@ -63,7 +70,7 @@ const videoStructuredData = {
         </a>
       )
     }
-  </div>
+  </nav>
   <a
     href="/illustration/animations/"
     class="prose dark:prose-invert text-decoration-underline text-prose-link text-right"

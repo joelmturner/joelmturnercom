@@ -1,13 +1,22 @@
 ---
 import { YouTube } from 'astro-embed';
-const { embedId } = Astro.props;
+
+type Props = {
+  embedId: string;
+  title?: string;
+  /** when true, shows full video player with controls for watch pages (improves Google video indexing) */
+  watchMode?: boolean;
+};
+
+const { embedId, title, watchMode = false } = Astro.props;
+
+// watch mode: interactive player with controls for dedicated watch pages
+// gallery mode: muted autoplay loop for thumbnail-style display
+const params = watchMode
+  ? 'rel=0&color=blue&widget_referrer=https%3A%2F%2Fjoelmturner.com'
+  : `mute=1&controls=0&loop=1&playlist=${embedId}&rel=0&color=blue&widget_referrer=https%3A%2F%2Fjoelmturner.com`;
 ---
 
 <div class="rounded-xl overflow-hidden aspect-9/16">
-  <YouTube
-    id={embedId}
-    params={`mute=1&controls=0&loop=1&playlist=${embedId}&rel=0&color=blue&widget_referrer=https%3A%2F%2Fjoelmturner.com`}
-    class="w-full h-full"
-    posterQuality="high"
-  />
+  <YouTube id={embedId} params={params} class="w-full h-full" posterQuality="high" title={title} />
 </div>
