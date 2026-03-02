@@ -32,7 +32,8 @@ export type IllustrationTag =
   | "joelmturner_abcs2017"
   | "joelmturner_featured"
   | "jmt_dorbs"
-  | "letterclash";
+  | "letterclash"
+  | "joelmturner_rubberhose";
 
 export type IllustrationCollectionParam =
   keyof typeof ILLUSTRATION_QUERY_VS_FILTER;

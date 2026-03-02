@@ -61,6 +61,7 @@ export const ILLUSTRATION_FILTER_OPTIONS: {
   { value: "joelmturner_featured", label: "Featured" },
   { value: "jmt_dorbs", label: "Cuties" },
   { value: "letterclash", label: "LetterClash" },
+  { value: "joelmturner_rubberhose", label: "Rubber Hose" },
   { value: "handletteredabcs_2016", label: "Handlettered ABCs 2016" },
   { value: "joelmturner_abcs2017", label: "Handlettered ABCs 2017" },
   { value: "inktober2017", label: "Inktober 2017" },
