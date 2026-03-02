@@ -1,5 +1,7 @@
 # JoelMturner.com - Astro Powered Website 🌟
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/07dcdf53-811f-4116-b126-80c312a7bf1a/deploy-status)](https://app.netlify.com/projects/joelmturner/deploys)
+
 Welcome to the repository for [joelmturner.com](https://joelmturner.com), a modern, high-performance website built using [Astro](https://astro.build/) and [Tailwind](https://tailwindcss.com). This site explores web development techniques and offers a smooth, user-friendly experience.
 
 ## Features 🚀
