@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
+import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import astroExpressiveCode from "astro-expressive-code";
 import sentry from "@sentry/astro";
@@ -35,6 +36,7 @@ export default defineConfig({
   integrations: [
     astroExpressiveCode(astroExpressiveCodeOptions),
     mdx(),
+    react(),
     // lastmod set to build time so sitemap entries have a date (helps Google prioritize recrawls)
     // exclude tag archives (noindex) so sitemap only includes preferred URLs
     sitemap({

@@ -8,14 +8,16 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint:eslint": "eslint . --ext .js,.ts,.astro",
+    "lint:eslint": "eslint . --ext .js,.ts,.tsx,.astro",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,mdx,json,astro}' --config ./.prettierrc.json",
     "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
+    "@astrojs/react": "^4.0.2",
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
+    "@cloudinary/react": "^1.14.4",
     "@cloudinary/url-gen": "^1.22.0",
     "@iconify-json/iconoir": "^1.2.10",
     "@iconify-json/logos": "^1.2.10",
@@ -36,6 +38,9 @@
     "clsx": "^2.1.1",
     "lodash": "^4.17.21",
     "lucide-astro": "^0.556.0",
+    "lucide-react": "^0.576.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {

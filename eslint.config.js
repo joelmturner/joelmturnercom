@@ -8,7 +8,7 @@ export default [
   // js.configs.recommended,
   ...eslintPluginAstro.configs.recommended,
   {
-    files: ["**/*.ts", "*.ts"],
+    files: ["**/*.ts", "**/*.tsx", "*.ts", "*.tsx"],
     ignores: ["**/*.d.ts"],
     languageOptions: {
       parser: typescriptParser,

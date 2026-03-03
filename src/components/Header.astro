@@ -52,13 +52,42 @@ import { cn } from '@lib/utils';
           class="font-medium flex flex-col p-4 md:p-0 md:flex-row md:m-0 md:border-0 md:gap-2 mt-4 border border-slate-100 dark:border-slate-700 rounded-lg bg-transparent"
         >
           {
-            NAV_LINKS.map((link) => (
-              <li>
-                <HeaderLink href={link.href} aria-current="page">
-                  {link.label}
-                </HeaderLink>
-              </li>
-            ))
+            NAV_LINKS.map((link) =>
+              link.children ? (
+                <li class="group relative">
+                  <HeaderLink href={link.href} aria-current="page" aria-haspopup="true">
+                    {link.label}
+                  </HeaderLink>
+                  <ul
+                    class={cn(
+                      'absolute -left-1 top-full pt-1 min-w-40 pl-2 flex flex-col gap-1 z-10',
+                      'opacity-0 invisible transition-opacity duration-150',
+                      'group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible',
+                      'bg-orange-50 dark:bg-slate-900 rounded-md shadow-md border border-slate-200 dark:border-slate-700 py-1'
+                    )}
+                  >
+                    {link.children.map((child) => (
+                      <li>
+                        <HeaderLink
+                          href={child.href}
+                          aria-current="page"
+                          hideActiveBorder={true}
+                          class="block py-2 rounded-none border-b-0! hover:border-b-0!"
+                        >
+                          {child.label}
+                        </HeaderLink>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ) : (
+                <li>
+                  <HeaderLink href={link.href} aria-current="page">
+                    {link.label}
+                  </HeaderLink>
+                </li>
+              )
+            )
           }
           <ThemeSwitch />
         </ul>
@@ -72,13 +101,30 @@ import { cn } from '@lib/utils';
   <div class="flex flex-col gap-2 md:hidden">
     <ul class="font-medium text-xl flex flex-col gap-2">
       {
-        NAV_LINKS.map((link) => (
-          <li>
-            <HeaderLink href={link.href} aria-current="page">
-              {link.label}
-            </HeaderLink>
-          </li>
-        ))
+        NAV_LINKS.map((link) =>
+          link.children ? (
+            <li class="flex flex-col gap-1">
+              <HeaderLink href={link.href} aria-current="page" hideActiveBorder={true}>
+                {link.label}
+              </HeaderLink>
+              <ul class="flex flex-col gap-1 pl-2">
+                {link.children.map((child) => (
+                  <li>
+                    <HeaderLink href={child.href} aria-current="page" hideActiveBorder={true}>
+                      {child.label}
+                    </HeaderLink>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ) : (
+            <li>
+              <HeaderLink href={link.href} aria-current="page">
+                {link.label}
+              </HeaderLink>
+            </li>
+          )
+        )
       }
       <div class="flex mx-auto w-3/4">
         <ThemeSwitch />

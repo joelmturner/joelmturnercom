@@ -67,3 +67,9 @@ export type SocialIconLabel =
   | "DEV"
   | "Mastodon"
   | "Bluesky";
+
+export type NavLink = {
+  href: string;
+  label: string;
+  children?: { href: string; label: string }[];
+};

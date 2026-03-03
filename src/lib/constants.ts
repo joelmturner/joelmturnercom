@@ -1,4 +1,4 @@
-import type { Project, SocialIconLabel } from "./types";
+import type { NavLink, Project, SocialIconLabel } from "./types";
 import { type IllustrationTag } from "./types";
 
 export const FUN_STUFF = ["brew", "code", "letter", "draw", "hike", "camp"];
@@ -74,10 +74,19 @@ export const ILLUSTRATION_FILTER_OPTIONS: {
   { value: "inktober2025", label: "Inktober 2025" },
 ];
 
-export const NAV_LINKS = [
+export const NAV_LINKS: NavLink[] = [
   { href: "about/", label: "About" },
   { href: "blog/", label: "Blog" },
-  { href: "illustration/", label: "Illustration" },
+  {
+    href: "illustration/",
+    label: "Illustration",
+    children: [
+      { href: "illustration/", label: "Gallery" },
+      { href: "illustration/zines/", label: "Zines" },
+      { href: "illustration/videos/", label: "Videos" },
+      { href: "illustration/animations/", label: "Animations" },
+    ],
+  },
   { href: "til/", label: "TIL" },
   { href: "uses/", label: "Uses" },
 ];

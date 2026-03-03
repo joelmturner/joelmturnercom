@@ -27,6 +27,7 @@
     0 3.5px 6px hsla(10, 60%, 60%, 0.09);
 
   --color-surface-default: rgb(15 23 42); /* slate-900 */
+  --color-border: rgb(51 65 85); /* slate-700 */
 }
 
 /* prevent layout shifts from font loading */
@@ -73,6 +74,7 @@ wa-drawer {
   --wa-color-neutral-fill-loud: rgb(255 228 230); /* rose-100 */
   --wa-color-neutral-on-loud: var(--color-accent);
   --color-surface-default: var(--wa-color-surface-default);
+  --color-border: var(--wa-color-surface-border);
 }
 
 /* Dark mode */
@@ -98,6 +100,7 @@ wa-drawer {
   --wa-color-neutral-fill-loud: rgb(51 65 85); /* slate-700 */
   --wa-color-neutral-on-loud: var(--color-accent);
   --color-surface-default: var(--wa-color-surface-default);
+  --color-border: var(--wa-color-surface-border);
 }
 
 /* Global base styles */

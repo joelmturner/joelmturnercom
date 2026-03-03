@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import IllustrationGallery from '@components/IllustrationGallery.astro';
+import IllustrationGallery from '@components/IllustrationGallery';
 import LinkButton from '@components/LinkButton.astro';
 import PageTitle from '@components/PageTitle.astro';
 import { getIllustrations } from '@lib/illustrations';
@@ -68,5 +68,5 @@ const imageGalleryStructuredData = {
       <LinkButton href="/illustration/animations/">animations</LinkButton>
     </div>
   </div>
-  <IllustrationGallery illustrations={collections} />
+  <IllustrationGallery illustrations={collections} client:load />
 </BaseLayout>
