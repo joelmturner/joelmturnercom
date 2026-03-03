@@ -33,7 +33,11 @@ const videoStructuredData = {
 };
 ---
 
-<BaseLayout title={animation?.data.title} description={animation?.data?.description}>
+<BaseLayout
+  title={animation?.data.title}
+  description={animation?.data?.description}
+  image={`https://img.youtube.com/vi/${animation.data.embedId}/maxresdefault.jpg?v=1`}
+>
   <script
     is:inline
     type="application/ld+json"

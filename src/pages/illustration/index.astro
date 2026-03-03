@@ -53,7 +53,11 @@ const imageGalleryStructuredData = {
 };
 ---
 
-<BaseLayout title={'Illustrations'} description={'Some of my favorite hand-drawn illustrations'}>
+<BaseLayout
+  title={'Illustrations'}
+  description={'Some of my favorite hand-drawn illustrations'}
+  image={collections[50]?.url}
+>
   <script
     is:inline
     type="application/ld+json"

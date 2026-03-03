@@ -32,7 +32,7 @@ const author = zine?.data.author;
 const isGuestAuthor = author !== 'Joel M Turner';
 ---
 
-<BaseLayout title={zine?.data.title}>
+<BaseLayout title={zine?.data.title} image={zine?.data.imgUrls?.[0]}>
   <PageTitle title={zine?.data.title} />
   <ZineViewer variant="rubber-hose" height="500px" width="100%" autoplay autoplay-interval="3000">
     {
