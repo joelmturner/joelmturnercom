@@ -1,19 +1,19 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import Badge from '@components/Badge.astro';
-import FormattedDate from '@components/FormattedDate.astro';
-import { slugify } from '@lib/posts';
-import { CldImage } from 'astro-cloudinary';
-import type { CollectionEntry } from 'astro:content';
-import { SITE_TITLE } from 'src/consts';
-import { cn } from '@lib/utils';
-import Prose from '@components/Prose.astro';
+import type { CollectionEntry } from 'astro:content'
+import Badge from '@components/Badge.astro'
+import FormattedDate from '@components/FormattedDate.astro'
+import Prose from '@components/Prose.astro'
+import { slugify } from '@lib/posts'
+import { cn } from '@lib/utils'
+import { CldImage } from 'astro-cloudinary'
+import { SITE_TITLE } from 'src/consts'
+import BaseLayout from './BaseLayout.astro'
 
 type Props = CollectionEntry<'blog'>['data'] & {
-  next?: CollectionEntry<'blog'>;
-  prev?: CollectionEntry<'blog'>;
-  slug?: string;
-};
+  next?: CollectionEntry<'blog'>
+  prev?: CollectionEntry<'blog'>
+  slug?: string
+}
 
 const {
   title,
@@ -28,19 +28,19 @@ const {
   prev,
   slug,
   video,
-} = Astro.props;
+} = Astro.props
 
 // generate structured data for SEO
 // ensure slug exists to prevent errors
 if (!slug) {
-  throw new Error('BlogPost component requires a slug prop');
+  throw new Error('BlogPost component requires a slug prop')
 }
-const canonicalUrl = new URL(`/blog/${slug}/`, Astro.site);
+const canonicalUrl = new URL(`/blog/${slug}/`, Astro.site)
 const imageUrl = cover
   ? cover.startsWith('http')
     ? cover
     : `https://res.cloudinary.com/joelmturner/image/upload/${cover}`
-  : `${Astro.site}/favicon-32x32.png`;
+  : `${Astro.site}/favicon-32x32.png`
 
 // generate structured data with safe defaults to prevent errors
 const structuredData = {
@@ -81,7 +81,7 @@ const structuredData = {
     : {
         image: imageUrl,
       }),
-};
+}
 
 // generate VideoObject structured data when video is present
 const videoStructuredData = video
@@ -91,12 +91,14 @@ const videoStructuredData = video
       name: title || '',
       description: (excerpt || description || '').substring(0, 500),
       thumbnailUrl: `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`,
-      ...(video.uploadDate || date ? { uploadDate: (video.uploadDate || date).toISOString() } : {}),
+      ...(video.uploadDate || date
+        ? { uploadDate: (video.uploadDate || date).toISOString() }
+        : {}),
       ...(video.duration ? { duration: video.duration } : {}),
       embedUrl: `https://www.youtube.com/embed/${video.youtubeId}`,
       contentUrl: `https://www.youtube.com/watch?v=${video.youtubeId}`,
     }
-  : null;
+  : null
 ---
 
 <BaseLayout title={title} description={excerpt ?? description} image={cover}>

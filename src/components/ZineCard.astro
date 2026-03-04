@@ -1,14 +1,14 @@
 ---
-import { type CollectionEntry } from 'astro:content';
-import ZineViewer from './ZineViewer.astro';
-import Badge from './Badge.astro';
-import { cn } from '@lib/utils';
+import { type CollectionEntry } from 'astro:content'
+import { cn } from '@lib/utils'
+import Badge from './Badge.astro'
+import ZineViewer from './ZineViewer.astro'
 
 export type Props = {
-  zine: CollectionEntry<'zines'>;
-  featured?: boolean;
-};
-const { zine, featured = false } = Astro.props;
+  zine: CollectionEntry<'zines'>
+  featured?: boolean
+}
+const { zine, featured = false } = Astro.props
 
 const combinedStyles = cn(
   // layout
@@ -26,20 +26,20 @@ const combinedStyles = cn(
   'hover:[&_img]:shadow-lg',
   'hover:[&_img]:shadow-slate-100',
   'dark:hover:[&_img]:shadow-slate-800',
-  featured ? 'col-span-1 md:col-span-2' : 'col-span-1'
-);
+  featured ? 'col-span-1 md:col-span-2' : 'col-span-1',
+)
 
 const imageUrlsInSetsOfTwo = zine?.data.imgUrls.reduce(
   (acc, imgUrl, index) => {
     if (index % 2 === 0) {
-      acc.push([imgUrl, zine?.data.imgUrls[index + 1] || null]);
+      acc.push([imgUrl, zine?.data.imgUrls[index + 1] || null])
     }
-    return acc;
+    return acc
   },
-  [] as [string, string | null][]
-);
+  [] as [string, string | null][],
+)
 
-const isGuestAuthor = zine.data.author !== 'Joel M Turner';
+const isGuestAuthor = zine.data.author !== 'Joel M Turner'
 ---
 
 <div class={combinedStyles}>

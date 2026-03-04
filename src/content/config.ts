@@ -1,10 +1,10 @@
-import { defineCollection, z } from "astro:content";
-import { cldAssetsLoader } from "astro-cloudinary/loaders";
-import { glob } from "astro/loaders";
+import { defineCollection, z } from 'astro:content'
+import { glob } from 'astro/loaders'
+import { cldAssetsLoader } from 'astro-cloudinary/loaders'
 
 const blog = defineCollection({
   // Type-check frontmatter using a schema
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
@@ -25,11 +25,11 @@ const blog = defineCollection({
       })
       .optional(),
   }),
-});
+})
 
 const til = defineCollection({
   // Type-check frontmatter using a schema
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/til" }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/til' }),
   schema: z.object({
     title: z.string(),
     // Transform string to Date object
@@ -40,20 +40,20 @@ const til = defineCollection({
     tags: z.array(z.string()),
     slug: z.string().optional(),
   }),
-});
+})
 
 const illustration = defineCollection({
   loader: cldAssetsLoader({
     limit: 3000,
-    folder: "illustration",
+    folder: 'illustration',
     context: true,
     metadata: true,
     tags: true,
   }),
-});
+})
 
 const animations = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/animations" }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/animations' }),
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
@@ -62,21 +62,21 @@ const animations = defineCollection({
     embedId: z.string(),
     description: z.string().optional(),
   }),
-});
+})
 
 const video = defineCollection({
   loader: cldAssetsLoader({
     limit: 10,
-    resourceType: "video",
-    folder: "illustration-videos",
+    resourceType: 'video',
+    folder: 'illustration-videos',
     context: true,
     metadata: true,
     tags: true,
   }),
-});
+})
 
 const zines = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/zines" }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/zines' }),
   schema: z.object({
     title: z.string(),
     // Transform string to Date object
@@ -84,11 +84,11 @@ const zines = defineCollection({
     lastmod: z.coerce.date().optional(),
     slug: z.string().optional(),
     imgUrls: z.array(z.string()),
-    author: z.string().default("Joel M Turner"),
-    authorUrl: z.string().default("https://joelmturner.com"),
+    author: z.string().default('Joel M Turner'),
+    authorUrl: z.string().default('https://joelmturner.com'),
     pdfUrl: z.string().optional(),
   }),
-});
+})
 
 export const collections = {
   blog,
@@ -97,4 +97,4 @@ export const collections = {
   video,
   zines,
   animations,
-};
+}

@@ -1,13 +1,13 @@
 ---
-import { slugify } from '@lib/posts';
-import type { CollectionEntry } from 'astro:content';
-import Badge from './Badge.astro';
-import LinkButton from './LinkButton.astro';
+import type { CollectionEntry } from 'astro:content'
+import { slugify } from '@lib/posts'
+import Badge from './Badge.astro'
+import LinkButton from './LinkButton.astro'
 
 type Props = {
-  post: CollectionEntry<'til'>;
-};
-const { post } = Astro.props;
+  post: CollectionEntry<'til'>
+}
+const { post } = Astro.props
 ---
 
 <div class="flex flex-col">

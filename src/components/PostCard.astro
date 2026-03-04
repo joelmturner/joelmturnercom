@@ -1,13 +1,13 @@
 ---
-import { CldImage } from 'astro-cloudinary';
-import { type CollectionEntry } from 'astro:content';
-import { cn } from '@lib/utils';
+import { type CollectionEntry } from 'astro:content'
+import { cn } from '@lib/utils'
+import { CldImage } from 'astro-cloudinary'
 
 export type Props = {
-  post: CollectionEntry<'blog'>;
-  featured?: boolean;
-};
-const { post, featured } = Astro.props;
+  post: CollectionEntry<'blog'>
+  featured?: boolean
+}
+const { post, featured } = Astro.props
 
 const combinedStyles = cn(
   // layout
@@ -25,8 +25,8 @@ const combinedStyles = cn(
   'hover:[&_img]:shadow-lg',
   'hover:[&_img]:shadow-slate-100',
   'dark:hover:[&_img]:shadow-slate-800',
-  featured ? 'col-span-1 md:col-span-2' : 'col-span-1'
-);
+  featured ? 'col-span-1 md:col-span-2' : 'col-span-1',
+)
 ---
 
 <div class={combinedStyles}>

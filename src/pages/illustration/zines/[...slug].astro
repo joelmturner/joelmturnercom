@@ -1,35 +1,35 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro';
-import ZineViewer from '@components/ZineViewer.astro';
-import { getCollection, render } from 'astro:content';
-import Badge from '@components/Badge.astro';
-import ZineFoldInstructions from '@components/ZineFoldInstructions.astro';
-import { components } from '@components/mdxComponents';
-import PageTitle from '@components/PageTitle.astro';
+import { getCollection, render } from 'astro:content'
+import Badge from '@components/Badge.astro'
+import { components } from '@components/mdxComponents'
+import PageTitle from '@components/PageTitle.astro'
+import ZineFoldInstructions from '@components/ZineFoldInstructions.astro'
+import ZineViewer from '@components/ZineViewer.astro'
+import BaseLayout from '@layouts/BaseLayout.astro'
 
 export async function getStaticPaths() {
-  const zines = await getCollection('zines');
+  const zines = await getCollection('zines')
   return zines.map((zine, index) => ({
     params: { slug: zine.data.slug },
     props: { zine, next: zines[index + 1], prev: zines[index - 1] },
-  }));
+  }))
 }
 
-const { zine, next, prev } = Astro.props;
-const { Content } = await render(zine);
+const { zine, next, prev } = Astro.props
+const { Content } = await render(zine)
 
 const imageUrlsInSetsOfTwo = zine?.data.imgUrls.reduce(
   (acc, imgUrl, index) => {
     if (index % 2 === 0) {
-      acc.push([imgUrl, zine?.data.imgUrls[index + 1] || null]);
+      acc.push([imgUrl, zine?.data.imgUrls[index + 1] || null])
     }
-    return acc;
+    return acc
   },
-  [] as [string, string | null][]
-);
+  [] as [string, string | null][],
+)
 
-const author = zine?.data.author;
-const isGuestAuthor = author !== 'Joel M Turner';
+const author = zine?.data.author
+const isGuestAuthor = author !== 'Joel M Turner'
 ---
 
 <BaseLayout title={zine?.data.title} image={zine?.data.imgUrls?.[0]}>

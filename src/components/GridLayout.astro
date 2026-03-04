@@ -1,12 +1,12 @@
 ---
-import PageTitle from './PageTitle.astro';
+import PageTitle from './PageTitle.astro'
 
 type Props = {
-  title?: string;
-  maxColumns?: number;
-};
+  title?: string
+  maxColumns?: number
+}
 
-const { title, maxColumns = 2 } = Astro.props;
+const { title, maxColumns = 2 } = Astro.props
 ---
 
 <div class="flex flex-col gap-8">

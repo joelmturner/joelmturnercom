@@ -1,15 +1,15 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
-import Badge from '@components/Badge.astro';
-import { slugify } from '@lib/posts';
-import GridLayout from '@components/GridLayout.astro';
-import LinkButton from '@components/LinkButton.astro';
-import Prose from '@components/Prose.astro';
+import { getCollection } from 'astro:content'
+import Badge from '@components/Badge.astro'
+import GridLayout from '@components/GridLayout.astro'
+import LinkButton from '@components/LinkButton.astro'
+import Prose from '@components/Prose.astro'
+import BaseLayout from '@layouts/BaseLayout.astro'
+import { slugify } from '@lib/posts'
 
 const tilPosts = (await getCollection('til')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+)
 ---
 
 <BaseLayout

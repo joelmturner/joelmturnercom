@@ -1,16 +1,16 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import Image from '@components/Image.astro';
-import PageTitle from '@components/PageTitle.astro';
-import Prose from '@components/Prose.astro';
+import Image from '@components/Image.astro'
+import PageTitle from '@components/PageTitle.astro'
+import Prose from '@components/Prose.astro'
+import BaseLayout from './BaseLayout.astro'
 
 type Props = {
-  frontmatter: { title: string; description?: string; heroImage?: string };
-};
+  frontmatter: { title: string; description?: string; heroImage?: string }
+}
 
 const {
   frontmatter: { title, description = '', heroImage },
-} = Astro.props;
+} = Astro.props
 ---
 
 <BaseLayout title={title} description={description} image={heroImage}>

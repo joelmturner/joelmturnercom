@@ -1,21 +1,28 @@
 ---
-import PageTitle from '@components/PageTitle.astro';
-import BaseLayout from '@layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
-import Animation from '@components/animation.astro';
+import { getCollection } from 'astro:content'
+import Animation from '@components/animation.astro'
+import PageTitle from '@components/PageTitle.astro'
+import BaseLayout from '@layouts/BaseLayout.astro'
 
 export async function getStaticPaths() {
-  const animations = await getCollection('animations');
+  const animations = await getCollection('animations')
   return animations.map((animation, index) => ({
     params: { slug: animation.data.slug },
-    props: { animation, next: animations[index + 1], prev: animations[index - 1] },
-  }));
+    props: {
+      animation,
+      next: animations[index + 1],
+      prev: animations[index - 1],
+    },
+  }))
 }
 
-const { animation, next, prev } = Astro.props;
+const { animation, next, prev } = Astro.props
 
 // canonical URL for this watch page (signals to Google that the video is the main content)
-const canonicalUrl = new URL(`/illustration/animations/${animation.data.slug}/`, Astro.site);
+const canonicalUrl = new URL(
+  `/illustration/animations/${animation.data.slug}/`,
+  Astro.site,
+)
 
 const videoStructuredData = {
   '@context': 'https://schema.org',
@@ -30,7 +37,7 @@ const videoStructuredData = {
     '@id': canonicalUrl.toString(),
   },
   ...(animation.data.date && { uploadDate: animation.data.date.toISOString() }),
-};
+}
 ---
 
 <BaseLayout

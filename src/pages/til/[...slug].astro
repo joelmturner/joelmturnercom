@@ -1,28 +1,28 @@
 ---
-import { type CollectionEntry, getCollection, render } from 'astro:content';
-import TilPost from '@layouts/TilPost.astro';
-import { components } from '@components/mdxComponents';
+import { type CollectionEntry, getCollection, render } from 'astro:content'
+import { components } from '@components/mdxComponents'
+import TilPost from '@layouts/TilPost.astro'
 
 // helper to extract slug from entry id (filename without extension)
 function getSlugFromId(id: string): string {
-  return id;
+  return id
 }
 
 export async function getStaticPaths() {
-  const posts = await getCollection('til');
+  const posts = await getCollection('til')
   return posts.map((post, index) => ({
     params: { slug: post.data.slug || getSlugFromId(post.id) },
     props: { post, next: posts[index + 1], prev: posts[index - 1] },
-  }));
+  }))
 }
 type Props = {
-  post: CollectionEntry<'til'>;
-  next: CollectionEntry<'til'>;
-  prev: CollectionEntry<'til'>;
-};
+  post: CollectionEntry<'til'>
+  next: CollectionEntry<'til'>
+  prev: CollectionEntry<'til'>
+}
 
-const { post, next, prev } = Astro.props;
-const { Content } = await render(post);
+const { post, next, prev } = Astro.props
+const { Content } = await render(post)
 ---
 
 <TilPost {...post.data} next={next} prev={prev}>

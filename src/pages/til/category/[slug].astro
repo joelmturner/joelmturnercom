@@ -1,21 +1,21 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro';
-import { getCollection, type CollectionEntry } from 'astro:content';
-import TilPostCard from '@components/TilPostCard.astro';
-import { getAllCategories } from '@lib/posts';
-import GridLayout from '@components/GridLayout.astro';
+import { type CollectionEntry, getCollection } from 'astro:content'
+import GridLayout from '@components/GridLayout.astro'
+import TilPostCard from '@components/TilPostCard.astro'
+import BaseLayout from '@layouts/BaseLayout.astro'
+import { getAllCategories } from '@lib/posts'
 
 export async function getStaticPaths() {
-  const posts = await getCollection('til');
-  return getAllCategories(posts);
+  const posts = await getCollection('til')
+  return getAllCategories(posts)
 }
 
 type Props = {
-  posts: CollectionEntry<'til'>[];
-  category: string;
-};
+  posts: CollectionEntry<'til'>[]
+  category: string
+}
 
-const { posts, category } = Astro.props;
+const { posts, category } = Astro.props
 ---
 
 <BaseLayout title={`Category: ${category}`} description={`Posts about ${category}`}>

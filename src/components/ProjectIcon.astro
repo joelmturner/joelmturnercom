@@ -1,12 +1,12 @@
 ---
-import { Icon } from 'astro-icon/components';
-import type { TechIcon } from '@lib/types';
+import type { TechIcon } from '@lib/types'
+import { Icon } from 'astro-icon/components'
 
 type Props = {
-  icon: TechIcon;
-};
+  icon: TechIcon
+}
 
-const { icon } = Astro.props;
+const { icon } = Astro.props
 ---
 
 {icon === 'typescript' && <Icon name="logos:typescript-icon" title={icon} />}

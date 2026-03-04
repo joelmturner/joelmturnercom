@@ -1,14 +1,14 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import Badge from '@components/Badge.astro';
-import type { CollectionEntry } from 'astro:content';
+import type { CollectionEntry } from 'astro:content'
+import Badge from '@components/Badge.astro'
+import BaseLayout from './BaseLayout.astro'
 
 type Props = CollectionEntry<'til'>['data'] & {
-  next?: CollectionEntry<'til'>;
-  prev?: CollectionEntry<'til'>;
-};
+  next?: CollectionEntry<'til'>
+  prev?: CollectionEntry<'til'>
+}
 
-const { title, next, prev, tags } = Astro.props;
+const { title, next, prev, tags } = Astro.props
 ---
 
 <BaseLayout title={title} description={tags?.join(', ')}>
