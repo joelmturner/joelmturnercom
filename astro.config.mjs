@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
@@ -7,6 +9,38 @@ import { defineConfig } from 'astro/config'
 import astroExpressiveCode from 'astro-expressive-code'
 import icon from 'astro-icon'
 import { loadEnv } from 'vite'
+
+/** build pathname -> lastmod map from blog and til content frontmatter (for sitemap lastmod) */
+function getContentLastmodMap() {
+  const map = new Map()
+  const contentDir = path.join(process.cwd(), 'src', 'content')
+  const lastmodRe = /lastmod:\s*["']?([^"'\s\n\r]+)["']?/
+  const slugRe = /slug:\s*["']?([^"'\s\n\r]+)["']?/
+
+  for (const collection of ['blog', 'til']) {
+    const dir = path.join(contentDir, collection)
+    if (!fs.existsSync(dir)) continue
+    const files = fs.readdirSync(dir, { withFileTypes: true })
+    for (const ent of files) {
+      if (!ent.isFile() || !/\.(md|mdx)$/.test(ent.name)) continue
+      const id = ent.name.replace(/\.(md|mdx)$/, '')
+      const raw = fs.readFileSync(path.join(dir, ent.name), 'utf-8')
+      const fm = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/)
+      if (!fm) continue
+      const lastmodMatch = fm[1].match(lastmodRe)
+      const slugMatch = fm[1].match(slugRe)
+      const slug = slugMatch ? slugMatch[1].trim() : id
+      const lastmod = lastmodMatch ? new Date(lastmodMatch[1].trim()) : null
+      const pathname = `/${collection}/${slug}/`
+      if (lastmod && !Number.isNaN(lastmod.getTime())) {
+        map.set(pathname, lastmod)
+      }
+    }
+  }
+  return map
+}
+
+const contentLastmodMap = getContentLastmodMap()
 
 const { SENTRY_AUTH_TOKEN, SENTRY_DSN } = loadEnv(
   process.env.NODE_ENV,
@@ -37,12 +71,20 @@ export default defineConfig({
     astroExpressiveCode(astroExpressiveCodeOptions),
     mdx(),
     react(),
-    // lastmod set to build time so sitemap entries have a date (helps Google prioritize recrawls)
+    // lastmod from content frontmatter when available (blog/til), else build time
     // exclude tag archives (noindex) so sitemap only includes preferred URLs
     sitemap({
       lastmod: new Date(),
       filter: (url) =>
         !url.includes('/blog/tag/') && !url.includes('/til/tag/'),
+      serialize(item) {
+        const pathname = new URL(item.url).pathname
+        const contentLastmod = contentLastmodMap.get(pathname)
+        if (contentLastmod) {
+          item.lastmod = contentLastmod
+        }
+        return item
+      },
     }),
     ...(process.env.NODE_ENV !== 'development'
       ? [
