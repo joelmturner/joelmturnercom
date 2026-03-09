@@ -232,7 +232,7 @@ export default function IllustrationGallery({
               width={400}
               height={400}
               className={cn(
-                'w-full h-auto object-cover rounded-md cursor-pointer',
+                'w-full h-full object-cover rounded-md cursor-pointer',
               )}
             />
           </button>

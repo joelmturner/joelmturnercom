@@ -17,7 +17,7 @@ import ThemeSwitch from './ThemeSwitch.astro'
     // shadow
     'shadow-md',
     // border top
-    'border-t-[6px] border-t-[#FFE5A3] dark:border-t-[#CBF6FF]',
+    'border-t-[6px] border-t-brand-100',
     // border bottom
     'border-b-2 border-b-slate-200 dark:border-b-slate-700'
   )}
@@ -96,14 +96,14 @@ import ThemeSwitch from './ThemeSwitch.astro'
   </nav>
 </header>
 
-<wa-drawer data-nav-drawer-content class="md:hidden">
+<wa-drawer data-nav-drawer-content class="hidden" >
   <wa-icon slot="header" name="close" data-drawer="close">Close</wa-icon>
   <div class="flex flex-col gap-2 md:hidden">
-    <ul class="font-medium text-xl flex flex-col gap-2">
+    <ul class="font-medium text-xl flex flex-col gap-1">
       {
         NAV_LINKS.map((link) =>
           link.children ? (
-            <li class="flex flex-col gap-1">
+            <li class="flex flex-col">
               <HeaderLink href={link.href} aria-current="page" hideActiveBorder={true}>
                 {link.label}
               </HeaderLink>
@@ -133,6 +133,17 @@ import ThemeSwitch from './ThemeSwitch.astro'
   </div>
 </wa-drawer>
 
+<style>
+  ::part(header) {
+    border-top: 6px solid var(--color-brand-100);
+  }
+  ::part(close-button) {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+</style>
+
 <script is:inline>
   // set up drawer event listener on each page load
   // using is:inline ensures this runs immediately when the page loads
@@ -144,6 +155,8 @@ import ThemeSwitch from './ThemeSwitch.astro'
       openButton.addEventListener('click', () => {
         if (drawer && 'open' in drawer) {
           drawer.open = true;
+          drawer.classList.remove('hidden');
+          drawer.classList.add('block');
         }
       });
     }
