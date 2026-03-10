@@ -5,7 +5,7 @@ import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import sentry from '@sentry/astro'
 import tailwindcss from '@tailwindcss/vite'
-import { defineConfig } from 'astro/config'
+import { defineConfig, fontProviders } from 'astro/config'
 import astroExpressiveCode from 'astro-expressive-code'
 import icon from 'astro-icon'
 import { loadEnv } from 'vite'
@@ -66,6 +66,18 @@ export default defineConfig({
   },
   // compress HTML output
   compressHTML: true,
+  fonts: [
+    {
+      name: 'Fira Code',
+      cssVariable: '--font-fira-code',
+      provider: fontProviders.fontsource(),
+    },
+    {
+      name: 'Fira Sans',
+      cssVariable: '--font-fira-sans',
+      provider: fontProviders.fontsource(),
+    },
+  ],
 
   integrations: [
     astroExpressiveCode(astroExpressiveCodeOptions),

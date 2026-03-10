@@ -1,7 +1,7 @@
 ---
+import { Font } from 'astro:assets'
 import PostHog from '@components/PostHog.astro'
 import { getCldOgImageUrl } from 'astro-cloudinary/helpers'
-import { AstroFont } from 'astro-font'
 import { SITE_DESCRIPTION, SITE_TITLE } from 'src/consts'
 
 interface Props {
@@ -133,6 +133,9 @@ const resolvedTitle = title
 <meta property="og:title" content={resolvedTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={`${ogImage}?v=1`} />
+<meta property="og:image:secure_url" content={`${ogImage}?v=1`} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
@@ -151,7 +154,7 @@ const resolvedTitle = title
   src="//gc.zgo.at/count.js"></script>
 
 <!-- optimize font loading: preload only the primary font, defer secondary -->
-<AstroFont
+<!-- <AstroFont
   config={[
     {
       src: [],
@@ -173,7 +176,10 @@ const resolvedTitle = title
         'https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&display=swap',
     },
   ]}
-/>
+/> -->
+
+<Font cssVariable="--font-fira-code" preload />
+<Font cssVariable="--font-fira-sans" preload />
 
 <!-- analytics -->
 {import.meta.env.MODE !== 'development' && <PostHog />}

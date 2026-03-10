@@ -6,12 +6,13 @@
     [data-color-mode="dark"] *
   ));
 
+@theme inline {
+  --font-family-fira-code: var(--font-fira-code);
+  --font-family-fira-sans: var(--font-fira-sans);
+}
+
 /* Custom theme tokens */
 @theme {
-  /* Custom fonts */
-  --font-family-fira-code: "Fira Code", monospace;
-  --font-family-fira-sans: "Fira Sans", sans-serif;
-
   --tw-prose-invert-links: var(--color-accent);
 
   /* Custom colors - will be overridden by dark mode */
@@ -109,9 +110,7 @@ wa-drawer {
 /* Global base styles */
 @layer base {
   :root {
-    --font-fira-code: "Fira Code", monospace;
-    --font-fira-sans: "Fira Sans", sans-serif;
-    font-family: var(--font-fira-sans);
+    font-family: var(--font-family-fira-sans);
   }
   :state(wa-defined) {
     all: revert-layer;
