@@ -153,31 +153,6 @@ const resolvedTitle = title
   defer
   src="//gc.zgo.at/count.js"></script>
 
-<!-- optimize font loading: preload only the primary font, defer secondary -->
-<!-- <AstroFont
-  config={[
-    {
-      src: [],
-      preload: false, // Fira Code is secondary, don't preload
-      display: 'swap',
-      name: 'Fira Code',
-      fallback: 'sans-serif',
-      cssVariable: 'font-fira-code',
-      googleFontsURL: 'https://fonts.googleapis.com/css2?family=Fira+Code&display=swap',
-    },
-    {
-      src: [],
-      preload: false, // don't preload to avoid blocking render
-      display: 'swap', // swap ensures text is visible immediately
-      name: 'Fira Sans',
-      fallback: 'sans-serif',
-      cssVariable: 'font-fira-sans',
-      googleFontsURL:
-        'https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&display=swap',
-    },
-  ]}
-/> -->
-
 <Font cssVariable="--font-fira-code" preload />
 <Font cssVariable="--font-fira-sans" preload />
 

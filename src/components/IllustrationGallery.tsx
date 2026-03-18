@@ -53,12 +53,14 @@ export default function IllustrationGallery({
   const [lightboxIndex, setLightboxIndex] = useState(0)
   const dialogRef = useRef<HTMLDialogElement>(null)
 
-  const filtered = useMemo(() => {
+  const filtered = useMemo((): IllustrationItem[] => {
     const tag =
       selectedCollection === 'featured'
         ? 'joelmturner_featured'
         : selectedCollection
-    return illustrations.filter((item) => item.tags.includes(tag))
+    return illustrations.filter((item) =>
+      item.tags.includes(tag),
+    ) as IllustrationItem[]
   }, [illustrations, selectedCollection])
 
   const currentSlide = filtered[lightboxIndex] ?? null
@@ -214,7 +216,7 @@ export default function IllustrationGallery({
       <div
         className={cn('grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4')}
       >
-        {filtered.map((image, index) => (
+        {filtered.map((image: IllustrationItem, index: number) => (
           <button
             key={image.id}
             type="button"

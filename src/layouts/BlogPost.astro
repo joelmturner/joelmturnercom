@@ -112,7 +112,7 @@ const videoStructuredData = video
       />
     )
   }
-  <script define:vars={{ pageTitle: title, pageUrl: Astro.url.href }}>
+  <script is:inline define:vars={{ pageTitle: title, pageUrl: Astro.url.href }}>
     // defer share button initialization to avoid blocking main thread
     // use requestIdleCallback for non-critical interactivity
     (function () {
