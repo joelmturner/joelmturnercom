@@ -52,11 +52,6 @@
           "type": "boolean"
         },
         {
-          "name": "excerpt",
-          "type": "string",
-          "single": true
-        },
-        {
           "title": "Category",
           "name": "category",
           "required": true,

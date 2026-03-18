@@ -10,12 +10,7 @@ tags:
   - quick tip
 lastmod: 2023-02-18T07:41:31.936Z
 cover: Posts/gatsby-client-side-redirect
-excerpt:
-  A client-side redirect for Gatsby when you don't have access to the CloudFront
-  settings.
-description:
-  A quick way to create a redirect from the client side of Gatsby. This is
-  useful if we don't have access to deployed setup.
+description: Quick tip: client-side redirect in Gatsby without a lambda. Pass redirectTo via page context and use useEffect to set window.location. Handy for S3/CloudFront.
 ---
 
 We had a case where we needed to set up a redirect on the client side of Gatsby but we didn't want to spin up a lambda to handle this one case. A redirect like this wouldn't be a problem with some of the hosts out there, but we're just using s3 and Cloudfront for this site.

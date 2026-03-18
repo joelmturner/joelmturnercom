@@ -27,7 +27,7 @@ The site covers topics including:
 - Location: `/blog/[slug]/`
 - Categories: dev, illustration, lifestyle, personal-development, productivity
 - Contains: Technical tutorials, development practices, career insights, personal reflections
-- Each post includes: title, description, excerpt, cover image, publication date, last modified date, categories, tags
+- Each post includes: title, description, cover image, publication date, last modified date, categories, tags
 
 #### TIL Posts
 - Location: `/til/[slug]/`
@@ -65,11 +65,10 @@ The site covers topics including:
 
 #### Blog Post Schema
 - title (required): string
-- description: string (optional)
+- description: string
 - date (required): ISO date
 - lastmod: ISO date (optional)
 - cover: string (optional) - Cloudinary image reference
-- excerpt: string (optional)
 - categories (required): string
 - tags (required): array of strings
 - draft: boolean (optional)

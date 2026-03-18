@@ -4,8 +4,7 @@ date: 2025-12-20T16:14:07.822Z
 lastmod: 2025-12-20T16:14:07.822Z
 type: blog
 slug: webawesome-tailwind-4-same-site
-description: Using Web Awesome web components in a Tailwind v4 site
-excerpt: Using Web Awesome web components in a Tailwind v4 site
+description: Use Web Awesome web components with Tailwind v4 on the same site. Fix styling friction after moving from Panda to Tailwind with the right config and layer order.
 tags:
   - web components
   - styling

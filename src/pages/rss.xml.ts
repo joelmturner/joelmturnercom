@@ -10,7 +10,7 @@ export async function GET(context: Record<string, any>) {
     site: context.site,
     items: posts.reverse().map((post) => ({
       title: post.data.title,
-      description: post.data.excerpt || post.data.description,
+      description: post.data.description,
       link: `/blog/${post.data.slug || post.id}/`,
       pubDate: post.data.date,
     })),

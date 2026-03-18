@@ -21,7 +21,6 @@ const {
   date,
   lastmod,
   cover,
-  excerpt,
   tags,
   categories,
   next,
@@ -47,7 +46,7 @@ const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
   headline: title || '',
-  description: (excerpt || description || '').substring(0, 500),
+  description: (description || '').substring(0, 500),
   ...(date && { datePublished: date.toISOString() }),
   ...(lastmod || date ? { dateModified: (lastmod || date).toISOString() } : {}),
   author: {
@@ -89,7 +88,7 @@ const videoStructuredData = video
       '@context': 'https://schema.org',
       '@type': 'VideoObject',
       name: title || '',
-      description: (excerpt || description || '').substring(0, 500),
+      description: (description || '').substring(0, 500),
       thumbnailUrl: `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`,
       ...(video.uploadDate || date
         ? { uploadDate: (video.uploadDate || date).toISOString() }
@@ -101,7 +100,7 @@ const videoStructuredData = video
   : null
 ---
 
-<BaseLayout title={title} description={excerpt ?? description} image={cover}>
+<BaseLayout title={title} description={description} image={cover}>
   <!-- structured data - moved to end of head to avoid blocking render -->
   <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData, null, 0)} />
   {
