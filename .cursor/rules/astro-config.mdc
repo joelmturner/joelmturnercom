@@ -1,0 +1,11 @@
+---
+description: Expectations when changing Astro build configuration
+globs: astro.config.mjs
+---
+
+# astro.config.mjs
+
+- This project uses **Tailwind CSS 4** via the **`@tailwindcss/vite`** Vite plugin (not `@astrojs/tailwind`). Theme and layers live in [`src/styles/global.css`](mdc:src/styles/global.css).
+- Other integrations (MDX, React, sitemap, Sentry, expressive-code, astro-icon, Cloudinary, etc.) are registered here; prefer official Astro integrations when adding new ones.
+- Env-sensitive values use Vite `loadEnv` / `import.meta.env` as in the existing config.
+- Production builds target static hosting on Netlify unless you intentionally add an SSR adapter.

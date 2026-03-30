@@ -2,29 +2,24 @@
 import { type CollectionEntry, getCollection, render } from 'astro:content'
 import { components } from '@components/mdxComponents'
 import BlogPost from '@layouts/BlogPost.astro'
-
-// helper to extract slug from entry id (filename without extension)
-function getSlugFromId(id: string): string {
-  // id is the filename without extension, e.g., "2025-11-17-zine-viewer-web-component"
-  return id
-}
+import { getPostSlug, sortPostsByDateAsc } from '@lib/content/postRoutes'
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog')
+  const posts = sortPostsByDateAsc(await getCollection('blog'))
   return posts.map((post, index) => ({
-    params: { slug: post.data.slug || getSlugFromId(post.id) },
+    params: { slug: getPostSlug(post) },
     props: { post, next: posts[index + 1], prev: posts[index - 1] },
   }))
 }
 type Props = {
   post: CollectionEntry<'blog'>
-  next: CollectionEntry<'blog'>
-  prev: CollectionEntry<'blog'>
+  next: CollectionEntry<'blog'> | undefined
+  prev: CollectionEntry<'blog'> | undefined
 }
 
 const { post, next, prev } = Astro.props
 const { Content } = await render(post)
-const slug = post.data.slug || getSlugFromId(post.id)
+const slug = getPostSlug(post)
 ---
 
 <BlogPost {...post.data} slug={slug} next={next} prev={prev}>

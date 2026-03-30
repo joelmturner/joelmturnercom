@@ -1,0 +1,10 @@
+---
+description: Semantic HTML, accessibility, and SEO for Astro templates
+globs: src/**/*.astro
+---
+
+# Accessibility and SEO
+
+- Prefer semantic HTML; add ARIA when native elements are not enough.
+- Ensure keyboard access and visible focus for interactive controls.
+- Use [`BaseLayout.astro`](mdc:src/layouts/BaseLayout.astro) and [`BaseHead.astro`](mdc:src/components/BaseHead.astro) for titles, descriptions, canonical URLs, Open Graph, and optional `robots`.

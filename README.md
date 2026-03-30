@@ -34,7 +34,7 @@ cd joelmturnercom
 3. Install dependencies:
 
 ```bash
-npm install
+pnpm install
 ```
 
 ## Running Locally
@@ -42,7 +42,7 @@ npm install
 To run the website locally:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 This will start a local server, typically at <http://localhost:4321>. You can view your site live by navigating to this URL in your web browser.

@@ -1,16 +1,17 @@
-# JavaScript Astro Tailwind CSS .cursorrules prompt file
+# Cursor rules for this repo
 
-Author: Arun Sathiya
+## Canonical stack (read these first)
 
-## What you can build
+1. Root **[AGENTS.md](../../AGENTS.md)** — commands, `src/` map, content collections, env.
+2. Numbered rules in this folder: **`01-project-overview.mdc`** through **`05-astro-typescript-tailwind-conventions.mdc`** (always applied).
 
+## Additional scoped rules
 
-## Benefits
+| File | When it applies |
+| ---- | ---------------- |
+| `astro-patterns.mdc` | Pages, layouts, components, and markdown under `src/content/` |
+| `astro-config.mdc` | Editing `astro.config.mjs` |
+| `a11y-seo.mdc` | Astro templates under `src/` |
+| `testing.mdc` | Files under `tests/` |
 
-
-## Synopsis
-Developers building scalable static sites with Astro, JavaScript, and TypeScript will benefit by gaining guidance on optimal project structure, efficient component development, and performance optimization.
-
-## Overview of .cursorrules prompt
-The .cursorrules file provides guidelines and best practices for developers using JavaScript, TypeScript, and the Astro framework to build scalable web applications. It emphasizes writing concise and accurate technical responses, prioritizing static generation, and optimizing performance with minimal JavaScript. It outlines recommended project structures, component development, routing, and content management practices within Astro. The file stresses the use of scoped styling, performance optimization techniques, data fetching, SEO considerations, integrations, and deployment practices. It also advises best practices for styling with Tailwind CSS, implementing tests, ensuring accessibility, and maintaining key conventions. Performance metrics and monitoring tools are recommended to ensure optimal web application performance. Developers are encouraged to refer to Astro's official documentation for detailed guidance.
-
+Styling specifics: **`03-styling-guide.mdc`** and **`global.css`** (Tailwind v4, no `@apply` in this project).

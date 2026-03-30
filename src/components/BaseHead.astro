@@ -1,8 +1,8 @@
 ---
 import { Font } from 'astro:assets'
 import PostHog from '@components/PostHog.astro'
+import { SITE_DESCRIPTION, SITE_TITLE } from '@lib/site'
 import { getCldOgImageUrl } from 'astro-cloudinary/helpers'
-import { SITE_DESCRIPTION, SITE_TITLE } from 'src/consts'
 
 interface Props {
   title?: string

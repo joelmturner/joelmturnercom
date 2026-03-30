@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 import Badge from '@components/Badge.astro'
+import { getPostSlug } from '@lib/content/postRoutes'
 import BaseLayout from './BaseLayout.astro'
 
 type Props = CollectionEntry<'til'>['data'] & {
@@ -30,15 +31,25 @@ const { title, next, prev, tags } = Astro.props
   <wa-divider style="--spacing: 2rem;"></wa-divider>
 
   <div class="flex justify-between w-2xl max-w-4xl mx-auto p-3 gap-8 text-brand-100">
-    <a
-      href={`/til/${prev?.data?.slug}/`}
-      class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
-      ><span>{`< `}</span> {prev?.data?.title}</a
-    >
-    <a
-      href={`/til/${next?.data?.slug}/`}
-      class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
-      >{next?.data?.title} <span>{` >`}</span></a
-    >
+    {
+      prev && (
+        <a
+          href={`/til/${getPostSlug(prev)}/`}
+          class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
+        >
+          <span>{`< `}</span> {prev.data.title}
+        </a>
+      )
+    }
+    {
+      next && (
+        <a
+          href={`/til/${getPostSlug(next)}/`}
+          class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
+        >
+          {next.data.title} <span>{` >`}</span>
+        </a>
+      )
+    }
   </div>
 </BaseLayout>

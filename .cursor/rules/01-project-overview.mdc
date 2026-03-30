@@ -10,6 +10,7 @@ This repository is an Astro web application with TypeScript and Tailwind CSS.
 
 ## Key Files
 
+- [AGENTS.md](mdc:AGENTS.md) quick map for contributors and AI agents (commands, `src/` layout, collections)
 - [astro.config.mjs](mdc:astro.config.mjs) defines Astro and integration setup
 - [package.json](mdc:package.json) contains scripts and dependencies
 - [tsconfig.json](mdc:tsconfig.json) controls TypeScript compiler behavior

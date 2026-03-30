@@ -1,0 +1,16 @@
+---
+description: Astro routing, data, content, and hydration patterns for this repo
+globs:
+  - src/pages/**/*
+  - src/components/**/*
+  - src/layouts/**/*
+  - src/content/**/*.{md,mdx}
+---
+
+# Astro patterns
+
+- Prefer static generation; use `client:*` only when the UI needs client-side JS.
+- Pass data with `Astro.props`; use `getStaticPaths()` for dynamic routes under `src/pages/`.
+- Load structured content with `getCollection` and schemas in [`src/content.config.ts`](mdc:src/content.config.ts).
+- Blog/TIL post routes and slug helpers live in [`src/lib/content/postRoutes.ts`](mdc:src/lib/content/postRoutes.ts).
+- For `src/` layout and where to add files, follow [`02-source-organization.mdc`](mdc:.cursor/rules/02-source-organization.mdc) and root [`AGENTS.md`](mdc:AGENTS.md).
