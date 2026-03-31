@@ -1,6 +1,5 @@
 import type { IllustrationItem, IllustrationTag } from '@lib/types'
 import {
-  type KeyboardEvent,
   type MouseEvent,
   useCallback,
   useEffect,
@@ -8,13 +7,10 @@ import {
   useRef,
   useState,
 } from 'react'
-import { getLightboxImageUrl, LIGHTBOX_IMAGE_SIZE } from './cloudinaryUrls'
 import {
   COLLECTION_DEFAULT,
   parseCollectionParam,
 } from './illustrationUrlParams'
-
-export const DESKTOP_BREAKPOINT = 768
 
 export function useIllustrationGallery(illustrations: IllustrationItem[]) {
   const [selectedCollection, setSelectedCollection] =
@@ -28,11 +24,6 @@ export function useIllustrationGallery(illustrations: IllustrationItem[]) {
       item.tags.includes(selectedCollection),
     ) as IllustrationItem[]
   }, [illustrations, selectedCollection])
-
-  const currentSlide = filtered[lightboxIndex] ?? null
-  const currentSlideUrl = currentSlide
-    ? getLightboxImageUrl(currentSlide.id)
-    : ''
 
   const syncStateFromUrl = useCallback(() => {
     if (typeof window === 'undefined') return
@@ -96,11 +87,6 @@ export function useIllustrationGallery(illustrations: IllustrationItem[]) {
 
   const openLightbox = useCallback(
     (index: number) => {
-      if (
-        typeof window !== 'undefined' &&
-        window.innerWidth < DESKTOP_BREAKPOINT
-      )
-        return
       setLightboxIndex(index)
       setLightboxOpen(true)
       const item = filtered[index]
@@ -120,18 +106,17 @@ export function useIllustrationGallery(illustrations: IllustrationItem[]) {
     window.history.pushState({}, '', url)
   }, [])
 
-  const goToSlide = useCallback(
-    (delta: number) => {
-      const next = (lightboxIndex + delta + filtered.length) % filtered.length
-      setLightboxIndex(next)
-      const item = filtered[next]
-      if (item) {
-        const url = new URL(window.location.href)
-        url.searchParams.set('image', item.id)
-        window.history.pushState({}, '', url)
-      }
+  const commitSlideIndex = useCallback(
+    (index: number) => {
+      setLightboxIndex(index)
+      const item = filtered[index]
+      if (!item || typeof window === 'undefined') return
+      const url = new URL(window.location.href)
+      if (url.searchParams.get('image') === item.id) return
+      url.searchParams.set('image', item.id)
+      window.history.pushState({}, '', url)
     },
-    [lightboxIndex, filtered],
+    [filtered],
   )
 
   const handleDialogClick = useCallback(
@@ -141,16 +126,6 @@ export function useIllustrationGallery(illustrations: IllustrationItem[]) {
     [closeLightbox],
   )
 
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLDialogElement>) => {
-      if (!lightboxOpen) return
-      if (e.key === 'Escape') closeLightbox()
-      if (e.key === 'ArrowLeft') goToSlide(-1)
-      if (e.key === 'ArrowRight') goToSlide(1)
-    },
-    [lightboxOpen, closeLightbox, goToSlide],
-  )
-
   return {
     dialogRef,
     filtered,
@@ -158,11 +133,9 @@ export function useIllustrationGallery(illustrations: IllustrationItem[]) {
     updateCollection,
     openLightbox,
     closeLightbox,
-    goToSlide,
-    currentSlide,
-    currentSlideUrl,
+    commitSlideIndex,
     handleDialogClick,
-    handleKeyDown,
-    lightboxImageSize: LIGHTBOX_IMAGE_SIZE,
+    lightboxOpen,
+    lightboxIndex,
   }
 }

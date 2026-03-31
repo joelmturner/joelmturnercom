@@ -1,7 +1,11 @@
 import { ILLUSTRATION_FILTER_OPTIONS } from '@lib/constants'
 import type { IllustrationItem, IllustrationTag } from '@lib/types'
 import { cn } from '@lib/utils'
-import { ChevronLeft, ChevronRight, X } from 'lucide-react'
+import { X } from 'lucide-react'
+import { type KeyboardEvent, useCallback, useRef } from 'react'
+import IllustrationLightboxCarousel, {
+  type IllustrationLightboxCarouselHandle,
+} from './IllustrationLightboxCarousel'
 import { useIllustrationGallery } from './useIllustrationGallery'
 
 interface IllustrationGalleryProps {
@@ -11,6 +15,7 @@ interface IllustrationGalleryProps {
 export default function IllustrationGallery({
   illustrations,
 }: IllustrationGalleryProps) {
+  const carouselRef = useRef<IllustrationLightboxCarouselHandle>(null)
   const {
     dialogRef,
     filtered,
@@ -18,13 +23,21 @@ export default function IllustrationGallery({
     updateCollection,
     openLightbox,
     closeLightbox,
-    goToSlide,
-    currentSlide,
-    currentSlideUrl,
+    commitSlideIndex,
     handleDialogClick,
-    handleKeyDown,
-    lightboxImageSize,
+    lightboxOpen,
+    lightboxIndex,
   } = useIllustrationGallery(illustrations)
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLDialogElement>) => {
+      if (!lightboxOpen) return
+      if (e.key === 'Escape') closeLightbox()
+      if (e.key === 'ArrowLeft') carouselRef.current?.scrollPrev()
+      if (e.key === 'ArrowRight') carouselRef.current?.scrollNext()
+    },
+    [lightboxOpen, closeLightbox],
+  )
 
   return (
     <div className={cn('flex flex-col gap-4')}>
@@ -85,7 +98,9 @@ export default function IllustrationGallery({
         onClick={handleDialogClick}
         onKeyDown={handleKeyDown}
         className={cn(
-          'p-0 max-w-[90vw] w-full max-h-[90vh] overflow-visible',
+          // match main column width in BaseBody.astro
+          'p-0 w-full max-w-[100vw] md:max-w-3xl mx-auto px-4 md:px-0',
+          'max-h-[90vh] overflow-visible',
           'bg-transparent shadow-none border-0',
           'backdrop:bg-black/70',
           'm-auto',
@@ -93,63 +108,29 @@ export default function IllustrationGallery({
       >
         <div
           className={cn(
-            'relative flex items-center justify-center min-h-0 pointer-events-none',
+            'relative flex flex-col items-center justify-center min-h-0 pointer-events-none',
           )}
         >
-          {currentSlide && (
-            <>
-              <img
-                src={currentSlideUrl}
-                alt={currentSlide.id}
-                className={cn(
-                  'max-w-full max-h-[85vh] w-auto h-auto object-contain',
-                  'pointer-events-auto',
-                )}
-                width={lightboxImageSize}
-                height={lightboxImageSize}
-              />
-              {filtered.length > 1 && (
-                <>
-                  <button
-                    type="button"
-                    onClick={() => goToSlide(-1)}
-                    aria-label="Previous image"
-                    className={cn(
-                      'absolute left-2 top-1/2 -translate-y-1/2',
-                      'w-10 h-10 rounded-full bg-surface-default text-primary flex items-center justify-center cursor-pointer pointer-events-auto',
-                      'hover:bg-surface-default/70 focus:outline-none focus:ring-2 focus:ring-border',
-                    )}
-                  >
-                    <ChevronLeft className="w-5 h-5" aria-hidden />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => goToSlide(1)}
-                    aria-label="Next image"
-                    className={cn(
-                      'absolute right-2 top-1/2 -translate-y-1/2',
-                      'w-10 h-10 rounded-full bg-surface-default text-primary flex items-center justify-center cursor-pointer pointer-events-auto',
-                      'hover:bg-surface-default/70 focus:outline-none focus:ring-2 focus:ring-border',
-                    )}
-                  >
-                    <ChevronRight className="w-5 h-5" aria-hidden />
-                  </button>
-                </>
-              )}
-              <button
-                type="button"
-                onClick={closeLightbox}
-                aria-label="Close lightbox"
-                className={cn(
-                  'absolute top-2 right-2 w-10 h-10 rounded-full',
-                  'bg-surface-default text-primary flex items-center justify-center cursor-pointer pointer-events-auto hover:bg-surface-default/70',
-                  'focus:outline-none focus:ring-2 focus:ring-border',
-                )}
-              >
-                <X className="w-5 h-5" aria-hidden />
-              </button>
-            </>
+          {lightboxOpen && filtered.length > 0 && (
+            <IllustrationLightboxCarousel
+              ref={carouselRef}
+              slides={filtered}
+              initialIndex={lightboxIndex}
+              onSlideChange={commitSlideIndex}
+            />
           )}
+          <button
+            type="button"
+            onClick={closeLightbox}
+            aria-label="Close lightbox"
+            className={cn(
+              'absolute top-2 right-2 w-10 h-10 rounded-full',
+              'bg-surface-default text-primary flex items-center justify-center cursor-pointer pointer-events-auto hover:bg-surface-default/70',
+              'focus:outline-none focus:ring-2 focus:ring-border',
+            )}
+          >
+            <X className="w-5 h-5" aria-hidden />
+          </button>
         </div>
       </dialog>
     </div>

@@ -37,6 +37,8 @@
     "astro-posthog": "^1.0.2",
     "cloudinary": "^2.9.0",
     "clsx": "^2.1.1",
+    "embla-carousel-auto-height": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "lodash": "^4.17.23",
     "lucide-astro": "^0.556.0",
     "lucide-react": "^0.577.0",
