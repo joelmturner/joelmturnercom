@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 import Badge from '@components/Badge.astro'
-import { getPostSlug } from '@lib/content/postRoutes'
+import { createSiteContent } from '@lib/content/siteContent'
 import BaseLayout from './BaseLayout.astro'
 
 type Props = CollectionEntry<'til'>['data'] & {
@@ -10,6 +10,7 @@ type Props = CollectionEntry<'til'>['data'] & {
 }
 
 const { title, next, prev, tags } = Astro.props
+const content = createSiteContent()
 ---
 
 <BaseLayout title={title} description={tags?.join(', ')}>
@@ -20,7 +21,11 @@ const { title, next, prev, tags } = Astro.props
           {title}
         </h1>
         <div class="flex gap-3 items-center">
-          {tags.map((tag) => <Badge link={`/til/tag/${tag.toLowerCase()}/`}>{tag}</Badge>)}
+          {
+            tags.map((tag) => (
+              <Badge link={content.taxonomy('tag', tag, 'til').href}>{tag}</Badge>
+            ))
+          }
         </div>
         <hr class="mt-5 mb-0" />
       </div>
@@ -34,7 +39,7 @@ const { title, next, prev, tags } = Astro.props
     {
       prev && (
         <a
-          href={`/til/${getPostSlug(prev)}/`}
+          href={content.url(prev).href}
           class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
         >
           <span>{`< `}</span> {prev.data.title}
@@ -44,7 +49,7 @@ const { title, next, prev, tags } = Astro.props
     {
       next && (
         <a
-          href={`/til/${getPostSlug(next)}/`}
+          href={content.url(next).href}
           class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
         >
           {next.data.title} <span>{` >`}</span>

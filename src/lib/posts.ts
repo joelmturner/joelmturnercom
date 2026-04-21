@@ -31,14 +31,10 @@ function filterByCategory(
 
 function filterByTag(
   posts: (CollectionEntry<'blog'> | CollectionEntry<'til'>)[],
-  tag: string,
+  segment: string,
 ) {
   return posts
-    .filter((post) =>
-      post.data.tags
-        .map((tag) => tag.toLowerCase())
-        .includes(tag.toLowerCase()),
-    )
+    .filter((post) => post.data.tags.some((raw) => slugify(raw) === segment))
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 }
 
@@ -65,16 +61,20 @@ export function getAllCategories(
 export function getAllTags(
   posts: (CollectionEntry<'blog'> | CollectionEntry<'til'>)[],
 ) {
-  const resolvedTags = posts.reduce<string[]>((acc, post) => {
-    const tags = post.data.tags.flatMap((tag) => [
-      tag.toLowerCase(),
-      slugify(tag),
-    ])
-    for (const tag of tags) acc.push(tag)
-    return acc
-  }, [])
-  return Array.from(new Set(resolvedTags)).map((tag) => ({
-    params: { slug: tag },
-    props: { posts: filterByTag(posts, tag), tag },
-  }))
+  const segments = new Set<string>()
+  for (const post of posts) {
+    for (const raw of post.data.tags) {
+      const seg = slugify(raw)
+      if (seg) segments.add(seg)
+    }
+  }
+  return [...segments].map((segment) => {
+    const postsForTag = filterByTag(posts, segment)
+    const displayTag =
+      postsForTag[0]?.data.tags.find((t) => slugify(t) === segment) ?? segment
+    return {
+      params: { slug: segment },
+      props: { posts: postsForTag, tag: displayTag },
+    }
+  })
 }

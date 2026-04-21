@@ -1,13 +1,12 @@
 ---
-import { getCollection } from 'astro:content'
 import GridLayout from '@components/GridLayout.astro'
 import PageTitle from '@components/PageTitle.astro'
 import PostCard from '@components/PostCard.astro'
 import BaseLayout from '@layouts/BaseLayout.astro'
+import { createSiteContent } from '@lib/content/siteContent'
 
-const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-)
+const content = createSiteContent()
+const posts = await content.list('blog')
 ---
 
 <BaseLayout

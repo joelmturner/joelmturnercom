@@ -1,15 +1,13 @@
 ---
-import { getCollection } from 'astro:content'
 import Badge from '@components/Badge.astro'
 import GridLayout from '@components/GridLayout.astro'
 import LinkButton from '@components/LinkButton.astro'
 import Prose from '@components/Prose.astro'
 import BaseLayout from '@layouts/BaseLayout.astro'
-import { slugify } from '@lib/posts'
+import { createSiteContent } from '@lib/content/siteContent'
 
-const tilPosts = (await getCollection('til')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-)
+const content = createSiteContent()
+const tilPosts = await content.list('til')
 ---
 
 <BaseLayout
@@ -23,11 +21,11 @@ const tilPosts = (await getCollection('til')).sort(
           <div class="flex flex-col">
             <Prose className="prose-xl">
               <h3>
-                <LinkButton href={`/til/${post.data.slug}/`}>{post.data.title}</LinkButton>
+                <LinkButton href={content.url(post).href}>{post.data.title}</LinkButton>
               </h3>
               <div class="flex gap-3 items-center">
                 {post.data.tags.map((tag) => (
-                  <Badge link={`/til/tag/${slugify(tag)}/`}>{tag}</Badge>
+                  <Badge link={content.taxonomy('tag', tag, 'til').href}>{tag}</Badge>
                 ))}
               </div>
             </Prose>
