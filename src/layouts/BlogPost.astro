@@ -3,8 +3,7 @@ import type { CollectionEntry } from 'astro:content'
 import Badge from '@components/Badge.astro'
 import FormattedDate from '@components/FormattedDate.astro'
 import Prose from '@components/Prose.astro'
-import { getPostSlug } from '@lib/content/postRoutes'
-import { slugify } from '@lib/posts'
+import { createSiteContent } from '@lib/content/siteContent'
 import { SITE_TITLE } from '@lib/site'
 import { cn } from '@lib/utils'
 import { CldImage } from 'astro-cloudinary'
@@ -29,6 +28,8 @@ const {
   slug,
   video,
 } = Astro.props
+
+const content = createSiteContent()
 
 // generate structured data for SEO
 // ensure slug exists to prevent errors
@@ -233,12 +234,18 @@ const videoStructuredData = video
 
   <section class="flex flex-col gap-3">
     <div class="flex gap-3 items-center">
-      Category: <Badge link={`/blog/category/${slugify(categories)}/`}>
+      Category:{' '}
+      <Badge link={content.taxonomy('category', categories, 'blog').href}>
         {categories}
       </Badge>
     </div>
     <div class="flex gap-3 items-center flex-wrap">
-      Tags: {tags.map((tag) => <Badge link={`/blog/tag/${slugify(tag)}/`}>{tag}</Badge>)}
+      Tags:{' '}
+      {
+        tags.map((tag) => (
+          <Badge link={content.taxonomy('tag', tag, 'blog').href}>{tag}</Badge>
+        ))
+      }
     </div>
 
     <div class="flex gap-2 flex-wrap items-center">
@@ -275,7 +282,7 @@ const videoStructuredData = video
       {
         prev && (
           <a
-            href={`/blog/${getPostSlug(prev)}/`}
+            href={content.url(prev).href}
             class="flex gap-2 items-center transition-color duration-200 hover:text-brand-300 dark:hover:text-brand-400"
           >
             <span>{`< `}</span> {prev?.data?.title}
@@ -285,7 +292,7 @@ const videoStructuredData = video
       {
         next && (
           <a
-            href={`/blog/${getPostSlug(next)}/`}
+            href={content.url(next).href}
             class="flex gap-2 items-center transition-color duration-200 hover:text-brand-300 dark:hover:text-brand-400"
           >
             {next?.data?.title} <span>{` >`}</span>

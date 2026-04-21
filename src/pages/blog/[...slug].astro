@@ -5,7 +5,9 @@ import BlogPost from '@layouts/BlogPost.astro'
 import { getPostSlug, sortPostsByDateAsc } from '@lib/content/postRoutes'
 
 export async function getStaticPaths() {
-  const posts = sortPostsByDateAsc(await getCollection('blog'))
+  const posts = sortPostsByDateAsc(
+    await getCollection('blog', ({ data }) => !data.draft),
+  )
   return posts.map((post, index) => ({
     params: { slug: getPostSlug(post) },
     props: { post, next: posts[index + 1], prev: posts[index - 1] },

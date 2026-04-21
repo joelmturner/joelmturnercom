@@ -5,7 +5,9 @@ import TilPost from '@layouts/TilPost.astro'
 import { getPostSlug, sortPostsByDateAsc } from '@lib/content/postRoutes'
 
 export async function getStaticPaths() {
-  const posts = sortPostsByDateAsc(await getCollection('til'))
+  const posts = sortPostsByDateAsc(
+    await getCollection('til', ({ data }) => !data.draft),
+  )
   return posts.map((post, index) => ({
     params: { slug: getPostSlug(post) },
     props: { post, next: posts[index + 1], prev: posts[index - 1] },

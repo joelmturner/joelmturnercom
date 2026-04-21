@@ -1,5 +1,6 @@
 ---
 import { type CollectionEntry } from 'astro:content'
+import { createSiteContent } from '@lib/content/siteContent'
 import { cn } from '@lib/utils'
 import { CldImage } from 'astro-cloudinary'
 
@@ -8,6 +9,8 @@ export type Props = {
   featured?: boolean
 }
 const { post, featured } = Astro.props
+const content = createSiteContent()
+const postHref = content.url(post).href
 
 const combinedStyles = cn(
   // layout
@@ -30,7 +33,7 @@ const combinedStyles = cn(
 ---
 
 <div class={combinedStyles}>
-  <a href={`/blog/${post.data.slug || post.id}/`} class="prose dark:prose-invert text-2xl">
+  <a href={postHref} class="prose dark:prose-invert text-2xl">
     {
       post.data.cover ? (
         <CldImage

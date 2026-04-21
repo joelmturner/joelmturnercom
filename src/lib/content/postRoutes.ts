@@ -1,15 +1,6 @@
 import type { CollectionEntry } from 'astro:content'
 
-/** slug segment for URLs when frontmatter omits `slug` (entry id is filename without extension) */
-export function getSlugFromEntryId(id: string): string {
-  return id
-}
-
-export function getPostSlug(
-  entry: CollectionEntry<'blog'> | CollectionEntry<'til'>,
-): string {
-  return entry.data.slug ?? getSlugFromEntryId(entry.id)
-}
+export { getPostSlug } from './siteContent'
 
 /** chronological order: older posts first (prev = older, next = newer in layouts) */
 export function sortPostsByDateAsc<
