@@ -17,7 +17,7 @@ const today = new Date()
       <div class="flex flex-wrap justify-end max-w-[40vw] md:max-w-auto">
         {
           SOCIAL_LINKS.map(({ href, label }) => (
-            <wa-button href={href} rel="me" variant="neutral" appearance="plain">
+            <wa-button href={href} rel="me" variant="neutral" appearance="plain" size="small" title={label}>
               <SocialIcon icon={label} />
             </wa-button>
           ))

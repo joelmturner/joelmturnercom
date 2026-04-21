@@ -87,6 +87,7 @@ const zines = defineCollection({
     author: z.string().default('Joel M Turner'),
     authorUrl: z.string().default('https://joelmturner.com'),
     pdfUrl: z.string().optional(),
+    featured: z.boolean().optional(),
   }),
 })
 

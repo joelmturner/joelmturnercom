@@ -1,9 +1,11 @@
 ---
-import { getCollection } from 'astro:content'
+import { getCollection, render } from 'astro:content'
 import Image from '@components/Image.astro'
 import LinkButton from '@components/LinkButton.astro'
+import { components } from '@components/mdxComponents'
 import PostCard from '@components/PostCard.astro'
 import ProjectGrid from '@components/ProjectGrid.astro'
+import ZineCard from '@components/ZineCard.astro'
 import BaseLayout from '@layouts/BaseLayout.astro'
 import { SITE_TITLE } from '@lib/site'
 
@@ -11,6 +13,17 @@ const allPosts = await getCollection('blog', ({ data }) => !data.draft)
 const featuredPost = allPosts.sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 )[0]
+
+const allZines = await getCollection('zines')
+const featuredZines = allZines
+  .filter(({ data }) => data.featured)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+const zineContents = await Promise.all(
+  featuredZines.map(async (zine) => {
+    const { Content } = await render(zine)
+    return { id: zine.id, Content }
+  }),
+)
 ---
 
 <BaseLayout title={SITE_TITLE}>
@@ -57,6 +70,41 @@ const featuredPost = allPosts.sort(
       <h2 class="text-2xl font-bold">Latest Blog Post</h2>
       {featuredPost && <PostCard post={featuredPost} featured />}
     </div>
+
+    {
+      featuredZines.length > 0 && (
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <h2 class="text-2xl font-bold">
+              {featuredZines.length === 1 ? 'Featured zine' : 'Featured zines'}
+            </h2>
+            <LinkButton href="/illustration/zines/">View all zines →</LinkButton>
+          </div>
+
+          <div
+            class:list={[
+              'gap-8',
+              featuredZines.length > 1 ? 'grid grid-cols-1 md:grid-cols-2' : 'flex flex-col',
+            ]}
+          >
+            {featuredZines.map((zine) => {
+              const { Content } = zineContents.find((content) => content.id === zine.id) || { Content: null };
+              return (
+              <wa-card with-image with-footer class="card-overview">
+                <ZineCard zine={zine} featured />
+                <div class="prose prose-lg dark:prose-invert">
+                    {Content && <Content components={components} />}
+                </div>
+                <div slot="footer" class="flex gap-1 items-center filter grayscale transition hover:grayscale-0">
+                  <a href={`/illustration/zines/${zine.data.slug || zine.id}/`} target="_blank">See more →</a>
+                </div>
+              </wa-card>
+            )})}
+
+          </div>
+        </div>
+      )
+    }
 
     <div class="flex flex-col gap-4">
       <h2 class="text-2xl font-bold">Projects I'm Working On</h2>

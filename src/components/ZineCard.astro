@@ -40,10 +40,12 @@ const imageUrlsInSetsOfTwo = zine?.data.imgUrls.reduce(
 )
 
 const isGuestAuthor = zine.data.author !== 'Joel M Turner'
+
+const viewerHeight = featured ? '250px' : '300px'
 ---
 
 <div class={combinedStyles}>
-  <ZineViewer height="300px" width="100%" variant="card">
+  <ZineViewer height={viewerHeight} width="100%" variant="card" size={featured ? "small" : "medium"}>
     {imageUrlsInSetsOfTwo.map((imgUrl) => <div img-src={imgUrl[0]} back-img-src={imgUrl[1]} />)}
   </ZineViewer>
   <div class="flex gap-2 items-center justify-between">

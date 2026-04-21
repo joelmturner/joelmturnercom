@@ -33,7 +33,14 @@ const isGuestAuthor = author !== 'Joel M Turner'
 ---
 
 <BaseLayout title={zine?.data.title} image={zine?.data.imgUrls?.[0]}>
-  <PageTitle title={zine?.data.title} />
+  <div class="flex justify-between items-center mb-8">
+    <PageTitle title={zine?.data.title} />
+    <a
+    href="/illustration/zines/"
+    class="text-accent flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
+    ><wa-icon family="lucide" name="arrow-left" class="w-4 h-4" /> Back to zines</a
+  >
+  </div>
   <ZineViewer variant="rubber-hose" height="500px" width="100%" autoplay autoplay-interval="3000">
     {
       imageUrlsInSetsOfTwo.map(([imgUrl, backImgUrl]) => (
@@ -42,22 +49,25 @@ const isGuestAuthor = author !== 'Joel M Turner'
     }
   </ZineViewer>
 
-  <div class="flex gap-2 justify-between items-center flex-wrap">
-    {
-      zine?.data.pdfUrl && (
-        <div class="flex gap-2">
-          <a href={zine?.data.pdfUrl} target="_blank" rel="noopener noreferrer">
-            <wa-button size="small">Download PDF</wa-button>
-          </a>
-          <ZineFoldInstructions />
-        </div>
-      )
-    }
-
-    {isGuestAuthor && <Badge link={zine?.data.authorUrl}>Guest: {zine.data.author}</Badge>}
+  <div class="flex flex-col gap-4">
+    <div class="flex gap-2 justify-between items-center flex-wrap">
+      {
+        zine?.data.pdfUrl && (
+          <div class="flex gap-2">
+            <a href={zine?.data.pdfUrl} target="_blank" rel="noopener noreferrer">
+              <wa-button size="small">Download PDF</wa-button>
+            </a>
+            <ZineFoldInstructions />
+          </div>
+        )
+      }
+  
+      {isGuestAuthor && <Badge link={zine?.data.authorUrl}>Guest: {zine.data.author}</Badge>}
+    </div>
+  
+    <Content components={components} />
   </div>
 
-  <Content components={components} />
 
   <wa-divider></wa-divider>
 
@@ -85,9 +95,5 @@ const isGuestAuthor = author !== 'Joel M Turner'
       )
     }
   </div>
-  <a
-    href="/illustration/zines/"
-    class="prose dark:prose-invert text-decoration-underline text-prose-link text-right"
-    >Back to zines</a
-  >
+  
 </BaseLayout>

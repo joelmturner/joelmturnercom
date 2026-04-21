@@ -128,7 +128,7 @@ export default defineConfig({
         'simple-icons': ['chakraui', 'devdotto'],
         iconoir: ['mastodon'],
         'material-symbols-light': ['logo-dev-outline'],
-        lucide: ['github', 'twitter', 'linkedin', 'instagram'],
+        lucide: ['github', 'twitter', 'linkedin', 'instagram', 'arrow-left'],
         ph: ['dev-to-logo'],
         local: ['bluesky'],
       },

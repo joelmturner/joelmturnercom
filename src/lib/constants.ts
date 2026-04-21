@@ -116,10 +116,10 @@ export const SOCIAL_LINKS: { href: string; label: SocialIconLabel }[] = [
     href: 'https://github.com/joelmturner',
     label: 'Github',
   },
-  {
-    href: 'https://dev.to/joelmturner',
-    label: 'DEV',
-  },
+  // {
+  //   href: 'https://dev.to/joelmturner',
+  //   label: 'DEV',
+  // },
 ] as const
 
 export const COLUMNS_VS_DETAILS = {

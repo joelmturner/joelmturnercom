@@ -1,12 +1,18 @@
 ---
 import { cn } from '@lib/utils'
 
-const { variant, height = '500px', width = '100%', ...rest } = Astro.props
+const {
+  variant,
+  height = '500px',
+  width = '100%',
+  size = 'medium',
+  ...rest
+} = Astro.props
 const style = variant === 'card' ? '--canvas-padding: 0;' : ''
 ---
 
 <div
-  class={cn('flex flex-col gap-4 mb-4 h-[500px] w-full')}
+  class={cn('flex flex-col gap-4 ', size === 'medium' ? 'h-[500px] mb-4' : 'h-[250px] mb-1')}
   style={`height: ${height}; width: ${width};`}
 >
   <zine-viewer id={variant} style={style} {...rest}>
@@ -22,11 +28,6 @@ const style = variant === 'card' ? '--canvas-padding: 0;' : ''
 <style>
   zine-viewer {
     --canvas-bg-color: rgba(81, 77, 86, 0.5);
-    /* min-height: 500px; */
   }
-  @media (max-width: 768px) {
-    zine-viewer {
-      /* min-height: 300px; */
-    }
-  }
+
 </style>

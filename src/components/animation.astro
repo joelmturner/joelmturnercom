@@ -17,6 +17,6 @@ const params = watchMode
   : `mute=1&controls=0&loop=1&playlist=${embedId}&rel=0&color=blue&widget_referrer=https%3A%2F%2Fjoelmturner.com`
 ---
 
-<div class="rounded-xl overflow-hidden aspect-9/16">
+<div class="rounded-xl overflow-hidden aspect-9/16 flex items-center justify-center">
   <YouTube id={embedId} params={params} class="w-full h-full" posterQuality="high" title={title} />
 </div>

@@ -50,7 +50,14 @@ const videoStructuredData = {
     type="application/ld+json"
     set:html={JSON.stringify(videoStructuredData, null, 0)}
   />
-  <PageTitle title={animation?.data.title} />
+  <div class="flex justify-between items-center mb-8">
+    <PageTitle title={animation?.data.title} />
+    <a
+      href="/illustration/animations/"
+      class="text-accent flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
+    ><wa-icon family="lucide" name="arrow-left" class="w-4 h-4" /> Back to animations</a
+    >
+  </div>
 
   <main class="flex flex-col gap-4 py-4">
     <Animation embedId={animation.data.embedId} title={animation.data.title} watchMode />
@@ -82,9 +89,5 @@ const videoStructuredData = {
       )
     }
   </nav>
-  <a
-    href="/illustration/animations/"
-    class="prose dark:prose-invert text-decoration-underline text-prose-link text-right"
-    >Back to animations</a
-  >
+  
 </BaseLayout>
