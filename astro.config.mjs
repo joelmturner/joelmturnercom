@@ -70,12 +70,12 @@ export default defineConfig({
     {
       name: 'Fira Code',
       cssVariable: '--font-fira-code',
-      provider: fontProviders.fontsource(),
+      provider: fontProviders.google(),
     },
     {
       name: 'Fira Sans',
       cssVariable: '--font-fira-sans',
-      provider: fontProviders.fontsource(),
+      provider: fontProviders.google(),
     },
   ],
 
