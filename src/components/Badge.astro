@@ -1,13 +1,12 @@
 ---
 type Props = {
-  link?: string
-}
+  link?: string;
+};
 
-const { link } = Astro.props
+const { link } = Astro.props;
 ---
 
-{
-  link ? (
+{link ? (
     <wa-button href={link} appearance="filled-outlined" variant="brand">
       <slot />
     </wa-button>
@@ -15,5 +14,4 @@ const { link } = Astro.props
     <wa-badge appearance="filled-outlined">
       <slot />
     </wa-badge>
-  )
-}
+  )}

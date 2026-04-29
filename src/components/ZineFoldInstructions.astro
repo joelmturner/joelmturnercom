@@ -1,16 +1,23 @@
 ---
-
 ---
 
 <wa-dialog label="Dialog" light-dismiss class="dialog-light-dismiss" without-header>
   <iframe
-    width="560"
-    height="315"
+    class="w-full max-w-[560px] h-full min-h-[315px]"
     src="https://www.youtube.com/embed/llhMYmG0PCg?si=xfim2gsSCW7EQbXO&start=130"
     title="YouTube video player"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allow="
+      accelerometer;
+      autoplay;
+      clipboard-write;
+      encrypted-media;
+      gyroscope;
+      picture-in-picture;
+      web-share;
+    "
     referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen></iframe>
+    allowfullscreen
+  ></iframe>
 </wa-dialog>
 
 <wa-button size="small">
@@ -19,17 +26,17 @@
 </wa-button>
 
 <script>
-  const dialog = document.querySelector('wa-dialog') as HTMLDialogElement & {
-    open?: boolean;
-  };
-  const openButton = dialog?.nextElementSibling;
+const dialog = document.querySelector('wa-dialog') as HTMLDialogElement & {
+  open?: boolean;
+};
+const openButton = dialog?.nextElementSibling;
 
-  openButton?.addEventListener('click', () => (dialog.open = true));
+openButton?.addEventListener('click', () => (dialog.open = true));
 </script>
 
 <style>
-  wa-dialog {
-    --spacing: 0;
-    --width: 560px;
-  }
+wa-dialog {
+  --spacing: 0;
+  --width: 560px;
+}
 </style>

@@ -1,25 +1,26 @@
 ---
-import { getCollection } from 'astro:content'
-import LinkButton from '@components/LinkButton.astro'
-import PageTitle from '@components/PageTitle.astro'
-import ZineCard from '@components/ZineCard.astro'
-import ZineFoldInstructions from '@components/ZineFoldInstructions.astro'
-import BaseLayout from '@layouts/BaseLayout.astro'
+import { getCollection } from 'astro:content';
+import LinkButton from '@components/LinkButton.astro';
+import PageTitle from '@components/PageTitle.astro';
+import ZineCard from '@components/ZineCard.astro';
+import ZineFoldInstructions from '@components/ZineFoldInstructions.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
 
-const zines = await getCollection('zines')
+const zines = await getCollection('zines');
 ---
 
-<BaseLayout title={'Zines'} description={'Some illustrative zines'}>
+<BaseLayout title={"Zines"} description={"Some illustrative zines"}>
   <div class="flex justify-between items-center mb-8">
     <PageTitle title="Illustrated zines" />
-    <LinkButton href="/illustration/"><wa-icon family="lucide" name="arrow-left" class="w-4 h-4" />  Back to Illustrations</LinkButton>
+    <LinkButton href="/illustration/">
+      <wa-icon family="lucide" name="arrow-left" class="w-4 h-4"></wa-icon>
+      Back to Illustrations
+    </LinkButton>
   </div>
 
-  <div class="flex gap-2">
-    <ZineFoldInstructions />
-  </div>
+  <div class="flex gap-2"><ZineFoldInstructions /></div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 h-full p-bottom-120">
-    {zines.map((zine) => <ZineCard zine={zine} />)}
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 h-full pb-[120px]">
+    {zines.map(zine => <ZineCard zine={zine} />)}
   </div>
 </BaseLayout>

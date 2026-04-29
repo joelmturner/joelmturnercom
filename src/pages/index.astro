@@ -1,29 +1,27 @@
 ---
-import { getCollection, render } from 'astro:content'
-import Image from '@components/Image.astro'
-import LinkButton from '@components/LinkButton.astro'
-import { components } from '@components/mdxComponents'
-import PostCard from '@components/PostCard.astro'
-import ProjectGrid from '@components/ProjectGrid.astro'
-import ZineCard from '@components/ZineCard.astro'
-import BaseLayout from '@layouts/BaseLayout.astro'
-import { SITE_TITLE } from '@lib/site'
+import { getCollection, render } from 'astro:content';
+import Image from '@components/Image.astro';
+import LinkButton from '@components/LinkButton.astro';
+import { components } from '@components/mdxComponents';
+import PostCard from '@components/PostCard.astro';
+import ProjectGrid from '@components/ProjectGrid.astro';
+import ZineCard from '@components/ZineCard.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE_TITLE } from '@lib/site';
 
-const allPosts = await getCollection('blog', ({ data }) => !data.draft)
-const featuredPost = allPosts.sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-)[0]
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const featuredPost = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())[0];
 
-const allZines = await getCollection('zines')
+const allZines = await getCollection('zines');
 const featuredZines = allZines
   .filter(({ data }) => data.featured)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const zineContents = await Promise.all(
   featuredZines.map(async (zine) => {
-    const { Content } = await render(zine)
-    return { id: zine.id, Content }
-  }),
-)
+    const { Content } = await render(zine);
+    return { id: zine.id, Content };
+  })
+);
 ---
 
 <BaseLayout title={SITE_TITLE}>
@@ -54,13 +52,13 @@ const zineContents = await Promise.all(
           </h1>
 
           <p>
-            Hi there! I'm a <strong>web developer & digital adventurer</strong> with a background in graphic
-            design and web development. By day, I'm a Senior Product Engineer at <LinkButton
-              href="https://copilotcrm.com">Copilot CRM</LinkButton
-            >, but in my free time I love to let my artistic side shine by practicing <LinkButton
-              href="/illustration/">hand lettering and sketching</LinkButton
-            >. When I'm not busy creating, you can find me exploring the great outdoors in Portland
-            with my awesome family (including our furry canine companions)!
+            Hi there! I'm a <strong>web developer & digital adventurer</strong> with a background in
+            graphic design and web development. By day, I'm a Senior Product Engineer at
+            <LinkButton href="https://copilotcrm.com">Copilot CRM</LinkButton>, but in my free time
+            I love to let my artistic side shine by practicing
+            <LinkButton href="/illustration/">hand lettering and sketching</LinkButton>. When I'm
+            not busy creating, you can find me exploring the great outdoors in Portland with my
+            awesome family (including our furry canine companions)!
           </p>
         </div>
       </div>
@@ -71,8 +69,7 @@ const zineContents = await Promise.all(
       {featuredPost && <PostCard post={featuredPost} featured />}
     </div>
 
-    {
-      featuredZines.length > 0 && (
+    {featuredZines.length > 0 && (
         <div class="flex flex-col gap-4">
           <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <h2 class="text-2xl font-bold">
@@ -103,8 +100,7 @@ const zineContents = await Promise.all(
 
           </div>
         </div>
-      )
-    }
+      )}
 
     <div class="flex flex-col gap-4">
       <h2 class="text-2xl font-bold">Projects I'm Working On</h2>
@@ -114,60 +110,60 @@ const zineContents = await Promise.all(
 </BaseLayout>
 
 <script>
-  // optimize animation initialization to avoid blocking main thread
-  (function () {
-    interface WAAnimation extends HTMLElement {
-      keyframes: Array<{
-        offset: number;
-        easing: string;
-        fillMode: string;
-        transformOrigin: string;
-        transform: string;
-      }>;
-    }
+// optimize animation initialization to avoid blocking main thread
+(() => {
+  interface WAAnimation extends HTMLElement {
+    keyframes: Array<{
+      offset: number;
+      easing: string;
+      fillMode: string;
+      transformOrigin: string;
+      transform: string;
+    }>;
+  }
 
-    function initAnimation() {
-      const animation = document.querySelector('.animation-keyframes wa-animation') as WAAnimation;
-      if (animation) {
-        // ensure animation uses composited properties (transform)
-        animation.keyframes = [
-          {
-            offset: 0,
-            easing: 'ease-in-out',
-            fillMode: 'both',
-            transformOrigin: 'center center',
-            transform: 'rotate(0deg)',
-          },
-          {
-            offset: 0.1,
-            easing: 'ease-in-out',
-            fillMode: 'both',
-            transformOrigin: 'center center',
-            transform: 'rotate(-10deg)',
-          },
-          {
-            offset: 0.5,
-            easing: 'ease-in-out',
-            fillMode: 'both',
-            transformOrigin: 'center center',
-            transform: 'rotate(45deg)',
-          },
-          {
-            offset: 1,
-            easing: 'ease-in-out',
-            fillMode: 'both',
-            transformOrigin: 'center center',
-            transform: 'rotate(0deg)',
-          },
-        ];
-      }
+  function initAnimation() {
+    const animation = document.querySelector('.animation-keyframes wa-animation') as WAAnimation;
+    if (animation) {
+      // ensure animation uses composited properties (transform)
+      animation.keyframes = [
+        {
+          offset: 0,
+          easing: 'ease-in-out',
+          fillMode: 'both',
+          transformOrigin: 'center center',
+          transform: 'rotate(0deg)',
+        },
+        {
+          offset: 0.1,
+          easing: 'ease-in-out',
+          fillMode: 'both',
+          transformOrigin: 'center center',
+          transform: 'rotate(-10deg)',
+        },
+        {
+          offset: 0.5,
+          easing: 'ease-in-out',
+          fillMode: 'both',
+          transformOrigin: 'center center',
+          transform: 'rotate(45deg)',
+        },
+        {
+          offset: 1,
+          easing: 'ease-in-out',
+          fillMode: 'both',
+          transformOrigin: 'center center',
+          transform: 'rotate(0deg)',
+        },
+      ];
     }
+  }
 
-    // defer initialization to avoid blocking initial render
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initAnimation);
-    } else {
-      setTimeout(initAnimation, 0);
-    }
-  })();
+  // defer initialization to avoid blocking initial render
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimation);
+  } else {
+    setTimeout(initAnimation, 0);
+  }
+})();
 </script>

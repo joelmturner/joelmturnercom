@@ -1,9 +1,9 @@
 ---
-import { SOCIAL_LINKS } from '@lib/constants'
-import LinkButton from './LinkButton.astro'
-import SocialIcon from './SocialIcon.astro'
+import { SOCIAL_LINKS } from '@lib/constants';
+import LinkButton from './LinkButton.astro';
+import SocialIcon from './SocialIcon.astro';
 
-const today = new Date()
+const today = new Date();
 ---
 
 <footer class="border-t border-solid border-slate-100 dark:border-slate-700 w-full py-8">
@@ -15,13 +15,11 @@ const today = new Date()
       </div>
 
       <div class="flex flex-wrap justify-end max-w-[40vw] md:max-w-auto">
-        {
-          SOCIAL_LINKS.map(({ href, label }) => (
+        {SOCIAL_LINKS.map(({ href, label }) => (
             <wa-button href={href} rel="me" variant="neutral" appearance="plain" size="small" title={label}>
               <SocialIcon icon={label} />
             </wa-button>
-          ))
-        }
+          ))}
       </div>
     </div>
   </div>

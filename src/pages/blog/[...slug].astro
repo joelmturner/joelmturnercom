@@ -1,27 +1,25 @@
 ---
-import { type CollectionEntry, getCollection, render } from 'astro:content'
-import { components } from '@components/mdxComponents'
-import BlogPost from '@layouts/BlogPost.astro'
-import { getPostSlug, sortPostsByDateAsc } from '@lib/content/postRoutes'
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import { components } from '@components/mdxComponents';
+import BlogPost from '@layouts/BlogPost.astro';
+import { getPostSlug, sortPostsByDateAsc } from '@lib/content/postRoutes';
 
 export async function getStaticPaths() {
-  const posts = sortPostsByDateAsc(
-    await getCollection('blog', ({ data }) => !data.draft),
-  )
+  const posts = sortPostsByDateAsc(await getCollection('blog', ({ data }) => !data.draft));
   return posts.map((post, index) => ({
     params: { slug: getPostSlug(post) },
     props: { post, next: posts[index + 1], prev: posts[index - 1] },
-  }))
+  }));
 }
 type Props = {
-  post: CollectionEntry<'blog'>
-  next: CollectionEntry<'blog'> | undefined
-  prev: CollectionEntry<'blog'> | undefined
-}
+  post: CollectionEntry<'blog'>;
+  next: CollectionEntry<'blog'> | undefined;
+  prev: CollectionEntry<'blog'> | undefined;
+};
 
-const { post, next, prev } = Astro.props
-const { Content } = await render(post)
-const slug = getPostSlug(post)
+const { post, next, prev } = Astro.props;
+const { Content } = await render(post);
+const slug = getPostSlug(post);
 ---
 
 <BlogPost {...post.data} slug={slug} next={next} prev={prev}>

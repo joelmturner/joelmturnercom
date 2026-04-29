@@ -1,11 +1,11 @@
 ---
-import { getCollection } from 'astro:content'
-import Animation from '@components/animation.astro'
-import PageTitle from '@components/PageTitle.astro'
-import BaseLayout from '@layouts/BaseLayout.astro'
+import { getCollection } from 'astro:content';
+import Animation from '@components/animation.astro';
+import PageTitle from '@components/PageTitle.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
-  const animations = await getCollection('animations')
+  const animations = await getCollection('animations');
   return animations.map((animation, index) => ({
     params: { slug: animation.data.slug },
     props: {
@@ -13,16 +13,13 @@ export async function getStaticPaths() {
       next: animations[index + 1],
       prev: animations[index - 1],
     },
-  }))
+  }));
 }
 
-const { animation, next, prev } = Astro.props
+const { animation, next, prev } = Astro.props;
 
 // canonical URL for this watch page (signals to Google that the video is the main content)
-const canonicalUrl = new URL(
-  `/illustration/animations/${animation.data.slug}/`,
-  Astro.site,
-)
+const canonicalUrl = new URL(`/illustration/animations/${animation.data.slug}/`, Astro.site);
 
 const videoStructuredData = {
   '@context': 'https://schema.org',
@@ -37,7 +34,7 @@ const videoStructuredData = {
     '@id': canonicalUrl.toString(),
   },
   ...(animation.data.date && { uploadDate: animation.data.date.toISOString() }),
-}
+};
 ---
 
 <BaseLayout
@@ -55,7 +52,8 @@ const videoStructuredData = {
     <a
       href="/illustration/animations/"
       class="text-accent flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
-    ><wa-icon family="lucide" name="arrow-left" class="w-4 h-4" /> Back to animations</a
+      ><wa-icon family="lucide" name="arrow-left" class="w-4 h-4" />
+      Back to animations</a
     >
   </div>
 
@@ -66,8 +64,7 @@ const videoStructuredData = {
   <wa-divider></wa-divider>
 
   <nav class="flex justify-between p-3 gap-8 text-accent" aria-label="Animation navigation">
-    {
-      prev?.data?.slug ? (
+    {prev?.data?.slug ? (
         <a
           href={`/illustration/animations/${prev?.data?.slug}/`}
           class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
@@ -76,18 +73,14 @@ const videoStructuredData = {
         </a>
       ) : (
         <div />
-      )
-    }
-    {
-      next?.data?.slug && (
+      )}
+    {next?.data?.slug && (
         <a
           href={`/illustration/animations/${next?.data?.slug}/`}
           class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
         >
           {next?.data?.title} <span>{` >`}</span>
         </a>
-      )
-    }
+      )}
   </nav>
-  
 </BaseLayout>

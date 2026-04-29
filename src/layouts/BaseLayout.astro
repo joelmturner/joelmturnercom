@@ -1,27 +1,26 @@
 ---
-import '../styles/global.css'
-import BaseBody from '@components/BaseBody.astro'
-import BaseHead from '@components/BaseHead.astro'
+import '../styles/global.css';
+import BaseBody from '@components/BaseBody.astro';
+import BaseHead from '@components/BaseHead.astro';
 
 type OpenGraphArticle = {
-  publishedTime: string
-  modifiedTime?: string
+  publishedTime: string;
+  modifiedTime?: string;
   /** profile or site URL for article:author */
-  authorUrl?: string
-}
+  authorUrl?: string;
+};
 
 type Props = {
-  title?: string
-  description?: string
-  image?: string
+  title?: string;
+  description?: string;
+  image?: string;
   /** e.g. "noindex, follow" for tag archives */
-  robots?: string
+  robots?: string;
   /** when set, og:type is article and article:* tags are emitted */
-  openGraphArticle?: OpenGraphArticle
-}
+  openGraphArticle?: OpenGraphArticle;
+};
 
-const { title, description, image, robots, openGraphArticle }: Props =
-  Astro.props
+const { title, description, image, robots, openGraphArticle }: Props = Astro.props;
 ---
 
 <!doctype html>
@@ -37,7 +36,5 @@ const { title, description, image, robots, openGraphArticle }: Props =
     <slot name="head" />
   </head>
 
-  <BaseBody>
-    <slot />
-  </BaseBody>
+  <BaseBody> <slot /> </BaseBody>
 </html>

@@ -1,15 +1,15 @@
 ---
-import IllustrationGallery from '@components/illustration/IllustrationGallery'
-import LinkButton from '@components/LinkButton.astro'
-import PageTitle from '@components/PageTitle.astro'
-import BaseLayout from '@layouts/BaseLayout.astro'
-import { getIllustrations } from '@lib/illustrations'
-import { getCldImageUrl } from 'astro-cloudinary/helpers'
+import IllustrationGallery from '@components/illustration/IllustrationGallery';
+import LinkButton from '@components/LinkButton.astro';
+import PageTitle from '@components/PageTitle.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getIllustrations } from '@lib/illustrations';
+import { getCldImageUrl } from 'astro-cloudinary/helpers';
 
-const collections = await getIllustrations()
+const collections = await getIllustrations();
 
 // generate structured data for image gallery
-const canonicalUrl = new URL('/illustration/', Astro.site)
+const canonicalUrl = new URL('/illustration/', Astro.site);
 
 const imageGalleryStructuredData = {
   '@context': 'https://schema.org',
@@ -24,7 +24,7 @@ const imageGalleryStructuredData = {
       width: illustration.width,
       height: illustration.height,
       format: 'auto',
-    })
+    });
 
     // use a smaller version for thumbnail (400x400 is what the gallery displays)
     const thumbnailUrl = getCldImageUrl({
@@ -32,7 +32,7 @@ const imageGalleryStructuredData = {
       width: 400,
       height: 400,
       format: 'auto',
-    })
+    });
 
     return {
       '@type': 'ListItem',
@@ -48,9 +48,9 @@ const imageGalleryStructuredData = {
             height: illustration.height,
           }),
       },
-    }
+    };
   }),
-}
+};
 ---
 
 <BaseLayout

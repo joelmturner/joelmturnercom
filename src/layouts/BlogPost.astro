@@ -1,19 +1,19 @@
 ---
-import type { CollectionEntry } from 'astro:content'
-import Badge from '@components/Badge.astro'
-import FormattedDate from '@components/FormattedDate.astro'
-import Prose from '@components/Prose.astro'
-import { createSiteContent } from '@lib/content/siteContent'
-import { SITE_TITLE } from '@lib/site'
-import { cn } from '@lib/utils'
-import { CldImage } from 'astro-cloudinary'
-import BaseLayout from './BaseLayout.astro'
+import type { CollectionEntry } from 'astro:content';
+import Badge from '@components/Badge.astro';
+import FormattedDate from '@components/FormattedDate.astro';
+import Prose from '@components/Prose.astro';
+import { createSiteContent } from '@lib/content/siteContent';
+import { SITE_TITLE } from '@lib/site';
+import { cn } from '@lib/utils';
+import { CldImage } from 'astro-cloudinary';
+import BaseLayout from './BaseLayout.astro';
 
 type Props = CollectionEntry<'blog'>['data'] & {
-  next?: CollectionEntry<'blog'>
-  prev?: CollectionEntry<'blog'>
-  slug?: string
-}
+  next?: CollectionEntry<'blog'>;
+  prev?: CollectionEntry<'blog'>;
+  slug?: string;
+};
 
 const {
   title,
@@ -27,21 +27,21 @@ const {
   prev,
   slug,
   video,
-} = Astro.props
+} = Astro.props;
 
-const content = createSiteContent()
+const content = createSiteContent();
 
 // generate structured data for SEO
 // ensure slug exists to prevent errors
 if (!slug) {
-  throw new Error('BlogPost component requires a slug prop')
+  throw new Error('BlogPost component requires a slug prop');
 }
-const canonicalUrl = new URL(`/blog/${slug}/`, Astro.site)
+const canonicalUrl = new URL(`/blog/${slug}/`, Astro.site);
 const imageUrl = cover
   ? cover.startsWith('http')
     ? cover
     : `https://res.cloudinary.com/joelmturner/image/upload/${cover}`
-  : `${Astro.site}/favicon-32x32.png`
+  : `${Astro.site}/favicon-32x32.png`;
 
 // generate structured data with safe defaults to prevent errors
 const structuredData = {
@@ -83,7 +83,7 @@ const structuredData = {
     : {
         image: imageUrl,
       }),
-}
+};
 
 // generate VideoObject structured data when video is present
 const videoStructuredData = video
@@ -93,14 +93,12 @@ const videoStructuredData = video
       name: title || '',
       description: (description || '').substring(0, 500),
       thumbnailUrl: `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`,
-      ...(video.uploadDate || date
-        ? { uploadDate: (video.uploadDate || date).toISOString() }
-        : {}),
+      ...(video.uploadDate || date ? { uploadDate: (video.uploadDate || date).toISOString() } : {}),
       ...(video.duration ? { duration: video.duration } : {}),
       embedUrl: `https://www.youtube.com/embed/${video.youtubeId}`,
       contentUrl: `https://www.youtube.com/watch?v=${video.youtubeId}`,
     }
-  : null
+  : null;
 ---
 
 <BaseLayout
@@ -120,97 +118,94 @@ const videoStructuredData = video
     type="application/ld+json"
     set:html={JSON.stringify(structuredData, null, 0)}
   />
-  {
-    videoStructuredData && (
+  {videoStructuredData && (
       <script
         is:inline
         slot="head"
         type="application/ld+json"
         set:html={JSON.stringify(videoStructuredData, null, 0)}
       />
-    )
-  }
+    )}
   <script is:inline define:vars={{ pageTitle: title, pageUrl: Astro.url.href }}>
-    // defer share button initialization to avoid blocking main thread
-    // use requestIdleCallback for non-critical interactivity
-    (function () {
-      function initShareButtons() {
-        const shareHandlers = {
-          facebook: () => {
-            window.open(
-              'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(pageUrl),
-              'facebook-share-dialog',
-              'width=626,height=436'
-            );
-          },
-          bluesky: () => {
-            const text = encodeURIComponent(pageTitle + ' ' + pageUrl);
-            window.open(
-              'https://bsky.app/intent/compose?text=' + text,
-              'bluesky-share-dialog',
-              'width=626,height=436'
-            );
-          },
-          linkedin: () => {
-            window.open(
-              'https://www.linkedin.com/shareArticle?url=' + encodeURIComponent(pageUrl),
-              'linkedin-share-dialog',
-              'width=626,height=436'
-            );
-          },
-          email: () => {
-            window.open(
-              'mailto:?subject=' +
-                encodeURIComponent(pageTitle) +
-                '&body=' +
-                encodeURIComponent(pageUrl),
-              'email-share-dialog',
-              'width=626,height=436'
-            );
-          },
-        };
+  // defer share button initialization to avoid blocking main thread
+  // use requestIdleCallback for non-critical interactivity
+  (() => {
+    function initShareButtons() {
+      const shareHandlers = {
+        facebook: () => {
+          window.open(
+            `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`,
+            'facebook-share-dialog',
+            'width=626,height=436'
+          );
+        },
+        bluesky: () => {
+          const text = encodeURIComponent(`${pageTitle} ${pageUrl}`);
+          window.open(
+            `https://bsky.app/intent/compose?text=${text}`,
+            'bluesky-share-dialog',
+            'width=626,height=436'
+          );
+        },
+        linkedin: () => {
+          window.open(
+            `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(pageUrl)}`,
+            'linkedin-share-dialog',
+            'width=626,height=436'
+          );
+        },
+        email: () => {
+          window.open(
+            'mailto:?subject=' +
+              encodeURIComponent(pageTitle) +
+              '&body=' +
+              encodeURIComponent(pageUrl),
+            'email-share-dialog',
+            'width=626,height=436'
+          );
+        },
+      };
 
-        // attach event listeners using event delegation for better performance
-        document.addEventListener('click', (e) => {
-          const target = e.target.closest('[data-share]');
-          if (target) {
-            const shareType = target.getAttribute('data-share');
-            if (shareType && shareHandlers[shareType]) {
-              e.preventDefault();
-              shareHandlers[shareType]();
-            }
+      // attach event listeners using event delegation for better performance
+      document.addEventListener('click', (e) => {
+        const target = e.target.closest('[data-share]');
+        if (target) {
+          const shareType = target.getAttribute('data-share');
+          if (shareType && shareHandlers[shareType]) {
+            e.preventDefault();
+            shareHandlers[shareType]();
           }
-        });
-      }
+        }
+      });
+    }
 
-      // initialize after DOM is ready, but defer to idle time if possible
-      if (typeof requestIdleCallback !== 'undefined') {
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', () => {
-            requestIdleCallback(initShareButtons, { timeout: 1000 });
-          });
-        } else {
+    // initialize after DOM is ready, but defer to idle time if possible
+    if (typeof requestIdleCallback !== 'undefined') {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
           requestIdleCallback(initShareButtons, { timeout: 1000 });
-        }
+        });
       } else {
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', initShareButtons);
-        } else {
-          setTimeout(initShareButtons, 0);
-        }
+        requestIdleCallback(initShareButtons, { timeout: 1000 });
       }
-    })();
+    } else {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initShareButtons);
+      } else {
+        setTimeout(initShareButtons, 0);
+      }
+    }
+  })();
   </script>
   <!-- hero image - critical for LCP, load with high priority -->
   <div class="mx-auto">
-    {
-      cover && (
+    {cover && (
         <CldImage
           width={770}
           height={415}
           src={cover}
           alt={title}
-          class={cn('max-w-[90vw] lg:max-w-[3xl] rounded-xl shadow-lg')}
+          class={cn("max-w-[90vw] lg:max-w-[3xl] rounded-xl shadow-lg")}
           sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, 770px"
           loading="eager"
           fetchpriority="high"
@@ -220,48 +215,37 @@ const videoStructuredData = video
           quality="auto"
           format="auto"
         />
-      )
-    }
+      )}
   </div>
 
   <div class="py-2 text-center line-height-1">
     <div class="mb-2 text-slate-500 dark:text-slate-400">
       {!!date && <FormattedDate date={date} />}
-      {
-        lastmod && (
+      {lastmod && (
           <div class="text-slate-500 dark:text-slate-400 font-italic">
             Last updated on <FormattedDate date={lastmod} />
           </div>
-        )
-      }
+        )}
     </div>
-    <h1 class="text-2xl lg:text-4xl">
-      {title}
-    </h1>
+    <h1 class="text-2xl lg:text-4xl">{title}</h1>
     <hr class="my-4 border-slate-700" />
   </div>
   <Prose>
-    <article>
-      <slot />
-    </article>
+    <article><slot /></article>
   </Prose>
 
   <wa-divider style="--spacing: 2rem;"></wa-divider>
 
   <section class="flex flex-col gap-3">
     <div class="flex gap-3 items-center">
-      Category:{' '}
-      <Badge link={content.taxonomy('category', categories, 'blog').href}>
-        {categories}
-      </Badge>
+      Category:{" "}
+      <Badge link={content.taxonomy("category", categories, "blog").href}> {categories} </Badge>
     </div>
     <div class="flex gap-3 items-center flex-wrap">
-      Tags:{' '}
-      {
-        tags.map((tag) => (
-          <Badge link={content.taxonomy('tag', tag, 'blog').href}>{tag}</Badge>
-        ))
-      }
+      Tags:{" "}
+      {tags.map(tag => (
+          <Badge link={content.taxonomy("tag", tag, "blog").href}>{tag}</Badge>
+        ))}
     </div>
 
     <div class="flex gap-2 flex-wrap items-center">
@@ -295,26 +279,22 @@ const videoStructuredData = video
     <wa-divider style="--spacing: 2rem;"></wa-divider>
 
     <div class="flex justify-between p-3 gap-8 text-accent">
-      {
-        prev && (
+      {prev && (
           <a
             href={content.url(prev).href}
             class="flex gap-2 items-center transition-color duration-200 hover:text-brand-300 dark:hover:text-brand-400"
           >
             <span>{`< `}</span> {prev?.data?.title}
           </a>
-        )
-      }
-      {
-        next && (
+        )}
+      {next && (
           <a
             href={content.url(next).href}
             class="flex gap-2 items-center transition-color duration-200 hover:text-brand-300 dark:hover:text-brand-400"
           >
             {next?.data?.title} <span>{` >`}</span>
           </a>
-        )
-      }
+        )}
     </div>
   </section>
 </BaseLayout>

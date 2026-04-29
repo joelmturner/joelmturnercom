@@ -1,25 +1,21 @@
 ---
-import type { CollectionEntry } from 'astro:content'
-import { createSiteContent } from '@lib/content/siteContent'
-import Badge from './Badge.astro'
-import LinkButton from './LinkButton.astro'
+import type { CollectionEntry } from 'astro:content';
+import { createSiteContent } from '@lib/content/siteContent';
+import Badge from './Badge.astro';
+import LinkButton from './LinkButton.astro';
 
 type Props = {
-  post: CollectionEntry<'til'>
-}
-const { post } = Astro.props
-const content = createSiteContent()
+  post: CollectionEntry<'til'>;
+};
+const { post } = Astro.props;
+const content = createSiteContent();
 ---
 
 <div class="flex flex-col">
-  <h3>
-    <LinkButton href={content.url(post).href}>{post.data.title}</LinkButton>
-  </h3>
+  <h3><LinkButton href={content.url(post).href}>{post.data.title}</LinkButton></h3>
   <div class="flex gap-3 items-center">
-    {
-      post.data.tags.map((tag) => (
+    {post.data.tags.map((tag) => (
         <Badge link={content.taxonomy('tag', tag, 'til').href}>{tag}</Badge>
-      ))
-    }
+      ))}
   </div>
 </div>

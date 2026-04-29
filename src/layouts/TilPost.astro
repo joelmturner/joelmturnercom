@@ -1,31 +1,27 @@
 ---
-import type { CollectionEntry } from 'astro:content'
-import Badge from '@components/Badge.astro'
-import { createSiteContent } from '@lib/content/siteContent'
-import BaseLayout from './BaseLayout.astro'
+import type { CollectionEntry } from 'astro:content';
+import Badge from '@components/Badge.astro';
+import { createSiteContent } from '@lib/content/siteContent';
+import BaseLayout from './BaseLayout.astro';
 
 type Props = CollectionEntry<'til'>['data'] & {
-  next?: CollectionEntry<'til'>
-  prev?: CollectionEntry<'til'>
-}
+  next?: CollectionEntry<'til'>;
+  prev?: CollectionEntry<'til'>;
+};
 
-const { title, next, prev, tags } = Astro.props
-const content = createSiteContent()
+const { title, next, prev, tags } = Astro.props;
+const content = createSiteContent();
 ---
 
 <BaseLayout title={title} description={tags?.join(', ')}>
   <article class="prose text-xl dark:prose-invert">
     <div class="w-full max-w-4xl mx-auto px-3 text-primary">
       <div class="py-2 line-height-1 flex flex-col gap-2">
-        <h1 class="text-primary text-4xl mb-0">
-          {title}
-        </h1>
+        <h1 class="text-primary text-4xl mb-0">{title}</h1>
         <div class="flex gap-3 items-center">
-          {
-            tags.map((tag) => (
+          {tags.map((tag) => (
               <Badge link={content.taxonomy('tag', tag, 'til').href}>{tag}</Badge>
-            ))
-          }
+            ))}
         </div>
         <hr class="mt-5 mb-0" />
       </div>
@@ -36,25 +32,21 @@ const content = createSiteContent()
   <wa-divider style="--spacing: 2rem;"></wa-divider>
 
   <div class="flex justify-between w-2xl max-w-4xl mx-auto p-3 gap-8 text-brand-100">
-    {
-      prev && (
+    {prev && (
         <a
           href={content.url(prev).href}
           class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
         >
           <span>{`< `}</span> {prev.data.title}
         </a>
-      )
-    }
-    {
-      next && (
+      )}
+    {next && (
         <a
           href={content.url(next).href}
           class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
         >
           {next.data.title} <span>{` >`}</span>
         </a>
-      )
-    }
+      )}
   </div>
 </BaseLayout>

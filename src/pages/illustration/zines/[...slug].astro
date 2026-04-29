@@ -1,79 +1,74 @@
 ---
-import { getCollection, render } from 'astro:content'
-import Badge from '@components/Badge.astro'
-import { components } from '@components/mdxComponents'
-import PageTitle from '@components/PageTitle.astro'
-import ZineFoldInstructions from '@components/ZineFoldInstructions.astro'
-import ZineViewer from '@components/ZineViewer.astro'
-import BaseLayout from '@layouts/BaseLayout.astro'
+import { getCollection, render } from 'astro:content';
+import Badge from '@components/Badge.astro';
+import { components } from '@components/mdxComponents';
+import PageTitle from '@components/PageTitle.astro';
+import ZineFoldInstructions from '@components/ZineFoldInstructions.astro';
+import ZineViewer from '@components/ZineViewer.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
-  const zines = await getCollection('zines')
+  const zines = await getCollection('zines');
   return zines.map((zine, index) => ({
     params: { slug: zine.data.slug },
     props: { zine, next: zines[index + 1], prev: zines[index - 1] },
-  }))
+  }));
 }
 
-const { zine, next, prev } = Astro.props
-const { Content } = await render(zine)
+const { zine, next, prev } = Astro.props;
+const { Content } = await render(zine);
 
 const imageUrlsInSetsOfTwo = zine?.data.imgUrls.reduce(
   (acc, imgUrl, index) => {
     if (index % 2 === 0) {
-      acc.push([imgUrl, zine?.data.imgUrls[index + 1] || null])
+      acc.push([imgUrl, zine?.data.imgUrls[index + 1] || null]);
     }
-    return acc
+    return acc;
   },
-  [] as [string, string | null][],
-)
+  [] as [string, string | null][]
+);
 
-const author = zine?.data.author
-const isGuestAuthor = author !== 'Joel M Turner'
+const author = zine?.data.author;
+const isGuestAuthor = author !== 'Joel M Turner';
 ---
 
 <BaseLayout title={zine?.data.title} image={zine?.data.imgUrls?.[0]}>
   <div class="flex justify-between items-center mb-8">
     <PageTitle title={zine?.data.title} />
     <a
-    href="/illustration/zines/"
-    class="text-accent flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
-    ><wa-icon family="lucide" name="arrow-left" class="w-4 h-4" /> Back to zines</a
-  >
+      href="/illustration/zines/"
+      class="text-accent flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
+      ><wa-icon family="lucide" name="arrow-left" class="w-4 h-4" />
+      Back to zines</a
+    >
   </div>
   <ZineViewer variant="rubber-hose" height="500px" width="100%" autoplay autoplay-interval="3000">
-    {
-      imageUrlsInSetsOfTwo.map(([imgUrl, backImgUrl]) => (
+    {imageUrlsInSetsOfTwo.map(([imgUrl, backImgUrl]) => (
         <div img-src={imgUrl} back-img-src={backImgUrl} />
-      ))
-    }
+      ))}
   </ZineViewer>
 
   <div class="flex flex-col gap-4">
     <div class="flex gap-2 justify-between items-center flex-wrap">
-      {
-        zine?.data.pdfUrl && (
+      {zine?.data.pdfUrl && (
           <div class="flex gap-2">
             <a href={zine?.data.pdfUrl} target="_blank" rel="noopener noreferrer">
               <wa-button size="small">Download PDF</wa-button>
             </a>
             <ZineFoldInstructions />
           </div>
-        )
-      }
-  
+        )}
+
       {isGuestAuthor && <Badge link={zine?.data.authorUrl}>Guest: {zine.data.author}</Badge>}
     </div>
-  
+
     <Content components={components} />
   </div>
-
 
   <wa-divider></wa-divider>
 
   <div class="flex justify-between p-3 gap-8 text-accent">
-    {
-      prev?.data?.slug ? (
+    {prev?.data?.slug ? (
         <a
           href={`/illustration/zines/${prev?.data?.slug}/`}
           class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
@@ -82,18 +77,14 @@ const isGuestAuthor = author !== 'Joel M Turner'
         </a>
       ) : (
         <div />
-      )
-    }
-    {
-      next?.data?.slug && (
+      )}
+    {next?.data?.slug && (
         <a
           href={`/illustration/zines/${next?.data?.slug}/`}
           class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
         >
           {next?.data?.title} <span>{` >`}</span>
         </a>
-      )
-    }
+      )}
   </div>
-  
 </BaseLayout>

@@ -1,16 +1,16 @@
 ---
-import { type CollectionEntry } from 'astro:content'
-import { createSiteContent } from '@lib/content/siteContent'
-import { cn } from '@lib/utils'
-import { CldImage } from 'astro-cloudinary'
+import { type CollectionEntry } from 'astro:content';
+import { createSiteContent } from '@lib/content/siteContent';
+import { cn } from '@lib/utils';
+import { CldImage } from 'astro-cloudinary';
 
 export type Props = {
-  post: CollectionEntry<'blog'>
-  featured?: boolean
-}
-const { post, featured } = Astro.props
-const content = createSiteContent()
-const postHref = content.url(post).href
+  post: CollectionEntry<'blog'>;
+  featured?: boolean;
+};
+const { post, featured } = Astro.props;
+const content = createSiteContent();
+const postHref = content.url(post).href;
 
 const combinedStyles = cn(
   // layout
@@ -28,14 +28,13 @@ const combinedStyles = cn(
   'hover:[&_img]:shadow-lg',
   'hover:[&_img]:shadow-slate-100',
   'dark:hover:[&_img]:shadow-slate-800',
-  featured ? 'col-span-1 md:col-span-2' : 'col-span-1',
-)
+  featured ? 'col-span-1 md:col-span-2' : 'col-span-1'
+);
 ---
 
 <div class={combinedStyles}>
   <a href={postHref} class="prose dark:prose-invert text-2xl">
-    {
-      post.data.cover ? (
+    {post.data.cover ? (
         <CldImage
           width={featured ? 770 : 370}
           height={featured ? 385 : 185}
@@ -80,8 +79,7 @@ const combinedStyles = cn(
           dpr="2.0"
           loading="lazy"
         />
-      )
-    }
+      )}
     <h3
       class={cn('mt-3 mb-1 text-2xl leading-1.1', featured ? 'text-3xl text-center' : 'text-2xl')}
     >

@@ -1,15 +1,15 @@
 ---
-import { getCollection } from 'astro:content'
-import Animation from '@components/animation.astro'
-import GridLayout from '@components/GridLayout.astro'
-import LinkButton from '@components/LinkButton.astro'
-import PageTitle from '@components/PageTitle.astro'
-import BaseLayout from '@layouts/BaseLayout.astro'
+import { getCollection } from 'astro:content';
+import Animation from '@components/animation.astro';
+import GridLayout from '@components/GridLayout.astro';
+import LinkButton from '@components/LinkButton.astro';
+import PageTitle from '@components/PageTitle.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
 
-const animations = await getCollection('animations')
+const animations = await getCollection('animations');
 
 // generate structured data for video gallery
-const canonicalUrl = new URL('/illustration/animations/', Astro.site)
+const canonicalUrl = new URL('/illustration/animations/', Astro.site);
 
 const videoStructuredData = {
   '@context': 'https://schema.org',
@@ -31,7 +31,7 @@ const videoStructuredData = {
       }),
     },
   })),
-}
+};
 ---
 
 <BaseLayout title={'Animations'} description={'Some of my favorite animations'}>
@@ -42,12 +42,14 @@ const videoStructuredData = {
   />
   <div class="flex justify-between items-center mb-8">
     <PageTitle title="Animations" />
-    <LinkButton href="/illustration/"><wa-icon family="lucide" name="arrow-left" class="w-4 h-4" />  Back to Illustrations</LinkButton>
+    <LinkButton href="/illustration/"
+      ><wa-icon family="lucide" name="arrow-left" class="w-4 h-4" />
+      Back to Illustrations</LinkButton
+    >
   </div>
   <section>
     <GridLayout maxColumns={3}>
-      {
-        animations.map((animation) => (
+      {animations.map((animation) => (
           <div class="flex flex-col gap-4">
             <Animation embedId={animation.data.embedId} />
             <h3 class="mt-3 mb-1 text-2xl leading-1.1">
@@ -56,16 +58,7 @@ const videoStructuredData = {
               </LinkButton>
             </h3>
           </div>
-        ))
-      }
+        ))}
     </GridLayout>
   </section>
 </BaseLayout>
-
-<style>
-  iframe.instagram-media {
-    max-width: 100% !important;
-    width: 100% !important;
-    min-width: auto !important;
-  }
-</style>

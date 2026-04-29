@@ -1,28 +1,24 @@
 ---
-import { type CollectionEntry, getCollection, render } from 'astro:content'
-import { components } from '@components/mdxComponents'
-import TilPost from '@layouts/TilPost.astro'
-import { getPostSlug, sortPostsByDateAsc } from '@lib/content/postRoutes'
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import { components } from '@components/mdxComponents';
+import TilPost from '@layouts/TilPost.astro';
+import { getPostSlug, sortPostsByDateAsc } from '@lib/content/postRoutes';
 
 export async function getStaticPaths() {
-  const posts = sortPostsByDateAsc(
-    await getCollection('til', ({ data }) => !data.draft),
-  )
+  const posts = sortPostsByDateAsc(await getCollection('til', ({ data }) => !data.draft));
   return posts.map((post, index) => ({
     params: { slug: getPostSlug(post) },
     props: { post, next: posts[index + 1], prev: posts[index - 1] },
-  }))
+  }));
 }
 type Props = {
-  post: CollectionEntry<'til'>
-  next: CollectionEntry<'til'> | undefined
-  prev: CollectionEntry<'til'> | undefined
-}
+  post: CollectionEntry<'til'>;
+  next: CollectionEntry<'til'> | undefined;
+  prev: CollectionEntry<'til'> | undefined;
+};
 
-const { post, next, prev } = Astro.props
-const { Content } = await render(post)
+const { post, next, prev } = Astro.props;
+const { Content } = await render(post);
 ---
 
-<TilPost {...post.data} next={next} prev={prev}>
-  <Content components={components} />
-</TilPost>
+<TilPost {...post.data} next={next} prev={prev}> <Content components={components} /> </TilPost>

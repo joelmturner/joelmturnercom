@@ -1,20 +1,15 @@
 ---
-import { cn } from '@lib/utils'
-import type { HTMLAttributes } from 'astro/types'
+import { cn } from '@lib/utils';
+import type { HTMLAttributes } from 'astro/types';
 
 type Props = HTMLAttributes<'a'> & {
-  hideActiveBorder?: boolean
-}
+  hideActiveBorder?: boolean;
+};
 
-const {
-  href,
-  class: className,
-  hideActiveBorder = false,
-  ...props
-} = Astro.props
-const pathname = new URL(Astro.request.url).pathname
-const currentPath = pathname.slice(1)
-const isActive = currentPath.includes(href as string)
+const { href, class: className, hideActiveBorder = false, ...props } = Astro.props;
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.slice(1);
+const isActive = currentPath.includes(href as string);
 ---
 
 <a

@@ -1,21 +1,21 @@
 ---
-import { Font } from 'astro:assets'
-import PostHog from '@components/PostHog.astro'
-import { SITE_DESCRIPTION, SITE_TITLE } from '@lib/site'
-import { getCldOgImageUrl } from 'astro-cloudinary/helpers'
+import { Font } from 'astro:assets';
+import PostHog from '@components/PostHog.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '@lib/site';
+import { getCldOgImageUrl } from 'astro-cloudinary/helpers';
 
 interface Props {
-  title?: string
-  description?: string
-  image?: string
+  title?: string;
+  description?: string;
+  image?: string;
   /** e.g. "noindex, follow" for tag archives; omit for default index,follow */
-  robots?: string
+  robots?: string;
   /** when set, og:type is article and article:* tags are emitted */
   openGraphArticle?: {
-    publishedTime: string
-    modifiedTime?: string
-    authorUrl?: string
-  }
+    publishedTime: string;
+    modifiedTime?: string;
+    authorUrl?: string;
+  };
 }
 
 // ensure canonical URL has trailing slash (except root) to match trailingSlash: "always" config
@@ -24,12 +24,12 @@ const pathname =
     ? '/'
     : Astro.url.pathname.endsWith('/')
       ? Astro.url.pathname
-      : `${Astro.url.pathname}/`
-const canonicalURL = new URL(pathname, Astro.site)
+      : `${Astro.url.pathname}/`;
+const canonicalURL = new URL(pathname, Astro.site);
 
 function isValidURL(url: string) {
-  const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i
-  return urlPattern.test(url)
+  const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+  return urlPattern.test(url);
 }
 
 const {
@@ -38,9 +38,9 @@ const {
   image = 'https://res.cloudinary.com/joelmturner/image/upload/h_630,w_1200/c_fit,h_400,l_text:Helvetica_80_bold_line_spacing_20:Digital%20Adventurer%20and%20Illustrator,w_700/fl_layer_apply,g_west,x_400,y_0/blog-post-card.png',
   robots,
   openGraphArticle,
-} = Astro.props
+} = Astro.props;
 
-const ogType = openGraphArticle ? 'article' : 'website'
+const ogType = openGraphArticle ? 'article' : 'website';
 
 const ogImage = isValidURL(image)
   ? image
@@ -52,11 +52,9 @@ const ogImage = isValidURL(image)
       format: 'jpg',
       quality: 'auto',
       gravity: 'center',
-    })
+    });
 
-const resolvedTitle = title
-  ? `${title} | ${SITE_TITLE}`
-  : `${SITE_TITLE} Web Development Blog`
+const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web Development Blog`;
 ---
 
 <!-- Global Metadata - placed early to ensure CSS loads first -->
@@ -70,32 +68,32 @@ const resolvedTitle = title
 
 <!-- Theme initialization - must run before page renders to prevent flash -->
 <script is:inline>
-  (function () {
-    try {
-      const theme = localStorage.getItem('theme');
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light';
-      const colorMode = theme === 'system' || !theme ? systemTheme : theme;
-      document.documentElement.setAttribute('data-color-mode', colorMode);
-      if (colorMode === 'dark') {
-        document.documentElement.classList.add('wa-dark');
-      } else {
-        document.documentElement.classList.remove('wa-dark');
-      }
-    } catch (e) {
-      // fallback to system theme if localStorage is not available
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light';
-      document.documentElement.setAttribute('data-color-mode', systemTheme);
-      if (systemTheme === 'dark') {
-        document.documentElement.classList.add('wa-dark');
-      } else {
-        document.documentElement.classList.remove('wa-dark');
-      }
+(() => {
+  try {
+    const theme = localStorage.getItem('theme');
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+    const colorMode = theme === 'system' || !theme ? systemTheme : theme;
+    document.documentElement.setAttribute('data-color-mode', colorMode);
+    if (colorMode === 'dark') {
+      document.documentElement.classList.add('wa-dark');
+    } else {
+      document.documentElement.classList.remove('wa-dark');
     }
-  })();
+  } catch (e) {
+    // fallback to system theme if localStorage is not available
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+    document.documentElement.setAttribute('data-color-mode', systemTheme);
+    if (systemTheme === 'dark') {
+      document.documentElement.classList.add('wa-dark');
+    } else {
+      document.documentElement.classList.remove('wa-dark');
+    }
+  }
+})();
 </script>
 <link rel="icon" type="image/png" href="/favicon-32x32.png" />
 <meta name="generator" content={Astro.generator} />
@@ -111,19 +109,21 @@ const resolvedTitle = title
 <link rel="dns-prefetch" href="https://i.ytimg.com" />
 
 <!-- preload critical hero image on home page -->
-{
-  import.meta.env.PROD && Astro.url.pathname === '/' && (
+{import.meta.env.PROD && Astro.url.pathname === "/" && (
     <link
       rel="preload"
       as="image"
       href="https://res.cloudinary.com/joelmturner/image/upload/c_fill,h_200,w_200,g_faces,dpr_2.0/joel-turner_nobg"
       fetchpriority="high"
     />
-  )
-}
+  )}
 
 <!-- Web Awesome - defer loading to avoid blocking render -->
-<script is:inline src="https://kit.webawesome.com/2dafcc2cf8fd4a26.js" crossorigin="anonymous" defer
+<script
+  is:inline
+  src="https://kit.webawesome.com/2dafcc2cf8fd4a26.js"
+  crossorigin="anonymous"
+  defer
 ></script>
 
 <!-- Canonical URL -->
@@ -145,19 +145,23 @@ const resolvedTitle = title
 <meta property="og:image:secure_url" content={`${ogImage}?v=1`} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-{
-  openGraphArticle && (
+{openGraphArticle && (
     <>
-      <meta property="article:published_time" content={openGraphArticle.publishedTime} />
+      <meta
+        property="article:published_time"
+        content={openGraphArticle.publishedTime}
+      />
       {openGraphArticle.modifiedTime && (
-        <meta property="article:modified_time" content={openGraphArticle.modifiedTime} />
+        <meta
+          property="article:modified_time"
+          content={openGraphArticle.modifiedTime}
+        />
       )}
       {openGraphArticle.authorUrl && (
         <meta property="article:author" content={openGraphArticle.authorUrl} />
       )}
     </>
-  )
-}
+  )}
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
@@ -173,10 +177,11 @@ const resolvedTitle = title
   is:inline
   data-goatcounter="https://joelmturner.goatcounter.com/count"
   defer
-  src="//gc.zgo.at/count.js"></script>
+  src="//gc.zgo.at/count.js"
+></script>
 
 <Font cssVariable="--font-fira-code" preload />
 <Font cssVariable="--font-fira-sans" preload />
 
 <!-- analytics -->
-{import.meta.env.MODE !== 'development' && <PostHog />}
+{import.meta.env.MODE !== "development" && <PostHog />}

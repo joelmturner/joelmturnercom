@@ -1,15 +1,15 @@
 ---
-import type { Project } from '@lib/types'
-import Image from './Image.astro'
-import LinkButton from './LinkButton.astro'
-import ProjectIcon from './ProjectIcon.astro'
+import type { Project } from '@lib/types';
+import Image from './Image.astro';
+import LinkButton from './LinkButton.astro';
+import ProjectIcon from './ProjectIcon.astro';
 
 type Props = {
-  project: Project
-}
+  project: Project;
+};
 const {
   project: { description, name, imageURL, tech, github, url },
-} = Astro.props
+} = Astro.props;
 ---
 
 <wa-card with-image with-footer class="card-overview">
@@ -35,10 +35,8 @@ const {
     <p>{description}</p>
   </div>
   <div slot="footer" class="flex gap-1 items-center filter grayscale transition hover:grayscale-0">
-    {
-      tech.map((techItem) => (
+    {tech.map((techItem) => (
         <ProjectIcon icon={techItem.toLowerCase() as Project['tech'][number]} />
-      ))
-    }
+      ))}
   </div>
 </wa-card>

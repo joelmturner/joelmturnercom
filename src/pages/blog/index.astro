@@ -1,12 +1,12 @@
 ---
-import GridLayout from '@components/GridLayout.astro'
-import PageTitle from '@components/PageTitle.astro'
-import PostCard from '@components/PostCard.astro'
-import BaseLayout from '@layouts/BaseLayout.astro'
-import { createSiteContent } from '@lib/content/siteContent'
+import GridLayout from '@components/GridLayout.astro';
+import PageTitle from '@components/PageTitle.astro';
+import PostCard from '@components/PostCard.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { createSiteContent } from '@lib/content/siteContent';
 
-const content = createSiteContent()
-const posts = await content.list('blog')
+const content = createSiteContent();
+const posts = await content.list('blog');
 ---
 
 <BaseLayout

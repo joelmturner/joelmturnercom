@@ -1,11 +1,25 @@
 ---
-const { title, id } = Astro.props
+const { title, id } = Astro.props;
 ---
 
 <iframe
-  src=`https://codesandbox.io/embed/${id}?view=Editor+%2B+Preview&module=%2Fpublic%2Findex.html`
+  src={`https://codesandbox.io/embed/${id}?view=Editor+%2B+Preview&module=%2Fpublic%2Findex.html`}
   class="w-full max-w-full h-[500px] border-0 rounded-md overflow-hidden"
   title={title}
-  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  allow="
+    accelerometer;
+    ambient-light-sensor;
+    camera;
+    encrypted-media;
+    geolocation;
+    gyroscope;
+    hid;
+    microphone;
+    midi;
+    payment;
+    usb;
+    vr;
+    xr-spatial-tracking;
+  "
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 ></iframe>

@@ -1,14 +1,14 @@
 ---
-import { getCollection } from 'astro:content'
-import LinkButton from '@components/LinkButton.astro'
-import PageTitle from '@components/PageTitle.astro'
-import Video from '@components/Video.astro'
-import BaseLayout from '@layouts/BaseLayout.astro'
+import { getCollection } from 'astro:content';
+import LinkButton from '@components/LinkButton.astro';
+import PageTitle from '@components/PageTitle.astro';
+import Video from '@components/Video.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
 
-const videos = await getCollection('video')
+const videos = await getCollection('video');
 
 // generate structured data for video gallery
-const canonicalUrl = new URL('/illustration/videos/', Astro.site)
+const canonicalUrl = new URL('/illustration/videos/', Astro.site);
 
 const videoStructuredData = {
   '@context': 'https://schema.org',
@@ -17,12 +17,11 @@ const videoStructuredData = {
   description: 'Some of my favorite hand-drawn illustration videos',
   url: canonicalUrl.toString(),
   itemListElement: videos.map((video, index) => {
-    const publicId = video.data.public_id
-    const title =
-      (video.data.context?.custom?.caption as string) || 'Illustration video'
-    const thumbnailUrl = `https://res.cloudinary.com/joelmturner/video/upload/so_0/${publicId}.jpg`
-    const contentUrl = `https://res.cloudinary.com/joelmturner/video/upload/${publicId}.mp4`
-    const embedUrl = canonicalUrl.toString()
+    const publicId = video.data.public_id;
+    const title = (video.data.context?.custom?.caption as string) || 'Illustration video';
+    const thumbnailUrl = `https://res.cloudinary.com/joelmturner/video/upload/so_0/${publicId}.jpg`;
+    const contentUrl = `https://res.cloudinary.com/joelmturner/video/upload/${publicId}.mp4`;
+    const embedUrl = canonicalUrl.toString();
 
     return {
       '@type': 'ListItem',
@@ -42,9 +41,9 @@ const videoStructuredData = {
             height: video.data.height,
           }),
       },
-    }
+    };
   }),
-}
+};
 ---
 
 <BaseLayout
@@ -58,18 +57,19 @@ const videoStructuredData = {
   />
   <div class="flex justify-between items-center mb-8">
     <PageTitle title="Illustration videos" />
-    <LinkButton href="/illustration/"><wa-icon family="lucide" name="arrow-left" class="w-4 h-4" />  Back to Illustrations</LinkButton>
+    <LinkButton href="/illustration/"
+      ><wa-icon family="lucide" name="arrow-left" class="w-4 h-4" />
+      Back to Illustrations</LinkButton
+    >
   </div>
   <div class="flex flex-col gap-4 md:gap-16">
-    {
-      videos.map((video) => (
+    {videos.map((video) => (
         <Video
           publicId={video.data.public_id}
           title={video.data.context?.custom?.caption as string}
           citation
           options={{ loop: video.data.context?.custom?.loop === 'true' }}
         />
-      ))
-    }
+      ))}
   </div>
 </BaseLayout>

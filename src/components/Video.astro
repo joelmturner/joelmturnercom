@@ -1,23 +1,18 @@
 ---
-import { cn } from '@lib/utils'
-import { CldVideoPlayer } from 'astro-cloudinary'
-import LinkButton from './LinkButton.astro'
+import { cn } from '@lib/utils';
+import { CldVideoPlayer } from 'astro-cloudinary';
+import LinkButton from './LinkButton.astro';
 
 type Props = {
-  publicId: string
-  title: string
+  publicId: string;
+  title: string;
   options?: {
-    loop?: boolean
-  }
-  citation?: boolean
-}
+    loop?: boolean;
+  };
+  citation?: boolean;
+};
 
-const {
-  publicId,
-  title,
-  citation,
-  options: { loop = false } = { loop: false },
-} = Astro.props
+const { publicId, title, citation, options: { loop = false } = { loop: false } } = Astro.props;
 ---
 
 <div class={cn('rounded-2xl overflow-hidden shadow-brand-200 dark:shadow-brand-400')}>
@@ -30,18 +25,14 @@ const {
   />
 
   <div class="flex justify-between items-center p-2 bg-white dark:bg-gray-800">
-    <p class="mt-0 text-prose-caption text-right mb-0">
-      {title}
-    </p>
-    {
-      citation && (
+    <p class="mt-0 text-prose-caption text-right mb-0">{title}</p>
+    {citation && (
         <cite class="mt-0 text-prose-caption text-right">
           music from{' '}
           <LinkButton href="https://bensound.com" target="_blank" rel="noopener noreferrer">
             bensound.com
           </LinkButton>
         </cite>
-      )
-    }
+      )}
   </div>
 </div>

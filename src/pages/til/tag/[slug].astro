@@ -1,21 +1,21 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content'
-import GridLayout from '@components/GridLayout.astro'
-import TilPostCard from '@components/TilPostCard.astro'
-import BaseLayout from '@layouts/BaseLayout.astro'
-import { getAllTags } from '@lib/posts'
+import { type CollectionEntry, getCollection } from 'astro:content';
+import GridLayout from '@components/GridLayout.astro';
+import TilPostCard from '@components/TilPostCard.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getAllTags } from '@lib/posts';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('til')
-  return getAllTags(posts)
+  const posts = await getCollection('til');
+  return getAllTags(posts);
 }
 
 type Props = {
-  posts: CollectionEntry<'til'>[]
-  tag: string
-}
+  posts: CollectionEntry<'til'>[];
+  tag: string;
+};
 
-const { posts, tag } = Astro.props
+const { posts, tag } = Astro.props;
 ---
 
 <BaseLayout title={`Tag: ${tag}`} description={`Posts about ${tag}`} robots="noindex, follow">
