@@ -16,13 +16,6 @@ function updateTheme(value) {
   // keep color mode as source of truth while mirroring a daisyUI-compatible theme
   applyThemeAttributes(theme)
 
-  // set or remove wa-dark class based on theme
-  if (theme === 'dark') {
-    document.documentElement.classList.add('wa-dark')
-  } else {
-    document.documentElement.classList.remove('wa-dark')
-  }
-
   // set the active class on the active mode icon in all theme switches
   document.querySelectorAll(`[data-theme-value="${value}"]`).forEach((el) => {
     el.classList.add('active')
@@ -38,7 +31,6 @@ function updateTheme(value) {
     ?.setAttribute('src', logosByTheme[theme])
 
   localStorage.setItem('theme', value)
-  console.log('theme', theme)
 }
 
 function syncThemeUI() {

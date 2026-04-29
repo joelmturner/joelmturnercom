@@ -77,11 +77,6 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
     const colorMode = theme === 'system' || !theme ? systemTheme : theme;
     document.documentElement.setAttribute('data-color-mode', colorMode);
     document.documentElement.setAttribute('data-theme', colorMode);
-    if (colorMode === 'dark') {
-      document.documentElement.classList.add('wa-dark');
-    } else {
-      document.documentElement.classList.remove('wa-dark');
-    }
   } catch (e) {
     // fallback to system theme if localStorage is not available
     const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -89,11 +84,6 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
       : 'light';
     document.documentElement.setAttribute('data-color-mode', systemTheme);
     document.documentElement.setAttribute('data-theme', systemTheme);
-    if (systemTheme === 'dark') {
-      document.documentElement.classList.add('wa-dark');
-    } else {
-      document.documentElement.classList.remove('wa-dark');
-    }
   }
 })();
 </script>
@@ -103,7 +93,6 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
 <!-- Preconnect to critical third-party domains (max 4 for best performance) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preconnect" href="https://ka-p.webawesome.com" crossorigin />
 <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
 
 <!-- Prefetch non-critical resources for faster subsequent loads -->
@@ -119,14 +108,6 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
       fetchpriority="high"
     />
   )}
-
-<!-- Web Awesome - defer loading to avoid blocking render -->
-<script
-  is:inline
-  src="https://kit.webawesome.com/2dafcc2cf8fd4a26.js"
-  crossorigin="anonymous"
-  defer
-></script>
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />

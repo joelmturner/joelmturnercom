@@ -27,6 +27,6 @@ This project uses Tailwind CSS and a CSS-first theme defined in [global.css](mdc
 2. Use `@layer components` for reusable style patterns that appear across files.
 3. Use `@layer utilities` for targeted custom utilities.
 4. Prefer responsive and state variants (`md:`, `hover:`, `focus:`, dark variants) over ad hoc CSS.
-5. Use token-backed semantic utilities (for example `text-primary`, `bg-accent`) when available.
+5. Use token-backed semantic utilities (for example `text-foreground`, `bg-accent`) when available.
 
 Implementation guidance for Astro/TypeScript/Tailwind coding patterns lives in [05-astro-typescript-tailwind-conventions.mdc](mdc:.cursor/rules/05-astro-typescript-tailwind-conventions.mdc).

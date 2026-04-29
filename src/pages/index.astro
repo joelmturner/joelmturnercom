@@ -85,7 +85,7 @@ const zineContents = await Promise.all(
             {featuredZines.map((zine) => {
               const { Content } = zineContents.find((content) => content.id === zine.id) || { Content: null };
               return (
-              <article class="card card-border bg-base-100 card-overview shadow-sm">
+              <article class="card card-border bg-base-200 card-overview shadow-sm">
                 
                 <ZineCard zine={zine} featured />
                 <div class="card-body prose prose-lg dark:prose-invert">
