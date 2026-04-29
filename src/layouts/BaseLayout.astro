@@ -3,21 +3,37 @@ import '../styles/global.css'
 import BaseBody from '@components/BaseBody.astro'
 import BaseHead from '@components/BaseHead.astro'
 
+type OpenGraphArticle = {
+  publishedTime: string
+  modifiedTime?: string
+  /** profile or site URL for article:author */
+  authorUrl?: string
+}
+
 type Props = {
   title?: string
   description?: string
   image?: string
   /** e.g. "noindex, follow" for tag archives */
   robots?: string
+  /** when set, og:type is article and article:* tags are emitted */
+  openGraphArticle?: OpenGraphArticle
 }
 
-const { title, description, image, robots }: Props = Astro.props
+const { title, description, image, robots, openGraphArticle }: Props =
+  Astro.props
 ---
 
 <!doctype html>
 <html lang="en" class="bg-surface-default wa-cloak" data-color-mode="dark">
   <head>
-    <BaseHead title={title} description={description} image={image} robots={robots} />
+    <BaseHead
+      title={title}
+      description={description}
+      image={image}
+      robots={robots}
+      openGraphArticle={openGraphArticle}
+    />
     <slot name="head" />
   </head>
 

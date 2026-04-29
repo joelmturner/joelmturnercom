@@ -48,6 +48,7 @@ const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
   headline: title || '',
+  url: canonicalUrl.toString(),
   description: (description || '').substring(0, 500),
   ...(date && { datePublished: date.toISOString() }),
   ...(lastmod || date ? { dateModified: (lastmod || date).toISOString() } : {}),
@@ -61,7 +62,7 @@ const structuredData = {
     name: SITE_TITLE,
     logo: {
       '@type': 'ImageObject',
-      url: `${Astro.site}/favicon-32x32.png`,
+      url: Astro.site ? new URL('/favicon-32x32.png', Astro.site).href : '',
     },
   },
   mainEntityOfPage: {
@@ -75,8 +76,8 @@ const structuredData = {
         image: {
           '@type': 'ImageObject',
           url: imageUrl,
-          width: 1200,
-          height: 630,
+          width: 770,
+          height: 415,
         },
       }
     : {
@@ -102,13 +103,28 @@ const videoStructuredData = video
   : null
 ---
 
-<BaseLayout title={title} description={description} image={cover}>
-  <!-- structured data - moved to end of head to avoid blocking render -->
-  <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData, null, 0)} />
+<BaseLayout
+  title={title}
+  description={description}
+  image={cover}
+  openGraphArticle={{
+    publishedTime: date.toISOString(),
+    modifiedTime: lastmod ? lastmod.toISOString() : undefined,
+    authorUrl: Astro.site?.href,
+  }}
+>
+  <!-- json-ld in head for crawlers and parity with other meta -->
+  <script
+    is:inline
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(structuredData, null, 0)}
+  />
   {
     videoStructuredData && (
       <script
         is:inline
+        slot="head"
         type="application/ld+json"
         set:html={JSON.stringify(videoStructuredData, null, 0)}
       />
