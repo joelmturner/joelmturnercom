@@ -1,5 +1,6 @@
 ---
 import type { Project } from '@lib/types';
+import { Github } from 'lucide-astro';
 import Image from './Image.astro';
 import LinkButton from './LinkButton.astro';
 import ProjectIcon from './ProjectIcon.astro';
@@ -28,9 +29,7 @@ const {
   <div class="prose prose-lg dark:prose-invert">
     <div class="flex gap-2 justify-between">
       <p><strong>{name}</strong></p>
-      <LinkButton href={github} title="Github" target="_blank">
-        <wa-icon family="brands" name="github"></wa-icon>
-      </LinkButton>
+      <LinkButton href={github} title="Github" target="_blank"><Github size={18} /></LinkButton>
     </div>
     <p>{description}</p>
   </div>

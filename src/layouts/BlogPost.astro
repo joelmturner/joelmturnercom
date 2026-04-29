@@ -3,10 +3,12 @@ import type { CollectionEntry } from 'astro:content';
 import Badge from '@components/Badge.astro';
 import FormattedDate from '@components/FormattedDate.astro';
 import Prose from '@components/Prose.astro';
+import SocialIcon from '@components/SocialIcon.astro';
 import { createSiteContent } from '@lib/content/siteContent';
 import { SITE_TITLE } from '@lib/site';
 import { cn } from '@lib/utils';
 import { CldImage } from 'astro-cloudinary';
+import { Facebook, Linkedin, Mail } from 'lucide-astro';
 import BaseLayout from './BaseLayout.astro';
 
 type Props = CollectionEntry<'blog'>['data'] & {
@@ -234,7 +236,7 @@ const videoStructuredData = video
     <article><slot /></article>
   </Prose>
 
-  <wa-divider style="--spacing: 2rem;"></wa-divider>
+  <hr class="my-8 border-slate-300 dark:border-slate-700" />
 
   <section class="flex flex-col gap-3">
     <div class="flex gap-3 items-center">
@@ -251,32 +253,32 @@ const videoStructuredData = video
     <div class="flex gap-2 flex-wrap items-center">
       <span class="text-lg font-bold">Share this post</span>
       <span class="flex items-center">
-        <wa-button variant="neutral" appearance="plain" data-share="facebook">
-          <wa-icon name="facebook" family="brands" label="Share on Facebook"></wa-icon>
+        <button type="button" class="btn btn-ghost btn-sm" data-share="facebook">
+          <Facebook size={16} aria-label="Share on Facebook" />
           Facebook
-        </wa-button>
+        </button>
       </span>
       <span class="flex items-center">
-        <wa-button variant="neutral" appearance="plain" data-share="bluesky">
-          <wa-icon name="bluesky" family="brands" label="Share on Bluesky"></wa-icon>
+        <button type="button" class="btn btn-ghost btn-sm" data-share="bluesky">
+          <SocialIcon icon="Bluesky" />
           Bluesky
-        </wa-button>
+        </button>
       </span>
       <span class="flex items-center">
-        <wa-button variant="neutral" appearance="plain" data-share="linkedin">
-          <wa-icon name="linkedin" family="brands" label="Share on LinkedIn"></wa-icon>
+        <button type="button" class="btn btn-ghost btn-sm" data-share="linkedin">
+          <Linkedin size={16} aria-label="Share on LinkedIn" />
           LinkedIn
-        </wa-button>
+        </button>
       </span>
       <span class="flex items-center">
-        <wa-button variant="neutral" appearance="plain" data-share="email">
-          <wa-icon name="envelope-open" label="Share with email"></wa-icon>
+        <button type="button" class="btn btn-ghost btn-sm" data-share="email">
+          <Mail size={16} aria-label="Share with email" />
           Email
-        </wa-button>
+        </button>
       </span>
     </div>
 
-    <wa-divider style="--spacing: 2rem;"></wa-divider>
+    <hr class="my-8 border-slate-300 dark:border-slate-700" />
 
     <div class="flex justify-between p-3 gap-8 text-accent">
       {prev && (

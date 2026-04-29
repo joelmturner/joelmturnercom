@@ -76,6 +76,7 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
       : 'light';
     const colorMode = theme === 'system' || !theme ? systemTheme : theme;
     document.documentElement.setAttribute('data-color-mode', colorMode);
+    document.documentElement.setAttribute('data-theme', colorMode);
     if (colorMode === 'dark') {
       document.documentElement.classList.add('wa-dark');
     } else {
@@ -87,6 +88,7 @@ const resolvedTitle = title ? `${title} | ${SITE_TITLE}` : `${SITE_TITLE} Web De
       ? 'dark'
       : 'light';
     document.documentElement.setAttribute('data-color-mode', systemTheme);
+    document.documentElement.setAttribute('data-theme', systemTheme);
     if (systemTheme === 'dark') {
       document.documentElement.classList.add('wa-dark');
     } else {

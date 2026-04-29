@@ -4,12 +4,17 @@ function getSystemTheme() {
     : 'light'
 }
 
+function applyThemeAttributes(theme) {
+  document.documentElement.setAttribute('data-color-mode', theme)
+  document.documentElement.setAttribute('data-theme', theme)
+}
+
 function updateTheme(value) {
   const systemTheme = getSystemTheme()
   const theme = value === 'system' ? systemTheme : value
 
-  // set the value on root
-  document.documentElement.setAttribute(`data-color-mode`, theme)
+  // keep color mode as source of truth while mirroring a daisyUI-compatible theme
+  applyThemeAttributes(theme)
 
   // set or remove wa-dark class based on theme
   if (theme === 'dark') {

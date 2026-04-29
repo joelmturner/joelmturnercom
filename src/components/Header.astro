@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { NAV_LINKS } from '@lib/constants';
 import { cn } from '@lib/utils';
+import { Menu, X } from 'lucide-astro';
 import HeaderLink from './HeaderLink.astro';
 import ThemeSwitch from './ThemeSwitch.astro';
 ---
@@ -42,15 +43,14 @@ import ThemeSwitch from './ThemeSwitch.astro';
           style="aspect-ratio: 4/1;"
         />
       </a>
-      <wa-button
-        variant="brand"
-        appearance="plain"
+      <button
+        type="button"
         data-nav-drawer-trigger
-        class="md:hidden"
+        class="btn btn-ghost btn-sm md:hidden"
         title="Open navigation menu"
       >
-        <wa-icon name="bars"></wa-icon>
-      </wa-button>
+        <Menu size={18} aria-hidden="true" />
+      </button>
       <div class="hidden w-full md:block md:w-auto" id="navbar-default">
         <ul
           class="font-medium flex flex-col p-4 md:p-0 md:flex-row md:m-0 md:border-0 md:gap-2 mt-4 border border-slate-100 dark:border-slate-700 rounded-lg bg-transparent"
@@ -103,7 +103,15 @@ import ThemeSwitch from './ThemeSwitch.astro';
 </header>
 
 <wa-drawer data-nav-drawer-content class="hidden">
-  <wa-icon slot="header" name="close" data-drawer="close">Close</wa-icon>
+  <button
+    slot="header"
+    type="button"
+    data-drawer="close"
+    class="btn btn-ghost btn-sm ml-auto"
+    aria-label="Close navigation menu"
+  >
+    <X size={16} aria-hidden="true" />
+  </button>
   <div class="flex flex-col gap-2 md:hidden">
     <ul class="font-medium text-xl flex flex-col gap-1">
       {NAV_LINKS.map(link =>
