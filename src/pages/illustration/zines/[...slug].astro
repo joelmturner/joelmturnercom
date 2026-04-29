@@ -6,6 +6,7 @@ import PageTitle from '@components/PageTitle.astro';
 import ZineFoldInstructions from '@components/ZineFoldInstructions.astro';
 import ZineViewer from '@components/ZineViewer.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { ArrowLeft } from 'lucide-astro';
 
 export async function getStaticPaths() {
   const zines = await getCollection('zines');
@@ -38,7 +39,7 @@ const isGuestAuthor = author !== 'Joel M Turner';
     <a
       href="/illustration/zines/"
       class="text-accent flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
-      ><wa-icon family="lucide" name="arrow-left" class="w-4 h-4" />
+      ><ArrowLeft size={16} aria-hidden="true" />
       Back to zines</a
     >
   </div>
@@ -52,8 +53,13 @@ const isGuestAuthor = author !== 'Joel M Turner';
     <div class="flex gap-2 justify-between items-center flex-wrap">
       {zine?.data.pdfUrl && (
           <div class="flex gap-2">
-            <a href={zine?.data.pdfUrl} target="_blank" rel="noopener noreferrer">
-              <wa-button size="small">Download PDF</wa-button>
+            <a
+              href={zine?.data.pdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-soft btn-sm"
+            >
+              Download PDF
             </a>
             <ZineFoldInstructions />
           </div>
@@ -65,7 +71,7 @@ const isGuestAuthor = author !== 'Joel M Turner';
     <Content components={components} />
   </div>
 
-  <wa-divider></wa-divider>
+  <hr class="my-8 border-slate-300 dark:border-slate-700" />
 
   <div class="flex justify-between p-3 gap-8 text-accent">
     {prev?.data?.slug ? (

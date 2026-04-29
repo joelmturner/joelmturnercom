@@ -1,174 +1,110 @@
 ---
 import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 import { NAV_LINKS } from '@lib/constants';
 import { cn } from '@lib/utils';
 import HeaderLink from './HeaderLink.astro';
 import ThemeSwitch from './ThemeSwitch.astro';
+
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.slice(1);
 ---
 
 <header
   class={cn(
     // spacing
-    "m-0 p-3 max-h-[70px] md:max-h-[90px]",
+    "m-0 p-0",
     // background
-    "bg-orange-50 dark:bg-slate-900",
+    "bg-base-100",
     // text
-    "text-black dark:text-white",
+    "text-base-content",
     // shadow
     "shadow-md",
     // border top
     "border-t-[6px] border-t-brand-100",
     // border bottom
-    "border-b-2 border-b-slate-200 dark:border-b-slate-700",
+    "border-b-2 border-b-base-300",
   )}
 >
-  <nav>
-    <div class="flex flex-wrap items-center justify-between mx-auto w-full max-w-3xl">
-      <a
-        href="/"
-        class="flex items-center w-[150px] lg:w-[180px] h-[38px] lg:h-[45px]"
-        aria-label="joelmturner logo"
-      >
-        <Image
-          data-logo
-          width="180"
-          height="45"
-          src={`https://res.cloudinary.com/joelmturner/image/upload/c_scale,w_360,f_auto,q_auto/v1673573341/jmt-logo-dark-500w_2_pxay5e.png`}
-          alt="joelmturner logo"
-          class="w-full h-full object-contain"
-          loading="eager"
-          decoding="sync"
-          fetchpriority="high"
-          style="aspect-ratio: 4/1;"
-        />
-      </a>
-      <wa-button
-        variant="brand"
-        appearance="plain"
-        data-nav-drawer-trigger
-        class="md:hidden"
-        title="Open navigation menu"
-      >
-        <wa-icon name="bars"></wa-icon>
-      </wa-button>
-      <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-        <ul
-          class="font-medium flex flex-col p-4 md:p-0 md:flex-row md:m-0 md:border-0 md:gap-2 mt-4 border border-slate-100 dark:border-slate-700 rounded-lg bg-transparent"
-        >
-          {NAV_LINKS.map(link =>
-              link.children ? (
-                <li class="group relative">
-                  <HeaderLink
-                    href={link.href}
-                    aria-current="page"
-                    aria-haspopup="true"
-                  >
-                    {link.label}
-                  </HeaderLink>
-                  <ul
-                    class={cn(
-                      "absolute -left-1 top-full pt-1 min-w-40 pl-2 flex flex-col gap-1 z-10",
-                      "opacity-0 invisible transition-opacity duration-150",
-                      "group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible",
-                      "bg-orange-50 dark:bg-slate-900 rounded-md shadow-md border border-slate-200 dark:border-slate-700 py-1",
-                    )}
-                  >
+  <div class="drawer drawer-end">
+    <input id="header-mobile-drawer" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content">
+      <nav class="navbar max-w-3xl mx-auto py-0">
+        <div class="navbar-start">
+          <a
+            href="/"
+            class="btn btn-ghost px-0 hover:bg-transparent h-auto min-h-0"
+            aria-label="joelmturner logo"
+          >
+            <Image
+              data-logo
+              width="180"
+              height="45"
+              src={`https://res.cloudinary.com/joelmturner/image/upload/c_scale,w_360,f_auto,q_auto/v1673573341/jmt-logo-dark-500w_2_pxay5e.png`}
+              alt="joelmturner logo"
+              class="w-[150px] lg:w-[180px] h-[38px] lg:h-[45px] object-contain"
+              loading="eager"
+              decoding="sync"
+              fetchpriority="high"
+              style="aspect-ratio: 4/1;"
+            />
+          </a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+          <ul class="menu menu-horizontal gap-2">
+            {NAV_LINKS.map(link =>
+                link.children ? (
+                  <li>
+                    <details>
+                      <summary class="text-accent">{link.label}</summary>
+                      <ul class="p-2 bg-base-100 w-44 z-10">
+                        {link.children.map(child => (
+                          <li><a class={cn("btn btn-ghost justify-start px-2 py-1 text-base-content border-l-none border-l-4", currentPath === child.href ? 'border-l-accent' : 'border-l-transparent')} href={`/${child.href}`}>{child.label}</a></li>
+                        ))}
+                      </ul>
+                    </details>
+                  </li>
+                ) : (
+                  <li><HeaderLink href={link.href} aria-current="page">{link.label}</HeaderLink></li>
+                ),
+              )}
+          </ul>
+        </div>
+        <div class="navbar-end gap-1">
+          <div class="hidden md:block">
+            <ThemeSwitch />
+          </div>
+          <label
+            for="header-mobile-drawer"
+            aria-label="Open navigation menu"
+            class="btn btn-square btn-ghost lg:hidden"
+          >
+            <Icon name="lucide:menu" class="inline-block text-accent h-6 w-6" aria-hidden="true" />
+          </label>
+        </div>
+      </nav>
+    </div>
+    <div class="drawer-side z-20">
+      <label for="header-mobile-drawer" aria-label="Close navigation menu" class="drawer-overlay"></label>
+      <ul class="menu bg-base-200 min-h-full w-80 p-4 md:hidden">
+        {NAV_LINKS.map(link =>
+            link.children ? (
+              <li>
+                <details>
+                  <summary class="btn btn-ghost btn-lg justify-start">{link.label}</summary>
+                  <ul class="p-2">
                     {link.children.map(child => (
-                      <li>
-                        <HeaderLink
-                          href={child.href}
-                          aria-current="page"
-                          hideActiveBorder={true}
-                          class="block py-2 rounded-none border-b-0! hover:border-b-0!"
-                        >
-                          {child.label}
-                        </HeaderLink>
-                      </li>
+                      <li><a class={cn("btn btn-ghost btn-lg justify-start border-l-4", currentPath === child.href ? 'border-l-accent' : 'border-l-transparent')} href={`/${child.href}`}>{child.label}</a></li>
                     ))}
                   </ul>
-                </li>
-              ) : (
-                <li>
-                  <HeaderLink href={link.href} aria-current="page">
-                    {link.label}
-                  </HeaderLink>
-                </li>
-              ),
-            )}
-          <ThemeSwitch />
-        </ul>
-      </div>
+                </details>
+              </li>
+            ) : (
+              <li><a class={cn("btn btn-ghost btn-lg justify-start border-l-4", currentPath === link.href ? 'border-l-accent' : 'border-l-transparent')} href={`/${link.href}`}>{link.label}</a></li>
+            ),
+          )}
+        <li class="mt-auto"><div class="w-auto mx-auto"><ThemeSwitch /></div></li>
+      </ul>
     </div>
-  </nav>
-</header>
-
-<wa-drawer data-nav-drawer-content class="hidden">
-  <wa-icon slot="header" name="close" data-drawer="close">Close</wa-icon>
-  <div class="flex flex-col gap-2 md:hidden">
-    <ul class="font-medium text-xl flex flex-col gap-1">
-      {NAV_LINKS.map(link =>
-          link.children ? (
-            <li class="flex flex-col">
-              <HeaderLink
-                href={link.href}
-                aria-current="page"
-                hideActiveBorder={true}
-              >
-                {link.label}
-              </HeaderLink>
-              <ul class="flex flex-col gap-1 pl-2">
-                {link.children.map(child => (
-                  <li>
-                    <HeaderLink
-                      href={child.href}
-                      aria-current="page"
-                      hideActiveBorder={true}
-                    >
-                      {child.label}
-                    </HeaderLink>
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ) : (
-            <li>
-              <HeaderLink href={link.href} aria-current="page">
-                {link.label}
-              </HeaderLink>
-            </li>
-          ),
-        )}
-      <div class="flex mx-auto w-3/4"><ThemeSwitch /></div>
-    </ul>
   </div>
-</wa-drawer>
-
-<style>
-::part(header) {
-  border-top: 6px solid var(--color-brand-100);
-}
-::part(close-button) {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-}
-</style>
-
-<script is:inline>
-// set up drawer event listener on each page load
-// using is:inline ensures this runs immediately when the page loads
-(() => {
-  const drawer = document.querySelector('[data-nav-drawer-content]');
-  const openButton = document.querySelector('[data-nav-drawer-trigger]');
-
-  if (openButton && drawer) {
-    openButton.addEventListener('click', () => {
-      if (drawer && 'open' in drawer) {
-        drawer.open = true;
-        drawer.classList.remove('hidden');
-        drawer.classList.add('block');
-      }
-    });
-  }
-})();
-</script>
+</header>

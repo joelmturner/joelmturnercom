@@ -5,6 +5,7 @@ import PageTitle from '@components/PageTitle.astro';
 import ZineCard from '@components/ZineCard.astro';
 import ZineFoldInstructions from '@components/ZineFoldInstructions.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { ArrowLeft } from 'lucide-astro';
 
 const zines = await getCollection('zines');
 ---
@@ -12,10 +13,10 @@ const zines = await getCollection('zines');
 <BaseLayout title={"Zines"} description={"Some illustrative zines"}>
   <div class="flex justify-between items-center mb-8">
     <PageTitle title="Illustrated zines" />
-    <LinkButton href="/illustration/">
-      <wa-icon family="lucide" name="arrow-left" class="w-4 h-4"></wa-icon>
-      Back to Illustrations
-    </LinkButton>
+    <LinkButton href="/illustration/" class="flex gap-2 items-center"
+      ><ArrowLeft size={16} aria-hidden="true" />
+      Back to Illustrations</LinkButton
+    >
   </div>
 
   <div class="flex gap-2"><ZineFoldInstructions /></div>

@@ -92,8 +92,8 @@ const IllustrationLightboxCarousel = forwardRef<
   }, [emblaApi])
 
   const navButtonClass = cn(
-    'w-10 h-10 rounded-full bg-surface-default text-primary flex items-center justify-center cursor-pointer',
-    'hover:bg-surface-default/70 focus:outline-none focus:ring-2 focus:ring-border',
+    'w-10 h-10 rounded-full bg-base-100 text-foreground flex items-center justify-center cursor-pointer',
+    'hover:bg-base-100/70 focus:outline-none focus:ring-2 focus:ring-border',
   )
 
   return (

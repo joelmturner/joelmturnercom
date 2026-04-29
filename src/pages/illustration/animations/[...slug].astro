@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Animation from '@components/animation.astro';
 import PageTitle from '@components/PageTitle.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { ArrowLeft } from 'lucide-astro';
 
 export async function getStaticPaths() {
   const animations = await getCollection('animations');
@@ -52,7 +53,7 @@ const videoStructuredData = {
     <a
       href="/illustration/animations/"
       class="text-accent flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
-      ><wa-icon family="lucide" name="arrow-left" class="w-4 h-4" />
+      ><ArrowLeft size={16} aria-hidden="true" />
       Back to animations</a
     >
   </div>
@@ -61,7 +62,7 @@ const videoStructuredData = {
     <Animation embedId={animation.data.embedId} title={animation.data.title} watchMode />
   </main>
 
-  <wa-divider></wa-divider>
+  <hr class="my-8 border-slate-300 dark:border-slate-700" />
 
   <nav class="flex justify-between p-3 gap-8 text-accent" aria-label="Animation navigation">
     {prev?.data?.slug ? (

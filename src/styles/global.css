@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@plugin "daisyui" {
+  themes: false;
+}
 @config "../../tailwind.config.mjs";
 
 @custom-variant dark (&:where(
@@ -12,12 +15,69 @@
   --font-family-fira-sans: var(--font-fira-sans);
 }
 
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: rgb(255 247 237);
+  --color-base-200: rgb(255 237 213);
+  --color-base-300: rgb(254 215 170);
+  --color-base-content: rgb(28 25 23);
+  --color-primary: #f76942;
+  --color-primary-content: rgb(255 247 237);
+  --color-secondary: #ffa8a3;
+  --color-secondary-content: rgb(67 20 7);
+  --color-accent: #f76942;
+  --color-accent-content: rgb(255 247 237);
+  --color-neutral: rgb(120 53 15);
+  --color-neutral-content: rgb(255 247 237);
+  --color-info: rgb(2 132 199);
+  --color-success: rgb(22 163 74);
+  --color-warning: rgb(217 119 6);
+  --color-error: rgb(220 38 38);
+  --radius-selector: 0.375rem;
+  --radius-field: 0.375rem;
+  --radius-box: 0.5rem;
+  --border: 1px;
+}
+
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: false;
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: rgb(15 23 42);
+  --color-base-200: rgb(30 41 59);
+  --color-base-300: rgb(51 65 85);
+  --color-base-content: rgb(241 245 249);
+  --color-primary: #97cdff;
+  --color-primary-content: rgb(8 47 73);
+  --color-secondary: #b7a5ff;
+  --color-secondary-content: rgb(30 27 75);
+  --color-accent: #97cdff;
+  --color-accent-content: rgb(8 47 73);
+  --color-neutral: rgb(15 23 42);
+  --color-neutral-content: rgb(226 232 240);
+  --color-info: rgb(125 211 252);
+  --color-success: rgb(74 222 128);
+  --color-warning: rgb(251 191 36);
+  --color-error: rgb(248 113 113);
+  --radius-selector: 0.375rem;
+  --radius-field: 0.375rem;
+  --radius-box: 0.5rem;
+  --border: 1px;
+}
+
 /* Custom theme tokens */
 @theme {
   --tw-prose-invert-links: var(--color-accent);
 
   /* Custom colors - will be overridden by dark mode */
-  --color-primary: black;
+  --color-foreground: black;
+  --color-surface-muted: rgb(255 237 213); /* orange-100 */
   --color-accent: #f76942;
   --color-brand-100: #ffe5a3;
   --color-brand-200: #ffcba5;
@@ -40,25 +100,9 @@ body {
   text-rendering: optimizeSpeed;
 }
 
-/* reserve space for web awesome components before they're defined */
-wa-animation {
-  display: inline-block;
-  min-width: 1em;
-  min-height: 1em;
-  /* ensure animations use composited properties */
-  will-change: transform;
-  transform: translateZ(0); /* force GPU acceleration */
-}
-
-/* drawers should be out of normal flow to prevent layout shifts */
-wa-drawer {
-  position: fixed !important;
-  contain: layout style paint;
-}
-
 /* Light mode (default) */
 [data-color-mode="light"] {
-  --color-primary: black;
+  --color-foreground: black;
   --color-accent: #f76942;
   --color-brand-100: #ffe5a3;
   --color-brand-200: #ffcba5;
@@ -69,22 +113,14 @@ wa-drawer {
     0 0 0 1px hsla(10, 60%, 60%, 0.05), 0 0.3px 0.4px hsla(10, 60%, 60%, 0.02),
     0 0.9px 1.5px hsla(10, 60%, 60%, 0.045),
     0 3.5px 6px hsla(10, 60%, 60%, 0.09);
-
-  --wa-color-surface-default: rgb(255 247 237); /* orange-50 */
-  --wa-color-surface-raised: rgb(255 237 213); /* orange-100 */
-  --wa-color-neutral-fill-normal: rgb(254 215 170); /* orange-200 */
-  --wa-color-text-normal: black;
-  --wa-color-neutral-on-normal: rgb(15 23 42); /* slate-900 */
-  --wa-color-surface-border: rgb(254 215 170); /* orange-200 */
-  --wa-color-neutral-fill-loud: rgb(255 228 230); /* rose-100 */
-  --wa-color-neutral-on-loud: var(--color-accent);
-  --color-surface-default: var(--wa-color-surface-default);
-  --color-border: var(--wa-color-surface-border);
+  --color-surface-default: rgb(255 247 237); /* orange-50 */
+  --color-surface-muted: rgb(255 251 242); /* orange-100 */
+  --color-border: rgb(254 215 170); /* orange-200 */
 }
 
 /* Dark mode */
 [data-color-mode="dark"] {
-  --color-primary: white;
+  --color-foreground: white;
   --color-accent: #97cdff;
   --color-brand-100: #cbf6ff;
   --color-brand-200: #97cdff;
@@ -95,26 +131,15 @@ wa-drawer {
     0 0 0 1px hsla(210, 70%, 50%, 0.1), 0 0.3px 0.4px hsla(210, 70%, 50%, 0.04),
     0 0.9px 1.5px hsla(210, 70%, 50%, 0.09),
     0 3.5px 6px hsla(210, 70%, 50%, 0.18);
-
-  --wa-color-surface-default: rgb(15 23 42); /* slate-900 */
-  --wa-color-surface-raised: rgb(30 41 59); /* slate-800 */
-  --wa-color-neutral-fill-normal: rgb(51 65 85); /* slate-700 */
-  --wa-color-text-normal: white;
-  --wa-color-neutral-on-normal: rgb(226 232 240); /* slate-200 */
-  --wa-color-surface-border: rgb(51 65 85); /* slate-700 */
-  --wa-color-neutral-fill-loud: rgb(51 65 85); /* slate-700 */
-  --wa-color-neutral-on-loud: var(--color-accent);
-  --color-surface-default: var(--wa-color-surface-default);
-  --color-border: var(--wa-color-surface-border);
+  --color-surface-default: rgb(15 23 42); /* slate-900 */
+  --color-surface-muted: rgb(51 65 85); /* slate-700 */
+  --color-border: rgb(51 65 85); /* slate-700 */
 }
 
 /* Global base styles */
 @layer base {
   :root {
     font-family: var(--font-family-fira-sans);
-  }
-  :state(wa-defined) {
-    all: revert-layer;
   }
 }
 

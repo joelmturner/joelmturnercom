@@ -4,19 +4,17 @@ function getSystemTheme() {
     : 'light'
 }
 
+function applyThemeAttributes(theme) {
+  document.documentElement.setAttribute('data-color-mode', theme)
+  document.documentElement.setAttribute('data-theme', theme)
+}
+
 function updateTheme(value) {
   const systemTheme = getSystemTheme()
   const theme = value === 'system' ? systemTheme : value
 
-  // set the value on root
-  document.documentElement.setAttribute(`data-color-mode`, theme)
-
-  // set or remove wa-dark class based on theme
-  if (theme === 'dark') {
-    document.documentElement.classList.add('wa-dark')
-  } else {
-    document.documentElement.classList.remove('wa-dark')
-  }
+  // keep color mode as source of truth while mirroring a daisyUI-compatible theme
+  applyThemeAttributes(theme)
 
   // set the active class on the active mode icon in all theme switches
   document.querySelectorAll(`[data-theme-value="${value}"]`).forEach((el) => {
@@ -33,7 +31,6 @@ function updateTheme(value) {
     ?.setAttribute('src', logosByTheme[theme])
 
   localStorage.setItem('theme', value)
-  console.log('theme', theme)
 }
 
 function syncThemeUI() {

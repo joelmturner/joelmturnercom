@@ -45,9 +45,7 @@ const zineContents = await Promise.all(
           <h1 class="flex justify-center md:justify-start text-3xl md:text-4xl gap-2">
             Howdy! I'm Joel
             <div class="animation-keyframes w-8 h-8 inline-flex items-center justify-center">
-              <wa-animation easing="ease-in-out" duration="2000" play>
-                <div class="box">👋🏻</div>
-              </wa-animation>
+              <span class="wave-emoji" aria-hidden="true">👋🏻</span>
             </div>
           </h1>
 
@@ -87,15 +85,16 @@ const zineContents = await Promise.all(
             {featuredZines.map((zine) => {
               const { Content } = zineContents.find((content) => content.id === zine.id) || { Content: null };
               return (
-              <wa-card with-image with-footer class="card-overview">
+              <article class="card card-border bg-base-200 card-overview shadow-sm">
+                
                 <ZineCard zine={zine} featured />
-                <div class="prose prose-lg dark:prose-invert">
+                <div class="card-body prose prose-lg dark:prose-invert">
                     {Content && <Content components={components} />}
                 </div>
-                <div slot="footer" class="flex gap-1 items-center filter grayscale transition hover:grayscale-0">
+                <div class="card-actions p-4 pt-0 flex gap-1 items-center filter grayscale transition hover:grayscale-0">
                   <a href={`/illustration/zines/${zine.data.slug || zine.id}/`} target="_blank">See more →</a>
                 </div>
-              </wa-card>
+              </article>
             )})}
 
           </div>
@@ -109,61 +108,26 @@ const zineContents = await Promise.all(
   </div>
 </BaseLayout>
 
-<script>
-// optimize animation initialization to avoid blocking main thread
-(() => {
-  interface WAAnimation extends HTMLElement {
-    keyframes: Array<{
-      offset: number;
-      easing: string;
-      fillMode: string;
-      transformOrigin: string;
-      transform: string;
-    }>;
-  }
+<style>
+.wave-emoji {
+  display: inline-block;
+  transform-origin: 70% 70%;
+  animation: home-wave 2s ease-in-out infinite;
+  will-change: transform;
+}
 
-  function initAnimation() {
-    const animation = document.querySelector('.animation-keyframes wa-animation') as WAAnimation;
-    if (animation) {
-      // ensure animation uses composited properties (transform)
-      animation.keyframes = [
-        {
-          offset: 0,
-          easing: 'ease-in-out',
-          fillMode: 'both',
-          transformOrigin: 'center center',
-          transform: 'rotate(0deg)',
-        },
-        {
-          offset: 0.1,
-          easing: 'ease-in-out',
-          fillMode: 'both',
-          transformOrigin: 'center center',
-          transform: 'rotate(-10deg)',
-        },
-        {
-          offset: 0.5,
-          easing: 'ease-in-out',
-          fillMode: 'both',
-          transformOrigin: 'center center',
-          transform: 'rotate(45deg)',
-        },
-        {
-          offset: 1,
-          easing: 'ease-in-out',
-          fillMode: 'both',
-          transformOrigin: 'center center',
-          transform: 'rotate(0deg)',
-        },
-      ];
-    }
+@keyframes home-wave {
+  0% {
+    transform: rotate(0deg);
   }
-
-  // defer initialization to avoid blocking initial render
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAnimation);
-  } else {
-    setTimeout(initAnimation, 0);
+  10% {
+    transform: rotate(-10deg);
   }
-})();
-</script>
+  50% {
+    transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+</style>

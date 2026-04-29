@@ -15,9 +15,9 @@ const content = createSiteContent();
 
 <BaseLayout title={title} description={tags?.join(', ')}>
   <article class="prose text-xl dark:prose-invert">
-    <div class="w-full max-w-4xl mx-auto px-3 text-primary">
+    <div class="w-full max-w-4xl mx-auto px-3 text-foreground">
       <div class="py-2 line-height-1 flex flex-col gap-2">
-        <h1 class="text-primary text-4xl mb-0">{title}</h1>
+        <h1 class="text-foreground text-4xl mb-0">{title}</h1>
         <div class="flex gap-3 items-center">
           {tags.map((tag) => (
               <Badge link={content.taxonomy('tag', tag, 'til').href}>{tag}</Badge>
@@ -29,7 +29,7 @@ const content = createSiteContent();
     </div>
   </article>
 
-  <wa-divider style="--spacing: 2rem;"></wa-divider>
+  <hr class="my-8 border-slate-300 dark:border-slate-700" />
 
   <div class="flex justify-between w-2xl max-w-4xl mx-auto p-3 gap-8 text-brand-100">
     {prev && (

@@ -51,8 +51,8 @@ export default function IllustrationGallery({
           onChange={(e) => updateCollection(e.target.value as IllustrationTag)}
           aria-label="Collections"
           className={cn(
-            'rounded-md border border-border bg-surface-default px-3 py-2 cursor-pointer',
-            'text-body text-primary focus:outline-none focus:ring-border focus:ring-brand',
+            'rounded-md border border-border bg-base-100 px-3 py-2 cursor-pointer',
+            'text-body text-foreground focus:outline-none focus:ring-border focus:ring-brand',
           )}
         >
           {ILLUSTRATION_FILTER_OPTIONS.map(({ value, label }) => (
@@ -125,7 +125,7 @@ export default function IllustrationGallery({
             aria-label="Close lightbox"
             className={cn(
               'absolute top-2 right-2 w-10 h-10 rounded-full',
-              'bg-surface-default text-primary flex items-center justify-center cursor-pointer pointer-events-auto hover:bg-surface-default/70',
+              'bg-base-100 text-foreground flex items-center justify-center cursor-pointer pointer-events-auto hover:bg-base-100/70',
               'focus:outline-none focus:ring-2 focus:ring-border',
             )}
           >

@@ -41,7 +41,7 @@ const imageUrlsInSetsOfTwo = zine?.data.imgUrls.reduce(
 
 const isGuestAuthor = zine.data.author !== 'Joel M Turner';
 
-const viewerHeight = featured ? '250px' : '300px';
+const viewerHeight = featured ? '280px' : '300px';
 ---
 
 <div class={combinedStyles}>
@@ -53,7 +53,7 @@ const viewerHeight = featured ? '250px' : '300px';
   >
     {imageUrlsInSetsOfTwo.map((imgUrl) => <div img-src={imgUrl[0]} back-img-src={imgUrl[1]} />)}
   </ZineViewer>
-  <div class="flex gap-2 items-center justify-between">
+  <div class={cn("flex gap-2 items-center justify-between", featured ? 'px-4 pt-2' : '')}>
     <a
       href={`/illustration/zines/${zine.data.slug || zine.id}/`}
       class="prose dark:prose-invert text-2xl"
