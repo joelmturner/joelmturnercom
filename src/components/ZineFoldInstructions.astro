@@ -1,7 +1,15 @@
 ---
 ---
 
-<wa-dialog label="Dialog" light-dismiss class="dialog-light-dismiss" without-header>
+<dialog
+  data-zine-dialog
+  class="m-auto w-full max-w-[560px] rounded-lg border border-slate-200 p-0 dark:border-slate-700 dark:bg-slate-900"
+>
+  <div class="flex justify-end p-2">
+    <button type="button" class="btn btn-ghost btn-sm" data-zine-dialog-close aria-label="Close">
+      Close
+    </button>
+  </div>
   <iframe
     class="w-full max-w-[560px] h-full min-h-[315px]"
     src="https://www.youtube.com/embed/llhMYmG0PCg?si=xfim2gsSCW7EQbXO&start=130"
@@ -18,25 +26,33 @@
     referrerpolicy="strict-origin-when-cross-origin"
     allowfullscreen
   ></iframe>
-</wa-dialog>
+</dialog>
 
-<wa-button size="small">
-  <wa-icon name="info-circle" label="How to fold the zine"></wa-icon>
+<button type="button" class="btn btn-soft btn-sm btn-accent" data-zine-dialog-open>
+  <span aria-hidden="true">i</span>
   How to fold one page zines
-</wa-button>
+</button>
 
 <script>
-const dialog = document.querySelector('wa-dialog') as HTMLDialogElement & {
-  open?: boolean;
-};
-const openButton = dialog?.nextElementSibling;
+const dialog = document.querySelector('[data-zine-dialog]');
+const openButton = document.querySelector('[data-zine-dialog-open]');
+const closeButton = document.querySelector('[data-zine-dialog-close]');
 
-openButton?.addEventListener('click', () => (dialog.open = true));
+openButton?.addEventListener('click', () => {
+  if (dialog instanceof HTMLDialogElement) {
+    dialog.showModal();
+  }
+});
+
+closeButton?.addEventListener('click', () => {
+  if (dialog instanceof HTMLDialogElement) {
+    dialog.close();
+  }
+});
 </script>
 
 <style>
-wa-dialog {
-  --spacing: 0;
-  --width: 560px;
+[data-zine-dialog]::backdrop {
+  background: rgb(15 23 42 / 0.55);
 }
 </style>

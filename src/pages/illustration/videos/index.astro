@@ -4,6 +4,7 @@ import LinkButton from '@components/LinkButton.astro';
 import PageTitle from '@components/PageTitle.astro';
 import Video from '@components/Video.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { ArrowLeft } from 'lucide-astro';
 
 const videos = await getCollection('video');
 
@@ -57,8 +58,8 @@ const videoStructuredData = {
   />
   <div class="flex justify-between items-center mb-8">
     <PageTitle title="Illustration videos" />
-    <LinkButton href="/illustration/"
-      ><wa-icon family="lucide" name="arrow-left" class="w-4 h-4" />
+    <LinkButton href="/illustration/" class="flex gap-2 items-center"
+      ><ArrowLeft size={16} aria-hidden="true" />
       Back to Illustrations</LinkButton
     >
   </div>

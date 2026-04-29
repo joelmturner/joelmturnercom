@@ -102,17 +102,21 @@ import ThemeSwitch from './ThemeSwitch.astro';
   </nav>
 </header>
 
-<wa-drawer data-nav-drawer-content class="hidden">
-  <button
-    slot="header"
-    type="button"
-    data-drawer="close"
-    class="btn btn-ghost btn-sm ml-auto"
-    aria-label="Close navigation menu"
-  >
-    <X size={16} aria-hidden="true" />
-  </button>
-  <div class="flex flex-col gap-2 md:hidden">
+<dialog
+  data-nav-drawer-content
+  class="mobile-nav-drawer m-0 ml-auto h-full w-full max-w-sm border-0 bg-orange-50 p-0 text-black dark:bg-slate-900 dark:text-white"
+>
+  <div class="mobile-nav-drawer__header">
+    <button
+      type="button"
+      data-drawer="close"
+      class="btn btn-ghost btn-sm ml-auto"
+      aria-label="Close navigation menu"
+    >
+      <X size={16} aria-hidden="true" />
+    </button>
+  </div>
+  <div class="flex flex-col gap-2 p-4 md:hidden">
     <ul class="font-medium text-xl flex flex-col gap-1">
       {NAV_LINKS.map(link =>
           link.children ? (
@@ -149,16 +153,16 @@ import ThemeSwitch from './ThemeSwitch.astro';
       <div class="flex mx-auto w-3/4"><ThemeSwitch /></div>
     </ul>
   </div>
-</wa-drawer>
+</dialog>
 
 <style>
-::part(header) {
+.mobile-nav-drawer__header {
   border-top: 6px solid var(--color-brand-100);
+  padding: 1rem;
+  display: flex;
 }
-::part(close-button) {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+.mobile-nav-drawer::backdrop {
+  background: rgb(15 23 42 / 0.55);
 }
 </style>
 
@@ -166,16 +170,20 @@ import ThemeSwitch from './ThemeSwitch.astro';
 // set up drawer event listener on each page load
 // using is:inline ensures this runs immediately when the page loads
 (() => {
+  /** @type {HTMLDialogElement | null} */
   const drawer = document.querySelector('[data-nav-drawer-content]');
   const openButton = document.querySelector('[data-nav-drawer-trigger]');
+  const closeButton = document.querySelector('[data-drawer="close"]');
 
   if (openButton && drawer) {
     openButton.addEventListener('click', () => {
-      if (drawer && 'open' in drawer) {
-        drawer.open = true;
-        drawer.classList.remove('hidden');
-        drawer.classList.add('block');
-      }
+      if (!drawer.open) drawer.showModal();
+    });
+  }
+
+  if (closeButton && drawer) {
+    closeButton.addEventListener('click', () => {
+      drawer.close();
     });
   }
 })();
