@@ -32,3 +32,4 @@ styled-system/
 .history/
 .cache/
 .frontmatter
+.claude/worktrees
