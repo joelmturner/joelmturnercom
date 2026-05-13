@@ -12,6 +12,30 @@ import { SITE_TITLE } from '@lib/site';
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const featuredPost = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())[0];
 
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE_TITLE,
+  url: 'https://joelmturner.com',
+  sameAs: [
+    'https://bsky.app/profile/joelmturner.com',
+    'https://www.instagram.com/joelmturner/',
+    'https://www.linkedin.com/in/joelmturner',
+    'https://github.com/joelmturner',
+  ],
+  jobTitle: 'Senior Product Engineer',
+  worksFor: { '@type': 'Organization', name: 'Copilot CRM' },
+  description: 'Web developer and illustrator based in Portland, Oregon.',
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE_TITLE,
+  url: 'https://joelmturner.com',
+  author: { '@type': 'Person', name: SITE_TITLE },
+};
+
 const allZines = await getCollection('zines');
 const featuredZines = allZines
   .filter(({ data }) => data.featured)
@@ -24,7 +48,9 @@ const zineContents = await Promise.all(
 );
 ---
 
-<BaseLayout title={SITE_TITLE}>
+<BaseLayout title="Web Developer & Digital Adventurer">
+  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(personSchema, null, 0)} />
+  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(websiteSchema, null, 0)} />
   <div class="flex flex-col gap-9 md:gap-20">
     <section>
       <div class="flex gap-8 pt-12 md:pt-24 items-center flex-col md:flex-row">
@@ -42,8 +68,8 @@ const zineContents = await Promise.all(
         </div>
 
         <div class="prose prose-lg dark:prose-invert flex-1">
-          <h1 class="flex justify-center md:justify-start text-3xl md:text-4xl gap-2">
-            Howdy! I'm Joel
+          <h1 class="flex justify-center md:justify-start text-3xl md:text-4xl gap-2 flex-wrap">
+            Hi, I'm Joel — Web Developer & Illustrator
             <div class="animation-keyframes w-8 h-8 inline-flex items-center justify-center">
               <span class="wave-emoji" aria-hidden="true">👋🏻</span>
             </div>
