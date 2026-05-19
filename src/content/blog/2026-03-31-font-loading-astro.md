@@ -9,6 +9,8 @@ tags:
   - optimization
   - fonts
 slug: astro-font-loading
+relatedPosts:
+  - astro-font-optimization
 video.youtubeId: ""
 cover: https://res.cloudinary.com/joelmturner/image/upload/v1777391038/astro_font_optimization_part_2_f0s49c.jpg
 ---

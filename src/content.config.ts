@@ -24,6 +24,9 @@ const blog = defineCollection({
         uploadDate: z.coerce.date().optional(),
       })
       .optional(),
+    relatedPosts: z.array(z.string()).optional(),
+    series: z.string().optional(),
+    seriesOrder: z.number().optional(),
   }),
 })
 
