@@ -40,7 +40,17 @@ Path aliases: `@components/*`, `@layouts/*`, `@lib/*` (see `tsconfig.json`).
 ## Environment
 
 - **`PUBLIC_CLOUDINARY_CLOUD_NAME`** — public Cloudinary cloud name (gallery and image URLs). Fallback in code may use `joelmturner` when unset.
+- **`SENTRY_DSN`**, **`SENTRY_AUTH_TOKEN`** — Sentry (see `astro.config.mjs`).
 - Add other `PUBLIC_*` or secrets as needed for integrations; see Astro docs for `import.meta.env`.
+
+## Worktrees (bare repo layout)
+
+This project may live in a **bare + worktrees** collection (sibling folders: `.bare/`, `main/`, feature worktrees).
+
+- **Canonical secrets** live at the **collection root** (parent of this worktree): `../.env` and optionally `../.env.production`. They are not committed.
+- Copy [`/.env.example`](.env.example) to `../.env` on first setup, then edit.
+- New worktrees: from the collection root, `git worktree add <path> <branch>`. Husky `post-checkout` runs [`scripts/bootstrap-worktree.sh`](scripts/bootstrap-worktree.sh), which symlinks `../.env` and `node_modules` from `main/` into the new worktree.
+- Re-run manually if needed: `sh scripts/bootstrap-worktree.sh` from any worktree directory.
 
 ## Conventions
 

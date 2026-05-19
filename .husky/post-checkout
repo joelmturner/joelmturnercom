@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+# only on branch checkout (not file checkout)
+[ "$3" = "1" ] || exit 0
+. "$(dirname "$0")/../scripts/bootstrap-worktree.sh"
