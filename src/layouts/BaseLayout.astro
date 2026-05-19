@@ -12,6 +12,8 @@ type OpenGraphArticle = {
 
 type Props = {
   title?: string;
+  /** when true, use title as the full document title (no "| SITE_TITLE" suffix) */
+  titleFull?: boolean;
   description?: string;
   image?: string;
   /** e.g. "noindex, follow" for tag archives */
@@ -20,7 +22,8 @@ type Props = {
   openGraphArticle?: OpenGraphArticle;
 };
 
-const { title, description, image, robots, openGraphArticle }: Props = Astro.props;
+const { title, titleFull, description, image, robots, openGraphArticle }: Props =
+  Astro.props;
 ---
 
 <!doctype html>
@@ -33,6 +36,7 @@ const { title, description, image, robots, openGraphArticle }: Props = Astro.pro
   <head>
     <BaseHead
       title={title}
+      titleFull={titleFull}
       description={description}
       image={image}
       robots={robots}

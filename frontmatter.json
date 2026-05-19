@@ -11,6 +11,10 @@
     {
       "title": "til",
       "path": "[[workspace]]/src/content/til"
+    },
+    {
+      "title": "zines",
+      "path": "[[workspace]]/src/content/zines"
     }
   ],
   "frontMatter.taxonomy.contentTypes": [
@@ -53,7 +57,7 @@
         },
         {
           "title": "Category",
-          "name": "category",
+          "name": "categories",
           "required": true,
           "type": "categories",
           "singleValueAsString": true,
@@ -95,7 +99,7 @@
         },
         {
           "title": "Category",
-          "name": "category",
+          "name": "categories",
           "type": "categories",
           "singleValueAsString": true,
           "taxonomyLimit": 1,
@@ -109,5 +113,5 @@
       ]
     }
   ],
-  "frontMatter.framework.startCommand": "yarn dev"
+  "frontMatter.framework.startCommand": "pnpm dev"
 }

@@ -7,7 +7,7 @@ import PostCard from '@components/PostCard.astro';
 import ProjectGrid from '@components/ProjectGrid.astro';
 import ZineCard from '@components/ZineCard.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { SITE_TITLE } from '@lib/site';
+import { HOME_OG_IMAGE, HOME_TITLE, SITE_DESCRIPTION, SITE_TITLE } from '@lib/site';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const featuredPost = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())[0];
@@ -25,7 +25,7 @@ const personSchema = {
   ],
   jobTitle: 'Senior Product Engineer',
   worksFor: { '@type': 'Organization', name: 'Copilot CRM' },
-  description: 'Web developer and illustrator based in Portland, Oregon.',
+  description: SITE_DESCRIPTION,
 };
 
 const websiteSchema = {
@@ -33,6 +33,7 @@ const websiteSchema = {
   '@type': 'WebSite',
   name: SITE_TITLE,
   url: 'https://joelmturner.com',
+  description: SITE_DESCRIPTION,
   author: { '@type': 'Person', name: SITE_TITLE },
 };
 
@@ -48,7 +49,12 @@ const zineContents = await Promise.all(
 );
 ---
 
-<BaseLayout title="Web Developer & Digital Adventurer">
+<BaseLayout
+  title={HOME_TITLE}
+  titleFull
+  description={SITE_DESCRIPTION}
+  image={HOME_OG_IMAGE}
+>
   <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(personSchema, null, 0)} />
   <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(websiteSchema, null, 0)} />
   <div class="flex flex-col gap-9 md:gap-20">
@@ -74,6 +80,15 @@ const zineContents = await Promise.all(
               <span class="wave-emoji" aria-hidden="true">👋🏻</span>
             </div>
           </h1>
+
+          <p class="text-base text-prose-caption not-prose mt-0 mb-4 text-center md:text-left">
+            Explore:{' '}
+            <LinkButton href="/blog/">Blog</LinkButton>
+            {' · '}
+            <LinkButton href="/illustration/">Illustration</LinkButton>
+            {' · '}
+            <LinkButton href="/til/">TIL</LinkButton>
+          </p>
 
           <p>
             Hi there! I'm a <strong>web developer & digital adventurer</strong> with a background in

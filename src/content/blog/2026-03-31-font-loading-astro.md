@@ -1,5 +1,5 @@
 ---
-title: Loading Fonts in Astro
+title: "Fonts in Astro: Optimize Performance of Fonts via Astro"
 description: Use Astro's first-party fonts in astro.config for local or provider fonts, variables, and fallbacks—the supported upgrade from the astro-font package.
 date: 2026-03-31
 lastmod: 2026-03-31
