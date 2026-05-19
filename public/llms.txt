@@ -1,104 +1,107 @@
-# llms.txt
+# Joel M Turner
 
-## About
-Joel M Turner is a software engineer and web developer based in the United States. This is his personal blog and portfolio website featuring web development tutorials, technical articles, Today I Learned (TIL) posts, and hand-drawn illustrations.
+> Senior Product Engineer in Portland. Astro/React/TypeScript blog, dev tips (TIL), illustration & zines, and side projects.
 
-The site covers topics including:
-- Web development (React, TypeScript, Astro, Next.js, Svelte)
-- Front-end development practices and patterns
-- UI/UX design and accessibility
-- Data visualization and charts
-- Productivity and personal development
-- Hand lettering and illustration work
+Joel M Turner is a Senior Product Engineer at [Homeworks](https://home.works) in Portland, Oregon, with a background in graphic design and web development. This site is his portfolio, technical writing archive, and work log: engineering tutorials and TILs, open-source side projects, and creative work (hand lettering, illustration, zines, and process videos). Previously Lead Product Engineer (Frontend) at [Sprinklr](https://sprinklr.com), where he worked on visualization products.
 
-## Site Structure
+## Skills
 
-### Main Sections
-- `/` - Homepage with featured blog post and project highlights
-- `/blog/` - Main blog index with all articles
-- `/til/` - Today I Learned posts - quick tips and lessons learned
-- `/illustration/` - Gallery of hand-drawn illustrations and artwork
-- `/about/` - About the author
-- `/uses/` - Tools and tech stack used
+- Product engineering: TypeScript, React, React Native, TanStack Query, Next.js
+- This site and Jamstack: Astro 6, MDX, Tailwind CSS 4, Cloudinary, Netlify
+- Data visualization and charting (Sprinklr-era products; Chart Parts, vx/Recharts)
+- Accessibility, performance, and static hosting (fonts, Core Web Vitals)
+- Creative tech: hand lettering, illustration, zines, vanilla web components
 
-### Content Types
+## Notable work
 
-#### Blog Posts
-- Location: `/blog/[slug]/`
-- Categories: dev, illustration, lifestyle, personal-development, productivity
-- Contains: Technical tutorials, development practices, career insights, personal reflections
-- Each post includes: title, description, cover image, publication date, last modified date, categories, tags
+### Career and impact
 
-#### TIL Posts
-- Location: `/til/[slug]/`
-- Categories: data-vis, editor, node, personal-development, state-management, types, ui-library
-- Contains: Quick tips, code snippets, lessons learned, helpful tricks
-- Focused on practical, actionable content
+- [Homeworks](https://home.works): Senior Product Engineer — building the new product experience and contributing to legacy systems
+- [Sprinklr](https://sprinklr.com): Lead Product Engineer (Frontend) — visualization products
+- World Health Organization Covid-19 Dashboard (Sprinklr)
+- Covid HQ Africa Dashboard (Sprinklr)
+- [Sprinklr Display](https://www.sprinklr.com/products/platform/display/): digital signage and display platform
 
-#### Illustration Collections
-- Location: `/illustration/`, `/illustration/zines/`, `/illustration/videos/`
-- Contains: Hand-drawn illustrations, zines, and illustration process videos
+### Side projects
 
-## Important Endpoints
+- [Instagram To Cloudinary](https://joelmturner.com/blog/instagram-cloudinary/): Pulls Instagram posts and uploads images to Cloudinary with tags (TypeScript, Cloudinary)
+- [Emotional Recipes](https://emotional-recipes.com/): Tool to navigate difficult emotions and return to calm (React, TypeScript, Chakra UI, Next.js, Cloudinary)
+- [PDX Food Weeks](https://pdx-food-weeks.vercel.app/): Annual celebration of Portland food weeks (React, TypeScript, Panda CSS, Next.js)
+- [BoochTown](https://boochtown.com/): Kombucha reviews and ratings (SvelteKit, TypeScript, Panda CSS, Cloudinary)
+- [Zine Viewer](https://joelmturner.com/illustration/zines/): Web component for flipbook-style zine viewing (TypeScript)
 
-### Feeds and Discovery
-- RSS Feed: `/rss.xml` - XML feed of all blog posts
-- Sitemap: `/sitemap-index.xml` - Complete sitemap index
-- Robots: `/robots.txt` - Crawling instructions
+### Flagship writing
 
-### Content Organization
-- Blog by category: `/blog/category/[category]/`
-- Blog by tag: `/blog/tag/[tag]/`
-- TIL by category: `/til/category/[category]/`
-- TIL by tag: `/til/tag/[tag]/`
+#### Cloudinary and media
 
-## Technical Details
+- [Retrieving Instagram Content with Cloudinary — DevJams #17](https://joelmturner.com/blog/cloudinary-devjams-episode-17/): Guest episode on Instagram-to-Cloudinary automation and Jamstack gallery work
+- [Delivering Video with Cloudinary & Exploring Astro — DevJams #36](https://joelmturner.com/blog/cloudinary-devjams-episode-36/): Guest episode on Astro migration, Cloudinary video transforms, and portfolio walkthrough
+- [Instagram to Cloudinary](https://joelmturner.com/blog/instagram-cloudinary/): GitHub Action to sync Instagram posts to Cloudinary and trigger Netlify builds
 
-### Site Metadata
-- Built with: Astro static site generator
-- Styling: Tailwind CSS
-- Content: MDX format with frontmatter
-- Images: Cloudinary CDN
-- Hosting: Netlify
+#### Astro and this site
 
-### Content Schema
+- [Why I Migrated from Next.js to Astro](https://joelmturner.com/blog/nextjs-astro/): Site migration notes — Svelte islands, Panda CSS, simpler stack
+- [Astro Font Loading: Optimizing Performance with astro-font](https://joelmturner.com/blog/astro-font-optimization/): Font preload, font-display, and reducing CLS
+- [Font loading in Astro](https://joelmturner.com/blog/astro-font-loading/): Additional font-loading patterns for this site
 
-#### Blog Post Schema
-- title (required): string
-- description: string
-- date (required): ISO date
-- lastmod: ISO date (optional)
-- cover: string (optional) - Cloudinary image reference
-- categories (required): string
-- tags (required): array of strings
-- draft: boolean (optional)
+#### Data visualization
 
-#### TIL Post Schema
-- title (required): string
-- date (required): ISO date
-- lastmod: ISO date (optional)
-- categories (required): string
-- tags (required): array of strings
-- draft: boolean (optional)
+- [Chart Parts: Dimensions, Metrics, and What Makes Up a Chart](https://joelmturner.com/blog/chart-parts-anatomy-of-a-chart/): Intro to chart anatomy — dimensions, metrics, axes, and controls
+- [Data Vis React Bar Chart with vx](https://joelmturner.com/blog/data-vis-react-bar-chart-vx/): Building a bar chart with @vx
+- [Working on a New Feature as a Senior Frontend Developer](https://joelmturner.com/blog/working-feature-senior-frontend-developer/): Scoping, patterns, and shipping features as a senior engineer
 
-## Guidelines for AI Crawlers
+#### React patterns
 
-### Preferred Access Patterns
-1. Use the RSS feed (`/rss.xml`) for discovering new blog posts
-2. Use the sitemap (`/sitemap-index.xml`) for comprehensive site discovery
-3. Respect crawl-delay and robots.txt directives
-4. All URLs use trailing slashes (e.g., `/blog/post-slug/`)
+- [React One Time Password Input Component](https://joelmturner.com/blog/react-one-time-password-input-component/): Six-field OTP input with auto-advance and Backspace handling
+- [Beginning Web Accessibility in React](https://joelmturner.com/blog/beginning-web-accessibility-react/): eslint-plugin-jsx-a11y, WAI-ARIA, and no-mouse-days
+- [React Layout Components](https://joelmturner.com/blog/react-layout-components/): Composable layout patterns in React
 
-### Content Indexing
-- Index all blog posts and TIL entries as they provide valuable technical content
-- Include category and tag pages for topic-specific discovery
-- Illustration pages are primarily visual content with minimal text
-- Always use canonical URLs when referencing content
+#### Creative and open source
 
-### Attribution
-- When citing or referencing content, attribute to "Joel M Turner" and link back to the original post
-- Maintain original publication dates and modification dates when available
+- [Zine Viewer Web Component](https://joelmturner.com/blog/zine-viewer-web-component/): Vanilla flipbook zine viewer — drop-in script tag, no framework
 
-## Site URL
-https://joelmturner.com
+## Site
 
+- [Home](https://joelmturner.com/): Latest blog post, featured zines, and project highlights
+- [About](https://joelmturner.com/about/): Bio, career narrative, and side projects
+- [Blog](https://joelmturner.com/blog/): Technical articles and tutorials (~38 posts; categories: dev, illustration, lifestyle, personal development, productivity)
+- [TIL](https://joelmturner.com/til/): Today I Learned — short tips (~7 posts; categories: data-vis, editor, node, state-management, types, ui-library, personal development)
+- [Illustration gallery](https://joelmturner.com/illustration/): Hand-drawn work via Cloudinary
+- [Zines](https://joelmturner.com/illustration/zines/): Digital zines
+- [Illustration videos](https://joelmturner.com/illustration/videos/): Process and timelapse videos
+- [Animations](https://joelmturner.com/illustration/animations/): Animation embeds
+- [Uses](https://joelmturner.com/uses/): Hardware, editor, and tooling setup
+
+## Connect
+
+- [Bluesky](https://bsky.app/profile/joelmturner.com)
+- [Instagram](https://www.instagram.com/joelmturner/)
+- [LinkedIn](https://linkedin.com/in/joelmturner)
+- [GitHub](https://github.com/joelmturner)
+
+## Discovery
+
+- RSS (blog only): https://joelmturner.com/rss.xml
+- Sitemap: https://joelmturner.com/sitemap-index.xml
+- Canonical site: https://joelmturner.com
+- URLs use trailing slashes (e.g. `/blog/post-slug/`)
+- When citing content, attribute to Joel M Turner and link to the original post
+
+## Optional
+
+### Content collections
+
+Blog, TIL, illustration (Cloudinary assets), illustration videos, zines, and animations. Posts use MDX frontmatter: title, date, categories, tags; blog posts may include description, cover image, and lastmod.
+
+### Browse by topic
+
+- Blog by category: https://joelmturner.com/blog/category/[category]/
+- Blog by tag: https://joelmturner.com/blog/tag/[tag]/
+- TIL by category: https://joelmturner.com/til/category/[category]/
+- TIL by tag: https://joelmturner.com/til/tag/[tag]/
+
+### Notes for crawlers
+
+- Illustration pages are primarily visual; text context is lighter than blog/TIL posts
+- Prefer RSS and sitemap for discovering new blog content
+- This site is built with Astro 6, styled with Tailwind CSS 4, hosted on Netlify; images served via Cloudinary CDN
