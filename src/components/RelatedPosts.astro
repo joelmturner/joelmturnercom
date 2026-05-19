@@ -1,0 +1,36 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import LinkButton from '@components/LinkButton.astro';
+import { createSiteContent } from '@lib/content/siteContent';
+
+type Props = {
+  related: CollectionEntry<'blog'>[];
+};
+
+const { related } = Astro.props;
+const content = createSiteContent();
+
+if (related.length === 0) {
+  return null;
+}
+---
+
+<section class="not-prose my-8" aria-labelledby="related-reading">
+  <h2 id="related-reading" class="text-xl font-bold mb-3">Related reading</h2>
+  <ul class="flex flex-col gap-3 list-none p-0 m-0">
+    {
+      related.map((entry) => (
+        <li>
+          <LinkButton href={content.url(entry).href} class="text-left no-underline hover:underline">
+            {entry.data.title}
+          </LinkButton>
+          {entry.data.description && (
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 mb-0">
+              {entry.data.description}
+            </p>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</section>

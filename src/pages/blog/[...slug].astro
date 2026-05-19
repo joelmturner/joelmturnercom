@@ -3,25 +3,32 @@ import { type CollectionEntry, getCollection, render } from 'astro:content';
 import { components } from '@components/mdxComponents';
 import BlogPost from '@layouts/BlogPost.astro';
 import { getPostSlug, sortPostsByDateAsc } from '@lib/content/postRoutes';
+import { resolveRelatedPosts } from '@lib/content/relatedPosts';
 
 export async function getStaticPaths() {
   const posts = sortPostsByDateAsc(await getCollection('blog', ({ data }) => !data.draft));
   return posts.map((post, index) => ({
     params: { slug: getPostSlug(post) },
-    props: { post, next: posts[index + 1], prev: posts[index - 1] },
+    props: {
+      post,
+      next: posts[index + 1],
+      prev: posts[index - 1],
+      related: resolveRelatedPosts(post, posts),
+    },
   }));
 }
 type Props = {
   post: CollectionEntry<'blog'>;
   next: CollectionEntry<'blog'> | undefined;
   prev: CollectionEntry<'blog'> | undefined;
+  related: CollectionEntry<'blog'>[];
 };
 
-const { post, next, prev } = Astro.props;
+const { post, next, prev, related } = Astro.props;
 const { Content } = await render(post);
 const slug = getPostSlug(post);
 ---
 
-<BlogPost {...post.data} slug={slug} next={next} prev={prev}>
+<BlogPost {...post.data} slug={slug} next={next} prev={prev} related={related}>
   <Content components={components} />
 </BlogPost>
