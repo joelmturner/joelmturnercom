@@ -1,5 +1,7 @@
 ---
+import { Icon } from 'astro-icon/components';
 import { SOCIAL_LINKS } from '@lib/constants';
+import { RSS_FEED_PATH } from '@lib/site';
 import LinkButton from './LinkButton.astro';
 import SocialIcon from './SocialIcon.astro';
 
@@ -26,6 +28,18 @@ const today = new Date();
               <SocialIcon icon={label} />
             </a>
           ))}
+        <a
+          href={RSS_FEED_PATH}
+          class="btn btn-ghost btn-sm"
+          aria-label="RSS feed (blog)"
+          title="RSS feed (blog)"
+        >
+          <Icon
+            name="lucide:rss"
+            class="text-gray-700 dark:text-gray-300"
+            aria-hidden="true"
+          />
+        </a>
       </div>
     </div>
   </div>

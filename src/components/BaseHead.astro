@@ -1,7 +1,7 @@
 ---
 import { Font } from 'astro:assets';
 import PostHog from '@components/PostHog.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '@lib/site';
+import { RSS_FEED_PATH, SITE_DESCRIPTION, SITE_TITLE } from '@lib/site';
 import { getCldOgImageUrl } from 'astro-cloudinary/helpers';
 
 interface Props {
@@ -119,6 +119,7 @@ const resolvedTitle = title
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 <link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="alternate" type="application/rss+xml" href={RSS_FEED_PATH} />
 {robots && <meta name="robots" content={robots} />}
 
 <!-- Primary Meta Tags -->

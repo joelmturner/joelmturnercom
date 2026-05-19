@@ -1,9 +1,11 @@
 ---
 import GridLayout from '@components/GridLayout.astro';
+import LinkButton from '@components/LinkButton.astro';
 import PageTitle from '@components/PageTitle.astro';
 import PostCard from '@components/PostCard.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { createSiteContent } from '@lib/content/siteContent';
+import { RSS_FEED_PATH } from '@lib/site';
 
 const content = createSiteContent();
 const posts = await content.list('blog');
@@ -15,6 +17,9 @@ const posts = await content.list('blog');
 >
   <div class="flex flex-col gap-8">
     <PageTitle title="Blog" />
+    <p class="text-sm -mt-4">
+      <LinkButton href={RSS_FEED_PATH}>RSS feed</LinkButton>
+    </p>
     <section>
       <GridLayout>
         {posts.map((post, index) => <PostCard post={post} featured={index === 0} />)}

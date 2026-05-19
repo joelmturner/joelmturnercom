@@ -135,6 +135,7 @@ export default defineConfig({
           'instagram',
           'arrow-left',
           'menu',
+          'rss',
         ],
         ph: ['dev-to-logo'],
         local: ['bluesky'],

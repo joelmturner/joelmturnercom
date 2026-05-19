@@ -10,3 +10,5 @@ export const HOME_TITLE =
 
 /** Cloudinary public id for homepage OG/social preview */
 export const HOME_OG_IMAGE = 'joel-turner_nobg'
+
+export const RSS_FEED_PATH = '/rss.xml'
