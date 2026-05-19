@@ -49,8 +49,11 @@ This project may live in a **bare + worktrees** collection (sibling folders: `.b
 
 - **Canonical secrets** live at the **collection root** (parent of this worktree): `../.env` and optionally `../.env.production`. They are not committed.
 - Copy [`/.env.example`](.env.example) to `../.env` on first setup, then edit.
-- New worktrees: from the collection root, `git worktree add <path> <branch>`. Husky `post-checkout` runs [`scripts/bootstrap-worktree.sh`](scripts/bootstrap-worktree.sh), which symlinks `../.env` and `node_modules` from `main/` into the new worktree.
-- Re-run manually if needed: `sh scripts/bootstrap-worktree.sh` from any worktree directory.
+- New worktrees: run from **`main/`** (not the bare collection root — `git worktree add` fails there):
+  - `sh scripts/worktree-add.sh <name> -b <branch>` — preferred; runs bootstrap after add
+  - or `git worktree add ../<name> -b <branch>` then `cd ../<name> && sh scripts/bootstrap-worktree.sh`
+- Worktrees are **siblings of `main/`** at the collection root (e.g. `joelmturner/seo-tasks/`, not inside `main/`). Open the `joelmturner` folder in the editor to see them.
+- Husky `post-checkout` does not run on new worktrees until `pnpm install` creates `.husky/_`; use `worktree-add.sh` or bootstrap manually.
 
 ## Conventions
 
