@@ -1,22 +1,67 @@
 ---
-title: 'Cloudinary DevJams Episode #17'
-description: "Cloudinary DevJams podcast episode: we discuss the Instagram-to-Cloudinary pipeline, GitHub Actions, and automating image sync for static sites."
+title: 'Retrieving Instagram Content with Cloudinary — DevJams #17'
+description: "Guest on Cloudinary DevJams #17: Instagram-to-Cloudinary automation, code review, open-source Jamstack work, and gallery demos with Sam Brace and Becky Peltz."
 date: 2023-05-23
-lastmod: 2026-03-09
+lastmod: 2026-05-18
 cover: Posts/devjams-podcast-thumbnail-joel
 draft: false
 categories: dev
 tags:
-- Cloudinary
-- images
-- workflow
+  - Cloudinary
+  - images
+  - workflow
+  - Instagram
+  - Gatsby
+  - GitHub Actions
+  - open source
 slug: cloudinary-devjams-episode-17
+series: Cloudinary DevJams
+order: 0
 video:
   youtubeId: 1osFshC6E-g
+  duration: PT55M50S
+  uploadDate: 2023-05-23
 ---
-
-I recently had the privilege of being a guest on the Cloudinary DevJams podcast. We talked about my journey into tech, my Instagram to Cloudinary service (and its post), and some fun open source work.
 
 import { YouTube } from "astro-embed";
 
 <YouTube id="1osFshC6E-g" />
+
+I was a guest on [Cloudinary DevJams Episode #17](https://www.youtube.com/watch?v=1osFshC6E-g) with hosts Sam Brace and Becky Peltz. Over about an hour we walked through how I use Instagram as a lightweight CMS for illustrations, sync those posts into Cloudinary, and serve them on my blog—plus a live code review, gallery demo, and a few side topics on open source and Sprinklr work. I returned for [DevJams #36](/blog/cloudinary-devjams-episode-36) to walk through the Astro migration and Cloudinary video work.
+
+## What we covered
+
+- **Background** — from graphic design into web development, daily drawing on Instagram, and learning in public
+- **Instagram as CMS** — hashtag filtering (for example `JMT_featured`) to curate posts for the site, starting with Gatsby and `gatsby-source-instagram`, including an open-source PR for hashtag support
+- **Why Cloudinary** — portable image URLs, tags for organization, and escaping Instagram API rate limits that made local dev painful
+- **Automation** — the [instagram-cloudinary](https://github.com/joelmturner/instagram-cloudinary) Node script, GitHub Actions on a schedule, Upload API, and Netlify build triggers
+- **Code review** — repo walkthrough with Becky and Sam (TypeScript, Axios, Instagram Graph API, Cloudinary folders and public IDs)
+- **Live galleries** — how synced images show up on the deployed blog
+- **Other work** — brief look at Sprinklr projects, including the WHO Coronavirus dashboard
+- **Takeaways** — hosts recap why moving social images into Cloudinary simplifies delivery and caching
+
+## Related write-up and code
+
+The episode points to the longer tutorial on this site:
+
+- [DevJams #36 — Delivering Video with Cloudinary, and Exploring Astro](/blog/cloudinary-devjams-episode-36) — follow-up episode on the Astro migration and Cloudinary video
+- [Instagram to Cloudinary](/blog/instagram-cloudinary) — step-by-step setup for the sync pipeline
+- [instagram-cloudinary on GitHub](https://github.com/joelmturner/instagram-cloudinary) — the script and GitHub Action from the demo
+
+## Technologies mentioned
+
+- Gatsby and [gatsby-source-instagram](https://www.gatsbyjs.com/plugins/gatsby-source-instagram/)
+- TypeScript, dotenv, Axios, Instagram Graph API
+- GitHub Actions, Netlify
+- Cloudinary Upload API, public IDs, folders, tags, and Search API
+- Next.js (my blog was on Next.js at the time of recording; it has since moved to Astro)
+
+## Episode timestamps
+
+- **0:00** — Episode introduction
+- **4:31** — Guest introduction
+- **8:24** — How I share Instagram posts on the blog
+- **16:39** — Code review
+- **33:58** — Deployed galleries on the blog
+- **44:03** — Other Sprinklr projects (WHO Coronavirus dashboard)
+- **49:47** — Key takeaways

@@ -1,0 +1,76 @@
+---
+title: 'Delivering Video with Cloudinary & Exploring Astro'
+description: "Guest on Cloudinary DevJams #36: Astro migration, Cloudinary video and cover transforms, Lambda builds, and a portfolio walkthrough with Sam Brace and Jen Brissman."
+date: 2026-05-18
+lastmod: 2026-05-18
+cover: Posts/cloudinary-devjams-36-joel-turner_eqntmh
+draft: false
+categories: dev
+tags:
+  - Cloudinary
+  - Astro
+  - video
+  - open source
+slug: cloudinary-devjams-episode-36
+series: Cloudinary DevJams
+order: 1
+video:
+  youtubeId: o87aIvBhI6A
+  duration: PT48M28S
+---
+
+import { YouTube } from "astro-embed";
+
+<YouTube id="o87aIvBhI6A" />
+
+I was a guest again on [Cloudinary DevJams Episode #36](https://www.youtube.com/watch?v=o87aIvBhI6A) with hosts Sam Brace and Jen Brissman. This time we revisited my portfolio site since [DevJams #17](/blog/cloudinary-devjams-episode-17)-walking through the move from Next.js to Astro, experimenting with Cloudinary video delivery, cover-image transformations, and a few supporting pieces like Val.town and AWS Lambda.
+
+## What we covered
+
+- **Astro migration** - why Astro fits blogs and portfolios (static by default, content collections, islands) compared to Next.js for this site; see also [Why I Migrated from Next.js to Astro](/blog/nextjs-astro)
+- **Cloudinary in Astro** - integrating images with `astro-cloudinary`, transformations for cover art, and responsive delivery across devices
+- **Cloudinary video** - experimenting with the video player for illustration content on the site
+- **Cover images** - generating and cropping blog covers with Cloudinary transformations
+- **Instagram → Cloudinary recap** - the existing [instagram-cloudinary](https://github.com/joelmturner/instagram-cloudinary) workflow and how it still feeds the illustration gallery
+- **Val.town** - small serverless functions for side experiments
+- **AWS Lambda** - triggering site builds when content updates
+- **Open source and community** - sharing work on GitHub and contributing back to the Jamstack ecosystem
+
+## Related on this site
+
+- [DevJams #17 - Retrieving Instagram Content with Cloudinary](/blog/cloudinary-devjams-episode-17) - first appearance on the show (Instagram sync and code review)
+- [Why I Migrated from Next.js to Astro](/blog/nextjs-astro) - deeper write-up on the framework switch
+- [Instagram to Cloudinary](/blog/instagram-cloudinary) - step-by-step setup for the sync pipeline
+
+## Resources from the show
+
+- [joelmturner/joelmturnercom on GitHub](https://github.com/joelmturner/joelmturnercom) - site source from the walkthrough
+- [Illustration gallery](https://joelmturner.com/illustration) - synced Instagram work on the live site
+- [Val Town](https://www.val.town/) - serverless functions mentioned in the episode
+
+## Technologies mentioned
+
+- Astro, MDX, and content collections
+- Cloudinary (images, video player, transformations, Upload API)
+- AWS Lambda and Netlify builds
+- Val.town
+- TypeScript; Instagram Graph API and [instagram-cloudinary](https://github.com/joelmturner/instagram-cloudinary) (unchanged from the earlier episode)
+
+## Episode timestamps
+
+- **0:00** - Introduction to DevJams
+- **0:41** - Meet Joel Turner: Senior Product Engineer at Sprinklr
+- **1:51** - Exploring Astro: A New Framework
+- **3:15** - Cloudinary and Community Engagement
+- **5:10** - Joel's Journey: From WordPress to Astro
+- **10:52** - Astro's Unique Features and Benefits
+- **15:55** - Integrating Cloudinary with Astro
+- **19:44** - Experimenting with Cloudinary Video
+- **25:22** - Exploring Astro Image Component
+- **26:38** - Introduction to Val.town Functions
+- **27:32** - Automating Instagram to Cloudinary Workflow
+- **28:52** - Using AWS Lambda for Website Updates
+- **31:47** - Generating Dynamic Cover Images with Cloudinary
+- **34:55** - Open Source and Community Contributions
+- **36:39** - Optimizing Images for Different Devices
+- **42:02** - Final Thoughts and Future Plans
