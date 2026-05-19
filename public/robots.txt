@@ -7,3 +7,6 @@ Host: https://joelmturner.com
 
 # Sitemaps
 Sitemap: https://joelmturner.com/sitemap-index.xml
+
+# LLMs
+LLM summary: https://joelmturner.com/llms.txt
