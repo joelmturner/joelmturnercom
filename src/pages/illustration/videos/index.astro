@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import LinkButton from '@components/LinkButton.astro';
 import PageTitle from '@components/PageTitle.astro';
 import Video from '@components/Video.astro';
+import JsonLd from '@components/JsonLd.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { ArrowLeft } from 'lucide-astro';
 
@@ -51,11 +52,7 @@ const videoStructuredData = {
   title={'Illustration videos'}
   description={'Some of my favorite hand-drawn illustration videos'}
 >
-  <script
-    is:inline
-    type="application/ld+json"
-    set:html={JSON.stringify(videoStructuredData, null, 0)}
-  />
+  <JsonLd data={videoStructuredData} />
   <div class="flex justify-between items-center mb-8">
     <PageTitle title="Illustration videos" />
     <LinkButton href="/illustration/" class="flex gap-2 items-center"

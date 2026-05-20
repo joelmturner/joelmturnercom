@@ -1,19 +1,40 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import Badge from '@components/Badge.astro';
+import JsonLd from '@components/JsonLd.astro';
 import { createSiteContent } from '@lib/content/siteContent';
+import { articlePostingSchema } from '@lib/seo/jsonLd';
 import BaseLayout from './BaseLayout.astro';
 
 type Props = CollectionEntry<'til'>['data'] & {
   next?: CollectionEntry<'til'>;
   prev?: CollectionEntry<'til'>;
+  slug?: string;
 };
 
-const { title, next, prev, tags } = Astro.props;
+const { title, date, lastmod, next, prev, tags, categories, slug } = Astro.props;
 const content = createSiteContent();
+
+if (!slug) {
+  throw new Error('TilPost component requires a slug prop');
+}
+
+const structuredData = articlePostingSchema({
+  site: Astro.site,
+  collectionPath: '/til/',
+  schemaType: 'Article',
+  slug,
+  title,
+  description: tags?.join(', ') ?? '',
+  date,
+  lastmod,
+  tags,
+  categories,
+});
 ---
 
 <BaseLayout title={title} description={tags?.join(', ')}>
+  <JsonLd data={structuredData} />
   <article class="prose text-xl dark:prose-invert">
     <div class="w-full max-w-4xl mx-auto px-3 text-foreground">
       <div class="py-2 line-height-1 flex flex-col gap-2">

@@ -19,6 +19,9 @@ type Props = {
 
 const { post, next, prev } = Astro.props;
 const { Content } = await render(post);
+const slug = getPostSlug(post);
 ---
 
-<TilPost {...post.data} next={next} prev={prev}> <Content components={components} /> </TilPost>
+<TilPost {...post.data} slug={slug} next={next} prev={prev}>
+  <Content components={components} />
+</TilPost>

@@ -4,6 +4,7 @@ import Animation from '@components/animation.astro';
 import GridLayout from '@components/GridLayout.astro';
 import LinkButton from '@components/LinkButton.astro';
 import PageTitle from '@components/PageTitle.astro';
+import JsonLd from '@components/JsonLd.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { ArrowLeft } from 'lucide-astro';
 
@@ -36,11 +37,7 @@ const videoStructuredData = {
 ---
 
 <BaseLayout title={'Animations'} description={'Some of my favorite animations'}>
-  <script
-    is:inline
-    type="application/ld+json"
-    set:html={JSON.stringify(videoStructuredData, null, 0)}
-  />
+  <JsonLd data={videoStructuredData} />
   <div class="flex justify-between items-center mb-8">
     <PageTitle title="Animations" />
     <LinkButton href="/illustration/" class="flex gap-2 items-center"

@@ -2,11 +2,12 @@
 import type { CollectionEntry } from 'astro:content';
 import Badge from '@components/Badge.astro';
 import FormattedDate from '@components/FormattedDate.astro';
+import JsonLd from '@components/JsonLd.astro';
 import Prose from '@components/Prose.astro';
 import RelatedPosts from '@components/RelatedPosts.astro';
 import SocialIcon from '@components/SocialIcon.astro';
 import { createSiteContent } from '@lib/content/siteContent';
-import { SITE_TITLE } from '@lib/site';
+import { articlePostingSchema, youtubeVideoObjectSchema } from '@lib/seo/jsonLd';
 import { cn } from '@lib/utils';
 import { CldImage } from 'astro-cloudinary';
 import { Facebook, Linkedin, Mail } from 'lucide-astro';
@@ -36,74 +37,37 @@ const {
 
 const content = createSiteContent();
 
-// generate structured data for SEO
-// ensure slug exists to prevent errors
 if (!slug) {
   throw new Error('BlogPost component requires a slug prop');
 }
-const canonicalUrl = new URL(`/blog/${slug}/`, Astro.site);
-const imageUrl = cover
-  ? cover.startsWith('http')
-    ? cover
-    : `https://res.cloudinary.com/joelmturner/image/upload/${cover}`
-  : `${Astro.site}/favicon-32x32.png`;
 
-// generate structured data with safe defaults to prevent errors
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'BlogPosting',
-  headline: title || '',
-  url: canonicalUrl.toString(),
-  description: (description || '').substring(0, 500),
-  ...(date && { datePublished: date.toISOString() }),
-  ...(lastmod || date ? { dateModified: (lastmod || date).toISOString() } : {}),
-  author: {
-    '@type': 'Person',
-    name: SITE_TITLE,
-    url: Astro.site?.toString() || '',
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: SITE_TITLE,
-    logo: {
-      '@type': 'ImageObject',
-      url: Astro.site ? new URL('/favicon-32x32.png', Astro.site).href : '',
-    },
-  },
-  mainEntityOfPage: {
-    '@type': 'WebPage',
-    '@id': canonicalUrl.toString(),
-  },
-  ...(tags && tags.length > 0 && { keywords: tags.join(', ') }),
-  ...(categories && { articleSection: categories }),
-  ...(cover
-    ? {
-        image: {
-          '@type': 'ImageObject',
-          url: imageUrl,
-          width: 770,
-          height: 415,
-        },
-      }
-    : {
-        image: imageUrl,
-      }),
-};
+const structuredData = articlePostingSchema({
+  site: Astro.site,
+  collectionPath: '/blog/',
+  slug,
+  title,
+  description,
+  date,
+  lastmod,
+  cover,
+  tags,
+  categories,
+});
 
-// generate VideoObject structured data when video is present
 const videoStructuredData = video
-  ? {
-      '@context': 'https://schema.org',
-      '@type': 'VideoObject',
-      name: title || '',
-      description: (description || '').substring(0, 500),
-      thumbnailUrl: `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`,
-      ...(video.uploadDate || date ? { uploadDate: (video.uploadDate || date).toISOString() } : {}),
-      ...(video.duration ? { duration: video.duration } : {}),
-      embedUrl: `https://www.youtube.com/embed/${video.youtubeId}`,
-      contentUrl: `https://www.youtube.com/watch?v=${video.youtubeId}`,
-    }
+  ? youtubeVideoObjectSchema({
+      title,
+      description,
+      youtubeId: video.youtubeId,
+      date,
+      uploadDate: video.uploadDate,
+      duration: video.duration,
+    })
   : null;
+
+const jsonLdBlocks = videoStructuredData
+  ? [structuredData, videoStructuredData]
+  : structuredData;
 ---
 
 <BaseLayout
@@ -116,21 +80,7 @@ const videoStructuredData = video
     authorUrl: Astro.site?.href,
   }}
 >
-  <!-- json-ld in head for crawlers and parity with other meta -->
-  <script
-    is:inline
-    slot="head"
-    type="application/ld+json"
-    set:html={JSON.stringify(structuredData, null, 0)}
-  />
-  {videoStructuredData && (
-      <script
-        is:inline
-        slot="head"
-        type="application/ld+json"
-        set:html={JSON.stringify(videoStructuredData, null, 0)}
-      />
-    )}
+  <JsonLd data={jsonLdBlocks} />
   <script is:inline define:vars={{ pageTitle: title, pageUrl: Astro.url.href }}>
   // defer share button initialization to avoid blocking main thread
   // use requestIdleCallback for non-critical interactivity

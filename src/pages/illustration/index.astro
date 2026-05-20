@@ -2,6 +2,7 @@
 import IllustrationGallery from '@components/illustration/IllustrationGallery';
 import LinkButton from '@components/LinkButton.astro';
 import PageTitle from '@components/PageTitle.astro';
+import JsonLd from '@components/JsonLd.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getIllustrations } from '@lib/illustrations';
 import { getCldImageUrl } from 'astro-cloudinary/helpers';
@@ -58,11 +59,7 @@ const imageGalleryStructuredData = {
   description={'Some of my favorite hand-drawn illustrations'}
   image={collections[50]?.url}
 >
-  <script
-    is:inline
-    type="application/ld+json"
-    set:html={JSON.stringify(imageGalleryStructuredData, null, 0)}
-  />
+  <JsonLd data={imageGalleryStructuredData} />
   <div class="flex justify-between items-center mb-8">
     <PageTitle title="Illustration Collections" />
 
