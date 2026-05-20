@@ -28,3 +28,4 @@ git worktree add "$WORKTREE_PATH" "$@"
 
 echo ""
 echo "worktree ready at $WORKTREE_PATH"
+echo "open with: cursor \"$WORKTREE_PATH\" --profile JMT"
