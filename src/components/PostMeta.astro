@@ -1,0 +1,47 @@
+---
+import FormattedDate from '@components/FormattedDate.astro';
+import { cn } from '@lib/utils';
+
+interface Props {
+  author: string;
+  authorUrl?: string;
+  date: Date;
+  lastmod?: Date;
+  variant?: 'default' | 'compact';
+}
+
+const { author, authorUrl, date, lastmod, variant = 'default' } = Astro.props;
+
+const showUpdated = lastmod && lastmod.getTime() > date.getTime();
+const isCompact = variant === 'compact';
+---
+
+<p
+  class={cn(
+    'text-slate-500 dark:text-slate-400',
+    isCompact ? 'text-sm not-prose' : 'text-base',
+  )}
+>
+  <span class="sr-only">Author: </span>
+  {authorUrl ? (
+    <a href={authorUrl} rel="author" class="text-accent hover:underline">
+      {author}
+    </a>
+  ) : (
+    <span>{author}</span>
+  )}
+  <span aria-hidden="true"> · </span>
+  <span>
+    Published{' '}
+    <FormattedDate date={date} />
+  </span>
+  {showUpdated && (
+    <>
+      <span aria-hidden="true"> · </span>
+      <span>
+        Updated{' '}
+        <FormattedDate date={lastmod!} />
+      </span>
+    </>
+  )}
+</p>

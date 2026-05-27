@@ -1,13 +1,14 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import Badge from '@components/Badge.astro';
-import FormattedDate from '@components/FormattedDate.astro';
+import FaqSection from '@components/FaqSection.astro';
 import JsonLd from '@components/JsonLd.astro';
+import PostMeta from '@components/PostMeta.astro';
 import Prose from '@components/Prose.astro';
 import RelatedPosts from '@components/RelatedPosts.astro';
 import SocialIcon from '@components/SocialIcon.astro';
 import { createSiteContent } from '@lib/content/siteContent';
-import { articlePostingSchema, youtubeVideoObjectSchema } from '@lib/seo/jsonLd';
+import { articlePostingSchema, faqPageSchema, youtubeVideoObjectSchema } from '@lib/seo/jsonLd';
 import { cn } from '@lib/utils';
 import { CldImage } from 'astro-cloudinary';
 import { Facebook, Linkedin, Mail } from 'lucide-astro';
@@ -33,6 +34,9 @@ const {
   related = [],
   slug,
   video,
+  author,
+  authorUrl,
+  faq,
 } = Astro.props;
 
 const content = createSiteContent();
@@ -52,6 +56,8 @@ const structuredData = articlePostingSchema({
   cover,
   tags,
   categories,
+  authorName: author,
+  authorUrl,
 });
 
 const videoStructuredData = video
@@ -65,9 +71,11 @@ const videoStructuredData = video
     })
   : null;
 
-const jsonLdBlocks = videoStructuredData
-  ? [structuredData, videoStructuredData]
-  : structuredData;
+const jsonLdBlocks = [
+  structuredData,
+  ...(videoStructuredData ? [videoStructuredData] : []),
+  ...(faq?.length ? [faqPageSchema(faq)] : []),
+];
 ---
 
 <BaseLayout
@@ -77,7 +85,7 @@ const jsonLdBlocks = videoStructuredData
   openGraphArticle={{
     publishedTime: date.toISOString(),
     modifiedTime: lastmod ? lastmod.toISOString() : undefined,
-    authorUrl: Astro.site?.href,
+    authorUrl,
   }}
 >
   <JsonLd data={jsonLdBlocks} />
@@ -174,13 +182,13 @@ const jsonLdBlocks = videoStructuredData
   </div>
 
   <div class="py-2 text-center line-height-1">
-    <div class="mb-2 text-slate-500 dark:text-slate-400">
-      {!!date && <FormattedDate date={date} />}
-      {lastmod && (
-          <div class="text-slate-500 dark:text-slate-400 font-italic">
-            Last updated on <FormattedDate date={lastmod} />
-          </div>
-        )}
+    <div class="mb-2">
+      <PostMeta
+        author={author}
+        authorUrl={authorUrl}
+        date={date}
+        lastmod={lastmod}
+      />
     </div>
     <h1 class="text-2xl lg:text-4xl">{title}</h1>
     <hr class="my-4 border-slate-700" />
@@ -188,6 +196,8 @@ const jsonLdBlocks = videoStructuredData
   <Prose>
     <article><slot /></article>
   </Prose>
+
+  {faq?.length ? <FaqSection items={faq} /> : null}
 
   <RelatedPosts related={related} />
 

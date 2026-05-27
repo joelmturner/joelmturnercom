@@ -27,6 +27,16 @@ const blog = defineCollection({
     relatedPosts: z.array(z.string()).optional(),
     series: z.string().optional(),
     seriesOrder: z.number().optional(),
+    author: z.string().default('Joel M Turner'),
+    authorUrl: z.string().default('https://joelmturner.com'),
+    faq: z
+      .array(
+        z.object({
+          question: z.string(),
+          answer: z.string(),
+        }),
+      )
+      .optional(),
   }),
 })
 
@@ -42,6 +52,12 @@ const til = defineCollection({
     categories: z.string(),
     tags: z.array(z.string()),
     slug: z.string().optional(),
+    // recommended for AI search: explicit question + one-paragraph answer
+    question: z.string().optional(),
+    summary: z.string().optional(),
+    description: z.string().optional(),
+    author: z.string().default('Joel M Turner'),
+    authorUrl: z.string().default('https://joelmturner.com'),
   }),
 })
 

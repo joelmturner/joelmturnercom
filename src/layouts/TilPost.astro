@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import Badge from '@components/Badge.astro';
 import JsonLd from '@components/JsonLd.astro';
+import PostMeta from '@components/PostMeta.astro';
 import { createSiteContent } from '@lib/content/siteContent';
 import { articlePostingSchema } from '@lib/seo/jsonLd';
 import BaseLayout from './BaseLayout.astro';
@@ -12,12 +13,29 @@ type Props = CollectionEntry<'til'>['data'] & {
   slug?: string;
 };
 
-const { title, date, lastmod, next, prev, tags, categories, slug } = Astro.props;
+const {
+  title,
+  date,
+  lastmod,
+  next,
+  prev,
+  tags,
+  categories,
+  slug,
+  question,
+  summary,
+  description,
+  author,
+  authorUrl,
+} = Astro.props;
 const content = createSiteContent();
 
 if (!slug) {
   throw new Error('TilPost component requires a slug prop');
 }
+
+const metaDescription =
+  description ?? summary ?? tags?.join(', ') ?? '';
 
 const structuredData = articlePostingSchema({
   site: Astro.site,
@@ -25,20 +43,38 @@ const structuredData = articlePostingSchema({
   schemaType: 'Article',
   slug,
   title,
-  description: tags?.join(', ') ?? '',
+  description: metaDescription,
   date,
   lastmod,
   tags,
   categories,
+  authorName: author,
+  authorUrl,
 });
 ---
 
-<BaseLayout title={title} description={tags?.join(', ')}>
+<BaseLayout title={title} description={metaDescription}>
   <JsonLd data={structuredData} />
   <article class="prose text-xl dark:prose-invert">
     <div class="w-full max-w-4xl mx-auto px-3 text-foreground">
       <div class="py-2 line-height-1 flex flex-col gap-2">
         <h1 class="text-foreground text-4xl mb-0">{title}</h1>
+        <PostMeta
+          author={author}
+          authorUrl={authorUrl}
+          date={date}
+          lastmod={lastmod}
+        />
+        {question && (
+          <h2 class="text-xl font-medium not-prose text-foreground mt-2 mb-0">
+            {question}
+          </h2>
+        )}
+        {summary && (
+          <p class="text-lg not-prose text-prose-caption leading-relaxed mt-2 mb-0">
+            {summary}
+          </p>
+        )}
         <div class="flex gap-3 items-center">
           {tags.map((tag) => (
               <Badge link={content.taxonomy('tag', tag, 'til').href}>{tag}</Badge>

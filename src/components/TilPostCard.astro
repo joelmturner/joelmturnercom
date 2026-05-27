@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import { createSiteContent } from '@lib/content/siteContent';
 import Badge from './Badge.astro';
 import LinkButton from './LinkButton.astro';
+import PostMeta from './PostMeta.astro';
 
 type Props = {
   post: CollectionEntry<'til'>;
@@ -13,6 +14,13 @@ const content = createSiteContent();
 
 <div class="flex flex-col">
   <h3><LinkButton href={content.url(post).href}>{post.data.title}</LinkButton></h3>
+  <PostMeta
+    author={post.data.author}
+    authorUrl={post.data.authorUrl}
+    date={post.data.date}
+    lastmod={post.data.lastmod}
+    variant="compact"
+  />
   <div class="flex gap-3 items-center">
     {post.data.tags.map((tag) => (
         <Badge link={content.taxonomy('tag', tag, 'til').href}>{tag}</Badge>

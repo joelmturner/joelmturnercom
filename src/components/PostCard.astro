@@ -1,5 +1,6 @@
 ---
 import { type CollectionEntry } from 'astro:content';
+import PostMeta from '@components/PostMeta.astro';
 import { createSiteContent } from '@lib/content/siteContent';
 import { cn } from '@lib/utils';
 import { CldImage } from 'astro-cloudinary';
@@ -85,5 +86,12 @@ const combinedStyles = cn(
     >
       {post.data.title}
     </h3>
+    <PostMeta
+      author={post.data.author}
+      authorUrl={post.data.authorUrl}
+      date={post.data.date}
+      lastmod={post.data.lastmod}
+      variant="compact"
+    />
   </a>
 </div>

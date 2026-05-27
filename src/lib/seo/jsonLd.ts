@@ -27,6 +27,8 @@ export type ArticlePostingInput = {
   cover?: string
   tags?: string[]
   categories?: string
+  authorName?: string
+  authorUrl?: string
 }
 
 export function articlePostingSchema(input: ArticlePostingInput): JsonLdObject {
@@ -42,11 +44,14 @@ export function articlePostingSchema(input: ArticlePostingInput): JsonLdObject {
     cover,
     tags,
     categories,
+    authorName = SITE_TITLE,
+    authorUrl,
   } = input
 
   const canonicalUrl = new URL(`${collectionPath}${slug}/`, site)
   const fallbackImage = site ? new URL('/favicon-32x32.png', site).href : ''
   const imageUrl = cover ? resolveCloudinaryImageUrl(cover) : fallbackImage
+  const resolvedAuthorUrl = authorUrl ?? site?.toString() ?? ''
 
   return {
     '@context': SCHEMA_CONTEXT,
@@ -60,8 +65,8 @@ export function articlePostingSchema(input: ArticlePostingInput): JsonLdObject {
       : {}),
     author: {
       '@type': 'Person',
-      name: SITE_TITLE,
-      url: site?.toString() || '',
+      name: authorName,
+      url: resolvedAuthorUrl,
     },
     publisher: {
       '@type': 'Organization',
@@ -87,6 +92,26 @@ export function articlePostingSchema(input: ArticlePostingInput): JsonLdObject {
           },
         }
       : { image: imageUrl }),
+  }
+}
+
+export type FaqItem = {
+  question: string
+  answer: string
+}
+
+export function faqPageSchema(items: FaqItem[]): JsonLdObject {
+  return {
+    '@context': SCHEMA_CONTEXT,
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
   }
 }
 
@@ -132,15 +157,35 @@ export function personSchema(siteUrl = SITE_URL): JsonLdObject {
     '@type': 'Person',
     name: SITE_TITLE,
     url: siteUrl,
+    image:
+      'https://res.cloudinary.com/joelmturner/image/upload/f_auto/q_auto/c_fill,g_faces,h_400,w_400/joel-turner_nobg',
     sameAs: [
       'https://bsky.app/profile/joelmturner.com',
       'https://www.instagram.com/joelmturner/',
       'https://www.linkedin.com/in/joelmturner',
       'https://github.com/joelmturner',
+      'https://twitter.com/joelmturner',
     ],
     jobTitle: 'Senior Product Engineer',
     worksFor: { '@type': 'Organization', name: 'Homeworks' },
-    description: SITE_DESCRIPTION,
+    description:
+      'Senior Product Engineer in Portland, Oregon specializing in React, TypeScript, and Astro. Creator of dev tutorials, TIL notes, hand lettering, and zines.',
+    knowsAbout: [
+      'React',
+      'TypeScript',
+      'Astro',
+      'frontend development',
+      'web accessibility',
+      'data visualization',
+      'hand lettering',
+      'illustration',
+    ],
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Portland',
+      addressRegion: 'Oregon',
+      addressCountry: 'US',
+    },
   }
 }
 
@@ -151,6 +196,15 @@ export function websiteSchema(siteUrl = SITE_URL): JsonLdObject {
     name: SITE_TITLE,
     url: siteUrl,
     description: SITE_DESCRIPTION,
-    author: { '@type': 'Person', name: SITE_TITLE },
+    inLanguage: 'en-US',
+    author: { '@type': 'Person', name: SITE_TITLE, url: siteUrl },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: 'https://joelmturner.com/blog/?q={search_term_string}',
+      },
+      'query-input': 'required name=search_term_string',
+    },
   }
 }
