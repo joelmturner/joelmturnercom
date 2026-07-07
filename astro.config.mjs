@@ -42,11 +42,7 @@ function getContentLastmodMap() {
 
 const contentLastmodMap = getContentLastmodMap()
 
-const { SENTRY_AUTH_TOKEN, SENTRY_DSN } = loadEnv(
-  process.env.NODE_ENV,
-  process.cwd(),
-  '',
-)
+const { SENTRY_AUTH_TOKEN } = loadEnv(process.env.NODE_ENV, process.cwd(), '')
 
 /** @type {import('astro-expressive-code').AstroExpressiveCodeOptions} */
 const astroExpressiveCodeOptions = {
@@ -101,17 +97,11 @@ export default defineConfig({
     ...(process.env.NODE_ENV !== 'development'
       ? [
           sentry({
-            dsn: SENTRY_DSN,
-            sourceMapsUploadOptions: {
-              project: 'joelmturnercom',
-              org: 'joelmturnercom',
-              authToken: SENTRY_AUTH_TOKEN,
-            },
-            clientInitOptions: {
-              // defer Sentry initialization to avoid blocking page load
-              // Sentry will initialize after page load
-              beforeSend: undefined,
-            },
+            enabled: { server: false },
+            org: 'joelmturnercom',
+            project: 'joelmturnercom',
+            authToken: SENTRY_AUTH_TOKEN,
+            telemetry: false,
           }),
         ]
       : []),

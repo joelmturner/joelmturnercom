@@ -40,7 +40,7 @@ Path aliases: `@components/*`, `@layouts/*`, `@lib/*` (see `tsconfig.json`).
 ## Environment
 
 - **`PUBLIC_CLOUDINARY_CLOUD_NAME`** — public Cloudinary cloud name (gallery and image URLs). Fallback in code may use `joelmturner` when unset.
-- **`SENTRY_DSN`**, **`SENTRY_AUTH_TOKEN`** — Sentry (see `astro.config.mjs`).
+- **`PUBLIC_SENTRY_DSN`**, **`SENTRY_AUTH_TOKEN`** — Sentry (`sentry.client.config.ts` and `astro.config.mjs`).
 - Add other `PUBLIC_*` or secrets as needed for integrations; see Astro docs for `import.meta.env`.
 
 ## Worktrees (bare repo layout)

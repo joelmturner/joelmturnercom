@@ -1,4 +1,5 @@
 import { defineCollection } from 'astro:content'
+import { cloudinaryAssetSchema } from '@lib/content/cloudinaryAssetSchema'
 import { glob } from 'astro/loaders'
 import { z } from 'astro/zod'
 import { cldAssetsLoader } from 'astro-cloudinary/loaders'
@@ -69,6 +70,7 @@ const illustration = defineCollection({
     metadata: true,
     tags: true,
   }),
+  schema: cloudinaryAssetSchema,
 })
 
 const animations = defineCollection({
@@ -92,6 +94,7 @@ const video = defineCollection({
     metadata: true,
     tags: true,
   }),
+  schema: cloudinaryAssetSchema,
 })
 
 const zines = defineCollection({
