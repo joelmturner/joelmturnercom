@@ -25,7 +25,7 @@ const combinedStyles = cn(
   'transition-color transition-shadow',
   'duration-200',
   // hover states
-  'hover:[&_h4]:text-accent',
+  'hover:[&_h3]:text-accent',
   'hover:[&_img]:shadow-lg',
   'hover:[&_img]:shadow-slate-100',
   'dark:hover:[&_img]:shadow-slate-800',
@@ -34,7 +34,8 @@ const combinedStyles = cn(
 ---
 
 <div class={combinedStyles}>
-  <a href={postHref} class="prose dark:prose-invert text-2xl">
+  {/* image + title in one link; meta stays outside so author is not nested */}
+  <a href={postHref} class="prose dark:prose-invert text-2xl block">
     {post.data.cover ? (
         <CldImage
           width={featured ? 770 : 370}
@@ -86,12 +87,12 @@ const combinedStyles = cn(
     >
       {post.data.title}
     </h3>
-    <PostMeta
-      author={post.data.author}
-      authorUrl={post.data.authorUrl}
-      date={post.data.date}
-      lastmod={post.data.lastmod}
-      variant="compact"
-    />
   </a>
+  <PostMeta
+    author={post.data.author}
+    authorUrl={post.data.authorUrl}
+    date={post.data.date}
+    lastmod={post.data.lastmod}
+    variant="compact"
+  />
 </div>

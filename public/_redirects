@@ -50,7 +50,8 @@
 /api/*                 /api/:splat            200
 
 # --- guard: if it already ends with a slash, do nothing ---
-/:path/                  /:path/                 200
+/*/                  /:splat/                 200
 
 # --- enforce trailing slash (Astro has trailingSlash: "always", but this is a fallback) ---
-/:path                   /:path/                 301!
+# splat matches multi-segment paths; :path only matched a single segment
+/*                   /:splat/                 301!
