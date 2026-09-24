@@ -60,9 +60,12 @@ export function articlePostingSchema(input: ArticlePostingInput): JsonLdObject {
     url: canonicalUrl.toString(),
     description: truncateDescription(description),
     ...(date && { datePublished: date.toISOString() }),
-    ...(lastmod || date
-      ? { dateModified: (lastmod ?? date)?.toISOString() }
-      : {}),
+    // only emit dateModified when lastmod is after publish (skip migration stamps == date)
+    ...(lastmod && date && lastmod.getTime() > date.getTime()
+      ? { dateModified: lastmod.toISOString() }
+      : date
+        ? { dateModified: date.toISOString() }
+        : {}),
     author: {
       '@type': 'Person',
       name: authorName,

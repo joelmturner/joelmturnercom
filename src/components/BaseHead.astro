@@ -56,10 +56,15 @@ const ogImage = isValidURL(image)
       gravity: 'center',
     });
 
+// append cache-bust with & when the URL already has a query (e.g. Cloudinary ?_a=)
+const ogImageWithCacheBust = `${ogImage}${ogImage.includes('?') ? '&' : '?'}v=1`;
+
+const MAX_TITLE_LENGTH = 60;
+const withSuffix = title ? `${title} | ${SITE_TITLE}` : null;
 const resolvedTitle = title
-  ? titleFull
+  ? titleFull || (withSuffix && withSuffix.length > MAX_TITLE_LENGTH)
     ? title
-    : `${title} | ${SITE_TITLE}`
+    : withSuffix!
   : `${SITE_TITLE} Web Development Blog`;
 ---
 
@@ -129,8 +134,8 @@ const resolvedTitle = title
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={resolvedTitle} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={`${ogImage}?v=1`} />
-<meta property="og:image:secure_url" content={`${ogImage}?v=1`} />
+<meta property="og:image" content={ogImageWithCacheBust} />
+<meta property="og:image:secure_url" content={ogImageWithCacheBust} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 {openGraphArticle && (
@@ -156,7 +161,7 @@ const resolvedTitle = title
 <meta property="twitter:url" content={canonicalURL} />
 <meta property="twitter:title" content={resolvedTitle} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={`${ogImage}?v=1`} />
+<meta property="twitter:image" content={ogImageWithCacheBust} />
 
 <link rel="webmention" href="https://webmention.io/joelmturner.com/webmention" />
 <link rel="pingback" href="https://webmention.io/joelmturner.com/xmlrpc" />

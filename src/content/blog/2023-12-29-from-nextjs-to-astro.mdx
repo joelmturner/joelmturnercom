@@ -1,7 +1,7 @@
 ---
-title: "Why I Migrated from Next.js to Astro (Svelte Islands & Panda CSS)"
+title: "Migrating from Next.js to Astro: Svelte Islands & Panda CSS"
 date: 2023-12-29T20:13:34.472Z
-lastmod: 2023-12-29T20:13:34.470Z
+lastmod: 2026-09-24T00:00:00.000Z
 type: blog
 slug: nextjs-astro
 description: Converting my site from Next.js to Astro and Svelte, styled with Panda CSS. Notes on the migration, what stayed, and what changed for a faster, simpler stack.
@@ -47,7 +47,7 @@ I later [optimized font loading](/blog/astro-font-loading/) which helped the sit
 
 ## Islands of Interactivity with Svelte
 
-I chose [Svelte](https://svelte.dev/) for the interactive islands because of the small footprint and the joy of writing in Svelte. The main interactions in this site are on the [Illustration page](/illustration) where the user can choose a collection as well as view each image in a lightbox.
+I chose [Svelte](https://svelte.dev/) for the interactive islands because of the small footprint and the joy of writing in Svelte. The main interactions in this site are on the [Illustration page](/illustration/) where the user can choose a collection as well as view each image in a lightbox.
 
 It was smooth getting Svelte to work inside of Astro and was able to complete the feature relatively quickly. I'm still learning about Astro's routing especially in conjunction with Svelte components but I was able to get some soft routing working with the collections. Each time a collection is chosen, the route will update without navigating the window. This allows the user to copy the link to that collection but not have to go through a full page load on every collection change.
 
@@ -67,4 +67,4 @@ Overall, the experience of converting to Astro was great and I wish I had done i
 - blog pagination
 - codifying some of the styles
 
-I'll post updates along to way. If you'd like to follow along, you can follow on [X/Twitter](https://twitter.com/joelmturner) or grab the [RSS feed](http://joelmturner.com/rss.xml).
+I'll post updates along to way. If you'd like to follow along, you can follow on [X/Twitter](https://twitter.com/joelmturner) or grab the [RSS feed](/rss.xml).

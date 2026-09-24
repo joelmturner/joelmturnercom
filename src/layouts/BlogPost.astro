@@ -76,6 +76,11 @@ const jsonLdBlocks = [
   ...(videoStructuredData ? [videoStructuredData] : []),
   ...(faq?.length ? [faqPageSchema(faq)] : []),
 ];
+
+const modifiedTime =
+  lastmod && lastmod.getTime() > date.getTime()
+    ? lastmod.toISOString()
+    : undefined;
 ---
 
 <BaseLayout
@@ -84,7 +89,7 @@ const jsonLdBlocks = [
   image={cover}
   openGraphArticle={{
     publishedTime: date.toISOString(),
-    modifiedTime: lastmod ? lastmod.toISOString() : undefined,
+    modifiedTime,
     authorUrl,
   }}
 >

@@ -5,15 +5,16 @@ import PageTitle from '@components/PageTitle.astro';
 import PostCard from '@components/PostCard.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { createSiteContent } from '@lib/content/siteContent';
-import { RSS_FEED_PATH } from '@lib/site';
+import { BLOG_OG_IMAGE, BLOG_TITLE, RSS_FEED_PATH } from '@lib/site';
 
 const content = createSiteContent();
 const posts = await content.list('blog');
 ---
 
 <BaseLayout
-  title="Blog"
+  title={BLOG_TITLE}
   description="Posts on web development: Astro, React, TypeScript, performance, Cloudinary, accessibility, and front-end practices."
+  image={BLOG_OG_IMAGE}
 >
   <div class="flex flex-col gap-8">
     <PageTitle title="Blog" />
