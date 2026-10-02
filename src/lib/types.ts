@@ -29,6 +29,7 @@ export type IllustrationTag =
   | 'inktober2023'
   | 'inktober2024'
   | 'inktober2025'
+  | 'inktober2026'
   | 'joelmturner_abcs2017'
   | 'joelmturner_featured'
   | 'jmt_dorbs'

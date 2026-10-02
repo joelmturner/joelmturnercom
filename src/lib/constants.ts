@@ -76,6 +76,7 @@ export const ILLUSTRATION_FILTER_OPTIONS: {
   { value: 'inktober2023', label: 'Inktober 2023' },
   { value: 'inktober2024', label: 'Inktober 2024' },
   { value: 'inktober2025', label: 'Inktober 2025' },
+  { value: 'inktober2026', label: 'Inktober 2026' },
 ]
 
 export const NAV_LINKS: NavLink[] = [
