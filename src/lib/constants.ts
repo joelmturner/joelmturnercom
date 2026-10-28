@@ -16,7 +16,7 @@ export const PROJECTS: Project[] = [
     tech: ['typescript', 'cloudinary'],
     github: 'https://github.com/joelmturner/instagram-cloudinary',
     featured: false,
-    url: '/blog/instagram-cloudinary',
+    url: '/blog/instagram-cloudinary/',
   },
   {
     name: 'Emotional Recipes',
