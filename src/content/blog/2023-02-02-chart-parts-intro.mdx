@@ -1,6 +1,6 @@
 ---
-title: "Chart Parts: Dimensions, Metrics, and What Makes Up a Chart"
-description: "Understand dimensions vs metrics, then how field, legend, axes, and controls fit together in any chart. Intro anatomy with diagram and video—before you build or pick chart types."
+title: "Anatomy of a Chart: The Parts of a Chart, Dimensions, and Metrics"
+description: "The parts of a chart explained: dimensions vs metrics, then how the field, legend, axes and controls fit together. Anatomy of a chart with a diagram and video."
 date: 2023-02-02T07:27:30.128Z
 tags:
   - Data Visualization
@@ -9,7 +9,7 @@ tags:
   - frontend
   - ui
 categories: dev
-lastmod: 2023-02-18T07:41:31.883Z
+lastmod: 2026-10-28T00:00:00.000Z
 series: Chart Parts
 relatedPosts:
   - data-vis-react-bar-chart-vx
@@ -26,7 +26,7 @@ import { YouTube } from "astro-embed";
 
 ## Intro
 
-When building charts and chart libraries it's nice to know how all the pieces work together. Today we're going to talk a little bit about how this all works and dive into a quick anatomy of charts and and how it can be used to tell the data story.
+When building charts and chart libraries it's nice to know how all the pieces work together. Today we're going to talk a little bit about how this all works and dive into a quick anatomy of charts and how it can be used to tell the data story.
 
 ## Data
 
@@ -43,21 +43,21 @@ import CodeSandbox from "../../components/CodeSandbox.astro";
 
 ### What is a dimension?
 
-A dimension are an attribute that help categorize and add context to the data. For example, if you are analyzing social media data, the dimensions might be date, location, and user. Each dimension provides a different way of slicing and grouping the data, making it easier to understand.
+A dimension is an attribute that helps categorize and add context to the data. For example, if you are analyzing social media data, the dimensions might be date, location, and user. Each dimension provides a different way of slicing and grouping the data, making it easier to understand.
 
 ### What is a metric?
 
-A metric is a numerical value allow us to measurement different aspects of the data. For example, if you are analyzing social media data, the metrics might be total likes, average likes per day, and number of posts shared. Metrics provide the actual values that you can use to measure and compare your data.
+A metric is a numerical value that allows us to measure different aspects of the data. For example, if you are analyzing social media data, the metrics might be total likes, average likes per day, and number of posts shared. Metrics provide the actual values that you can use to measure and compare your data.
 
 ### How do dimensions and metrics work together?
 
 Dimensions and metrics work together to provide a complete picture of your data. The combination of these will allow us to organize, categorize, measure and compare our data which can give us better insights into the data.
 
-## Anatomy of a chart
+## Anatomy of a chart: the parts of a chart
 
-Let's take a quick look at the pieces that can make up a chart. Each chart varies in what it needs to tell the data story, but there are a few common pieces that are used in most charts. This diagram is a simplified version of something [Ryan Legler](https://www.linkedin.com/in/ryan-legler-b0807853) created when built initial data viz library for Sprinklr.
+Let's take a quick look at the parts that make up a chart. Each chart varies in what it needs to tell the data story, but there are a few common pieces that are used in most charts. This diagram is a simplified version of something [Ryan Legler](https://www.linkedin.com/in/ryan-legler-b0807853) created when built initial data viz library for Sprinklr.
 
-![anatomy of a chart](https://res.cloudinary.com/joelmturner/image/upload/v1675838326/Posts/anatomy_of_a_chart_diagram.png "Anatomy of a chart")
+![Anatomy of a chart diagram showing the parts of a chart: field, legend, axes and controls](https://res.cloudinary.com/joelmturner/image/upload/v1675838326/Posts/anatomy_of_a_chart_diagram.png "Anatomy of a chart")
 
 ### Field
 

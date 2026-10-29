@@ -1,6 +1,6 @@
 ---
-title: "Quick Tip: VS Code Extension Folder Location"
-description: "Quick tip: move VS Code extension data folders (e.g. Local History) into .vscode so you don't have to add them to .gitignore. Keeps workspace clean for the team."
+title: "Where Are VS Code Extensions Stored? Extension Folder Locations"
+description: "Where VS Code installs extensions on Windows, macOS and Linux, how to change the folder, and how to keep extension data like Local History out of git."
 date: 2022-07-08T05:56:36.085Z
 draft: false
 tags:
@@ -9,10 +9,38 @@ tags:
   - productivity
   - quick tip
 categories: dev
-lastmod: 2023-02-18T07:41:31.888Z
+lastmod: 2026-10-28T00:00:00.000Z
 cover: Posts/vs_code_extension_folder_location
 slug: quick-tip-code-extension-data
 ---
+
+VS Code installs extensions into an `extensions` folder inside your user's `.vscode` directory. Here's where that is on each OS, how to move it, and a tip for keeping extension data out of your project's git history.
+
+## Where VS Code stores extensions
+
+| OS | Extensions folder |
+| --- | --- |
+| Windows | `%USERPROFILE%\.vscode\extensions` |
+| macOS | `~/.vscode/extensions` |
+| Linux | `~/.vscode/extensions` |
+
+VS Code Insiders uses `.vscode-insiders/extensions` in the same places.
+
+To open the folder from VS Code, open the Command Palette and run **Extensions: Open Extensions Folder**.
+
+### Change the extensions folder
+
+Launch VS Code with the `--extensions-dir` flag to use a different location:
+
+```bash
+code --extensions-dir /path/to/extensions
+```
+
+### The .vscode folder in your project
+
+The user-level `~/.vscode` folder is different from the `.vscode` folder at the root of a project. The project folder holds workspace settings like `settings.json`, `launch.json` and `extensions.json` (recommended extensions for the team).
+
+## Keep extension data out of git
 
 VS Code is awesome and there are so many great extensions that make life easier. Some of these extensions store data in folders which are usually placed at the root of the workspace like:
 
