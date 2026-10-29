@@ -1,53 +1,141 @@
 ---
-title: "Astro Font Loading: Optimizing Performance with astro-font"
+title: "Astro Fonts: Optimize Font Loading with the Built-in Fonts API"
 date: 2024-02-04T18:43:03.477Z
-lastmod: 2025-12-19T18:43:03.476Z
-type: blog
+lastmod: 2026-10-28T00:00:00.000Z
 slug: astro-font-optimization
-description: Optimize font loading in Astro with the Astro Font package. Preload fonts, control font-display, and reduce layout shift (CLS) for better Core Web Vitals.
+description: Load custom fonts in Astro with the built-in fonts config. Local files or providers like Google and Fontsource, CSS variables, preloading, Tailwind, and astro-font.
 tags:
   - Astro
   - optimization
   - fonts
-categories: dev
+categories: 
+  - development
 cover: Posts/astro_font_optimization
-relatedPosts:
-  - astro-font-loading
 ---
 
-> **NOTE:** There is a built-in way of handling fonts in Astro using the configuration in `astro.config`. See the [Astro Font Loading](/blog/astro-font-loading/) blog post for more information.
+Astro has first-party support for loading fonts in a performant way: declare your fonts in `astro.config.mjs`, render them with the `<Font />` component, and use the CSS variable it creates. This post covers that setup, when to preload, using the fonts with Tailwind, and how it compares to the community [astro-font](https://github.com/rishi-raj-jain/astro-font) package I used before it existed.
 
-When I relaunched this site with Astro, there were some areas of improvement needed. My goal was to ship quickly and iterate on the site as I go. One of the areas that needed improvement was font loading.
+## Why font loading matters
 
-I wanted to optimize the font loading process to ensure that the site loads quickly and provides a smooth visual experience for users. This was still an open task in my list, and I was looking for a solution to optimize font loading in Astro.
+- **Performance:** fonts are often some of the largest render-critical requests on a page. Loading only what you use, from the right place, keeps pages fast.
+- **Layout shift:** a fallback font swapping to the real font can shift the page. Good fallbacks and `font-display` settings reduce Cumulative Layout Shift (CLS).
+- **SEO:** page speed and Core Web Vitals feed into search rankings and user experience.
 
-I received a pull request from [Rishi Raj Jain](https://github.com/rishi-raj-jain) that added support for [Astro Font](https://github.com/rishi-raj-jain/astro-font) and it tackled all of the issues I was facing. I was thrilled to see this pull request and immediately tested it out.
+## Add a custom font in astro.config
 
-This is a quick overview of Astro Font and how it optimizes font loading in Astro. Here is the [diff of the pull request](https://github.com/joelmturner/joelmturnercom/pull/6/files) that added Astro Font to my project.
+You can load a font from a local file or from a provider with a quick update to `astro.config.mjs`.
 
-## What is Astro Font?
+### From a local file
 
-Astro Font is a package, created by Rishi Raj Jain, that provides Astro sites with a powerful tool to optimize font loading. This optimization is helpful for maintaining fast load times and ensuring a smooth visual experience for users by preventing the common issue of layout shift caused by unoptimized font loading. The project is inspired by the [Next.js Font Optimization](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) and aims to provide similar functionality for Astro sites.
+```js title="astro.config.mjs"
+import { defineConfig, fontProviders } from "astro/config";
 
-## How Does Astro Font Optimize Font Loading?
+export default defineConfig({
+  fonts: [
+    {
+      provider: fontProviders.local(),
+      name: "SweetCandy",
+      cssVariable: "--font-sweet-candy",
+      options: {
+        variants: [
+          {
+            src: ["./src/assets/fonts/SweetCandy.woff2"],
+            weight: "normal",
+            style: "normal",
+          },
+        ],
+      },
+    },
+  ],
+});
+```
 
-Astro Font optimizes font loading in several ways:
+### From a provider (Google Fonts, Fontsource)
 
-- Preloading Fonts: It allows sites to preload their fonts, making them available as soon as the page begins to load. This preloading minimizes the time users wait to see text styled in the intended fonts, reducing perceived load times.
-- Font Display Strategy: Astro Font provides control over the font display strategy, such as swap, block, fallback, and optional. This control helps in managing how fonts are displayed before and after loading, significantly reducing layout shifts.
-- Handles CSS: Astro Font automatically handles the initial CSS for font loading, making it easy for developers to implement font optimization without needing to write custom CSS.
-- Fallback Fonts: Astro Font also handles fallback fonts, ensuring that text is displayed in a readable font while the intended font is loading. This prevents the page from displaying blank text or using a default font, improving the user experience.
+```js title="astro.config.mjs"
+import { defineConfig, fontProviders } from "astro/config";
 
-## Why is Font Optimization Important?
+export default defineConfig({
+  fonts: [
+    {
+      provider: fontProviders.fontsource(),
+      name: "Roboto",
+      cssVariable: "--font-roboto",
+    },
+  ],
+});
+```
 
-Font optimization is an important part of web development for several reasons:
+This site uses `fontProviders.google()` the same way for Fira Sans and Fira Code.
 
-- Performance: Optimized font loading can significantly reduce page load times, contributing to a better overall performance score for your website.
-- User Experience: A smooth font loading process prevents layout shifts, enhancing the user experience by ensuring that users are not distracted or disoriented by sudden changes in the page layout.
-- SEO: Page speed and user experience are factors in search engine rankings. By optimizing font loading, you can improve your site's SEO, making it more likely to rank well in search results.
+## Use the font in a layout
 
-## Conclusion
+Add the `<Font />` component to your layout's `head`.
 
-Astro already made my site incredibly fast. The addition of Astro Font is icing on the cake. **Big thank you to Rishi Raj Jain** for the submitting the PR and creating the astro-font package.
+```astro title="src/layouts/Layout.astro"
+---
+import { Font } from "astro:assets";
+---
 
-Also, the [Astro discord](https://astro.build/chat) is full of optimization nuggets and cool solutions. I highly recommend joining the community if you are interested in Astro.
+<html>
+  <head>
+    <Font cssVariable="--font-sweet-candy" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+```
+
+Any page that uses that layout can then use the CSS variable wherever it's needed.
+
+```astro title="src/pages/candyMachine.astro"
+---
+import Layout from "../layouts/Layout.astro";
+---
+<Layout>
+  <h1>In a world...</h1>
+
+  <p>The great Candy Queen has given the people a new...</p>
+
+  <style>
+  h1 {
+    font-family: var(--font-sweet-candy);
+  }
+  </style>
+</Layout>
+```
+
+## Preload fonts in Astro
+
+Preloading makes a font available as soon as the page starts loading, which helps when the font is used above the fold. The trade-off is that a preload competes with other critical requests, so only preload the fonts you need right away. Add the `preload` attribute to the `<Font />` component:
+
+```astro
+<Font cssVariable="--font-sweet-candy" preload />
+```
+
+## Use Astro fonts with Tailwind v4
+
+Tailwind v4 can use the same CSS variables in its theme.
+
+```css title="src/styles/global.css"
+@theme inline {
+  --font-family-fira-code: var(--font-fira-code);
+  --font-family-fira-sans: var(--font-fira-sans);
+}
+```
+
+## Before the built-in API: astro-font
+
+When I relaunched this site with Astro in 2024, there was no built-in font API. [Rishi Raj Jain](https://github.com/rishi-raj-jain) sent a pull request that added his [astro-font](https://github.com/rishi-raj-jain/astro-font) package, which is inspired by [Next.js font optimization](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts). Here is the [diff of that pull request](https://github.com/joelmturner/joelmturnercom/pull/6/files).
+
+astro-font handles:
+
+- **Preloading fonts** so styled text appears sooner.
+- **Font display strategy** (`swap`, `block`, `fallback`, `optional`) to control what shows while fonts load.
+- **The initial CSS** for font loading, so you don't write it by hand.
+- **Fallback fonts** so text stays readable, and layout stays stable, while the real font loads.
+
+It still works for existing sites. For new projects, prefer the built-in `fonts` config so font providers and variants stay in step with Astro releases, and you have one less dependency. Big thank you to Rishi for the PR that got this site's fonts in shape.
+
+The [Astro Discord](https://astro.build/chat) is full of optimization nuggets if you want to go further.

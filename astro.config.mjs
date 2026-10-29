@@ -80,11 +80,14 @@ export default defineConfig({
     mdx(),
     react(),
     // lastmod from content frontmatter when available (blog/til), else build time
-    // exclude tag archives (noindex) so sitemap only includes preferred URLs
+    // exclude noindex pages (tag archives, animation detail pages) so the
+    // sitemap only lists URLs we want indexed
     sitemap({
       lastmod: new Date(),
       filter: (url) =>
-        !url.includes('/blog/tag/') && !url.includes('/til/tag/'),
+        !url.includes('/blog/tag/') &&
+        !url.includes('/til/tag/') &&
+        !/\/illustration\/animations\/[^/]+\/$/.test(url),
       serialize(item) {
         const pathname = new URL(item.url).pathname
         const contentLastmod = contentLastmodMap.get(pathname)

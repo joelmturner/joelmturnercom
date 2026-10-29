@@ -41,12 +41,11 @@ Joel M Turner is a Senior Product Engineer at [Homeworks](https://home.works) in
 #### Astro and this site
 
 - [Why I Migrated from Next.js to Astro](https://joelmturner.com/blog/nextjs-astro/): Site migration notes — Svelte islands, Panda CSS, simpler stack
-- [Astro Font Loading: Optimizing Performance with astro-font](https://joelmturner.com/blog/astro-font-optimization/): Font preload, font-display, and reducing CLS
-- [Font loading in Astro](https://joelmturner.com/blog/astro-font-loading/): Additional font-loading patterns for this site
+- [Astro Fonts: Optimize Font Loading with the Built-in Fonts API](https://joelmturner.com/blog/astro-font-optimization/): Built-in fonts config, providers, preloading, Tailwind, and the older astro-font package
 
 #### Data visualization
 
-- [Chart Parts: Dimensions, Metrics, and What Makes Up a Chart](https://joelmturner.com/blog/chart-parts-anatomy-of-a-chart/): Intro to chart anatomy — dimensions, metrics, axes, and controls
+- [Anatomy of a Chart: The Parts of a Chart, Dimensions, and Metrics](https://joelmturner.com/blog/chart-parts-anatomy-of-a-chart/): Intro to chart anatomy — dimensions, metrics, axes, and controls
 - [Data Vis React Bar Chart with vx](https://joelmturner.com/blog/data-vis-react-bar-chart-vx/): Building a bar chart with @vx
 - [Working on a New Feature as a Senior Frontend Developer](https://joelmturner.com/blog/working-feature-senior-frontend-developer/): Scoping, patterns, and shipping features as a senior engineer
 

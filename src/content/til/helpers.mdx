@@ -8,10 +8,11 @@ tags:
   - node
   - memory
   - dependencies
-lastmod: 2026-05-26T00:00:00.000Z
+  - storybook
+lastmod: 2026-10-28T00:00:00.000Z
 question: How do you debug Node.js memory limits, dependency conflicts, and npm package versions?
 summary: Use targeted npm and Node commands to fix heap out-of-memory errors, inspect installed package versions, trace dependency trees, and safely clone JS templates without mutating originals. This page collects the shell one-liners and patterns I reach for most often when debugging Node projects.
-description: Node.js and npm debugging tips — heap memory fixes, dependency conflict checks, package version lookups, and template cloning patterns.
+description: Node.js and npm tips — heap memory fixes, dependency conflict checks, package version lookups, bulk-upgrading Storybook, and template cloning patterns.
 ---
 
 ## [Heap out of memory fix](https://www.npmjs.com/package/increase-memory-limit)
@@ -36,6 +37,14 @@ npm ls react-dom
 
 ```bash
 npm version prerelease --preid=alpha.1
+```
+
+## Upgrade all Storybook packages
+
+Bump every `@storybook/*` dependency in one pass so addons and core stay on matching versions, then reinstall.
+
+```bash
+npx npm-check-updates '/storybook/' -u && npm install
 ```
 
 ## Templates
