@@ -2,6 +2,7 @@
 @plugin "@tailwindcss/typography";
 @plugin "daisyui" {
   themes: false;
+  include: card, drawer, filter, menu, navbar;
 }
 @config "../../tailwind.config.mjs";
 
