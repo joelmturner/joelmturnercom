@@ -57,7 +57,7 @@ export default defineConfig({
   trailingSlash: 'always',
   // inline all stylesheets to eliminate render-blocking CSS requests
   build: {
-    inlineStylesheets: 'always', // inline all CSS to avoid render-blocking
+    inlineStylesheets: 'auto', // inline all CSS to avoid render-blocking
     assets: '_assets',
   },
   // compress HTML output
