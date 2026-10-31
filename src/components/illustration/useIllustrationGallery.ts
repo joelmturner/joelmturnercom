@@ -12,12 +12,26 @@ import {
   parseCollectionParam,
 } from './illustrationUrlParams'
 
-export function useIllustrationGallery(illustrations: IllustrationItem[]) {
-  const [selectedCollection, setSelectedCollection] =
-    useState<IllustrationTag>(COLLECTION_DEFAULT)
+type UseIllustrationGalleryOptions = {
+  collection?: IllustrationTag
+  syncUrl?: boolean
+}
+
+export function useIllustrationGallery(
+  illustrations: IllustrationItem[],
+  { collection, syncUrl = true }: UseIllustrationGalleryOptions = {},
+) {
+  const [selectedCollection, setSelectedCollection] = useState<IllustrationTag>(
+    collection ?? COLLECTION_DEFAULT,
+  )
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(0)
   const dialogRef = useRef<HTMLDialogElement>(null)
+
+  // lock filter when a fixed collection is provided
+  useEffect(() => {
+    if (collection) setSelectedCollection(collection)
+  }, [collection])
 
   const filtered = useMemo((): IllustrationItem[] => {
     return illustrations.filter((item) =>
@@ -26,14 +40,18 @@ export function useIllustrationGallery(illustrations: IllustrationItem[]) {
   }, [illustrations, selectedCollection])
 
   const syncStateFromUrl = useCallback(() => {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined' || !syncUrl) return
     const params = new URLSearchParams(window.location.search)
-    const collection = parseCollectionParam(params.get('collection'))
+    const nextCollection = collection
+      ? collection
+      : parseCollectionParam(params.get('collection'))
     const imageParam = params.get('image')
 
-    setSelectedCollection(collection)
+    setSelectedCollection(nextCollection)
 
-    const list = illustrations.filter((item) => item.tags.includes(collection))
+    const list = illustrations.filter((item) =>
+      item.tags.includes(nextCollection),
+    )
     if (imageParam && list.length > 0) {
       const idx = list.findIndex((item) => item.id === imageParam)
       if (idx !== -1) {
@@ -43,17 +61,19 @@ export function useIllustrationGallery(illustrations: IllustrationItem[]) {
       }
     }
     setLightboxOpen(false)
-  }, [illustrations])
+  }, [illustrations, syncUrl, collection])
 
   useEffect(() => {
+    if (!syncUrl) return
     syncStateFromUrl()
-  }, [syncStateFromUrl])
+  }, [syncStateFromUrl, syncUrl])
 
   useEffect(() => {
+    if (!syncUrl) return
     const handlePopState = () => syncStateFromUrl()
     window.addEventListener('popstate', handlePopState)
     return () => window.removeEventListener('popstate', handlePopState)
-  }, [syncStateFromUrl])
+  }, [syncStateFromUrl, syncUrl])
 
   useEffect(() => {
     const el = dialogRef.current
@@ -70,25 +90,31 @@ export function useIllustrationGallery(illustrations: IllustrationItem[]) {
     if (!el) return
     const handleClose = () => {
       setLightboxOpen(false)
+      if (!syncUrl) return
       const url = new URL(window.location.href)
       url.searchParams.delete('image')
       window.history.pushState({}, '', url)
     }
     el.addEventListener('close', handleClose)
     return () => el.removeEventListener('close', handleClose)
-  }, [])
+  }, [syncUrl])
 
-  const updateCollection = useCallback((collection: IllustrationTag) => {
-    setSelectedCollection(collection)
-    const url = new URL(window.location.href)
-    url.searchParams.set('collection', collection)
-    window.history.pushState({}, '', url)
-  }, [])
+  const updateCollection = useCallback(
+    (next: IllustrationTag) => {
+      setSelectedCollection(next)
+      if (!syncUrl) return
+      const url = new URL(window.location.href)
+      url.searchParams.set('collection', next)
+      window.history.pushState({}, '', url)
+    },
+    [syncUrl],
+  )
 
   const openLightbox = useCallback(
     (index: number) => {
       setLightboxIndex(index)
       setLightboxOpen(true)
+      if (!syncUrl) return
       const item = filtered[index]
       if (item) {
         const url = new URL(window.location.href)
@@ -96,19 +122,21 @@ export function useIllustrationGallery(illustrations: IllustrationItem[]) {
         window.history.pushState({}, '', url)
       }
     },
-    [filtered],
+    [filtered, syncUrl],
   )
 
   const closeLightbox = useCallback(() => {
     setLightboxOpen(false)
+    if (!syncUrl) return
     const url = new URL(window.location.href)
     url.searchParams.delete('image')
     window.history.pushState({}, '', url)
-  }, [])
+  }, [syncUrl])
 
   const commitSlideIndex = useCallback(
     (index: number) => {
       setLightboxIndex(index)
+      if (!syncUrl) return
       const item = filtered[index]
       if (!item || typeof window === 'undefined') return
       const url = new URL(window.location.href)
@@ -116,7 +144,7 @@ export function useIllustrationGallery(illustrations: IllustrationItem[]) {
       url.searchParams.set('image', item.id)
       window.history.pushState({}, '', url)
     },
-    [filtered],
+    [filtered, syncUrl],
   )
 
   const handleDialogClick = useCallback(

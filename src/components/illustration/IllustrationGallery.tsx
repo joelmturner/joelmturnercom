@@ -10,10 +10,16 @@ import { useIllustrationGallery } from './useIllustrationGallery'
 
 interface IllustrationGalleryProps {
   illustrations: IllustrationItem[]
+  showFilter?: boolean
+  collection?: IllustrationTag
+  syncUrl?: boolean
 }
 
 export default function IllustrationGallery({
   illustrations,
+  showFilter = true,
+  collection,
+  syncUrl = true,
 }: IllustrationGalleryProps) {
   const carouselRef = useRef<IllustrationLightboxCarouselHandle>(null)
   const {
@@ -27,7 +33,7 @@ export default function IllustrationGallery({
     handleDialogClick,
     lightboxOpen,
     lightboxIndex,
-  } = useIllustrationGallery(illustrations)
+  } = useIllustrationGallery(illustrations, { collection, syncUrl })
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLDialogElement>) => {
@@ -40,31 +46,37 @@ export default function IllustrationGallery({
   )
 
   return (
-    <div className={cn('flex flex-col gap-4')}>
-      <div className={cn('flex gap-2 items-center')}>
-        <label htmlFor="collection-select" className="sr-only">
-          Collections
-        </label>
-        <select
-          id="collection-select"
-          value={selectedCollection}
-          onChange={(e) => updateCollection(e.target.value as IllustrationTag)}
-          aria-label="Collections"
-          className={cn(
-            'rounded-md border border-border bg-base-100 px-3 py-2 cursor-pointer',
-            'text-body text-foreground focus:outline-none focus:ring-border focus:ring-brand',
-          )}
-        >
-          {ILLUSTRATION_FILTER_OPTIONS.map(({ value, label }) => (
-            <option key={value} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
-      </div>
+    <div className={cn('flex flex-col gap-4 not-prose')}>
+      {showFilter && (
+        <div className={cn('flex gap-2 items-center')}>
+          <label htmlFor="collection-select" className="sr-only">
+            Collections
+          </label>
+          <select
+            id="collection-select"
+            value={selectedCollection}
+            onChange={(e) =>
+              updateCollection(e.target.value as IllustrationTag)
+            }
+            aria-label="Collections"
+            className={cn(
+              'rounded-md border border-border bg-base-100 px-3 py-2 cursor-pointer',
+              'text-body text-foreground focus:outline-none focus:ring-border focus:ring-brand',
+            )}
+          >
+            {ILLUSTRATION_FILTER_OPTIONS.map(({ value, label }) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
       <div
-        className={cn('grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4')}
+        className={cn(
+          'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-start',
+        )}
       >
         {filtered.map((image: IllustrationItem, index: number) => (
           <button
@@ -72,7 +84,7 @@ export default function IllustrationGallery({
             type="button"
             onClick={() => openLightbox(index)}
             className={cn(
-              'block w-full text-left rounded-md overflow-hidden',
+              'block w-full text-left rounded-md',
               'focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2',
             )}
             aria-label={`View ${image.id}`}
@@ -81,10 +93,10 @@ export default function IllustrationGallery({
               src={image.url}
               alt={image.id}
               loading="lazy"
-              width={400}
-              height={400}
+              width={image.width}
+              height={image.height}
               className={cn(
-                'w-full h-full object-cover rounded-md cursor-pointer',
+                'w-full h-auto object-contain rounded-md cursor-pointer',
               )}
             />
           </button>

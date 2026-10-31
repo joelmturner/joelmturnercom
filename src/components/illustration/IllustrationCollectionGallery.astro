@@ -1,0 +1,23 @@
+---
+import IllustrationGallery from '@components/illustration/IllustrationGallery';
+import { getIllustrations } from '@lib/illustrations';
+import type { IllustrationTag } from '@lib/types';
+
+interface Props {
+  tag: IllustrationTag;
+}
+
+const { tag } = Astro.props;
+
+const illustrations = (await getIllustrations()).filter((item) =>
+  item.tags.includes(tag),
+);
+---
+
+<IllustrationGallery
+  illustrations={illustrations}
+  collection={tag}
+  showFilter={false}
+  syncUrl={false}
+  client:load
+/>
