@@ -97,20 +97,31 @@ const video = defineCollection({
   schema: cloudinaryAssetSchema,
 })
 
+const zineBase = {
+  title: z.string(),
+  // Transform string to Date object
+  date: z.coerce.date(),
+  lastmod: z.coerce.date().optional(),
+  slug: z.string().optional(),
+  author: z.string().default('Joel M Turner'),
+  authorUrl: z.string().default('https://joelmturner.com'),
+  pdfUrl: z.string().optional(),
+  featured: z.boolean().optional(),
+}
+
 const zines = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/zines' }),
-  schema: z.object({
-    title: z.string(),
-    // Transform string to Date object
-    date: z.coerce.date(),
-    lastmod: z.coerce.date().optional(),
-    slug: z.string().optional(),
-    imgUrls: z.array(z.string()),
-    author: z.string().default('Joel M Turner'),
-    authorUrl: z.string().default('https://joelmturner.com'),
-    pdfUrl: z.string().optional(),
-    featured: z.boolean().optional(),
-  }),
+  // exactly one of imgUrls or sheetUrl must be present
+  schema: z.xor([
+    z.object({
+      ...zineBase,
+      imgUrls: z.array(z.string()).min(1),
+    }),
+    z.object({
+      ...zineBase,
+      sheetUrl: z.string().min(1),
+    }),
+  ]),
 })
 
 export const collections = {

@@ -13,6 +13,7 @@ import { cn } from '@lib/utils';
 import { CldImage } from 'astro-cloudinary';
 import { Facebook, Linkedin, Mail } from 'lucide-astro';
 import BaseLayout from './BaseLayout.astro';
+import PostFooter from '@components/PostFooter.astro';
 
 type Props = CollectionEntry<'blog'>['data'] & {
   next?: CollectionEntry<'blog'>;
@@ -81,6 +82,15 @@ const modifiedTime =
   lastmod && lastmod.getTime() > date.getTime()
     ? lastmod.toISOString()
     : undefined;
+
+const prevLink = prev ? {
+  title: prev.data.title,
+  href: content.url(prev).href,
+} : undefined;
+const nextLink = next ? {
+  title: next.data.title,
+  href: content.url(next).href,
+} : undefined;
 ---
 
 <BaseLayout
@@ -209,64 +219,43 @@ const modifiedTime =
   <hr class="my-8 border-slate-300 dark:border-slate-700" />
 
   <section class="flex flex-col gap-3">
-    <div class="flex gap-3 items-center">
+    <div class="flex flex-wrap gap-3">
+    <div class="flex gap-3 items-center text-sm">
       Category:{" "}
       <Badge link={content.taxonomy("category", categories, "blog").href}> {categories} </Badge>
     </div>
-    <div class="flex gap-3 items-center flex-wrap">
+    <div class="flex gap-3 items-center flex-wrap text-sm">
       Tags:{" "}
       {tags.map(tag => (
           <Badge link={content.taxonomy("tag", tag, "blog").href}>{tag}</Badge>
         ))}
     </div>
-
-    <div class="flex gap-2 flex-wrap items-center">
-      <span class="text-lg font-bold">Share this post</span>
+    </div>  
+    
+    <div class="flex gap-1 flex-wrap items-center">
+      <span class="text-sm font-bold">Share:</span>
       <span class="flex items-center">
-        <button type="button" class="btn btn-ghost btn-sm" data-share="facebook">
-          <Facebook size={16} aria-label="Share on Facebook" />
-          Facebook
+        <button type="button" class="btn btn-ghost btn-xs" data-share="facebook">
+          <Facebook size={12} aria-label="Share on Facebook" />
         </button>
       </span>
       <span class="flex items-center">
-        <button type="button" class="btn btn-ghost btn-sm" data-share="bluesky">
+        <button type="button" class="btn btn-ghost btn-xs" data-share="bluesky">
           <SocialIcon icon="Bluesky" />
-          Bluesky
         </button>
       </span>
       <span class="flex items-center">
-        <button type="button" class="btn btn-ghost btn-sm" data-share="linkedin">
-          <Linkedin size={16} aria-label="Share on LinkedIn" />
-          LinkedIn
+        <button type="button" class="btn btn-ghost btn-xs" data-share="linkedin">
+          <Linkedin size={12} aria-label="Share on LinkedIn" />
         </button>
       </span>
       <span class="flex items-center">
-        <button type="button" class="btn btn-ghost btn-sm" data-share="email">
-          <Mail size={16} aria-label="Share with email" />
-          Email
+        <button type="button" class="btn btn-ghost btn-xs" data-share="email">
+          <Mail size={12} aria-label="Share with email" />
         </button>
       </span>
     </div>
 
-    <hr class="my-8 border-slate-300 dark:border-slate-700" />
-
-    <div class="flex justify-between p-3 gap-8 text-accent">
-      {prev && (
-          <a
-            href={content.url(prev).href}
-            class="flex gap-2 items-center transition-color duration-200 hover:text-brand-300 dark:hover:text-brand-400"
-          >
-            <span>{`< `}</span> {prev?.data?.title}
-          </a>
-        )}
-      {next && (
-          <a
-            href={content.url(next).href}
-            class="flex gap-2 items-center transition-color duration-200 hover:text-brand-300 dark:hover:text-brand-400"
-          >
-            {next?.data?.title} <span>{` >`}</span>
-          </a>
-        )}
-    </div>
+    <PostFooter prev={prevLink} next={nextLink} />
   </section>
 </BaseLayout>

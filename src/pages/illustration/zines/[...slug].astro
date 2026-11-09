@@ -7,6 +7,8 @@ import ZineFoldInstructions from '@components/ZineFoldInstructions.astro';
 import ZineViewer from '@components/ZineViewer.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { ArrowLeft } from 'lucide-astro';
+import { imgOrSheetUrl } from '@lib/illustrations';
+import PostFooter from '@components/PostFooter.astro';
 
 export async function getStaticPaths() {
   const zines = await getCollection('zines');
@@ -18,22 +20,21 @@ export async function getStaticPaths() {
 
 const { zine, next, prev } = Astro.props;
 const { Content } = await render(zine);
-
-const imageUrlsInSetsOfTwo = zine?.data.imgUrls.reduce(
-  (acc, imgUrl, index) => {
-    if (index % 2 === 0) {
-      acc.push([imgUrl, zine?.data.imgUrls[index + 1] || null]);
-    }
-    return acc;
-  },
-  [] as [string, string | null][]
-);
+const { ogImage, sheetUrl, imageUrlsInSetsOfTwo } = imgOrSheetUrl(zine.data);
 
 const author = zine?.data.author;
 const isGuestAuthor = author !== 'Joel M Turner';
+const prevLink = prev ? {
+  title: prev.data.title,
+  href: `/illustration/zines/${prev.data.slug}/`,
+} : undefined;
+const nextLink = next ? {
+  title: next.data.title,
+  href: `/illustration/zines/${next.data.slug}/`,
+} : undefined;
 ---
 
-<BaseLayout title={zine?.data.title} image={zine?.data.imgUrls?.[0]}>
+<BaseLayout title={zine?.data.title} image={ogImage}>
   <div class="flex justify-between items-center mb-8">
     <PageTitle title={zine?.data.title} />
     <a
@@ -43,11 +44,30 @@ const isGuestAuthor = author !== 'Joel M Turner';
       Back to zines</a
     >
   </div>
-  <ZineViewer variant="rubber-hose" height="500px" width="100%" autoplay autoplay-interval="3000">
-    {imageUrlsInSetsOfTwo.map(([imgUrl, backImgUrl]) => (
-        <div img-src={imgUrl} back-img-src={backImgUrl} />
-      ))}
-  </ZineViewer>
+  {
+    sheetUrl ? (
+      <ZineViewer
+        variant="rubber-hose"
+        height="500px"
+        width="100%"
+        autoplay
+        autoplay-interval="3000"
+        sheet={sheetUrl}
+      />
+    ) : imageUrlsInSetsOfTwo ? (
+    <ZineViewer
+        variant="rubber-hose"
+        height="500px"
+        width="100%"
+        autoplay
+        autoplay-interval="3000"
+      >
+        {imageUrlsInSetsOfTwo.map(([imgUrl, backImgUrl]) => (
+          <div img-src={imgUrl} back-img-src={backImgUrl} />
+        ))}
+      </ZineViewer>
+    ) : null
+  }
 
   <div class="flex flex-col gap-4">
     <div class="flex gap-2 justify-between items-center flex-wrap">
@@ -71,26 +91,6 @@ const isGuestAuthor = author !== 'Joel M Turner';
     <Content components={components} />
   </div>
 
-  <hr class="my-8 border-slate-300 dark:border-slate-700" />
+  <PostFooter prev={prevLink} next={nextLink} />
 
-  <div class="flex justify-between p-3 gap-8 text-accent">
-    {prev?.data?.slug ? (
-        <a
-          href={`/illustration/zines/${prev?.data?.slug}/`}
-          class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
-        >
-          <span>{`< `}</span> {prev?.data?.title}
-        </a>
-      ) : (
-        <div />
-      )}
-    {next?.data?.slug && (
-        <a
-          href={`/illustration/zines/${next?.data?.slug}/`}
-          class="flex gap-2 items-center transition-color duration-200 hover:text-brand-200"
-        >
-          {next?.data?.title} <span>{` >`}</span>
-        </a>
-      )}
-  </div>
 </BaseLayout>

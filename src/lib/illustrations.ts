@@ -20,3 +20,32 @@ export async function getIllustrations(): Promise<IllustrationItem[]> {
     }))
     .sort((a, b) => a.id.localeCompare(b.id))
 }
+
+export function imgOrSheetUrl(data: {
+  imgUrls?: string[]
+  sheetUrl?: string
+}): {
+  ogImage?: string
+  sheetUrl?: string | null
+  imageUrlsInSetsOfTwo: [string, string | null][] | null
+} {
+  const imgUrls = 'imgUrls' in data ? data.imgUrls : null
+  const sheetUrl = 'sheetUrl' in data ? data.sheetUrl : null
+  const imageUrlsInSetsOfTwo = imgUrls
+    ? imgUrls.reduce(
+        (acc, imgUrl, index) => {
+          if (index % 2 === 0) {
+            acc.push([imgUrl, imgUrls[index + 1] || null])
+          }
+          return acc
+        },
+        [] as [string, string | null][],
+      )
+    : null
+  const ogImage = imgUrls?.[0] ?? sheetUrl ?? undefined
+  return {
+    ogImage,
+    sheetUrl,
+    imageUrlsInSetsOfTwo,
+  }
+}

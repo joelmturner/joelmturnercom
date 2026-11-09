@@ -3,6 +3,7 @@ import { type CollectionEntry } from 'astro:content';
 import { cn } from '@lib/utils';
 import Badge from './Badge.astro';
 import ZineViewer from './ZineViewer.astro';
+import { imgOrSheetUrl } from '@lib/illustrations';
 
 export type Props = {
   zine: CollectionEntry<'zines'>;
@@ -29,15 +30,7 @@ const combinedStyles = cn(
   featured ? 'col-span-1 md:col-span-2' : 'col-span-1'
 );
 
-const imageUrlsInSetsOfTwo = zine?.data.imgUrls.reduce(
-  (acc, imgUrl, index) => {
-    if (index % 2 === 0) {
-      acc.push([imgUrl, zine?.data.imgUrls[index + 1] || null]);
-    }
-    return acc;
-  },
-  [] as [string, string | null][]
-);
+const { ogImage, sheetUrl, imageUrlsInSetsOfTwo } = imgOrSheetUrl(zine.data);
 
 const isGuestAuthor = zine.data.author !== 'Joel M Turner';
 
@@ -45,14 +38,28 @@ const viewerHeight = featured ? '280px' : '300px';
 ---
 
 <div class={combinedStyles}>
-  <ZineViewer
-    height={viewerHeight}
-    width="100%"
-    variant="card"
-    size={featured ? "small" : "medium"}
-  >
-    {imageUrlsInSetsOfTwo.map((imgUrl) => <div img-src={imgUrl[0]} back-img-src={imgUrl[1]} />)}
-  </ZineViewer>
+  {sheetUrl ? (
+    <ZineViewer
+        height={viewerHeight}
+        width="100%"
+        variant="card"
+        size={featured ? 'small' : 'medium'}
+        sheet={sheetUrl}
+      />
+  ) :
+    imageUrlsInSetsOfTwo ? (
+      <ZineViewer
+        height={viewerHeight}
+        width="100%"
+        variant="card"
+        size={featured ? 'small' : 'medium'}
+      >
+        {imageUrlsInSetsOfTwo.map((imgUrl) => (
+          <div img-src={imgUrl[0]} back-img-src={imgUrl[1]} />
+        ))}
+      </ZineViewer>
+    ) : null
+  }
   <div class={cn("flex gap-2 items-center justify-between", featured ? 'px-4 pt-2' : '')}>
     <a
       href={`/illustration/zines/${zine.data.slug || zine.id}/`}
