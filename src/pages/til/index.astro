@@ -1,13 +1,13 @@
 ---
-import Badge from '@components/Badge.astro';
-import GridLayout from '@components/GridLayout.astro';
-import LinkButton from '@components/LinkButton.astro';
-import Prose from '@components/Prose.astro';
-import BaseLayout from '@layouts/BaseLayout.astro';
-import { createSiteContent } from '@lib/content/siteContent';
+import Badge from '@components/Badge.astro'
+import GridLayout from '@components/GridLayout.astro'
+import LinkButton from '@components/LinkButton.astro'
+import Prose from '@components/Prose.astro'
+import BaseLayout from '@layouts/BaseLayout.astro'
+import { createSiteContent } from '@lib/content/siteContent'
 
-const content = createSiteContent();
-const tilPosts = await content.list('til');
+const content = createSiteContent()
+const tilPosts = await content.list('til')
 ---
 
 <BaseLayout

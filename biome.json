@@ -4,7 +4,6 @@
   "files": {
     "includes": [
       "**",
-      "!**/*.astro",
       "!.astro",
       "!**/.astro",
       "!.cursor",
@@ -28,7 +27,6 @@
     "useEditorconfig": true,
     "includes": [
       "**",
-      "!**/*.astro",
       "!.astro",
       "!**/.astro/**",
       "!.cursor",
@@ -55,8 +53,9 @@
     }
   },
   "html": {
-    "experimentalFullSupportEnabled": false,
+    "experimentalFullSupportEnabled": true,
     "formatter": {
+      "enabled": true,
       "indentScriptAndStyle": false,
       "selfCloseVoidElements": "always"
     }
@@ -99,6 +98,18 @@
       "includes": ["src/styles/global.css"],
       "linter": {
         "rules": { "complexity": { "noImportantStyles": "off" } }
+      }
+    },
+    {
+      "includes": ["**/*.astro"],
+      "linter": {
+        "rules": {
+          "a11y": { "useAnchorContent": "off" },
+          "correctness": {
+            "noUnusedImports": "off",
+            "useJsxKeyInIterable": "off"
+          }
+        }
       }
     }
   ]

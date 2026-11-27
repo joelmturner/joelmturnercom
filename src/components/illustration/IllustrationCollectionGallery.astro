@@ -1,17 +1,17 @@
 ---
-import IllustrationGallery from '@components/illustration/IllustrationGallery';
-import { getIllustrations } from '@lib/illustrations';
-import type { IllustrationTag } from '@lib/types';
+import IllustrationGallery from '@components/illustration/IllustrationGallery'
+import { getIllustrations } from '@lib/illustrations'
+import type { IllustrationTag } from '@lib/types'
 
 interface Props {
-  tag: IllustrationTag;
+  tag: IllustrationTag
 }
 
-const { tag } = Astro.props;
+const { tag } = Astro.props
 
 const illustrations = (await getIllustrations()).filter((item) =>
   item.tags.includes(tag),
-);
+)
 ---
 
 <IllustrationGallery

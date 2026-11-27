@@ -1,13 +1,13 @@
 ---
-import { Image } from 'astro:assets';
-import { Icon } from 'astro-icon/components';
-import { NAV_LINKS } from '@lib/constants';
-import { cn } from '@lib/utils';
-import HeaderLink from './HeaderLink.astro';
-import ThemeSwitch from './ThemeSwitch.astro';
+import { Image } from 'astro:assets'
+import { NAV_LINKS } from '@lib/constants'
+import { cn } from '@lib/utils'
+import { Icon } from 'astro-icon/components'
+import HeaderLink from './HeaderLink.astro'
+import ThemeSwitch from './ThemeSwitch.astro'
 
-const pathname = new URL(Astro.request.url).pathname;
-const currentPath = pathname.slice(1);
+const pathname = new URL(Astro.request.url).pathname
+const currentPath = pathname.slice(1)
 ---
 
 <header
@@ -71,21 +71,27 @@ const currentPath = pathname.slice(1);
           </ul>
         </div>
         <div class="navbar-end gap-1">
-          <div class="hidden md:block">
-            <ThemeSwitch />
-          </div>
+          <div class="hidden md:block"><ThemeSwitch /></div>
           <label
             for="header-mobile-drawer"
             aria-label="Open navigation menu"
             class="btn btn-square btn-ghost lg:hidden"
           >
-            <Icon name="lucide:menu" class="inline-block text-accent h-6 w-6" aria-hidden="true" />
+            <Icon
+              name="lucide:menu"
+              class="inline-block text-accent h-6 w-6"
+              aria-hidden="true"
+            />
           </label>
         </div>
       </nav>
     </div>
     <div class="drawer-side z-20">
-      <label for="header-mobile-drawer" aria-label="Close navigation menu" class="drawer-overlay"></label>
+      <label
+        for="header-mobile-drawer"
+        aria-label="Close navigation menu"
+        class="drawer-overlay"
+      ></label>
       <ul class="menu bg-base-200 min-h-full w-80 p-4 md:hidden">
         {NAV_LINKS.map(link =>
             link.children ? (
@@ -103,7 +109,9 @@ const currentPath = pathname.slice(1);
               <li><a class={cn("btn btn-ghost btn-lg justify-start border-l-4", currentPath === link.href ? 'border-l-accent' : 'border-l-transparent')} href={`/${link.href}`}>{link.label}</a></li>
             ),
           )}
-        <li class="mt-auto"><div class="w-auto mx-auto"><ThemeSwitch /></div></li>
+        <li class="mt-auto">
+          <div class="w-auto mx-auto"><ThemeSwitch /></div>
+        </li>
       </ul>
     </div>
   </div>

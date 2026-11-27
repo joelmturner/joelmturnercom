@@ -1,13 +1,13 @@
 ---
-import { getCollection } from 'astro:content';
-import Animation from '@components/animation.astro';
-import PageTitle from '@components/PageTitle.astro';
-import JsonLd from '@components/JsonLd.astro';
-import BaseLayout from '@layouts/BaseLayout.astro';
-import { ArrowLeft } from 'lucide-astro';
+import { getCollection } from 'astro:content'
+import Animation from '@components/animation.astro'
+import JsonLd from '@components/JsonLd.astro'
+import PageTitle from '@components/PageTitle.astro'
+import BaseLayout from '@layouts/BaseLayout.astro'
+import { ArrowLeft } from 'lucide-astro'
 
 export async function getStaticPaths() {
-  const animations = await getCollection('animations');
+  const animations = await getCollection('animations')
   return animations.map((animation, index) => ({
     params: { slug: animation.data.slug },
     props: {
@@ -15,13 +15,16 @@ export async function getStaticPaths() {
       next: animations[index + 1],
       prev: animations[index - 1],
     },
-  }));
+  }))
 }
 
-const { animation, next, prev } = Astro.props;
+const { animation, next, prev } = Astro.props
 
 // canonical URL for this watch page (signals to Google that the video is the main content)
-const canonicalUrl = new URL(`/illustration/animations/${animation.data.slug}/`, Astro.site);
+const canonicalUrl = new URL(
+  `/illustration/animations/${animation.data.slug}/`,
+  Astro.site,
+)
 
 const videoStructuredData = {
   '@context': 'https://schema.org',
@@ -36,7 +39,7 @@ const videoStructuredData = {
     '@id': canonicalUrl.toString(),
   },
   ...(animation.data.date && { uploadDate: animation.data.date.toISOString() }),
-};
+}
 ---
 
 <BaseLayout
@@ -57,12 +60,19 @@ const videoStructuredData = {
   </div>
 
   <main class="flex flex-col gap-4 py-4">
-    <Animation embedId={animation.data.embedId} title={animation.data.title} watchMode />
+    <Animation
+      embedId={animation.data.embedId}
+      title={animation.data.title}
+      watchMode
+    />
   </main>
 
   <hr class="my-8 border-slate-300 dark:border-slate-700" />
 
-  <nav class="flex justify-between p-3 gap-8 text-accent" aria-label="Animation navigation">
+  <nav
+    class="flex justify-between p-3 gap-8 text-accent"
+    aria-label="Animation navigation"
+  >
     {prev?.data?.slug ? (
         <a
           href={`/illustration/animations/${prev?.data?.slug}/`}

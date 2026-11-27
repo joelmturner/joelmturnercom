@@ -1,21 +1,21 @@
 ---
 type Props = {
   prev?: {
-    title: string;
-    href: string;
-  };
+    title: string
+    href: string
+  }
   next?: {
-    title: string;
-    href: string;
-  };
+    title: string
+    href: string
+  }
 }
-const { prev, next } = Astro.props;
+const { prev, next } = Astro.props
 ---
 
 <hr class="my-8 border-slate-300 dark:border-slate-700" />
 
-    <div class="flex justify-between p-3 gap-8 text-accent">
-      {prev && (
+<div class="flex justify-between p-3 gap-8 text-accent">
+  {prev && (
           <a
             href={prev.href}
             class="flex gap-2 items-center transition-color duration-200 hover:text-brand-300 dark:hover:text-brand-400"
@@ -23,7 +23,7 @@ const { prev, next } = Astro.props;
             <span>{`< `}</span> {prev.title}
           </a>
         )}
-      {next && (
+  {next && (
           <a
             href={next.href}
             class="flex gap-2 items-center transition-color duration-200 hover:text-brand-300 dark:hover:text-brand-400"
@@ -31,4 +31,4 @@ const { prev, next } = Astro.props;
             {next.title} <span>{` >`}</span>
           </a>
         )}
-    </div>
+</div>

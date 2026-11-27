@@ -54,7 +54,7 @@ export const PROJECTS: Project[] = [
     tech: ['typescript'],
     github: 'https://github.com/joelmturner/zine-viewer-web-component',
     featured: false,
-    url: 'https://joelmturner.com/illustration/zines/',
+    url: 'https://joelmturner.com/blog/zine-viewer-web-component/',
   },
 ]
 

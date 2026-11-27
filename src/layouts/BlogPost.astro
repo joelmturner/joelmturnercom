@@ -1,26 +1,30 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import Badge from '@components/Badge.astro';
-import FaqSection from '@components/FaqSection.astro';
-import JsonLd from '@components/JsonLd.astro';
-import PostMeta from '@components/PostMeta.astro';
-import Prose from '@components/Prose.astro';
-import RelatedPosts from '@components/RelatedPosts.astro';
-import SocialIcon from '@components/SocialIcon.astro';
-import { createSiteContent } from '@lib/content/siteContent';
-import { articlePostingSchema, faqPageSchema, youtubeVideoObjectSchema } from '@lib/seo/jsonLd';
-import { cn } from '@lib/utils';
-import { CldImage } from 'astro-cloudinary';
-import { Facebook, Linkedin, Mail } from 'lucide-astro';
-import BaseLayout from './BaseLayout.astro';
-import PostFooter from '@components/PostFooter.astro';
+import type { CollectionEntry } from 'astro:content'
+import Badge from '@components/Badge.astro'
+import FaqSection from '@components/FaqSection.astro'
+import JsonLd from '@components/JsonLd.astro'
+import PostFooter from '@components/PostFooter.astro'
+import PostMeta from '@components/PostMeta.astro'
+import Prose from '@components/Prose.astro'
+import RelatedPosts from '@components/RelatedPosts.astro'
+import SocialIcon from '@components/SocialIcon.astro'
+import { createSiteContent } from '@lib/content/siteContent'
+import {
+  articlePostingSchema,
+  faqPageSchema,
+  youtubeVideoObjectSchema,
+} from '@lib/seo/jsonLd'
+import { cn } from '@lib/utils'
+import { CldImage } from 'astro-cloudinary'
+import { Facebook, Linkedin, Mail } from 'lucide-astro'
+import BaseLayout from './BaseLayout.astro'
 
 type Props = CollectionEntry<'blog'>['data'] & {
-  next?: CollectionEntry<'blog'>;
-  prev?: CollectionEntry<'blog'>;
-  related?: CollectionEntry<'blog'>[];
-  slug?: string;
-};
+  next?: CollectionEntry<'blog'>
+  prev?: CollectionEntry<'blog'>
+  related?: CollectionEntry<'blog'>[]
+  slug?: string
+}
 
 const {
   title,
@@ -38,12 +42,12 @@ const {
   author,
   authorUrl,
   faq,
-} = Astro.props;
+} = Astro.props
 
-const content = createSiteContent();
+const content = createSiteContent()
 
 if (!slug) {
-  throw new Error('BlogPost component requires a slug prop');
+  throw new Error('BlogPost component requires a slug prop')
 }
 
 const structuredData = articlePostingSchema({
@@ -59,7 +63,7 @@ const structuredData = articlePostingSchema({
   categories,
   authorName: author,
   authorUrl,
-});
+})
 
 const videoStructuredData = video
   ? youtubeVideoObjectSchema({
@@ -70,27 +74,31 @@ const videoStructuredData = video
       uploadDate: video.uploadDate,
       duration: video.duration,
     })
-  : null;
+  : null
 
 const jsonLdBlocks = [
   structuredData,
   ...(videoStructuredData ? [videoStructuredData] : []),
   ...(faq?.length ? [faqPageSchema(faq)] : []),
-];
+]
 
 const modifiedTime =
   lastmod && lastmod.getTime() > date.getTime()
     ? lastmod.toISOString()
-    : undefined;
+    : undefined
 
-const prevLink = prev ? {
-  title: prev.data.title,
-  href: content.url(prev).href,
-} : undefined;
-const nextLink = next ? {
-  title: next.data.title,
-  href: content.url(next).href,
-} : undefined;
+const prevLink = prev
+  ? {
+      title: prev.data.title,
+      href: content.url(prev).href,
+    }
+  : undefined
+const nextLink = next
+  ? {
+      title: next.data.title,
+      href: content.url(next).href,
+    }
+  : undefined
 ---
 
 <BaseLayout
@@ -107,30 +115,30 @@ const nextLink = next ? {
   <script is:inline define:vars={{ pageTitle: title, pageUrl: Astro.url.href }}>
   // defer share button initialization to avoid blocking main thread
   // use requestIdleCallback for non-critical interactivity
-  (() => {
+  ;(() => {
     function initShareButtons() {
       const shareHandlers = {
         facebook: () => {
           window.open(
             `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`,
             'facebook-share-dialog',
-            'width=626,height=436'
-          );
+            'width=626,height=436',
+          )
         },
         bluesky: () => {
-          const text = encodeURIComponent(`${pageTitle} ${pageUrl}`);
+          const text = encodeURIComponent(`${pageTitle} ${pageUrl}`)
           window.open(
             `https://bsky.app/intent/compose?text=${text}`,
             'bluesky-share-dialog',
-            'width=626,height=436'
-          );
+            'width=626,height=436',
+          )
         },
         linkedin: () => {
           window.open(
             `https://www.linkedin.com/shareArticle?url=${encodeURIComponent(pageUrl)}`,
             'linkedin-share-dialog',
-            'width=626,height=436'
-          );
+            'width=626,height=436',
+          )
         },
         email: () => {
           window.open(
@@ -139,41 +147,41 @@ const nextLink = next ? {
               '&body=' +
               encodeURIComponent(pageUrl),
             'email-share-dialog',
-            'width=626,height=436'
-          );
+            'width=626,height=436',
+          )
         },
-      };
+      }
 
       // attach event listeners using event delegation for better performance
       document.addEventListener('click', (e) => {
-        const target = e.target.closest('[data-share]');
+        const target = e.target.closest('[data-share]')
         if (target) {
-          const shareType = target.getAttribute('data-share');
+          const shareType = target.getAttribute('data-share')
           if (shareType && shareHandlers[shareType]) {
-            e.preventDefault();
-            shareHandlers[shareType]();
+            e.preventDefault()
+            shareHandlers[shareType]()
           }
         }
-      });
+      })
     }
 
     // initialize after DOM is ready, but defer to idle time if possible
     if (typeof requestIdleCallback !== 'undefined') {
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
-          requestIdleCallback(initShareButtons, { timeout: 1000 });
-        });
+          requestIdleCallback(initShareButtons, { timeout: 1000 })
+        })
       } else {
-        requestIdleCallback(initShareButtons, { timeout: 1000 });
+        requestIdleCallback(initShareButtons, { timeout: 1000 })
       }
     } else {
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initShareButtons);
+        document.addEventListener('DOMContentLoaded', initShareButtons)
       } else {
-        setTimeout(initShareButtons, 0);
+        setTimeout(initShareButtons, 0)
       }
     }
-  })();
+  })()
   </script>
   <!-- hero image - critical for LCP, load with high priority -->
   <div class="mx-auto">
@@ -220,22 +228,27 @@ const nextLink = next ? {
 
   <section class="flex flex-col gap-3">
     <div class="flex flex-wrap gap-3">
-    <div class="flex gap-3 items-center text-sm">
-      Category:{" "}
-      <Badge link={content.taxonomy("category", categories, "blog").href}> {categories} </Badge>
-    </div>
-    <div class="flex gap-3 items-center flex-wrap text-sm">
-      Tags:{" "}
-      {tags.map(tag => (
+      <div class="flex gap-3 items-center text-sm">
+        Category:{" "}
+        <Badge link={content.taxonomy("category", categories, "blog").href}>
+          {categories}
+        </Badge>
+      </div>
+      <div class="flex gap-3 items-center flex-wrap text-sm">
+        Tags:{" "}
+        {tags.map(tag => (
           <Badge link={content.taxonomy("tag", tag, "blog").href}>{tag}</Badge>
         ))}
+      </div>
     </div>
-    </div>  
-    
     <div class="flex gap-1 flex-wrap items-center">
       <span class="text-sm font-bold">Share:</span>
       <span class="flex items-center">
-        <button type="button" class="btn btn-ghost btn-xs" data-share="facebook">
+        <button
+          type="button"
+          class="btn btn-ghost btn-xs"
+          data-share="facebook"
+        >
           <Facebook size={12} aria-label="Share on Facebook" />
         </button>
       </span>
@@ -245,7 +258,11 @@ const nextLink = next ? {
         </button>
       </span>
       <span class="flex items-center">
-        <button type="button" class="btn btn-ghost btn-xs" data-share="linkedin">
+        <button
+          type="button"
+          class="btn btn-ghost btn-xs"
+          data-share="linkedin"
+        >
           <Linkedin size={12} aria-label="Share on LinkedIn" />
         </button>
       </span>

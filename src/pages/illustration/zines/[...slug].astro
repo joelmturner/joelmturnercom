@@ -1,37 +1,41 @@
 ---
-import { getCollection, render } from 'astro:content';
-import Badge from '@components/Badge.astro';
-import { components } from '@components/mdxComponents';
-import PageTitle from '@components/PageTitle.astro';
-import ZineFoldInstructions from '@components/ZineFoldInstructions.astro';
-import ZineViewer from '@components/ZineViewer.astro';
-import BaseLayout from '@layouts/BaseLayout.astro';
-import { ArrowLeft } from 'lucide-astro';
-import { imgOrSheetUrl } from '@lib/illustrations';
-import PostFooter from '@components/PostFooter.astro';
+import { getCollection, render } from 'astro:content'
+import Badge from '@components/Badge.astro'
+import { components } from '@components/mdxComponents'
+import PageTitle from '@components/PageTitle.astro'
+import PostFooter from '@components/PostFooter.astro'
+import ZineFoldInstructions from '@components/ZineFoldInstructions.astro'
+import ZineViewer from '@components/ZineViewer.astro'
+import BaseLayout from '@layouts/BaseLayout.astro'
+import { imgOrSheetUrl } from '@lib/illustrations'
+import { ArrowLeft } from 'lucide-astro'
 
 export async function getStaticPaths() {
-  const zines = await getCollection('zines');
+  const zines = await getCollection('zines')
   return zines.map((zine, index) => ({
     params: { slug: zine.data.slug },
     props: { zine, next: zines[index + 1], prev: zines[index - 1] },
-  }));
+  }))
 }
 
-const { zine, next, prev } = Astro.props;
-const { Content } = await render(zine);
-const { ogImage, sheetUrl, imageUrlsInSetsOfTwo } = imgOrSheetUrl(zine.data);
+const { zine, next, prev } = Astro.props
+const { Content } = await render(zine)
+const { ogImage, sheetUrl, imageUrlsInSetsOfTwo } = imgOrSheetUrl(zine.data)
 
-const author = zine?.data.author;
-const isGuestAuthor = author !== 'Joel M Turner';
-const prevLink = prev ? {
-  title: prev.data.title,
-  href: `/illustration/zines/${prev.data.slug}/`,
-} : undefined;
-const nextLink = next ? {
-  title: next.data.title,
-  href: `/illustration/zines/${next.data.slug}/`,
-} : undefined;
+const author = zine?.data.author
+const isGuestAuthor = author !== 'Joel M Turner'
+const prevLink = prev
+  ? {
+      title: prev.data.title,
+      href: `/illustration/zines/${prev.data.slug}/`,
+    }
+  : undefined
+const nextLink = next
+  ? {
+      title: next.data.title,
+      href: `/illustration/zines/${next.data.slug}/`,
+    }
+  : undefined
 ---
 
 <BaseLayout title={zine?.data.title} image={ogImage}>
@@ -44,8 +48,7 @@ const nextLink = next ? {
       Back to zines</a
     >
   </div>
-  {
-    sheetUrl ? (
+  {sheetUrl ? (
       <ZineViewer
         variant="rubber-hose"
         height="500px"
@@ -66,8 +69,7 @@ const nextLink = next ? {
           <div img-src={imgUrl} back-img-src={backImgUrl} />
         ))}
       </ZineViewer>
-    ) : null
-  }
+    ) : null}
 
   <div class="flex flex-col gap-4">
     <div class="flex gap-2 justify-between items-center flex-wrap">
@@ -92,5 +94,4 @@ const nextLink = next ? {
   </div>
 
   <PostFooter prev={prevLink} next={nextLink} />
-
 </BaseLayout>

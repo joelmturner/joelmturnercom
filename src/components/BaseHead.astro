@@ -1,22 +1,22 @@
 ---
-import { Font } from 'astro:assets';
-import { RSS_FEED_PATH, SITE_DESCRIPTION, SITE_TITLE } from '@lib/site';
-import { getCldOgImageUrl } from 'astro-cloudinary/helpers';
+import { Font } from 'astro:assets'
+import { RSS_FEED_PATH, SITE_DESCRIPTION, SITE_TITLE } from '@lib/site'
+import { getCldOgImageUrl } from 'astro-cloudinary/helpers'
 
 interface Props {
-  title?: string;
+  title?: string
   /** when true, use title as the full document title (no "| SITE_TITLE" suffix) */
-  titleFull?: boolean;
-  description?: string;
-  image?: string;
+  titleFull?: boolean
+  description?: string
+  image?: string
   /** e.g. "noindex, follow" for tag archives; omit for default index,follow */
-  robots?: string;
+  robots?: string
   /** when set, og:type is article and article:* tags are emitted */
   openGraphArticle?: {
-    publishedTime: string;
-    modifiedTime?: string;
-    authorUrl?: string;
-  };
+    publishedTime: string
+    modifiedTime?: string
+    authorUrl?: string
+  }
 }
 
 // ensure canonical URL has trailing slash (except root) to match trailingSlash: "always" config
@@ -25,12 +25,12 @@ const pathname =
     ? '/'
     : Astro.url.pathname.endsWith('/')
       ? Astro.url.pathname
-      : `${Astro.url.pathname}/`;
-const canonicalURL = new URL(pathname, Astro.site);
+      : `${Astro.url.pathname}/`
+const canonicalURL = new URL(pathname, Astro.site)
 
 function isValidURL(url: string) {
-  const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
-  return urlPattern.test(url);
+  const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i
+  return urlPattern.test(url)
 }
 
 const {
@@ -40,9 +40,9 @@ const {
   image = 'https://res.cloudinary.com/joelmturner/image/upload/h_630,w_1200/c_fit,h_400,l_text:Helvetica_80_bold_line_spacing_20:Digital%20Adventurer%20and%20Illustrator,w_700/fl_layer_apply,g_west,x_400,y_0/blog-post-card.png',
   robots,
   openGraphArticle,
-} = Astro.props;
+} = Astro.props
 
-const ogType = openGraphArticle ? 'article' : 'website';
+const ogType = openGraphArticle ? 'article' : 'website'
 
 const ogImage = isValidURL(image)
   ? image
@@ -54,18 +54,18 @@ const ogImage = isValidURL(image)
       format: 'jpg',
       quality: 'auto',
       gravity: 'center',
-    });
+    })
 
 // append cache-bust with & when the URL already has a query (e.g. Cloudinary ?_a=)
-const ogImageWithCacheBust = `${ogImage}${ogImage.includes('?') ? '&' : '?'}v=1`;
+const ogImageWithCacheBust = `${ogImage}${ogImage.includes('?') ? '&' : '?'}v=1`
 
-const MAX_TITLE_LENGTH = 60;
-const withSuffix = title ? `${title} | ${SITE_TITLE}` : null;
+const MAX_TITLE_LENGTH = 60
+const withSuffix = title ? `${title} | ${SITE_TITLE}` : null
 const resolvedTitle = title
   ? titleFull || (withSuffix && withSuffix.length > MAX_TITLE_LENGTH)
     ? title
     : withSuffix!
-  : `${SITE_TITLE} Web Development Blog`;
+  : `${SITE_TITLE} Web Development Blog`
 ---
 
 <!-- Global Metadata - placed early to ensure CSS loads first -->
@@ -77,24 +77,26 @@ const resolvedTitle = title
 
 <!-- Theme initialization - must run before page renders to prevent flash -->
 <script is:inline>
-(() => {
+;(() => {
   try {
-    const theme = localStorage.getItem('theme');
-    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const theme = localStorage.getItem('theme')
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+      .matches
       ? 'dark'
-      : 'light';
-    const colorMode = theme === 'system' || !theme ? systemTheme : theme;
-    document.documentElement.setAttribute('data-color-mode', colorMode);
-    document.documentElement.setAttribute('data-theme', colorMode);
+      : 'light'
+    const colorMode = theme === 'system' || !theme ? systemTheme : theme
+    document.documentElement.setAttribute('data-color-mode', colorMode)
+    document.documentElement.setAttribute('data-theme', colorMode)
   } catch (e) {
     // fallback to system theme if localStorage is not available
-    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+      .matches
       ? 'dark'
-      : 'light';
-    document.documentElement.setAttribute('data-color-mode', systemTheme);
-    document.documentElement.setAttribute('data-theme', systemTheme);
+      : 'light'
+    document.documentElement.setAttribute('data-color-mode', systemTheme)
+    document.documentElement.setAttribute('data-theme', systemTheme)
   }
-})();
+})()
 </script>
 <link rel="icon" type="image/png" href="/favicon-32x32.png" />
 <meta name="generator" content={Astro.generator} />
@@ -163,7 +165,10 @@ const resolvedTitle = title
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={ogImageWithCacheBust} />
 
-<link rel="webmention" href="https://webmention.io/joelmturner.com/webmention" />
+<link
+  rel="webmention"
+  href="https://webmention.io/joelmturner.com/webmention"
+/>
 <link rel="pingback" href="https://webmention.io/joelmturner.com/xmlrpc" />
 
 {import.meta.env.MODE !== "development" && (

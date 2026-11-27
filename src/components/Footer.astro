@@ -1,14 +1,16 @@
 ---
-import { Icon } from 'astro-icon/components';
-import { SOCIAL_LINKS } from '@lib/constants';
-import { RSS_FEED_PATH } from '@lib/site';
-import LinkButton from './LinkButton.astro';
-import SocialIcon from './SocialIcon.astro';
+import { SOCIAL_LINKS } from '@lib/constants'
+import { RSS_FEED_PATH } from '@lib/site'
+import { Icon } from 'astro-icon/components'
+import LinkButton from './LinkButton.astro'
+import SocialIcon from './SocialIcon.astro'
 
-const today = new Date();
+const today = new Date()
 ---
 
-<footer class="border-t border-solid border-slate-100 dark:border-slate-700 w-full py-8">
+<footer
+  class="border-t border-solid border-slate-100 dark:border-slate-700 w-full py-8"
+>
   <div class="mx-auto max-w-4xl px-4">
     <div class="flex justify-between w-full items-center">
       <div>

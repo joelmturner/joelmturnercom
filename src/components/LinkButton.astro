@@ -1,16 +1,17 @@
 ---
-import { cn } from '@lib/utils';
-import type { HTMLAttributes } from 'astro/types';
+import { cn } from '@lib/utils'
+import type { HTMLAttributes } from 'astro/types'
 
-type Props = HTMLAttributes<'a'> & {};
+type Props = HTMLAttributes<'a'> & {}
 
-const { href, class: className, ...props } = Astro.props;
+const { href, class: className, ...props } = Astro.props
 
 // add rel="noopener noreferrer" for external links
-const hrefString = typeof href === 'string' ? href : href?.toString() || '';
-const siteString = Astro.site?.toString() || '';
-const isExternal = hrefString.startsWith('http') && !hrefString.startsWith(siteString);
-const rel = isExternal ? 'noopener noreferrer' : props.rel;
+const hrefString = typeof href === 'string' ? href : href?.toString() || ''
+const siteString = Astro.site?.toString() || ''
+const isExternal =
+  hrefString.startsWith('http') && !hrefString.startsWith(siteString)
+const rel = isExternal ? 'noopener noreferrer' : props.rel
 ---
 
 <a

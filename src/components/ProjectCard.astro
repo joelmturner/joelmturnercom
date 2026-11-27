@@ -1,19 +1,21 @@
 ---
-import type { Project } from '@lib/types';
-import { Github } from 'lucide-astro';
-import Image from './Image.astro';
-import LinkButton from './LinkButton.astro';
-import ProjectIcon from './ProjectIcon.astro';
+import type { Project } from '@lib/types'
+import { Github } from 'lucide-astro'
+import Image from './Image.astro'
+import LinkButton from './LinkButton.astro'
+import ProjectIcon from './ProjectIcon.astro'
 
 type Props = {
-  project: Project;
-};
+  project: Project
+}
 const {
   project: { description, name, imageURL, tech, github, url },
-} = Astro.props;
+} = Astro.props
 ---
 
-<article class="card card-border bg-base-200 card-overview shadow-sm overflow-hidden">
+<article
+  class="card card-border bg-base-200 card-overview shadow-sm overflow-hidden"
+>
   <a href={url} target="_blank" class="block">
     <Image
       class="w-full object-cover object-left-center"
@@ -29,11 +31,15 @@ const {
   <div class="card-body prose prose-lg dark:prose-invert">
     <div class="flex gap-2 justify-between">
       <p><strong>{name}</strong></p>
-      <LinkButton href={github} title="Github" target="_blank"><Github size={18} /></LinkButton>
+      <LinkButton href={github} title="Github" target="_blank"
+        ><Github size={18} /></LinkButton
+      >
     </div>
     <p>{description}</p>
   </div>
-  <div class="card-actions p-4 pt-0 flex gap-1 items-center filter grayscale transition hover:grayscale-0">
+  <div
+    class="card-actions p-4 pt-0 flex gap-1 items-center filter grayscale transition hover:grayscale-0"
+  >
     {tech.map((techItem) => (
         <ProjectIcon icon={techItem.toLowerCase() as Project['tech'][number]} />
       ))}

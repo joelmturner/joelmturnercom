@@ -1,15 +1,15 @@
 ---
-import { type CollectionEntry } from 'astro:content';
-import { cn } from '@lib/utils';
-import Badge from './Badge.astro';
-import ZineViewer from './ZineViewer.astro';
-import { imgOrSheetUrl } from '@lib/illustrations';
+import type { CollectionEntry } from 'astro:content'
+import { imgOrSheetUrl } from '@lib/illustrations'
+import { cn } from '@lib/utils'
+import Badge from './Badge.astro'
+import ZineViewer from './ZineViewer.astro'
 
 export type Props = {
-  zine: CollectionEntry<'zines'>;
-  featured?: boolean;
-};
-const { zine, featured = false } = Astro.props;
+  zine: CollectionEntry<'zines'>
+  featured?: boolean
+}
+const { zine, featured = false } = Astro.props
 
 const combinedStyles = cn(
   // layout
@@ -27,14 +27,14 @@ const combinedStyles = cn(
   'hover:[&_img]:shadow-lg',
   'hover:[&_img]:shadow-slate-100',
   'dark:hover:[&_img]:shadow-slate-800',
-  featured ? 'col-span-1 md:col-span-2' : 'col-span-1'
-);
+  featured ? 'col-span-1 md:col-span-2' : 'col-span-1',
+)
 
-const { ogImage, sheetUrl, imageUrlsInSetsOfTwo } = imgOrSheetUrl(zine.data);
+const { ogImage, sheetUrl, imageUrlsInSetsOfTwo } = imgOrSheetUrl(zine.data)
 
-const isGuestAuthor = zine.data.author !== 'Joel M Turner';
+const isGuestAuthor = zine.data.author !== 'Joel M Turner'
 
-const viewerHeight = featured ? '280px' : '300px';
+const viewerHeight = featured ? '280px' : '300px'
 ---
 
 <div class={combinedStyles}>
@@ -58,14 +58,17 @@ const viewerHeight = featured ? '280px' : '300px';
           <div img-src={imgUrl[0]} back-img-src={imgUrl[1]} />
         ))}
       </ZineViewer>
-    ) : null
-  }
-  <div class={cn("flex gap-2 items-center justify-between", featured ? 'px-4 pt-2' : '')}>
+    ) : null}
+  <div
+    class={cn("flex gap-2 items-center justify-between", featured ? 'px-4 pt-2' : '')}
+  >
     <a
       href={`/illustration/zines/${zine.data.slug || zine.id}/`}
       class="prose dark:prose-invert text-2xl"
     >
-      <h4 class="my-0 line-height-1.1 text-2xl md:text-3xl">{zine.data.title}</h4>
+      <h4 class="my-0 line-height-1.1 text-2xl md:text-3xl">
+        {zine.data.title}
+      </h4>
     </a>
 
     {isGuestAuthor && <Badge>Guest: {zine.data.author}</Badge>}

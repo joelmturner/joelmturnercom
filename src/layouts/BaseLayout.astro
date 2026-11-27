@@ -1,38 +1,39 @@
 ---
-import '../styles/global.css';
-import BaseBody from '@components/BaseBody.astro';
-import BaseHead from '@components/BaseHead.astro';
+import '../styles/global.css'
+import BaseBody from '@components/BaseBody.astro'
+import BaseHead from '@components/BaseHead.astro'
 
 type OpenGraphArticle = {
-  publishedTime: string;
-  modifiedTime?: string;
+  publishedTime: string
+  modifiedTime?: string
   /** profile or site URL for article:author */
-  authorUrl?: string;
-};
+  authorUrl?: string
+}
 
 type Props = {
-  title?: string;
+  title?: string
   /** when true, use title as the full document title (no "| SITE_TITLE" suffix) */
-  titleFull?: boolean;
-  description?: string;
-  image?: string;
+  titleFull?: boolean
+  description?: string
+  image?: string
   /** e.g. "noindex, follow" for tag archives */
-  robots?: string;
+  robots?: string
   /** when set, og:type is article and article:* tags are emitted */
-  openGraphArticle?: OpenGraphArticle;
-};
+  openGraphArticle?: OpenGraphArticle
+}
 
-const { title, titleFull, description, image, robots, openGraphArticle }: Props =
-  Astro.props;
+const {
+  title,
+  titleFull,
+  description,
+  image,
+  robots,
+  openGraphArticle,
+}: Props = Astro.props
 ---
 
 <!doctype html>
-<html
-  lang="en"
-  class="bg-base-100"
-  data-color-mode="dark"
-  data-theme="dark"
->
+<html lang="en" class="bg-base-100" data-color-mode="dark" data-theme="dark">
   <head>
     <BaseHead
       title={title}

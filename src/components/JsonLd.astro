@@ -1,20 +1,19 @@
 ---
-import type { JsonLdObject } from '@lib/seo/jsonLd';
+import type { JsonLdObject } from '@lib/seo/jsonLd'
 
 type Props = {
-  data: JsonLdObject | JsonLdObject[];
-};
+  data: JsonLdObject | JsonLdObject[]
+}
 
-const { data } = Astro.props;
-const blocks = Array.isArray(data) ? data : [data];
+const { data } = Astro.props
+const blocks = Array.isArray(data) ? data : [data]
 ---
-{
-  blocks.map((block) => (
+
+{blocks.map((block) => (
     <script
       is:inline
       slot="head"
       type="application/ld+json"
       set:html={JSON.stringify(block, null, 0)}
     />
-  ))
-}
+  ))}

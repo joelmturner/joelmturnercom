@@ -1,13 +1,13 @@
 ---
-import { getCollection } from 'astro:content';
-import LinkButton from '@components/LinkButton.astro';
-import PageTitle from '@components/PageTitle.astro';
-import ZineCard from '@components/ZineCard.astro';
-import ZineFoldInstructions from '@components/ZineFoldInstructions.astro';
-import BaseLayout from '@layouts/BaseLayout.astro';
-import { ArrowLeft } from 'lucide-astro';
+import { getCollection } from 'astro:content'
+import LinkButton from '@components/LinkButton.astro'
+import PageTitle from '@components/PageTitle.astro'
+import ZineCard from '@components/ZineCard.astro'
+import ZineFoldInstructions from '@components/ZineFoldInstructions.astro'
+import BaseLayout from '@layouts/BaseLayout.astro'
+import { ArrowLeft } from 'lucide-astro'
 
-const zines = await getCollection('zines');
+const zines = await getCollection('zines')
 ---
 
 <BaseLayout title={"Zines"} description={"Some illustrative zines"}>
@@ -21,7 +21,9 @@ const zines = await getCollection('zines');
 
   <div class="flex gap-2"><ZineFoldInstructions /></div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 h-full pb-[120px]">
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 h-full pb-[120px]"
+  >
     {zines.map(zine => <ZineCard zine={zine} />)}
   </div>
 </BaseLayout>

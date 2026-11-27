@@ -1,17 +1,17 @@
 ---
-import { getCollection } from 'astro:content';
-import Animation from '@components/animation.astro';
-import GridLayout from '@components/GridLayout.astro';
-import LinkButton from '@components/LinkButton.astro';
-import PageTitle from '@components/PageTitle.astro';
-import JsonLd from '@components/JsonLd.astro';
-import BaseLayout from '@layouts/BaseLayout.astro';
-import { ArrowLeft } from 'lucide-astro';
+import { getCollection } from 'astro:content'
+import Animation from '@components/animation.astro'
+import GridLayout from '@components/GridLayout.astro'
+import JsonLd from '@components/JsonLd.astro'
+import LinkButton from '@components/LinkButton.astro'
+import PageTitle from '@components/PageTitle.astro'
+import BaseLayout from '@layouts/BaseLayout.astro'
+import { ArrowLeft } from 'lucide-astro'
 
-const animations = await getCollection('animations');
+const animations = await getCollection('animations')
 
 // generate structured data for video gallery
-const canonicalUrl = new URL('/illustration/animations/', Astro.site);
+const canonicalUrl = new URL('/illustration/animations/', Astro.site)
 
 const videoStructuredData = {
   '@context': 'https://schema.org',
@@ -33,7 +33,7 @@ const videoStructuredData = {
       }),
     },
   })),
-};
+}
 ---
 
 <BaseLayout title={'Animations'} description={'Some of my favorite animations'}>

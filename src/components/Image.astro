@@ -1,10 +1,14 @@
 ---
-import { Image as AstroImage, type ImgAttributes, type RemoteImageProps } from 'astro:assets';
-import { Cloudinary } from '@cloudinary/url-gen';
-import { fill } from '@cloudinary/url-gen/actions/resize';
+import {
+  Image as AstroImage,
+  type ImgAttributes,
+  type RemoteImageProps,
+} from 'astro:assets'
+import { Cloudinary } from '@cloudinary/url-gen'
+import { fill } from '@cloudinary/url-gen/actions/resize'
 
-type Props = RemoteImageProps & ImgAttributes & { gravity?: string };
-const { src, ...props } = Astro.props;
+type Props = RemoteImageProps & ImgAttributes & { gravity?: string }
+const { src, ...props } = Astro.props
 
 const cld = new Cloudinary({
   cloud: {
@@ -13,20 +17,26 @@ const cld = new Cloudinary({
   url: {
     secure: true,
   },
-});
+})
 
-const gravity = props.gravity || 'north_west';
+const gravity = props.gravity || 'north_west'
 
 // use dpr 2.0 max to avoid oversized images (3x is excessive for most displays)
 const cldSrc = cld
   .image(src)
   .format('auto')
   .quality('auto')
-  .resize(fill().height(Number(props.height)).width(Number(props.width)).gravity(gravity));
-const resolvedSrc = cldSrc.toURL();
+  .resize(
+    fill()
+      .height(Number(props.height))
+      .width(Number(props.width))
+      .gravity(gravity),
+  )
+const resolvedSrc = cldSrc.toURL()
 
 // calculate aspect ratio for layout stability
-const aspectRatio = props.width && props.height ? `${props.width}/${props.height}` : undefined;
+const aspectRatio =
+  props.width && props.height ? `${props.width}/${props.height}` : undefined
 ---
 
 <AstroImage

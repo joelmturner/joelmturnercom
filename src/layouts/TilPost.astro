@@ -1,17 +1,17 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import Badge from '@components/Badge.astro';
-import JsonLd from '@components/JsonLd.astro';
-import PostMeta from '@components/PostMeta.astro';
-import { createSiteContent } from '@lib/content/siteContent';
-import { articlePostingSchema } from '@lib/seo/jsonLd';
-import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content'
+import Badge from '@components/Badge.astro'
+import JsonLd from '@components/JsonLd.astro'
+import PostMeta from '@components/PostMeta.astro'
+import { createSiteContent } from '@lib/content/siteContent'
+import { articlePostingSchema } from '@lib/seo/jsonLd'
+import BaseLayout from './BaseLayout.astro'
 
 type Props = CollectionEntry<'til'>['data'] & {
-  next?: CollectionEntry<'til'>;
-  prev?: CollectionEntry<'til'>;
-  slug?: string;
-};
+  next?: CollectionEntry<'til'>
+  prev?: CollectionEntry<'til'>
+  slug?: string
+}
 
 const {
   title,
@@ -27,15 +27,14 @@ const {
   description,
   author,
   authorUrl,
-} = Astro.props;
-const content = createSiteContent();
+} = Astro.props
+const content = createSiteContent()
 
 if (!slug) {
-  throw new Error('TilPost component requires a slug prop');
+  throw new Error('TilPost component requires a slug prop')
 }
 
-const metaDescription =
-  description ?? summary ?? tags?.join(', ') ?? '';
+const metaDescription = description ?? summary ?? tags?.join(', ') ?? ''
 
 const structuredData = articlePostingSchema({
   site: Astro.site,
@@ -50,7 +49,7 @@ const structuredData = articlePostingSchema({
   categories,
   authorName: author,
   authorUrl,
-});
+})
 ---
 
 <BaseLayout title={title} description={metaDescription}>
@@ -88,7 +87,9 @@ const structuredData = articlePostingSchema({
 
   <hr class="my-8 border-slate-300 dark:border-slate-700" />
 
-  <div class="flex justify-between w-2xl max-w-4xl mx-auto p-3 gap-8 text-brand-100">
+  <div
+    class="flex justify-between w-2xl max-w-4xl mx-auto p-3 gap-8 text-brand-100"
+  >
     {prev && (
         <a
           href={content.url(prev).href}
